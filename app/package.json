@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "description": "Personal Duolingo-style app for US LTE/5G bands and cell identification (working name).",
   "main": "electron/main.cjs",
+  "author": "Lukas",
   "private": true,
   "scripts": {
     "dev": "vite",
