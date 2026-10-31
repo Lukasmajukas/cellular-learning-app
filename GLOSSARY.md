@@ -26,7 +26,10 @@ Claude adds new words here whenever they come up.
 | **Context** | Claude's short-term memory for one chat. It's like a backpack: the more you stuff in, the harder it is to find things. That's why we start fresh chats. |
 | **Handoff note** | A note one chat leaves for the next, like passing the baton in a relay race. |
 | **Model** | Which Claude "brain" you use: Haiku (small), Sonnet (medium), Opus (large), Fable (extra large). |
-| **Usage limit** | How much Claude you can use in a stretch of time. Bigger models and longer chats use it up faster. |
+| **Effort** | How hard Claude thinks before answering. Low is a quick answer; High is careful checking. More effort is slower and uses more of your limit. |
+| **Robot run** | A chat that starts by itself on a schedule, like an alarm clock that opens a chat and says "Go". |
+| **Auto-continue** | When a chat hits your usage limit, it waits for the limit to reset and then carries on by itself. |
+| **Usage limit** | How much Claude you can use in a stretch of time. Bigger models, higher effort and longer chats use it up faster. |
 | **PRD** | The plan, or blueprint. It says what the app will do before anyone builds it. |
 | **MVP** | The first playable version: small, but it works. |
 | **Installer** | The file you double-click to put the app on your computer. |

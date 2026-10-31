@@ -27,7 +27,7 @@ Say it plainly, starting with "Time for a fresh chat:" or "Time for a new branch
 - the chat has been summarized, or you notice you forgot a decision or repeated a mistake;
 - a change deserves its own branch (a new feature, a new content unit).
 
-Before the owner switches, do the end-of-session steps below, including merging your pull request. Then tell them which model to pick and exactly what to type.
+Before the owner switches, do the end-of-session steps below, including merging your pull request. Then tell them which model and effort to pick, and exactly what to type.
 
 ## Every session
 How chats share work without overlapping is in `docs/WORKFLOW.md`. Follow its "Rules for Claude" exactly.
@@ -41,7 +41,7 @@ How chats share work without overlapping is in `docs/WORKFLOW.md`. Follow its "R
 - Never push straight to `main`. Work reaches `main` only when you merge this chat's own pull request.
 - Never leave a pull request waiting for the owner. Owner approvals (sign-offs, "it works") happen in chat.
 - Confirm before anything destructive.
-- No app code until the owner signs off on `docs/PRD.md`.
+- No app code until the owner signs off on `docs/PRD.md`. The progress panel and the robot aren't app code; the owner OK'd building them now.
 
 **End (always, in this order):**
 1. Finish the handoff note you started in `docs/sessions/` when you claimed the task. Set its Status to DONE.
@@ -51,15 +51,15 @@ How chats share work without overlapping is in `docs/WORKFLOW.md`. Follow its "R
 5. Commit, push, update the pull request (template: simple words, plus "how to check it"), then **merge it yourself** (squash), as in `docs/WORKFLOW.md` section C.
 6. Tell the owner what changed and anything you need from them.
 
-## Models: pick by size (versions change, sizes don't)
-| Size | Current model | Use for |
-|---|---|---|
-| Small | Haiku 5.5 | Chores: typos, renames, formatting |
-| Medium (default) | Sonnet 5.5 | Features, lessons from checked data, normal bugs |
-| Large | Opus 5.5 | Planning (PRD), curriculum design, reviews, bugs Sonnet failed twice |
-| Extra large | Fable 5.1 | Only when Opus is stuck |
+## Models and effort: pick by size (versions change, sizes don't)
+| Size | Current model | Effort | Use for |
+|---|---|---|---|
+| Small | Haiku 5.5 | Low | Chores: typos, renames, formatting |
+| Medium (default) | Sonnet 5.5 | Medium | Features, lessons from checked data, normal bugs |
+| Large | Opus 5.5 | High | Planning (PRD), curriculum design, reviews, bugs Sonnet failed twice |
+| Extra large | Fable 5.1 | High | Only when Opus is stuck |
 
-- Tell the owner which size each task needs.
+- Whenever you name a model for the owner, name the effort with it, like "Opus, High effort". Use the table. Go one step higher (Extra high) only after a failed try; Max only if Extra high failed too.
 - Run helper agents on Small or Medium unless a task needs more.
 - No multi-agent research without the owner's OK: it burns their limit.
 - When newer models ship, update this table and `README.md` by size.

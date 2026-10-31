@@ -10,6 +10,11 @@
 - Go back to that other chat. If you closed it or it's stuck, type: `Take over`
 - To run a different task at the same time on purpose: `Do task T__ at the same time`
 
+## The robot (a chat that starts by itself twice a day)
+- `Pause the robot` / `Turn the robot back on`
+- `Run the robot now`
+- `What did the robot do?`
+
 ## While working
 - `Explain that again, simpler.`
 - `What does ___ mean? Add it to the glossary.`
@@ -26,8 +31,8 @@
 - `Bring back the chat called ___` Claude takes an old chat out of the archive.
 - `You seem confused. Wrap up so I can start a fresh chat.`
 
-## Choosing the model
-Look at the "Model size" column in `TASKS.md`. Not sure? Use **Sonnet**.
+## Choosing the model and effort
+Look at the "Model + effort" column in `TASKS.md`. Not sure? Use **Sonnet** with **Medium** effort.
 
 ## Once a month (5 minutes)
 - `Monthly check-in: summarize what we did this month, what's next, and anything that's out of date.`

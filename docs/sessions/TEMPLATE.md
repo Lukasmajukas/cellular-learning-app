@@ -2,7 +2,7 @@
 <!-- File name: docs/sessions/YYYY-MM-DD-session-N-short-name.md (N = the highest session number so far + 1) -->
 
 **Status:** IN PROGRESS <!-- change to DONE when the chat finishes -->
-**Model used:** [Small/Medium/Large] · **Branch / pull request:** [link]
+**Model used:** [Small/Medium/Large], [Low/Medium/High] effort · **Branch / pull request:** [link]
 
 ## In simple words (for the owner)
 [2–3 sentences, as if explaining to a 12-year-old: what we did and why it matters.]
@@ -11,7 +11,7 @@
 - 
 
 ## What's next
-- Next task: [T__], model: [size], type: `Do the next task in TASKS.md`
+- Next task: [T__], model: [size], effort: [level], type: `Do the next task in TASKS.md`
 
 ## Decisions made (also added to docs/DECISIONS.md)
 - 
