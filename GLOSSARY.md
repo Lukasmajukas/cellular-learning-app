@@ -39,7 +39,14 @@ Claude adds new words here whenever they come up.
 | **PRD** | The plan, or blueprint. It says what the app will do before anyone builds it. |
 | **MVP** | The first playable version: small, but it works. |
 | **Installer** | The file you double-click to put the app on your computer. |
-| **App engine (Electron / Tauri)** | The base the app is built on, like the engine in a car. We pick one in the plan. |
+| **App engine (Electron / Tauri)** | The base the app is built on, like the engine in a car. The plan recommends Electron. |
+| **Browser engine (Chromium)** | The part of a web browser that draws pages. Chromium is the one inside Chrome and Edge. Electron carries its own copy, so the app looks the same everywhere. |
+| **TypeScript / React** | TypeScript is the language Claude writes the app in. React is a toolkit for building screens out of small reusable pieces, like Lego bricks. |
+| **Code signing** | A paid digital "ID card" that tells Windows who made an app. Without it, Windows shows a "Windows protected your PC" warning the first time; you click More info, then Run anyway. |
+| **Save file (JSON)** | The one small file where the app keeps your progress, written in a simple text format called JSON. Copying it is a backup. |
+| **Checker (schema)** | A small program that reads the fact and lesson files and refuses to build the app if something is missing, like a teacher checking every answer has a source. |
+| **Automatic test** | A little program that clicks through the app by itself and checks it works, so Claude can test without seeing your screen. |
+| **SVG** | A picture drawn with code (lines, circles, colours) instead of pixels. It stays sharp at any size, and Claude can draw and animate it. |
 | **Bug** | A mistake that makes something in the app not work right. |
 | **Progress panel** | A small web page that shows where the project is, like the scoreboard at a game. |
 | **claude.ai page (artifact)** | A web page Claude makes that lives on claude.ai. It starts private: only you can open it. |
