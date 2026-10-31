@@ -82,3 +82,13 @@ Claude adds new words here whenever they come up.
 | **3GPP** | The group that writes the official rules for bands. |
 | **Spaced repetition (FSRS)** | The app quizzes you right before you'd forget something, so it sticks. |
 | **Streak / XP** | A streak is how many days in a row you practiced. XP is the points you earn for practicing. |
+
+## Photo words
+| Word | What it means |
+|---|---|
+| **Licence** | The sticker on a photo that says what you may do with it. |
+| **Public domain / CC0** | Anyone may use it, no credit needed. |
+| **Creative Commons (CC BY, CC BY-SA)** | You may use it if you credit the photographer. BY-SA also says a changed copy keeps the same sticker. |
+| **NC / ND** | "Non-commercial" and "no changes". We don't use these, because we crop and add arrows. |
+| **Wikimedia Commons** | The free photo library behind Wikipedia. |
+| **Monopine** | A cell tower dressed up as a pine tree. |
