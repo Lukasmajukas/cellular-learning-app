@@ -20,6 +20,8 @@ Claude adds new words here whenever they come up.
 | **Conflict** | When two chats changed the same lines, so someone has to decide what to keep. Claude sorts it out. |
 | **Squash merge** | Merging all of a chat's save points as one single save point, so each task is one neat step in the history. |
 | **Undo (revert)** | A new change that exactly reverses an old one. Nothing is erased; the history shows both. |
+| **Archive (a chat)** | Putting an old chat away, like a finished worksheet in a drawer. It leaves your list but isn't deleted, and Claude can bring it back. |
+| **Permission file** | A small file of rules (`.claude/settings.json`) that tells Claude's safety check which jobs are OK without stopping to ask. Only you add it. |
 | **Chat / session** | One conversation with Claude. Best kept to one task. |
 | **Context** | Claude's short-term memory for one chat. It's like a backpack: the more you stuff in, the harder it is to find things. That's why we start fresh chats. |
 | **Handoff note** | A note one chat leaves for the next, like passing the baton in a relay race. |

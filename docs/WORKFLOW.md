@@ -17,7 +17,7 @@ It's like four friends each buying milk because nobody wrote "I'm getting the mi
 - **No "I'm on it" note.** A chat couldn't see that another chat had already started.
 - **The list only got ticked when you merged.** Merging was your job, so the list stayed out of date.
 
-## The fix: four simple rules
+## The fix: five simple rules
 
 ### 1. Every chat starts from the newest copy
 A chat always grabs the newest version of the binder (`main`) first. If you pick the wrong branch by accident, Claude switches to the newest copy by itself. The branch you picked isn't changed or deleted.
@@ -39,6 +39,9 @@ At the end, Claude merges its own work into `main` and takes the sign down. The 
 
 **When Claude needs your "yes"** (like signing off the plan, or "the test build works"), you type it in a chat. Claude writes it down and saves it. No clicking on GitHub.
 
+### 5. Old chats put themselves away
+When a new chat starts a task, it archives this project's older chats, so your list stays short. Archiving is like putting a finished worksheet in a drawer: it's out of the way, but not thrown out. A chat that is still working is never put away.
+
 ## What if...?
 | What happened | What to do |
 |---|---|
@@ -47,14 +50,18 @@ At the end, Claude merges its own work into `main` and takes the sign down. The 
 | I closed a chat in the middle of a task | Start a new chat and type `Go`. If it shows 🔴, type `Take over`. |
 | I want two different tasks done at the same time | In the second chat, type `Do task T__ at the same time`. It only works for a different task. |
 | I don't like what Claude did | Tell Claude what to change, or type `Undo the last change`. |
+| I want an archived chat back | Type `Bring back the chat called ___` in any chat. Archived chats aren't deleted. |
+| A chat says the safety check stopped it from archiving | Nothing breaks; those chats just stay in your list. To stop it happening, add the permission file (see "Settings" below). |
 | I haven't looked at the project in a while | Start a chat and type `Where are we?` |
 | I want to look at the files myself | Open the GitHub app or github.com. Looking never breaks anything. |
 | An old chat from before this change asks me a question | Don't answer it. Just close it. Its questions are handled. |
 
-## GitHub settings
-You don't need to change anything.
+## Settings
+**GitHub:** you don't need to change anything. One optional tidy-up: on github.com, open this repository, click **Settings**, stay on **General**, and tick **Automatically delete head branches**. Then old branches disappear after Claude merges. Without it they pile up in the branch list, but they're harmless.
 
-One optional tidy-up: on github.com, open this repository, click **Settings**, stay on **General**, and tick **Automatically delete head branches**. Then old branches disappear after Claude merges. Without it they pile up in the branch list, but they're harmless.
+**Optional permission file:** Claude has a safety check. Sometimes it stops a chat from putting old chats away, and it could stop a chat from merging its own work. A small file, `.claude/settings.json`, tells the check that these jobs are OK. It lets chats look at your chat list, put old chats away, and merge or close their own pull requests without being stopped. Claude isn't allowed to add this file itself, because it gives Claude permission. Only you can.
+- **To add it:** open [this link](https://github.com/Lukasmajukas/cellular-learning-app/new/main?filename=.claude%2Fsettings.json&value=%7B%0A%20%20%22permissions%22%3A%20%7B%0A%20%20%20%20%22allow%22%3A%20%5B%0A%20%20%20%20%20%20%22mcp__claude-code-remote__list_sessions%22%2C%0A%20%20%20%20%20%20%22mcp__claude-code-remote__get_session%22%2C%0A%20%20%20%20%20%20%22mcp__claude-code-remote__archive_session%22%2C%0A%20%20%20%20%20%20%22mcp__github__merge_pull_request%22%2C%0A%20%20%20%20%20%20%22mcp__github__update_pull_request%22%0A%20%20%20%20%5D%0A%20%20%7D%0A%7D%0A). Check that the big box shows a few lines of text. Click **Commit changes**, then **Commit changes** again in the box that pops up.
+- **To remove it later:** ask Claude in any chat.
 
 ---
 
@@ -81,6 +88,11 @@ One optional tidy-up: on github.com, open this repository, click **Settings**, s
    - Copy `docs/sessions/TEMPLATE.md` to `docs/sessions/YYYY-MM-DD-session-N-<short-name>.md`. N is the highest session number so far plus 1. Leave `**Status:** IN PROGRESS` at the top.
    - Commit, push, and open a **draft** pull request titled `T__: <task name> [in progress]`. Its description ends with this chat's session link.
    - List open pull requests again. If another `[in progress]` pull request for the same task has a **lower** number than yours, close yours with "Duplicate of #__" and stop with the 🔴 message. (Skip this check for a pull request you are taking over in 🟡.)
+4. **Tidy the chat list.** Do this only after step 3, never after a 🔴 stop.
+   - `get_session` with no ID gives your own session ID. `list_sessions` with `mine: true` lists recent chats.
+   - Archive a chat with `archive_session` only if all of these are true: it isn't you; it isn't archived already; it isn't working right now; `get_session` shows `Lukasmajukas/cellular-learning-app` in its sources; and its session link isn't in any open `[in progress]` pull request.
+   - If an archive is refused, skip that chat. Tell the owner once: "The safety check stopped me putting away some old chats. The optional permission file in docs/WORKFLOW.md fixes that." Never retry or work around a refusal.
+   - Tell the owner in one line how many old chats you put away.
 
 ### B. While working
 - One task per chat.
@@ -101,9 +113,14 @@ One optional tidy-up: on github.com, open this repository, click **Settings**, s
 ### D. "Undo the last change"
 Run the start-up check and claim a task called "Undo: <what>". Find the last merge with `git log --first-parent --oneline origin/main`, then `git revert` it (add `-m 1` if it's a merge commit). Finish the normal way, and tell the owner exactly what was undone.
 
-### E. Never
+### E. "Bring back the chat called ___"
+Find it with `list_sessions` and run `unarchive_session` on it. Tell the owner it's back in their list.
+
+### F. Never
 - Push straight to `main`.
 - Force-push anything except this chat's own branch (steps A1 and B only).
 - Delete branches.
 - Merge a pull request that another chat is busy with (🔴).
+- Archive a chat that is working, a chat from another project, or a chat named in an open `[in progress]` pull request.
+- Create or change `.claude/settings.json`. Only the owner adds permissions.
 - Merge app code before the owner signs off on `docs/PRD.md`.
