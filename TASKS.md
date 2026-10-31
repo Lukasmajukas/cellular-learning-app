@@ -13,6 +13,7 @@ Claude ticks tasks off, adds new ones, and saves (merges) its own work. ⭐ mean
 | T02 | Tell Claude: do you have an app name idea? (Your Mac/iPhone, `cellatlas-data` and South Hadley answers are recorded in `docs/DECISIONS.md`. Two chats heard different Mac answers; the latest one stands: Mac later.) | You | — | Open: tell Claude in any chat |
 | T04 | Write the plan (`docs/PRD.md`) using the research and `docs/reuse-review.md`, including which app engine to use (Electron or Tauri). You read it, ask for changes, and sign off. | Claude + you | Large (Opus) | ⭐ Next |
 | T11 | Read the **progress panel + automation plan** (`docs/panel-plan.md`, now saved in the binder as a draft) and answer its 6 questions (§10) in any chat. Claude then updates the plan with your answers and with the new way chats share work (`docs/WORKFLOW.md`: the robot follows the same start-up check, and the panel shows the 🔴/🟡/🟢 traffic light). | You, then Claude | Medium for the update | 👉 Your turn: plan written |
+| T16 | Optional: add the permission file, so Claude's safety check never stops chats from putting old chats away or merging their work. Open the link under "Settings" in `docs/WORKFLOW.md` and click **Commit changes** twice. | You | — | Optional, any time |
 
 ## After you sign off on the plan
 | # | Task | Who | Model size | Status |
@@ -29,6 +30,7 @@ Claude ticks tasks off, adds new ones, and saves (merges) its own work. ⭐ mean
 ## Done
 | # | Task | Finished |
 |---|---|---|
+| T15 | Old chats now put themselves away: when a chat starts a task, it archives this project's older chats (`docs/WORKFLOW.md`, rule 5). | 2026-10-31 |
 | T14 | Fixed how chats share work: a start-up check, a "busy" sign, and Claude merging its own work (`docs/WORKFLOW.md`). Closed the 3 duplicate T03 pull requests and saved their extra findings. | 2026-10-31 |
 | T03 | Checked your 6 other projects for reusable material; findings in `docs/reuse-review.md` | 2026-10-31 |
 | T01 | Set up this binder: start page, roadmap, tasks, glossary, cheat sheet, memory card, research | 2026-10-31 |

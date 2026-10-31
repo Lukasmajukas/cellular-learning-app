@@ -23,6 +23,7 @@
 ## When something goes wrong
 - `It's broken: ___` Describe what you see, or paste a screenshot.
 - `Undo the last change.`
+- `Bring back the chat called ___` Claude takes an old chat out of the archive.
 - `You seem confused. Wrap up so I can start a fresh chat.`
 
 ## Choosing the model

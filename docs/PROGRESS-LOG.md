@@ -4,6 +4,7 @@ One or two plain-English lines per chat. Newest at the top.
 
 | Date | What happened | Details |
 |---|---|---|
+| 2026-10-31 | New chats now put your old chats away (archive them) when they start a task, so your list stays short. Optional: a permission file you can add from one link, so Claude's safety check never blocks this. | [How it works](WORKFLOW.md) · [Handoff note](sessions/2026-10-31-session-5-auto-archive.md) |
 | 2026-10-31 | Fixed how chats share the work. Each chat now checks whether another chat is busy, hangs a "busy" sign on its task, and saves (merges) its own work at the end, so you never need to open GitHub. Also closed the 3 duplicate T03 copies and saved the panel plan (still a draft). | [How it works](WORKFLOW.md) · [Handoff note](sessions/2026-10-31-session-4-workflow.md) |
 | 2026-10-31 | Wrote the plan for your progress panel and the robot that does tasks on a schedule. Nothing is built yet: read `docs/panel-plan.md` and say yes or ask for changes. Also: 3 of the 4 open pull requests are copies of the same task. | [Panel plan](panel-plan.md) · [Handoff note](sessions/2026-10-31-session-3-panel-plan.md) |
 | 2026-10-31 | You answered the Mac, cellatlas-data and South Hadley questions, and asked for a progress panel plus automation. That's planned as task T11. | [Handoff note](sessions/2026-10-31-session-2-reuse-review.md) |

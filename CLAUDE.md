@@ -34,7 +34,7 @@ How chats share work without overlapping is in `docs/WORKFLOW.md`. Follow its "R
 
 **Start (before any other work):**
 1. Read this file, `TASKS.md`, and the newest note in `docs/sessions/` (latest date, then highest session number).
-2. Run the start-up check in `docs/WORKFLOW.md` (section A): get the newest `main`, read the traffic light, and claim the task with an `[in progress]` pull request. If another chat is busy, stop and tell the owner.
+2. Run the start-up check in `docs/WORKFLOW.md` (section A): get the newest `main`, read the traffic light, claim the task with an `[in progress]` pull request, then archive this project's old chats. If another chat is busy, stop and tell the owner.
 
 **Work:**
 - One task per chat. If the owner types just `Go`, it means `Do the next task in TASKS.md`.

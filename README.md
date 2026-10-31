@@ -27,6 +27,7 @@ All the levels are explained in [ROADMAP.md](ROADMAP.md).
 
 **You don't need to open GitHub or merge anything.** Claude saves its own work into the binder at the end of every chat.
 - **One chat at a time.** If you open a second chat while the first is working, it tells you to wait.
+- **Old chats tidy themselves away.** When a new chat starts a task, it puts your old chats away. Nothing is deleted.
 - **Not happy?** Tell Claude what to change, or type `Undo the last change`.
 - **Want to peek?** Open the GitHub app or github.com. Looking never breaks anything.
 
