@@ -43,12 +43,13 @@ At the end, Claude merges its own work into `main` and takes the sign down. The 
 When a new chat starts a task, it archives this project's older chats, so your list stays short. Archiving is like putting a finished worksheet in a drawer: it's out of the way, but not thrown out. A chat that is still working is never put away.
 
 ### 6. A robot keeps working around the clock
-The robot works day and night in the cloud, so your PC can be off. (Being switched on in task T13.)
+The robot works day and night in the cloud, so your PC can be off. (Switched on in task T13 on Oct 31.)
 - When a robot chat finishes a task, it starts the next one right away. Every 2 hours a check restarts it if it stopped.
 - It gives each task the right brain: Haiku with Low effort for small jobs, Sonnet with Medium for most work, Opus with High for big planning.
 - It never uses paid extra usage. When your plan's limit is used up, it waits for the reset and carries on.
 - It does Claude's tasks, including the first draft of the app plan for you to read. It builds the app only after you sign off the plan. Anything only you can do goes into `TASKS.md` as a "You" row.
-- You get a phone notification when a robot chat finishes.
+- You get a phone notification when a robot chat did a job or got stuck.
+- A small chat called "Robot launcher (do not archive)" is the robot's alarm bell. Leave it alone.
 - **Your switch:** type `Stop the robot`, `Start the robot` or `Robot status` in any chat, even from your phone.
 - Your own chats share the same limit. Stop the robot when you want the limit for yourself.
 
@@ -64,6 +65,7 @@ Also, if any chat hits your usage limit, it waits for the limit to reset and car
 | I don't like what Claude did | Tell Claude what to change, or type `Undo the last change`. |
 | The robot used up my limit and I want to chat | Type `Stop the robot`. Later, type `Start the robot`. |
 | I want an archived chat back | Type `Bring back the chat called ___` in any chat. Archived chats aren't deleted. |
+| I archived the "Robot launcher" chat by accident | Type `Bring back the chat called Robot launcher`. Until it's back, the robot's 2-hour alarm has nobody to wake. |
 | A chat says the safety check stopped it | Nothing breaks. Tell any chat what the message said, and it will look into it. |
 | I haven't looked at the project in a while | Start a chat and type `Where are we?` |
 | I want to look at the files myself | Open the GitHub app or github.com. Looking never breaks anything. |
@@ -103,7 +105,7 @@ Also, if any chat hits your usage limit, it waits for the limit to reset and car
    - List open pull requests again. If another `[in progress]` pull request for the same task has a **lower** number than yours, close yours with "Duplicate of #__" and stop with the 🔴 message. (Skip this check for a pull request you are taking over in 🟡.)
 4. **Tidy the chat list.** Do this only after step 3, never after a 🔴 stop.
    - `get_session` with no ID gives your own session ID. `list_sessions` with `mine: true` lists recent chats.
-   - Archive a chat with `archive_session` only if all of these are true: it isn't you; it isn't archived already; it isn't working right now; `get_session` shows `Lukasmajukas/cellular-learning-app` in its sources; and its session link isn't in any open `[in progress]` pull request.
+   - Archive a chat with `archive_session` only if all of these are true: it isn't you; it isn't archived already; it isn't working right now; `get_session` shows `Lukasmajukas/cellular-learning-app` in its sources; and its session link isn't in any open `[in progress]` pull request. Never archive the chat titled "Robot launcher (do not archive)".
    - If an archive is refused, skip that chat. Tell the owner once: "The safety check stopped me putting away some old chats." Never retry or work around a refusal.
    - Tell the owner in one line how many old chats you put away.
 
@@ -134,16 +136,20 @@ Find it with `list_sessions` and run `unarchive_session` on it. Tell the owner i
 - Force-push anything except this chat's own branch (steps A1 and B only).
 - Delete branches.
 - Merge a pull request that another chat is busy with (🔴).
-- Archive a chat that is working, a chat from another project, or a chat named in an open `[in progress]` pull request.
+- Archive a chat that is working, a chat from another project, a chat named in an open `[in progress]` pull request, or the "Robot launcher (do not archive)" chat.
 - Add permissions to `.claude/settings.json`. Only the owner adds permissions. Change other settings in it only when the owner asks in chat.
 - Merge app code before the owner signs off on `docs/PRD.md`.
 
 ### G. Robot runs (chats that start by themselves)
-**Setup:** one scheduled task named "Robot" starts a fresh chat every 2 hours, US Eastern. That's the heartbeat. Robot chats also start the next robot chat themselves when they finish: the chain. Robot chats run on Sonnet. Effort comes from `modelSettings` in `.claude/settings.json`. Everything runs in the cloud; the owner's PC can be off.
+**Setup:** one scheduled task named "Robot" wakes one small, permanent chat called "Robot launcher (do not archive)" every 2 hours, US Eastern. That's the heartbeat. The launcher starts a fresh robot chat with `create_session` (project attached, Sonnet, Auto mode, titled "Robot run"). Robot chats also start the next run themselves when they finish, by firing "Robot": the chain. Everything runs in the cloud; the owner's PC can be off.
+
+**Why a launcher (found in T13, 2026-10-31):** a scheduled task made with `create_trigger` can't attach the project or the chat tools to the chats it starts, so a chat started that way was empty and could do nothing. A chat started with `create_session` gets the project, the GitHub tools and the chat tools (tested). So the schedule wakes the launcher, and the launcher starts the real robot chat.
+
+**Effort is unverified:** a robot chat can't see its own effort level, and nothing sets it from outside. `modelSettings` in `.claude/settings.json` may or may not be read in cloud chats. If the owner's limit drains faster than expected, look here first.
 
 **Every robot run, in this order:**
 1. **Quick checks, before reading anything big:**
-   - `list_triggers`: if "Robot" is off, stop with "The robot is paused."
+   - `list_triggers`: if the one named exactly "Robot" is off, stop with "The robot is paused." (Ignore the old paused one.)
    - `get_session` with no ID: if `rate_limit_info.isUsingOverage` is true, stop with "Your plan's limit is used up. I'll try again after it resets." Never work on paid usage.
    - `list_pull_requests`: if another chat is busy (🔴, section A2), stop with "Another chat is working."
 2. **Start-up check:** sections A1 and A2 as usual.
@@ -159,18 +165,40 @@ Find it with `list_sessions` and run `unarchive_session` on it. Tell the owner i
 5. **Right brain:** read the task's size in `TASKS.md`.
    - Medium: do it yourself.
    - Small or Large: start a new chat with `create_session`. Use model `claude-haiku-5-5` for Small or `claude-opus-5-5` for Large, `source_url` `https://github.com/Lukasmajukas/cellular-learning-app`, and `permission_mode` `auto` if allowed. Prompt: "You are a robot worker for the cellular-learning-app project. The owner is away. Take over pull request #<your claim> and do task T__. Follow CLAUDE.md and docs/WORKFLOW.md, sections A to C and G steps 6 to 9. Never wait for an answer." Then stop. The new chat takes over your claim (🟡 rules).
-6. **Do the job and finish** the normal way (section C), including the merge. For a "Claude + you" task, merge Claude's part as a draft, then change the row's "Who" to "You" and say what the owner needs to do, for example: "Read `docs/PRD.md`, then type `I sign off the plan` in any chat."
+6. **Do the job and finish** the normal way (section C), including the merge. For a "Claude + you" task, merge Claude's part as a draft, then change the row's "Who" to "You" and say what the owner needs to do, for example: "Read `docs/PRD.md`, then type `I sign off the plan` in any chat." In your handoff note, also write whether anything asked for approval or was blocked, and name the action.
 7. **If the job is blocked** (missing access, or an answer only the owner has): write it in the handoff note with the word BLOCKED, add a "You" row, merge that, then go to step 9.
 8. **Tidy** (A4), but only chats quiet for 2+ hours, so a chat the owner is in the middle of is never touched.
-9. **Chain:** if "Robot" is still on, you're not on paid usage, and another task could fit step 3, start the next run now with `fire_trigger`. End with a two-line summary. It becomes the owner's phone notification.
-10. **Never:** start helper agents, change the schedule (except for the owner's commands below), touch `.claude/settings.json`, start a second job in the same run, or use paid usage.
+9. **Chain:** if "Robot" is still on, you're not on paid usage, and another task could fit step 3, start the next run now with `fire_trigger` on "Robot" (that wakes the launcher). End with a two-line summary and send it with `PushNotification` (status `proactive`): that is the owner's phone notification. Send it only when you did a job or got stuck, not for "Another chat is working", "Nothing for me to do" or "The robot is paused".
+10. **Never:** start helper agents, change the schedule (except for the owner's commands below), touch `.claude/settings.json`, archive the Robot launcher, start a second job in the same run, or use paid usage.
 
 **The owner's commands** (any chat, any device; they skip the traffic light because they don't change project files):
-- `Stop the robot`: `update_trigger` with `enabled: false` on "Robot". Say: "The robot is stopped. The task it's on will finish, then nothing new starts."
-- `Start the robot`: `update_trigger` with `enabled: true`, then `fire_trigger` once.
-- `Robot status`: whether it's on, and the next heartbeat (`list_triggers`); what's being worked on (open `[in progress]` pull requests); and the top 3 diary lines.
+- `Stop the robot`: `update_trigger` with `enabled: false` on the trigger named exactly "Robot" (ignore the paused "Robot (old, paused: no project attached)"). Say: "The robot is stopped. The task it's on will finish, then nothing new starts."
+- `Start the robot`: `update_trigger` with `enabled: true` on "Robot", then `fire_trigger` once.
+- `Robot status`: whether "Robot" is on, the next heartbeat and how the last one went (`list_triggers`: `next_run_at` and `last_run`; a FAILED last run means the launcher is missing or the limit was used up); what's being worked on (open `[in progress]` pull requests); and the top 3 diary lines.
 - `I sign off the plan`: add `Signed off by owner: YYYY-MM-DD` to `docs/PRD.md` and merge it. That unlocks app building for the robot.
 
-**Prompt for the scheduled task** (T13 copies this): "You are the robot run for the cellular-learning-app project. The owner is away. Follow CLAUDE.md and docs/WORKFLOW.md section G exactly, starting with the quick checks. Never wait for an answer: put questions in TASKS.md as 'You' rows."
+**How the robot is built** (set up in T13, 2026-10-31; use this to rebuild it):
+1. **The launcher chat:** `create_session` with title "Robot launcher (do not archive)", model `claude-sonnet-5-5`, `permission_mode: auto`, and no `source_url`. Its first message is the launcher prompt below. It does a self-check and waits.
+2. **The heartbeat:** `create_trigger` with name "Robot", `persistent_session_id` set to the launcher's session ID, `initiation: human_request`, cron `CRON_TZ=America/New_York 0 */2 * * *` (the server spreads the minute across the hour), and the prompt "Heartbeat: start one robot run now. Follow your launcher steps 1 to 4 exactly." A schedule that wakes an existing chat can't send phone notifications, so robot chats send their own (step 9).
+3. **Test:** `fire_trigger` once while a pull request is `[in progress]`. The launcher should start a chat titled "Robot run" that stops at 🔴. Check it with `get_session` and `list_events`.
+4. **If the launcher is ever archived or deleted:** bring it back (section E). If it's gone for good, pause "Robot", then redo steps 1 and 2.
 
-**Setup details for T13:** `create_trigger` with name "Robot", `create_new_session_on_fire: true`, `notifications: {push: true}`, `initiation: human_request`, cron `CRON_TZ=America/New_York 0 */2 * * *` (the server spreads it across the hour), and the prompt above. Create it from a chat running Sonnet at Medium effort, so robot chats copy that. Then fire it once and check that robot chat.
+**Launcher prompt** (the launcher's first message):
+```
+You are the "Robot launcher" for the cellular-learning-app project (owner: Lukas). You are a tiny relay. You have no project folder and you don't need one. Never read, write or delete any files, never open pull requests, and never do anything that is not listed below.
+
+RIGHT NOW (this first message only): reply with ONE line saying whether these chat tools are available, by name: create_session, fire_trigger, list_triggers, get_session. Do NOT start any robot run now. Then stop and wait.
+
+AFTER THAT, every message you receive means "start one robot run". Do exactly these steps, in order:
+1. Call list_triggers. Find the scheduled task named exactly "Robot". If it is missing or not enabled, reply "The robot is paused." and stop.
+2. Call get_session with no session ID. If rate_limit_info.isUsingOverage is true, reply "Your plan's limit is used up. Not starting." and stop. Never use paid extra usage.
+3. Call create_session with exactly these settings:
+   - source_url: https://github.com/Lukasmajukas/cellular-learning-app
+   - model: claude-sonnet-5-5
+   - permission_mode: auto
+   - title: Robot run
+   - prompt: You are the robot run for the cellular-learning-app project. The owner is away. Follow CLAUDE.md and docs/WORKFLOW.md section G exactly, starting with the quick checks. Never wait for an answer: put questions in TASKS.md as 'You' rows.
+4. Reply with one line: "Started robot run <new session id>." Then stop.
+
+If a step fails, reply with one line naming the step and the error, then stop. Never retry in a loop, and never start more than one robot run per message.
+```

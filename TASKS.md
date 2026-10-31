@@ -10,9 +10,9 @@ Claude ticks tasks off, adds new ones, and saves (merges) its own work. ⭐ mean
 ## Now
 | # | Task | Who | Model + effort | Status |
 |---|---|---|---|---|
+| T20 | Tell Claude in any chat: (1) while T13 ran, did the app ever show you a button or pop-up asking you to approve something? If yes, which action was it? (Then Claude can ask you to add that one rule to the permission file so the robot never stops on it.) (2) Should Claude delete the old paused schedule called "Robot (old, paused: no project attached)"? | You | — | Open: tell Claude in any chat |
 | T02 | Tell Claude: do you have an app name idea? (Your Mac/iPhone, `cellatlas-data` and South Hadley answers are recorded in `docs/DECISIONS.md`. Two chats heard different Mac answers; the latest one stands: Mac later.) | You | — | Open: tell Claude in any chat |
-| T13 | Switch on the 24/7 robot: create the scheduled task "Robot" exactly as in `docs/WORKFLOW.md` section G ("Setup details for T13"). Then fire it once and check that the robot chat had the project files, the GitHub tools, the chat tools and `create_session`, didn't wait for approval, and ran on Sonnet at Medium effort. Fix what you can, report the rest, and leave the robot on. | Claude | Medium (Sonnet), Medium effort | ⭐ Next |
-| T18 | Build the progress panel: the private claude.ai page in `docs/panel-plan.md` §5, following §9 steps 1 and 2. Keep its files in a `panel/` folder in this project (no new repository). It should also show the 🔴/🟡/🟢 traffic light. You approved building it before the plan sign-off. | Claude | Medium (Sonnet), Medium effort | The robot may do it |
+| T18 | Build the progress panel: the private claude.ai page in `docs/panel-plan.md` §5, following §9 steps 1 and 2. Keep its files in a `panel/` folder in this project (no new repository). It should also show the 🔴/🟡/🟢 traffic light. You approved building it before the plan sign-off. | Claude | Medium (Sonnet), Medium effort | ⭐ Next. The robot may do it (its first real job) |
 | T08 | List copyright-free photo sources for each lesson topic | Claude | Medium (Sonnet), Medium effort | The robot may do it |
 | T09 | Build a sourced carrier-code (MCC/MNC) list: which code means AT&T, Verizon, T-Mobile and others, each with a status, date and source. Start from bandmon's list and fix its mistakes (see `docs/reuse-review.md` §2c). | Claude | Medium (Sonnet), Medium effort | The robot may do it |
 | T04 | Write the plan (`docs/PRD.md`) using the research and `docs/reuse-review.md`, including which app engine to use (Electron or Tauri). You read it, ask for changes, and sign off. | Claude + you | Large (Opus), High effort | The robot may write the first draft; then you read it and type `I sign off the plan` |
@@ -29,6 +29,7 @@ Claude ticks tasks off, adds new ones, and saves (merges) its own work. ⭐ mean
 ## Done
 | # | Task | Finished |
 |---|---|---|
+| T13 | Switched on the 24/7 robot. The plan's first recipe failed the test (a chat started by the alarm gets no copy of your project), so the alarm now wakes a small "Robot launcher" chat that starts each robot run with the project attached. Tested end to end. | 2026-10-31 |
 | T19 | Rules for a robot that works 24/7 until your plan's limit, with `Stop the robot` / `Start the robot`, and the right model and effort for each task (`docs/WORKFLOW.md` section G) | 2026-10-31 |
 | T11 | You answered the panel plan's questions: robot twice a day, restart work plus safe tasks, panel built now, pause by typing `Pause the robot` (answers at the top of `docs/panel-plan.md`) | 2026-10-31 |
 | T17 | Claude now says the effort level along with the model, like "Opus, High effort" | 2026-10-31 |
