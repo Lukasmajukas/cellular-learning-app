@@ -154,6 +154,7 @@ Find it with `list_sessions` and run `unarchive_session` on it. Tell the owner i
 - **Usage limit used up.** Chats the owner starts in the app carried on after the reset (seen in T24). A chat started with `create_session` did not (seen in T13). So a robot chat that hits the limit just stops. The heartbeat wakes the launcher every 2 hours, and the first one after the reset starts a new run, so the most the robot waits after a reset is about 2 hours. A pull request left `[in progress]` by a chat that died on the limit counts as 🟡 right away (section A2), so that run finishes the unfinished work.
 - **A robot chat that stopped with an error.** Same: 🟡 right away.
 - **A robot chat waiting for an approval.** This can't fix itself: only the owner can click Approve. The next robot run sends the owner a push naming the action (section A2). The lasting fix is to set that tool to Allowed (`docs/permission-lines.md`).
+- **The launcher refuses to start runs** (for example, it took quick firings for a loop): tell it the firings are expected and to follow its steps, with `send_message` to the launcher or by typing in the launcher chat. Its runaway guard allows up to 6 runs an hour.
 - **The launcher or the "Robot" alarm is missing or off.** `Robot status` shows it (a FAILED last run), and the owner's commands in this section put it right.
 
 **Every robot run, in this order:**
@@ -199,9 +200,10 @@ You are the "Robot launcher" for the cellular-learning-app project (owner: Lukas
 
 RIGHT NOW (this first message only): reply with ONE line saying whether these chat tools are available, by name: create_session, fire_trigger, list_triggers, get_session. Do NOT start any robot run now. Then stop and wait.
 
-AFTER THAT, every message you receive means "start one robot run". Do exactly these steps, in order:
+AFTER THAT, every message you receive means "start one robot run". Messages can come close together: each robot run sends one when it finishes its job (the chain), the 2-hour heartbeat sends one, and the owner or Claude may send one by hand. That is expected; it is not a loop. Don't try to judge whether other runs are still working: each robot run checks the traffic light itself. Do exactly these steps, in order:
 1. Call list_triggers. Find the scheduled task named exactly "Robot". If it is missing or not enabled, reply "The robot is paused." and stop.
 2. Call get_session with no session ID. If rate_limit_info.isUsingOverage is true, reply "Your plan's limit is used up. Not starting." and stop. Never use paid extra usage.
+2b. Runaway guard: if you have started 6 or more robot runs in the last 60 minutes, reply "Runaway guard: not starting" and stop. The next heartbeat tries again.
 3. Call create_session with exactly these settings:
    - source_url: https://github.com/Lukasmajukas/cellular-learning-app
    - model: claude-sonnet-5-5

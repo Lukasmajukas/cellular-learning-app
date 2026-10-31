@@ -31,6 +31,7 @@ Claude ticks tasks off, adds new ones, and saves (merges) its own work. ⭐ mean
 ## Done
 | # | Task | Finished |
 |---|---|---|
+| T25 | The robot's launcher had paused itself, taking quick restarts for a runaway loop. Fixed: close firings are expected, and a safety limit allows at most 6 runs an hour. | 2026-10-31 |
 | T24 | Answered: effort follows the model (measured Haiku Low, Sonnet Medium), so the robot moves up a model size after a failed try; it restarts after your limit, picks up crashed work right away, and pings you when it's waiting for your approval. | 2026-10-31 |
 | T23 | Tested whether the panel can read the project live: it can't (there is no GitHub connector). The panel stays a snapshot, and chats now refresh it at the end of each task. | 2026-10-31 |
 | T18 | Built the progress panel: a clean private page showing the levels, what Claude is doing, what waits for you, and recent work. First version is a snapshot Claude refreshes (`panel/`). | 2026-10-31 |
