@@ -1,0 +1,25 @@
+name: App build (Windows)
+on:
+  pull_request:
+    paths: ['app/**', '.github/workflows/app-build.yml']
+  push:
+    branches: [main]
+    paths: ['app/**', '.github/workflows/app-build.yml']
+  workflow_dispatch:
+jobs:
+  windows:
+    runs-on: windows-latest
+    defaults: { run: { working-directory: app } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm, cache-dependency-path: app/package-lock.json }
+      - run: npm ci
+      - run: npm test
+      - run: npm run e2e
+      - run: npm run make
+      - uses: actions/upload-artifact@v4
+        with: { name: windows-installer, path: app/out/make/**/*, retention-days: 30 }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: screenshots, path: app/test-results, retention-days: 14 }

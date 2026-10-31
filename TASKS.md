@@ -14,12 +14,13 @@ Claude ticks tasks off, adds new ones, and saves (merges) its own work. ⭐ mean
 |---|---|---|---|---|
 | T22 | Open the progress panel (link in `panel/README.md`), pin it, and tell Claude in any chat if it looks right on your PC and phone. | You | — | Open: tell Claude in any chat |
 | T39 | Find a hands-free way for the robot to refresh your progress panel. One idea: keep the panel's numbers in the page's own storage, if robot chats can update that without a question. Do it in a chat you're in, because a test may ask you to approve once. | You + Claude | Medium (Sonnet), Medium effort | Open: start it in a chat when you like |
+| T41 | Check that GitHub's Windows build ran (`.github/workflows/app-build.yml`; no run had started yet) and fix anything it finds, so T40 has an installer. | Claude | Medium (Sonnet), Medium effort | ⭐ Next |
+| T40 | (After T41) Try the test build: open the pull request/Actions page Claude links in chat (or ask Claude in any chat for the link), download the `windows-installer` file, run it (click **More info**, then **Run anyway**), and tell Claude in any chat: does it feel smooth? Does the confetti, beep and mascot work? | You | — | Open: tell Claude in any chat |
 | T02 | Tell Claude: do you have an app name idea? (Your Mac/iPhone, `cellatlas-data` and South Hadley answers are recorded in `docs/DECISIONS.md`. Two chats heard different Mac answers; the latest one stands: Mac later.) | You | — | Open: tell Claude in any chat |
 
 ## Next: building the app (the plan is signed off)
 | # | Task | Who | Model + effort | Status |
 |---|---|---|---|---|
-| T05 | Test build (v0.1): one animated lesson screen in Electron (3 sample questions, bouncy buttons, confetti, sound, the mascot). GitHub builds a Windows installer you download and try; Claude also tests it in the cloud and on GitHub's Windows computer. | Claude | Medium (Sonnet), Medium effort | ⭐ Next |
 | T27 | Check the carrier-code list (`content/carrier-codes.md`) against the official ITU list and the US registry (imsiadmin.com). Needs those sites allowed or files uploaded. | Claude | Medium (Sonnet), Medium effort | Later (needs network access or files) |
 | T06 | Build the bands data file from `docs/research/notes/band_verification.md`, with a status, date and source on every row | Claude | Medium (Sonnet), Medium effort; then a Large (Opus) review, High effort | Later |
 | T07 | Check the band numbers against the official 3GPP documents. This needs etsi.org allowed in network settings, or PDFs you upload. | Claude | Medium (Sonnet), Medium effort | Later |
@@ -40,6 +41,7 @@ Claude ticks tasks off, adds new ones, and saves (merges) its own work. ⭐ mean
 ## Done
 | # | Task | Finished |
 |---|---|---|
+| T05 | Built the test build in `app/`: Electron + React, an animated sample lesson (3 questions, bouncy buttons, confetti, beep, mascot). Passes unit tests and a real-app click test in the cloud; a GitHub workflow runs the same on Windows and builds the installer. Waiting for your verdict (T40). | 2026-10-31 |
 | T04 | You signed off the plan (`docs/PRD.md`). All 7 suggested answers stand: Electron, a little tower mascot, daily reminder off by default, 3–5 minute lessons, the free unsigned installer, band units first, and the working name until you pick one. App building is unlocked. | 2026-10-31 |
 | T21 | You did the hands-free steps you could: the waiting robot chat got its approval, and the permission lines are in (Claude checked all 16; nothing else changed). The page-publishing step turned out impossible on your account: those tools are built into Claude, not one of your connectors. So robot chats no longer publish the progress panel; it refreshes when you're in a chat with Claude (one Approve click). T39 looks for a hands-free way. | 2026-10-31 |
 | T38 | Robot chats now tidy up after themselves: each one names itself after its job (like "Robot: Photo sources list") and puts itself away when it's done. You asked because finished robot chats were piling up, all called "Robot run". | 2026-10-31 |
