@@ -14,7 +14,7 @@ Claude ticks tasks off, adds new ones, and saves (merges) its own work. ⭐ mean
 |---|---|---|---|---|
 | T04 | Read the plan, `docs/PRD.md` (start with "In simple words" at the top). Ask for any changes, answer its 7 questions in section 9 (or keep Claude's suggested answers), then type `I sign off the plan` in any chat. That unlocks building the app. | You | — | ⭐ Open: the first draft is ready (written by the robot on Opus, High effort) |
 | T22 | Open the progress panel (link in `panel/README.md`), pin it, and tell Claude in any chat if it looks right on your PC and phone. | You | — | Open: tell Claude in any chat |
-| T21 | Make the robot hands-free, in three small steps: click Approve if a robot chat is waiting on you; set the page-publishing tools to Allowed on claude.ai; add a few lines to the permission file. The clicks are in `docs/permission-lines.md`. Only you can do these. | You | — | Open: needs about 5 minutes from you |
+| T39 | Find a hands-free way for the robot to refresh your progress panel. One idea: keep the panel's numbers in the page's own storage, if robot chats can update that without a question. Do it in a chat you're in, because a test may ask you to approve once. | You + Claude | Medium (Sonnet), Medium effort | Open: start it in a chat when you like |
 | T02 | Tell Claude: do you have an app name idea? (Your Mac/iPhone, `cellatlas-data` and South Hadley answers are recorded in `docs/DECISIONS.md`. Two chats heard different Mac answers; the latest one stands: Mac later.) | You | — | Open: tell Claude in any chat |
 
 ## After you sign off on the plan
@@ -41,6 +41,7 @@ Claude ticks tasks off, adds new ones, and saves (merges) its own work. ⭐ mean
 ## Done
 | # | Task | Finished |
 |---|---|---|
+| T21 | You did the hands-free steps you could: the waiting robot chat got its approval, and the permission lines are in (Claude checked all 16; nothing else changed). The page-publishing step turned out impossible on your account: those tools are built into Claude, not one of your connectors. So robot chats no longer publish the progress panel; it refreshes when you're in a chat with Claude (one Approve click). T39 looks for a hands-free way. | 2026-10-31 |
 | T38 | Robot chats now tidy up after themselves: each one names itself after its job (like "Robot: Photo sources list") and puts itself away when it's done. You asked because finished robot chats were piling up, all called "Robot run". | 2026-10-31 |
 | T09 | Built a first carrier-code list (`content/carrier-codes.md`): which number tag means T-Mobile, AT&T, Verizon and others. It fixes bandmon's mistakes (312/530 is T-Mobile, not Spectrum). It is marked DRAFT because the only source I could reach was Wikipedia. | 2026-10-31 |
 | T08 | Listed copyright-free photo sources for each lesson topic (`docs/research/photo-sources.md`): Wikimedia Commons works well for tower types, fake trees, small cells and US sites. There are big gaps for equipment brands and site signs, so those will need your own photos later or Claude's drawings. | 2026-10-31 |

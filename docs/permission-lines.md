@@ -1,17 +1,14 @@
 # 🔑 Making the robot hands-free (task T21)
 
-**Why:** Sometimes Claude's safety check stops a chat and asks "approve this?". The robot works with nobody watching, so it would sit and wait. There are two places to say "this is always OK", and the robot needs both. Only you can do these steps, because Claude isn't allowed to give itself permissions.
+**Why:** Sometimes Claude's safety check stops a chat and asks "approve this?". The robot works with nobody watching, so it would sit and wait. Only you can do these steps, because Claude isn't allowed to give itself permissions.
+
+**Status (Oct 31): done.** You did steps 1 and 3. Step 2 turned out to be impossible on your account, so skip it.
 
 ## Step 1. If a robot chat is waiting on you right now
 Open the chat called **Robot run** in your chat list. If it says it needs your approval, click **Approve**. (`Robot status` in any chat tells you if one is waiting. The robot also pings your phone.)
 
-## Step 2. Allow the page-publishing tools for good (about 2 minutes)
-The "Publish Files" question comes from the connector that publishes your progress page, so the fix is on claude.ai, not in the project:
-1. Open https://claude.ai/customize/connectors
-2. Find the connector with the tools **Publish Files**, **Publish Version**, **Edit Version** and **Pin Artifact**. The exact names may differ a little. Sign in again if it asks.
-3. Set each of those tools to **Allowed** under its tool permissions.
-
-If you can't find it, or "Allowed" isn't offered (an admin setting can cap it), tell Claude exactly what you see. Until this is done, every refresh of the progress page will stop and ask you.
+## Step 2. Page-publishing tools: not possible on your account (skip)
+Checked on Oct 31: the "Publish Files" question comes from a tool built into Claude, not from one of your connectors. Your connectors are Apple Music, Clinical Trials, Gmail, Google Calendar, Docs, Drive, Sheets, Slides and Indeed, so there's no switch for you to flip. What changed instead: robot chats no longer publish the progress page, so they can't get stuck on it. When you're in a chat with Claude, it refreshes the page and you click **Approve** once. Task T39 looks for a hands-free way.
 
 ## Step 3. Add the permission lines to the project (about 2 minutes)
 These cover opening chats, starting the next robot run, reading and opening pull requests, the phone notification, and web research.
