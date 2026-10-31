@@ -13,7 +13,7 @@ Claude ticks tasks off, adds new ones, and saves (merges) its own work. ⭐ mean
 | # | Task | Who | Model + effort | Status |
 |---|---|---|---|---|
 | T22 | Open the progress panel (link in `panel/README.md`), pin it, and tell Claude in any chat if it looks right on your PC and phone. | You | — | Open: tell Claude in any chat |
-| T21 | Add a few lines to the permission file so the robot never stops to ask "approve opening a new chat". The exact text and the clicks are in `docs/permission-lines.md` (and Claude will give them in the chat); it takes about 2 minutes. Only you can add permissions. | You | — | Open: needs 2 minutes from you |
+| T21 | Make the robot hands-free, in three small steps: click Approve if a robot chat is waiting on you; set the page-publishing tools to Allowed on claude.ai; add a few lines to the permission file. The clicks are in `docs/permission-lines.md`. Only you can do these. | You | — | Open: needs about 5 minutes from you |
 | T02 | Tell Claude: do you have an app name idea? (Your Mac/iPhone, `cellatlas-data` and South Hadley answers are recorded in `docs/DECISIONS.md`. Two chats heard different Mac answers; the latest one stands: Mac later.) | You | — | Open: tell Claude in any chat |
 | T23 | Test whether the panel can read the project live through your connectors (so it needs no refreshing), and add "refresh the panel" to the end-of-chat steps (`panel/README.md`). | Claude | Medium (Sonnet), Medium effort | The robot may do it |
 | T08 | List copyright-free photo sources for each lesson topic | Claude | Medium (Sonnet), Medium effort | The robot may do it |
