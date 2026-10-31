@@ -15,13 +15,13 @@ Claude ticks tasks off, adds new ones, and saves (merges) its own work. ⭐ mean
 | T22 | Open the progress panel (link in `panel/README.md`), pin it, and tell Claude in any chat if it looks right on your PC and phone. | You | — | Open: tell Claude in any chat |
 | T21 | Make the robot hands-free, in three small steps: click Approve if a robot chat is waiting on you; set the page-publishing tools to Allowed on claude.ai; add a few lines to the permission file. The clicks are in `docs/permission-lines.md`. Only you can do these. | You | — | Open: needs about 5 minutes from you |
 | T02 | Tell Claude: do you have an app name idea? (Your Mac/iPhone, `cellatlas-data` and South Hadley answers are recorded in `docs/DECISIONS.md`. Two chats heard different Mac answers; the latest one stands: Mac later.) | You | — | Open: tell Claude in any chat |
-| T09 | Build a sourced carrier-code (MCC/MNC) list: which code means AT&T, Verizon, T-Mobile and others, each with a status, date and source. Start from bandmon's list and fix its mistakes (see `docs/reuse-review.md` §2c). | Claude | Medium (Sonnet), Medium effort | The robot may do it |
 | T04 | Write the plan (`docs/PRD.md`) using the research and `docs/reuse-review.md`, including which app engine to use (Electron or Tauri). You read it, ask for changes, and sign off. | Claude + you | Large (Opus), High effort | The robot may write the first draft; then you read it and type `I sign off the plan` |
 
 ## After you sign off on the plan
 | # | Task | Who | Model + effort | Status |
 |---|---|---|---|---|
 | T05 | Test build: one animated lesson screen. GitHub builds a Windows installer you download and try. | Claude | Medium (Sonnet), Medium effort | Later |
+| T27 | Check the carrier-code list (`content/carrier-codes.md`) against the official ITU list and the US registry (imsiadmin.com). Needs those sites allowed or files uploaded. | Claude | Medium (Sonnet), Medium effort | Later (needs network access or files) |
 | T06 | Build the bands data file from `docs/research/notes/band_verification.md`, with a status, date and source on every row | Claude | Medium (Sonnet), Medium effort; then a Large (Opus) review, High effort | Later |
 | T07 | Check the band numbers against the official 3GPP documents. This needs etsi.org allowed in network settings, or PDFs you upload. | Claude | Medium (Sonnet), Medium effort | Later |
 | T26 | Pick and licence-check 2 to 4 photos per lesson topic from the places listed in `docs/research/photo-sources.md`, into a credits file in `content/`. Unit 8 (equipment brands) may start as drawings. | Claude | Medium (Sonnet), Medium effort | Later |
@@ -31,6 +31,7 @@ Claude ticks tasks off, adds new ones, and saves (merges) its own work. ⭐ mean
 ## Done
 | # | Task | Finished |
 |---|---|---|
+| T09 | Built a first carrier-code list (`content/carrier-codes.md`): which number tag means T-Mobile, AT&T, Verizon and others. It fixes bandmon's mistakes (312/530 is T-Mobile, not Spectrum). It is marked DRAFT because the only source I could reach was Wikipedia. | 2026-10-31 |
 | T08 | Listed copyright-free photo sources for each lesson topic (`docs/research/photo-sources.md`): Wikimedia Commons works well for tower types, fake trees, small cells and US sites. There are big gaps for equipment brands and site signs, so those will need your own photos later or Claude's drawings. | 2026-10-31 |
 | T25 | The robot's launcher had paused itself, taking quick restarts for a runaway loop. Fixed: close firings are expected, and a safety limit allows at most 6 runs an hour. | 2026-10-31 |
 | T24 | Answered: effort follows the model (measured Haiku Low, Sonnet Medium), so the robot moves up a model size after a failed try; it restarts after your limit, picks up crashed work right away, and pings you when it's waiting for your approval. | 2026-10-31 |
