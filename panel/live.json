@@ -1,12 +1,12 @@
 {
- "asOf": "2026-10-31 5:32 PM Eastern",
+ "asOf": "2026-10-31 6:10 PM Eastern",
  "robot": {
   "on": true,
   "next": "about 6:18 PM Eastern, then every 2 hours (it also starts its next job by itself)",
-  "last": "wrote the first draft of the app plan; you signed it off"
+  "last": "built the first bands data file (a draft; carrier rows still need checking)"
  },
  "light": "green",
- "working": "You signed off the plan. Next up: the test build, one animated lesson screen you can install on your PC.",
+ "working": "Next up: you try the test build (T40), then a review of the bands file.",
  "limit": {
   "state": "fine",
   "resets": "about 9:10 PM Eastern"
