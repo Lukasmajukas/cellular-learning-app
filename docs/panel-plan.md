@@ -15,6 +15,16 @@
 > - **§10 question 6 isn't needed:** pull requests are merged at the end of each chat, so the panel can read tasks from `main`. The panel should also show the 🔴/🟡/🟢 traffic light.
 > - **§8's clean-up is done.**
 
+> **Owner's wishes for the panel (2026-10-31, later). Where they differ from the sections below, they win.**
+> - **A separate app, connected to the project.** It is not part of the learning app. It only watches the project and shows how far Claude has got in building the learning app, like a scoreboard in its own window.
+> - **Clean and app-like.** One simple screen that works on the PC and the phone. Big, friendly progress. No clutter.
+> - **Plain words, no task numbers.** The owner doesn't know what "T13" or "T20" mean. Show names like "Switch on the robot". If a number must appear, make it small and gray in a details view, with one line saying "numbers are just labels for Claude".
+> - **What it shows, top to bottom:** (1) where we are: the 6 levels with a progress bar; (2) what Claude is working on right now, plus the robot's status: on or paused, the 🔴/🟡/🟢 traffic light, and when its next check is; (3) waiting for you: each item says exactly what to do; (4) done recently, in plain words with dates; (5) coming up next; (6) the last few diary lines.
+> - **Nice to have:** if the page can call the Claude Code Remote connector, also show the robot's status and your usage-limit state (fine / warning / used up, and when it resets).
+> - **Where it lives:** a private page on claude.ai, as planned, opened like an app: pin it so it's one click away on the PC and the phone.
+> - **If the page can't read the private repo directly** (the build step 1 test), use this fallback instead of a pasted key: the robot, and every chat in its end-of-session steps, republishes the page with fresh data baked in, and the page says "as of <time>".
+> - **It doesn't exist yet.** The robot builds the first version first. When it works, the builder puts the link in `README.md` and in the robot's phone notification.
+
 ---
 
 ## 1. The short version (for the owner)

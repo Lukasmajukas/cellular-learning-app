@@ -92,7 +92,7 @@ Also, if any chat hits your usage limit, it waits for the limit to reset and car
    ```bash
    git checkout -B "$(git branch --show-current)" origin/main
    ```
-   Tell the owner in one line: "You started from an old branch. I switched to the newest copy, and nothing was lost." If your first push is refused, use `git push --force-with-lease -u origin <branch>`. Only ever do that to this chat's own new branch. If it says "stale info", GitHub already deleted the old copy of the branch: run `git fetch --prune origin`, then push normally.
+   Tell the owner in one line: "You started from an old branch. I switched to the newest copy, and nothing was lost." If your first push is refused because the old copy of the branch is still on GitHub, bring it in with `git fetch origin <branch> && git merge origin/<branch>` (its content is the same, so nothing changes), then push normally. Never force-push: the safety check blocks it. If GitHub already deleted the old copy, run `git fetch --prune origin` and push normally.
 2. **Read the traffic light.** List open pull requests (`list_pull_requests`, state `open`). Look only at ones from `claude/` branches.
    - A pull request with `[in progress]` in its title is **busy** if it was updated in the last 2 hours, or if its chat is running right now. The session link at the end of its description names the chat, and `get_session` shows whether that chat is working.
    - 🔴 **Busy:** stop. Say: "🔴 Another chat is working on T__ (last saved HH:MM). Go back to that chat. If it's closed or stuck, type `Take over`." Do nothing else. Exceptions: the owner typed `Take over` (go to 🟡), or `Do task T__ at the same time` for a task that isn't the busy one (go to 🟢 with that task).
@@ -115,7 +115,7 @@ Also, if any chat hits your usage limit, it waits for the limit to reset and car
 - Before each push, check that your pull request is still open. If another chat closed it ("Continued in #__"), stop and tell the owner: "This work moved to a newer chat. Please use that one."
 - Push before you stop to wait for an answer.
 - **Never leave a pull request open waiting for the owner.** Merge drafts as drafts, with `Status: DRAFT` written inside the file. Ask questions in the chat, and add them to `TASKS.md` as rows where "Who" is "You".
-- If the owner asks for more after your pull request was merged, start from a fresh copy (`git fetch origin main && git checkout -B <branch> origin/main`, then `git push --force-with-lease`) and claim again (step A3).
+- If the owner asks for more after your pull request was merged, start from a fresh copy (`git fetch --prune origin && git checkout -B <branch> origin/main`). If the old copy of your branch is still on GitHub, bring it in with `git merge origin/<branch>` (same content, so nothing changes) before you push. Then push normally (no force-push: the safety check blocks it) and claim again (step A3).
 
 ### C. Finishing: after the end-of-session steps in `CLAUDE.md`
 1. Bring in the newest main: `git fetch origin main && git merge origin/main`. Fix any conflicts. In logs and lists, keep the lines from both sides.
@@ -133,7 +133,7 @@ Find it with `list_sessions` and run `unarchive_session` on it. Tell the owner i
 
 ### F. Never
 - Push straight to `main`.
-- Force-push anything except this chat's own branch (steps A1 and B only).
+- Force-push anything. The safety check blocks it. Merge the old copy of your branch instead (steps A1 and B).
 - Delete branches.
 - Merge a pull request that another chat is busy with (🔴).
 - Archive a chat that is working, a chat from another project, a chat named in an open `[in progress]` pull request, or the "Robot launcher (do not archive)" chat.
