@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cell Learning Progress</title>
+<style>
+/* Layout idea: one calm column, summary first (level bar), then now / waiting / done / next / diary. */
+:root{--bg:#f3f6f9;--card:#ffffff;--ink:#14212e;--mute:#5d6f80;--line:#dde5ec;--accent:#0b7a75;--accent-soft:#d9f0ee;
+--good:#1f8a4c;--warn:#b7791f;--bad:#c0392b;
+--display:"Fraunces",Georgia,serif;--body:"Nunito Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1720;--card:#16222d;--ink:#e8eff5;--mute:#93a5b5;--line:#25343f;--accent:#3cc3bb;--accent-soft:#12403e;--good:#4cc27f;--warn:#e0a63f;--bad:#ef6f61;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e1720;--card:#16222d;--ink:#e8eff5;--mute:#93a5b5;--line:#25343f;--accent:#3cc3bb;--accent-soft:#12403e;--good:#4cc27f;--warn:#e0a63f;--bad:#ef6f61;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 var(--body);padding:20px 16px 48px}
+main{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+h1{font:600 28px/1.2 var(--display);margin:0;text-wrap:balance}
+h2{font:700 13px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin:0 0 12px}
+header{display:flex;flex-direction:column;gap:4px}
+.fresh{color:var(--mute);font-size:14px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+button{font:inherit;color:var(--accent);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 12px;cursor:pointer}
+button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
+.big{font:600 44px/1 var(--display);font-variant-numeric:tabular-nums}
+.bar{height:16px;background:var(--line);border-radius:999px;overflow:hidden;margin:10px 0 16px}
+.bar>i{display:block;height:100%;background:var(--accent);border-radius:999px;width:0;transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.levels{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.levels li{display:flex;gap:12px;align-items:center}
+.dot{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:700;border:2px solid var(--line);color:var(--mute)}
+.done .dot{background:var(--good);border-color:var(--good);color:#fff}
+.here .dot{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.here{font-weight:700}.locked{color:var(--mute)}
+.pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:3px 10px;font-size:14px;font-weight:700;background:var(--accent-soft);color:var(--accent)}
+.pill.good{background:color-mix(in srgb,var(--good) 18%,transparent);color:var(--good)}
+.pill.warn{background:color-mix(in srgb,var(--warn) 20%,transparent);color:var(--warn)}
+.pill.bad{background:color-mix(in srgb,var(--bad) 18%,transparent);color:var(--bad)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.kv{color:var(--mute);font-size:15px;margin:6px 0 0}
+ul.plain{margin:0;padding:0;list-style:none;display:grid;gap:12px}
+ul.plain li{padding-left:14px;border-left:3px solid var(--line)}
+.waiting ul.plain li{border-left-color:var(--warn)}
+.date{color:var(--mute);font-size:13px;font-variant-numeric:tabular-nums}
+details{color:var(--mute);font-size:13px}
+.lab{font-size:11px;color:var(--mute);opacity:.8;font-variant-numeric:tabular-nums}
+.empty{color:var(--mute)}
+@media (prefers-reduced-motion:reduce){.bar>i{transition:none}}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script>
+const D = /*DATA*/null;
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const li = (t, sub, id) => `<li><div>${esc(t)}</div>${sub ? `<div class="date">${esc(sub)}</div>` : ''}${id ? ` <span class="lab">${esc(id)}</span>` : ''}</li>`;
+const list = (a, f, none) => a.length ? `<ul class="plain">${a.map(f).join('')}</ul>` : `<div class="empty">${none}</div>`;
+const light = {red:['bad','🔴 Busy: one chat is working, the others wait'], yellow:['warn','🟡 Unfinished work: the next run will pick it up'], green:['good','🟢 Free: the next run can start a job'], unknown:['','Light not known']}[D.light] || ['','Light not known'];
+const lim = {fine:['good','Fine'], warning:['warn','Getting low'], used:['bad','Used up'], unknown:['','Not known']}[D.limit.state] || ['','Not known'];
+const robot = D.robot.on === true ? ['good','Robot is on'] : D.robot.on === false ? ['warn','Robot is paused'] : ['','Robot status not known'];
+const here = D.levels.find(l => l.state === 'here');
+document.getElementById('app').innerHTML = `
+<header>
+  <h1>Cell Learning App</h1>
+  <div class="fresh"><span>As of ${esc(D.built)}</span><button id="r" type="button">What does this mean?</button></div>
+  <div id="why" class="kv" hidden>This page is a snapshot. Claude refreshes it at the end of each chat, so it can be a little out of date. It never talks to GitHub by itself and costs no Claude usage.</div>
+</header>
+
+<section class="card">
+  <h2>Where we are</h2>
+  <div class="big">${D.pct}%</div>
+  <div class="bar" role="progressbar" aria-valuenow="${D.pct}" aria-valuemin="0" aria-valuemax="100" aria-label="Overall progress"><i id="fill"></i></div>
+  <ol class="levels">${D.levels.map(l => `<li class="${l.state}"><span class="dot">${l.state === 'done' ? '✓' : l.n}</span><span>${esc(l.name)}${l.state === 'here' ? ' · you are here' : ''}</span></li>`).join('')}</ol>
+  ${here ? `<p class="kv">${esc(here.what)}</p>` : ''}
+</section>
+
+<section class="card">
+  <h2>Right now</h2>
+  <div>${D.working ? esc(D.working) : 'Nothing is being worked on.'}</div>
+  <div class="row">
+    <span class="pill ${robot[0]}">${robot[1]}</span>
+    <span class="pill ${light[0]}">${light[1]}</span>
+  </div>
+  ${D.robot.next ? `<p class="kv">Next robot check: ${esc(D.robot.next)}</p>` : ''}
+  <p class="kv">Your Claude usage: <span class="pill ${lim[0]}">${lim[1]}</span>${D.limit.resets ? ` resets ${esc(D.limit.resets)}` : ''}</p>
+</section>
+
+<section class="card waiting">
+  <h2>Waiting for you</h2>
+  ${list(D.waiting, w => li(w.text, w.how, w.id), 'Nothing. Claude has what it needs.')}
+</section>
+
+<section class="card">
+  <h2>Done recently</h2>
+  ${list(D.recent, r => li(r.text, r.date, r.id), 'Nothing yet.')}
+</section>
+
+<section class="card">
+  <h2>Coming up</h2>
+  ${list(D.next.concat(D.upcoming), n => li(n.text, n.who && n.who !== 'Claude' ? 'with ' + n.who : '', n.id), 'Nothing planned.')}
+</section>
+
+<section class="card">
+  <h2>Diary</h2>
+  ${list(D.diary, d => li(d.text, d.date), 'No entries.')}
+</section>
+<details><summary>About the small gray labels</summary>Labels like T18 are just names Claude uses to keep track of its own tasks. You can ignore them.</details>`;
+requestAnimationFrame(() => requestAnimationFrame(() => { document.getElementById('fill').style.width = D.pct + '%'; }));
+document.getElementById('r').onclick = () => { const w = document.getElementById('why'); w.hidden = !w.hidden; };
+</script>
+</body>
+</html>

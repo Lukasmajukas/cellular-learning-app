@@ -15,7 +15,7 @@ Level 1 Research ✅ → **Level 2 The Plan 👉 you are here** → Level 3 Test
 
 All the levels are explained in [ROADMAP.md](ROADMAP.md).
 
-**Progress panel:** a clean page that shows how far Claude has got, in plain words. It isn't built yet: the robot builds it first. Its link will go here when it's ready. _(link coming)_
+**Progress panel:** a clean page that shows how far Claude has got, in plain words. **Open it here:** https://claude.ai/artifact/UFEWWa8kh5cWFcyQVJU5bc (private: only you can open it; pin it). It's a snapshot that Claude refreshes, so it shows an "as of" time.
 
 **What are T13, T20 and so on?** Just labels so chats don't mix up tasks. You can ignore them.
 
