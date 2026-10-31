@@ -15,4 +15,4 @@ Artifact slug: `dca37b4f-e1cc-4582-9b28-3f7a51a9f0ef`
 - **Result:** live is not possible today. The snapshot stays. Re-test only if the owner adds a GitHub connector or tells Claude a project id.
 
 ## Keeping it fresh (now part of the end-of-chat steps)
-`docs/WORKFLOW.md` section C, step 2a: before merging, a chat runs `panel/build.py` after updating `panel/live.json`, then republishes with `publish_files` (slug above, `base_version` from `get_artifact`). If publishing fails, say so in the handoff note and carry on: it never blocks a merge.
+`docs/WORKFLOW.md` section C, step 2a: before merging, a chat runs `panel/build.py` after updating `panel/live.json`, then republishes with `publish_files` (slug above, `base_version` from `get_artifact`). If publishing fails, say so in the handoff note and carry on: it never blocks a merge. **Robot runs never republish:** the publishing tool always asks first and the owner can't switch that off (T21). They still rebuild and commit `panel/index.html`, so the next chat the owner is in publishes it (one Approve click). T39 looks for a hands-free way.
