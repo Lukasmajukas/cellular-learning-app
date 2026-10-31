@@ -19,20 +19,18 @@ All the levels are explained in [ROADMAP.md](ROADMAP.md).
 
 ## 🎮 How to work with Claude (do this every time)
 
-1. **Start a new chat** with this repository selected.
+1. **Start a new chat** with this repository selected. Leave the branch on **main**. (Picked another one by mistake? No harm. Claude switches to the newest copy by itself.)
 2. **Pick the model** that [TASKS.md](TASKS.md) says. Most of the time that's Sonnet.
-3. **Type:** `Do the next task in TASKS.md`
-4. **Look at the pull request.** When Claude finishes, it gives you one: a "here's what I changed" page. Look at it, then merge it (steps below).
-5. **Close the chat.** Next task, new chat. Claude will also tell you when it's time.
+3. **Type:** `Do the next task in TASKS.md` (or just `Go`)
+4. **Read Claude's last message.** It says what changed, anything it needs from you, and when to start a fresh chat.
+5. **Close the chat.** Next task, new chat.
 
-There are more messages you can copy and paste in [CHEATSHEET.md](CHEATSHEET.md).
+**You don't need to open GitHub or merge anything.** Claude saves its own work into the binder at the end of every chat.
+- **One chat at a time.** If you open a second chat while the first is working, it tells you to wait.
+- **Not happy?** Tell Claude what to change, or type `Undo the last change`.
+- **Want to peek?** Open the GitHub app or github.com. Looking never breaks anything.
 
-### How to merge a pull request (accept Claude's changes)
-1. On GitHub, click **Pull requests** at the top of the page and open the newest one.
-2. If it says **Draft**, click **Ready for review**.
-3. Click **Merge pull request**, then **Confirm merge**. Done ✅
-
-Not happy? Don't merge. Just tell Claude what to change.
+How this works, and what to do if something odd happens: [docs/WORKFLOW.md](docs/WORKFLOW.md). More messages to copy and paste: [CHEATSHEET.md](CHEATSHEET.md).
 
 ---
 
@@ -43,6 +41,7 @@ Not happy? Don't merge. Just tell Claude what to change.
 | `ROADMAP.md` | The levels, and where we are | You |
 | `TASKS.md` | The to-do list, with which model to use | You and Claude |
 | `CHEATSHEET.md` | Messages you can copy and paste to Claude | You |
+| `docs/WORKFLOW.md` | How chats share the work without tripping over each other | You and Claude |
 | `GLOSSARY.md` | Every tricky word, explained simply | You |
 | `CLAUDE.md` | Claude's memory card. Claude reads it first in every chat. | Claude |
 | `docs/PROGRESS-LOG.md` | A diary: one line per chat about what happened | You |

@@ -3,6 +3,8 @@
 **Status:** DRAFT. Waiting for the owner's sign-off. Nothing here gets built until you say "proceed".
 **Written:** 2026-10-31 · **Task:** T11 · **Separate from:** the learning app and its plan (`docs/PRD.md`)
 
+> **Update (2026-10-31, later):** The clean-up in §8 is done: #5 and this plan (#6) are merged, and #2, #3 and #4 are closed. Chats now merge their own work and check for each other first (`docs/WORKFLOW.md`). §6 ("it never merges", rule 2) and §5 (show the traffic light) get updated when you answer §10 (task T11).
+
 ---
 
 ## 1. The short version (for the owner)

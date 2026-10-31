@@ -27,23 +27,29 @@ Say it plainly, starting with "Time for a fresh chat:" or "Time for a new branch
 - the chat has been summarized, or you notice you forgot a decision or repeated a mistake;
 - a change deserves its own branch (a new feature, a new content unit).
 
-Before the owner switches, do the end-of-session steps below. Then tell them which model to pick and exactly what to type.
+Before the owner switches, do the end-of-session steps below, including merging your pull request. Then tell them which model to pick and exactly what to type.
 
 ## Every session
-**Start:** read this file, `TASKS.md`, and the newest note in `docs/sessions/`.
+How chats share work without overlapping is in `docs/WORKFLOW.md`. Follow its "Rules for Claude" exactly.
+
+**Start (before any other work):**
+1. Read this file, `TASKS.md`, and the newest note in `docs/sessions/` (latest date, then highest session number).
+2. Run the start-up check in `docs/WORKFLOW.md` (section A): get the newest `main`, read the traffic light, and claim the task with an `[in progress]` pull request. If another chat is busy, stop and tell the owner.
 
 **Work:**
-- One task per session.
-- All changes go on a branch with a draft pull request. Never push to `main`; the owner merges.
+- One task per chat. If the owner types just `Go`, it means `Do the next task in TASKS.md`.
+- Never push straight to `main`. Work reaches `main` only when you merge this chat's own pull request.
+- Never leave a pull request waiting for the owner. Owner approvals (sign-offs, "it works") happen in chat.
 - Confirm before anything destructive.
 - No app code until the owner signs off on `docs/PRD.md`.
 
 **End (always, in this order):**
-1. Write a handoff note in `docs/sessions/` (copy `docs/sessions/TEMPLATE.md`).
+1. Finish the handoff note you started in `docs/sessions/` when you claimed the task. Set its Status to DONE.
 2. Add one plain-English line at the top of `docs/PROGRESS-LOG.md`.
 3. Tick or add tasks in `TASKS.md`. If a level changed, move the "you are here" marker in `ROADMAP.md` and `README.md`.
 4. Add new decisions to `docs/DECISIONS.md` and new words to `GLOSSARY.md`.
-5. Commit, push, and open or update the pull request using the template: simple words, plus "how to check it" steps.
+5. Commit, push, update the pull request (template: simple words, plus "how to check it"), then **merge it yourself** (squash), as in `docs/WORKFLOW.md` section C.
+6. Tell the owner what changed and anything you need from them.
 
 ## Models: pick by size (versions change, sizes don't)
 | Size | Current model | Use for |
@@ -68,6 +74,7 @@ Before the owner switches, do the end-of-session steps below. Then tell them whi
 
 ## Where things are
 - **For the owner:** `README.md` (their start page), `ROADMAP.md`, `TASKS.md`, `CHEATSHEET.md`, `GLOSSARY.md`
+- **How chats share work:** `docs/WORKFLOW.md`
 - **Logs:** `docs/PROGRESS-LOG.md`, `docs/DECISIONS.md`, `docs/sessions/`
 - **Research:** `docs/research/`, the report and notes. `band_verification.md` overrides `us_bands.md`.
 - **Later:** `content/` (facts and lessons), `app/` (code)

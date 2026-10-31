@@ -1,18 +1,18 @@
 # ✅ Tasks
 
 **How to use this list:**
-1. Start a new chat with this repository selected.
+1. Start a new chat with this repository selected (leave the branch on **main**).
 2. Pick the model size shown.
-3. Type `Do the next task in TASKS.md`.
+3. Type `Do the next task in TASKS.md`, or just `Go`.
 
-Claude ticks tasks off and adds new ones. ⭐ means "do this next".
+Claude ticks tasks off, adds new ones, and saves (merges) its own work. ⭐ means "do this next". Rows where "Who" is "You" are things only you can answer: answer them in any chat. How chats avoid doing the same task twice: `docs/WORKFLOW.md`.
 
 ## Now
 | # | Task | Who | Model size | Status |
 |---|---|---|---|---|
-| T02 | Tell Claude: do you have an app name idea? (Your Mac/iPhone, `cellatlas-data` and South Hadley answers are recorded in `docs/DECISIONS.md`.) | You | — | Open: tell Claude in any chat |
+| T02 | Tell Claude: do you have an app name idea? (Your Mac/iPhone, `cellatlas-data` and South Hadley answers are recorded in `docs/DECISIONS.md`. Two chats heard different Mac answers; the latest one stands: Mac later.) | You | — | Open: tell Claude in any chat |
 | T04 | Write the plan (`docs/PRD.md`) using the research and `docs/reuse-review.md`, including which app engine to use (Electron or Tauri). You read it, ask for changes, and sign off. | Claude + you | Large (Opus) | ⭐ Next |
-| T11 | Read the **progress panel + automation plan** (`docs/panel-plan.md`), answer its 6 questions (§10), and sign off or ask for changes. Before that, tidy the pull requests: merge #5, close the duplicate T03 ones #2, #3, #4 (§8). | You | — | 👉 Your turn: plan written |
+| T11 | Read the **progress panel + automation plan** (`docs/panel-plan.md`, now saved in the binder as a draft) and answer its 6 questions (§10) in any chat. Claude then updates the plan with your answers and with the new way chats share work (`docs/WORKFLOW.md`: the robot follows the same start-up check, and the panel shows the 🔴/🟡/🟢 traffic light). | You, then Claude | Medium for the update | 👉 Your turn: plan written |
 
 ## After you sign off on the plan
 | # | Task | Who | Model size | Status |
@@ -29,5 +29,6 @@ Claude ticks tasks off and adds new ones. ⭐ means "do this next".
 ## Done
 | # | Task | Finished |
 |---|---|---|
+| T14 | Fixed how chats share work: a start-up check, a "busy" sign, and Claude merging its own work (`docs/WORKFLOW.md`). Closed the 3 duplicate T03 pull requests and saved their extra findings. | 2026-10-31 |
 | T03 | Checked your 6 other projects for reusable material; findings in `docs/reuse-review.md` | 2026-10-31 |
-| T01 | Set up this binder: start page, roadmap, tasks, glossary, cheat sheet, memory card, research | 2026-10-31 (merge the setup pull request to finish) |
+| T01 | Set up this binder: start page, roadmap, tasks, glossary, cheat sheet, memory card, research | 2026-10-31 |
