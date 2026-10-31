@@ -1,0 +1,1 @@
+{"permissions":{"allow":["mcp__claude-code-remote__list_sessions","mcp__claude-code-remote__get_session","mcp__claude-code-remote__archive_session","mcp__github__merge_pull_request","mcp__github__update_pull_request"]}}
