@@ -1,7 +1,7 @@
 # Handoff note: 2026-10-31, T14 fix how chats share work
 
 **Status:** DONE
-**Model used:** Large · **Branch / pull request:** `claude/dreamy-bohr-8ovj16`, #__ (merged by Claude)
+**Model used:** Large · **Branch / pull request:** `claude/dreamy-bohr-8ovj16`, #7 (merged by Claude)
 
 ## In simple words (for the owner)
 Four chats did the same task because none of them could see the others, and only you could tick the list (by merging). Now every chat checks a traffic light first, hangs a "busy" sign on its task, and merges its own work at the end. You just open a chat and type `Go`.
