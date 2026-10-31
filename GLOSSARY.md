@@ -102,3 +102,5 @@ Claude adds new words here whenever they come up.
 | **Monopine** | A cell tower dressed up as a pine tree. |
 | **MVNO** | A phone company with no towers of its own. It rents another company's towers (e.g. Mint rides on T-Mobile). Its phones usually show the host's carrier code. |
 | **FirstNet** | AT&T's special network for police, fire and ambulance crews, with priority on the same towers. |
+| **UNVERIFIED** | Our label for a fact nobody has checked yet. The app never asks a quiz question about one. |
+| **Core band** | In the bands file: a band that some US carrier is said to use, as opposed to one the standard defines but nobody here uses. |
