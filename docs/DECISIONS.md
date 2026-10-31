@@ -55,3 +55,4 @@ Every decision, with the date and why. Newest at the bottom.
 | 2026-10-31 | The robot only uses the usage limit while it has tasks it's allowed to do. When none are left it waits ("Nothing for me to do"). More robot-safe tasks, and the plan sign-off that lets it build the app, keep it busy. | Told to the owner, who wants the whole limit used |
 | 2026-10-31 | No force-pushes: the safety check blocks them. If the old copy of a branch is still on GitHub, merge it into the fresh branch instead. | The safety check refused `git push --force-with-lease` during T20 |
 | 2026-10-31 | Panel v1 is a snapshot: `panel/build.py` bakes the project's files into the page, which says "as of <time>". The live-connector route couldn't be tested from a cloud chat (task T23). | T18 |
+| 2026-10-31 | The panel stays a snapshot. No GitHub connector exists, and the `files` route needs a project id the robot can't see. Chats refresh it at the end (WORKFLOW section C, 2a). | T23 |
