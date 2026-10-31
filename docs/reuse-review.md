@@ -176,3 +176,41 @@ Wi-Fi networks, home-network devices and speed tests only. No cellular content.
 ## Facts discipline for anything taken from these repos
 - Band numbers: **never** taken from these repos. They come only from `band_verification.md` → `content/` bands file (T06). The repos are used only as a second opinion.
 - Site and carrier facts copied over get status **UNVERIFIED**, an as-of date from the source repo (SpectrumScope: 2026-06-23; bandmon capture: 2026-06-18), and the original source (permit number, FCC ASR/ULS ID). They're upgraded only after a re-check.
+
+---
+
+## Extra findings from the duplicate T03 reviews (added 2026-10-31)
+Four chats did T03 at the same time (pull requests #2, #3, #4 and #5). Only #5 was merged. The other three found a few things #5 didn't, so they're saved here. Treat every item as a clue to re-check, not a fact.
+
+**Privacy: treat bandmon's `sample-capture.log` as private.**
+- The reviews disagree about what's in it. #5 says personal details are blanked out as `<private>`. #4 says the location is blanked, but the real Cell ID and area code are there. #3 says a text search found precise GPS coordinates and SIM account numbers.
+- Rule until someone checks: copy nothing from that file, and lessons use made-up ID numbers. Check it before T09 or T10 use bandmon.
+
+**SpectrumScope carrier facts that look out of date** (compared with `docs/research/notes/us_bands.md`):
+- It says AT&T's EchoStar deal "adds ~50 MHz of 3.45 GHz". Our notes say about 30 MHz of 3.45 GHz plus about 20 MHz of 600 MHz, closed July 28, 2026. (#3)
+- It doesn't list AT&T's 600 MHz. Our notes say AT&T has owned about 20 MHz since July 28, 2026, not switched on yet. (#4)
+- A Hadley St tower lists Dish as a fourth operator, from a 2021 town permit. Our notes say Boost traffic moved onto AT&T's network by Nov 15, 2025, so that line is probably stale. (#3)
+- It shows n77 as 3.45–3.98 GHz. Those are the pieces US carriers use (3.45–3.55 and 3.70–3.98 GHz), not the band itself (3300–4200 MHz). Lessons should teach both, clearly apart. (#4)
+
+**A correction to one duplicate.** #3 said our notes have no LTE channel-number (EARFCN) ranges, so bandmon's table couldn't be checked. That's wrong: `docs/research/notes/vendors_and_cells.md` §5 has them, and #5's check against them stands.
+
+**Ideas for later tasks**
+- **T05 (test build):** copy two CellAtlas habits: a start-up health check (`tools/preflight.sh`), and a self-test mode that reports "OK" or "problem" and exits. Then Claude can prove the app works without seeing a screen. (#3, #4)
+- **T06 (bands file):** build a small checker, like CellAtlas's `packctl`, that refuses any row without a status, date and source. SpectrumScope's `verify_new_towers.py` does the same "check before you add" for tower coordinates. (#3)
+- **Signal lessons:** TowerScope's signal labels (−80 dBm or better is "Excellent", down to below −110 "Very weak") are that app's own rule of thumb. Mark them UNVERIFIED until we find a source. (#3)
+- **Cell ID lessons:** TowerScope explains how to open the iPhone's hidden Field Test screen (dial `*3001#12345#*`) and where to find band, Cell ID and area code (TAC). Menus differ between iPhone models, so check on a real phone first. (#4)
+- **Mac version (for the PRD):** without a paid Apple developer account, a Mac app can't be "notarized", so macOS blocks it the first time it opens. The steps to allow it have changed in recent macOS versions, so the PRD should check them. On a Mac, Tauri uses Apple's own browser engine (WebKit), which is a point for Electron. (#2)
+- **Old backups:** the `autosave` branch in each of the six repos holds nothing that `main` doesn't. (#3)
+
+**South Hadley sites with their proof** (#4). From SpectrumScope's `docs/SOUTH_HADLEY.md`, as of 2026-06-23. All UNVERIFIED; for T10.
+
+| Site | Type | Who's on it (per the notes) | Proof named in the notes |
+|---|---|---|---|
+| South Hadley High School, 153 Newton St | Chimney | T-Mobile (was metroPCS), AT&T | Town Planning Board permit |
+| 14 Mulligan Dr | Water tank | T-Mobile, Verizon, AT&T | FCC licence records, town permits |
+| 8 Industrial Dr | Water tank | AT&T, Verizon, T-Mobile | FCC licence records, town permits |
+| Hadley St (Route 47) | Monopole, 150 ft | T-Mobile, Sprint (now T-Mobile), Verizon, Dish (probably stale, see above) | FCC tower registration (ASR) 1309677, permits |
+| Williston Library, Mount Holyoke | Steeple | T-Mobile | Town permit |
+| Clapp Lab, Mount Holyoke | Rooftop | Verizon | 2015 special permit |
+
+**`cellatlas-data` (for T12):** CellAtlas's notes say it lives at `~/Developer/cellatlas-data` on the Mac. To check: in Finder, press `Cmd + Shift + G`, type `~/Developer/cellatlas-data`, and press Enter. (#4)

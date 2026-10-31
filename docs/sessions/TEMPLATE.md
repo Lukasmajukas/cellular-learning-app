@@ -1,5 +1,7 @@
 # Handoff note: YYYY-MM-DD, [task number and name]
+<!-- File name: docs/sessions/YYYY-MM-DD-session-N-short-name.md (N = the highest session number so far + 1) -->
 
+**Status:** IN PROGRESS <!-- change to DONE when the chat finishes -->
 **Model used:** [Small/Medium/Large] · **Branch / pull request:** [link]
 
 ## In simple words (for the owner)

@@ -9,10 +9,17 @@ Claude adds new words here whenever they come up.
 | **GitHub** | The website that keeps the binder safe online. |
 | **Branch** | A photocopy of the binder where changes are made safely, without touching the real one. |
 | **Commit** | A save point, like saving your game. |
-| **Pull request (PR)** | Claude handing back the photocopy with a list of every change, asking "Can I add this to the real binder?" |
-| **Merge** | Saying "yes" to a pull request. The changes go into the real binder. |
+| **Pull request (PR)** | Claude handing back the photocopy with a list of every change, asking "Can I add this to the real binder?" While a chat works, its pull request is also its "busy" sign. |
+| **Merge** | Putting a pull request's changes into the real binder. Claude does this itself at the end of every chat. |
 | **main** | The name of the real, official version of the binder. |
-| **Draft** | A pull request still marked "not final". Click "Ready for review" to un-draft it. |
+| **Draft** | A pull request still marked "not final". Claude un-drafts and merges its own, so you never need to click anything. |
+| **Claim ("[in progress]" sign)** | The note a chat hangs on its task that says "I'm working on this right now", like writing "I'm getting the milk" on the fridge note. |
+| **Traffic light (start-up check)** | What every chat checks before working: 🔴 another chat is busy, 🟡 a chat stopped halfway (pick it up), 🟢 go. |
+| **Take over** | Telling a new chat to finish the work an old chat left half-done. |
+| **Stale copy** | An old photocopy of the binder that's missing newer changes. Every chat grabs the newest copy first. |
+| **Conflict** | When two chats changed the same lines, so someone has to decide what to keep. Claude sorts it out. |
+| **Squash merge** | Merging all of a chat's save points as one single save point, so each task is one neat step in the history. |
+| **Undo (revert)** | A new change that exactly reverses an old one. Nothing is erased; the history shows both. |
 | **Chat / session** | One conversation with Claude. Best kept to one task. |
 | **Context** | Claude's short-term memory for one chat. It's like a backpack: the more you stuff in, the harder it is to find things. That's why we start fresh chats. |
 | **Handoff note** | A note one chat leaves for the next, like passing the baton in a relay race. |
