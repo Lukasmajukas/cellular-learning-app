@@ -45,5 +45,11 @@ Claude adds new words here whenever they come up.
 | **PCI** | A short number that helps phones tell nearby cells apart. It's not unique. |
 | **EARFCN / NR-ARFCN** | A channel number that points to one exact frequency. |
 | **3GPP** | The group that writes the official rules for bands. |
+| **Stealth site** | Antennas hidden so you don't notice them: inside a steeple, on a water tank or chimney, or dressed up as a tree. |
+| **Monopole** | A tower that's one single tall pole, not a criss-cross metal frame. |
+| **Carrier code (PLMN, MCC-MNC)** | A number pair that names the phone company. The first part is the country code; the second is the company. For example, T-Mobile phones show 310-260. |
+| **TAC** | Tracking Area Code: the number of the neighborhood of towers your phone is in. |
+| **Field Test mode** | A hidden iPhone screen that shows the bands and tower numbers your phone sees. Open it by dialing `*3001#12345#*`. |
+| **RSRP** | How strong the signal is, measured in dBm. It's always negative, and closer to zero is stronger: −80 is great, −115 is weak. |
 | **Spaced repetition (FSRS)** | The app quizzes you right before you'd forget something, so it sticks. |
 | **Streak / XP** | A streak is how many days in a row you practiced. XP is the points you earn for practicing. |

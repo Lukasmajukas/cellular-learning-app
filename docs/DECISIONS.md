@@ -17,3 +17,7 @@ Every decision, with the date and why. Newest at the bottom.
 | 2026-10-31 | Repository: `Lukasmajukas/cellular-learning-app` (private; working name) | Owner created it |
 | 2026-10-31 | Everything is explained like the owner is 12; new words go in `GLOSSARY.md` | Owner's request |
 | 2026-10-31 | Owner's main computer is a Windows PC (confirm whether Mac/Linux is also used). On Windows, Tauri also uses a Chromium engine, so both app engines are viable. | Seen in the owner's Remote Control computer list |
+| 2026-10-31 | Owner uses Windows **and** a Mac; the app must work on both, and will mostly be used on the PC. (On a Mac, Tauri uses Apple's WebKit engine, not Chromium; weigh this in the PRD.) | Owner's answer (T02) |
+| 2026-10-31 | Dropped the "From your own phone" idea (importing the owner's phone logs into the app) | Owner's choice |
+| 2026-10-31 | The owner's other projects are a source of ideas and leads only. No band or carrier fact is copied from them; all facts go through the bands data file. Their Swift code isn't reused (Apple-only). | T03 found wrong and out-of-date band facts in them (`docs/reuse-review.md`, section 4) |
+| 2026-10-31 | claude-projects and LinkBond are not reviewed for reuse | Owner's choice |
