@@ -5,7 +5,18 @@
       "mcp__claude-code-remote__get_session",
       "mcp__claude-code-remote__archive_session",
       "mcp__github__merge_pull_request",
-      "mcp__github__update_pull_request"
+      "mcp__github__update_pull_request",
+      "mcp__claude-code-remote__create_session",
+      "mcp__claude-code-remote__fire_trigger",
+      "mcp__claude-code-remote__list_triggers",
+      "mcp__claude-code-remote__subscribe_pr_activity",
+      "mcp__claude-code-remote__unsubscribe_pr_activity",
+      "mcp__github__list_pull_requests",
+      "mcp__github__pull_request_read",
+      "mcp__github__create_pull_request",
+      "PushNotification",
+      "WebSearch",
+      "WebFetch"
     ]
   },
   "autoContinueAtUsageLimit": true,
