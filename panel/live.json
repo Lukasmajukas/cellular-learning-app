@@ -1,0 +1,7 @@
+{
+  "asOf": "2026-10-31 4:45 PM Eastern",
+  "robot": {"on": true, "next": "about 6:18 PM Eastern, then every 2 hours", "last": "started the progress panel"},
+  "light": "red",
+  "working": "Building this progress panel",
+  "limit": {"state": "fine", "resets": "about 9:10 PM Eastern"}
+}
