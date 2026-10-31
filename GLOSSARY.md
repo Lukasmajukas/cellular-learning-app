@@ -23,6 +23,9 @@ Claude adds new words here whenever they come up.
 | **Installer** | The file you double-click to put the app on your computer. |
 | **App engine (Electron / Tauri)** | The base the app is built on, like the engine in a car. We pick one in the plan. |
 | **Bug** | A mistake that makes something in the app not work right. |
+| **Swift** | Apple's programming language for iPhone and Mac apps. Your other projects are written in it. |
+| **Browser engine (Chromium / WebKit)** | The part of a web browser that draws pages. Chrome uses Chromium; Safari uses WebKit. Electron always brings Chromium along; Tauri uses whatever engine the computer already has. |
+| **Notarization** | Apple checking and stamping an app so a Mac opens it without a warning. It needs a paid Apple developer account. Without it, you right-click → Open the first time. |
 
 ## Cell phone words
 | Word | What it means |
@@ -44,6 +47,8 @@ Claude adds new words here whenever they come up.
 | **eNB / gNB** | A tower's ID "name tag": eNB for LTE, gNB for 5G. |
 | **PCI** | A short number that helps phones tell nearby cells apart. It's not unique. |
 | **EARFCN / NR-ARFCN** | A channel number that points to one exact frequency. |
+| **FCC ASR** | A government list of tall towers (over about 200 ft, or near airports), with their exact locations. Short and hidden sites aren't in it. |
+| **Stealth site** | Antennas hidden on a water tank, chimney, church steeple or fake tree, so they don't look like a tower. |
 | **3GPP** | The group that writes the official rules for bands. |
 | **Spaced repetition (FSRS)** | The app quizzes you right before you'd forget something, so it sticks. |
 | **Streak / XP** | A streak is how many days in a row you practiced. XP is the points you earn for practicing. |

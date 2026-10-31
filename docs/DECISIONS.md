@@ -17,3 +17,5 @@ Every decision, with the date and why. Newest at the bottom.
 | 2026-10-31 | Repository: `Lukasmajukas/cellular-learning-app` (private; working name) | Owner created it |
 | 2026-10-31 | Everything is explained like the owner is 12; new words go in `GLOSSARY.md` | Owner's request |
 | 2026-10-31 | Owner's main computer is a Windows PC (confirm whether Mac/Linux is also used). On Windows, Tauri also uses a Chromium engine, so both app engines are viable. | Seen in the owner's Remote Control computer list |
+| 2026-10-31 | Owner uses a Windows PC **and** a Mac; the app must run on both. This favors Electron (same Chromium engine on both) over Tauri (WebKit on Mac). Final pick in the PRD. | Owner's answer to T02 |
+| 2026-10-31 | No code reused from the owner's other projects (all Swift/Python, Apple-only). Their data is a cross-check only; band and carrier facts still come only from `band_verification.md`. | T03 reuse review |

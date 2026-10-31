@@ -14,7 +14,7 @@ Phases and status are in `ROADMAP.md`; the next work is in `TASKS.md`.
 ## The owner
 - **No coding background.** Claude writes and tests all the code.
 - **Explain everything like the owner is 12:** short sentences, everyday comparisons, no jargon left unexplained. When a new technical word comes up, add it to `GLOSSARY.md`.
-- **Main computer:** a Windows PC. Confirm whether a Mac or Linux machine is also used (T02).
+- **Computers:** a Windows PC and a Mac (confirmed 2026-10-31). The app must run on both.
 - **RF level:** knows the band names n25, n41, n66, n71, n77, n258, n260, n261 and the low/mid/high idea. Lessons start at beginner level.
 - **Images:** the owner has no photos.
   - Use copyright-free images (Wikimedia Commons, Flickr Creative Commons) with credits, plus diagrams Claude draws.

@@ -10,9 +10,8 @@ Claude ticks tasks off and adds new ones. ⭐ means "do this next".
 ## Now
 | # | Task | Who | Model size | Status |
 |---|---|---|---|---|
-| T02 | Tell Claude: do you use only Windows, or also a Mac or Linux? Do you have an app name idea? | You | — | Open: tell Claude in any chat |
-| T03 | Look through your other projects (CellAtlas, bandmon, SpectrumScope, TowerScope, NetScopeiOS, NetScopeMac) for band data, code or content we can reuse. Write the findings in `docs/reuse-review.md`. | Claude | Medium (Sonnet) | ⭐ Next |
-| T04 | Write the plan (`docs/PRD.md`) using the research and T03, including which app engine to use (Electron or Tauri). You read it, ask for changes, and sign off. | Claude + you | Large (Opus) | After T03 |
+| T02 | Do you have an app name idea? (Computers are answered: Windows PC + Mac.) | You | — | Half done: name still open. Claude will ask again in T04 |
+| T04 | Write the plan (`docs/PRD.md`) using the research and `docs/reuse-review.md`, including which app engine to use (Electron or Tauri). You read it, ask for changes, and sign off. | Claude + you | Large (Opus) | ⭐ Next |
 
 ## After you sign off on the plan
 | # | Task | Who | Model size | Status |
@@ -25,4 +24,5 @@ Claude ticks tasks off and adds new ones. ⭐ means "do this next".
 ## Done
 | # | Task | Finished |
 |---|---|---|
+| T03 | Reuse review of your other projects → `docs/reuse-review.md`. Short version: little code to reuse; SpectrumScope's 125 sourced tower sites are the best find. | 2026-10-31 |
 | T01 | Set up this binder: start page, roadmap, tasks, glossary, cheat sheet, memory card, research | 2026-10-31 (merge the setup pull request to finish) |
