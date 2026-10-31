@@ -1,7 +1,14 @@
 {
-  "asOf": "2026-10-31 4:45 PM Eastern",
-  "robot": {"on": true, "next": "about 6:18 PM Eastern, then every 2 hours", "last": "started the progress panel"},
-  "light": "red",
-  "working": "Building this progress panel",
-  "limit": {"state": "fine", "resets": "about 9:10 PM Eastern"}
+ "asOf": "2026-10-31 4:52 PM Eastern",
+ "robot": {
+  "on": true,
+  "next": "about 6:18 PM Eastern, then every 2 hours",
+  "last": "finished checking whether this page can update itself live (it can't yet, so it's a snapshot)"
+ },
+ "light": "red",
+ "working": "Claude is writing down your answers about effort levels and restarts; then the robot carries on with the photo-sources list",
+ "limit": {
+  "state": "fine",
+  "resets": "about 9:10 PM Eastern"
+ }
 }
