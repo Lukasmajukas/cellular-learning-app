@@ -23,6 +23,16 @@ Claude adds new words here whenever they come up.
 | **Installer** | The file you double-click to put the app on your computer. |
 | **App engine (Electron / Tauri)** | The base the app is built on, like the engine in a car. We pick one in the plan. |
 | **Bug** | A mistake that makes something in the app not work right. |
+| **Progress panel** | A small web page that shows where the project is, like the scoreboard at a game. |
+| **claude.ai page (artifact)** | A web page Claude makes that lives on claude.ai. It starts private: only you can open it. |
+| **Connector** | A link you set up once between claude.ai and another service, like GitHub. It lets claude.ai fetch things with your login, without anyone seeing your password. |
+| **Scheduled task** | An alarm clock for Claude: at a set time, it starts a fresh chat with a set message. Each run uses your limit like a normal chat. |
+| **Guard rails / checklist** | Rules the robot checks before starting. If any rule says "no", it stops. |
+| **Practice run (dry run)** | The robot does everything except the real work, then tells you what it *would* have done. |
+| **GitHub Action** | A little robot that lives on GitHub and does a job when something happens, like building the installer. |
+| **GitHub Pages** | A free way to turn files on GitHub into a website. For a private repo it needs a paid plan, and the site is still public. |
+| **Access key (token)** | A long secret code that works like a password for one job. Never put it inside a page someone else could see. |
+| **Rate limit** | A cap on how often you can ask a website for something, like "5 cookies per hour". |
 
 ## Cell phone words
 | Word | What it means |
