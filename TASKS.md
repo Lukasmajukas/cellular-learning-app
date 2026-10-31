@@ -15,7 +15,6 @@ Claude ticks tasks off, adds new ones, and saves (merges) its own work. ⭐ mean
 | T22 | Open the progress panel (link in `panel/README.md`), pin it, and tell Claude in any chat if it looks right on your PC and phone. | You | — | Open: tell Claude in any chat |
 | T21 | Make the robot hands-free, in three small steps: click Approve if a robot chat is waiting on you; set the page-publishing tools to Allowed on claude.ai; add a few lines to the permission file. The clicks are in `docs/permission-lines.md`. Only you can do these. | You | — | Open: needs about 5 minutes from you |
 | T02 | Tell Claude: do you have an app name idea? (Your Mac/iPhone, `cellatlas-data` and South Hadley answers are recorded in `docs/DECISIONS.md`. Two chats heard different Mac answers; the latest one stands: Mac later.) | You | — | Open: tell Claude in any chat |
-| T23 | Test whether the panel can read the project live through your connectors (so it needs no refreshing), and add "refresh the panel" to the end-of-chat steps (`panel/README.md`). | Claude | Medium (Sonnet), Medium effort | The robot may do it |
 | T08 | List copyright-free photo sources for each lesson topic | Claude | Medium (Sonnet), Medium effort | The robot may do it |
 | T09 | Build a sourced carrier-code (MCC/MNC) list: which code means AT&T, Verizon, T-Mobile and others, each with a status, date and source. Start from bandmon's list and fix its mistakes (see `docs/reuse-review.md` §2c). | Claude | Medium (Sonnet), Medium effort | The robot may do it |
 | T04 | Write the plan (`docs/PRD.md`) using the research and `docs/reuse-review.md`, including which app engine to use (Electron or Tauri). You read it, ask for changes, and sign off. | Claude + you | Large (Opus), High effort | The robot may write the first draft; then you read it and type `I sign off the plan` |
@@ -32,6 +31,8 @@ Claude ticks tasks off, adds new ones, and saves (merges) its own work. ⭐ mean
 ## Done
 | # | Task | Finished |
 |---|---|---|
+| T24 | Answered: effort follows the model (measured Haiku Low, Sonnet Medium), so the robot moves up a model size after a failed try; it restarts after your limit, picks up crashed work right away, and pings you when it's waiting for your approval. | 2026-10-31 |
+| T23 | Tested whether the panel can read the project live: it can't (there is no GitHub connector). The panel stays a snapshot, and chats now refresh it at the end of each task. | 2026-10-31 |
 | T18 | Built the progress panel: a clean private page showing the levels, what Claude is doing, what waits for you, and recent work. First version is a snapshot Claude refreshes (`panel/`). | 2026-10-31 |
 | T20 | You answered: yes, a pop-up once asked to approve opening a new chat (so the permission file gets a few more lines: task T21), and yes to deleting the old paused alarm (done). You also said what the progress panel should be. | 2026-10-31 |
 | T13 | Switched on the 24/7 robot. The plan's first recipe failed the test (a chat started by the alarm gets no copy of your project), so the alarm now wakes a small "Robot launcher" chat that starts each robot run with the project attached. Tested end to end. | 2026-10-31 |

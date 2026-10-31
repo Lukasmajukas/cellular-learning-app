@@ -122,6 +122,7 @@ Also, if any chat hits your usage limit, it waits for the limit to reset and car
 ### C. Finishing: after the end-of-session steps in `CLAUDE.md`
 1. Bring in the newest main: `git fetch origin main && git merge origin/main`. Fix any conflicts. In logs and lists, keep the lines from both sides.
 2. Push. Update the pull request description using the template, and set its Status line to done.
+2a. **Refresh the panel** (`panel/README.md`): update `panel/live.json`, run `python3 panel/build.py`, commit `panel/index.html`, and republish the page. If publishing fails, note it in the handoff note; it never blocks the merge. **Robot runs:** republish only once the owner has allowed the page-publishing tools on the connector (T21 is under Done in `TASKS.md`). Until then, skip the republish and write "panel not republished: waiting for T21" in the handoff note, because publishing would stop and wait for an approval nobody is there to give. Chats the owner is in may republish; the owner can approve.
 3. Take `[in progress]` out of the title and mark it ready (`update_pull_request` with `draft: false`).
 4. Merge it: `merge_pull_request`, method `squash`, commit title `T__: <task name> (#<number>)`.
 5. If the merge fails, repeat step 1 and try once more. If it still fails, leave the title without `[in progress]` so the next chat merges it (🟢), and tell the owner in plain words.
