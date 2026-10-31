@@ -14,7 +14,8 @@ Claude ticks tasks off, adds new ones, and saves (merges) its own work. ⭐ mean
 |---|---|---|---|---|
 | T22 | Open the progress panel (link in `panel/README.md`), pin it, and tell Claude in any chat if it looks right on your PC and phone. | You | — | Open: tell Claude in any chat |
 | T39 | Find a hands-free way for the robot to refresh your progress panel. One idea: keep the panel's numbers in the page's own storage, if robot chats can update that without a question. Do it in a chat you're in, because a test may ask you to approve once. | You + Claude | Medium (Sonnet), Medium effort | Open: start it in a chat when you like |
-| T40 | Try the test build: open the pull request/Actions page Claude links in chat (or ask Claude in any chat for the link), download the `windows-installer` file, run it (click **More info**, then **Run anyway**), and tell Claude in any chat: does it feel smooth? Does the confetti, beep and mascot work? | You | — | Open: tell Claude in any chat |
+| T41 | Check that GitHub's Windows build ran (`.github/workflows/app-build.yml`; no run had started yet) and fix anything it finds, so T40 has an installer. | Claude | Medium (Sonnet), Medium effort | ⭐ Next |
+| T40 | (After T41) Try the test build: open the pull request/Actions page Claude links in chat (or ask Claude in any chat for the link), download the `windows-installer` file, run it (click **More info**, then **Run anyway**), and tell Claude in any chat: does it feel smooth? Does the confetti, beep and mascot work? | You | — | Open: tell Claude in any chat |
 | T02 | Tell Claude: do you have an app name idea? (Your Mac/iPhone, `cellatlas-data` and South Hadley answers are recorded in `docs/DECISIONS.md`. Two chats heard different Mac answers; the latest one stands: Mac later.) | You | — | Open: tell Claude in any chat |
 
 ## Next: building the app (the plan is signed off)

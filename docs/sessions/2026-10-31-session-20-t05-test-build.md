@@ -25,4 +25,4 @@ I built a tiny practice version of the app: one lesson with 3 sample questions. 
 - None.
 
 ## Notes for the next Claude
-The Windows CI job had not run when this was written; check the Actions run on the PR (installer artifact path `app/out/make`). Panel not republished (robot run). Run the click test with `xvfb-run -a npx playwright test` in `app/`. Sound is a plain beep (no sound files, so no licence issue).
+The Windows CI job had NOT started after the push (no workflow runs listed; Actions may be off or needs a first approval for new workflows). Next Claude: check `actions_list` after merge; if still nothing, ask the owner to open the repo's Actions tab and enable workflows. Then run the workflow by hand (`workflow_dispatch`) and fix any Windows failure before the owner does T40. check the Actions run on the PR (installer artifact path `app/out/make`). Panel not republished (robot run). Run the click test with `xvfb-run -a npx playwright test` in `app/`. Sound is a plain beep (no sound files, so no licence issue).
