@@ -3,7 +3,17 @@
 **Status:** DRAFT. Waiting for the owner's sign-off. Nothing here gets built until you say "proceed".
 **Written:** 2026-10-31 · **Task:** T11 · **Separate from:** the learning app and its plan (`docs/PRD.md`)
 
-> **Update (2026-10-31, later):** The clean-up in §8 is done: #5 and this plan (#6) are merged, and #2, #3 and #4 are closed. Chats now merge their own work and check for each other first (`docs/WORKFLOW.md`). §6 ("it never merges", rule 2) and §5 (show the traffic light) get updated when you answer §10 (task T11).
+> **Owner's answers (2026-10-31). Where they differ from the sections below, they win.**
+> - **Approved:** build the panel and the robot. The panel may be built before the app plan (`docs/PRD.md`) is signed off. It lives in this project, in a `panel/` folder; no new repository.
+> - **Time zone:** US Eastern, inferred from the owner's GitHub activity. The owner can correct it.
+> - **Robot schedule:** twice a day, at about 2 AM and 2 PM Eastern. This replaces the weekly cap (§6 rule 3).
+> - **Robot jobs:** restart unfinished work, and start Claude-only Small or Medium tasks that don't need the owner and aren't app code. Never the app plan or app code. This replaces the 🤖 mark (§6 rule 4).
+> - **The robot's rules now live in `docs/WORKFLOW.md` section G.** It runs the same start-up check as every chat and merges its own work. This replaces §6 rule 2 and "it never merges".
+> - **Pause:** type `Pause the robot` in any chat. There's no switch file (§6 rule 1, §10 question 5).
+> - **No practice week:** the setup chat (T13) does one test run instead.
+> - **Usage limits:** chats wait for a limit to reset and carry on by themselves (`autoContinueAtUsageLimit` in `.claude/settings.json`).
+> - **§10 question 6 isn't needed:** pull requests are merged at the end of each chat, so the panel can read tasks from `main`. The panel should also show the 🔴/🟡/🟢 traffic light.
+> - **§8's clean-up is done.**
 
 ---
 

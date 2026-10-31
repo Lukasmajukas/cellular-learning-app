@@ -20,7 +20,7 @@ All the levels are explained in [ROADMAP.md](ROADMAP.md).
 ## 🎮 How to work with Claude (do this every time)
 
 1. **Start a new chat** with this repository selected. Leave the branch on **main**. (Picked another one by mistake? No harm. Claude switches to the newest copy by itself.)
-2. **Pick the model** that [TASKS.md](TASKS.md) says. Most of the time that's Sonnet.
+2. **Pick the model and effort** that [TASKS.md](TASKS.md) says. Most of the time that's Sonnet with Medium effort.
 3. **Type:** `Do the next task in TASKS.md` (or just `Go`)
 4. **Read Claude's last message.** It says what changed, anything it needs from you, and when to start a fresh chat.
 5. **Close the chat.** Next task, new chat.
@@ -28,6 +28,7 @@ All the levels are explained in [ROADMAP.md](ROADMAP.md).
 **You don't need to open GitHub or merge anything.** Claude saves its own work into the binder at the end of every chat.
 - **One chat at a time.** If you open a second chat while the first is working, it tells you to wait.
 - **Old chats tidy themselves away.** When a new chat starts a task, it puts your old chats away. Nothing is deleted.
+- **While you're away:** a robot chat starts twice a day and keeps safe work going (being switched on in task T13). If a chat hits your usage limit, it carries on by itself when the limit resets.
 - **Not happy?** Tell Claude what to change, or type `Undo the last change`.
 - **Want to peek?** Open the GitHub app or github.com. Looking never breaks anything.
 
@@ -40,7 +41,7 @@ How this works, and what to do if something odd happens: [docs/WORKFLOW.md](docs
 |---|---|---|
 | `README.md` | This page. Start here. | You |
 | `ROADMAP.md` | The levels, and where we are | You |
-| `TASKS.md` | The to-do list, with which model to use | You and Claude |
+| `TASKS.md` | The to-do list, with which model and effort to use | You and Claude |
 | `CHEATSHEET.md` | Messages you can copy and paste to Claude | You |
 | `docs/WORKFLOW.md` | How chats share the work without tripping over each other | You and Claude |
 | `GLOSSARY.md` | Every tricky word, explained simply | You |
@@ -54,14 +55,18 @@ How this works, and what to do if something odd happens: [docs/WORKFLOW.md](docs
 
 ---
 
-## 🧠 Which Claude model to use
+## 🧠 Which Claude model and effort to use
 Think of the models as brains of different sizes. A bigger brain is smarter, but uses up your limit faster.
 
-| Size | Model right now | Use it for |
-|---|---|---|
-| Small | Haiku | Tiny chores: typos, renaming |
-| Medium | Sonnet ⭐ | Most work: building features, writing lessons (the default) |
-| Large | Opus | Big thinking: planning, hard bugs, checking work |
-| Extra large | Fable | Only when Opus gets stuck |
+**Effort** is how hard the brain thinks before it answers, like a quick guess versus checking your homework twice. More effort is more careful, but slower, and it uses more of your limit.
+
+| Size | Model right now | Effort | Use it for |
+|---|---|---|---|
+| Small | Haiku | Low | Tiny chores: typos, renaming |
+| Medium | Sonnet ⭐ | Medium | Most work: building features, writing lessons (the default) |
+| Large | Opus | High | Big thinking: planning, hard bugs, checking work |
+| Extra large | Fable | High | Only when Opus gets stuck |
+
+If a chat struggles, pick one step more effort next time. If your app shows no effort choice for a model, skip it. Max effort is only for when everything else failed: it uses your limit fastest.
 
 New versions come out over time, but the sizes stay the same. Pick the newest model of the size you need.
