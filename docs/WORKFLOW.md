@@ -40,7 +40,7 @@ At the end, Claude merges its own work into `main` and takes the sign down. The 
 **When Claude needs your "yes"** (like signing off the plan, or "the test build works"), you type it in a chat. Claude writes it down and saves it. No clicking on GitHub.
 
 ### 5. Old chats put themselves away
-When a new chat starts a task, it archives this project's older chats, so your list stays short. Archiving is like putting a finished worksheet in a drawer: it's out of the way, but not thrown out. A chat that is still working is never put away.
+When a new chat starts a task, it archives this project's older chats, so your list stays short. Archiving is like putting a finished worksheet in a drawer: it's out of the way, but not thrown out. A chat that is still working is never put away. Robot chats tidy up after themselves: each one names itself after its job (like "Robot: Photo sources list") and puts itself away when it's done. A robot chat that's waiting for your approval stays in your list so you can find it.
 
 ### 6. A robot keeps working around the clock
 The robot works day and night in the cloud, so your PC can be off. (Switched on in task T13 on Oct 31.)
@@ -139,7 +139,7 @@ Find it with `list_sessions` and run `unarchive_session` on it. Tell the owner i
 - Force-push anything. The safety check blocks it. Merge the old copy of your branch instead (steps A1 and B).
 - Delete branches.
 - Merge a pull request that another chat is busy with (🔴).
-- Archive a chat that is working, a chat from another project, a chat named in an open `[in progress]` pull request, or the "Robot launcher (do not archive)" chat.
+- Archive a chat that is working, a chat from another project, a chat named in an open `[in progress]` pull request, or the "Robot launcher (do not archive)" chat. The one exception: a robot chat puts itself away at the end of its own run (section G step 10).
 - Add permissions to `.claude/settings.json`. Only the owner adds permissions. Change other settings in it only when the owner asks in chat.
 - Merge app code before the owner signs off on `docs/PRD.md`.
 
@@ -171,16 +171,17 @@ Find it with `list_sessions` and run `unarchive_session` on it. Tell the owner i
      - hasn't failed twice (two handoff notes for it say BLOCKED);
      - doesn't need the owner to be there.
    - Nothing fits: claim nothing, do the tidy step (A4), and stop with "Nothing for me to do."
-4. **Claim it** (section A3).
+4. **Claim it** (section A3). Then **name yourself**, so the owner can tell robot chats apart: `set_session_title` on your own session ID with `Robot: <the task in a few plain words>`, for example "Robot: Photo sources list". No task numbers.
 5. **Right brain:** read the task's size in `TASKS.md`.
    - Medium: do it yourself.
-   - Small or Large: start a new chat with `create_session`. Use model `claude-haiku-5-5` for Small or `claude-opus-5-5` for Large, `source_url` `https://github.com/Lukasmajukas/cellular-learning-app`, and `permission_mode` `auto` if allowed. Prompt: "You are a robot worker for the cellular-learning-app project. The owner is away. Take over pull request #<your claim> and do task T__. Follow CLAUDE.md and docs/WORKFLOW.md, sections A to C and G steps 6 to 9. Never wait for an answer." Then stop. The new chat takes over your claim (🟡 rules).
+   - Small or Large: start a new chat with `create_session`. Use model `claude-haiku-5-5` for Small or `claude-opus-5-5` for Large, `source_url` `https://github.com/Lukasmajukas/cellular-learning-app`, `permission_mode` `auto` if allowed, and the title `Robot (Haiku): <same plain name>` or `Robot (Opus): <same plain name>`. Prompt: "You are a robot worker for the cellular-learning-app project. The owner is away. Take over pull request #<your claim> and do task T__. Follow CLAUDE.md and docs/WORKFLOW.md, sections A to C and G steps 6 to 10. Never wait for an answer." Then point your pull request at the new chat: in its description, swap your session link for the new chat's link (`update_pull_request`), so the busy check looks at the chat that is really working. Then put yourself away (step 10). The new chat takes over your claim (🟡 rules).
    - **Move up one size after a failed try.** A try failed if the task's last handoff note says BLOCKED because the work wasn't good enough or a check failed (not because of missing access or an answer only the owner has), or if a review turned it down. Retry one size up: Small → Medium → Large (Haiku → Sonnet → Opus), which also raises the effort (Low → Medium → High). Never go down a size. A Large task is retried once at Large. After two failed tries step 3 leaves it for the owner (a "You" row), and only the owner may choose Fable (Extra large).
 6. **Do the job and finish** the normal way (section C), including the merge. For a "Claude + you" task, merge Claude's part as a draft, then change the row's "Who" to "You" and say what the owner needs to do, for example: "Read `docs/PRD.md`, then type `I sign off the plan` in any chat." In your handoff note, also write whether anything asked for approval or was blocked, and name the action.
 7. **If the job is blocked** (missing access, or an answer only the owner has): write it in the handoff note with the word BLOCKED, add a "You" row, merge that, then go to step 9.
-8. **Tidy** (A4), but only chats quiet for 2+ hours, so a chat the owner is in the middle of is never touched.
+8. **Tidy** (A4), with one change: a finished robot chat goes right away, but any other chat only after 2+ quiet hours, so a chat the owner is in the middle of is never touched. A finished robot chat is one that another chat started (`origin` is `claude_code_mcp_seed` in `list_sessions`), that isn't working, and that isn't waiting for an approval (`session_status` REQUIRES_ACTION: leave those for the owner).
 9. **Chain:** if "Robot" is still on, you're not on paid usage, and another task could fit step 3, start the next run now with `fire_trigger` on "Robot" (that wakes the launcher). End with a two-line summary and send it with `PushNotification` (status `proactive`): that is the owner's phone notification. Send it only when you did a job or got stuck, not for "Another chat is working", "Nothing for me to do" or "The robot is paused".
-10. **Never:** start helper agents, change the schedule (except for the owner's commands below), touch `.claude/settings.json`, archive the Robot launcher, start a second job in the same run, or use paid usage.
+10. **Put yourself away, last.** After everything else, run `archive_session` on your own session ID (`get_session` with no ID). Do this however the run ends: a job done, blocked, handed to a new chat in step 5, or an early stop in steps 1 to 3 ("The robot is paused", "Another chat is working", "Nothing for me to do", limit used up). An archived chat isn't deleted: the owner can still open it. If the archive is refused, leave it; the next run's tidy step puts it away. A run stuck waiting for an approval can't do this, so it stays in the owner's list where they can find it.
+11. **Never:** start helper agents, change the schedule (except for the owner's commands below), touch `.claude/settings.json`, rename or archive the Robot launcher, start a second job in the same run, or use paid usage.
 
 **The owner's commands** (any chat, any device; they skip the traffic light because they don't change project files):
 - `Stop the robot`: `update_trigger` with `enabled: false` on the trigger named exactly "Robot" (ignore the paused "Robot (old, paused: no project attached)"). Say: "The robot is stopped. The task it's on will finish, then nothing new starts."
