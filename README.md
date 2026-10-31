@@ -28,7 +28,8 @@ All the levels are explained in [ROADMAP.md](ROADMAP.md).
 **You don't need to open GitHub or merge anything.** Claude saves its own work into the binder at the end of every chat.
 - **One chat at a time.** If you open a second chat while the first is working, it tells you to wait.
 - **Old chats tidy themselves away.** When a new chat starts a task, it puts your old chats away. Nothing is deleted.
-- **While you're away:** a robot chat starts twice a day and keeps safe work going (being switched on in task T13). If a chat hits your usage limit, it carries on by itself when the limit resets.
+- **Around the clock:** a robot keeps working day and night in the cloud, even with your PC off (being switched on in task T13). Type `Stop the robot`, `Start the robot` or `Robot status` in any chat. It never uses paid extra usage.
+- **Usage limits:** if a chat hits your limit, it carries on by itself when the limit resets.
 - **Not happy?** Tell Claude what to change, or type `Undo the last change`.
 - **Want to peek?** Open the GitHub app or github.com. Looking never breaks anything.
 

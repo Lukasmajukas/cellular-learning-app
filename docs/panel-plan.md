@@ -6,10 +6,10 @@
 > **Owner's answers (2026-10-31). Where they differ from the sections below, they win.**
 > - **Approved:** build the panel and the robot. The panel may be built before the app plan (`docs/PRD.md`) is signed off. It lives in this project, in a `panel/` folder; no new repository.
 > - **Time zone:** US Eastern, inferred from the owner's GitHub activity. The owner can correct it.
-> - **Robot schedule:** twice a day, at about 2 AM and 2 PM Eastern. This replaces the weekly cap (§6 rule 3).
-> - **Robot jobs:** restart unfinished work, and start Claude-only Small or Medium tasks that don't need the owner and aren't app code. Never the app plan or app code. This replaces the 🤖 mark (§6 rule 4).
+> - **Robot schedule (updated later on Oct 31):** around the clock until the plan's limit. Each robot chat starts the next one, and a check every 2 hours restarts it if it stopped. Never paid usage. This replaces the weekly cap (§6 rule 3) and the earlier twice-a-day choice.
+> - **Robot jobs (updated later on Oct 31):** restart unfinished work; do Claude's tasks of any size with the right model (Haiku, Sonnet or Opus); draft the app plan; build the app only after the owner's sign-off. This replaces the 🤖 mark (§6 rules 4 and 5).
 > - **The robot's rules now live in `docs/WORKFLOW.md` section G.** It runs the same start-up check as every chat and merges its own work. This replaces §6 rule 2 and "it never merges".
-> - **Pause:** type `Pause the robot` in any chat. There's no switch file (§6 rule 1, §10 question 5).
+> - **Stop and resume:** type `Stop the robot` or `Start the robot` in any chat. There's no switch file (§6 rule 1, §10 question 5).
 > - **No practice week:** the setup chat (T13) does one test run instead.
 > - **Usage limits:** chats wait for a limit to reset and carry on by themselves (`autoContinueAtUsageLimit` in `.claude/settings.json`).
 > - **§10 question 6 isn't needed:** pull requests are merged at the end of each chat, so the panel can read tasks from `main`. The panel should also show the 🔴/🟡/🟢 traffic light.

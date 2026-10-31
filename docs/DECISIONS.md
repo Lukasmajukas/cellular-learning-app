@@ -39,3 +39,9 @@ Every decision, with the date and why. Newest at the bottom.
 | 2026-10-31 | The progress panel may be built before the app plan is signed off. It lives in this project (a `panel/` folder); no new repository. | Owner's answer; one project keeps chats from getting confused |
 | 2026-10-31 | Time zone for schedules: US Eastern | Inferred from the owner's GitHub change (stamped −04:00) and South Hadley; the owner can correct it |
 | 2026-10-31 | T08 (photo sources) and T09 (carrier codes) moved before the plan sign-off: they're research lists, not app code, so the robot may do them | Lets the robot do useful work while the owner is away |
+| 2026-10-31 | The robot works 24/7 until the plan's limit, replacing twice a day. Each robot chat starts the next one (the chain), and a scheduled check every 2 hours restarts it if it stopped (the heartbeat). | Owner's request: work while awake and asleep |
+| 2026-10-31 | Robot chats run on Sonnet. Small tasks go to a new Haiku chat and Large tasks to a new Opus chat (`create_session`). Effort follows the model through `modelSettings` in `.claude/settings.json`: Haiku Low, Sonnet Medium, Opus High. | Owner's request and answer: the model table |
+| 2026-10-31 | The robot never uses paid extra usage. It stops when `isUsingOverage` is true and resumes after the plan's limit resets. | Owner's answer |
+| 2026-10-31 | The robot may draft the app plan. It builds the app only after `docs/PRD.md` has a "Signed off by owner" line, which the owner adds by typing `I sign off the plan`. | Owner's answer |
+| 2026-10-31 | The owner controls the robot from any chat or device: `Stop the robot`, `Start the robot`, `Robot status` | Owner's request: a simple way to stop and resume |
+| 2026-10-31 | Everything runs in the cloud, so the owner's PC can be off. The PC is only needed later to try the app. | Owner's question |

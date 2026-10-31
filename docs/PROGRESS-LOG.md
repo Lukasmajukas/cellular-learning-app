@@ -4,6 +4,7 @@ One or two plain-English lines per chat. Newest at the top.
 
 | Date | What happened | Details |
 |---|---|---|
+| 2026-10-31 | The robot's rules now say: work around the clock in the cloud until your plan's limit, never paid usage, the right model and effort for each task, and `Stop the robot` / `Start the robot` from any chat. It gets switched on next (T13). | [How it works](WORKFLOW.md) · [Handoff note](sessions/2026-10-31-session-7-robot-24-7.md) |
 | 2026-10-31 | Claude now tells you the effort along with the model. Chats now carry on by themselves after a usage limit resets. You chose a robot that runs twice a day, and the panel being built now; the next chat switches the robot on (T13). | [How it works](WORKFLOW.md) · [Handoff note](sessions/2026-10-31-session-6-effort.md) |
 | 2026-10-31 | New chats now put your old chats away (archive them) when they start a task, so your list stays short. Optional: a permission file you can add from one link, so Claude's safety check never blocks this. | [How it works](WORKFLOW.md) · [Handoff note](sessions/2026-10-31-session-5-auto-archive.md) |
 | 2026-10-31 | Fixed how chats share the work. Each chat now checks whether another chat is busy, hangs a "busy" sign on its task, and saves (merges) its own work at the end, so you never need to open GitHub. Also closed the 3 duplicate T03 copies and saved the panel plan (still a draft). | [How it works](WORKFLOW.md) · [Handoff note](sessions/2026-10-31-session-4-workflow.md) |
