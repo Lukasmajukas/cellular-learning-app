@@ -134,7 +134,7 @@ The run checks these **before** doing any real work, so a run that stops early c
 | 3 | **Weekly cap:** fewer than 2 Claude pull requests opened in the last 7 days. This is a second safety net on top of the schedule. | Stop. "Weekly cap reached." |
 | 4 | **Pick a task:** the first task in `TASKS.md` that is not done, where "Who" is exactly **Claude** (not "Claude + you") and that you have marked **🤖** (OK for the robot) | Stop. "No robot-OK task." |
 | 5 | **Right size:** the task's model size is Small or Medium. Large tasks are planning and design work, and need you there. | Stop. "T__ needs a Large model; do it in a chat." |
-| 6 | **Plan signed off:** if the task is under "After you sign off on the plan", `docs/PRD.md` must contain a line `Signed off by owner: YYYY-MM-DD` | Stop. "The PRD isn't signed off yet." |
+| 6 | **Plan signed off:** if the task is app code (listed under "Next: building the app", formerly "After you sign off on the plan"), `docs/PRD.md` must contain a line `Signed off by owner: YYYY-MM-DD` | Stop. "The PRD isn't signed off yet." |
 | 7 | **Can actually do it:** nothing it needs is missing. For example, T07 needs etsi.org allowed in the network settings. | Open a pull request with only a handoff note explaining what's missing. Rule 2 then pauses the robot until you've read it. |
 
 Then it does the task and opens a draft pull request.
