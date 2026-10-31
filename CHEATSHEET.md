@@ -10,10 +10,11 @@
 - Go back to that other chat. If you closed it or it's stuck, type: `Take over`
 - To run a different task at the same time on purpose: `Do task T__ at the same time`
 
-## The robot (a chat that starts by itself twice a day)
-- `Pause the robot` / `Turn the robot back on`
-- `Run the robot now`
+## The robot (works around the clock, even with your PC off)
+- `Stop the robot` / `Start the robot`
+- `Robot status`
 - `What did the robot do?`
+- `I sign off the plan` Only after you've read `docs/PRD.md`. It lets the robot start building the app.
 
 ## While working
 - `Explain that again, simpler.`

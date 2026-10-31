@@ -28,6 +28,9 @@ Claude adds new words here whenever they come up.
 | **Model** | Which Claude "brain" you use: Haiku (small), Sonnet (medium), Opus (large), Fable (extra large). |
 | **Effort** | How hard Claude thinks before answering. Low is a quick answer; High is careful checking. More effort is slower and uses more of your limit. |
 | **Robot run** | A chat that starts by itself on a schedule, like an alarm clock that opens a chat and says "Go". |
+| **Heartbeat** | The robot's check every 2 hours. If the robot stopped, for example at a usage limit, the heartbeat starts it again. |
+| **Chain** | Each robot chat starts the next one when it finishes, like dominoes falling one after another. |
+| **Paid extra usage (overage)** | Using Claude past your plan's limit for extra money. The robot never does this. |
 | **Auto-continue** | When a chat hits your usage limit, it waits for the limit to reset and then carries on by itself. |
 | **Usage limit** | How much Claude you can use in a stretch of time. Bigger models, higher effort and longer chats use it up faster. |
 | **PRD** | The plan, or blueprint. It says what the app will do before anyone builds it. |

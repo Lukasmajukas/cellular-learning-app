@@ -42,10 +42,17 @@ At the end, Claude merges its own work into `main` and takes the sign down. The 
 ### 5. Old chats put themselves away
 When a new chat starts a task, it archives this project's older chats, so your list stays short. Archiving is like putting a finished worksheet in a drawer: it's out of the way, but not thrown out. A chat that is still working is never put away.
 
-### 6. A robot keeps going while you're away
-Twice a day, at about 2 AM and 2 PM (US Eastern), a robot chat starts by itself. It finishes anything a chat left half-done, for example when your usage limit ran out. It may also do Claude-only tasks that don't need you and aren't app code. It never writes the app plan or app code. You get a phone notification when it's done. To pause it, type `Pause the robot` in any chat. (Being switched on in task T13.)
+### 6. A robot keeps working around the clock
+The robot works day and night in the cloud, so your PC can be off. (Being switched on in task T13.)
+- When a robot chat finishes a task, it starts the next one right away. Every 2 hours a check restarts it if it stopped.
+- It gives each task the right brain: Haiku with Low effort for small jobs, Sonnet with Medium for most work, Opus with High for big planning.
+- It never uses paid extra usage. When your plan's limit is used up, it waits for the reset and carries on.
+- It does Claude's tasks, including the first draft of the app plan for you to read. It builds the app only after you sign off the plan. Anything only you can do goes into `TASKS.md` as a "You" row.
+- You get a phone notification when a robot chat finishes.
+- **Your switch:** type `Stop the robot`, `Start the robot` or `Robot status` in any chat, even from your phone.
+- Your own chats share the same limit. Stop the robot when you want the limit for yourself.
 
-Also, if a chat hits your usage limit, it now waits for the limit to reset and carries on by itself.
+Also, if any chat hits your usage limit, it waits for the limit to reset and carries on by itself.
 
 ## What if...?
 | What happened | What to do |
@@ -55,6 +62,7 @@ Also, if a chat hits your usage limit, it now waits for the limit to reset and c
 | I closed a chat in the middle of a task | Start a new chat and type `Go`. If it shows 🔴, type `Take over`. |
 | I want two different tasks done at the same time | In the second chat, type `Do task T__ at the same time`. It only works for a different task. |
 | I don't like what Claude did | Tell Claude what to change, or type `Undo the last change`. |
+| The robot used up my limit and I want to chat | Type `Stop the robot`. Later, type `Start the robot`. |
 | I want an archived chat back | Type `Bring back the chat called ___` in any chat. Archived chats aren't deleted. |
 | A chat says the safety check stopped it | Nothing breaks. Tell any chat what the message said, and it will look into it. |
 | I haven't looked at the project in a while | Start a chat and type `Where are we?` |
@@ -130,19 +138,39 @@ Find it with `list_sessions` and run `unarchive_session` on it. Tell the owner i
 - Add permissions to `.claude/settings.json`. Only the owner adds permissions. Change other settings in it only when the owner asks in chat.
 - Merge app code before the owner signs off on `docs/PRD.md`.
 
-### G. Robot runs (a chat that starts by itself)
-A scheduled task starts a fresh chat twice a day, at about 2 AM and 2 PM US Eastern. The owner is away, so the robot never waits for answers.
-1. Run the start-up check (section A) like any chat. On 🔴, stop.
-2. Pick one job, in this order:
-   - 🟡 unfinished work: take it over and finish it (section A2).
-   - Otherwise, the first task in the "Now" table of `TASKS.md` where "Who" is exactly "Claude", the size is Small or Medium, and it isn't app code. Never the app plan (T04). Never anything that needs the owner.
-   - Nothing fits: claim nothing. Do the tidy step (A4) anyway, then stop with "Nothing for me to do."
-   - In a robot run, the tidy step only puts away chats that have been quiet for at least 2 hours, so a chat the owner is in the middle of is never touched.
-3. Do that one job, then finish the normal way (section C), including the merge.
-4. If the job needs something missing (a blocked website, an answer only the owner has), write it in the handoff note and as a "You" row in `TASKS.md`, merge that, and stop.
-5. Never: start helper agents, change the schedule, touch `.claude/settings.json`, or start a second job in the same run.
-6. End with a two-line summary. It becomes the owner's phone notification.
+### G. Robot runs (chats that start by themselves)
+**Setup:** one scheduled task named "Robot" starts a fresh chat every 2 hours, US Eastern. That's the heartbeat. Robot chats also start the next robot chat themselves when they finish: the chain. Robot chats run on Sonnet. Effort comes from `modelSettings` in `.claude/settings.json`. Everything runs in the cloud; the owner's PC can be off.
 
-**The owner's commands** (any chat): `Pause the robot` turns the scheduled task off (`update_trigger`, `enabled: false`). `Turn the robot back on` turns it on. `Run the robot now` fires it once (`fire_trigger`). `What did the robot do?` reads the latest diary lines.
+**Every robot run, in this order:**
+1. **Quick checks, before reading anything big:**
+   - `list_triggers`: if "Robot" is off, stop with "The robot is paused."
+   - `get_session` with no ID: if `rate_limit_info.isUsingOverage` is true, stop with "Your plan's limit is used up. I'll try again after it resets." Never work on paid usage.
+   - `list_pull_requests`: if another chat is busy (🔴, section A2), stop with "Another chat is working."
+2. **Start-up check:** sections A1 and A2 as usual.
+3. **Pick one job**, in this order:
+   - 🟡 unfinished work: take it over (section A2).
+   - Otherwise the first task in `TASKS.md`, top to bottom ("Now" table first), that:
+     - has "Who" = "Claude", or "Claude + you" (do only Claude's part);
+     - isn't app code, unless `docs/PRD.md` has a line `Signed off by owner: YYYY-MM-DD`;
+     - hasn't failed twice (two handoff notes for it say BLOCKED);
+     - doesn't need the owner to be there.
+   - Nothing fits: claim nothing, do the tidy step (A4), and stop with "Nothing for me to do."
+4. **Claim it** (section A3).
+5. **Right brain:** read the task's size in `TASKS.md`.
+   - Medium: do it yourself.
+   - Small or Large: start a new chat with `create_session`. Use model `claude-haiku-5-5` for Small or `claude-opus-5-5` for Large, `source_url` `https://github.com/Lukasmajukas/cellular-learning-app`, and `permission_mode` `auto` if allowed. Prompt: "You are a robot worker for the cellular-learning-app project. The owner is away. Take over pull request #<your claim> and do task T__. Follow CLAUDE.md and docs/WORKFLOW.md, sections A to C and G steps 6 to 9. Never wait for an answer." Then stop. The new chat takes over your claim (🟡 rules).
+6. **Do the job and finish** the normal way (section C), including the merge. For a "Claude + you" task, merge Claude's part as a draft, then change the row's "Who" to "You" and say what the owner needs to do, for example: "Read `docs/PRD.md`, then type `I sign off the plan` in any chat."
+7. **If the job is blocked** (missing access, or an answer only the owner has): write it in the handoff note with the word BLOCKED, add a "You" row, merge that, then go to step 9.
+8. **Tidy** (A4), but only chats quiet for 2+ hours, so a chat the owner is in the middle of is never touched.
+9. **Chain:** if "Robot" is still on, you're not on paid usage, and another task could fit step 3, start the next run now with `fire_trigger`. End with a two-line summary. It becomes the owner's phone notification.
+10. **Never:** start helper agents, change the schedule (except for the owner's commands below), touch `.claude/settings.json`, start a second job in the same run, or use paid usage.
 
-**Prompt for the scheduled task** (task T13 copies this): "You are the robot run for the cellular-learning-app project. The owner is away. Follow CLAUDE.md and docs/WORKFLOW.md section G exactly. Never wait for an answer: put questions in TASKS.md as 'You' rows."
+**The owner's commands** (any chat, any device; they skip the traffic light because they don't change project files):
+- `Stop the robot`: `update_trigger` with `enabled: false` on "Robot". Say: "The robot is stopped. The task it's on will finish, then nothing new starts."
+- `Start the robot`: `update_trigger` with `enabled: true`, then `fire_trigger` once.
+- `Robot status`: whether it's on, and the next heartbeat (`list_triggers`); what's being worked on (open `[in progress]` pull requests); and the top 3 diary lines.
+- `I sign off the plan`: add `Signed off by owner: YYYY-MM-DD` to `docs/PRD.md` and merge it. That unlocks app building for the robot.
+
+**Prompt for the scheduled task** (T13 copies this): "You are the robot run for the cellular-learning-app project. The owner is away. Follow CLAUDE.md and docs/WORKFLOW.md section G exactly, starting with the quick checks. Never wait for an answer: put questions in TASKS.md as 'You' rows."
+
+**Setup details for T13:** `create_trigger` with name "Robot", `create_new_session_on_fire: true`, `notifications: {push: true}`, `initiation: human_request`, cron `CRON_TZ=America/New_York 0 */2 * * *` (the server spreads it across the hour), and the prompt above. Create it from a chat running Sonnet at Medium effort, so robot chats copy that. Then fire it once and check that robot chat.

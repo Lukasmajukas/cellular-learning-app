@@ -42,6 +42,7 @@ How chats share work without overlapping is in `docs/WORKFLOW.md`. Follow its "R
 - Never leave a pull request waiting for the owner. Owner approvals (sign-offs, "it works") happen in chat.
 - Confirm before anything destructive.
 - No app code until the owner signs off on `docs/PRD.md`. The progress panel and the robot aren't app code; the owner OK'd building them now.
+- The robot (chats that start by themselves, 24/7) follows `docs/WORKFLOW.md` section G. The owner controls it with `Stop the robot`, `Start the robot` and `Robot status`.
 
 **End (always, in this order):**
 1. Finish the handoff note you started in `docs/sessions/` when you claimed the task. Set its Status to DONE.
