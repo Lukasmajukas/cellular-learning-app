@@ -34,4 +34,31 @@ We opened your six old projects to see what the new app can borrow. Old code doe
 - I did **not** call `register_repo_root` for them on purpose: their `CLAUDE.md` files are about Swift builds and would confuse this project.
 - Key file locations are in `docs/reuse-review.md` (for example, bandmon tables at `bandmon/bandmon` lines 86–245; TowerScope `estDistanceKm` at `index.html:371`).
 - For the PRD (T04): the review's "What this means for the plan" section has 5 points. Point 5 (owner may use a Mac) affects the platform scope. Ask before assuming.
-- `CLAUDE.md` still says "Main computer: a Windows PC". Don't change it until the owner confirms the Mac question.
+- The Mac question is answered (see the update below), and `CLAUDE.md` is updated.
+
+## Update (later the same session)
+**Owner's answers:**
+- Mac + iPhone 15 Pro: not now, but in future. `CLAUDE.md` now says "Windows first; keep a Mac version possible".
+- `cellatlas-data`: on the Mac. New task T12, for when the Mac is back.
+- South Hadley sites in lessons: yes. T10 is unblocked.
+- T02 now only asks for an app name.
+
+**New request: progress panel + automation (task T11, Large).**
+- The owner wants:
+  - a small web page for phone and PC;
+  - a separate build from the learning app;
+  - reading the live repo files;
+  - few tokens;
+  - showing clearly when it's pulling data.
+- They also chose three kinds of automation: the panel refreshes itself; Claude runs tasks on a schedule; carrier facts are re-checked every 3 months.
+- **Concerns to settle in the T11 plan:**
+  - The repo is private, so the page needs a safe way to read it. Options:
+    - a GitHub Action that publishes a status file;
+    - a private claude.ai artifact using the GitHub connector (check with `describe_capabilities`);
+    - GitHub Pages, which needs a public repo or a paid plan.
+  - Never put a GitHub key inside a shared page.
+  - Scheduled task runs cost about one chat's tokens each. Guard rails:
+    - only "Claude" tasks;
+    - skip if a Claude pull request is waiting;
+    - no app code before PRD sign-off;
+    - a weekly cap.

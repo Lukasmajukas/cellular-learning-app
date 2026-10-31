@@ -168,6 +168,11 @@ Wi-Fi networks, home-network devices and speed tests only. No cellular content.
 2. **Where does `cellatlas-data` live?** It's not on GitHub under your account. If it's on your Mac and has cell-site research, it may be worth adding.
 3. **OK to use South Hadley / Western MA sites in lessons?** They're public records, but they show the area you live in or care about. The app is private, so this is just a check.
 
+### Owner's answers (2026-10-31)
+1. **Mac and iPhone:** not now (in use elsewhere), but yes in future. → Windows first; keep a Mac version possible.
+2. **`cellatlas-data`:** on the Mac. → Review it when the Mac is back (T12).
+3. **South Hadley sites in lessons:** yes. → T10 can go ahead after the PRD.
+
 ## Facts discipline for anything taken from these repos
 - Band numbers: **never** taken from these repos. They come only from `band_verification.md` → `content/` bands file (T06). The repos are used only as a second opinion.
 - Site and carrier facts copied over get status **UNVERIFIED**, an as-of date from the source repo (SpectrumScope: 2026-06-23; bandmon capture: 2026-06-18), and the original source (permit number, FCC ASR/ULS ID). They're upgraded only after a re-check.
