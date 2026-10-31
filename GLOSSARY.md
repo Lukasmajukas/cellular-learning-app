@@ -92,3 +92,5 @@ Claude adds new words here whenever they come up.
 | **NC / ND** | "Non-commercial" and "no changes". We don't use these, because we crop and add arrows. |
 | **Wikimedia Commons** | The free photo library behind Wikipedia. |
 | **Monopine** | A cell tower dressed up as a pine tree. |
+| **MVNO** | A phone company with no towers of its own. It rents another company's towers (e.g. Mint rides on T-Mobile). Its phones usually show the host's carrier code. |
+| **FirstNet** | AT&T's special network for police, fire and ambulance crews, with priority on the same towers. |
