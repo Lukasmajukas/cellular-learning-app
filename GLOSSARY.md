@@ -23,6 +23,12 @@ Claude adds new words here whenever they come up.
 | **Installer** | The file you double-click to put the app on your computer. |
 | **App engine (Electron / Tauri)** | The base the app is built on, like the engine in a car. We pick one in the plan. |
 | **Bug** | A mistake that makes something in the app not work right. |
+| **Data file (JSON)** | One plain text file that holds all the facts, in a tidy list. The app reads it, so we can fix a fact without touching the app's code. |
+| **Swift / SwiftUI** | The language (and drawing toolkit) used to build apps for iPhone and Mac. Your other projects use it. |
+| **Xcode** | Apple's program for building iPhone and Mac apps. It only runs on a Mac. |
+| **Native app** | An app made with the tools of one kind of computer (like a Mac app made in Swift). It's the opposite of an app made with web tools that run anywhere. |
+| **Read-only** | Looking but not touching. Claude read your other projects without changing them. |
+| **Scrubbed data** | Real data with the private parts (like where you were, or SIM card numbers) wiped out, so it's safe to share. |
 
 ## Cell phone words
 | Word | What it means |
@@ -45,5 +51,10 @@ Claude adds new words here whenever they come up.
 | **PCI** | A short number that helps phones tell nearby cells apart. It's not unique. |
 | **EARFCN / NR-ARFCN** | A channel number that points to one exact frequency. |
 | **3GPP** | The group that writes the official rules for bands. |
+| **Carrier aggregation (CA)** | Your phone using several bands at once, like driving on two lanes together for more speed. The main one is the PCC; the extras are SCCs. |
+| **5G SA / NSA** | Two ways to run 5G. Standalone (SA) is a full 5G network. Non-standalone (NSA) uses an LTE network as its helper. |
+| **MCC / MNC** | Two numbers that name a phone network. The US uses MCC 310, 311 and 312. For example 310/260 is T-Mobile. |
+| **RSRP** | How strong the signal is, in dBm. Numbers closer to zero are better. As a rough rule of thumb (not an official rule), −80 is great and −110 is weak. |
+| **Stealth site** | A cell site hidden inside something else, like a water tank, chimney or church steeple. |
 | **Spaced repetition (FSRS)** | The app quizzes you right before you'd forget something, so it sticks. |
 | **Streak / XP** | A streak is how many days in a row you practiced. XP is the points you earn for practicing. |

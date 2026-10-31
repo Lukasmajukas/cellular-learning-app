@@ -49,6 +49,7 @@ Not happy? Don't merge. Just tell Claude what to change.
 | `docs/DECISIONS.md` | Every decision we made, and why | You and Claude |
 | `docs/sessions/` | Handoff notes: how one chat passes the baton to the next | Claude (you can peek) |
 | `docs/research/` | The research report and notes | Claude (you can peek) |
+| `docs/reuse-review.md` | What's worth reusing from your other projects | You |
 | `content/` | Later: band facts and lessons | (empty for now) |
 | `app/` | Later: the app's code | (empty for now) |
 

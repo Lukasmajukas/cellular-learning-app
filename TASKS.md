@@ -11,8 +11,8 @@ Claude ticks tasks off and adds new ones. ⭐ means "do this next".
 | # | Task | Who | Model size | Status |
 |---|---|---|---|---|
 | T02 | Tell Claude: do you use only Windows, or also a Mac or Linux? Do you have an app name idea? | You | — | Open: tell Claude in any chat |
-| T03 | Look through your other projects (CellAtlas, bandmon, SpectrumScope, TowerScope, NetScopeiOS, NetScopeMac) for band data, code or content we can reuse. Write the findings in `docs/reuse-review.md`. | Claude | Medium (Sonnet) | ⭐ Next |
-| T04 | Write the plan (`docs/PRD.md`) using the research and T03, including which app engine to use (Electron or Tauri). You read it, ask for changes, and sign off. | Claude + you | Large (Opus) | After T03 |
+| T04 | Write the plan (`docs/PRD.md`) using the research and `docs/reuse-review.md`, including which app engine to use (Electron, Tauri, or a native Apple app if you mainly use a Mac). You read it, ask for changes, and sign off. **Answer T02 first**: it decides the engine. | Claude + you | Large (Opus) | ⭐ Next |
+| T09 | Tell Claude where `cellatlas-data` lives (CellAtlas says it holds your research packs). If it's a private GitHub repo, connect it so Claude can read it. Also say whether to look at `claude-projects` and `LinkBond`. | You | — | Open: tell Claude in any chat |
 
 ## After you sign off on the plan
 | # | Task | Who | Model size | Status |
@@ -26,3 +26,4 @@ Claude ticks tasks off and adds new ones. ⭐ means "do this next".
 | # | Task | Finished |
 |---|---|---|
 | T01 | Set up this binder: start page, roadmap, tasks, glossary, cheat sheet, memory card, research | 2026-10-31 (merge the setup pull request to finish) |
+| T03 | Look through your other projects for band data, code or content we can reuse → `docs/reuse-review.md` | 2026-10-31 (merge the pull request to finish) |
