@@ -17,3 +17,8 @@ Every decision, with the date and why. Newest at the bottom.
 | 2026-10-31 | Repository: `Lukasmajukas/cellular-learning-app` (private; working name) | Owner created it |
 | 2026-10-31 | Everything is explained like the owner is 12; new words go in `GLOSSARY.md` | Owner's request |
 | 2026-10-31 | Owner's main computer is a Windows PC (confirm whether Mac/Linux is also used). On Windows, Tauri also uses a Chromium engine, so both app engines are viable. | Seen in the owner's Remote Control computer list |
+| 2026-10-31 | Build for Windows first; keep a Mac version possible. The owner will use a Mac and an iPhone 15 Pro again later. | Owner's answer (T02): the Mac and iPhone are in use elsewhere for now |
+| 2026-10-31 | South Hadley / Western MA sites (from SpectrumScope) may be used in lessons | Owner's answer (T02) |
+| 2026-10-31 | `cellatlas-data` is on the owner's Mac; review it when the Mac is back (T12) | Owner's answer (T02) |
+| 2026-10-31 | Progress panel: a separate small web page (not part of the app) for phone and PC. It reads the repo's live files, costs no Claude tokens to view, and shows when it's pulling data. Planned in T11. | Owner's request |
+| 2026-10-31 | Automation wanted: a self-refreshing panel, Claude running tasks on a schedule (with guard rails), and carrier-fact re-checks every 3 months. Details and sign-off in T11. | Owner's request; scheduled runs use tokens and must not pile up unreviewed pull requests |

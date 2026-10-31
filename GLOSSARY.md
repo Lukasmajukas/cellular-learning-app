@@ -44,6 +44,13 @@ Claude adds new words here whenever they come up.
 | **eNB / gNB** | A tower's ID "name tag": eNB for LTE, gNB for 5G. |
 | **PCI** | A short number that helps phones tell nearby cells apart. It's not unique. |
 | **EARFCN / NR-ARFCN** | A channel number that points to one exact frequency. |
+| **MCC / MNC (carrier code)** | Two short numbers every cell broadcasts, like a license plate for the phone company. 310/260 means T-Mobile, 311/480 means Verizon. |
+| **Stealth site** | Antennas hidden so you don't notice them: inside a church steeple, painted on a chimney, or behind a fake rooftop wall. |
+| **FCC ASR** | The government's list of tall towers (mostly over 200 feet). Short and hidden sites aren't on it. |
+| **FCC ULS** | The government's list of radio licences. It can show which company is licensed to transmit from a spot. |
+| **Permit** | Permission from the town to build or change something, like adding antennas to a water tank. Permits are public records, so they're good evidence. |
+| **Resource block** | LTE's small "chunk" of a lane. Phones sometimes report width in chunks: 50 chunks = 10 MHz. |
+| **Path loss** | How much a signal fades as it travels. Higher frequencies fade faster, which is why low band reaches farther. |
 | **3GPP** | The group that writes the official rules for bands. |
 | **Spaced repetition (FSRS)** | The app quizzes you right before you'd forget something, so it sticks. |
 | **Streak / XP** | A streak is how many days in a row you practiced. XP is the points you earn for practicing. |
