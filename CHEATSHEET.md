@@ -14,6 +14,7 @@
 - `Stop the robot` / `Start the robot`
 - `Robot status`
 - `What did the robot do?`
+- Leave the chat called `Robot launcher (do not archive)` alone. If you archive it by mistake: `Bring back the chat called Robot launcher`
 - `I sign off the plan` Only after you've read `docs/PRD.md`. It lets the robot start building the app.
 
 ## While working

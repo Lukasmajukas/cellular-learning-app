@@ -30,8 +30,11 @@ Claude adds new words here whenever they come up.
 | **Robot run** | A chat that starts by itself on a schedule, like an alarm clock that opens a chat and says "Go". |
 | **Heartbeat** | The robot's check every 2 hours. If the robot stopped, for example at a usage limit, the heartbeat starts it again. |
 | **Chain** | Each robot chat starts the next one when it finishes, like dominoes falling one after another. |
+| **Robot launcher** | A small chat that never closes. Every 2 hours the robot's alarm wakes it, and it starts a fresh robot chat with the project attached. Like a doorbell that calls the real worker. |
 | **Paid extra usage (overage)** | Using Claude past your plan's limit for extra money. The robot never does this. |
 | **Auto-continue** | When a chat hits your usage limit, it waits for the limit to reset and then carries on by itself. |
+| **Auto mode** | A setting where Claude's safety check approves routine actions by itself, so a chat doesn't stop to ask you. It's the hands-free setting. |
+| **Bypass permissions** | A setting that turns the safety check off completely. Claude's cloud chats don't offer it, so Auto mode is the hands-free choice. |
 | **Usage limit** | How much Claude you can use in a stretch of time. Bigger models, higher effort and longer chats use it up faster. |
 | **PRD** | The plan, or blueprint. It says what the app will do before anyone builds it. |
 | **MVP** | The first playable version: small, but it works. |
