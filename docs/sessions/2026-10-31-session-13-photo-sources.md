@@ -9,7 +9,7 @@ I made a list of where we can get photos we're allowed to use, topic by topic. W
 ## What was done
 - Wrote `docs/research/photo-sources.md`: sources and licence rules, a per-unit table of Commons categories with file counts, and the gaps.
 - Checked Commons category pages directly. Many category names I guessed did not exist, so only categories I saw are listed.
-- Added T25 (pick and licence-check photos, later), a licence rule in DECISIONS, and photo words in GLOSSARY.
+- Added T26 (pick and licence-check photos, later), a licence rule in DECISIONS, and photo words in GLOSSARY.
 - Refreshed `panel/live.json` and `panel/index.html`.
 
 ## What's next

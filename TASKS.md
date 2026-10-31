@@ -24,7 +24,7 @@ Claude ticks tasks off, adds new ones, and saves (merges) its own work. ⭐ mean
 | T05 | Test build: one animated lesson screen. GitHub builds a Windows installer you download and try. | Claude | Medium (Sonnet), Medium effort | Later |
 | T06 | Build the bands data file from `docs/research/notes/band_verification.md`, with a status, date and source on every row | Claude | Medium (Sonnet), Medium effort; then a Large (Opus) review, High effort | Later |
 | T07 | Check the band numbers against the official 3GPP documents. This needs etsi.org allowed in network settings, or PDFs you upload. | Claude | Medium (Sonnet), Medium effort | Later |
-| T25 | Pick and licence-check 2 to 4 photos per lesson topic from the places listed in `docs/research/photo-sources.md`, into a credits file in `content/`. Unit 8 (equipment brands) may start as drawings. | Claude | Medium (Sonnet), Medium effort | Later |
+| T26 | Pick and licence-check 2 to 4 photos per lesson topic from the places listed in `docs/research/photo-sources.md`, into a credits file in `content/`. Unit 8 (equipment brands) may start as drawings. | Claude | Medium (Sonnet), Medium effort | Later |
 | T10 | Turn SpectrumScope's South Hadley / Western MA sites into a "local field trip" content file, every site marked UNVERIFIED with its original evidence (owner said yes on 2026-10-31) | Claude | Medium (Sonnet), Medium effort | Later |
 | T12 | When your Mac is back: put the `cellatlas-data` folder on GitHub (Claude will give exact steps) so its cell-site research can be reviewed | You + Claude | Medium (Sonnet), Medium effort | Later (needs the Mac) |
 
@@ -32,6 +32,7 @@ Claude ticks tasks off, adds new ones, and saves (merges) its own work. ⭐ mean
 | # | Task | Finished |
 |---|---|---|
 | T08 | Listed copyright-free photo sources for each lesson topic (`docs/research/photo-sources.md`): Wikimedia Commons works well for tower types, fake trees, small cells and US sites. There are big gaps for equipment brands and site signs, so those will need your own photos later or Claude's drawings. | 2026-10-31 |
+| T25 | The robot's launcher had paused itself, taking quick restarts for a runaway loop. Fixed: close firings are expected, and a safety limit allows at most 6 runs an hour. | 2026-10-31 |
 | T24 | Answered: effort follows the model (measured Haiku Low, Sonnet Medium), so the robot moves up a model size after a failed try; it restarts after your limit, picks up crashed work right away, and pings you when it's waiting for your approval. | 2026-10-31 |
 | T23 | Tested whether the panel can read the project live: it can't (there is no GitHub connector). The panel stays a snapshot, and chats now refresh it at the end of each task. | 2026-10-31 |
 | T18 | Built the progress panel: a clean private page showing the levels, what Claude is doing, what waits for you, and recent work. First version is a snapshot Claude refreshes (`panel/`). | 2026-10-31 |
