@@ -41,6 +41,7 @@ Claude ticks tasks off, adds new ones, and saves (merges) its own work. ⭐ mean
 ## Done
 | # | Task | Finished |
 |---|---|---|
+| T38 | Robot chats now tidy up after themselves: each one names itself after its job (like "Robot: Photo sources list") and puts itself away when it's done. You asked because finished robot chats were piling up, all called "Robot run". | 2026-10-31 |
 | T09 | Built a first carrier-code list (`content/carrier-codes.md`): which number tag means T-Mobile, AT&T, Verizon and others. It fixes bandmon's mistakes (312/530 is T-Mobile, not Spectrum). It is marked DRAFT because the only source I could reach was Wikipedia. | 2026-10-31 |
 | T08 | Listed copyright-free photo sources for each lesson topic (`docs/research/photo-sources.md`): Wikimedia Commons works well for tower types, fake trees, small cells and US sites. There are big gaps for equipment brands and site signs, so those will need your own photos later or Claude's drawings. | 2026-10-31 |
 | T25 | The robot's launcher had paused itself, taking quick restarts for a runaway loop. Fixed: close firings are expected, and a safety limit allows at most 6 runs an hour. | 2026-10-31 |
