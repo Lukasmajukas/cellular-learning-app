@@ -39,6 +39,7 @@ Claude adds new words here whenever they come up.
 | **PRD** | The plan, or blueprint. It says what the app will do before anyone builds it. |
 | **MVP** | The first playable version: small, but it works. |
 | **Installer** | The file you double-click to put the app on your computer. |
+| **Sign-off** | Saying "yes, build it like this" about a plan. Like a parent signing a permission slip: until it's signed, nothing starts. You signed off the plan on Oct 31, 2026. |
 | **App engine (Electron / Tauri)** | The base the app is built on, like the engine in a car. The plan recommends Electron. |
 | **Browser engine (Chromium)** | The part of a web browser that draws pages. Chromium is the one inside Chrome and Edge. Electron carries its own copy, so the app looks the same everywhere. |
 | **TypeScript / React** | TypeScript is the language Claude writes the app in. React is a toolkit for building screens out of small reusable pieces, like Lego bricks. |

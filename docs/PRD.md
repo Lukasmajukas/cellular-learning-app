@@ -1,10 +1,10 @@
 # 📐 The Plan (PRD): what we're building, and how
 
-**Status:** DRAFT, waiting for the owner to read it · **Written:** 2026-10-31 by a robot run (Opus, High effort), task T04
+**Status:** SIGNED OFF by the owner on 2026-10-31 · **Written:** 2026-10-31 by a robot run (Opus, High effort), task T04
 **Built from:** the research report (`docs/research/Cellular learning app research.md`), the research notes, `docs/reuse-review.md`, `docs/research/photo-sources.md`, `content/carrier-codes.md` and every decision in `docs/DECISIONS.md` up to today.
 
 <!-- When the owner types "I sign off the plan", a chat adds the line below and merges it. That line unlocks app building. -->
-<!-- Signed off by owner: (not yet) -->
+Signed off by owner: 2026-10-31 ("I sign off the plan"). All suggested answers in section 9 stand.
 
 ---
 
@@ -225,7 +225,7 @@ Each step is one or more tasks in `TASKS.md`. Sizes follow the model table in `C
 **The test build (T05) also decides things.** If Electron feels slow or a building block misbehaves on your PC, we fix the plan before building more. That's what the test build is for.
 
 ## 9. Questions for you (open questions)
-You can answer these in any chat, in any order. My suggested answer is in **bold**; if you're happy with all of them, just type `I sign off the plan` and they'll stand.
+You can answer these in any chat, in any order. My suggested answer is in **bold**. **Answered 2026-10-31:** the owner signed off without changes, so every bold answer stands. You can still change any of them later in any chat.
 
 1. **App name** (this is task T02). Some original ideas: *Bandwise*, *Signal Path*, *SiteSeer*, *Spectrum Scout*. Or your own. **Keep the working name until you pick one.**
 2. **App engine:** OK with Electron (section 6)? **Yes.**
