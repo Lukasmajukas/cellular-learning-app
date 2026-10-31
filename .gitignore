@@ -1,0 +1,17 @@
+# Computer junk files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Secrets - never upload these
+.env
+.env.*
+*.pem
+
+# Things that get rebuilt automatically (big, no need to save)
+node_modules/
+dist/
+build/
+out/
+target/
+*.log

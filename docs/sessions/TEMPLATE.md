@@ -1,0 +1,24 @@
+# Handoff note: YYYY-MM-DD, [task number and name]
+
+**Model used:** [Small/Medium/Large] · **Branch / pull request:** [link]
+
+## In simple words (for the owner)
+[2–3 sentences, as if explaining to a 12-year-old: what we did and why it matters.]
+
+## What was done
+- 
+
+## What's next
+- Next task: [T__], model: [size], type: `Do the next task in TASKS.md`
+
+## Decisions made (also added to docs/DECISIONS.md)
+- 
+
+## Questions for the owner
+- 
+
+## New words (also added to GLOSSARY.md)
+- 
+
+## Notes for the next Claude
+[Anything technical the next chat needs: gotchas, half-finished bits, files touched.]
