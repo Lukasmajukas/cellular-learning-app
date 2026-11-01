@@ -22,7 +22,7 @@ Claude ticks tasks off, adds new ones, and saves (merges) its own work. ⭐ mean
 |---|---|---|---|---|
 | T27 | Check the carrier-code list (`content/carrier-codes.md`) against the official ITU list and the US registry (imsiadmin.com). Needs those sites allowed or files uploaded. | Claude | Medium (Sonnet), Medium effort | Later (needs network access or files) |
 | T07 | Check the band numbers against the official 3GPP documents. This needs etsi.org allowed in network settings, or PDFs you upload. | Claude | Medium (Sonnet), Medium effort | Later |
-| T42 | Review the draft bands file (`content/bands.md`): check the band table and the carrier rows against the research notes, and flag anything that looks wrong | Claude | Large (Opus), High effort | Later |
+| T43 | Fix the bands file using the T42 review (`docs/reviews/2026-10-31-bands-review.md`): correct the 4 carrier rows marked trusted without good evidence, treat same-source rows the same way, move spectrum sales into their own list, split grouped bands, add plain number fields. All changes go through the build scripts. | Claude | Medium (Sonnet), Medium effort | Later |
 | T26 | Pick and licence-check 2 to 4 photos per lesson topic from the places listed in `docs/research/photo-sources.md`, into a credits file in `content/`. Unit 8 (equipment brands) may start as drawings. | Claude | Medium (Sonnet), Medium effort | Later |
 | T28 | Build the fact checker: a small program that refuses any fact without a status, date and source, any photo without an allowed licence, any question whose answer is UNVERIFIED, and any changed question ID (`docs/PRD.md` section 5) | Claude | Medium (Sonnet), Medium effort | Later |
 | T29 | v0.3 skeleton, part 1: the path map and the lesson player | Claude | Medium (Sonnet), Medium effort | Later |
@@ -40,6 +40,7 @@ Claude ticks tasks off, adds new ones, and saves (merges) its own work. ⭐ mean
 ## Done
 | # | Task | Finished |
 |---|---|---|
+| T42 | Reviewed the bands file. The frequencies are all right. In the "which carrier uses which band" part, 4 rows were marked trusted without good evidence (for example "Cellcom runs band 13" when the source only says Cellcom can use Verizon's spectrum), and a few well-sourced rows were marked unchecked. Nothing was changed yet; the fixes are task T43. | 2026-10-31 |
 | T06 | Built the bands data file (`content/bands.md` and `content/bands.json`): 81 bands with frequencies copied from Wikipedia's band pages, plus 64 "which carrier uses it" rows. It's a DRAFT: the frequencies are not yet checked against the official 3GPP documents (T07), and only 16 of the 64 carrier rows have a cited source; the rest are marked UNVERIFIED. A Large (Opus) review is still due. | 2026-10-31 |
 | T41 | The Windows build did run, but failed at the last step (making the installer): it wanted an "author" name. Added it. Tests and the click test already passed. The re-run passed and made the installer. | 2026-10-31 |
 | T05 | Built the test build in `app/`: Electron + React, an animated sample lesson (3 questions, bouncy buttons, confetti, beep, mascot). Passes unit tests and a real-app click test in the cloud; a GitHub workflow runs the same on Windows and builds the installer. Waiting for your verdict (T40). | 2026-10-31 |
