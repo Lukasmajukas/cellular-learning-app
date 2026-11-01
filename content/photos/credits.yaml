@@ -102,3 +102,48 @@
   date_checked: 2026-11-01
   ai_made: false
   note: "Stealth monopole tree (unit 6); exact licence CC BY-SA 3.0; not yet looked at by eye (thumbnail got 429)"
+- id: small-cell-pole-01
+  file: small-cell-pole-01.webp
+  source_url: https://commons.wikimedia.org/wiki/File:Utility_pole_with_Verizon_5G_mmwave_antennas_-_Arlington,_MA.jpg
+  title: "Utility pole with Verizon 5G mmwave antennas - Arlington, MA.jpg"
+  author: "Daderot"
+  licence: CC0
+  date_checked: 2026-11-01
+  ai_made: false
+  note: "Small cell on a utility pole (unit 6); not yet looked at by eye"
+- id: small-cell-pole-02
+  file: small-cell-pole-02.webp
+  source_url: https://commons.wikimedia.org/wiki/File:3225_Wilshire_light_pole.jpg
+  title: "3225 Wilshire light pole.jpg"
+  author: "Downtowngal"
+  licence: CC BY-SA
+  date_checked: 2026-11-01
+  ai_made: false
+  note: "Small cell on a light pole (unit 6); not yet looked at by eye"
+- id: small-cell-pole-03
+  file: small-cell-pole-03.webp
+  source_url: https://commons.wikimedia.org/wiki/File:Downtown_Minneapolis_5G_Antennas_-_Cellular_(53839195956).jpg
+  title: "Downtown Minneapolis 5G Antennas - Cellular (53839195956).jpg"
+  author: "Tony Webster"
+  licence: CC BY
+  date_checked: 2026-11-01
+  ai_made: false
+  note: "Small cells on city poles (unit 6); not yet looked at by eye"
+- id: site-5g-equipment-01
+  file: site-5g-equipment-01.webp
+  source_url: https://commons.wikimedia.org/wiki/File:Cellular_5G_Equipment_-_Cell_Tower_Antennas.jpg
+  title: "Cellular 5G Equipment - Cell Tower Antennas.jpg"
+  author: "Tony Webster"
+  licence: CC BY
+  date_checked: 2026-11-01
+  ai_made: false
+  note: "5G equipment on a tower (units 6 and 8, as a generic look-alike, not a brand); not yet looked at by eye"
+- id: site-sign-01
+  file: site-sign-01.webp
+  source_url: https://commons.wikimedia.org/wiki/File:Caution_signs_at_base_of_Mariani_Square_water_tower,_San_Jose,_California.jpg
+  title: "Caution signs at base of Mariani Square water tower, San Jose, California.jpg"
+  author: "Mxn"
+  licence: CC BY-SA
+  date_checked: 2026-11-01
+  ai_made: false
+  note: "Warning signs at a site base (unit 7, reading a site); not yet looked at by eye"

@@ -4,6 +4,7 @@ One or two plain-English lines per chat. Newest at the top.
 
 | Date | What happened | Details |
 |---|---|---|
+| 2026-11-01 | T26 (robot): added 5 more free photos (small cells on poles, a 5G tower, a warning sign) by browsing Commons folders; 16 photos now, licences checked, pictures not yet looked at. | [note](sessions/2026-11-01-session-47-t26-photos-4.md) |
 | 2026-11-01 | T33 (part 6, robot): built a lesson-length calculator. 11 of the 15 lessons land in 3 to 5 minutes; 4 are a bit short (about 2.5 to 2.9 minutes) and none is too long. | [note](sessions/2026-11-01-session-46-t33-timing.md) |
 | 2026-11-01 | T26 (robot): tried to find more free small-cell photos; the photo site only gave back scanned documents, so nothing was added. | [note](sessions/2026-11-01-session-45-t26-photos-3.md) |
 | 2026-11-01 | T33 (part 5): added the two big frequency neighbourhoods, FR1 (410 MHz to 7.125 GHz) and FR2 (24.25 to 71 GHz, mmWave), to the bands file as checked facts. Still to do for T33: timing one lesson per unit, and the carrier questions after T47. | `docs/sessions/2026-11-01-session-44-t33-ranges.md` |
