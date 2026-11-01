@@ -11,7 +11,7 @@ It's just for you, not for sale. Claude writes the code; you decide what you wan
 
 ## 🗺️ Where are we?
 
-Level 1 Research ✅ → Level 2 The Plan ✅ → **Level 3 Test build 👉 you are here** → Level 4 First playable version → Level 5 Polish → Level 6 Keep it fresh
+Level 1 Research ✅ → Level 2 The Plan ✅ → Level 3 Test build ✅ → **Level 4 First playable version 👉 you are here** → Level 5 Polish → Level 6 Keep it fresh
 
 All the levels are explained in [ROADMAP.md](ROADMAP.md).
 
