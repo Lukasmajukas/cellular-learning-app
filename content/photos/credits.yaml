@@ -147,3 +147,21 @@
   date_checked: 2026-11-01
   ai_made: false
   note: "Warning signs at a site base (unit 7, reading a site); not yet looked at by eye"
+- id: site-water-tower-01
+  file: site-water-tower-01.webp
+  source_url: https://commons.wikimedia.org/wiki/File:Cell_Tower_%5E_Water_Tower_-_panoramio.jpg
+  title: "Cell Tower ^ Water Tower - panoramio.jpg"
+  author: "Corey Coyle"
+  licence: CC BY
+  date_checked: 2026-11-01
+  ai_made: false
+  note: "(CC BY 3.0) Cell tower beside a water tower, Wisconsin, USA (GPS 43.13, -89.74) (unit 6, sites on water tanks); not yet looked at by eye"
+- id: site-water-tower-02
+  file: site-water-tower-02.webp
+  source_url: https://commons.wikimedia.org/wiki/File:Lake_View_Sanatorium_-_Water_Tower_%5E_Cell_Tower_-_panoramio.jpg
+  title: "Lake View Sanatorium - Water Tower ^ Cell Tower - panoramio.jpg"
+  author: "Corey Coyle"
+  licence: CC BY
+  date_checked: 2026-11-01
+  ai_made: false
+  note: "(CC BY 3.0) Water tower and cell tower, Wisconsin, USA (GPS 43.13, -89.37) (unit 6); not yet looked at by eye"
