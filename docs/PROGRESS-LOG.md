@@ -4,6 +4,7 @@ One or two plain-English lines per chat. Newest at the top.
 
 | Date | What happened | Details |
 |---|---|---|
+| 2026-11-01 | T26 (robot): looked at 1 more photo (the portable "cell on wheels" site): clean, no faces or plates. 6 still to look at; Wikimedia said "too many requests" again. | [note](sessions/2026-11-01-session-56-t26-photos-12.md) |
 | 2026-11-01 | Robot looked at 2 more tower photos: one is fine, one (three masts by a road) shows a car number plate and must be cropped. 7 photos still to look at. | `docs/sessions/2026-11-01-session-55-t26-photos-11.md` |
 | 2026-11-01 | Robot looked at 5 more photos: 4 are fine, 1 (a street pole) shows a car number plate in the corner and must be cropped before use. Commons answered this time. 9 photos still to look at. | `docs/sessions/2026-11-01-session-54-t26-photos-10.md` |
 | 2026-11-01 | Robot tried to look at 3 more photos; the photo website said "slow down" every time, so nothing changed. | `docs/sessions/2026-11-01-session-53-t26-photos-9.md` |
