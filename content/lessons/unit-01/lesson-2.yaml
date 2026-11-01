@@ -1,0 +1,85 @@
+unit: unit01
+unit_title: The spectrum ruler
+lesson: unit01-l2
+title: Low, mid and high
+questions:
+  - id: u1-tier-learn-01
+    kind: learn
+    title: Three parts of the ruler
+    facts: [band:B71, band:B2, band:n260]
+    text: >
+      In this app, we split the ruler in three. Low band is any band that starts below 1000 MHz, like B71
+      ({band:B71.dl_low_mhz} MHz). High band is the very top, called mmWave, like n260 ({band:n260.dl_low_mhz} MHz).
+      Mid band is everything in between, like B2 ({band:B2.dl_low_mhz} MHz). Other people draw the lines a bit differently,
+      so this is the app's own rule.
+    show: [B71, B2]
+  - id: u1-reach-learn-01
+    kind: learn
+    title: Reach versus speed
+    no_facts_needed: true
+    text: >
+      Low bands are like a deep voice: they travel far and get through walls, but carry less. High bands are like a whisper
+      that moves lots of data: very fast, but they stop at the first wall. Mid bands are in the middle.
+  - id: u1-tier-01
+    kind: choice
+    facts: [band:B12]
+    prompt: Which part of the ruler is B12 in?
+    choices: [Low band, Mid band, High band]
+    answer: 0
+    why: B12's downlink starts at {band:B12.dl_low_mhz} MHz, below 1000 MHz, so it is low band.
+  - id: u1-tier-02
+    kind: choice
+    facts: [band:B66]
+    prompt: Which part of the ruler is B66 in?
+    choices: [Low band, Mid band, High band]
+    answer: 1
+    why: B66's downlink starts at {band:B66.dl_low_mhz} MHz. That is above 1000 MHz but not mmWave, so it is mid band.
+  - id: u1-tier-03
+    kind: choice
+    facts: [band:n41]
+    prompt: Which part of the ruler is n41 in?
+    choices: [Low band, Mid band, High band]
+    answer: 1
+    why: n41 starts at {band:n41.dl_low_mhz} MHz and its kind is {band:n41.kind}, so it is mid band.
+  - id: u1-tier-04
+    kind: choice
+    facts: [band:n261]
+    prompt: Which part of the ruler is n261 in?
+    choices: [Low band, Mid band, High band]
+    answer: 2
+    why: n261's kind is {band:n261.kind}. mmWave bands are high band.
+  - id: u1-fr-01
+    kind: choice
+    facts: [band:n77]
+    prompt: The bands file tags n77 as FR1 or FR2?
+    choices: [FR1, FR2]
+    answer: 0
+    why: FR1 is the 5G zone for everything below mmWave. The bands file tags n77 as {band:n77.kind}.
+  - id: u1-fr-02
+    kind: choice
+    facts: [band:n260]
+    prompt: The bands file tags n260 as FR1 or FR2?
+    choices: [FR1, FR2]
+    answer: 1
+    why: FR2 is the mmWave zone. The bands file tags n260 as {band:n260.kind}.
+  - id: u1-order-01
+    kind: order
+    facts: [band:B71, band:B2, band:n77, band:n260]
+    prompt: Put these bands in order, lowest frequency first.
+    bands: [n77, B71, n260, B2]
+    sort_by: dl_low_mhz
+    why: Sorted by where each downlink starts, in MHz.
+  - id: u1-basement-01
+    kind: choice
+    no_facts_needed: true
+    prompt: You are in a basement, far from the tower. Which kind of band helps you most?
+    choices: [Low band, Mid band, High band]
+    answer: 0
+    why: Low bands travel farthest and get through walls best.
+  - id: u1-boundary-01
+    kind: choice
+    no_facts_needed: true
+    prompt: In this app, a band that starts below what number is low band?
+    choices: [1000 MHz, 3000 MHz, 500 MHz]
+    answer: 0
+    why: The app's rule is 1000 MHz (that is 1 GHz). Below it is low band.

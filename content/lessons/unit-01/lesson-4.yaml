@@ -1,0 +1,80 @@
+unit: unit01
+unit_title: The spectrum ruler
+lesson: unit01-l4
+title: The upside-down bands
+questions:
+  - id: u1-flip-learn-01
+    kind: learn
+    title: Normally uplink is below downlink
+    facts: [band:B12, band:B71, band:B13, band:B14]
+    text: >
+      In most FDD bands the uplink lane sits below the downlink lane. B12 is normal: uplink {band:B12.ul_low_mhz} to {band:B12.ul_high_mhz} MHz,
+      downlink {band:B12.dl_low_mhz} to {band:B12.dl_high_mhz} MHz. A few bands are upside-down: the uplink sits above.
+      B71, B13 and B14 are three you will meet most. B71 has uplink {band:B71.ul_low_mhz} MHz and up, downlink up to {band:B71.dl_high_mhz} MHz.
+    show: [B12, B71]
+  - id: u1-flip-01
+    kind: choice
+    facts: [band:B71]
+    prompt: Is B71 normal or upside-down?
+    choices: [Normal, Upside-down]
+    answer: 1
+    why: The bands file says B71 is {band:B71.duplex}.
+  - id: u1-flip-02
+    kind: choice
+    facts: [band:B12]
+    prompt: Is B12 normal or upside-down?
+    choices: [Normal, Upside-down]
+    answer: 0
+    why: Its uplink ({band:B12.ul_low_mhz} MHz) is below its downlink ({band:B12.dl_low_mhz} MHz).
+  - id: u1-flip-03
+    kind: choice
+    facts: [band:B14]
+    prompt: Is B14 normal or upside-down?
+    choices: [Normal, Upside-down]
+    answer: 1
+    why: The bands file says B14 is {band:B14.duplex}.
+  - id: u1-flip-04
+    kind: choice
+    facts: [band:B2]
+    prompt: Is B2 normal or upside-down?
+    choices: [Normal, Upside-down]
+    answer: 0
+    why: Its uplink ({band:B2.ul_low_mhz} MHz) is below its downlink ({band:B2.dl_low_mhz} MHz).
+  - id: u1-clue-03
+    kind: choice
+    facts: [band:B13, band:B14, band:B12]
+    prompt: "Which band has uplink {band:B13.ul_low_mhz} to {band:B13.ul_high_mhz} MHz and downlink {band:B13.dl_low_mhz} to {band:B13.dl_high_mhz} MHz?"
+    choices: [B13, B14, B12]
+    answer: 0
+    why: Those are B13's numbers. B14 is right next door but a few MHz higher.
+  - id: u1-flip-05
+    kind: choice
+    facts: [band:B13, band:B14, band:B71, band:B5]
+    prompt: Which one of these is NOT upside-down?
+    choices: [B13, B14, B71, B5]
+    answer: 3
+    why: B5's uplink ({band:B5.ul_low_mhz} MHz) is below its downlink ({band:B5.dl_low_mhz} MHz).
+  - id: u1-flip-06
+    kind: choice
+    facts: [band:n71]
+    prompt: Is n71 upside-down too?
+    choices: ["Yes, it is B71's twin", "No, only 4G bands flip"]
+    answer: 0
+    why: Twins share the same numbers, so n71 is {band:n71.duplex}.
+  - id: u1-names-01
+    kind: match
+    facts: [band:B71, band:B12, band:B2, band:B66]
+    prompt: Match each band to its nickname.
+    pairs:
+      - ["{band:B71.id}", "{band:B71.name}"]
+      - ["{band:B12.id}", "{band:B12.name}"]
+      - ["{band:B2.id}", "{band:B2.name}"]
+      - ["{band:B66.id}", "{band:B66.name}"]
+    why: The nicknames come from the bands file.
+  - id: u1-duplex-06
+    kind: choice
+    facts: [band:B71]
+    prompt: Is B71 FDD or TDD?
+    choices: [FDD, TDD]
+    answer: 0
+    why: Upside-down or not, B71 still has two lanes, so it is FDD.

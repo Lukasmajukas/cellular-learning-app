@@ -1,0 +1,861 @@
+{
+ "units": [
+  {
+   "id": "unit01",
+   "title": "The spectrum ruler",
+   "lessons": [
+    {
+     "id": "unit01-l1",
+     "title": "What is a band?",
+     "questions": [
+      {
+       "id": "u1-band-learn-01",
+       "kind": "learn",
+       "title": "A band is a numbered stretch",
+       "facts": [
+        "band:B71",
+        "band:n258"
+       ],
+       "text": "Radio waves wiggle at different speeds. A band is a stretch of those speeds with a number for a name, like a lane on a road. We count the speed in MHz (megahertz). B71 sits low on the ruler: its downlink runs from {band:B71.dl_low_mhz} to {band:B71.dl_high_mhz} MHz. n258 sits far up at {band:n258.dl_low_mhz} MHz.\n",
+       "show": [
+        "B71"
+       ]
+      },
+      {
+       "id": "u1-bn-learn-01",
+       "kind": "learn",
+       "title": "B is 4G, n is 5G",
+       "facts": [
+        "band:B71",
+        "band:n71"
+       ],
+       "text": "A band that starts with \"B\" is 4G (also called LTE). A band that starts with \"n\" is 5G (also called NR). B71 and n71 are twins: they use exactly the same space ({band:B71.dl_low_mhz} to {band:B71.dl_high_mhz} MHz downlink).\n",
+       "show": [
+        "B71"
+       ]
+      },
+      {
+       "id": "u1-ghz-01",
+       "kind": "choice",
+       "no_facts_needed": true,
+       "prompt": "Which is the higher frequency, 2000 MHz or 2 GHz?",
+       "choices": [
+        "2000 MHz",
+        "2 GHz",
+        "They are the same"
+       ],
+       "answer": 2,
+       "why": "1 GHz (gigahertz) is 1000 MHz, so 2 GHz is 2000 MHz. Same thing, different units."
+      },
+      {
+       "id": "u1-4g5g-01",
+       "kind": "choice",
+       "facts": [
+        "band:n71"
+       ],
+       "prompt": "Your phone shows \"n71\". Is that 4G or 5G?",
+       "choices": [
+        "5G (NR)",
+        "4G (LTE)"
+       ],
+       "answer": 0,
+       "why": "Bands starting with \"n\" are 5G. The bands file lists n71 as {band:n71.kind}, a 5G band."
+      },
+      {
+       "id": "u1-4g5g-02",
+       "kind": "choice",
+       "facts": [
+        "band:B66"
+       ],
+       "prompt": "Your phone shows \"B66\". Is that 4G or 5G?",
+       "choices": [
+        "4G (LTE)",
+        "5G (NR)"
+       ],
+       "answer": 0,
+       "why": "Bands starting with \"B\" are 4G. The bands file lists B66 as {band:B66.kind}."
+      },
+      {
+       "id": "u1-twins-01",
+       "kind": "match",
+       "facts": [
+        "band:B71",
+        "band:n71",
+        "band:B2",
+        "band:n2",
+        "band:B66",
+        "band:n66"
+       ],
+       "prompt": "Match each 4G band to its 5G twin.",
+       "pairs": [
+        [
+         "{band:B71.id}",
+         "{band:n71.id}"
+        ],
+        [
+         "{band:B2.id}",
+         "{band:n2.id}"
+        ],
+        [
+         "{band:B66.id}",
+         "{band:n66.id}"
+        ]
+       ],
+       "why": "Twins share the same numbers. Only the letter changes."
+      },
+      {
+       "id": "u1-higher-01",
+       "kind": "choice",
+       "facts": [
+        "band:B71",
+        "band:B66"
+       ],
+       "prompt": "B71 or B66, which one sits higher on the ruler?",
+       "choices": [
+        "B71",
+        "B66"
+       ],
+       "answer": 1,
+       "why": "B66's downlink starts at {band:B66.dl_low_mhz} MHz. B71's starts at {band:B71.dl_low_mhz} MHz."
+      },
+      {
+       "id": "u1-twin-01",
+       "kind": "choice",
+       "facts": [
+        "band:n25",
+        "band:B25",
+        "band:B2",
+        "band:B66"
+       ],
+       "prompt": "Which 4G band is the twin of n25?",
+       "choices": [
+        "B25",
+        "B2",
+        "B66"
+       ],
+       "answer": 0,
+       "why": "n25 and B25 share the same numbers. B2 is a close cousin, but not the twin."
+      }
+     ]
+    },
+    {
+     "id": "unit01-l2",
+     "title": "Low, mid and high",
+     "questions": [
+      {
+       "id": "u1-tier-learn-01",
+       "kind": "learn",
+       "title": "Three parts of the ruler",
+       "facts": [
+        "band:B71",
+        "band:B2",
+        "band:n260"
+       ],
+       "text": "In this app, we split the ruler in three. Low band is any band that starts below 1000 MHz, like B71 ({band:B71.dl_low_mhz} MHz). High band is the very top, called mmWave, like n260 ({band:n260.dl_low_mhz} MHz). Mid band is everything in between, like B2 ({band:B2.dl_low_mhz} MHz). Other people draw the lines a bit differently, so this is the app's own rule.\n",
+       "show": [
+        "B71",
+        "B2"
+       ]
+      },
+      {
+       "id": "u1-reach-learn-01",
+       "kind": "learn",
+       "title": "Reach versus speed",
+       "no_facts_needed": true,
+       "text": "Low bands are like a deep voice: they travel far and get through walls, but carry less. High bands are like a whisper that moves lots of data: very fast, but they stop at the first wall. Mid bands are in the middle.\n"
+      },
+      {
+       "id": "u1-tier-01",
+       "kind": "choice",
+       "facts": [
+        "band:B12"
+       ],
+       "prompt": "Which part of the ruler is B12 in?",
+       "choices": [
+        "Low band",
+        "Mid band",
+        "High band"
+       ],
+       "answer": 0,
+       "why": "B12's downlink starts at {band:B12.dl_low_mhz} MHz, below 1000 MHz, so it is low band."
+      },
+      {
+       "id": "u1-tier-02",
+       "kind": "choice",
+       "facts": [
+        "band:B66"
+       ],
+       "prompt": "Which part of the ruler is B66 in?",
+       "choices": [
+        "Low band",
+        "Mid band",
+        "High band"
+       ],
+       "answer": 1,
+       "why": "B66's downlink starts at {band:B66.dl_low_mhz} MHz. That is above 1000 MHz but not mmWave, so it is mid band."
+      },
+      {
+       "id": "u1-tier-03",
+       "kind": "choice",
+       "facts": [
+        "band:n41"
+       ],
+       "prompt": "Which part of the ruler is n41 in?",
+       "choices": [
+        "Low band",
+        "Mid band",
+        "High band"
+       ],
+       "answer": 1,
+       "why": "n41 starts at {band:n41.dl_low_mhz} MHz and its kind is {band:n41.kind}, so it is mid band."
+      },
+      {
+       "id": "u1-tier-04",
+       "kind": "choice",
+       "facts": [
+        "band:n261"
+       ],
+       "prompt": "Which part of the ruler is n261 in?",
+       "choices": [
+        "Low band",
+        "Mid band",
+        "High band"
+       ],
+       "answer": 2,
+       "why": "n261's kind is {band:n261.kind}. mmWave bands are high band."
+      },
+      {
+       "id": "u1-fr-01",
+       "kind": "choice",
+       "facts": [
+        "band:n77"
+       ],
+       "prompt": "The bands file tags n77 as FR1 or FR2?",
+       "choices": [
+        "FR1",
+        "FR2"
+       ],
+       "answer": 0,
+       "why": "FR1 is the 5G zone for everything below mmWave. The bands file tags n77 as {band:n77.kind}."
+      },
+      {
+       "id": "u1-fr-02",
+       "kind": "choice",
+       "facts": [
+        "band:n260"
+       ],
+       "prompt": "The bands file tags n260 as FR1 or FR2?",
+       "choices": [
+        "FR1",
+        "FR2"
+       ],
+       "answer": 1,
+       "why": "FR2 is the mmWave zone. The bands file tags n260 as {band:n260.kind}."
+      },
+      {
+       "id": "u1-order-01",
+       "kind": "order",
+       "facts": [
+        "band:B71",
+        "band:B2",
+        "band:n77",
+        "band:n260"
+       ],
+       "prompt": "Put these bands in order, lowest frequency first.",
+       "bands": [
+        "n77",
+        "B71",
+        "n260",
+        "B2"
+       ],
+       "sort_by": "dl_low_mhz",
+       "why": "Sorted by where each downlink starts, in MHz."
+      },
+      {
+       "id": "u1-basement-01",
+       "kind": "choice",
+       "no_facts_needed": true,
+       "prompt": "You are in a basement, far from the tower. Which kind of band helps you most?",
+       "choices": [
+        "Low band",
+        "Mid band",
+        "High band"
+       ],
+       "answer": 0,
+       "why": "Low bands travel farthest and get through walls best."
+      },
+      {
+       "id": "u1-boundary-01",
+       "kind": "choice",
+       "no_facts_needed": true,
+       "prompt": "In this app, a band that starts below what number is low band?",
+       "choices": [
+        "1000 MHz",
+        "3000 MHz",
+        "500 MHz"
+       ],
+       "answer": 0,
+       "why": "The app's rule is 1000 MHz (that is 1 GHz). Below it is low band."
+      }
+     ]
+    },
+    {
+     "id": "unit01-l3",
+     "title": "Two lanes or taking turns",
+     "questions": [
+      {
+       "id": "u1-updown-learn-01",
+       "kind": "learn",
+       "title": "Uplink and downlink",
+       "no_facts_needed": true,
+       "text": "Uplink is your phone talking to the tower (up). Downlink is the tower talking to your phone (down). Think of a phone call: you speak, then you listen.\n"
+      },
+      {
+       "id": "u1-duplex-learn-01",
+       "kind": "learn",
+       "title": "FDD and TDD",
+       "facts": [
+        "band:B2",
+        "band:n41"
+       ],
+       "text": "FDD is a road with two lanes: one for up, one for down. B2 is FDD: uplink {band:B2.ul_low_mhz} to {band:B2.ul_high_mhz} MHz, downlink {band:B2.dl_low_mhz} to {band:B2.dl_high_mhz} MHz. TDD is a single lane where up and down take turns, very fast. n41 is TDD: one range, {band:n41.dl_low_mhz} to {band:n41.dl_high_mhz} MHz, used both ways.\n",
+       "show": [
+        "B2",
+        "n41"
+       ]
+      },
+      {
+       "id": "u1-duplex-01",
+       "kind": "choice",
+       "facts": [
+        "band:B12"
+       ],
+       "prompt": "Is B12 FDD or TDD?",
+       "choices": [
+        "FDD",
+        "TDD"
+       ],
+       "answer": 0,
+       "why": "The bands file says B12 is {band:B12.duplex}."
+      },
+      {
+       "id": "u1-duplex-02",
+       "kind": "choice",
+       "facts": [
+        "band:n41"
+       ],
+       "prompt": "Is n41 FDD or TDD?",
+       "choices": [
+        "FDD",
+        "TDD"
+       ],
+       "answer": 1,
+       "why": "The bands file says n41 is {band:n41.duplex}."
+      },
+      {
+       "id": "u1-duplex-03",
+       "kind": "choice",
+       "facts": [
+        "band:B66"
+       ],
+       "prompt": "Is B66 FDD or TDD?",
+       "choices": [
+        "FDD",
+        "TDD"
+       ],
+       "answer": 0,
+       "why": "The bands file says B66 is {band:B66.duplex}. It still has two lanes, just far apart."
+      },
+      {
+       "id": "u1-duplex-04",
+       "kind": "choice",
+       "facts": [
+        "band:n77"
+       ],
+       "prompt": "Is n77 FDD or TDD?",
+       "choices": [
+        "FDD",
+        "TDD"
+       ],
+       "answer": 1,
+       "why": "The bands file says n77 is {band:n77.duplex}."
+      },
+      {
+       "id": "u1-duplex-05",
+       "kind": "choice",
+       "facts": [
+        "band:n261"
+       ],
+       "prompt": "n261 is a mmWave band. Is it FDD or TDD?",
+       "choices": [
+        "FDD",
+        "TDD"
+       ],
+       "answer": 1,
+       "why": "The bands file says n261 is {band:n261.duplex}."
+      },
+      {
+       "id": "u1-clue-01",
+       "kind": "choice",
+       "facts": [
+        "band:n41",
+        "band:B2",
+        "band:B12"
+       ],
+       "prompt": "Which band has one range that is used both ways?",
+       "choices": [
+        "n41",
+        "B2",
+        "B12"
+       ],
+       "answer": 0,
+       "why": "That is TDD. n41 is {band:n41.duplex}. B2 and B12 are FDD, with a separate uplink and downlink."
+      },
+      {
+       "id": "u1-clue-02",
+       "kind": "choice",
+       "facts": [
+        "band:B2"
+       ],
+       "prompt": "A band has uplink {band:B2.ul_low_mhz} to {band:B2.ul_high_mhz} MHz and downlink {band:B2.dl_low_mhz} to {band:B2.dl_high_mhz} MHz. FDD or TDD?",
+       "choices": [
+        "FDD",
+        "TDD"
+       ],
+       "answer": 0,
+       "why": "Two separate ranges means two lanes, which is FDD."
+      },
+      {
+       "id": "u1-gap-01",
+       "kind": "number",
+       "facts": [
+        "band:B2"
+       ],
+       "prompt": "How far apart are B2's two lanes? Type the gap in MHz.",
+       "answer_from": "band:B2.duplex_spacing_mhz",
+       "tolerance_mhz": 5,
+       "unit": "MHz",
+       "why": "The bands file gives B2's duplex gap as {band:B2.duplex_spacing_mhz} MHz."
+      },
+      {
+       "id": "u1-tier-05",
+       "kind": "choice",
+       "facts": [
+        "band:n41"
+       ],
+       "prompt": "Which part of the ruler is n41 in?",
+       "choices": [
+        "Low band",
+        "Mid band",
+        "High band"
+       ],
+       "answer": 1,
+       "why": "n41 starts at {band:n41.dl_low_mhz} MHz, above 1000 MHz and below mmWave, so it is mid band."
+      }
+     ]
+    },
+    {
+     "id": "unit01-l4",
+     "title": "The upside-down bands",
+     "questions": [
+      {
+       "id": "u1-flip-learn-01",
+       "kind": "learn",
+       "title": "Normally uplink is below downlink",
+       "facts": [
+        "band:B12",
+        "band:B71",
+        "band:B13",
+        "band:B14"
+       ],
+       "text": "In most FDD bands the uplink lane sits below the downlink lane. B12 is normal: uplink {band:B12.ul_low_mhz} to {band:B12.ul_high_mhz} MHz, downlink {band:B12.dl_low_mhz} to {band:B12.dl_high_mhz} MHz. A few bands are upside-down: the uplink sits above. B71, B13 and B14 are three you will meet most. B71 has uplink {band:B71.ul_low_mhz} MHz and up, downlink up to {band:B71.dl_high_mhz} MHz.\n",
+       "show": [
+        "B12",
+        "B71"
+       ]
+      },
+      {
+       "id": "u1-flip-01",
+       "kind": "choice",
+       "facts": [
+        "band:B71"
+       ],
+       "prompt": "Is B71 normal or upside-down?",
+       "choices": [
+        "Normal",
+        "Upside-down"
+       ],
+       "answer": 1,
+       "why": "The bands file says B71 is {band:B71.duplex}."
+      },
+      {
+       "id": "u1-flip-02",
+       "kind": "choice",
+       "facts": [
+        "band:B12"
+       ],
+       "prompt": "Is B12 normal or upside-down?",
+       "choices": [
+        "Normal",
+        "Upside-down"
+       ],
+       "answer": 0,
+       "why": "Its uplink ({band:B12.ul_low_mhz} MHz) is below its downlink ({band:B12.dl_low_mhz} MHz)."
+      },
+      {
+       "id": "u1-flip-03",
+       "kind": "choice",
+       "facts": [
+        "band:B14"
+       ],
+       "prompt": "Is B14 normal or upside-down?",
+       "choices": [
+        "Normal",
+        "Upside-down"
+       ],
+       "answer": 1,
+       "why": "The bands file says B14 is {band:B14.duplex}."
+      },
+      {
+       "id": "u1-flip-04",
+       "kind": "choice",
+       "facts": [
+        "band:B2"
+       ],
+       "prompt": "Is B2 normal or upside-down?",
+       "choices": [
+        "Normal",
+        "Upside-down"
+       ],
+       "answer": 0,
+       "why": "Its uplink ({band:B2.ul_low_mhz} MHz) is below its downlink ({band:B2.dl_low_mhz} MHz)."
+      },
+      {
+       "id": "u1-clue-03",
+       "kind": "choice",
+       "facts": [
+        "band:B13",
+        "band:B14",
+        "band:B12"
+       ],
+       "prompt": "Which band has uplink {band:B13.ul_low_mhz} to {band:B13.ul_high_mhz} MHz and downlink {band:B13.dl_low_mhz} to {band:B13.dl_high_mhz} MHz?",
+       "choices": [
+        "B13",
+        "B14",
+        "B12"
+       ],
+       "answer": 0,
+       "why": "Those are B13's numbers. B14 is right next door but a few MHz higher."
+      },
+      {
+       "id": "u1-flip-05",
+       "kind": "choice",
+       "facts": [
+        "band:B13",
+        "band:B14",
+        "band:B71",
+        "band:B5"
+       ],
+       "prompt": "Which one of these is NOT upside-down?",
+       "choices": [
+        "B13",
+        "B14",
+        "B71",
+        "B5"
+       ],
+       "answer": 3,
+       "why": "B5's uplink ({band:B5.ul_low_mhz} MHz) is below its downlink ({band:B5.dl_low_mhz} MHz)."
+      },
+      {
+       "id": "u1-flip-06",
+       "kind": "choice",
+       "facts": [
+        "band:n71"
+       ],
+       "prompt": "Is n71 upside-down too?",
+       "choices": [
+        "Yes, it is B71's twin",
+        "No, only 4G bands flip"
+       ],
+       "answer": 0,
+       "why": "Twins share the same numbers, so n71 is {band:n71.duplex}."
+      },
+      {
+       "id": "u1-names-01",
+       "kind": "match",
+       "facts": [
+        "band:B71",
+        "band:B12",
+        "band:B2",
+        "band:B66"
+       ],
+       "prompt": "Match each band to its nickname.",
+       "pairs": [
+        [
+         "{band:B71.id}",
+         "{band:B71.name}"
+        ],
+        [
+         "{band:B12.id}",
+         "{band:B12.name}"
+        ],
+        [
+         "{band:B2.id}",
+         "{band:B2.name}"
+        ],
+        [
+         "{band:B66.id}",
+         "{band:B66.name}"
+        ]
+       ],
+       "why": "The nicknames come from the bands file."
+      },
+      {
+       "id": "u1-duplex-06",
+       "kind": "choice",
+       "facts": [
+        "band:B71"
+       ],
+       "prompt": "Is B71 FDD or TDD?",
+       "choices": [
+        "FDD",
+        "TDD"
+       ],
+       "answer": 0,
+       "why": "Upside-down or not, B71 still has two lanes, so it is FDD."
+      }
+     ]
+    },
+    {
+     "id": "unit01-check",
+     "title": "Checkpoint: spectrum ruler",
+     "questions": [
+      {
+       "id": "u1-cp-tier-01",
+       "kind": "choice",
+       "facts": [
+        "band:B5"
+       ],
+       "prompt": "Which part of the ruler is B5 in?",
+       "choices": [
+        "Low band",
+        "Mid band",
+        "High band"
+       ],
+       "answer": 0,
+       "why": "B5's downlink starts at {band:B5.dl_low_mhz} MHz, below 1000 MHz."
+      },
+      {
+       "id": "u1-cp-tier-02",
+       "kind": "choice",
+       "facts": [
+        "band:B25"
+       ],
+       "prompt": "Which part of the ruler is B25 in?",
+       "choices": [
+        "Low band",
+        "Mid band",
+        "High band"
+       ],
+       "answer": 1,
+       "why": "B25's downlink starts at {band:B25.dl_low_mhz} MHz, above 1000 MHz and not mmWave."
+      },
+      {
+       "id": "u1-cp-tier-03",
+       "kind": "choice",
+       "facts": [
+        "band:n258"
+       ],
+       "prompt": "Which part of the ruler is n258 in?",
+       "choices": [
+        "Low band",
+        "Mid band",
+        "High band"
+       ],
+       "answer": 2,
+       "why": "n258 is {band:n258.kind}, a mmWave band."
+      },
+      {
+       "id": "u1-cp-duplex-01",
+       "kind": "choice",
+       "facts": [
+        "band:B13"
+       ],
+       "prompt": "Is B13 FDD or TDD?",
+       "choices": [
+        "FDD",
+        "TDD"
+       ],
+       "answer": 0,
+       "why": "The bands file says B13 is {band:B13.duplex}."
+      },
+      {
+       "id": "u1-cp-duplex-02",
+       "kind": "choice",
+       "facts": [
+        "band:n77"
+       ],
+       "prompt": "Is n77 FDD or TDD?",
+       "choices": [
+        "FDD",
+        "TDD"
+       ],
+       "answer": 1,
+       "why": "The bands file says n77 is {band:n77.duplex}."
+      },
+      {
+       "id": "u1-cp-duplex-03",
+       "kind": "choice",
+       "facts": [
+        "band:B5"
+       ],
+       "prompt": "Is B5 FDD or TDD?",
+       "choices": [
+        "FDD",
+        "TDD"
+       ],
+       "answer": 0,
+       "why": "The bands file says B5 is {band:B5.duplex}."
+      },
+      {
+       "id": "u1-cp-flip-01",
+       "kind": "choice",
+       "facts": [
+        "band:B14"
+       ],
+       "prompt": "Is B14 normal or upside-down?",
+       "choices": [
+        "Normal",
+        "Upside-down"
+       ],
+       "answer": 1,
+       "why": "The bands file says B14 is {band:B14.duplex}."
+      },
+      {
+       "id": "u1-cp-flip-02",
+       "kind": "choice",
+       "facts": [
+        "band:B25"
+       ],
+       "prompt": "Is B25 normal or upside-down?",
+       "choices": [
+        "Normal",
+        "Upside-down"
+       ],
+       "answer": 0,
+       "why": "Its uplink ({band:B25.ul_low_mhz} MHz) is below its downlink ({band:B25.dl_low_mhz} MHz)."
+      },
+      {
+       "id": "u1-cp-flip-03",
+       "kind": "choice",
+       "facts": [
+        "band:B71"
+       ],
+       "prompt": "Is B71 normal or upside-down?",
+       "choices": [
+        "Normal",
+        "Upside-down"
+       ],
+       "answer": 1,
+       "why": "The bands file says B71 is {band:B71.duplex}."
+      },
+      {
+       "id": "u1-cp-twins-01",
+       "kind": "match",
+       "facts": [
+        "band:B5",
+        "band:n5",
+        "band:B25",
+        "band:n25",
+        "band:B66",
+        "band:n66"
+       ],
+       "prompt": "Match each 4G band to its 5G twin.",
+       "pairs": [
+        [
+         "{band:B5.id}",
+         "{band:n5.id}"
+        ],
+        [
+         "{band:B25.id}",
+         "{band:n25.id}"
+        ],
+        [
+         "{band:B66.id}",
+         "{band:n66.id}"
+        ]
+       ],
+       "why": "Twins share the same numbers. Only the letter changes."
+      },
+      {
+       "id": "u1-cp-order-01",
+       "kind": "order",
+       "facts": [
+        "band:B71",
+        "band:B12",
+        "band:B5",
+        "band:B2",
+        "band:B66"
+       ],
+       "prompt": "Put these bands in order, lowest frequency first.",
+       "bands": [
+        "B2",
+        "B66",
+        "B71",
+        "B5",
+        "B12"
+       ],
+       "sort_by": "dl_low_mhz",
+       "why": "Sorted by where each downlink starts, in MHz."
+      },
+      {
+       "id": "u1-cp-order-02",
+       "kind": "order",
+       "facts": [
+        "band:B13",
+        "band:B5",
+        "band:B25",
+        "band:n41",
+        "band:n77"
+       ],
+       "prompt": "Put these bands in order, lowest frequency first.",
+       "bands": [
+        "n41",
+        "B13",
+        "n77",
+        "B25",
+        "B5"
+       ],
+       "sort_by": "dl_low_mhz",
+       "why": "Sorted by where each downlink starts, in MHz."
+      },
+      {
+       "id": "u1-cp-number-01",
+       "kind": "number",
+       "facts": [
+        "band:B71"
+       ],
+       "prompt": "B71's downlink starts at how many MHz? (type the number)",
+       "answer_from": "band:B71.dl_low_mhz",
+       "tolerance_mhz": 5,
+       "unit": "MHz",
+       "why": "B71's downlink is {band:B71.dl_low_mhz} to {band:B71.dl_high_mhz} MHz."
+      },
+      {
+       "id": "u1-cp-number-02",
+       "kind": "number",
+       "facts": [
+        "band:B2"
+       ],
+       "prompt": "How far apart are B2's two lanes? Type the gap in MHz.",
+       "answer_from": "band:B2.duplex_spacing_mhz",
+       "tolerance_mhz": 5,
+       "unit": "MHz",
+       "why": "The bands file gives B2's duplex gap as {band:B2.duplex_spacing_mhz} MHz."
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

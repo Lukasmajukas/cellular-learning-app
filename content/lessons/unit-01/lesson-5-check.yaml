@@ -1,0 +1,107 @@
+unit: unit01
+unit_title: The spectrum ruler
+lesson: unit01-check
+title: "Checkpoint: spectrum ruler"
+questions:
+  - id: u1-cp-tier-01
+    kind: choice
+    facts: [band:B5]
+    prompt: Which part of the ruler is B5 in?
+    choices: [Low band, Mid band, High band]
+    answer: 0
+    why: B5's downlink starts at {band:B5.dl_low_mhz} MHz, below 1000 MHz.
+  - id: u1-cp-tier-02
+    kind: choice
+    facts: [band:B25]
+    prompt: Which part of the ruler is B25 in?
+    choices: [Low band, Mid band, High band]
+    answer: 1
+    why: B25's downlink starts at {band:B25.dl_low_mhz} MHz, above 1000 MHz and not mmWave.
+  - id: u1-cp-tier-03
+    kind: choice
+    facts: [band:n258]
+    prompt: Which part of the ruler is n258 in?
+    choices: [Low band, Mid band, High band]
+    answer: 2
+    why: n258 is {band:n258.kind}, a mmWave band.
+  - id: u1-cp-duplex-01
+    kind: choice
+    facts: [band:B13]
+    prompt: Is B13 FDD or TDD?
+    choices: [FDD, TDD]
+    answer: 0
+    why: The bands file says B13 is {band:B13.duplex}.
+  - id: u1-cp-duplex-02
+    kind: choice
+    facts: [band:n77]
+    prompt: Is n77 FDD or TDD?
+    choices: [FDD, TDD]
+    answer: 1
+    why: The bands file says n77 is {band:n77.duplex}.
+  - id: u1-cp-duplex-03
+    kind: choice
+    facts: [band:B5]
+    prompt: Is B5 FDD or TDD?
+    choices: [FDD, TDD]
+    answer: 0
+    why: The bands file says B5 is {band:B5.duplex}.
+  - id: u1-cp-flip-01
+    kind: choice
+    facts: [band:B14]
+    prompt: Is B14 normal or upside-down?
+    choices: [Normal, Upside-down]
+    answer: 1
+    why: The bands file says B14 is {band:B14.duplex}.
+  - id: u1-cp-flip-02
+    kind: choice
+    facts: [band:B25]
+    prompt: Is B25 normal or upside-down?
+    choices: [Normal, Upside-down]
+    answer: 0
+    why: Its uplink ({band:B25.ul_low_mhz} MHz) is below its downlink ({band:B25.dl_low_mhz} MHz).
+  - id: u1-cp-flip-03
+    kind: choice
+    facts: [band:B71]
+    prompt: Is B71 normal or upside-down?
+    choices: [Normal, Upside-down]
+    answer: 1
+    why: The bands file says B71 is {band:B71.duplex}.
+  - id: u1-cp-twins-01
+    kind: match
+    facts: [band:B5, band:n5, band:B25, band:n25, band:B66, band:n66]
+    prompt: Match each 4G band to its 5G twin.
+    pairs:
+      - ["{band:B5.id}", "{band:n5.id}"]
+      - ["{band:B25.id}", "{band:n25.id}"]
+      - ["{band:B66.id}", "{band:n66.id}"]
+    why: Twins share the same numbers. Only the letter changes.
+  - id: u1-cp-order-01
+    kind: order
+    facts: [band:B71, band:B12, band:B5, band:B2, band:B66]
+    prompt: Put these bands in order, lowest frequency first.
+    bands: [B2, B66, B71, B5, B12]
+    sort_by: dl_low_mhz
+    why: Sorted by where each downlink starts, in MHz.
+  - id: u1-cp-order-02
+    kind: order
+    facts: [band:B13, band:B5, band:B25, band:n41, band:n77]
+    prompt: Put these bands in order, lowest frequency first.
+    bands: [n41, B13, n77, B25, B5]
+    sort_by: dl_low_mhz
+    why: Sorted by where each downlink starts, in MHz.
+  - id: u1-cp-number-01
+    kind: number
+    facts: [band:B71]
+    prompt: B71's downlink starts at how many MHz? (type the number)
+    answer_from: band:B71.dl_low_mhz
+    tolerance_mhz: 5
+    unit: MHz
+    why: B71's downlink is {band:B71.dl_low_mhz} to {band:B71.dl_high_mhz} MHz.
+  - id: u1-cp-number-02
+    kind: number
+    facts: [band:B2]
+    prompt: "How far apart are B2's two lanes? Type the gap in MHz."
+    answer_from: band:B2.duplex_spacing_mhz
+    tolerance_mhz: 5
+    unit: MHz
+    why: The bands file gives B2's duplex gap as {band:B2.duplex_spacing_mhz} MHz.
