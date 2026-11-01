@@ -1,0 +1,67 @@
+# Photo credits (T26, PARTIAL). Licences read from each file's own Commons data on 2026-11-01.
+# The files are NOT downloaded yet: 'file' is the planned name. Picked from titles + licence data;
+# a person or the next task must look at each picture before a lesson uses it (check no faces, no readable plates).
+
+- id: site-fake-tree-01
+  file: site-fake-tree-01.webp
+  source_url: https://commons.wikimedia.org/wiki/File:Cell_phone_tower_disguised_2008.jpg
+  title: "Cell phone tower disguised 2008.jpg"
+  author: "SayCheeeeeese"
+  licence: Public domain
+  date_checked: 2026-11-01
+  ai_made: false
+  note: "Fake tree site (unit 6); not yet looked at by eye"
+- id: site-fake-tree-02
+  file: site-fake-tree-02.webp
+  source_url: https://commons.wikimedia.org/wiki/File:Cell_phone_tower_resembles_trees_in_Shrewsbury_NJ.JPG
+  title: "Cell phone tower resembles trees in Shrewsbury NJ.JPG"
+  author: "Tomwsulcer"
+  licence: CC0
+  date_checked: 2026-11-01
+  ai_made: false
+  note: "Fake tree site (unit 6); not yet looked at by eye"
+- id: site-camouflaged-01
+  file: site-camouflaged-01.webp
+  source_url: https://commons.wikimedia.org/wiki/File:Amer_Bank_Note_camouflaged_antennas_jeh.jpg
+  title: "Amer Bank Note camouflaged antennas jeh.jpg"
+  author: "Jim.henderson"
+  licence: CC0
+  date_checked: 2026-11-01
+  ai_made: false
+  note: "Antennas hidden on a building (unit 6); not yet looked at by eye"
+- id: site-tower-01
+  file: site-tower-01.webp
+  source_url: https://commons.wikimedia.org/wiki/File:Antenna_%26_Mobile_Tower_McKinney,_Texas.jpg
+  title: "Antenna & Mobile Tower McKinney, Texas.jpg"
+  author: "Ranch9613"
+  licence: CC0
+  date_checked: 2026-11-01
+  ai_made: false
+  note: "Plain US cell tower (unit 6); not yet looked at by eye"
+- id: site-tower-02
+  file: site-tower-02.webp
+  source_url: https://commons.wikimedia.org/wiki/File:American_Tower_wireless_tower_Belleville_Michigan.JPG
+  title: "American Tower wireless tower Belleville Michigan.JPG"
+  author: "Dwight Burdette"
+  licence: CC BY
+  date_checked: 2026-11-01
+  ai_made: false
+  note: "US tower with several carriers (unit 6); not yet looked at by eye"
+- id: site-tower-03
+  file: site-tower-03.webp
+  source_url: https://commons.wikimedia.org/wiki/File:AT%26T_cell_phone_tower,_4836_Van_Gordon_St.,_Wheat_Ridge,_CO.jpg
+  title: "AT&T cell phone tower, 4836 Van Gordon St., Wheat Ridge, CO.jpg"
+  author: "Xnatedawgx"
+  licence: CC BY-SA
+  date_checked: 2026-11-01
+  ai_made: false
+  note: "US tower (unit 6); not yet looked at by eye"
+- id: site-cow-01
+  file: site-cow-01.webp
+  source_url: https://commons.wikimedia.org/wiki/File:Cell_on_wheels.jpg
+  title: "Cell on wheels.jpg"
+  author: "Mdwyer"
+  licence: CC BY-SA
+  date_checked: 2026-11-01
+  ai_made: false
+  note: "Cell on wheels, the portable site (unit 6); not yet looked at by eye"
