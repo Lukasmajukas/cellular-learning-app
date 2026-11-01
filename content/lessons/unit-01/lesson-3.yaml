@@ -1,0 +1,85 @@
+unit: unit01
+unit_title: The spectrum ruler
+lesson: unit01-l3
+title: Two lanes or taking turns
+questions:
+  - id: u1-updown-learn-01
+    kind: learn
+    title: Uplink and downlink
+    no_facts_needed: true
+    text: >
+      Uplink is your phone talking to the tower (up). Downlink is the tower talking to your phone (down).
+      Think of a phone call: you speak, then you listen.
+  - id: u1-duplex-learn-01
+    kind: learn
+    title: FDD and TDD
+    facts: [band:B2, band:n41]
+    text: >
+      FDD is a road with two lanes: one for up, one for down. B2 is FDD: uplink {band:B2.ul_low_mhz} to {band:B2.ul_high_mhz} MHz,
+      downlink {band:B2.dl_low_mhz} to {band:B2.dl_high_mhz} MHz. TDD is a single lane where up and down take turns, very fast.
+      n41 is TDD: one range, {band:n41.dl_low_mhz} to {band:n41.dl_high_mhz} MHz, used both ways.
+    show: [B2, n41]
+  - id: u1-duplex-01
+    kind: choice
+    facts: [band:B12]
+    prompt: Is B12 FDD or TDD?
+    choices: [FDD, TDD]
+    answer: 0
+    why: The bands file says B12 is {band:B12.duplex}.
+  - id: u1-duplex-02
+    kind: choice
+    facts: [band:n41]
+    prompt: Is n41 FDD or TDD?
+    choices: [FDD, TDD]
+    answer: 1
+    why: The bands file says n41 is {band:n41.duplex}.
+  - id: u1-duplex-03
+    kind: choice
+    facts: [band:B66]
+    prompt: Is B66 FDD or TDD?
+    choices: [FDD, TDD]
+    answer: 0
+    why: The bands file says B66 is {band:B66.duplex}. It still has two lanes, just far apart.
+  - id: u1-duplex-04
+    kind: choice
+    facts: [band:n77]
+    prompt: Is n77 FDD or TDD?
+    choices: [FDD, TDD]
+    answer: 1
+    why: The bands file says n77 is {band:n77.duplex}.
+  - id: u1-duplex-05
+    kind: choice
+    facts: [band:n261]
+    prompt: n261 is a mmWave band. Is it FDD or TDD?
+    choices: [FDD, TDD]
+    answer: 1
+    why: The bands file says n261 is {band:n261.duplex}.
+  - id: u1-clue-01
+    kind: choice
+    facts: [band:n41, band:B2, band:B12]
+    prompt: "Which band has one range that is used both ways?"
+    choices: [n41, B2, B12]
+    answer: 0
+    why: That is TDD. n41 is {band:n41.duplex}. B2 and B12 are FDD, with a separate uplink and downlink.
+  - id: u1-clue-02
+    kind: choice
+    facts: [band:B2]
+    prompt: "A band has uplink {band:B2.ul_low_mhz} to {band:B2.ul_high_mhz} MHz and downlink {band:B2.dl_low_mhz} to {band:B2.dl_high_mhz} MHz. FDD or TDD?"
+    choices: [FDD, TDD]
+    answer: 0
+    why: Two separate ranges means two lanes, which is FDD.
+  - id: u1-gap-01
+    kind: number
+    facts: [band:B2]
+    prompt: "How far apart are B2's two lanes? Type the gap in MHz."
+    answer_from: band:B2.duplex_spacing_mhz
+    tolerance_mhz: 5
+    unit: MHz
+    why: The bands file gives B2's duplex gap as {band:B2.duplex_spacing_mhz} MHz.
+  - id: u1-tier-05
+    kind: choice
+    facts: [band:n41]
+    prompt: Which part of the ruler is n41 in?
+    choices: [Low band, Mid band, High band]
+    answer: 1
+    why: n41 starts at {band:n41.dl_low_mhz} MHz, above 1000 MHz and below mmWave, so it is mid band.

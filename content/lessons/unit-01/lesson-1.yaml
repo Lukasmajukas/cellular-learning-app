@@ -1,0 +1,66 @@
+unit: unit01
+unit_title: The spectrum ruler
+lesson: unit01-l1
+title: What is a band?
+questions:
+  - id: u1-band-learn-01
+    kind: learn
+    title: A band is a numbered stretch
+    facts: [band:B71, band:n258]
+    text: >
+      Radio waves wiggle at different speeds. A band is a stretch of those speeds with a number for a name,
+      like a lane on a road. We count the speed in MHz (megahertz). B71 sits low on the ruler: its downlink runs
+      from {band:B71.dl_low_mhz} to {band:B71.dl_high_mhz} MHz. n258 sits far up at {band:n258.dl_low_mhz} MHz.
+    show: [B71]
+  - id: u1-bn-learn-01
+    kind: learn
+    title: B is 4G, n is 5G
+    facts: [band:B71, band:n71]
+    text: >
+      A band that starts with "B" is 4G (also called LTE). A band that starts with "n" is 5G (also called NR).
+      B71 and n71 are twins: they use exactly the same space ({band:B71.dl_low_mhz} to {band:B71.dl_high_mhz} MHz downlink).
+    show: [B71]
+  - id: u1-ghz-01
+    kind: choice
+    no_facts_needed: true
+    prompt: Which is the higher frequency, 2000 MHz or 2 GHz?
+    choices: [2000 MHz, 2 GHz, They are the same]
+    answer: 2
+    why: 1 GHz (gigahertz) is 1000 MHz, so 2 GHz is 2000 MHz. Same thing, different units.
+  - id: u1-4g5g-01
+    kind: choice
+    facts: [band:n71]
+    prompt: Your phone shows "n71". Is that 4G or 5G?
+    choices: [5G (NR), 4G (LTE)]
+    answer: 0
+    why: Bands starting with "n" are 5G. The bands file lists n71 as {band:n71.kind}, a 5G band.
+  - id: u1-4g5g-02
+    kind: choice
+    facts: [band:B66]
+    prompt: Your phone shows "B66". Is that 4G or 5G?
+    choices: [4G (LTE), 5G (NR)]
+    answer: 0
+    why: Bands starting with "B" are 4G. The bands file lists B66 as {band:B66.kind}.
+  - id: u1-twins-01
+    kind: match
+    facts: [band:B71, band:n71, band:B2, band:n2, band:B66, band:n66]
+    prompt: Match each 4G band to its 5G twin.
+    pairs:
+      - ["{band:B71.id}", "{band:n71.id}"]
+      - ["{band:B2.id}", "{band:n2.id}"]
+      - ["{band:B66.id}", "{band:n66.id}"]
+    why: Twins share the same numbers. Only the letter changes.
+  - id: u1-higher-01
+    kind: choice
+    facts: [band:B71, band:B66]
+    prompt: B71 or B66, which one sits higher on the ruler?
+    choices: [B71, B66]
+    answer: 1
+    why: B66's downlink starts at {band:B66.dl_low_mhz} MHz. B71's starts at {band:B71.dl_low_mhz} MHz.
+  - id: u1-twin-01
+    kind: choice
+    facts: [band:n25, band:B25, band:B2, band:B66]
+    prompt: Which 4G band is the twin of n25?
+    choices: [B25, B2, B66]
+    answer: 0
+    why: n25 and B25 share the same numbers. B2 is a close cousin, but not the twin.
