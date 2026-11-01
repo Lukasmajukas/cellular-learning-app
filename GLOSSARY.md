@@ -129,3 +129,7 @@ Claude adds new words here whenever they come up.
 | **Downlink-only band (SDL)** | A band that only goes tower → phone, like a one-way street that adds extra lanes for downloads. B29 is one. |
 | **Interleaving (mixing)** | Mixing different topics in one practice set instead of doing one topic at a time. It helps you tell look-alikes apart. |
 | **Tier** | Which part of the ruler a band is in: low, mid or high. In this app: low is below 1 GHz, high is mmWave, mid is everything in between. |
+| **FSRS** | A memory schedule: the app guesses how long until you'd forget each question and asks it again just before that. Right answers push the next time further away; wrong ones pull it closer. |
+| **Stability** | In FSRS, the number of days until you'd forget a question about 1 time in 10. |
+| **XP** | Points you earn for right answers. They only count how much you practised. |
+| **Signal bars** | 1 to 5 bars at the end of a lesson, like phone signal: more bars means more answers right the first time. |
