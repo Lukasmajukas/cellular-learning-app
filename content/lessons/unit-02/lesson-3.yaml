@@ -1,0 +1,89 @@
+unit: unit02
+unit_title: Low band
+lesson: unit02-l3
+title: "700 MHz, upper part: B13 and B14"
+questions:
+  - id: u2-upper700-learn-01
+    kind: learn
+    title: Two bands, upside-down
+    facts: [band:B13, band:B14, band:B12]
+    text: >
+      B13 (downlink {band:B13.dl_low_mhz} to {band:B13.dl_high_mhz} MHz) and B14 (downlink {band:B14.dl_low_mhz} to {band:B14.dl_high_mhz} MHz)
+      sit side by side, just above B12. Both are upside-down: the uplink sits above the downlink.
+      B12, by comparison, is normal.
+    show: [B12, B13, B14]
+  - id: u2-upper700-learn-02
+    kind: learn
+    title: Not checked yet
+    facts: [band:B13, band:B14]
+    text: >
+      People often link B13 with Verizon and B14 with FirstNet (the network for first responders, run with AT&T).
+      We have not checked that against a proper source yet, so the app will show it here but never quiz you on it.
+    show: [B13, B14]
+  - id: u2-b13b14-higher-01
+    kind: choice
+    facts: [band:B13, band:B14]
+    prompt: Which sits higher on the ruler, B13 or B14?
+    choices: [B13, B14]
+    answer: 1
+    why: B14's downlink starts at {band:B14.dl_low_mhz} MHz, B13's at {band:B13.dl_low_mhz} MHz.
+  - id: u2-b14-clue-01
+    kind: choice
+    facts: [band:B13, band:B14, band:B71]
+    prompt: "Which band is upside-down with uplink {band:B14.ul_low_mhz} to {band:B14.ul_high_mhz} MHz?"
+    choices: [B13, B14, B71]
+    answer: 1
+    why: Those are B14's numbers. B13's uplink is {band:B13.ul_low_mhz} to {band:B13.ul_high_mhz} MHz.
+  - id: u2-b13-number-01
+    kind: number
+    facts: [band:B13]
+    prompt: B13's downlink starts at how many MHz?
+    answer_from: band:B13.dl_low_mhz
+    tolerance_mhz: 5
+    unit: MHz
+    why: B13's downlink is {band:B13.dl_low_mhz} to {band:B13.dl_high_mhz} MHz.
+  - id: u2-half-b12-01
+    kind: choice
+    facts: [band:B12, band:B13]
+    prompt: Is B12 in the lower 700 or the upper 700?
+    choices: [Lower 700, Upper 700]
+    answer: 0
+    why: B12 ("{band:B12.name}") starts at {band:B12.dl_low_mhz} MHz, below B13 and B14.
+  - id: u2-half-b13-01
+    kind: choice
+    facts: [band:B13, band:B12]
+    prompt: Is B13 in the lower 700 or the upper 700?
+    choices: [Lower 700, Upper 700]
+    answer: 1
+    why: B13 is "{band:B13.name}" and starts at {band:B13.dl_low_mhz} MHz.
+  - id: u2-half-b17-01
+    kind: choice
+    facts: [band:B17, band:B13]
+    prompt: Is B17 in the lower 700 or the upper 700?
+    choices: [Lower 700, Upper 700]
+    answer: 0
+    why: B17 is "{band:B17.name}" and starts at {band:B17.dl_low_mhz} MHz.
+  - id: u2-order-01
+    kind: order
+    facts: [band:B71, band:B12, band:B13, band:B14]
+    prompt: Put these bands in order, lowest frequency first.
+    bands: [B13, B71, B14, B12]
+    sort_by: dl_low_mhz
+    why: Sorted by where each downlink starts, in MHz.
+  - id: u2-types-01
+    kind: match
+    facts: [band:B12, band:B13, band:B14, band:B29]
+    prompt: Match each band to what makes it special.
+    pairs:
+      - ["{band:B12.id}", "Normal, two lanes"]
+      - ["{band:B13.id}", "Upside-down, downlink from {band:B13.dl_low_mhz} MHz"]
+      - ["{band:B14.id}", "Upside-down, downlink from {band:B14.dl_low_mhz} MHz"]
+      - ["{band:B29.id}", "Downlink only"]
+    why: The duplex field and the numbers in the bands file tell them apart.
+  - id: u2-b14-duplex-01
+    kind: choice
+    facts: [band:B14]
+    prompt: Is B14 FDD or TDD?
+    choices: [FDD, TDD]
+    answer: 0
+    why: Upside-down or not, B14 has two lanes, so it is FDD.

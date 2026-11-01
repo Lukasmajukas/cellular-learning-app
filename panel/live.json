@@ -1,12 +1,12 @@
 {
- "asOf": "2026-11-01 (robot, T33 part 2)",
+ "asOf": "2026-11-01 (robot, T33 part 3)",
  "robot": {
   "on": true,
   "next": "right away (it starts its next job by itself), and every hour",
-  "last": "showed the real unit 1 lessons on the path map (T33, part 2)"
+  "last": "wrote unit 2, low band (T33, part 3)"
  },
  "light": "green",
- "working": "Nothing in progress. Next up: write units 2 and 3 (T33). T47 (carrier facts) needs official page links from you. Optional for you: T48 questions and your frame-rate number (T46).",
+ "working": "Nothing in progress. Next up: write unit 3 (T33). T47 (carrier facts) needs official page links from you. Optional for you: T48 questions and your frame-rate number (T46).",
  "limit": {
   "state": "fine (it reset after a pause)",
   "resets": "unknown"

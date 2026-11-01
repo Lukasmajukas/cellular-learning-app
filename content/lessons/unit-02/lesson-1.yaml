@@ -1,0 +1,107 @@
+unit: unit02
+unit_title: Low band
+lesson: unit02-l1
+title: "600 MHz: B71 and n71"
+questions:
+  - id: u2-b71-learn-01
+    kind: learn
+    title: The lowest band you will meet
+    facts: [band:B71, band:n71]
+    text: >
+      B71 (4G) and n71 (5G) are twins, nicknamed "{band:B71.name}". Their downlink runs {band:B71.dl_low_mhz} to {band:B71.dl_high_mhz} MHz.
+      That is the lowest band we teach. Low bands travel far and go through walls, like a deep voice.
+      B71 is also upside-down: its uplink ({band:B71.ul_low_mhz} to {band:B71.ul_high_mhz} MHz) sits above its downlink.
+    show: [B71]
+  - id: u2-n71-learn-01
+    kind: learn
+    title: Who uses 600 MHz
+    facts: [carrier_use:n71/tmobile, carrier_use:n71/att, change:6]
+    label: coming
+    text: >
+      T-Mobile runs n71 today and calls it "Extended Range". AT&T bought 600 MHz from EchoStar (the deal closed {change:6.date})
+      and plans a slow, multi-year build. Other carriers may use 600 MHz too, but we have not checked that yet,
+      so the app will not quiz you on it.
+    show: [n71]
+  - id: u2-n71-learn-02
+    kind: learn
+    title: History of n71
+    facts: [carrier_use:n71/boost]
+    label: history
+    text: >
+      Boost used to run its own 5G on n71. Its 5G traffic moved to AT&T by November 2025,
+      so that is history now.
+    show: [n71]
+  - id: u2-b71-number-01
+    kind: number
+    facts: [band:B71]
+    prompt: B71's downlink starts at how many MHz?
+    answer_from: band:B71.dl_low_mhz
+    tolerance_mhz: 5
+    unit: MHz
+    why: B71's downlink is {band:B71.dl_low_mhz} to {band:B71.dl_high_mhz} MHz.
+  - id: u2-b71-name-01
+    kind: choice
+    facts: [band:B71, band:B12, band:B5]
+    prompt: Which band is the "600" band?
+    choices: [B71, B12, B5]
+    answer: 0
+    why: B71 is "{band:B71.name}". B12 is a 700 band and B5 is an 850 band.
+  - id: u2-b71-number-02
+    kind: number
+    facts: [band:B71]
+    prompt: B71's uplink starts at how many MHz?
+    answer_from: band:B71.ul_low_mhz
+    tolerance_mhz: 5
+    unit: MHz
+    why: B71's uplink is {band:B71.ul_low_mhz} to {band:B71.ul_high_mhz} MHz.
+  - id: u2-n71-carrier-01
+    kind: choice
+    facts: [carrier_use:n71/tmobile, carrier_use:n71/att]
+    label: coming
+    prompt: Which carrier runs n71 ("Extended Range") today?
+    choices: [T-Mobile, "AT&T (it is only planning to build it)"]
+    answer: 0
+    why: T-Mobile runs n71 today. AT&T's 600 MHz build is only planned.
+  - id: u2-n71-att-01
+    kind: choice
+    facts: [carrier_use:n71/att, change:6]
+    label: coming
+    prompt: AT&T and 600 MHz, what is the situation?
+    choices:
+      - "It bought the licences from EchoStar and plans a multi-year build"
+      - "It already runs n71 across the country"
+      - "It sold its 600 MHz to EchoStar"
+    answer: 0
+    why: The deal with EchoStar closed {change:6.date}. The build is planned, not finished.
+  - id: u2-n71-boost-01
+    kind: choice
+    facts: [carrier_use:n71/boost]
+    label: history
+    prompt: What about Boost and n71?
+    choices:
+      - "It used to run 5G on it, then its traffic moved to AT&T"
+      - "It runs n71 today"
+      - "It never used n71"
+    answer: 0
+    why: Boost's 5G traffic moved to AT&T by Nov 2025. That is history now.
+  - id: u2-b71-flip-01
+    kind: choice
+    facts: [band:B71]
+    prompt: Is B71 normal or upside-down?
+    choices: [Normal, Upside-down]
+    answer: 1
+    why: B71's uplink ({band:B71.ul_low_mhz} MHz) is above its downlink ({band:B71.dl_low_mhz} MHz).
+  - id: u2-n71-tier-01
+    kind: choice
+    facts: [band:n71]
+    prompt: Which part of the ruler is n71 in?
+    choices: [Low band, Mid band, High band]
+    answer: 0
+    why: n71's downlink starts at {band:n71.dl_low_mhz} MHz, below 1000 MHz.
+  - id: u2-b71-twin-01
+    kind: choice
+    facts: [band:B71, band:n71, band:B12]
+    prompt: Which band is the 5G twin of B71?
+    choices: [n71, n12, B12]
+    answer: 0
+    why: Twins share the same numbers. B71 and n71 both cover {band:n71.dl_low_mhz} to {band:n71.dl_high_mhz} MHz downlink.

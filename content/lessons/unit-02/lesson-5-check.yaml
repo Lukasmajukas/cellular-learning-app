@@ -1,0 +1,125 @@
+unit: unit02
+unit_title: Low band
+lesson: unit02-check
+title: "Checkpoint: low band"
+questions:
+  - id: u2-cp-names-01
+    kind: match
+    facts: [band:B71, band:B12, band:B5]
+    prompt: Match each band to its nickname.
+    pairs:
+      - ["{band:B71.id}", "{band:B71.name}"]
+      - ["{band:B12.id}", "{band:B12.name}"]
+      - ["{band:B5.id}", "{band:B5.name}"]
+    why: The nicknames come from the bands file.
+  - id: u2-cp-names-02
+    kind: match
+    facts: [band:B13, band:B26, band:B85]
+    prompt: Match each band to its nickname.
+    pairs:
+      - ["{band:B13.id}", "{band:B13.name}"]
+      - ["{band:B26.id}", "{band:B26.name}"]
+      - ["{band:B85.id}", "{band:B85.name}"]
+    why: The nicknames come from the bands file.
+  - id: u2-cp-box-01
+    kind: choice
+    facts: [band:B12, band:B17, band:B85]
+    prompt: Which box fits inside all the others?
+    choices: [B17, B12, B85]
+    answer: 0
+    why: "B17 is the smallest: it sits inside B12, which sits inside B85."
+  - id: u2-cp-box-02
+    kind: choice
+    facts: [band:B5, band:B26]
+    prompt: B5 fits inside which band?
+    choices: [B26, B13, B71]
+    answer: 0
+    why: B26 ({band:B26.dl_low_mhz} to {band:B26.dl_high_mhz} MHz) is the bigger box around B5.
+  - id: u2-cp-box-03
+    kind: choice
+    facts: [band:B12, band:B85]
+    prompt: B12 fits inside which band?
+    choices: [B85, B17, B14]
+    answer: 0
+    why: B85 starts at {band:B85.dl_low_mhz} MHz and holds B12.
+  - id: u2-cp-flip-01
+    kind: choice
+    facts: [band:B14, band:B12, band:B5]
+    prompt: Which one of these is upside-down?
+    choices: [B14, B12, B5]
+    answer: 0
+    why: B14's uplink ({band:B14.ul_low_mhz} MHz) sits above its downlink ({band:B14.dl_low_mhz} MHz).
+  - id: u2-cp-flip-02
+    kind: choice
+    facts: [band:B29]
+    prompt: Which band has a downlink only, no uplink?
+    choices: [B29, B13, B17]
+    answer: 0
+    why: B29 is {band:B29.duplex}, a one-way booster lane.
+  - id: u2-cp-flip-03
+    kind: choice
+    facts: [band:B71, band:B13, band:B17]
+    prompt: Which one of these is NOT upside-down?
+    choices: [B71, B13, B17]
+    answer: 2
+    why: B17's uplink ({band:B17.ul_low_mhz} MHz) is below its downlink ({band:B17.dl_low_mhz} MHz).
+  - id: u2-cp-number-01
+    kind: number
+    facts: [band:B71]
+    prompt: B71's downlink starts at how many MHz?
+    answer_from: band:B71.dl_low_mhz
+    tolerance_mhz: 5
+    unit: MHz
+    why: B71's downlink is {band:B71.dl_low_mhz} to {band:B71.dl_high_mhz} MHz.
+  - id: u2-cp-number-02
+    kind: number
+    facts: [band:B5]
+    prompt: B5's downlink starts at how many MHz?
+    answer_from: band:B5.dl_low_mhz
+    tolerance_mhz: 5
+    unit: MHz
+    why: B5's downlink is {band:B5.dl_low_mhz} to {band:B5.dl_high_mhz} MHz.
+  - id: u2-cp-carrier-01
+    kind: choice
+    facts: [carrier_use:n71/tmobile, carrier_use:n71/att]
+    label: coming
+    prompt: Which carrier runs n71 ("Extended Range") today?
+    choices: [T-Mobile, "AT&T (it is only planning to build it)"]
+    answer: 0
+    why: T-Mobile runs n71 today. AT&T's 600 MHz build is only planned.
+  - id: u2-cp-carrier-02
+    kind: choice
+    facts: [carrier_use:n71/att, change:6]
+    label: coming
+    prompt: AT&T and 600 MHz, what is the situation?
+    choices:
+      - "It bought the licences from EchoStar and plans a multi-year build"
+      - "It already runs n71 across the country"
+      - "It sold its 600 MHz to EchoStar"
+    answer: 0
+    why: The deal with EchoStar closed {change:6.date}. The build is planned, not finished.
+  - id: u2-cp-history-01
+    kind: choice
+    facts: [carrier_use:B26/tmobile, change:7]
+    label: history
+    prompt: What happened to T-Mobile's B26 (800 MHz) licences?
+    choices:
+      - "It sold them to Grain Management"
+      - "It bought them from Grain Management"
+      - "It still uses them, nothing changed"
+    answer: 0
+    why: The sale to Grain closed {change:7.date}. T-Mobile no longer holds them.
+  - id: u2-cp-mixed-01
+    kind: choice
+    facts: [band:B71]
+    prompt: Is B71 FDD or TDD?
+    choices: [FDD, TDD]
+    answer: 0
+    why: B71 has two lanes, so it is FDD.
+  - id: u2-cp-mixed-02
+    kind: choice
+    facts: [band:B12]
+    prompt: Which part of the ruler is B12 in?
+    choices: [Low band, Mid band, High band]
+    answer: 0
+    why: B12's downlink starts at {band:B12.dl_low_mhz} MHz, below 1000 MHz.

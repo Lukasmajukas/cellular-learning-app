@@ -856,6 +856,959 @@
      ]
     }
    ]
+  },
+  {
+   "id": "unit02",
+   "title": "Low band",
+   "lessons": [
+    {
+     "id": "unit02-l1",
+     "title": "600 MHz: B71 and n71",
+     "questions": [
+      {
+       "id": "u2-b71-learn-01",
+       "kind": "learn",
+       "title": "The lowest band you will meet",
+       "facts": [
+        "band:B71",
+        "band:n71"
+       ],
+       "text": "B71 (4G) and n71 (5G) are twins, nicknamed \"{band:B71.name}\". Their downlink runs {band:B71.dl_low_mhz} to {band:B71.dl_high_mhz} MHz. That is the lowest band we teach. Low bands travel far and go through walls, like a deep voice. B71 is also upside-down: its uplink ({band:B71.ul_low_mhz} to {band:B71.ul_high_mhz} MHz) sits above its downlink.\n",
+       "show": [
+        "B71"
+       ]
+      },
+      {
+       "id": "u2-n71-learn-01",
+       "kind": "learn",
+       "title": "Who uses 600 MHz",
+       "facts": [
+        "carrier_use:n71/tmobile",
+        "carrier_use:n71/att",
+        "change:6"
+       ],
+       "label": "coming",
+       "text": "T-Mobile runs n71 today and calls it \"Extended Range\". AT&T bought 600 MHz from EchoStar (the deal closed {change:6.date}) and plans a slow, multi-year build. Other carriers may use 600 MHz too, but we have not checked that yet, so the app will not quiz you on it.\n",
+       "show": [
+        "n71"
+       ]
+      },
+      {
+       "id": "u2-n71-learn-02",
+       "kind": "learn",
+       "title": "History of n71",
+       "facts": [
+        "carrier_use:n71/boost"
+       ],
+       "label": "history",
+       "text": "Boost used to run its own 5G on n71. Its 5G traffic moved to AT&T by November 2025, so that is history now.\n",
+       "show": [
+        "n71"
+       ]
+      },
+      {
+       "id": "u2-b71-number-01",
+       "kind": "number",
+       "facts": [
+        "band:B71"
+       ],
+       "prompt": "B71's downlink starts at how many MHz?",
+       "answer_from": "band:B71.dl_low_mhz",
+       "tolerance_mhz": 5,
+       "unit": "MHz",
+       "why": "B71's downlink is {band:B71.dl_low_mhz} to {band:B71.dl_high_mhz} MHz."
+      },
+      {
+       "id": "u2-b71-name-01",
+       "kind": "choice",
+       "facts": [
+        "band:B71",
+        "band:B12",
+        "band:B5"
+       ],
+       "prompt": "Which band is the \"600\" band?",
+       "choices": [
+        "B71",
+        "B12",
+        "B5"
+       ],
+       "answer": 0,
+       "why": "B71 is \"{band:B71.name}\". B12 is a 700 band and B5 is an 850 band."
+      },
+      {
+       "id": "u2-b71-number-02",
+       "kind": "number",
+       "facts": [
+        "band:B71"
+       ],
+       "prompt": "B71's uplink starts at how many MHz?",
+       "answer_from": "band:B71.ul_low_mhz",
+       "tolerance_mhz": 5,
+       "unit": "MHz",
+       "why": "B71's uplink is {band:B71.ul_low_mhz} to {band:B71.ul_high_mhz} MHz."
+      },
+      {
+       "id": "u2-n71-carrier-01",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n71/tmobile",
+        "carrier_use:n71/att"
+       ],
+       "label": "coming",
+       "prompt": "Which carrier runs n71 (\"Extended Range\") today?",
+       "choices": [
+        "T-Mobile",
+        "AT&T (it is only planning to build it)"
+       ],
+       "answer": 0,
+       "why": "T-Mobile runs n71 today. AT&T's 600 MHz build is only planned."
+      },
+      {
+       "id": "u2-n71-att-01",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n71/att",
+        "change:6"
+       ],
+       "label": "coming",
+       "prompt": "AT&T and 600 MHz, what is the situation?",
+       "choices": [
+        "It bought the licences from EchoStar and plans a multi-year build",
+        "It already runs n71 across the country",
+        "It sold its 600 MHz to EchoStar"
+       ],
+       "answer": 0,
+       "why": "The deal with EchoStar closed {change:6.date}. The build is planned, not finished."
+      },
+      {
+       "id": "u2-n71-boost-01",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n71/boost"
+       ],
+       "label": "history",
+       "prompt": "What about Boost and n71?",
+       "choices": [
+        "It used to run 5G on it, then its traffic moved to AT&T",
+        "It runs n71 today",
+        "It never used n71"
+       ],
+       "answer": 0,
+       "why": "Boost's 5G traffic moved to AT&T by Nov 2025. That is history now."
+      },
+      {
+       "id": "u2-b71-flip-01",
+       "kind": "choice",
+       "facts": [
+        "band:B71"
+       ],
+       "prompt": "Is B71 normal or upside-down?",
+       "choices": [
+        "Normal",
+        "Upside-down"
+       ],
+       "answer": 1,
+       "why": "B71's uplink ({band:B71.ul_low_mhz} MHz) is above its downlink ({band:B71.dl_low_mhz} MHz)."
+      },
+      {
+       "id": "u2-n71-tier-01",
+       "kind": "choice",
+       "facts": [
+        "band:n71"
+       ],
+       "prompt": "Which part of the ruler is n71 in?",
+       "choices": [
+        "Low band",
+        "Mid band",
+        "High band"
+       ],
+       "answer": 0,
+       "why": "n71's downlink starts at {band:n71.dl_low_mhz} MHz, below 1000 MHz."
+      },
+      {
+       "id": "u2-b71-twin-01",
+       "kind": "choice",
+       "facts": [
+        "band:B71",
+        "band:n71",
+        "band:B12"
+       ],
+       "prompt": "Which band is the 5G twin of B71?",
+       "choices": [
+        "n71",
+        "n12",
+        "B12"
+       ],
+       "answer": 0,
+       "why": "Twins share the same numbers. B71 and n71 both cover {band:n71.dl_low_mhz} to {band:n71.dl_high_mhz} MHz downlink."
+      }
+     ]
+    },
+    {
+     "id": "unit02-l2",
+     "title": "700 MHz, lower part: B12, B17, B85, B29",
+     "questions": [
+      {
+       "id": "u2-lower700-learn-01",
+       "kind": "learn",
+       "title": "Boxes inside boxes",
+       "facts": [
+        "band:B17",
+        "band:B12",
+        "band:B85"
+       ],
+       "text": "Think of three boxes. B17 is the smallest: downlink {band:B17.dl_low_mhz} to {band:B17.dl_high_mhz} MHz. B12 is a bit bigger: {band:B12.dl_low_mhz} to {band:B12.dl_high_mhz} MHz. B85 is the biggest: {band:B85.dl_low_mhz} to {band:B85.dl_high_mhz} MHz. B17 fits inside B12, and B12 fits inside B85. All three are normal (uplink below downlink).\n",
+       "show": [
+        "B85",
+        "B12",
+        "B17"
+       ]
+      },
+      {
+       "id": "u2-b29-learn-01",
+       "kind": "learn",
+       "title": "A one-way lane",
+       "facts": [
+        "band:B29"
+       ],
+       "text": "B29 only has a downlink ({band:B29.dl_low_mhz} to {band:B29.dl_high_mhz} MHz) and no uplink. It is a booster lane: it adds download speed but your phone cannot send on it.\n",
+       "show": [
+        "B29"
+       ]
+      },
+      {
+       "id": "u2-box-small-01",
+       "kind": "choice",
+       "facts": [
+        "band:B12",
+        "band:B17",
+        "band:B85"
+       ],
+       "prompt": "Which is the smallest box?",
+       "choices": [
+        "B17",
+        "B12",
+        "B85"
+       ],
+       "answer": 0,
+       "why": "B17 covers only {band:B17.dl_low_mhz} to {band:B17.dl_high_mhz} MHz downlink, the narrowest of the three."
+      },
+      {
+       "id": "u2-box-big-01",
+       "kind": "choice",
+       "facts": [
+        "band:B12",
+        "band:B17",
+        "band:B85"
+       ],
+       "prompt": "Which is the biggest box?",
+       "choices": [
+        "B17",
+        "B12",
+        "B85"
+       ],
+       "answer": 2,
+       "why": "B85 starts lowest ({band:B85.dl_low_mhz} MHz) and holds both B12 and B17."
+      },
+      {
+       "id": "u2-b12-clue-01",
+       "kind": "choice",
+       "facts": [
+        "band:B12",
+        "band:B17",
+        "band:B85"
+       ],
+       "prompt": "Which band has downlink {band:B12.dl_low_mhz} to {band:B12.dl_high_mhz} MHz and uplink {band:B12.ul_low_mhz} to {band:B12.ul_high_mhz} MHz?",
+       "choices": [
+        "B12",
+        "B17",
+        "B85"
+       ],
+       "answer": 0,
+       "why": "Those are B12's numbers. B17 starts at {band:B17.dl_low_mhz} and B85 at {band:B85.dl_low_mhz}."
+      },
+      {
+       "id": "u2-b29-use-01",
+       "kind": "choice",
+       "facts": [
+        "band:B29"
+       ],
+       "prompt": "B29 has no uplink. What is it used for?",
+       "choices": [
+        "Extra download speed only",
+        "Sending photos from your phone",
+        "Both",
+        "like any other band"
+       ],
+       "answer": 0,
+       "why": "B29 is {band:B29.duplex} (downlink only), so it can only add download."
+      },
+      {
+       "id": "u2-b12-number-01",
+       "kind": "number",
+       "facts": [
+        "band:B12"
+       ],
+       "prompt": "B12's downlink starts at how many MHz?",
+       "answer_from": "band:B12.dl_low_mhz",
+       "tolerance_mhz": 5,
+       "unit": "MHz",
+       "why": "B12's downlink is {band:B12.dl_low_mhz} to {band:B12.dl_high_mhz} MHz."
+      },
+      {
+       "id": "u2-b12-flip-01",
+       "kind": "choice",
+       "facts": [
+        "band:B12"
+       ],
+       "prompt": "Is B12 normal or upside-down?",
+       "choices": [
+        "Normal",
+        "Upside-down"
+       ],
+       "answer": 0,
+       "why": "B12's uplink ({band:B12.ul_low_mhz} MHz) is below its downlink ({band:B12.dl_low_mhz} MHz)."
+      },
+      {
+       "id": "u2-sale700-01",
+       "kind": "choice",
+       "facts": [
+        "change:2",
+        "change:3"
+       ],
+       "prompt": "In 2026, Array (the old UScellular) sold 700 MHz licences. Who bought them?",
+       "choices": [
+        "AT&T (closed {change:2.date}) and T-Mobile (closed {change:3.date}) each bought some",
+        "Only AT&T",
+        "Only T-Mobile"
+       ],
+       "answer": 0,
+       "why": "AT&T bought B12/B17 spectrum and T-Mobile bought B12 spectrum, so both are buyers."
+      },
+      {
+       "id": "u2-b71-lower-01",
+       "kind": "choice",
+       "facts": [
+        "band:B71",
+        "band:B12"
+       ],
+       "prompt": "Which band sits lower on the ruler, B71 or B12?",
+       "choices": [
+        "B71",
+        "B12"
+       ],
+       "answer": 0,
+       "why": "B71 starts at {band:B71.dl_low_mhz} MHz and B12 at {band:B12.dl_low_mhz} MHz."
+      }
+     ]
+    },
+    {
+     "id": "unit02-l3",
+     "title": "700 MHz, upper part: B13 and B14",
+     "questions": [
+      {
+       "id": "u2-upper700-learn-01",
+       "kind": "learn",
+       "title": "Two bands, upside-down",
+       "facts": [
+        "band:B13",
+        "band:B14",
+        "band:B12"
+       ],
+       "text": "B13 (downlink {band:B13.dl_low_mhz} to {band:B13.dl_high_mhz} MHz) and B14 (downlink {band:B14.dl_low_mhz} to {band:B14.dl_high_mhz} MHz) sit side by side, just above B12. Both are upside-down: the uplink sits above the downlink. B12, by comparison, is normal.\n",
+       "show": [
+        "B12",
+        "B13",
+        "B14"
+       ]
+      },
+      {
+       "id": "u2-upper700-learn-02",
+       "kind": "learn",
+       "title": "Not checked yet",
+       "facts": [
+        "band:B13",
+        "band:B14"
+       ],
+       "text": "People often link B13 with Verizon and B14 with FirstNet (the network for first responders, run with AT&T). We have not checked that against a proper source yet, so the app will show it here but never quiz you on it.\n",
+       "show": [
+        "B13",
+        "B14"
+       ]
+      },
+      {
+       "id": "u2-b13b14-higher-01",
+       "kind": "choice",
+       "facts": [
+        "band:B13",
+        "band:B14"
+       ],
+       "prompt": "Which sits higher on the ruler, B13 or B14?",
+       "choices": [
+        "B13",
+        "B14"
+       ],
+       "answer": 1,
+       "why": "B14's downlink starts at {band:B14.dl_low_mhz} MHz, B13's at {band:B13.dl_low_mhz} MHz."
+      },
+      {
+       "id": "u2-b14-clue-01",
+       "kind": "choice",
+       "facts": [
+        "band:B13",
+        "band:B14",
+        "band:B71"
+       ],
+       "prompt": "Which band is upside-down with uplink {band:B14.ul_low_mhz} to {band:B14.ul_high_mhz} MHz?",
+       "choices": [
+        "B13",
+        "B14",
+        "B71"
+       ],
+       "answer": 1,
+       "why": "Those are B14's numbers. B13's uplink is {band:B13.ul_low_mhz} to {band:B13.ul_high_mhz} MHz."
+      },
+      {
+       "id": "u2-b13-number-01",
+       "kind": "number",
+       "facts": [
+        "band:B13"
+       ],
+       "prompt": "B13's downlink starts at how many MHz?",
+       "answer_from": "band:B13.dl_low_mhz",
+       "tolerance_mhz": 5,
+       "unit": "MHz",
+       "why": "B13's downlink is {band:B13.dl_low_mhz} to {band:B13.dl_high_mhz} MHz."
+      },
+      {
+       "id": "u2-half-b12-01",
+       "kind": "choice",
+       "facts": [
+        "band:B12",
+        "band:B13"
+       ],
+       "prompt": "Is B12 in the lower 700 or the upper 700?",
+       "choices": [
+        "Lower 700",
+        "Upper 700"
+       ],
+       "answer": 0,
+       "why": "B12 (\"{band:B12.name}\") starts at {band:B12.dl_low_mhz} MHz, below B13 and B14."
+      },
+      {
+       "id": "u2-half-b13-01",
+       "kind": "choice",
+       "facts": [
+        "band:B13",
+        "band:B12"
+       ],
+       "prompt": "Is B13 in the lower 700 or the upper 700?",
+       "choices": [
+        "Lower 700",
+        "Upper 700"
+       ],
+       "answer": 1,
+       "why": "B13 is \"{band:B13.name}\" and starts at {band:B13.dl_low_mhz} MHz."
+      },
+      {
+       "id": "u2-half-b17-01",
+       "kind": "choice",
+       "facts": [
+        "band:B17",
+        "band:B13"
+       ],
+       "prompt": "Is B17 in the lower 700 or the upper 700?",
+       "choices": [
+        "Lower 700",
+        "Upper 700"
+       ],
+       "answer": 0,
+       "why": "B17 is \"{band:B17.name}\" and starts at {band:B17.dl_low_mhz} MHz."
+      },
+      {
+       "id": "u2-order-01",
+       "kind": "order",
+       "facts": [
+        "band:B71",
+        "band:B12",
+        "band:B13",
+        "band:B14"
+       ],
+       "prompt": "Put these bands in order, lowest frequency first.",
+       "bands": [
+        "B13",
+        "B71",
+        "B14",
+        "B12"
+       ],
+       "sort_by": "dl_low_mhz",
+       "why": "Sorted by where each downlink starts, in MHz."
+      },
+      {
+       "id": "u2-types-01",
+       "kind": "match",
+       "facts": [
+        "band:B12",
+        "band:B13",
+        "band:B14",
+        "band:B29"
+       ],
+       "prompt": "Match each band to what makes it special.",
+       "pairs": [
+        [
+         "{band:B12.id}",
+         "Normal, two lanes"
+        ],
+        [
+         "{band:B13.id}",
+         "Upside-down, downlink from {band:B13.dl_low_mhz} MHz"
+        ],
+        [
+         "{band:B14.id}",
+         "Upside-down, downlink from {band:B14.dl_low_mhz} MHz"
+        ],
+        [
+         "{band:B29.id}",
+         "Downlink only"
+        ]
+       ],
+       "why": "The duplex field and the numbers in the bands file tell them apart."
+      },
+      {
+       "id": "u2-b14-duplex-01",
+       "kind": "choice",
+       "facts": [
+        "band:B14"
+       ],
+       "prompt": "Is B14 FDD or TDD?",
+       "choices": [
+        "FDD",
+        "TDD"
+       ],
+       "answer": 0,
+       "why": "Upside-down or not, B14 has two lanes, so it is FDD."
+      }
+     ]
+    },
+    {
+     "id": "unit02-l4",
+     "title": "850 MHz: B5, n5 and B26",
+     "questions": [
+      {
+       "id": "u2-b5-learn-01",
+       "kind": "learn",
+       "title": "The 850 family",
+       "facts": [
+        "band:B5",
+        "band:n5",
+        "band:B26"
+       ],
+       "text": "B5 (4G) and n5 (5G) are twins, called \"{band:B5.name}\" and \"{band:n5.name}\". Downlink: {band:B5.dl_low_mhz} to {band:B5.dl_high_mhz} MHz. B26 is a bigger box around B5: its downlink is {band:B26.dl_low_mhz} to {band:B26.dl_high_mhz} MHz. B5 and n5 are normal bands.\n",
+       "show": [
+        "B26",
+        "B5"
+       ]
+      },
+      {
+       "id": "u2-b26-learn-01",
+       "kind": "learn",
+       "title": "History of B26",
+       "facts": [
+        "carrier_use:B26/tmobile",
+        "change:7"
+       ],
+       "label": "history",
+       "text": "T-Mobile used part of B26 (800 MHz it got from Sprint). It sold those licences to Grain Management; the deal closed {change:7.date}. This is history: T-Mobile no longer holds them.\n",
+       "show": [
+        "B26"
+       ]
+      },
+      {
+       "id": "u2-b5b26-big-01",
+       "kind": "choice",
+       "facts": [
+        "band:B5",
+        "band:B26"
+       ],
+       "prompt": "Which is the bigger box, B5 or B26?",
+       "choices": [
+        "B5",
+        "B26"
+       ],
+       "answer": 1,
+       "why": "B26 starts at {band:B26.dl_low_mhz} MHz and contains B5, which starts at {band:B5.dl_low_mhz} MHz."
+      },
+      {
+       "id": "u2-n5-twin-01",
+       "kind": "choice",
+       "facts": [
+        "band:n5",
+        "band:B5",
+        "band:B26"
+       ],
+       "prompt": "Which band is the 4G twin of n5?",
+       "choices": [
+        "B5",
+        "B26",
+        "B12"
+       ],
+       "answer": 0,
+       "why": "B5 and n5 share the same numbers ({band:B5.dl_low_mhz} to {band:B5.dl_high_mhz} MHz downlink)."
+      },
+      {
+       "id": "u2-b5-name-01",
+       "kind": "choice",
+       "facts": [
+        "band:B5",
+        "band:B12",
+        "band:B71"
+       ],
+       "prompt": "Which band is the \"850\" band?",
+       "choices": [
+        "B5",
+        "B12",
+        "B71"
+       ],
+       "answer": 0,
+       "why": "B5 is \"{band:B5.name}\"."
+      },
+      {
+       "id": "u2-b26-history-01",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:B26/tmobile",
+        "change:7"
+       ],
+       "label": "history",
+       "prompt": "What happened to T-Mobile's B26 (800 MHz) licences?",
+       "choices": [
+        "It sold them to Grain Management",
+        "It bought them from Grain Management",
+        "It still uses them, nothing changed"
+       ],
+       "answer": 0,
+       "why": "The sale to Grain closed {change:7.date}. T-Mobile no longer holds them."
+      },
+      {
+       "id": "u2-b5-flip-01",
+       "kind": "choice",
+       "facts": [
+        "band:B5"
+       ],
+       "prompt": "Is B5 normal or upside-down?",
+       "choices": [
+        "Normal",
+        "Upside-down"
+       ],
+       "answer": 0,
+       "why": "B5's uplink ({band:B5.ul_low_mhz} MHz) is below its downlink ({band:B5.dl_low_mhz} MHz)."
+      },
+      {
+       "id": "u2-b5-number-01",
+       "kind": "number",
+       "facts": [
+        "band:B5"
+       ],
+       "prompt": "B5's downlink starts at how many MHz?",
+       "answer_from": "band:B5.dl_low_mhz",
+       "tolerance_mhz": 5,
+       "unit": "MHz",
+       "why": "B5's downlink is {band:B5.dl_low_mhz} to {band:B5.dl_high_mhz} MHz."
+      },
+      {
+       "id": "u2-order-02",
+       "kind": "order",
+       "facts": [
+        "band:B71",
+        "band:B12",
+        "band:B13",
+        "band:B5"
+       ],
+       "prompt": "Put the low bands in order, lowest frequency first.",
+       "bands": [
+        "B5",
+        "B71",
+        "B13",
+        "B12"
+       ],
+       "sort_by": "dl_low_mhz",
+       "why": "Sorted by where each downlink starts, in MHz."
+      },
+      {
+       "id": "u2-b26-tier-01",
+       "kind": "choice",
+       "facts": [
+        "band:B26"
+       ],
+       "prompt": "Which part of the ruler is B26 in?",
+       "choices": [
+        "Low band",
+        "Mid band",
+        "High band"
+       ],
+       "answer": 0,
+       "why": "B26's downlink starts at {band:B26.dl_low_mhz} MHz, below 1000 MHz."
+      }
+     ]
+    },
+    {
+     "id": "unit02-check",
+     "title": "Checkpoint: low band",
+     "questions": [
+      {
+       "id": "u2-cp-names-01",
+       "kind": "match",
+       "facts": [
+        "band:B71",
+        "band:B12",
+        "band:B5"
+       ],
+       "prompt": "Match each band to its nickname.",
+       "pairs": [
+        [
+         "{band:B71.id}",
+         "{band:B71.name}"
+        ],
+        [
+         "{band:B12.id}",
+         "{band:B12.name}"
+        ],
+        [
+         "{band:B5.id}",
+         "{band:B5.name}"
+        ]
+       ],
+       "why": "The nicknames come from the bands file."
+      },
+      {
+       "id": "u2-cp-names-02",
+       "kind": "match",
+       "facts": [
+        "band:B13",
+        "band:B26",
+        "band:B85"
+       ],
+       "prompt": "Match each band to its nickname.",
+       "pairs": [
+        [
+         "{band:B13.id}",
+         "{band:B13.name}"
+        ],
+        [
+         "{band:B26.id}",
+         "{band:B26.name}"
+        ],
+        [
+         "{band:B85.id}",
+         "{band:B85.name}"
+        ]
+       ],
+       "why": "The nicknames come from the bands file."
+      },
+      {
+       "id": "u2-cp-box-01",
+       "kind": "choice",
+       "facts": [
+        "band:B12",
+        "band:B17",
+        "band:B85"
+       ],
+       "prompt": "Which box fits inside all the others?",
+       "choices": [
+        "B17",
+        "B12",
+        "B85"
+       ],
+       "answer": 0,
+       "why": "B17 is the smallest: it sits inside B12, which sits inside B85."
+      },
+      {
+       "id": "u2-cp-box-02",
+       "kind": "choice",
+       "facts": [
+        "band:B5",
+        "band:B26"
+       ],
+       "prompt": "B5 fits inside which band?",
+       "choices": [
+        "B26",
+        "B13",
+        "B71"
+       ],
+       "answer": 0,
+       "why": "B26 ({band:B26.dl_low_mhz} to {band:B26.dl_high_mhz} MHz) is the bigger box around B5."
+      },
+      {
+       "id": "u2-cp-box-03",
+       "kind": "choice",
+       "facts": [
+        "band:B12",
+        "band:B85"
+       ],
+       "prompt": "B12 fits inside which band?",
+       "choices": [
+        "B85",
+        "B17",
+        "B14"
+       ],
+       "answer": 0,
+       "why": "B85 starts at {band:B85.dl_low_mhz} MHz and holds B12."
+      },
+      {
+       "id": "u2-cp-flip-01",
+       "kind": "choice",
+       "facts": [
+        "band:B14",
+        "band:B12",
+        "band:B5"
+       ],
+       "prompt": "Which one of these is upside-down?",
+       "choices": [
+        "B14",
+        "B12",
+        "B5"
+       ],
+       "answer": 0,
+       "why": "B14's uplink ({band:B14.ul_low_mhz} MHz) sits above its downlink ({band:B14.dl_low_mhz} MHz)."
+      },
+      {
+       "id": "u2-cp-flip-02",
+       "kind": "choice",
+       "facts": [
+        "band:B29"
+       ],
+       "prompt": "Which band has a downlink only, no uplink?",
+       "choices": [
+        "B29",
+        "B13",
+        "B17"
+       ],
+       "answer": 0,
+       "why": "B29 is {band:B29.duplex}, a one-way booster lane."
+      },
+      {
+       "id": "u2-cp-flip-03",
+       "kind": "choice",
+       "facts": [
+        "band:B71",
+        "band:B13",
+        "band:B17"
+       ],
+       "prompt": "Which one of these is NOT upside-down?",
+       "choices": [
+        "B71",
+        "B13",
+        "B17"
+       ],
+       "answer": 2,
+       "why": "B17's uplink ({band:B17.ul_low_mhz} MHz) is below its downlink ({band:B17.dl_low_mhz} MHz)."
+      },
+      {
+       "id": "u2-cp-number-01",
+       "kind": "number",
+       "facts": [
+        "band:B71"
+       ],
+       "prompt": "B71's downlink starts at how many MHz?",
+       "answer_from": "band:B71.dl_low_mhz",
+       "tolerance_mhz": 5,
+       "unit": "MHz",
+       "why": "B71's downlink is {band:B71.dl_low_mhz} to {band:B71.dl_high_mhz} MHz."
+      },
+      {
+       "id": "u2-cp-number-02",
+       "kind": "number",
+       "facts": [
+        "band:B5"
+       ],
+       "prompt": "B5's downlink starts at how many MHz?",
+       "answer_from": "band:B5.dl_low_mhz",
+       "tolerance_mhz": 5,
+       "unit": "MHz",
+       "why": "B5's downlink is {band:B5.dl_low_mhz} to {band:B5.dl_high_mhz} MHz."
+      },
+      {
+       "id": "u2-cp-carrier-01",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n71/tmobile",
+        "carrier_use:n71/att"
+       ],
+       "label": "coming",
+       "prompt": "Which carrier runs n71 (\"Extended Range\") today?",
+       "choices": [
+        "T-Mobile",
+        "AT&T (it is only planning to build it)"
+       ],
+       "answer": 0,
+       "why": "T-Mobile runs n71 today. AT&T's 600 MHz build is only planned."
+      },
+      {
+       "id": "u2-cp-carrier-02",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n71/att",
+        "change:6"
+       ],
+       "label": "coming",
+       "prompt": "AT&T and 600 MHz, what is the situation?",
+       "choices": [
+        "It bought the licences from EchoStar and plans a multi-year build",
+        "It already runs n71 across the country",
+        "It sold its 600 MHz to EchoStar"
+       ],
+       "answer": 0,
+       "why": "The deal with EchoStar closed {change:6.date}. The build is planned, not finished."
+      },
+      {
+       "id": "u2-cp-history-01",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:B26/tmobile",
+        "change:7"
+       ],
+       "label": "history",
+       "prompt": "What happened to T-Mobile's B26 (800 MHz) licences?",
+       "choices": [
+        "It sold them to Grain Management",
+        "It bought them from Grain Management",
+        "It still uses them, nothing changed"
+       ],
+       "answer": 0,
+       "why": "The sale to Grain closed {change:7.date}. T-Mobile no longer holds them."
+      },
+      {
+       "id": "u2-cp-mixed-01",
+       "kind": "choice",
+       "facts": [
+        "band:B71"
+       ],
+       "prompt": "Is B71 FDD or TDD?",
+       "choices": [
+        "FDD",
+        "TDD"
+       ],
+       "answer": 0,
+       "why": "B71 has two lanes, so it is FDD."
+      },
+      {
+       "id": "u2-cp-mixed-02",
+       "kind": "choice",
+       "facts": [
+        "band:B12"
+       ],
+       "prompt": "Which part of the ruler is B12 in?",
+       "choices": [
+        "Low band",
+        "Mid band",
+        "High band"
+       ],
+       "answer": 0,
+       "why": "B12's downlink starts at {band:B12.dl_low_mhz} MHz, below 1000 MHz."
+      }
+     ]
+    }
+   ]
   }
  ]
 }
