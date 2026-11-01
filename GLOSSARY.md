@@ -81,6 +81,8 @@ Claude adds new words here whenever they come up.
 | **PCI** | A short number that helps phones tell nearby cells apart. It's not unique. |
 | **EARFCN / NR-ARFCN** | A channel number that points to one exact frequency. |
 | **MCC / MNC (carrier code)** | Two short numbers every cell broadcasts, like a license plate for the phone company. 310/260 means T-Mobile, 311/480 means Verizon. |
+| **HNI** | "Home network ID": the country number and carrier number stuck together, like 310-260. |
+| **ATIS** | The US industry group that hands out the carrier numbers (HNI codes). Its list is the official US registry. |
 | **Stealth site** | Antennas hidden so you don't notice them: inside a church steeple, painted on a chimney, or behind a fake rooftop wall. |
 | **FCC ASR** | The government's list of tall towers (mostly over 200 feet). Short and hidden sites aren't on it. |
 | **FCC ULS** | The government's list of radio licences. It can show which company is licensed to transmit from a spot. |
