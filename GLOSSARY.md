@@ -21,19 +21,20 @@ Claude adds new words here whenever they come up.
 | **Squash merge** | Merging all of a chat's save points as one single save point, so each task is one neat step in the history. |
 | **Undo (revert)** | A new change that exactly reverses an old one. Nothing is erased; the history shows both. |
 | **Archive (a chat)** | Putting an old chat away, like a finished worksheet in a drawer. It leaves your list but isn't deleted, and Claude can bring it back. |
-| **Permission file** | A small file of rules (`.claude/settings.json`) that tells Claude's safety check which jobs are OK without stopping to ask. Only you add it. |
+| **Permission file** | A small file of rules (`.claude/settings.json`) that tells Claude's safety check which jobs are OK without stopping to ask. Only you add it. In Auto mode, three robot jobs ignore it (opening a chat, starting the next run, putting chats away). |
 | **Chat / session** | One conversation with Claude. Best kept to one task. |
 | **Context** | Claude's short-term memory for one chat. It's like a backpack: the more you stuff in, the harder it is to find things. That's why we start fresh chats. |
 | **Handoff note** | A note one chat leaves for the next, like passing the baton in a relay race. |
 | **Model** | Which Claude "brain" you use: Haiku (small), Sonnet (medium), Opus (large), Fable (extra large). |
 | **Effort** | How hard Claude thinks before answering. Low is a quick answer; High is careful checking. More effort is slower and uses more of your limit. |
 | **Robot run** | A chat that starts by itself on a schedule, like an alarm clock that opens a chat and says "Go". |
-| **Heartbeat** | The robot's check every 2 hours. If the robot stopped, for example at a usage limit, the heartbeat starts it again. |
+| **Heartbeat** | The robot's check every hour. If the robot stopped, for example at a usage limit, the heartbeat starts it again. |
 | **Chain** | Each robot chat starts the next one when it finishes, like dominoes falling one after another. |
-| **Robot launcher** | A small chat that never closes. Every 2 hours the robot's alarm wakes it, and it starts a fresh robot chat with the project attached. Like a doorbell that calls the real worker. |
+| **Robot launcher** | A small chat that never closes. Every hour the robot's alarm wakes it, and it starts a fresh robot chat with the project attached. Like a doorbell that calls the real worker. |
 | **Paid extra usage (overage)** | Using Claude past your plan's limit for extra money. The robot never does this. |
 | **Auto-continue** | When a chat hits your usage limit, it waits for the limit to reset and then carries on by itself. |
 | **Auto mode** | A setting where Claude's safety check approves routine actions by itself, so a chat doesn't stop to ask you. It's the hands-free setting. |
+| **Classifier** | The technical name for Claude's safety check in Auto mode. It looks at each action and decides yes or no by itself, like a guard at a door. It reads `CLAUDE.md`, so an approval you typed and Claude wrote down there helps it say yes. |
 | **Bypass permissions** | A setting that turns the safety check off completely. Claude's cloud chats don't offer it, so Auto mode is the hands-free choice. |
 | **Usage limit** | How much Claude you can use in a stretch of time. Bigger models, higher effort and longer chats use it up faster. |
 | **PRD** | The plan, or blueprint. It says what the app will do before anyone builds it. |
