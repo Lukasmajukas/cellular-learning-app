@@ -64,3 +64,24 @@ questions:
     choices: [B25, B2, B66]
     answer: 0
     why: n25 and B25 share the same numbers. B2 is a close cousin, but not the twin.
+  - id: u1-higher-02
+    kind: choice
+    facts: [band:n41, band:n71]
+    prompt: n71 or n41, which one sits higher on the ruler?
+    choices: [n71, n41]
+    answer: 1
+    why: n41 starts at {band:n41.dl_low_mhz} MHz. n71's downlink starts at {band:n71.dl_low_mhz} MHz.
+  - id: u1-higher-03
+    kind: choice
+    facts: [band:n258, band:n77]
+    prompt: n77 or n258, which one sits far higher on the ruler?
+    choices: [n77, n258]
+    answer: 1
+    why: n258 starts at {band:n258.dl_low_mhz} MHz. n77 starts at {band:n77.dl_low_mhz} MHz.
+  - id: u1-4g5g-03
+    kind: choice
+    facts: [band:n77]
+    prompt: Your phone shows "n77". Is that 4G or 5G?
+    choices: [4G (LTE), 5G (NR)]
+    answer: 1
+    why: Bands starting with "n" are 5G. The bands file lists n77 as {band:n77.kind}.

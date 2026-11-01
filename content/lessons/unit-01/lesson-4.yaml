@@ -78,3 +78,24 @@ questions:
     choices: [FDD, TDD]
     answer: 0
     why: Upside-down or not, B71 still has two lanes, so it is FDD.
+  - id: u1-flip-07
+    kind: choice
+    facts: [band:B13]
+    prompt: Is B13 normal or upside-down?
+    choices: [Normal, Upside-down]
+    answer: 1
+    why: Its uplink ({band:B13.ul_low_mhz} MHz) is above its downlink ({band:B13.dl_low_mhz} MHz).
+  - id: u1-flip-08
+    kind: choice
+    facts: [band:B66]
+    prompt: Is B66 normal or upside-down?
+    choices: [Normal, Upside-down]
+    answer: 0
+    why: Its uplink ({band:B66.ul_low_mhz} MHz) is below its downlink ({band:B66.dl_low_mhz} MHz).
+  - id: u1-flip-09
+    kind: choice
+    facts: [band:B5]
+    prompt: Is B5 normal or upside-down?
+    choices: [Normal, Upside-down]
+    answer: 0
+    why: Its uplink ({band:B5.ul_low_mhz} MHz) is below its downlink ({band:B5.dl_low_mhz} MHz).

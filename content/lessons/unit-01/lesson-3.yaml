@@ -83,3 +83,25 @@ questions:
     choices: [Low band, Mid band, High band]
     answer: 1
     why: n41 starts at {band:n41.dl_low_mhz} MHz, above 1000 MHz and below mmWave, so it is mid band.
+  - id: u1-duplex-07
+    kind: choice
+    facts: [band:B5]
+    prompt: Is B5 FDD or TDD?
+    choices: [FDD, TDD]
+    answer: 0
+    why: The bands file says B5 is {band:B5.duplex}.
+  - id: u1-gap-02
+    kind: number
+    facts: [band:B5]
+    prompt: "How far apart are B5's two lanes? Type the gap in MHz."
+    answer_from: band:B5.duplex_spacing_mhz
+    tolerance_mhz: 5
+    unit: MHz
+    why: The bands file gives B5's duplex gap as {band:B5.duplex_spacing_mhz} MHz.
+  - id: u1-duplex-08
+    kind: choice
+    facts: [band:n258]
+    prompt: n258 is also mmWave. Is it FDD or TDD?
+    choices: [FDD, TDD]
+    answer: 1
+    why: The bands file says n258 is {band:n258.duplex}.
