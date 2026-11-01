@@ -41,6 +41,14 @@ class Checker(unittest.TestCase):
         e = self.check(bands={"bands": [{"id": "B1", "source": "s", "as_of": "soon"}]})
         self.assertEqual(len(e), 2)
 
+    def test_frequency_range_needs_source_and_is_referable(self):
+        e = self.check(bands={"bands": [], "frequency_ranges": [{"id": "FR1", "status": "CURRENT", "as_of": "2026-11-01"}]})
+        self.assertTrue(any("frequency_range FR1" in x and "source missing" in x for x in e))
+        bands = {"bands": [], "frequency_ranges": [dict(id="FR1", **GOOD)]}
+        with tempfile.TemporaryDirectory() as t:
+            idx = cc.fact_index(bands, [])
+        self.assertIn("range:FR1", idx)
+
     def test_unverified_answer_fails(self):
         e = self.check(questions=[{"id": "q1", "facts": ["band:B9"]}])
         self.assertTrue(any("UNVERIFIED" in x for x in e))

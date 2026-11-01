@@ -165,7 +165,15 @@ for d in defs:
     r = rows_by_band.get(d["id"], [])
     d["has_carrier_rows"] = bool(r)
     d["us_active_claim"] = any(x["claim"] in ("CURRENT","PLANNED") for x in r)
-json.dump({"as_of":AS_OF,"carriers":CARRIERS,"bands":defs,"carrier_use":use,"spectrum_changes":spectrum}, open("content/bands.json","w"), indent=1, ensure_ascii=False)
+# T33: FR1/FR2 edges (band_verification.md, table C "Other block/frequency facts"; Wikipedia 5G NR page citing 3GPP TS 38.101-1/-2).
+# The FR2-1/FR2-2 split is NOT included: the research could not verify it.
+FRSRC = "docs/research/notes/band_verification.md section C; Wikipedia 5G NR frequency bands (oldid 1382980478), citing 3GPP TS 38.101-1 V19.3.1 and TS 38.101-2 V19.2.0; not yet compared with the 3GPP documents themselves (T07)"
+RANGES = [
+ {"id":"FR1","name":"Frequency Range 1 (below 7.125 GHz)","low_mhz":410,"high_mhz":7125,"text":"410 to 7125 MHz"},
+ {"id":"FR2","name":"Frequency Range 2 (mmWave)","low_mhz":24250,"high_mhz":71000,"text":"24.25 to 71 GHz"},
+]
+ranges = [dict(r, status="CURRENT", as_of=AS_OF, source=FRSRC) for r in RANGES]
+json.dump({"as_of":AS_OF,"carriers":CARRIERS,"bands":defs,"carrier_use":use,"spectrum_changes":spectrum,"frequency_ranges":ranges}, open("content/bands.json","w"), indent=1, ensure_ascii=False)
 open("content/bands.json","a").write("\n")
 
 o = ["# US bands data file: DRAFT v2","",
@@ -193,7 +201,10 @@ o += ["## 3. Spectrum changes (who owns the licences; not the same as 'uses the 
  "| Date | Bands | From | To | Status | Note |","|---|---|---|---|---|---|"]
 o += [f"| {x['date']} | {x['bands']} | {x['from']} | {x['to']} | {x['status']} | {x['note']} |" for x in spectrum]
 o += ["","Sources for each row are in `bands.json` (`spectrum_changes`). Same caveat as section 2: they come from search summaries, and the pages themselves were not opened.","",
- "## 4. Known problems (from the research and the T42 review)","",
+ "## 4. Frequency ranges (FR1 and FR2)","",
+ "| Id | Name | Range | Status |","|---|---|---|---|"] + [f"| {r['id']} | {r['name']} | {r['text']} | {r['status']} |" for r in ranges] + ["",
+ f"As of {AS_OF}. Source: {FRSRC}. The FR2-1 / FR2-2 split is not included because the research could not verify it.","",
+ "## 5. Known problems (from the research and the T42 review)","",
  "- B252 and B255 are satellite bands in the current standard. The older notes called them LTE-U; that meaning is dropped.",
  "- B23 is marked 'not applicable' by Wikipedia, so it is HISTORICAL with `not_applicable: true`; the app must not quiz it as live. B70's channel-size note is unclear (the 25 MHz size is an NR thing, not LTE).",
  "- n250, n251, n510, n511 have different uplink and downlink widths but plain 'FDD'. Probably right (that is how Wikipedia prints them); check in T07.",

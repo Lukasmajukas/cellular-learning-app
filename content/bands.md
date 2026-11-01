@@ -221,7 +221,16 @@ A sale changes who owns a slice of spectrum. It does not always mean a phone see
 
 Sources for each row are in `bands.json` (`spectrum_changes`). Same caveat as section 2: they come from search summaries, and the pages themselves were not opened.
 
-## 4. Known problems (from the research and the T42 review)
+## 4. Frequency ranges (FR1 and FR2)
+
+| Id | Name | Range | Status |
+|---|---|---|---|
+| FR1 | Frequency Range 1 (below 7.125 GHz) | 410 to 7125 MHz | CURRENT |
+| FR2 | Frequency Range 2 (mmWave) | 24.25 to 71 GHz | CURRENT |
+
+As of 2026-10-31. Source: docs/research/notes/band_verification.md section C; Wikipedia 5G NR frequency bands (oldid 1382980478), citing 3GPP TS 38.101-1 V19.3.1 and TS 38.101-2 V19.2.0; not yet compared with the 3GPP documents themselves (T07). The FR2-1 / FR2-2 split is not included because the research could not verify it.
+
+## 5. Known problems (from the research and the T42 review)
 
 - B252 and B255 are satellite bands in the current standard. The older notes called them LTE-U; that meaning is dropped.
 - B23 is marked 'not applicable' by Wikipedia, so it is HISTORICAL with `not_applicable: true`; the app must not quiz it as live. B70's channel-size note is unclear (the 25 MHz size is an NR thing, not LTE).
