@@ -1,0 +1,82 @@
+unit: unit02
+unit_title: Low band
+lesson: unit02-l2
+title: "700 MHz, lower part: B12, B17, B85, B29"
+questions:
+  - id: u2-lower700-learn-01
+    kind: learn
+    title: Boxes inside boxes
+    facts: [band:B17, band:B12, band:B85]
+    text: >
+      Think of three boxes. B17 is the smallest: downlink {band:B17.dl_low_mhz} to {band:B17.dl_high_mhz} MHz.
+      B12 is a bit bigger: {band:B12.dl_low_mhz} to {band:B12.dl_high_mhz} MHz. B85 is the biggest: {band:B85.dl_low_mhz} to {band:B85.dl_high_mhz} MHz.
+      B17 fits inside B12, and B12 fits inside B85. All three are normal (uplink below downlink).
+    show: [B85, B12, B17]
+  - id: u2-b29-learn-01
+    kind: learn
+    title: A one-way lane
+    facts: [band:B29]
+    text: >
+      B29 only has a downlink ({band:B29.dl_low_mhz} to {band:B29.dl_high_mhz} MHz) and no uplink.
+      It is a booster lane: it adds download speed but your phone cannot send on it.
+    show: [B29]
+  - id: u2-box-small-01
+    kind: choice
+    facts: [band:B12, band:B17, band:B85]
+    prompt: Which is the smallest box?
+    choices: [B17, B12, B85]
+    answer: 0
+    why: B17 covers only {band:B17.dl_low_mhz} to {band:B17.dl_high_mhz} MHz downlink, the narrowest of the three.
+  - id: u2-box-big-01
+    kind: choice
+    facts: [band:B12, band:B17, band:B85]
+    prompt: Which is the biggest box?
+    choices: [B17, B12, B85]
+    answer: 2
+    why: B85 starts lowest ({band:B85.dl_low_mhz} MHz) and holds both B12 and B17.
+  - id: u2-b12-clue-01
+    kind: choice
+    facts: [band:B12, band:B17, band:B85]
+    prompt: "Which band has downlink {band:B12.dl_low_mhz} to {band:B12.dl_high_mhz} MHz and uplink {band:B12.ul_low_mhz} to {band:B12.ul_high_mhz} MHz?"
+    choices: [B12, B17, B85]
+    answer: 0
+    why: Those are B12's numbers. B17 starts at {band:B17.dl_low_mhz} and B85 at {band:B85.dl_low_mhz}.
+  - id: u2-b29-use-01
+    kind: choice
+    facts: [band:B29]
+    prompt: B29 has no uplink. What is it used for?
+    choices: [Extra download speed only, Sending photos from your phone, Both, like any other band]
+    answer: 0
+    why: B29 is {band:B29.duplex} (downlink only), so it can only add download.
+  - id: u2-b12-number-01
+    kind: number
+    facts: [band:B12]
+    prompt: B12's downlink starts at how many MHz?
+    answer_from: band:B12.dl_low_mhz
+    tolerance_mhz: 5
+    unit: MHz
+    why: B12's downlink is {band:B12.dl_low_mhz} to {band:B12.dl_high_mhz} MHz.
+  - id: u2-b12-flip-01
+    kind: choice
+    facts: [band:B12]
+    prompt: Is B12 normal or upside-down?
+    choices: [Normal, Upside-down]
+    answer: 0
+    why: B12's uplink ({band:B12.ul_low_mhz} MHz) is below its downlink ({band:B12.dl_low_mhz} MHz).
+  - id: u2-sale700-01
+    kind: choice
+    facts: [change:2, change:3]
+    prompt: In 2026, Array (the old UScellular) sold 700 MHz licences. Who bought them?
+    choices:
+      - "AT&T (closed {change:2.date}) and T-Mobile (closed {change:3.date}) each bought some"
+      - "Only AT&T"
+      - "Only T-Mobile"
+    answer: 0
+    why: AT&T bought B12/B17 spectrum and T-Mobile bought B12 spectrum, so both are buyers.
+  - id: u2-b71-lower-01
+    kind: choice
+    facts: [band:B71, band:B12]
+    prompt: Which band sits lower on the ruler, B71 or B12?
+    choices: [B71, B12]
+    answer: 0
+    why: B71 starts at {band:B71.dl_low_mhz} MHz and B12 at {band:B12.dl_low_mhz} MHz.

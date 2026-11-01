@@ -4,6 +4,7 @@ One or two plain-English lines per chat. Newest at the top.
 
 | Date | What happened | Details |
 |---|---|---|
+| 2026-11-01 | T33 (part 3): wrote unit 2, "Low band" (5 lessons, 58 questions: 600, 700 and 850 MHz bands, nesting boxes, upside-down bands, and only the carrier facts that are checked). It shows on the path map after unit 1. Unit 3 is still to write. | `docs/sessions/2026-11-01-session-42-t33-unit2.md` |
 | 2026-11-01 | T33 (part 2): the path map now shows the real unit 1 lessons, and the first one opens. The old sample lessons are only used by the automatic tests. Units 2 and 3 are still to write. | `docs/sessions/2026-11-01-session-41-t33-wire-path.md` |
 | 2026-11-01 | T33 (part 1): wrote unit 1, "The spectrum ruler" (5 lessons, 54 questions, all numbers filled in from the bands file). It isn't in the app's path map yet; that's the next step. | `docs/sessions/2026-11-01-session-40-t33-units-1-3.md` |
 | 2026-11-01 | Robot added 4 more free photo credits (rooftop small cells, a flagpole disguise, a monopole, a fake tree), so 11 in all. It looked at two by eye. The photo website said "slow down" a lot, so small-cell close-ups, water tanks and Flickr still wait. | [note](sessions/2026-11-01-session-39-t26-photos-more.md) |

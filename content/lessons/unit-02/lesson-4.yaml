@@ -1,0 +1,83 @@
+unit: unit02
+unit_title: Low band
+lesson: unit02-l4
+title: "850 MHz: B5, n5 and B26"
+questions:
+  - id: u2-b5-learn-01
+    kind: learn
+    title: The 850 family
+    facts: [band:B5, band:n5, band:B26]
+    text: >
+      B5 (4G) and n5 (5G) are twins, called "{band:B5.name}" and "{band:n5.name}". Downlink: {band:B5.dl_low_mhz} to {band:B5.dl_high_mhz} MHz.
+      B26 is a bigger box around B5: its downlink is {band:B26.dl_low_mhz} to {band:B26.dl_high_mhz} MHz. B5 and n5 are normal bands.
+    show: [B26, B5]
+  - id: u2-b26-learn-01
+    kind: learn
+    title: History of B26
+    facts: [carrier_use:B26/tmobile, change:7]
+    label: history
+    text: >
+      T-Mobile used part of B26 (800 MHz it got from Sprint). It sold those licences to Grain Management;
+      the deal closed {change:7.date}. This is history: T-Mobile no longer holds them.
+    show: [B26]
+  - id: u2-b5b26-big-01
+    kind: choice
+    facts: [band:B5, band:B26]
+    prompt: Which is the bigger box, B5 or B26?
+    choices: [B5, B26]
+    answer: 1
+    why: B26 starts at {band:B26.dl_low_mhz} MHz and contains B5, which starts at {band:B5.dl_low_mhz} MHz.
+  - id: u2-n5-twin-01
+    kind: choice
+    facts: [band:n5, band:B5, band:B26]
+    prompt: Which band is the 4G twin of n5?
+    choices: [B5, B26, B12]
+    answer: 0
+    why: B5 and n5 share the same numbers ({band:B5.dl_low_mhz} to {band:B5.dl_high_mhz} MHz downlink).
+  - id: u2-b5-name-01
+    kind: choice
+    facts: [band:B5, band:B12, band:B71]
+    prompt: Which band is the "850" band?
+    choices: [B5, B12, B71]
+    answer: 0
+    why: B5 is "{band:B5.name}".
+  - id: u2-b26-history-01
+    kind: choice
+    facts: [carrier_use:B26/tmobile, change:7]
+    label: history
+    prompt: What happened to T-Mobile's B26 (800 MHz) licences?
+    choices:
+      - "It sold them to Grain Management"
+      - "It bought them from Grain Management"
+      - "It still uses them, nothing changed"
+    answer: 0
+    why: The sale to Grain closed {change:7.date}. T-Mobile no longer holds them.
+  - id: u2-b5-flip-01
+    kind: choice
+    facts: [band:B5]
+    prompt: Is B5 normal or upside-down?
+    choices: [Normal, Upside-down]
+    answer: 0
+    why: B5's uplink ({band:B5.ul_low_mhz} MHz) is below its downlink ({band:B5.dl_low_mhz} MHz).
+  - id: u2-b5-number-01
+    kind: number
+    facts: [band:B5]
+    prompt: B5's downlink starts at how many MHz?
+    answer_from: band:B5.dl_low_mhz
+    tolerance_mhz: 5
+    unit: MHz
+    why: B5's downlink is {band:B5.dl_low_mhz} to {band:B5.dl_high_mhz} MHz.
+  - id: u2-order-02
+    kind: order
+    facts: [band:B71, band:B12, band:B13, band:B5]
+    prompt: Put the low bands in order, lowest frequency first.
+    bands: [B5, B71, B13, B12]
+    sort_by: dl_low_mhz
+    why: Sorted by where each downlink starts, in MHz.
+  - id: u2-b26-tier-01
+    kind: choice
+    facts: [band:B26]
+    prompt: Which part of the ruler is B26 in?
+    choices: [Low band, Mid band, High band]
+    answer: 0
+    why: B26's downlink starts at {band:B26.dl_low_mhz} MHz, below 1000 MHz.
