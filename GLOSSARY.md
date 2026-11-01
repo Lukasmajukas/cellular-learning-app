@@ -119,3 +119,4 @@ Claude adds new words here whenever they come up.
 | **Backup** | A spare copy of the save file, made once a day. If the main file ever breaks, the app uses the newest backup. |
 | **Atomic write** | Saving in a way that can't be half done: the app writes a new copy on the side, then swaps it in all at once. If the power dies mid-save, the old file is still fine. |
 | **Preload** | A tiny helper that gives the app screen a few safe doors to the save file (load, save, back up, show), and nothing else. |
+| **Pivot (rotation point)** | The spot something turns around, like the hinge of a door. The mascot's antenna should turn around the tower tip. |

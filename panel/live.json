@@ -1,12 +1,12 @@
 {
-  "asOf": "2026-11-01 08:10 UTC (Claude chat, T40)",
+  "asOf": "2026-11-01 08:20 UTC (robot, T45)",
   "robot": {
     "on": true,
     "next": "right away (it starts its next job by itself), and every hour",
-    "last": "picked the first 7 licensed tower photos (T26, partly done)"
+    "last": "fixed the mascot (T45)"
   },
   "light": "green",
-  "working": "Nothing in progress. Next up: fix the mascot (T45) and the choppy animations (T46).",
+  "working": "Nothing in progress. Next up: fix the choppy animations (T46).",
   "limit": {
     "state": "fine (it reset after a pause)",
     "resets": "unknown"
