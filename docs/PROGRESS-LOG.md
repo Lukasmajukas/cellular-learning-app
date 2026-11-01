@@ -4,6 +4,7 @@ One or two plain-English lines per chat. Newest at the top.
 
 | Date | What happened | Details |
 |---|---|---|
+| 2026-11-01 | T26 (robot): tried to find more free small-cell photos; the photo site only gave back scanned documents, so nothing was added. | [note](sessions/2026-11-01-session-45-t26-photos-3.md) |
 | 2026-11-01 | T33 (part 5): added the two big frequency neighbourhoods, FR1 (410 MHz to 7.125 GHz) and FR2 (24.25 to 71 GHz, mmWave), to the bands file as checked facts. Still to do for T33: timing one lesson per unit, and the carrier questions after T47. | `docs/sessions/2026-11-01-session-44-t33-ranges.md` |
 | 2026-11-01 | T33 (part 4): wrote unit 3, "Mid band" (5 lessons, 60 questions: PCS 1900, AWS 1700/2100, WCS 2300, the Boost history and the pending SpaceX deal, then twins and nesting boxes mixed). All three units now show on the path map. Still to do for T33: the spectrum-edge (FR1/FR2) data and timing one lesson per unit. | `docs/sessions/2026-11-01-session-43-t33-unit3.md` |
 | 2026-11-01 | T33 (part 3): wrote unit 2, "Low band" (5 lessons, 58 questions: 600, 700 and 850 MHz bands, nesting boxes, upside-down bands, and only the carrier facts that are checked). It shows on the path map after unit 1. Unit 3 is still to write. | `docs/sessions/2026-11-01-session-42-t33-unit2.md` |
