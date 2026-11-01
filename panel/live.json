@@ -1,12 +1,12 @@
 {
- "asOf": "2026-11-01 (robot, T33 part 5)",
+ "asOf": "2026-11-01 (robot, T33 part 6)",
  "robot": {
   "on": true,
   "next": "right away (it starts its next job by itself), and every hour",
-  "last": "added FR1/FR2 frequency ranges to the bands file (T33, part 5)"
+  "last": "built a lesson-length calculator: 11 of 15 lessons are 3 to 5 minutes (T33, part 6)"
  },
  "light": "green",
- "working": "Nothing in progress. Next up: finish T33 (timing a lesson per unit) or continue T26 photos when Commons answers. T47 (carrier facts) needs official page links from you. Optional for you: T48 questions and your frame-rate number (T46).",
+ "working": "Nothing in progress. Next up: T33 leftovers (maybe lengthen 4 short lessons) or T26 photos when Commons answers. T47 (carrier facts) needs official page links from you. Optional for you: T48 questions and your frame-rate number (T46).",
  "limit": {
   "state": "fine (it reset after a pause)",
   "resets": "unknown"
