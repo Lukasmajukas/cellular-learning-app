@@ -4,6 +4,7 @@ One or two plain-English lines per chat. Newest at the top.
 
 | Date | What happened | Details |
 |---|---|---|
+| 2026-11-01 | T33 (part 4): wrote unit 3, "Mid band" (5 lessons, 60 questions: PCS 1900, AWS 1700/2100, WCS 2300, the Boost history and the pending SpaceX deal, then twins and nesting boxes mixed). All three units now show on the path map. Still to do for T33: the spectrum-edge (FR1/FR2) data and timing one lesson per unit. | `docs/sessions/2026-11-01-session-43-t33-unit3.md` |
 | 2026-11-01 | T33 (part 3): wrote unit 2, "Low band" (5 lessons, 58 questions: 600, 700 and 850 MHz bands, nesting boxes, upside-down bands, and only the carrier facts that are checked). It shows on the path map after unit 1. Unit 3 is still to write. | `docs/sessions/2026-11-01-session-42-t33-unit2.md` |
 | 2026-11-01 | T33 (part 2): the path map now shows the real unit 1 lessons, and the first one opens. The old sample lessons are only used by the automatic tests. Units 2 and 3 are still to write. | `docs/sessions/2026-11-01-session-41-t33-wire-path.md` |
 | 2026-11-01 | T33 (part 1): wrote unit 1, "The spectrum ruler" (5 lessons, 54 questions, all numbers filled in from the bands file). It isn't in the app's path map yet; that's the next step. | `docs/sessions/2026-11-01-session-40-t33-units-1-3.md` |

@@ -1809,6 +1809,1009 @@
      ]
     }
    ]
+  },
+  {
+   "id": "unit03",
+   "title": "Mid band",
+   "lessons": [
+    {
+     "id": "unit03-l1",
+     "title": "PCS 1900: B2, B25, n2 and n25",
+     "questions": [
+      {
+       "id": "u3-pcs-learn-01",
+       "kind": "learn",
+       "title": "Welcome to the middle of the ruler",
+       "facts": [
+        "band:B2",
+        "band:B25",
+        "band:n2",
+        "band:n25"
+       ],
+       "text": "Mid band sits between the low bands (below 1000 MHz) and the very high mmWave bands. Mid-band waves travel less far than low-band ones, but they carry more data, like a medium-sized pipe. The first mid band is \"{band:B2.name}\". Its downlink runs {band:B2.dl_low_mhz} to {band:B2.dl_high_mhz} MHz. B25 (\"{band:B25.name}\") is a bigger box that holds B2 (it ends at {band:B25.dl_high_mhz} MHz instead of {band:B2.dl_high_mhz}). Their 5G twins are n2 and n25.\n",
+       "show": [
+        "B2",
+        "B25"
+       ]
+      },
+      {
+       "id": "u3-mid-learn-01",
+       "kind": "learn",
+       "title": "Two mid bands wait for unit 4",
+       "facts": [
+        "band:n41",
+        "band:n77"
+       ],
+       "text": "n41 and n77 are mid band too. They are big 5G-only \"capacity\" bands, so they get their own unit later (unit 4). This unit covers the older mid bands from 4G days: PCS, AWS and WCS.\n",
+       "show": [
+        "n41",
+        "n77"
+       ]
+      },
+      {
+       "id": "u3-pcs-box-01",
+       "kind": "choice",
+       "facts": [
+        "band:B2",
+        "band:B25"
+       ],
+       "prompt": "B2 or B25, which one is the bigger box?",
+       "choices": [
+        "B25",
+        "B2"
+       ],
+       "answer": 0,
+       "why": "B25's uplink is {band:B25.ul_low_mhz} to {band:B25.ul_high_mhz} MHz. B2's is only {band:B2.ul_low_mhz} to {band:B2.ul_high_mhz} MHz."
+      },
+      {
+       "id": "u3-pcs-twin-01",
+       "kind": "choice",
+       "facts": [
+        "band:n25",
+        "band:B25",
+        "band:B2"
+       ],
+       "prompt": "Which 4G band is the twin of n25?",
+       "choices": [
+        "B25",
+        "B2",
+        "B66"
+       ],
+       "answer": 0,
+       "why": "Twins share the same numbers. n25 and B25 both have a downlink of {band:n25.dl_low_mhz} to {band:n25.dl_high_mhz} MHz."
+      },
+      {
+       "id": "u3-pcs-clue-01",
+       "kind": "choice",
+       "facts": [
+        "band:B2",
+        "band:B25",
+        "band:B66"
+       ],
+       "prompt": "Which band has uplink {band:B25.ul_low_mhz} to {band:B25.ul_high_mhz} MHz?",
+       "choices": [
+        "B25",
+        "B2",
+        "B66"
+       ],
+       "answer": 0,
+       "why": "B25's uplink is {band:B25.ul_low_mhz} to {band:B25.ul_high_mhz} MHz. B2 stops at {band:B2.ul_high_mhz}."
+      },
+      {
+       "id": "u3-pcs-name-01",
+       "kind": "choice",
+       "facts": [
+        "band:B2",
+        "band:B25"
+       ],
+       "prompt": "Which band numbers make up PCS (the \"1900\" bands)?",
+       "choices": [
+        "2 and 25",
+        "2 and 66",
+        "4 and 25"
+       ],
+       "answer": 0,
+       "why": "B2 is \"{band:B2.name}\" and B25 is \"{band:B25.name}\"."
+      },
+      {
+       "id": "u3-pcs-gap-01",
+       "kind": "number",
+       "facts": [
+        "band:B2"
+       ],
+       "prompt": "B2's duplex gap (uplink to downlink) is how many MHz?",
+       "answer_from": "band:B2.duplex_spacing_mhz",
+       "tolerance_mhz": 5,
+       "unit": "MHz",
+       "why": "The bands file gives B2's duplex gap as {band:B2.duplex_spacing_mhz} MHz."
+      },
+      {
+       "id": "u3-pcs-dl-01",
+       "kind": "number",
+       "facts": [
+        "band:B25"
+       ],
+       "prompt": "B25's downlink starts at how many MHz?",
+       "answer_from": "band:B25.dl_low_mhz",
+       "tolerance_mhz": 5,
+       "unit": "MHz",
+       "why": "B25's downlink is {band:B25.dl_low_mhz} to {band:B25.dl_high_mhz} MHz."
+      },
+      {
+       "id": "u3-pcs-tier-01",
+       "kind": "choice",
+       "facts": [
+        "band:B25"
+       ],
+       "prompt": "Which part of the ruler is B25 in?",
+       "choices": [
+        "Mid band",
+        "Low band",
+        "High band"
+       ],
+       "answer": 0,
+       "why": "B25's downlink starts at {band:B25.dl_low_mhz} MHz, above 1000 MHz but far below mmWave."
+      },
+      {
+       "id": "u3-pcs-reach-01",
+       "kind": "choice",
+       "facts": [
+        "band:B5",
+        "band:B2"
+       ],
+       "prompt": "B5 or B2, which one reaches farther from the tower?",
+       "choices": [
+        "B5",
+        "B2"
+       ],
+       "answer": 0,
+       "why": "B5's downlink starts at {band:B5.dl_low_mhz} MHz (low band) and B2's at {band:B2.dl_low_mhz} MHz. Lower frequencies travel farther."
+      },
+      {
+       "id": "u3-pcs-sale-01",
+       "kind": "choice",
+       "facts": [
+        "change:0",
+        "change:2",
+        "change:5"
+       ],
+       "prompt": "Some of UScellular's spectrum (including PCS and AWS) was sold in a deal that closed in {change:0.date}. Who bought it?",
+       "choices": [
+        "T-Mobile",
+        "AT&T",
+        "Verizon"
+       ],
+       "answer": 0,
+       "why": "T-Mobile's deal closed {change:0.date}. AT&T ({change:2.date}) and Verizon ({change:5.date}) bought from UScellular's successor, Array, later."
+      },
+      {
+       "id": "u3-pcs-twins-02",
+       "kind": "match",
+       "facts": [
+        "band:B2",
+        "band:n2",
+        "band:B25",
+        "band:n25"
+       ],
+       "prompt": "Match each 4G band to its 5G twin.",
+       "pairs": [
+        [
+         "{band:B2.id}",
+         "{band:n2.id}"
+        ],
+        [
+         "{band:B25.id}",
+         "{band:n25.id}"
+        ]
+       ],
+       "why": "Twins share the same numbers. Only the letter changes."
+      }
+     ]
+    },
+    {
+     "id": "unit03-l2",
+     "title": "AWS 1700/2100: B4, B66 and n66",
+     "questions": [
+      {
+       "id": "u3-aws-learn-01",
+       "kind": "learn",
+       "title": "A very wide gap",
+       "facts": [
+        "band:B4",
+        "band:B66",
+        "band:n66"
+       ],
+       "text": "AWS bands have a huge gap between uplink and downlink. Uplink sits near {band:B4.ul_low_mhz} MHz and downlink near {band:B4.dl_low_mhz} MHz, a gap of {band:B4.duplex_spacing_mhz} MHz. That is why the nickname says \"1700 / 2100\". B4 (\"{band:B4.name}\") fits inside the bigger box B66 (\"{band:B66.name}\"). n66 is the 5G twin of B66.\n",
+       "show": [
+        "B4",
+        "B66"
+       ]
+      },
+      {
+       "id": "u3-aws-learn-02",
+       "kind": "learn",
+       "title": "B66 has a one-way slice",
+       "facts": [
+        "band:B66"
+       ],
+       "text": "B66's downlink runs {band:B66.dl_low_mhz} to {band:B66.dl_high_mhz} MHz, but the top slice of it can only be used for downloads. That means the downlink is wider than the uplink ({band:B66.ul_low_mhz} to {band:B66.ul_high_mhz} MHz).\n",
+       "show": [
+        "B66"
+       ]
+      },
+      {
+       "id": "u3-aws-box-01",
+       "kind": "choice",
+       "facts": [
+        "band:B4",
+        "band:B66"
+       ],
+       "prompt": "B4 or B66, which one is the bigger box?",
+       "choices": [
+        "B66",
+        "B4"
+       ],
+       "answer": 0,
+       "why": "B66's uplink is {band:B66.ul_low_mhz} to {band:B66.ul_high_mhz} MHz. B4's is {band:B4.ul_low_mhz} to {band:B4.ul_high_mhz} MHz."
+      },
+      {
+       "id": "u3-aws-ul-01",
+       "kind": "choice",
+       "facts": [
+        "band:B66"
+       ],
+       "prompt": "Where is B66's uplink, near 1700 MHz or near 2100 MHz?",
+       "choices": [
+        "Near 1700 MHz",
+        "Near 2100 MHz"
+       ],
+       "answer": 0,
+       "why": "B66's uplink starts at {band:B66.ul_low_mhz} MHz. Its downlink starts at {band:B66.dl_low_mhz} MHz."
+      },
+      {
+       "id": "u3-aws-clue-01",
+       "kind": "choice",
+       "facts": [
+        "band:B4",
+        "band:B66",
+        "band:B2"
+       ],
+       "prompt": "Which band has uplink {band:B4.ul_low_mhz} to {band:B4.ul_high_mhz} MHz and downlink {band:B4.dl_low_mhz} to {band:B4.dl_high_mhz} MHz?",
+       "choices": [
+        "B4",
+        "B66",
+        "B2"
+       ],
+       "answer": 0,
+       "why": "B4's uplink ends at {band:B4.ul_high_mhz} MHz. B66's runs to {band:B66.ul_high_mhz}."
+      },
+      {
+       "id": "u3-aws-dl-01",
+       "kind": "number",
+       "facts": [
+        "band:B66"
+       ],
+       "prompt": "B66's downlink starts at how many MHz?",
+       "answer_from": "band:B66.dl_low_mhz",
+       "tolerance_mhz": 5,
+       "unit": "MHz",
+       "why": "B66's downlink is {band:B66.dl_low_mhz} to {band:B66.dl_high_mhz} MHz."
+      },
+      {
+       "id": "u3-aws-gap-01",
+       "kind": "number",
+       "facts": [
+        "band:B4"
+       ],
+       "prompt": "B4's duplex gap (uplink to downlink) is how many MHz?",
+       "answer_from": "band:B4.duplex_spacing_mhz",
+       "tolerance_mhz": 5,
+       "unit": "MHz",
+       "why": "The bands file gives B4's duplex gap as {band:B4.duplex_spacing_mhz} MHz."
+      },
+      {
+       "id": "u3-aws-pcs-01",
+       "kind": "choice",
+       "facts": [
+        "band:B25"
+       ],
+       "prompt": "Is B25 a PCS band or an AWS band?",
+       "choices": [
+        "PCS",
+        "AWS"
+       ],
+       "answer": 0,
+       "why": "B25 is \"{band:B25.name}\"."
+      },
+      {
+       "id": "u3-aws-pcs-02",
+       "kind": "choice",
+       "facts": [
+        "band:B66"
+       ],
+       "prompt": "Is B66 a PCS band or an AWS band?",
+       "choices": [
+        "AWS",
+        "PCS"
+       ],
+       "answer": 0,
+       "why": "B66 is \"{band:B66.name}\"."
+      },
+      {
+       "id": "u3-aws-pcs-03",
+       "kind": "choice",
+       "facts": [
+        "band:B4"
+       ],
+       "prompt": "Is B4 a PCS band or an AWS band?",
+       "choices": [
+        "AWS",
+        "PCS"
+       ],
+       "answer": 0,
+       "why": "B4 is \"{band:B4.name}\"."
+      },
+      {
+       "id": "u3-aws-boost-01",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n66/boost"
+       ],
+       "label": "history",
+       "prompt": "What about Boost and n66?",
+       "choices": [
+        "It used to run 5G on it, then its traffic moved to AT&T",
+        "It runs n66 today",
+        "It never used n66"
+       ],
+       "answer": 0,
+       "why": "Boost's 5G traffic moved to AT&T by Nov 2025. That is history now."
+      },
+      {
+       "id": "u3-aws-order-01",
+       "kind": "order",
+       "facts": [
+        "band:B71",
+        "band:B12",
+        "band:B2",
+        "band:B66"
+       ],
+       "prompt": "Put these bands in order, lowest frequency first.",
+       "bands": [
+        "B71",
+        "B12",
+        "B2",
+        "B66"
+       ],
+       "sort_by": "dl_low_mhz",
+       "why": "Sorted by where each downlink starts, in MHz."
+      }
+     ]
+    },
+    {
+     "id": "unit03-l3",
+     "title": "WCS 2300 and the AWS leftovers: B30, B70, n70",
+     "questions": [
+      {
+       "id": "u3-wcs-learn-01",
+       "kind": "learn",
+       "title": "A small band near the top",
+       "facts": [
+        "band:B30"
+       ],
+       "text": "B30 is called \"{band:B30.name}\". It is a small band: uplink {band:B30.ul_low_mhz} to {band:B30.ul_high_mhz} MHz, downlink {band:B30.dl_low_mhz} to {band:B30.dl_high_mhz} MHz. It sits near the top of the classic mid band, higher than PCS and AWS.\n",
+       "show": [
+        "B30"
+       ]
+      },
+      {
+       "id": "u3-b70-learn-01",
+       "kind": "learn",
+       "title": "History of B70 and n70",
+       "facts": [
+        "band:B70",
+        "band:n70",
+        "carrier_use:B70/boost",
+        "carrier_use:n70/boost"
+       ],
+       "label": "history",
+       "text": "B70 (\"{band:B70.name}\") and its 5G twin n70 are \"AWS leftovers\" with an uplink of {band:B70.ul_low_mhz} to {band:B70.ul_high_mhz} MHz and a downlink of {band:B70.dl_low_mhz} to {band:B70.dl_high_mhz} MHz. Boost used to run on them. Boost's traffic moved to AT&T's network by November 2025, so that is history now.\n",
+       "show": [
+        "B70"
+       ]
+      },
+      {
+       "id": "u3-b70-learn-02",
+       "kind": "learn",
+       "title": "Some of these airwaves are changing hands",
+       "facts": [
+        "change:1",
+        "change:9"
+       ],
+       "label": "coming",
+       "text": "A deal is pending in which EchoStar would sell part of this airwaves family to SpaceX. SpaceX is expected to use it for satellites, not for normal phone towers. The B70 uplink slice ({change:1.bands}) was announced in {change:1.date} and is still pending. The final handover of the downlink slices is expected around {change:9.date}.\n",
+       "show": [
+        "B70"
+       ]
+      },
+      {
+       "id": "u3-wcs-name-01",
+       "kind": "choice",
+       "facts": [
+        "band:B30",
+        "band:B66",
+        "band:B25"
+       ],
+       "prompt": "Which band is the WCS (\"2300\") band?",
+       "choices": [
+        "B30",
+        "B66",
+        "B25"
+       ],
+       "answer": 0,
+       "why": "B30 is \"{band:B30.name}\". B66 is AWS and B25 is PCS."
+      },
+      {
+       "id": "u3-wcs-dl-01",
+       "kind": "number",
+       "facts": [
+        "band:B30"
+       ],
+       "prompt": "B30's downlink starts at how many MHz?",
+       "answer_from": "band:B30.dl_low_mhz",
+       "tolerance_mhz": 5,
+       "unit": "MHz",
+       "why": "B30's downlink is {band:B30.dl_low_mhz} to {band:B30.dl_high_mhz} MHz."
+      },
+      {
+       "id": "u3-b70-boost-01",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:B70/boost"
+       ],
+       "label": "history",
+       "prompt": "Boost used to run on B70. What happened to its traffic?",
+       "choices": [
+        "It moved to AT&T's network by November 2025",
+        "It moved to T-Mobile's network by November 2025",
+        "It moved to another network in 2023"
+       ],
+       "answer": 0,
+       "why": "Boost's traffic moved to AT&T's network by Nov 2025. That is history now."
+      },
+      {
+       "id": "u3-b70-spacex-01",
+       "kind": "choice",
+       "facts": [
+        "change:1"
+       ],
+       "label": "coming",
+       "prompt": "Who is expected to get the B70 uplink slice?",
+       "choices": [
+        "SpaceX",
+        "EchoStar keeps it and sells nothing",
+        "AT&T"
+       ],
+       "answer": 0,
+       "why": "The deal is pending ({change:1.date}). EchoStar would sell it to SpaceX."
+      },
+      {
+       "id": "u3-wcs-clue-01",
+       "kind": "choice",
+       "facts": [
+        "band:B30",
+        "band:B66",
+        "band:B25"
+       ],
+       "prompt": "Which band has downlink {band:B30.dl_low_mhz} to {band:B30.dl_high_mhz} MHz?",
+       "choices": [
+        "B30",
+        "B66",
+        "B25"
+       ],
+       "answer": 0,
+       "why": "B30's downlink is {band:B30.dl_low_mhz} to {band:B30.dl_high_mhz} MHz. B66 starts at {band:B66.dl_low_mhz}."
+      },
+      {
+       "id": "u3-wcs-high-01",
+       "kind": "choice",
+       "facts": [
+        "band:B2",
+        "band:B66",
+        "band:B30"
+       ],
+       "prompt": "Which of these sits highest on the ruler?",
+       "choices": [
+        "B30",
+        "B66",
+        "B2"
+       ],
+       "answer": 0,
+       "why": "B30's downlink starts at {band:B30.dl_low_mhz} MHz, B66's at {band:B66.dl_low_mhz} and B2's at {band:B2.dl_low_mhz}."
+      },
+      {
+       "id": "u3-wcs-flip-01",
+       "kind": "choice",
+       "facts": [
+        "band:B30"
+       ],
+       "prompt": "Is B30 normal or upside-down?",
+       "choices": [
+        "Normal",
+        "Upside-down"
+       ],
+       "answer": 0,
+       "why": "B30's uplink ({band:B30.ul_low_mhz} MHz) is below its downlink ({band:B30.dl_low_mhz} MHz)."
+      },
+      {
+       "id": "u3-b70-twin-01",
+       "kind": "choice",
+       "facts": [
+        "band:B70",
+        "band:n70"
+       ],
+       "prompt": "Which band is the 5G twin of B70?",
+       "choices": [
+        "n70",
+        "n66",
+        "B30"
+       ],
+       "answer": 0,
+       "why": "Twins share the same numbers. B70 and n70 both have a downlink of {band:n70.dl_low_mhz} to {band:n70.dl_high_mhz} MHz."
+      }
+     ]
+    },
+    {
+     "id": "unit03-l4",
+     "title": "Twins and nesting boxes, all mixed",
+     "questions": [
+      {
+       "id": "u3-mix-learn-01",
+       "kind": "learn",
+       "title": "Four boxes inside boxes",
+       "facts": [
+        "band:B17",
+        "band:B12",
+        "band:B85",
+        "band:B5",
+        "band:B26",
+        "band:B2",
+        "band:B25",
+        "band:B4",
+        "band:B66"
+       ],
+       "text": "Here are the four nesting sets you know: B17 sits inside B12, which sits inside B85. B5 sits inside B26. B2 sits inside B25. B4 sits inside B66. The bigger box always starts at the same place or lower and ends at the same place or higher.\n",
+       "show": [
+        "B12",
+        "B85",
+        "B5",
+        "B26",
+        "B2",
+        "B25",
+        "B4",
+        "B66"
+       ]
+      },
+      {
+       "id": "u3-mix-box-01",
+       "kind": "choice",
+       "facts": [
+        "band:B12",
+        "band:B85"
+       ],
+       "prompt": "B12 or B85, which one is the bigger box?",
+       "choices": [
+        "B85",
+        "B12"
+       ],
+       "answer": 0,
+       "why": "B85 starts at {band:B85.dl_low_mhz} MHz and holds B12 ({band:B12.dl_low_mhz} MHz)."
+      },
+      {
+       "id": "u3-mix-box-02",
+       "kind": "choice",
+       "facts": [
+        "band:B5",
+        "band:B26"
+       ],
+       "prompt": "B5 or B26, which one is the bigger box?",
+       "choices": [
+        "B26",
+        "B5"
+       ],
+       "answer": 0,
+       "why": "B26's downlink starts at {band:B26.dl_low_mhz} MHz. B5's starts at {band:B5.dl_low_mhz}."
+      },
+      {
+       "id": "u3-mix-box-03",
+       "kind": "choice",
+       "facts": [
+        "band:B2",
+        "band:B25"
+       ],
+       "prompt": "B2 or B25, which one is the bigger box?",
+       "choices": [
+        "B25",
+        "B2"
+       ],
+       "answer": 0,
+       "why": "B25's downlink ends at {band:B25.dl_high_mhz} MHz. B2's ends at {band:B2.dl_high_mhz}."
+      },
+      {
+       "id": "u3-mix-box-04",
+       "kind": "choice",
+       "facts": [
+        "band:B4",
+        "band:B66"
+       ],
+       "prompt": "B4 or B66, which one is the bigger box?",
+       "choices": [
+        "B66",
+        "B4"
+       ],
+       "answer": 0,
+       "why": "B66's downlink ends at {band:B66.dl_high_mhz} MHz. B4's ends at {band:B4.dl_high_mhz}."
+      },
+      {
+       "id": "u3-mix-twins-01",
+       "kind": "match",
+       "facts": [
+        "band:B71",
+        "band:n71",
+        "band:B5",
+        "band:n5",
+        "band:B25",
+        "band:n25",
+        "band:B66",
+        "band:n66"
+       ],
+       "prompt": "Match each 4G band to its 5G twin.",
+       "pairs": [
+        [
+         "{band:B71.id}",
+         "{band:n71.id}"
+        ],
+        [
+         "{band:B5.id}",
+         "{band:n5.id}"
+        ],
+        [
+         "{band:B25.id}",
+         "{band:n25.id}"
+        ],
+        [
+         "{band:B66.id}",
+         "{band:n66.id}"
+        ]
+       ],
+       "why": "Twins share the same numbers. Only the letter changes."
+      },
+      {
+       "id": "u3-mix-clue-01",
+       "kind": "choice",
+       "facts": [
+        "band:B71",
+        "band:B29",
+        "band:B25",
+        "band:B13"
+       ],
+       "prompt": "Which band is upside-down and low band, with a downlink starting at {band:B71.dl_low_mhz} MHz?",
+       "choices": [
+        "B71",
+        "B13",
+        "B29",
+        "B25"
+       ],
+       "answer": 0,
+       "why": "B71's downlink starts at {band:B71.dl_low_mhz} MHz and its uplink is above its downlink."
+      },
+      {
+       "id": "u3-mix-clue-02",
+       "kind": "choice",
+       "facts": [
+        "band:B29",
+        "band:B71",
+        "band:B12",
+        "band:B25"
+       ],
+       "prompt": "Which band is downlink-only (no uplink) in the 700 area?",
+       "choices": [
+        "B29",
+        "B71",
+        "B12",
+        "B25"
+       ],
+       "answer": 0,
+       "why": "B29 is {band:B29.duplex}, a one-way booster lane from {band:B29.dl_low_mhz} to {band:B29.dl_high_mhz} MHz."
+      },
+      {
+       "id": "u3-mix-order-01",
+       "kind": "order",
+       "facts": [
+        "band:B71",
+        "band:B13",
+        "band:B5",
+        "band:B25",
+        "band:B66"
+       ],
+       "prompt": "Put these bands in order, lowest frequency first.",
+       "bands": [
+        "B71",
+        "B13",
+        "B5",
+        "B25",
+        "B66"
+       ],
+       "sort_by": "dl_low_mhz",
+       "why": "Sorted by where each downlink starts, in MHz."
+      },
+      {
+       "id": "u3-mix-bignum-01",
+       "kind": "choice",
+       "facts": [
+        "band:B66"
+       ],
+       "prompt": "Which band number is the \"big box\" for the 1700/2100 AWS bands?",
+       "choices": [
+        "66",
+        "30",
+        "25"
+       ],
+       "answer": 0,
+       "why": "B66 (\"{band:B66.name}\") holds B4."
+      }
+     ]
+    },
+    {
+     "id": "unit03-check",
+     "title": "Checkpoint: mid band",
+     "questions": [
+      {
+       "id": "u3-cp-box-01",
+       "kind": "choice",
+       "facts": [
+        "band:B2",
+        "band:B25"
+       ],
+       "prompt": "B2 fits inside which band?",
+       "choices": [
+        "B25",
+        "B66",
+        "B30"
+       ],
+       "answer": 0,
+       "why": "B25 ({band:B25.dl_low_mhz} to {band:B25.dl_high_mhz} MHz) is the bigger box around B2."
+      },
+      {
+       "id": "u3-cp-box-02",
+       "kind": "choice",
+       "facts": [
+        "band:B4",
+        "band:B66"
+       ],
+       "prompt": "B4 fits inside which band?",
+       "choices": [
+        "B66",
+        "B25",
+        "B70"
+       ],
+       "answer": 0,
+       "why": "B66 ({band:B66.dl_low_mhz} to {band:B66.dl_high_mhz} MHz) is the bigger box around B4."
+      },
+      {
+       "id": "u3-cp-box-03",
+       "kind": "choice",
+       "facts": [
+        "band:B5",
+        "band:B26"
+       ],
+       "prompt": "Which box is the bigger one?",
+       "choices": [
+        "B26",
+        "B5"
+       ],
+       "answer": 0,
+       "why": "B26's downlink starts at {band:B26.dl_low_mhz} MHz. B5's starts at {band:B5.dl_low_mhz}."
+      },
+      {
+       "id": "u3-cp-twins-01",
+       "kind": "match",
+       "facts": [
+        "band:B25",
+        "band:n25",
+        "band:B66",
+        "band:n66"
+       ],
+       "prompt": "Match each 4G band to its 5G twin.",
+       "pairs": [
+        [
+         "{band:B25.id}",
+         "{band:n25.id}"
+        ],
+        [
+         "{band:B66.id}",
+         "{band:n66.id}"
+        ]
+       ],
+       "why": "Twins share the same numbers. Only the letter changes."
+      },
+      {
+       "id": "u3-cp-twins-02",
+       "kind": "choice",
+       "facts": [
+        "band:B70",
+        "band:n70"
+       ],
+       "prompt": "Which band is the 5G twin of B70?",
+       "choices": [
+        "n70",
+        "n66",
+        "n25"
+       ],
+       "answer": 0,
+       "why": "B70 and n70 both have a downlink of {band:n70.dl_low_mhz} to {band:n70.dl_high_mhz} MHz."
+      },
+      {
+       "id": "u3-cp-clue-01",
+       "kind": "choice",
+       "facts": [
+        "band:B2",
+        "band:B25",
+        "band:B66"
+       ],
+       "prompt": "Which band has uplink {band:B25.ul_low_mhz} to {band:B25.ul_high_mhz} MHz?",
+       "choices": [
+        "B25",
+        "B2",
+        "B66"
+       ],
+       "answer": 0,
+       "why": "B25's uplink is {band:B25.ul_low_mhz} to {band:B25.ul_high_mhz} MHz."
+      },
+      {
+       "id": "u3-cp-clue-02",
+       "kind": "choice",
+       "facts": [
+        "band:B4",
+        "band:B66",
+        "band:B2"
+       ],
+       "prompt": "Which band has uplink {band:B66.ul_low_mhz} to {band:B66.ul_high_mhz} MHz?",
+       "choices": [
+        "B66",
+        "B4",
+        "B2"
+       ],
+       "answer": 0,
+       "why": "B66's uplink is {band:B66.ul_low_mhz} to {band:B66.ul_high_mhz} MHz. B4's stops at {band:B4.ul_high_mhz}."
+      },
+      {
+       "id": "u3-cp-clue-03",
+       "kind": "choice",
+       "facts": [
+        "band:B30",
+        "band:B66",
+        "band:B25"
+       ],
+       "prompt": "Which band has downlink {band:B30.dl_low_mhz} to {band:B30.dl_high_mhz} MHz?",
+       "choices": [
+        "B30",
+        "B66",
+        "B25"
+       ],
+       "answer": 0,
+       "why": "B30 is \"{band:B30.name}\"."
+      },
+      {
+       "id": "u3-cp-num-01",
+       "kind": "choice",
+       "facts": [
+        "band:B66"
+       ],
+       "prompt": "Which band number is the big AWS box?",
+       "choices": [
+        "66",
+        "30",
+        "70"
+       ],
+       "answer": 0,
+       "why": "B66 is \"{band:B66.name}\" and holds B4."
+      },
+      {
+       "id": "u3-cp-num-02",
+       "kind": "number",
+       "facts": [
+        "band:B25"
+       ],
+       "prompt": "B25's downlink ends at how many MHz?",
+       "answer_from": "band:B25.dl_high_mhz",
+       "tolerance_mhz": 5,
+       "unit": "MHz",
+       "why": "B25's downlink is {band:B25.dl_low_mhz} to {band:B25.dl_high_mhz} MHz."
+      },
+      {
+       "id": "u3-cp-hist-01",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:B70/boost"
+       ],
+       "label": "history",
+       "prompt": "Boost used to run on B70. What happened to its traffic?",
+       "choices": [
+        "It moved to AT&T's network by November 2025",
+        "It moved to T-Mobile's network by November 2025",
+        "It moved to another network in 2023"
+       ],
+       "answer": 0,
+       "why": "Boost's traffic moved to AT&T's network by Nov 2025."
+      },
+      {
+       "id": "u3-cp-coming-01",
+       "kind": "choice",
+       "facts": [
+        "change:1"
+       ],
+       "label": "coming",
+       "prompt": "Who is expected to get the B70 uplink slice?",
+       "choices": [
+        "SpaceX",
+        "EchoStar keeps it and sells nothing",
+        "AT&T"
+       ],
+       "answer": 0,
+       "why": "The deal is pending ({change:1.date}). EchoStar would sell it to SpaceX."
+      },
+      {
+       "id": "u3-cp-tier-01",
+       "kind": "choice",
+       "facts": [
+        "band:B66"
+       ],
+       "prompt": "Which part of the ruler is B66 in?",
+       "choices": [
+        "Mid band",
+        "Low band",
+        "High band"
+       ],
+       "answer": 0,
+       "why": "B66's downlink starts at {band:B66.dl_low_mhz} MHz."
+      },
+      {
+       "id": "u3-cp-flip-01",
+       "kind": "choice",
+       "facts": [
+        "band:B71",
+        "band:B30",
+        "band:B2"
+       ],
+       "prompt": "Which one of these is upside-down?",
+       "choices": [
+        "B71",
+        "B30",
+        "B2"
+       ],
+       "answer": 0,
+       "why": "B71's uplink ({band:B71.ul_low_mhz} MHz) sits above its downlink ({band:B71.dl_low_mhz} MHz)."
+      },
+      {
+       "id": "u3-cp-carrier-01",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n71/tmobile",
+        "carrier_use:n71/att"
+       ],
+       "label": "coming",
+       "prompt": "Which carrier runs n71 (\"Extended Range\") today?",
+       "choices": [
+        "T-Mobile",
+        "AT&T (it is only planning to build it)"
+       ],
+       "answer": 0,
+       "why": "T-Mobile runs n71 today. AT&T's 600 MHz build is only planned."
+      }
+     ]
+    }
+   ]
   }
  ]
 }

@@ -1,0 +1,96 @@
+unit: unit03
+unit_title: Mid band
+lesson: unit03-l3
+title: "WCS 2300 and the AWS leftovers: B30, B70, n70"
+questions:
+  - id: u3-wcs-learn-01
+    kind: learn
+    title: A small band near the top
+    facts: [band:B30]
+    text: >
+      B30 is called "{band:B30.name}". It is a small band: uplink {band:B30.ul_low_mhz} to {band:B30.ul_high_mhz} MHz, downlink {band:B30.dl_low_mhz} to {band:B30.dl_high_mhz} MHz.
+      It sits near the top of the classic mid band, higher than PCS and AWS.
+    show: [B30]
+  - id: u3-b70-learn-01
+    kind: learn
+    title: History of B70 and n70
+    facts: [band:B70, band:n70, carrier_use:B70/boost, carrier_use:n70/boost]
+    label: history
+    text: >
+      B70 ("{band:B70.name}") and its 5G twin n70 are "AWS leftovers" with an uplink of {band:B70.ul_low_mhz} to {band:B70.ul_high_mhz} MHz and a downlink of {band:B70.dl_low_mhz} to {band:B70.dl_high_mhz} MHz.
+      Boost used to run on them. Boost's traffic moved to AT&T's network by November 2025, so that is history now.
+    show: [B70]
+  - id: u3-b70-learn-02
+    kind: learn
+    title: Some of these airwaves are changing hands
+    facts: [change:1, change:9]
+    label: coming
+    text: >
+      A deal is pending in which EchoStar would sell part of this airwaves family to SpaceX. SpaceX is expected to use it for satellites, not for normal phone towers.
+      The B70 uplink slice ({change:1.bands}) was announced in {change:1.date} and is still pending. The final handover of the downlink slices is expected around {change:9.date}.
+    show: [B70]
+  - id: u3-wcs-name-01
+    kind: choice
+    facts: [band:B30, band:B66, band:B25]
+    prompt: Which band is the WCS ("2300") band?
+    choices: [B30, B66, B25]
+    answer: 0
+    why: B30 is "{band:B30.name}". B66 is AWS and B25 is PCS.
+  - id: u3-wcs-dl-01
+    kind: number
+    facts: [band:B30]
+    prompt: B30's downlink starts at how many MHz?
+    answer_from: band:B30.dl_low_mhz
+    tolerance_mhz: 5
+    unit: MHz
+    why: B30's downlink is {band:B30.dl_low_mhz} to {band:B30.dl_high_mhz} MHz.
+  - id: u3-b70-boost-01
+    kind: choice
+    facts: [carrier_use:B70/boost]
+    label: history
+    prompt: Boost used to run on B70. What happened to its traffic?
+    choices:
+      - "It moved to AT&T's network by November 2025"
+      - "It moved to T-Mobile's network by November 2025"
+      - "It moved to another network in 2023"
+    answer: 0
+    why: Boost's traffic moved to AT&T's network by Nov 2025. That is history now.
+  - id: u3-b70-spacex-01
+    kind: choice
+    facts: [change:1]
+    label: coming
+    prompt: Who is expected to get the B70 uplink slice?
+    choices:
+      - SpaceX
+      - "EchoStar keeps it and sells nothing"
+      - AT&T
+    answer: 0
+    why: The deal is pending ({change:1.date}). EchoStar would sell it to SpaceX.
+  - id: u3-wcs-clue-01
+    kind: choice
+    facts: [band:B30, band:B66, band:B25]
+    prompt: "Which band has downlink {band:B30.dl_low_mhz} to {band:B30.dl_high_mhz} MHz?"
+    choices: [B30, B66, B25]
+    answer: 0
+    why: B30's downlink is {band:B30.dl_low_mhz} to {band:B30.dl_high_mhz} MHz. B66 starts at {band:B66.dl_low_mhz}.
+  - id: u3-wcs-high-01
+    kind: choice
+    facts: [band:B2, band:B66, band:B30]
+    prompt: Which of these sits highest on the ruler?
+    choices: [B30, B66, B2]
+    answer: 0
+    why: B30's downlink starts at {band:B30.dl_low_mhz} MHz, B66's at {band:B66.dl_low_mhz} and B2's at {band:B2.dl_low_mhz}.
+  - id: u3-wcs-flip-01
+    kind: choice
+    facts: [band:B30]
+    prompt: Is B30 normal or upside-down?
+    choices: [Normal, Upside-down]
+    answer: 0
+    why: B30's uplink ({band:B30.ul_low_mhz} MHz) is below its downlink ({band:B30.dl_low_mhz} MHz).
+  - id: u3-b70-twin-01
+    kind: choice
+    facts: [band:B70, band:n70]
+    prompt: Which band is the 5G twin of B70?
+    choices: [n70, n66, B30]
+    answer: 0
+    why: Twins share the same numbers. B70 and n70 both have a downlink of {band:n70.dl_low_mhz} to {band:n70.dl_high_mhz} MHz.

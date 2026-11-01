@@ -1,0 +1,79 @@
+unit: unit03
+unit_title: Mid band
+lesson: unit03-l4
+title: "Twins and nesting boxes, all mixed"
+questions:
+  - id: u3-mix-learn-01
+    kind: learn
+    title: Four boxes inside boxes
+    facts: [band:B17, band:B12, band:B85, band:B5, band:B26, band:B2, band:B25, band:B4, band:B66]
+    text: >
+      Here are the four nesting sets you know: B17 sits inside B12, which sits inside B85. B5 sits inside B26. B2 sits inside B25. B4 sits inside B66.
+      The bigger box always starts at the same place or lower and ends at the same place or higher.
+    show: [B12, B85, B5, B26, B2, B25, B4, B66]
+  - id: u3-mix-box-01
+    kind: choice
+    facts: [band:B12, band:B85]
+    prompt: B12 or B85, which one is the bigger box?
+    choices: [B85, B12]
+    answer: 0
+    why: B85 starts at {band:B85.dl_low_mhz} MHz and holds B12 ({band:B12.dl_low_mhz} MHz).
+  - id: u3-mix-box-02
+    kind: choice
+    facts: [band:B5, band:B26]
+    prompt: B5 or B26, which one is the bigger box?
+    choices: [B26, B5]
+    answer: 0
+    why: B26's downlink starts at {band:B26.dl_low_mhz} MHz. B5's starts at {band:B5.dl_low_mhz}.
+  - id: u3-mix-box-03
+    kind: choice
+    facts: [band:B2, band:B25]
+    prompt: B2 or B25, which one is the bigger box?
+    choices: [B25, B2]
+    answer: 0
+    why: B25's downlink ends at {band:B25.dl_high_mhz} MHz. B2's ends at {band:B2.dl_high_mhz}.
+  - id: u3-mix-box-04
+    kind: choice
+    facts: [band:B4, band:B66]
+    prompt: B4 or B66, which one is the bigger box?
+    choices: [B66, B4]
+    answer: 0
+    why: B66's downlink ends at {band:B66.dl_high_mhz} MHz. B4's ends at {band:B4.dl_high_mhz}.
+  - id: u3-mix-twins-01
+    kind: match
+    facts: [band:B71, band:n71, band:B5, band:n5, band:B25, band:n25, band:B66, band:n66]
+    prompt: Match each 4G band to its 5G twin.
+    pairs:
+      - ["{band:B71.id}", "{band:n71.id}"]
+      - ["{band:B5.id}", "{band:n5.id}"]
+      - ["{band:B25.id}", "{band:n25.id}"]
+      - ["{band:B66.id}", "{band:n66.id}"]
+    why: Twins share the same numbers. Only the letter changes.
+  - id: u3-mix-clue-01
+    kind: choice
+    facts: [band:B71, band:B29, band:B25, band:B13]
+    prompt: Which band is upside-down and low band, with a downlink starting at {band:B71.dl_low_mhz} MHz?
+    choices: [B71, B13, B29, B25]
+    answer: 0
+    why: B71's downlink starts at {band:B71.dl_low_mhz} MHz and its uplink is above its downlink.
+  - id: u3-mix-clue-02
+    kind: choice
+    facts: [band:B29, band:B71, band:B12, band:B25]
+    prompt: Which band is downlink-only (no uplink) in the 700 area?
+    choices: [B29, B71, B12, B25]
+    answer: 0
+    why: B29 is {band:B29.duplex}, a one-way booster lane from {band:B29.dl_low_mhz} to {band:B29.dl_high_mhz} MHz.
+  - id: u3-mix-order-01
+    kind: order
+    facts: [band:B71, band:B13, band:B5, band:B25, band:B66]
+    prompt: Put these bands in order, lowest frequency first.
+    bands: [B71, B13, B5, B25, B66]
+    sort_by: dl_low_mhz
+    why: Sorted by where each downlink starts, in MHz.
+  - id: u3-mix-bignum-01
+    kind: choice
+    facts: [band:B66]
+    prompt: Which band number is the "big box" for the 1700/2100 AWS bands?
+    choices: ["66", "30", "25"]
+    answer: 0
+    why: B66 ("{band:B66.name}") holds B4.
