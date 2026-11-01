@@ -4,7 +4,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { playSampleLesson } from './helpers';
 
-const launch = (dir: string) => electron.launch({ args: ['.', '--no-sandbox'], env: { ...process.env, CELL_DATA_DIR: dir } });
+const launch = (dir: string) => electron.launch({ args: ['.', '--no-sandbox'], env: { ...process.env, CELL_SAMPLE_PATH: '1', CELL_DATA_DIR: dir } });
 
 test('progress and settings survive closing and reopening, and a backup exists', async () => {
   const dir = mkdtempSync(join(tmpdir(), 'cell-e2e-'));

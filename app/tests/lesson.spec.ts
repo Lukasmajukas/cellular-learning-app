@@ -4,7 +4,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { playSampleLesson } from './helpers';
 test('path map opens a lesson, finishing it unlocks the next one', async () => {
-  const app = await electron.launch({ args: ['.', '--no-sandbox'], env: { ...process.env, CELL_DATA_DIR: mkdtempSync(join(tmpdir(), 'cell-e2e-')) } });
+  const app = await electron.launch({ args: ['.', '--no-sandbox'], env: { ...process.env, CELL_SAMPLE_PATH: '1', CELL_DATA_DIR: mkdtempSync(join(tmpdir(), 'cell-e2e-')) } });
   const w = await app.firstWindow();
   await expect(w.getByTestId('path-count')).toHaveText('0 of 6 lessons done');
   await expect(w.getByTestId('lesson-u1-l2')).toBeDisabled();

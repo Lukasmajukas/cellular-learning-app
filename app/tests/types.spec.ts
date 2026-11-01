@@ -6,7 +6,7 @@ import { playSampleLesson } from './helpers';
 // Plays the demo lesson with every question type, misses one on purpose, and checks the streak, XP and retry.
 test('every question type works, a miss comes back, XP and streak show', async () => {
   test.setTimeout(180_000);
-  const app = await electron.launch({ args: ['.', '--no-sandbox'], env: { ...process.env, CELL_DATA_DIR: mkdtempSync(join(tmpdir(), 'cell-e2e-')) } });
+  const app = await electron.launch({ args: ['.', '--no-sandbox'], env: { ...process.env, CELL_SAMPLE_PATH: '1', CELL_DATA_DIR: mkdtempSync(join(tmpdir(), 'cell-e2e-')) } });
   const w = await app.firstWindow();
   // unlock the demo lesson by finishing the five sample lessons
   for (const id of ['u1-l1', 'u1-l2', 'u1-l3', 'u2-l1', 'u2-l2']) {

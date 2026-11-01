@@ -4,7 +4,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 // T45: the mascot's antenna must swing from the tower tip and never leave the mascot's box.
 test('mascot antenna stays on the tower tip and inside its box', async () => {
-  const app = await electron.launch({ args: ['.', '--no-sandbox'], env: { ...process.env, CELL_DATA_DIR: mkdtempSync(join(tmpdir(), 'cell-e2e-')) } });
+  const app = await electron.launch({ args: ['.', '--no-sandbox'], env: { ...process.env, CELL_SAMPLE_PATH: '1', CELL_DATA_DIR: mkdtempSync(join(tmpdir(), 'cell-e2e-')) } });
   const w = await app.firstWindow();
   await w.getByTestId('lesson-u1-l1').click();
   const m = w.getByTestId('mascot');

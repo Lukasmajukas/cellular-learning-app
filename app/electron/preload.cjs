@@ -5,4 +5,6 @@ contextBridge.exposeInMainWorld('cellApi', {
   save: state => ipcRenderer.invoke('save:save', state),
   backupNow: () => ipcRenderer.invoke('save:backup'),
   showFile: () => ipcRenderer.invoke('save:show'),
+  // Automatic tests set CELL_SAMPLE_PATH=1 to get the five sample lessons instead of the real ones.
+  useSamplePath: process.env.CELL_SAMPLE_PATH === '1',
 });
