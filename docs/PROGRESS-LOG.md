@@ -4,6 +4,7 @@ One or two plain-English lines per chat. Newest at the top.
 
 | Date | What happened | Details |
 |---|---|---|
+| 2026-11-01 | The robot built the fact checker (T28): a small program that reads the bands file and refuses any fact missing a status, date or source, any photo without an allowed licence, any quiz answer that rests on an UNVERIFIED fact, and any quiz question whose ID changed. It passes on today's bands file. It has 11 tests. | `docs/sessions/2026-11-01-session-26-t28-fact-checker.md` |
 | 2026-11-01 | The robot checked the carrier-code list (T27) against the official American list. Most rows are now marked as trusted; 312-530 is confirmed as T-Mobile (not Charter). A few codes aren't on the official list, so they stay "not checked". | `docs/sessions/2026-11-01-session-25-t27-carrier-codes-check.md` |
 | 2026-11-01 | The robot fixed the bands file (T43): rows that weren't really proven are now marked UNVERIFIED, spectrum sales have their own list, grouped bands are split, and every band has plain number fields. | `docs/sessions/2026-11-01-session-24-t43-bands-fixes.md` |
 | 2026-10-31 | The robot reviewed the bands file (T42). All the frequencies are right. In the carrier part, 4 rows were marked "trusted" when the source doesn't really say that, and a few well-sourced rows were marked "not checked". Nothing wrong reached you, because the app isn't quizzing on it yet. The fixes are the next task (T43). | [Review](reviews/2026-10-31-bands-review.md) · [Handoff note](sessions/2026-10-31-session-23-t42-bands-review.md) |

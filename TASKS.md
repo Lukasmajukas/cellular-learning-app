@@ -20,9 +20,8 @@ Claude ticks tasks off, adds new ones, and saves (merges) its own work. ⭐ mean
 ## Next: building the app (the plan is signed off)
 | # | Task | Who | Model + effort | Status |
 |---|---|---|---|---|
-| T07 | Check the band numbers against the official 3GPP documents. This needs etsi.org allowed in network settings, or PDFs you upload. | Claude | Medium (Sonnet), Medium effort | Later |
-| T26 | Pick and licence-check 2 to 4 photos per lesson topic from the places listed in `docs/research/photo-sources.md`, into a credits file in `content/`. Unit 8 (equipment brands) may start as drawings. | Claude | Medium (Sonnet), Medium effort | Later |
-| T28 | Build the fact checker: a small program that refuses any fact without a status, date and source, any photo without an allowed licence, any question whose answer is UNVERIFIED, and any changed question ID (`docs/PRD.md` section 5) | Claude | Medium (Sonnet), Medium effort | Later |
+| T07 | Check the band numbers against the official 3GPP documents. This needs etsi.org allowed in network settings, or PDFs you upload. (Robot tried 2026-11-01: etsi.org answered "403 blocked".) | You + Claude | Medium (Sonnet), Medium effort | Open: allow etsi.org or upload the PDFs |
+| T26 | Pick and licence-check 2 to 4 photos per lesson topic from the places listed in `docs/research/photo-sources.md`, into a credits file in `content/`. Unit 8 (equipment brands) may start as drawings. (Robot tried 2026-11-01: Wikimedia Commons answered "429 too many requests" twice; try again later.) | Claude | Medium (Sonnet), Medium effort | Later (retry when Commons answers) |
 | T29 | v0.3 skeleton, part 1: the path map and the lesson player | Claude | Medium (Sonnet), Medium effort | Later |
 | T30 | v0.3 skeleton, part 2: the save file with daily backups, and the settings screen | Claude | Medium (Sonnet), Medium effort | Later |
 | T31 | Design units 1–3 (which facts, in which order, which question types) | Claude | Large (Opus), High effort | Later |
@@ -38,6 +37,7 @@ Claude ticks tasks off, adds new ones, and saves (merges) its own work. ⭐ mean
 ## Done
 | # | Task | Finished |
 |---|---|---|
+| T28 | Built the fact checker (`content/tools/check_content.py`, 11 tests): it refuses facts without status, date and source, photos without an allowed licence, quiz answers that rest on UNVERIFIED facts, and changed question IDs. It passes on today's bands file (161 facts). Lesson and photo files don't exist yet, so those parts are tested with sample files only. | 2026-11-01 |
 | T27 | Checked the carrier-code list against the official US registry (ATIS, via imsiadmin.com): 12 rows are now trusted, 312-530 is confirmed as T-Mobile (not Charter), 310-300 was returned in 2017, and 4 codes aren't in the registry so they stay unchecked. New codes found for Comcast, Spectrum Wireless Holdings and Google. The ITU list couldn't be reached, so the file stays a DRAFT. | 2026-11-01 |
 | T43 | Fixed the bands file using the T42 review: the 4 carrier rows that weren't really proven are now UNVERIFIED, the two SpaceX rows moved to a new "spectrum changes" list (10 entries), the Boost and Verizon n77 rows now match their sources, grouped bands are split (83 bands), and every band has plain number fields. Everything still comes from the build scripts. Still draft: T07 checks it against the official 3GPP documents. | 2026-11-01 |
 | T42 | Reviewed the bands file. The frequencies are all right. In the "which carrier uses which band" part, 4 rows were marked trusted without good evidence (for example "Cellcom runs band 13" when the source only says Cellcom can use Verizon's spectrum), and a few well-sourced rows were marked unchecked. Nothing was changed yet; the fixes are task T43. | 2026-10-31 |

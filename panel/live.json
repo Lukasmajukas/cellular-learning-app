@@ -3,7 +3,7 @@
  "robot": {
   "on": true,
   "next": "right away (it starts its next job by itself), and every 2 hours",
-  "last": "checked the carrier-code list (T27) against the official US registry"
+  "last": "built the fact checker (T28)"
  },
  "light": "green",
  "working": "Nothing in progress. Waiting for you: try the test build (T40).",
