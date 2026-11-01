@@ -4,6 +4,7 @@ One or two plain-English lines per chat. Newest at the top.
 
 | Date | What happened | Details |
 |---|---|---|
+| 2026-11-01 | Robot: made the 4 short lessons longer (3 new questions each, from the bands file). Now all 15 lessons land in 3 to 5 minutes. | `docs/sessions/2026-11-01-session-50-t33-lengthen.md` |
 | 2026-11-01 | T26 (robot): tried again for photos; Wikimedia Commons said "too many requests" (429) even after a 7-minute wait, so nothing was added. | [note](sessions/2026-11-01-session-49-t26-photos-6.md) |
 | 2026-11-01 | T26 (robot): tried to find more photos but Wikimedia Commons answered "too many requests" (429), so nothing was added; the next run retries later. | [note](sessions/2026-11-01-session-48-t26-photos-5.md) |
 | 2026-11-01 | T26 (robot): added 5 more free photos (small cells on poles, a 5G tower, a warning sign) by browsing Commons folders; 16 photos now, licences checked, pictures not yet looked at. | [note](sessions/2026-11-01-session-47-t26-photos-4.md) |

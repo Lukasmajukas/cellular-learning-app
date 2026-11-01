@@ -80,3 +80,25 @@ questions:
     choices: [B71, B12]
     answer: 0
     why: B71 starts at {band:B71.dl_low_mhz} MHz and B12 at {band:B12.dl_low_mhz} MHz.
+  - id: u2-b17-clue-01
+    kind: choice
+    facts: [band:B12, band:B17, band:B85]
+    prompt: "Which band has downlink {band:B17.dl_low_mhz} to {band:B17.dl_high_mhz} MHz and uplink starting at {band:B17.ul_low_mhz} MHz?"
+    choices: [B12, B17, B85]
+    answer: 1
+    why: Those are B17's numbers. B12 starts at {band:B12.dl_low_mhz} and B85 at {band:B85.dl_low_mhz}.
+  - id: u2-b17-number-01
+    kind: number
+    facts: [band:B17]
+    prompt: B17's downlink starts at how many MHz?
+    answer_from: band:B17.dl_low_mhz
+    tolerance_mhz: 5
+    unit: MHz
+    why: B17's downlink is {band:B17.dl_low_mhz} to {band:B17.dl_high_mhz} MHz.
+  - id: u2-b29-clue-01
+    kind: choice
+    facts: [band:B29]
+    prompt: "A band has a downlink of {band:B29.dl_low_mhz} to {band:B29.dl_high_mhz} MHz and no uplink. Which band is it?"
+    choices: [B29, B12, B17]
+    answer: 0
+    why: Only B29 is downlink-only ({band:B29.duplex}).
