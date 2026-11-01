@@ -7,6 +7,8 @@ const KEEP_BACKUPS = 7;
 const DEFAULTS = () => ({
   version: 1,
   progress: {},
+  reviews: {},
+  game: { streak: 0, lastDay: '', xp: 0, xpToday: 0, xpDay: '' },
   settings: { sounds: true, reduceMotion: false, showFps: false, dailyGoal: 1, theme: 'light' },
 });
 
@@ -26,7 +28,19 @@ function normalize(raw) {
     dailyGoal: Number.isInteger(s.dailyGoal) && s.dailyGoal >= 1 && s.dailyGoal <= 10 ? s.dailyGoal : d.settings.dailyGoal,
     theme: s.theme === 'dark' ? 'dark' : 'light',
   };
-  return { version: 1, progress, settings };
+  // Review schedule (one card per question ID) and streak/XP: keep only well-formed numbers.
+  const num = v => typeof v === 'number' && Number.isFinite(v);
+  const reviews = {};
+  if (raw.reviews && typeof raw.reviews === 'object') {
+    for (const [k, c] of Object.entries(raw.reviews)) {
+      if (c && ['d', 's', 'due', 'last', 'reps', 'lapses'].every(f => num(c[f])) && c.s > 0) reviews[k] = { d: c.d, s: c.s, due: c.due, last: c.last, reps: c.reps, lapses: c.lapses };
+    }
+  }
+  const g = raw.game && typeof raw.game === 'object' ? raw.game : {};
+  const nn = v => (Number.isInteger(v) && v >= 0 ? v : 0);
+  const day = v => (typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v) ? v : '');
+  const game = { streak: nn(g.streak), lastDay: day(g.lastDay), xp: nn(g.xp), xpToday: nn(g.xpToday), xpDay: day(g.xpDay) };
+  return { version: 1, progress, settings, reviews, game };
 }
 
 const today = (now = new Date()) =>

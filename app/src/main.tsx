@@ -3,7 +3,9 @@ import { useEffect, useRef, useState } from 'react';
 import { MotionConfig } from 'motion/react';
 import { SAMPLE_PATH, allLessons, recordResult } from './path';
 import { PathMap } from './PathMap';
-import { LessonPlayer } from './LessonPlayer';
+import { LessonPlayer, type LessonResult } from './LessonPlayer';
+import { finishLesson } from './finish';
+import { liveStreak, dayKey } from './gamify';
 import { SettingsScreen } from './SettingsScreen';
 import { loadState, saveState, EMPTY_STATE, type SaveState } from './storage';
 import { FpsMeter } from './FpsMeter';
@@ -38,7 +40,7 @@ function App() {
         {notice && <p data-testid="notice" style={{ margin: 0, padding: 8, background: '#fff3c4', color: '#333', textAlign: 'center' }}>{notice}</p>}
         {lesson ? (
           <LessonPlayer key={lesson.id} lesson={lesson} onQuit={() => setPlaying(null)}
-            onFinish={stars => { setState(p => p && { ...p, progress: recordResult(p.progress, lesson.id, stars) }); setPlaying(null); }} />
+            onFinish={r => { setState(p => p && finishLesson(p, lesson.id, r)); setPlaying(null); }} />
         ) : showSettings ? (
           <SettingsScreen settings={s.settings} onChange={settings => setState(p => p && { ...p, settings })} onBack={() => setShowSettings(false)} />
         ) : (
@@ -46,6 +48,10 @@ function App() {
             <div style={{ textAlign: 'right', padding: '12px 16px 0' }}>
               <button data-testid="open-settings" aria-label="Settings" onClick={() => setShowSettings(true)}
                 style={{ border: 0, background: 'transparent', fontSize: 24, cursor: 'pointer' }}>⚙️</button>
+            </div>
+            <div data-testid="hud" style={{ display: 'flex', justifyContent: 'center', gap: 18, fontSize: 18 }}>
+              <span data-testid="streak">🔥 {liveStreak(s.game, new Date())}</span><span data-testid="xp-total">⚡ {s.game.xp} XP</span>
+              <span data-testid="xp-today">today {s.game.xpToday && s.game.xpDay === dayKey(new Date()) ? s.game.xpToday : 0}</span>
             </div>
             <PathMap units={SAMPLE_PATH} progress={s.progress} onStart={setPlaying} />
           </>
