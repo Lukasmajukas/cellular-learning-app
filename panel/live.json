@@ -1,8 +1,8 @@
 {
- "asOf": "2026-11-01 (robot run)",
+ "asOf": "2026-11-01 07:40 UTC (T44 chat)",
  "robot": {
   "on": true,
-  "next": "right away (it starts its next job by itself), and every 2 hours",
+  "next": "right away (it starts its next job by itself), and every hour",
   "last": "built the path map and lesson player (T29)"
  },
  "light": "green",

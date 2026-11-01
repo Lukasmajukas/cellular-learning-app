@@ -4,6 +4,8 @@
 
 **Status (Oct 31): done.** You did steps 1 and 3. Step 2 turned out to be impossible on your account, so skip it.
 
+**Found on Nov 1 (task T44):** in Auto mode, three of these lines are never used: `create_session` (opening a chat), `fire_trigger` (starting the next robot run) and `archive_session` (putting chats away). Claude's safety check always decides those itself. So you typed your approval for the robot in chat, and it's written word for word in `CLAUDE.md`, which the safety check reads. The lines can stay: they still help in the other modes.
+
 ## Step 1. If a robot chat is waiting on you right now
 Open the chat called **Robot run** in your chat list. If it says it needs your approval, click **Approve**. (`Robot status` in any chat tells you if one is waiting. The robot also pings your phone.)
 
