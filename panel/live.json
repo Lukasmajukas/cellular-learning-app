@@ -3,7 +3,7 @@
  "robot": {
   "on": true,
   "next": "right away (it starts its next job by itself), and every 2 hours",
-  "last": "built the fact checker (T28)"
+  "last": "built the path map and lesson player (T29)"
  },
  "light": "green",
  "working": "Nothing in progress. Waiting for you: try the test build (T40).",

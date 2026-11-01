@@ -111,3 +111,5 @@ Claude adds new words here whenever they come up.
 | **not_applicable** | A flag in the bands file for a band that the standard lists but marks "not applicable" (B23). The app never teaches it as a live band. |
 | **Fact checker** | A small program that reads our facts and lessons before every build and refuses anything that breaks the rules, like a teacher who checks homework for missing sources before it goes in the book. |
 | **Locked question ID** | Every quiz question has a name tag (its ID). Once a tag is on the locked list, it can never change or vanish, because the app remembers how well you know each question by that tag. |
+| **Path map** | The screen with a trail of lesson circles, like stepping stones. Finished ones turn green, the next one glows blue, and the rest stay locked until you get there. |
+| **Lesson player** | The part of the app that asks one lesson's questions one by one and gives you stars at the end. |
