@@ -4,6 +4,7 @@ Every decision, with the date and why. Newest at the bottom.
 
 | Date | Decision | Why |
 |---|---|---|
+| 2026-11-01 | The app opens on the real lessons; the sample lessons stay only for automatic tests (switch `CELL_SAMPLE_PATH=1`) | So tests keep working while the owner sees real content |
 | 2026-10-31 | Personal hobby app, not for sale | Owner's choice |
 | 2026-10-31 | Cross-platform desktop app (Windows/Mac/Linux) | Owner's choice |
 | 2026-10-31 | US bands only; Wikipedia's global tables used only as a cross-check | Owner's choice |

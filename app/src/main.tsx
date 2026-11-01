@@ -10,6 +10,10 @@ import { SettingsScreen } from './SettingsScreen';
 import { loadState, saveState, EMPTY_STATE, type SaveState } from './storage';
 import { FpsMeter } from './FpsMeter';
 import { prefs } from './prefs';
+import { REAL_PATH } from './units';
+
+// The real lessons, unless an automatic test asks for the samples (see electron/preload.cjs).
+const PATH = (window as unknown as { cellApi?: { useSamplePath?: boolean } }).cellApi?.useSamplePath ? SAMPLE_PATH : REAL_PATH;
 
 function App() {
   const [state, setState] = useState<SaveState | null>(null);
@@ -31,7 +35,7 @@ function App() {
   useEffect(() => { document.body.style.background = dark ? '#1b2530' : '#f4f8fb'; document.body.style.color = dark ? '#e8eef4' : '#222'; }, [dark]);
   if (!state) return null;
 
-  const lesson = allLessons(SAMPLE_PATH).find(l => l.id === playing);
+  const lesson = allLessons(PATH).find(l => l.id === playing);
   // 'never' (not 'user'): don't let Windows' own animation-effects switch silently flatten the animations. Only the in-app switch does.
   return (
     <MotionConfig reducedMotion={s.settings.reduceMotion ? 'always' : 'never'}>
@@ -53,7 +57,7 @@ function App() {
               <span data-testid="streak">🔥 {liveStreak(s.game, new Date())}</span><span data-testid="xp-total">⚡ {s.game.xp} XP</span>
               <span data-testid="xp-today">today {s.game.xpToday && s.game.xpDay === dayKey(new Date()) ? s.game.xpToday : 0}</span>
             </div>
-            <PathMap units={SAMPLE_PATH} progress={s.progress} onStart={setPlaying} />
+            <PathMap units={PATH} progress={s.progress} onStart={setPlaying} />
           </>
         )}
       </div>
