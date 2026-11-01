@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import confetti from 'canvas-confetti';
+import rawConfetti from 'canvas-confetti';
+import { prefs } from './prefs';
+const confetti = (o: Parameters<typeof rawConfetti>[0]) => { if (!prefs.reduceMotion) rawConfetti(o); };
 import { isCorrect, stars } from './lesson';
 import type { Lesson } from './path';
 import { beep } from './sound';

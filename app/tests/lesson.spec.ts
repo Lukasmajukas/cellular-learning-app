@@ -1,6 +1,9 @@
 import { _electron as electron, test, expect } from '@playwright/test';
+import { mkdtempSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 test('path map opens a lesson, finishing it unlocks the next one', async () => {
-  const app = await electron.launch({ args: ['.', '--no-sandbox'] });
+  const app = await electron.launch({ args: ['.', '--no-sandbox'], env: { ...process.env, CELL_DATA_DIR: mkdtempSync(join(tmpdir(), 'cell-e2e-')) } });
   const w = await app.firstWindow();
   await expect(w.getByTestId('path-count')).toHaveText('0 of 5 lessons done');
   await expect(w.getByTestId('lesson-u1-l2')).toBeDisabled();
