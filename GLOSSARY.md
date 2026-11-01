@@ -103,6 +103,7 @@ Claude adds new words here whenever they come up.
 | **MVNO** | A phone company with no towers of its own. It rents another company's towers (e.g. Mint rides on T-Mobile). Its phones usually show the host's carrier code. |
 | **FirstNet** | AT&T's special network for police, fire and ambulance crews, with priority on the same towers. |
 | **UNVERIFIED** | Our label for a fact nobody has checked yet. The app never asks a quiz question about one. |
-| **Core band** | In the bands file: a band that some US carrier is said to use, as opposed to one the standard defines but nobody here uses. |
+| **Has carrier rows / active claim** | In the bands file: "has carrier rows" means some carrier row mentions the band. "Active claim" means that row says CURRENT or PLANNED. Neither means we trust it: only a cited status counts. (This replaced the old "core" column.) |
 | **Spectrum change** | When the right to use a slice of radio frequencies is sold or moves to someone else, like one shop selling its parking spaces to another. Owning the spectrum doesn't mean the new owner's towers are using it yet. |
 | **LRA (LTE in Rural America)** | A Verizon programme where small local carriers build towers that use Verizon's frequencies in their area. The research names Cellcom and Appalachian Wireless as partners, but that is not confirmed yet. |
+| **not_applicable** | A flag in the bands file for a band that the standard lists but marks "not applicable" (B23). The app never teaches it as a live band. |

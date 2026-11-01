@@ -1,12 +1,12 @@
 {
- "asOf": "2026-10-31 9:15 PM Eastern",
+ "asOf": "2026-11-01 (robot run)",
  "robot": {
   "on": true,
   "next": "right away (it starts its next job by itself), and every 2 hours",
-  "last": "reviewed the bands file: frequencies all right, a few carrier rows need fixing (next task)"
+  "last": "fixed the bands file (T43): unproven carrier rows marked unchecked, spectrum sales in their own list"
  },
  "light": "green",
- "working": "Next up: the robot fixes the bands file (T43). Waiting for you: try the test build (T40).",
+ "working": "Nothing in progress. Waiting for you: try the test build (T40).",
  "limit": {
   "state": "fine (it reset after a pause)",
   "resets": "unknown"

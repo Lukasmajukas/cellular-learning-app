@@ -1,5 +1,14 @@
 {
  "as_of": "2026-10-31",
+ "carriers": {
+  "att": "AT&T",
+  "verizon": "Verizon",
+  "tmobile": "T-Mobile",
+  "boost": "Dish / Boost (EchoStar)",
+  "cspire": "C Spire",
+  "cellcom": "Cellcom (Nsight)",
+  "private_cable": "Private networks / cable (a category, not a carrier)"
+ },
  "bands": [
   {
    "id": "B2",
@@ -17,7 +26,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, pp.2-3 (transcribes 3GPP TS 36.101 V19.3.0)",
-   "core": true
+   "group": "",
+   "ul_low_mhz": 1850.0,
+   "ul_high_mhz": 1910.0,
+   "dl_low_mhz": 1930.0,
+   "dl_high_mhz": 1990.0,
+   "not_applicable": false,
+   "has_carrier_rows": true,
+   "us_active_claim": true
   },
   {
    "id": "B4",
@@ -35,7 +51,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, pp.2-3 (transcribes 3GPP TS 36.101 V19.3.0)",
-   "core": true
+   "group": "",
+   "ul_low_mhz": 1710.0,
+   "ul_high_mhz": 1755.0,
+   "dl_low_mhz": 2110.0,
+   "dl_high_mhz": 2155.0,
+   "not_applicable": false,
+   "has_carrier_rows": true,
+   "us_active_claim": true
   },
   {
    "id": "B5",
@@ -53,7 +76,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, pp.2-3 (transcribes 3GPP TS 36.101 V19.3.0)",
-   "core": true
+   "group": "",
+   "ul_low_mhz": 824.0,
+   "ul_high_mhz": 849.0,
+   "dl_low_mhz": 869.0,
+   "dl_high_mhz": 894.0,
+   "not_applicable": false,
+   "has_carrier_rows": true,
+   "us_active_claim": true
   },
   {
    "id": "B10",
@@ -71,7 +101,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, pp.2-3 (transcribes 3GPP TS 36.101 V19.3.0)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 1710.0,
+   "ul_high_mhz": 1770.0,
+   "dl_low_mhz": 2110.0,
+   "dl_high_mhz": 2170.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "B12",
@@ -89,7 +126,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, pp.2-3 (transcribes 3GPP TS 36.101 V19.3.0)",
-   "core": true
+   "group": "",
+   "ul_low_mhz": 699.0,
+   "ul_high_mhz": 716.0,
+   "dl_low_mhz": 729.0,
+   "dl_high_mhz": 746.0,
+   "not_applicable": false,
+   "has_carrier_rows": true,
+   "us_active_claim": true
   },
   {
    "id": "B13",
@@ -107,7 +151,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, pp.2-3 (transcribes 3GPP TS 36.101 V19.3.0)",
-   "core": true
+   "group": "",
+   "ul_low_mhz": 777.0,
+   "ul_high_mhz": 787.0,
+   "dl_low_mhz": 746.0,
+   "dl_high_mhz": 756.0,
+   "not_applicable": false,
+   "has_carrier_rows": true,
+   "us_active_claim": true
   },
   {
    "id": "B14",
@@ -125,7 +176,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, pp.2-3 (transcribes 3GPP TS 36.101 V19.3.0)",
-   "core": true
+   "group": "",
+   "ul_low_mhz": 788.0,
+   "ul_high_mhz": 798.0,
+   "dl_low_mhz": 758.0,
+   "dl_high_mhz": 768.0,
+   "not_applicable": false,
+   "has_carrier_rows": true,
+   "us_active_claim": true
   },
   {
    "id": "B17",
@@ -143,7 +201,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, pp.2-3 (transcribes 3GPP TS 36.101 V19.3.0)",
-   "core": true
+   "group": "",
+   "ul_low_mhz": 704.0,
+   "ul_high_mhz": 716.0,
+   "dl_low_mhz": 734.0,
+   "dl_high_mhz": 746.0,
+   "not_applicable": false,
+   "has_carrier_rows": true,
+   "us_active_claim": true
   },
   {
    "id": "B23",
@@ -155,13 +220,20 @@
    "duplex_spacing_mhz": "180",
    "channel_bandwidths_mhz": "1.4, 3, 5, 10, 15, 20",
    "relations": "same frequencies as satellite B252 (derived)",
-   "notes": "footnote: \"Bands b6 and b23 are not applicable\"",
+   "notes": "footnote: \"Bands b6 and b23 are not applicable\" | T43: Wikipedia marks this band not applicable, so it is not taught as a live band",
    "new_in_research": false,
    "verification": "values verified against Wikipedia (cites 3GPP TS 36.101); band marked \"not applicable\"; was U",
-   "status": "CURRENT",
+   "status": "HISTORICAL",
    "as_of": "2026-10-31",
    "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, pp.2-3 (transcribes 3GPP TS 36.101 V19.3.0)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 2000.0,
+   "ul_high_mhz": 2020.0,
+   "dl_low_mhz": 2180.0,
+   "dl_high_mhz": 2200.0,
+   "not_applicable": true,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "B24",
@@ -179,7 +251,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, pp.2-3 (transcribes 3GPP TS 36.101 V19.3.0)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 1626.5,
+   "ul_high_mhz": 1660.5,
+   "dl_low_mhz": 1525.0,
+   "dl_high_mhz": 1559.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "B25",
@@ -197,7 +276,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, pp.2-3 (transcribes 3GPP TS 36.101 V19.3.0)",
-   "core": true
+   "group": "",
+   "ul_low_mhz": 1850.0,
+   "ul_high_mhz": 1915.0,
+   "dl_low_mhz": 1930.0,
+   "dl_high_mhz": 1995.0,
+   "not_applicable": false,
+   "has_carrier_rows": true,
+   "us_active_claim": true
   },
   {
    "id": "B26",
@@ -215,7 +301,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, pp.2-3 (transcribes 3GPP TS 36.101 V19.3.0)",
-   "core": true
+   "group": "",
+   "ul_low_mhz": 814.0,
+   "ul_high_mhz": 849.0,
+   "dl_low_mhz": 859.0,
+   "dl_high_mhz": 894.0,
+   "not_applicable": false,
+   "has_carrier_rows": true,
+   "us_active_claim": false
   },
   {
    "id": "B27",
@@ -233,7 +326,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, pp.2-3 (transcribes 3GPP TS 36.101 V19.3.0)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 807.0,
+   "ul_high_mhz": 824.0,
+   "dl_low_mhz": 852.0,
+   "dl_high_mhz": 869.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "B29",
@@ -251,7 +351,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, pp.2-3 (transcribes 3GPP TS 36.101 V19.3.0)",
-   "core": true
+   "group": "",
+   "ul_low_mhz": null,
+   "ul_high_mhz": null,
+   "dl_low_mhz": 717.0,
+   "dl_high_mhz": 728.0,
+   "not_applicable": false,
+   "has_carrier_rows": true,
+   "us_active_claim": true
   },
   {
    "id": "B30",
@@ -269,25 +376,89 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, pp.2-3 (transcribes 3GPP TS 36.101 V19.3.0)",
-   "core": true
+   "group": "",
+   "ul_low_mhz": 2305.0,
+   "ul_high_mhz": 2315.0,
+   "dl_low_mhz": 2350.0,
+   "dl_high_mhz": 2360.0,
+   "not_applicable": false,
+   "has_carrier_rows": true,
+   "us_active_claim": true
   },
   {
-   "id": "B35/B36/B37",
+   "id": "B35",
    "kind": "LTE",
-   "name": "PCS (1900)",
-   "uplink": "TDD 1850–1910 / 1930–1990 / 1910–1930",
+   "name": "PCS TDD (uplink part)",
+   "uplink": "1850–1910",
    "downlink": "(TDD)",
    "duplex": "TDD",
    "duplex_spacing_mhz": "—",
-   "channel_bandwidths_mhz": "1.4, 3, 5, 10, 15, 20 / same / 5, 10, 15, 20",
+   "channel_bandwidths_mhz": "1.4, 3, 5, 10, 15, 20",
    "relations": "—",
-   "notes": "\"PCS Uplink\" / \"PCS Downlink\" / \"PCS Duplex Spacing\"",
+   "notes": "Wikipedia label: \"PCS Uplink\". Split from the row \"B35 / B36 / B37\"",
    "new_in_research": true,
    "verification": "verified against Wikipedia (cites 3GPP TS 36.101); definition only, not in the deployments table",
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, pp.2-3 (transcribes 3GPP TS 36.101 V19.3.0)",
-   "core": false
+   "group": "PCS TDD (B35/B36/B37)",
+   "ul_low_mhz": 1850.0,
+   "ul_high_mhz": 1910.0,
+   "dl_low_mhz": 1850.0,
+   "dl_high_mhz": 1910.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
+  },
+  {
+   "id": "B36",
+   "kind": "LTE",
+   "name": "PCS TDD (downlink part)",
+   "uplink": "1930–1990",
+   "downlink": "(TDD)",
+   "duplex": "TDD",
+   "duplex_spacing_mhz": "—",
+   "channel_bandwidths_mhz": "1.4, 3, 5, 10, 15, 20",
+   "relations": "—",
+   "notes": "Wikipedia label: \"PCS Downlink\". Split from the row \"B35 / B36 / B37\"",
+   "new_in_research": true,
+   "verification": "verified against Wikipedia (cites 3GPP TS 36.101); definition only, not in the deployments table",
+   "status": "CURRENT",
+   "as_of": "2026-10-31",
+   "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, pp.2-3 (transcribes 3GPP TS 36.101 V19.3.0)",
+   "group": "PCS TDD (B35/B36/B37)",
+   "ul_low_mhz": 1930.0,
+   "ul_high_mhz": 1990.0,
+   "dl_low_mhz": 1930.0,
+   "dl_high_mhz": 1990.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
+  },
+  {
+   "id": "B37",
+   "kind": "LTE",
+   "name": "PCS TDD (duplex gap)",
+   "uplink": "1910–1930",
+   "downlink": "(TDD)",
+   "duplex": "TDD",
+   "duplex_spacing_mhz": "—",
+   "channel_bandwidths_mhz": "5, 10, 15, 20",
+   "relations": "—",
+   "notes": "Wikipedia label: \"PCS Duplex Spacing\". Split from the row \"B35 / B36 / B37\"",
+   "new_in_research": true,
+   "verification": "verified against Wikipedia (cites 3GPP TS 36.101); definition only, not in the deployments table",
+   "status": "CURRENT",
+   "as_of": "2026-10-31",
+   "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, pp.2-3 (transcribes 3GPP TS 36.101 V19.3.0)",
+   "group": "PCS TDD (B35/B36/B37)",
+   "ul_low_mhz": 1910.0,
+   "ul_high_mhz": 1930.0,
+   "dl_low_mhz": 1910.0,
+   "dl_high_mhz": 1930.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "B41",
@@ -305,7 +476,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, pp.2-3 (transcribes 3GPP TS 36.101 V19.3.0)",
-   "core": true
+   "group": "",
+   "ul_low_mhz": 2496.0,
+   "ul_high_mhz": 2690.0,
+   "dl_low_mhz": 2496.0,
+   "dl_high_mhz": 2690.0,
+   "not_applicable": false,
+   "has_carrier_rows": true,
+   "us_active_claim": true
   },
   {
    "id": "B46",
@@ -323,7 +501,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, pp.2-3 (transcribes 3GPP TS 36.101 V19.3.0)",
-   "core": true
+   "group": "",
+   "ul_low_mhz": 5150.0,
+   "ul_high_mhz": 5925.0,
+   "dl_low_mhz": 5150.0,
+   "dl_high_mhz": 5925.0,
+   "not_applicable": false,
+   "has_carrier_rows": true,
+   "us_active_claim": true
   },
   {
    "id": "B47",
@@ -341,7 +526,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, pp.2-3 (transcribes 3GPP TS 36.101 V19.3.0)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 5855.0,
+   "ul_high_mhz": 5925.0,
+   "dl_low_mhz": 5855.0,
+   "dl_high_mhz": 5925.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "B48",
@@ -359,7 +551,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, pp.2-3 (transcribes 3GPP TS 36.101 V19.3.0)",
-   "core": true
+   "group": "",
+   "ul_low_mhz": 3550.0,
+   "ul_high_mhz": 3700.0,
+   "dl_low_mhz": 3550.0,
+   "dl_high_mhz": 3700.0,
+   "not_applicable": false,
+   "has_carrier_rows": true,
+   "us_active_claim": true
   },
   {
    "id": "B49",
@@ -377,7 +576,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, pp.2-3 (transcribes 3GPP TS 36.101 V19.3.0)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 3550.0,
+   "ul_high_mhz": 3700.0,
+   "dl_low_mhz": 3550.0,
+   "dl_high_mhz": 3700.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "B53",
@@ -395,7 +601,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, pp.2-3 (transcribes 3GPP TS 36.101 V19.3.0)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 2483.5,
+   "ul_high_mhz": 2495.0,
+   "dl_low_mhz": 2483.5,
+   "dl_high_mhz": 2495.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "B66",
@@ -413,7 +626,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, pp.2-3 (transcribes 3GPP TS 36.101 V19.3.0)",
-   "core": true
+   "group": "",
+   "ul_low_mhz": 1710.0,
+   "ul_high_mhz": 1780.0,
+   "dl_low_mhz": 2110.0,
+   "dl_high_mhz": 2200.0,
+   "not_applicable": false,
+   "has_carrier_rows": true,
+   "us_active_claim": true
   },
   {
    "id": "B70",
@@ -431,7 +651,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, pp.2-3 (transcribes 3GPP TS 36.101 V19.3.0)",
-   "core": true
+   "group": "",
+   "ul_low_mhz": 1695.0,
+   "ul_high_mhz": 1710.0,
+   "dl_low_mhz": 1995.0,
+   "dl_high_mhz": 2020.0,
+   "not_applicable": false,
+   "has_carrier_rows": true,
+   "us_active_claim": false
   },
   {
    "id": "B71",
@@ -449,7 +676,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, pp.2-3 (transcribes 3GPP TS 36.101 V19.3.0)",
-   "core": true
+   "group": "",
+   "ul_low_mhz": 663.0,
+   "ul_high_mhz": 698.0,
+   "dl_low_mhz": 617.0,
+   "dl_high_mhz": 652.0,
+   "not_applicable": false,
+   "has_carrier_rows": true,
+   "us_active_claim": true
   },
   {
    "id": "B74",
@@ -467,7 +701,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, pp.2-3 (transcribes 3GPP TS 36.101 V19.3.0)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 1427.0,
+   "ul_high_mhz": 1470.0,
+   "dl_low_mhz": 1475.0,
+   "dl_high_mhz": 1518.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "B85",
@@ -485,7 +726,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, pp.2-3 (transcribes 3GPP TS 36.101 V19.3.0)",
-   "core": true
+   "group": "",
+   "ul_low_mhz": 698.0,
+   "ul_high_mhz": 716.0,
+   "dl_low_mhz": 728.0,
+   "dl_high_mhz": 746.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "B103",
@@ -503,7 +751,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, pp.2-3 (transcribes 3GPP TS 36.101 V19.3.0)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 787.0,
+   "ul_high_mhz": 788.0,
+   "dl_low_mhz": 757.0,
+   "dl_high_mhz": 758.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "B106",
@@ -521,7 +776,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, pp.2-3 (transcribes 3GPP TS 36.101 V19.3.0)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 896.0,
+   "ul_high_mhz": 901.0,
+   "dl_low_mhz": 935.0,
+   "dl_high_mhz": 940.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "B252",
@@ -539,7 +801,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, p.4 (transcribes 3GPP TS 36.102 V19.1.0)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 2000.0,
+   "ul_high_mhz": 2020.0,
+   "dl_low_mhz": 2180.0,
+   "dl_high_mhz": 2200.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "B253",
@@ -557,7 +826,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, p.4 (transcribes 3GPP TS 36.102 V19.1.0)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 1668.0,
+   "ul_high_mhz": 1675.0,
+   "dl_low_mhz": 1518.0,
+   "dl_high_mhz": 1525.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "B255",
@@ -575,7 +851,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, p.4 (transcribes 3GPP TS 36.102 V19.1.0)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 1626.5,
+   "ul_high_mhz": 1660.5,
+   "dl_low_mhz": 1525.0,
+   "dl_high_mhz": 1559.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "B249",
@@ -593,7 +876,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, p.4 (transcribes 3GPP TS 36.102 V19.1.0)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 1616.0,
+   "ul_high_mhz": 1626.5,
+   "dl_low_mhz": 1616.0,
+   "dl_high_mhz": 1626.5,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "B254",
@@ -611,7 +901,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, p.4 (transcribes 3GPP TS 36.102 V19.1.0)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 1610.0,
+   "ul_high_mhz": 1626.5,
+   "dl_low_mhz": 2483.5,
+   "dl_high_mhz": 2500.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "B256",
@@ -629,7 +926,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia 'LTE frequency bands', oldid 1363024101, p.4 (transcribes 3GPP TS 36.102 V19.1.0)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 1980.0,
+   "ul_high_mhz": 2010.0,
+   "dl_low_mhz": 2170.0,
+   "dl_high_mhz": 2200.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "n2",
@@ -647,7 +951,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.2-4 (transcribes 3GPP TS 38.101-1 V19.3.1)",
-   "core": true
+   "group": "",
+   "ul_low_mhz": 1850.0,
+   "ul_high_mhz": 1910.0,
+   "dl_low_mhz": 1930.0,
+   "dl_high_mhz": 1990.0,
+   "not_applicable": false,
+   "has_carrier_rows": true,
+   "us_active_claim": true
   },
   {
    "id": "n5",
@@ -665,7 +976,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.2-4 (transcribes 3GPP TS 38.101-1 V19.3.1)",
-   "core": true
+   "group": "",
+   "ul_low_mhz": 824.0,
+   "ul_high_mhz": 849.0,
+   "dl_low_mhz": 869.0,
+   "dl_high_mhz": 894.0,
+   "not_applicable": false,
+   "has_carrier_rows": true,
+   "us_active_claim": true
   },
   {
    "id": "n12",
@@ -683,7 +1001,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.2-4 (transcribes 3GPP TS 38.101-1 V19.3.1)",
-   "core": true
+   "group": "",
+   "ul_low_mhz": 699.0,
+   "ul_high_mhz": 716.0,
+   "dl_low_mhz": 729.0,
+   "dl_high_mhz": 746.0,
+   "not_applicable": false,
+   "has_carrier_rows": true,
+   "us_active_claim": true
   },
   {
    "id": "n13",
@@ -701,7 +1026,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.2-4 (transcribes 3GPP TS 38.101-1 V19.3.1)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 777.0,
+   "ul_high_mhz": 787.0,
+   "dl_low_mhz": 746.0,
+   "dl_high_mhz": 756.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "n14",
@@ -719,7 +1051,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.2-4 (transcribes 3GPP TS 38.101-1 V19.3.1)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 788.0,
+   "ul_high_mhz": 798.0,
+   "dl_low_mhz": 758.0,
+   "dl_high_mhz": 768.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "n24",
@@ -737,7 +1076,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.2-4 (transcribes 3GPP TS 38.101-1 V19.3.1)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 1626.5,
+   "ul_high_mhz": 1660.5,
+   "dl_low_mhz": 1525.0,
+   "dl_high_mhz": 1559.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "n25",
@@ -755,7 +1101,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.2-4 (transcribes 3GPP TS 38.101-1 V19.3.1)",
-   "core": true
+   "group": "",
+   "ul_low_mhz": 1850.0,
+   "ul_high_mhz": 1915.0,
+   "dl_low_mhz": 1930.0,
+   "dl_high_mhz": 1995.0,
+   "not_applicable": false,
+   "has_carrier_rows": true,
+   "us_active_claim": true
   },
   {
    "id": "n26",
@@ -773,7 +1126,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.2-4 (transcribes 3GPP TS 38.101-1 V19.3.1)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 814.0,
+   "ul_high_mhz": 849.0,
+   "dl_low_mhz": 859.0,
+   "dl_high_mhz": 894.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "n29",
@@ -791,7 +1151,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.2-4 (transcribes 3GPP TS 38.101-1 V19.3.1)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": null,
+   "ul_high_mhz": null,
+   "dl_low_mhz": 717.0,
+   "dl_high_mhz": 728.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "n30",
@@ -809,7 +1176,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.2-4 (transcribes 3GPP TS 38.101-1 V19.3.1)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 2305.0,
+   "ul_high_mhz": 2315.0,
+   "dl_low_mhz": 2350.0,
+   "dl_high_mhz": 2360.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "n41",
@@ -827,7 +1201,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.2-4 (transcribes 3GPP TS 38.101-1 V19.3.1)",
-   "core": true
+   "group": "",
+   "ul_low_mhz": 2496.0,
+   "ul_high_mhz": 2690.0,
+   "dl_low_mhz": 2496.0,
+   "dl_high_mhz": 2690.0,
+   "not_applicable": false,
+   "has_carrier_rows": true,
+   "us_active_claim": true
   },
   {
    "id": "n46",
@@ -845,7 +1226,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.2-4 (transcribes 3GPP TS 38.101-1 V19.3.1)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 5150.0,
+   "ul_high_mhz": 5925.0,
+   "dl_low_mhz": 5150.0,
+   "dl_high_mhz": 5925.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "n47",
@@ -863,7 +1251,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.2-4 (transcribes 3GPP TS 38.101-1 V19.3.1)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 5855.0,
+   "ul_high_mhz": 5925.0,
+   "dl_low_mhz": 5855.0,
+   "dl_high_mhz": 5925.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "n48",
@@ -881,7 +1276,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.2-4 (transcribes 3GPP TS 38.101-1 V19.3.1)",
-   "core": true
+   "group": "",
+   "ul_low_mhz": 3550.0,
+   "ul_high_mhz": 3700.0,
+   "dl_low_mhz": 3550.0,
+   "dl_high_mhz": 3700.0,
+   "not_applicable": false,
+   "has_carrier_rows": true,
+   "us_active_claim": true
   },
   {
    "id": "n53",
@@ -899,7 +1301,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.2-4 (transcribes 3GPP TS 38.101-1 V19.3.1)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 2483.5,
+   "ul_high_mhz": 2495.0,
+   "dl_low_mhz": 2483.5,
+   "dl_high_mhz": 2495.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "n66",
@@ -917,7 +1326,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.2-4 (transcribes 3GPP TS 38.101-1 V19.3.1)",
-   "core": true
+   "group": "",
+   "ul_low_mhz": 1710.0,
+   "ul_high_mhz": 1780.0,
+   "dl_low_mhz": 2110.0,
+   "dl_high_mhz": 2200.0,
+   "not_applicable": false,
+   "has_carrier_rows": true,
+   "us_active_claim": true
   },
   {
    "id": "n70",
@@ -935,7 +1351,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.2-4 (transcribes 3GPP TS 38.101-1 V19.3.1)",
-   "core": true
+   "group": "",
+   "ul_low_mhz": 1695.0,
+   "ul_high_mhz": 1710.0,
+   "dl_low_mhz": 1995.0,
+   "dl_high_mhz": 2020.0,
+   "not_applicable": false,
+   "has_carrier_rows": true,
+   "us_active_claim": false
   },
   {
    "id": "n71",
@@ -953,7 +1376,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.2-4 (transcribes 3GPP TS 38.101-1 V19.3.1)",
-   "core": true
+   "group": "",
+   "ul_low_mhz": 663.0,
+   "ul_high_mhz": 698.0,
+   "dl_low_mhz": 617.0,
+   "dl_high_mhz": 652.0,
+   "not_applicable": false,
+   "has_carrier_rows": true,
+   "us_active_claim": true
   },
   {
    "id": "n74",
@@ -971,7 +1401,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.2-4 (transcribes 3GPP TS 38.101-1 V19.3.1)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 1427.0,
+   "ul_high_mhz": 1470.0,
+   "dl_low_mhz": 1475.0,
+   "dl_high_mhz": 1518.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "n77",
@@ -989,7 +1426,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.2-4 (transcribes 3GPP TS 38.101-1 V19.3.1)",
-   "core": true
+   "group": "",
+   "ul_low_mhz": 3300.0,
+   "ul_high_mhz": 4200.0,
+   "dl_low_mhz": 3300.0,
+   "dl_high_mhz": 4200.0,
+   "not_applicable": false,
+   "has_carrier_rows": true,
+   "us_active_claim": true
   },
   {
    "id": "n78",
@@ -1007,7 +1451,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.2-4 (transcribes 3GPP TS 38.101-1 V19.3.1)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 3300.0,
+   "ul_high_mhz": 3800.0,
+   "dl_low_mhz": 3300.0,
+   "dl_high_mhz": 3800.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "n79",
@@ -1025,7 +1476,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.2-4 (transcribes 3GPP TS 38.101-1 V19.3.1)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 4400.0,
+   "ul_high_mhz": 5000.0,
+   "dl_low_mhz": 4400.0,
+   "dl_high_mhz": 5000.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "n85",
@@ -1043,7 +1501,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.2-4 (transcribes 3GPP TS 38.101-1 V19.3.1)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 698.0,
+   "ul_high_mhz": 716.0,
+   "dl_low_mhz": 728.0,
+   "dl_high_mhz": 746.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "n90",
@@ -1061,7 +1526,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.2-4 (transcribes 3GPP TS 38.101-1 V19.3.1)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 2496.0,
+   "ul_high_mhz": 2690.0,
+   "dl_low_mhz": 2496.0,
+   "dl_high_mhz": 2690.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "n96",
@@ -1079,7 +1551,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.2-4 (transcribes 3GPP TS 38.101-1 V19.3.1)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 5925.0,
+   "ul_high_mhz": 7125.0,
+   "dl_low_mhz": 5925.0,
+   "dl_high_mhz": 7125.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "n99",
@@ -1097,7 +1576,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.2-4 (transcribes 3GPP TS 38.101-1 V19.3.1)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 1626.5,
+   "ul_high_mhz": 1660.5,
+   "dl_low_mhz": null,
+   "dl_high_mhz": null,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "n102",
@@ -1115,7 +1601,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.2-4 (transcribes 3GPP TS 38.101-1 V19.3.1)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 5925.0,
+   "ul_high_mhz": 6425.0,
+   "dl_low_mhz": 5925.0,
+   "dl_high_mhz": 6425.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "n104",
@@ -1133,7 +1626,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.2-4 (transcribes 3GPP TS 38.101-1 V19.3.1)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 6425.0,
+   "ul_high_mhz": 7125.0,
+   "dl_low_mhz": 6425.0,
+   "dl_high_mhz": 7125.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "n105",
@@ -1151,7 +1651,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.2-4 (transcribes 3GPP TS 38.101-1 V19.3.1)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 663.0,
+   "ul_high_mhz": 703.0,
+   "dl_low_mhz": 612.0,
+   "dl_high_mhz": 652.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "n106",
@@ -1169,7 +1676,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.2-4 (transcribes 3GPP TS 38.101-1 V19.3.1)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 896.0,
+   "ul_high_mhz": 901.0,
+   "dl_low_mhz": 935.0,
+   "dl_high_mhz": 940.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "n257",
@@ -1187,7 +1701,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, p.5 (transcribes 3GPP TS 38.101-2 V19.2.0)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 26500.0,
+   "ul_high_mhz": 29500.0,
+   "dl_low_mhz": 26500.0,
+   "dl_high_mhz": 29500.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "n258",
@@ -1205,7 +1726,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, p.5 (transcribes 3GPP TS 38.101-2 V19.2.0)",
-   "core": true
+   "group": "",
+   "ul_low_mhz": 24250.0,
+   "ul_high_mhz": 27500.0,
+   "dl_low_mhz": 24250.0,
+   "dl_high_mhz": 27500.0,
+   "not_applicable": false,
+   "has_carrier_rows": true,
+   "us_active_claim": true
   },
   {
    "id": "n259",
@@ -1223,7 +1751,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, p.5 (transcribes 3GPP TS 38.101-2 V19.2.0)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 39500.0,
+   "ul_high_mhz": 43500.0,
+   "dl_low_mhz": 39500.0,
+   "dl_high_mhz": 43500.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "n260",
@@ -1241,7 +1776,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, p.5 (transcribes 3GPP TS 38.101-2 V19.2.0)",
-   "core": true
+   "group": "",
+   "ul_low_mhz": 37000.0,
+   "ul_high_mhz": 40000.0,
+   "dl_low_mhz": 37000.0,
+   "dl_high_mhz": 40000.0,
+   "not_applicable": false,
+   "has_carrier_rows": true,
+   "us_active_claim": true
   },
   {
    "id": "n261",
@@ -1259,7 +1801,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, p.5 (transcribes 3GPP TS 38.101-2 V19.2.0)",
-   "core": true
+   "group": "",
+   "ul_low_mhz": 27500.0,
+   "ul_high_mhz": 28350.0,
+   "dl_low_mhz": 27500.0,
+   "dl_high_mhz": 28350.0,
+   "not_applicable": false,
+   "has_carrier_rows": true,
+   "us_active_claim": true
   },
   {
    "id": "n262",
@@ -1277,7 +1826,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, p.5 (transcribes 3GPP TS 38.101-2 V19.2.0)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 47200.0,
+   "ul_high_mhz": 48200.0,
+   "dl_low_mhz": 47200.0,
+   "dl_high_mhz": 48200.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "n263",
@@ -1295,7 +1851,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, p.5 (transcribes 3GPP TS 38.101-2 V19.2.0)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 57000.0,
+   "ul_high_mhz": 71000.0,
+   "dl_low_mhz": 57000.0,
+   "dl_high_mhz": 71000.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "n252",
@@ -1313,7 +1876,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.5-6 (transcribes 3GPP TS 38.101-5 V19.3.0)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 2000.0,
+   "ul_high_mhz": 2020.0,
+   "dl_low_mhz": 2180.0,
+   "dl_high_mhz": 2200.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "n255",
@@ -1331,7 +1901,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.5-6 (transcribes 3GPP TS 38.101-5 V19.3.0)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 1626.5,
+   "ul_high_mhz": 1660.5,
+   "dl_low_mhz": 1525.0,
+   "dl_high_mhz": 1559.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "n253",
@@ -1349,7 +1926,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.5-6 (transcribes 3GPP TS 38.101-5 V19.3.0)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 1668.0,
+   "ul_high_mhz": 1675.0,
+   "dl_low_mhz": 1518.0,
+   "dl_high_mhz": 1525.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "n251",
@@ -1367,7 +1951,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.5-6 (transcribes 3GPP TS 38.101-5 V19.3.0)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 1626.5,
+   "ul_high_mhz": 1660.5,
+   "dl_low_mhz": 1518.0,
+   "dl_high_mhz": 1559.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "n250",
@@ -1385,7 +1976,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.5-6 (transcribes 3GPP TS 38.101-5 V19.3.0)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 1668.0,
+   "ul_high_mhz": 1675.0,
+   "dl_low_mhz": 1518.0,
+   "dl_high_mhz": 1559.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "n254",
@@ -1403,7 +2001,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.5-6 (transcribes 3GPP TS 38.101-5 V19.3.0)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 1610.0,
+   "ul_high_mhz": 1626.5,
+   "dl_low_mhz": 2483.5,
+   "dl_high_mhz": 2500.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "n256",
@@ -1421,7 +2026,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.5-6 (transcribes 3GPP TS 38.101-5 V19.3.0)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 1980.0,
+   "ul_high_mhz": 2010.0,
+   "dl_low_mhz": 2170.0,
+   "dl_high_mhz": 2200.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "n510",
@@ -1439,7 +2051,14 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.5-6 (transcribes 3GPP TS 38.101-5 V19.3.0)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 27500.0,
+   "ul_high_mhz": 28350.0,
+   "dl_low_mhz": 17300.0,
+   "dl_high_mhz": 20200.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   },
   {
    "id": "n511",
@@ -1457,713 +2076,1070 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "Wikipedia '5G NR frequency bands', oldid 1382980478, pp.5-6 (transcribes 3GPP TS 38.101-5 V19.3.0)",
-   "core": false
+   "group": "",
+   "ul_low_mhz": 28350.0,
+   "ul_high_mhz": 30000.0,
+   "dl_low_mhz": 17300.0,
+   "dl_high_mhz": 20200.0,
+   "not_applicable": false,
+   "has_carrier_rows": false,
+   "us_active_claim": false
   }
  ],
  "carrier_use": [
   {
    "tech": "LTE",
    "band": "B2",
+   "group": "",
+   "carrier_id": "att",
    "carrier": "AT&T",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
    "evidence": "unverified background knowledge",
    "note": "capacity layer",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "LTE",
    "band": "B2",
+   "group": "",
+   "carrier_id": "verizon",
    "carrier": "Verizon",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
    "evidence": "unverified background knowledge",
-   "note": "capacity layer; plus Array PCS licences (Jun 2026)",
+   "note": "capacity layer; plus Array PCS licences (Jun 2026; band mix disputed)",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "LTE",
    "band": "B2",
+   "group": "",
+   "carrier_id": "tmobile",
    "carrier": "T-Mobile",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
    "evidence": "weak source",
    "note": "as B2/B25",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "LTE",
    "band": "B2",
+   "group": "",
+   "carrier_id": "cspire",
    "carrier": "C Spire",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
    "evidence": "weak source",
    "note": "",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "LTE",
-   "band": "B4/B66",
+   "band": "B4",
+   "group": "AWS (B4/B66)",
+   "carrier_id": "att",
    "carrier": "AT&T",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
    "evidence": "unverified background knowledge",
-   "note": "main capacity layer",
+   "note": "main capacity layer (research grouped this as B4/B66)",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "LTE",
-   "band": "B4/B66",
+   "band": "B66",
+   "group": "AWS (B4/B66)",
+   "carrier_id": "att",
+   "carrier": "AT&T",
+   "claim": "CURRENT",
+   "status": "UNVERIFIED",
+   "evidence": "unverified background knowledge",
+   "note": "main capacity layer (research grouped this as B4/B66)",
+   "weak_note": "",
+   "as_of": "2026-10-31",
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+  },
+  {
+   "tech": "LTE",
+   "band": "B4",
+   "group": "AWS (B4/B66)",
+   "carrier_id": "verizon",
    "carrier": "Verizon",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
    "evidence": "unverified background knowledge",
-   "note": "main capacity layer",
+   "note": "main capacity layer (research grouped this as B4/B66)",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "LTE",
-   "band": "B4/B66",
+   "band": "B66",
+   "group": "AWS (B4/B66)",
+   "carrier_id": "verizon",
+   "carrier": "Verizon",
+   "claim": "CURRENT",
+   "status": "UNVERIFIED",
+   "evidence": "unverified background knowledge",
+   "note": "main capacity layer (research grouped this as B4/B66)",
+   "weak_note": "",
+   "as_of": "2026-10-31",
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+  },
+  {
+   "tech": "LTE",
+   "band": "B4",
+   "group": "AWS (B4/B66)",
+   "carrier_id": "tmobile",
    "carrier": "T-Mobile",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
    "evidence": "weak source",
-   "note": "",
+   "note": "(research grouped this as B4/B66)",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "LTE",
-   "band": "B4/B66",
-   "carrier": "Boost/EchoStar",
+   "band": "B66",
+   "group": "AWS (B4/B66)",
+   "carrier_id": "tmobile",
+   "carrier": "T-Mobile",
+   "claim": "CURRENT",
+   "status": "UNVERIFIED",
+   "evidence": "weak source",
+   "note": "(research grouped this as B4/B66)",
+   "weak_note": "",
+   "as_of": "2026-10-31",
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+  },
+  {
+   "tech": "LTE",
+   "band": "B66",
+   "group": "AWS (B4/B66)",
+   "carrier_id": "boost",
+   "carrier": "Dish / Boost (EchoStar)",
    "claim": "HISTORICAL",
    "status": "UNVERIFIED",
    "evidence": "unverified background knowledge",
-   "note": "own network wound down",
+   "note": "own network wound down; LTE use on this band not shown by the source (research grouped this as B4/B66)",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "LTE",
-   "band": "B4/B66",
+   "band": "B4",
+   "group": "AWS (B4/B66)",
+   "carrier_id": "cspire",
    "carrier": "C Spire",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
    "evidence": "weak source",
-   "note": "B4",
+   "note": "B4 (research grouped this as B4/B66)",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "LTE",
    "band": "B5",
+   "group": "",
+   "carrier_id": "att",
    "carrier": "AT&T",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
    "evidence": "unverified background knowledge",
    "note": "coverage layer",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "LTE",
    "band": "B5",
+   "group": "",
+   "carrier_id": "verizon",
    "carrier": "Verizon",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
    "evidence": "unverified background knowledge",
    "note": "coverage layer",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "LTE",
    "band": "B5",
+   "group": "",
+   "carrier_id": "tmobile",
    "carrier": "T-Mobile",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
    "evidence": "unverified background knowledge",
    "note": "former UScellular markets only",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "LTE",
    "band": "B5",
-   "carrier": "Cellcom",
+   "group": "",
+   "carrier_id": "cellcom",
+   "carrier": "Cellcom (Nsight)",
    "claim": "CURRENT",
-   "status": "CURRENT",
-   "evidence": "cited source",
-   "note": "850 MHz",
+   "status": "UNVERIFIED",
+   "evidence": "source names n5, not B5",
+   "note": "source lists 850 MHz as n5 only; LTE B5 is an inference",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "LTE",
-   "band": "B12/B17/B85",
+   "band": "B12",
+   "group": "Lower 700 (B12/B17/B85)",
+   "carrier_id": "att",
    "carrier": "AT&T",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
-   "evidence": "unverified background knowledge",
-   "note": "B/C blocks, shown as B17 or B12; plus Array 700 (Jan 2026)",
+   "evidence": "consistent with Wikipedia deployments table (undated)",
+   "note": "B/C blocks, shown as B17 or B12; plus Array 700 (Jan 2026) (research grouped this as B12/B17/B85)",
+   "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "Wikipedia deployments table (undated), band_verification.md Q3; not enough to upgrade (undated table)"
   },
   {
    "tech": "LTE",
-   "band": "B12/B17/B85",
+   "band": "B17",
+   "group": "Lower 700 (B12/B17/B85)",
+   "carrier_id": "att",
+   "carrier": "AT&T",
+   "claim": "CURRENT",
+   "status": "UNVERIFIED",
+   "evidence": "consistent with Wikipedia deployments table (undated)",
+   "note": "B/C blocks, shown as B17 or B12; plus Array 700 (Jan 2026) (research grouped this as B12/B17/B85)",
+   "weak_note": "",
+   "as_of": "2026-10-31",
+   "source": "Wikipedia deployments table (undated), band_verification.md Q3; not enough to upgrade (undated table)"
+  },
+  {
+   "tech": "LTE",
+   "band": "B12",
+   "group": "Lower 700 (B12/B17/B85)",
+   "carrier_id": "tmobile",
    "carrier": "T-Mobile",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
-   "evidence": "weak source",
-   "note": "A block; plus Array 700 (May 2026)",
+   "evidence": "consistent with Wikipedia deployments table (undated)",
+   "note": "A block; plus Array 700 (May 2026) (research grouped this as B12/B17/B85)",
+   "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "Wikipedia deployments table (undated), band_verification.md Q3; not enough to upgrade (undated table)"
   },
   {
    "tech": "LTE",
-   "band": "B12/B17/B85",
+   "band": "B12",
+   "group": "Lower 700 (B12/B17/B85)",
+   "carrier_id": "cspire",
    "carrier": "C Spire",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
    "evidence": "weak source",
-   "note": "B12",
+   "note": "B12 (research grouped this as B12/B17/B85)",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "LTE",
    "band": "B13",
+   "group": "",
+   "carrier_id": "verizon",
    "carrier": "Verizon",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
-   "evidence": "unverified background knowledge",
+   "evidence": "consistent with Wikipedia deployments table (undated)",
    "note": "nationwide coverage anchor",
+   "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "Wikipedia deployments table (undated), band_verification.md Q3; not enough to upgrade (undated table)"
   },
   {
    "tech": "LTE",
    "band": "B13",
-   "carrier": "Cellcom",
+   "group": "",
+   "carrier_id": "cellcom",
+   "carrier": "Cellcom (Nsight)",
    "claim": "CURRENT",
-   "status": "CURRENT",
-   "evidence": "cited source",
-   "note": "access to Verizon 700 (LRA partner)",
+   "status": "UNVERIFIED",
+   "evidence": "source says access, not use",
+   "note": "has access to Verizon 700 MHz (LRA partner); B13 use not confirmed",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "LTE",
    "band": "B14",
+   "group": "",
+   "carrier_id": "att",
    "carrier": "AT&T",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
-   "evidence": "unverified background knowledge",
+   "evidence": "consistent with Wikipedia deployments table (undated)",
    "note": "FirstNet public safety plus commercial",
+   "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "Wikipedia deployments table (undated), band_verification.md Q3; not enough to upgrade (undated table)"
   },
   {
    "tech": "LTE",
    "band": "B25",
+   "group": "",
+   "carrier_id": "tmobile",
    "carrier": "T-Mobile",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
-   "evidence": "unverified background knowledge",
+   "evidence": "consistent with Wikipedia deployments table (undated)",
    "note": "",
+   "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "Wikipedia deployments table (undated), band_verification.md Q3; not enough to upgrade (undated table)"
   },
   {
    "tech": "LTE",
    "band": "B26",
+   "group": "",
+   "carrier_id": "tmobile",
    "carrier": "T-Mobile",
    "claim": "HISTORICAL",
    "status": "HISTORICAL",
    "evidence": "cited source",
-   "note": "800 MHz licences sold, closed 2026-08-10",
-   "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
-  },
-  {
-   "tech": "LTE",
-   "band": "B26",
-   "carrier": "SpaceX (from Grain)",
-   "claim": "PENDING",
-   "status": "PENDING",
-   "evidence": "cited source",
-   "note": "Grain 800 MHz to SpaceX",
+   "note": "800 MHz licences sold, closed 2026-08-10 (the ex-Sprint 800 MHz slice touches B26 and B27)",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "LTE",
    "band": "B29",
+   "group": "",
+   "carrier_id": "att",
    "carrier": "AT&T",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
    "evidence": "unverified background knowledge",
    "note": "downlink-only booster",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "LTE",
    "band": "B29",
-   "carrier": "Boost/EchoStar",
+   "group": "",
+   "carrier_id": "boost",
+   "carrier": "Dish / Boost (EchoStar)",
    "claim": "HISTORICAL",
    "status": "UNVERIFIED",
    "evidence": "unverified background knowledge",
-   "note": "E block",
+   "note": "E block; LTE use not shown by the source",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "LTE",
    "band": "B30",
+   "group": "",
+   "carrier_id": "att",
    "carrier": "AT&T",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
    "evidence": "unverified background knowledge",
    "note": "capacity layer",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "LTE",
    "band": "B41",
+   "group": "",
+   "carrier_id": "tmobile",
    "carrier": "T-Mobile",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
-   "evidence": "weak source",
+   "evidence": "consistent with Wikipedia deployments table (undated)",
    "note": "residual LTE; mostly moved to n41",
+   "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "Wikipedia deployments table (undated), band_verification.md Q3; not enough to upgrade (undated table)"
   },
   {
    "tech": "LTE",
    "band": "B46",
+   "group": "",
+   "carrier_id": "att",
    "carrier": "AT&T",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
    "evidence": "unverified background knowledge",
    "note": "limited, urban",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "LTE",
    "band": "B46",
+   "group": "",
+   "carrier_id": "verizon",
    "carrier": "Verizon",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
    "evidence": "unverified background knowledge",
    "note": "limited, urban",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "LTE",
    "band": "B46",
+   "group": "",
+   "carrier_id": "tmobile",
    "carrier": "T-Mobile",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
    "evidence": "unverified background knowledge",
    "note": "limited, urban",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "LTE",
    "band": "B48",
+   "group": "",
+   "carrier_id": "verizon",
    "carrier": "Verizon",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
    "evidence": "unverified background knowledge",
    "note": "capacity layer (CBRS)",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "LTE",
    "band": "B70",
-   "carrier": "Boost/EchoStar",
+   "group": "",
+   "carrier_id": "boost",
+   "carrier": "Dish / Boost (EchoStar)",
    "claim": "HISTORICAL",
    "status": "HISTORICAL",
    "evidence": "cited source",
    "note": "traffic moved to AT&T by 2025-11-15",
-   "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
-  },
-  {
-   "tech": "LTE",
-   "band": "B70",
-   "carrier": "SpaceX (from EchoStar)",
-   "claim": "PENDING",
-   "status": "PENDING",
-   "evidence": "cited source",
-   "note": "spectrum sale pending",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "LTE",
    "band": "B71",
+   "group": "",
+   "carrier_id": "att",
    "carrier": "AT&T",
    "claim": "PLANNED",
    "status": "PLANNED",
    "evidence": "cited source",
    "note": "owns ~20 MHz since 2026-07-28; multiyear build",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "LTE",
    "band": "B71",
+   "group": "",
+   "carrier_id": "tmobile",
    "carrier": "T-Mobile",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
-   "evidence": "weak source",
+   "evidence": "consistent with Wikipedia deployments table (undated)",
    "note": "coverage layer; plus Grain 600 (Aug 2026), Array 600 (May 2026)",
+   "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "Wikipedia deployments table (undated), band_verification.md Q3; not enough to upgrade (undated table)"
   },
   {
    "tech": "LTE",
    "band": "B71",
-   "carrier": "Boost/EchoStar",
+   "group": "",
+   "carrier_id": "boost",
+   "carrier": "Dish / Boost (EchoStar)",
    "claim": "HISTORICAL",
    "status": "HISTORICAL",
    "evidence": "cited source",
    "note": "licences now AT&T's",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "LTE",
    "band": "B71",
+   "group": "",
+   "carrier_id": "cspire",
    "carrier": "C Spire",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
-   "evidence": "weak source",
-   "note": "listed as n71 in research",
+   "evidence": "consistent with Wikipedia deployments table (undated)",
+   "note": "research lists n71; Wikipedia deployments table also lists LTE B71 (undated)",
+   "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "Wikipedia deployments table (undated), band_verification.md Q3; not enough to upgrade (undated table)"
   },
   {
    "tech": "NR",
    "band": "n2",
+   "group": "",
+   "carrier_id": "verizon",
    "carrier": "Verizon",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
    "evidence": "unverified background knowledge",
    "note": "DSS, 'Nationwide 5G'",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "NR",
    "band": "n2",
+   "group": "",
+   "carrier_id": "tmobile",
    "carrier": "T-Mobile",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
    "evidence": "weak source",
    "note": "some deployments",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "NR",
    "band": "n2",
+   "group": "",
+   "carrier_id": "cspire",
    "carrier": "C Spire",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
    "evidence": "weak source",
    "note": "",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "NR",
    "band": "n5",
+   "group": "",
+   "carrier_id": "att",
    "carrier": "AT&T",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
    "evidence": "unverified background knowledge",
    "note": "DSS low-band '5G'",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "NR",
    "band": "n5",
+   "group": "",
+   "carrier_id": "verizon",
    "carrier": "Verizon",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
    "evidence": "weak source",
    "note": "DSS, main low-band",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "NR",
    "band": "n5",
-   "carrier": "Cellcom",
+   "group": "",
+   "carrier_id": "cellcom",
+   "carrier": "Cellcom (Nsight)",
    "claim": "CURRENT",
    "status": "CURRENT",
    "evidence": "cited source",
    "note": "",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "NR",
    "band": "n12",
+   "group": "",
+   "carrier_id": "cspire",
    "carrier": "C Spire",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
    "evidence": "weak source",
    "note": "",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "NR",
    "band": "n25",
+   "group": "",
+   "carrier_id": "tmobile",
    "carrier": "T-Mobile",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
    "evidence": "weak source",
    "note": "",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "NR",
    "band": "n41",
+   "group": "",
+   "carrier_id": "tmobile",
    "carrier": "T-Mobile",
    "claim": "CURRENT",
    "status": "CURRENT",
    "evidence": "cited source",
    "note": "'Ultra Capacity' core",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "NR",
    "band": "n41",
+   "group": "",
+   "carrier_id": "cspire",
    "carrier": "C Spire",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
    "evidence": "weak source",
    "note": "",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "NR",
    "band": "n48",
-   "carrier": "Private networks / cable",
+   "group": "",
+   "carrier_id": "private_cable",
+   "carrier": "Private networks / cable (a category, not a carrier)",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
    "evidence": "unverified background knowledge",
    "note": "private 5G and cable offload",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "NR",
    "band": "n66",
+   "group": "",
+   "carrier_id": "verizon",
    "carrier": "Verizon",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
    "evidence": "unverified background knowledge",
    "note": "DSS",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "NR",
    "band": "n66",
+   "group": "",
+   "carrier_id": "tmobile",
    "carrier": "T-Mobile",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
    "evidence": "unverified background knowledge",
    "note": "some",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "NR",
    "band": "n66",
-   "carrier": "Boost/EchoStar",
+   "group": "",
+   "carrier_id": "boost",
+   "carrier": "Dish / Boost (EchoStar)",
    "claim": "HISTORICAL",
-   "status": "UNVERIFIED",
-   "evidence": "unverified background knowledge",
-   "note": "",
+   "status": "HISTORICAL",
+   "evidence": "cited source",
+   "note": "all 5G Network traffic moved to AT&T by 2025-11-15",
+   "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "EchoStar 10-Q Q2 2026 (https://www.sec.gov/Archives/edgar/data/0001415404/000110465926089370/sats-20260630x10q.htm), as quoted in docs/research/notes/us_bands.md Q4 timeline; the filing itself was not opened"
   },
   {
    "tech": "NR",
    "band": "n70",
-   "carrier": "Boost/EchoStar",
+   "group": "",
+   "carrier_id": "boost",
+   "carrier": "Dish / Boost (EchoStar)",
    "claim": "HISTORICAL",
-   "status": "UNVERIFIED",
-   "evidence": "unverified background knowledge",
-   "note": "partly sourced",
+   "status": "HISTORICAL",
+   "evidence": "cited source",
+   "note": "all 5G Network traffic moved to AT&T by 2025-11-15",
+   "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "EchoStar 10-Q Q2 2026 (https://www.sec.gov/Archives/edgar/data/0001415404/000110465926089370/sats-20260630x10q.htm), as quoted in docs/research/notes/us_bands.md Q4 timeline; the filing itself was not opened"
   },
   {
    "tech": "NR",
    "band": "n71",
+   "group": "",
+   "carrier_id": "att",
    "carrier": "AT&T",
    "claim": "PLANNED",
    "status": "PLANNED",
    "evidence": "cited source",
    "note": "multiyear",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "NR",
    "band": "n71",
+   "group": "",
+   "carrier_id": "tmobile",
    "carrier": "T-Mobile",
    "claim": "CURRENT",
    "status": "CURRENT",
    "evidence": "cited source",
    "note": "'Extended Range'",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "NR",
    "band": "n71",
-   "carrier": "Boost/EchoStar",
+   "group": "",
+   "carrier_id": "boost",
+   "carrier": "Dish / Boost (EchoStar)",
    "claim": "HISTORICAL",
-   "status": "UNVERIFIED",
-   "evidence": "unverified background knowledge",
-   "note": "",
+   "status": "HISTORICAL",
+   "evidence": "cited source",
+   "note": "all 5G Network traffic moved to AT&T by 2025-11-15",
+   "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "EchoStar 10-Q Q2 2026 (https://www.sec.gov/Archives/edgar/data/0001415404/000110465926089370/sats-20260630x10q.htm), as quoted in docs/research/notes/us_bands.md Q4 timeline; the filing itself was not opened"
   },
   {
    "tech": "NR",
    "band": "n71",
+   "group": "",
+   "carrier_id": "cspire",
    "carrier": "C Spire",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
    "evidence": "weak source",
    "note": "",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "NR",
    "band": "n77",
+   "group": "",
+   "carrier_id": "att",
    "carrier": "AT&T",
    "claim": "CURRENT",
    "status": "CURRENT",
    "evidence": "cited source",
    "note": "'5G+': C-band plus 3.45 GHz incl. EchoStar 30 MHz on ~23k sites",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "NR",
    "band": "n77",
+   "group": "",
+   "carrier_id": "verizon",
    "carrier": "Verizon",
    "claim": "CURRENT",
-   "status": "UNVERIFIED",
-   "evidence": "weak source",
-   "note": "'5G UW': C-band, ~161 MHz average; partly sourced",
+   "status": "CURRENT",
+   "evidence": "cited source",
+   "note": "'5G UW': C-band; mid-band reached 175M+ people (DCD)",
+   "weak_note": "~161 MHz average; weak source, do not quiz",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "SlashGear (https://www.slashgear.com/1868963/5g-ultra-capacity-vs-wideband-network-differences/), MakeUseOf (https://www.makeuseof.com/verizon-att-t-mobile-different-names-fast-5g/), DCD (https://www.datacenterdynamics.com/en/news/verizon-and-att-receive-full-access-to-entire-c-band-spectrum/), as quoted in docs/research/notes/us_bands.md; pages themselves not opened"
   },
   {
    "tech": "NR",
    "band": "n77",
+   "group": "",
+   "carrier_id": "tmobile",
    "carrier": "T-Mobile",
-   "claim": "CURRENT",
+   "claim": "UNCONFIRMED (holds licences)",
    "status": "UNVERIFIED",
    "evidence": "weak source",
-   "note": "unconfirmed live use; ~40 MHz C-band licences",
+   "note": "~40 MHz C-band licences; live use unconfirmed",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "NR",
    "band": "n77",
+   "group": "",
+   "carrier_id": "cspire",
    "carrier": "C Spire",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
    "evidence": "weak source",
    "note": "",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "NR",
    "band": "n258",
+   "group": "",
+   "carrier_id": "tmobile",
    "carrier": "T-Mobile",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
    "evidence": "weak source",
    "note": "listed only",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "NR",
    "band": "n260",
+   "group": "",
+   "carrier_id": "att",
    "carrier": "AT&T",
    "claim": "CURRENT",
    "status": "UNVERIFIED",
    "evidence": "weak source",
-   "note": "mmWave; sources conflict",
+   "note": "mmWave; matrix tag [S, conflicting]: sources disagree on the band, so UNVERIFIED",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "NR",
    "band": "n260",
+   "group": "",
+   "carrier_id": "verizon",
    "carrier": "Verizon",
    "claim": "CURRENT",
    "status": "CURRENT",
    "evidence": "cited source",
    "note": "mmWave",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "NR",
    "band": "n261",
+   "group": "",
+   "carrier_id": "verizon",
    "carrier": "Verizon",
    "claim": "CURRENT",
    "status": "CURRENT",
    "evidence": "cited source",
    "note": "mmWave",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
   },
   {
    "tech": "NR",
    "band": "n261",
-   "carrier": "Cellcom",
+   "group": "",
+   "carrier_id": "cellcom",
+   "carrier": "Cellcom (Nsight)",
    "claim": "CURRENT",
    "status": "CURRENT",
    "evidence": "cited source",
    "note": "mmWave",
+   "weak_note": "",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+  },
+  {
+   "tech": "LTE",
+   "band": "B25",
+   "group": "",
+   "carrier_id": "cspire",
+   "carrier": "C Spire",
+   "claim": "CURRENT",
+   "status": "UNVERIFIED",
+   "evidence": "consistent with Wikipedia deployments table (undated)",
+   "note": "listed only in Wikipedia's deployments table",
+   "weak_note": "",
+   "as_of": "2026-10-31",
+   "source": "Wikipedia deployments table (undated), band_verification.md Q3; not enough to upgrade (undated table)"
+  },
+  {
+   "tech": "LTE",
+   "band": "B41",
+   "group": "",
+   "carrier_id": "cspire",
+   "carrier": "C Spire",
+   "claim": "CURRENT",
+   "status": "UNVERIFIED",
+   "evidence": "consistent with Wikipedia deployments table (undated)",
+   "note": "listed only in Wikipedia's deployments table",
+   "weak_note": "",
+   "as_of": "2026-10-31",
+   "source": "Wikipedia deployments table (undated), band_verification.md Q3; not enough to upgrade (undated table)"
+  }
+ ],
+ "spectrum_changes": [
+  {
+   "date": "2025-08",
+   "bands": "B71/n71, B12, B2/B25, B66, n41",
+   "from": "UScellular",
+   "to": "T-Mobile",
+   "status": "CURRENT",
+   "note": "closed; about 30% of UScellular's spectrum",
+   "as_of": "2026-10-31",
+   "source": "docs/research/notes/us_bands.md, Q4 timeline (web-search summaries; pages not opened): Wikipedia: U.S. Cellular; PhoneArena"
+  },
+  {
+   "date": "2025-11",
+   "bands": "1695-1710 MHz (B70 uplink)",
+   "from": "EchoStar",
+   "to": "SpaceX",
+   "status": "PENDING",
+   "note": "unpaired AWS-3, about $2.6B in stock; SpaceX would use it for satellites, not LTE B70",
+   "as_of": "2026-10-31",
+   "source": "docs/research/notes/us_bands.md, Q4 timeline (web-search summaries; pages not opened): Via Satellite"
+  },
+  {
+   "date": "2026-01-13",
+   "bands": "n77 (3.45 GHz), B12/B17 (700 MHz)",
+   "from": "Array (ex-UScellular)",
+   "to": "AT&T",
+   "status": "CURRENT",
+   "note": "closed, $1.018B",
+   "as_of": "2026-10-31",
+   "source": "docs/research/notes/us_bands.md, Q4 timeline (web-search summaries; pages not opened): PR Newswire; Array 10-Q Q1 2026"
+  },
+  {
+   "date": "2026-05-05",
+   "bands": "B12 (700 MHz)",
+   "from": "Array (ex-UScellular)",
+   "to": "T-Mobile",
+   "status": "CURRENT",
+   "note": "closed, $74.8M",
+   "as_of": "2026-10-31",
+   "source": "docs/research/notes/us_bands.md, Q4 timeline (web-search summaries; pages not opened): Array Q2 2026 8-K"
+  },
+  {
+   "date": "2026-05-12",
+   "bands": "B71 (600 MHz)",
+   "from": "Array (ex-UScellular)",
+   "to": "T-Mobile",
+   "status": "CURRENT",
+   "note": "closed, $86.4M",
+   "as_of": "2026-10-31",
+   "source": "docs/research/notes/us_bands.md, Q4 timeline (web-search summaries; pages not opened): Array Q2 2026 8-K"
+  },
+  {
+   "date": "2026-06-01",
+   "bands": "B2 (PCS), B66 (AWS)",
+   "from": "Array (ex-UScellular)",
+   "to": "Verizon",
+   "status": "CURRENT",
+   "note": "closed; sources disagree on the exact bands (AWS-3/AWS-1/PCS vs. AWS/cellular/PCS)",
+   "as_of": "2026-10-31",
+   "source": "docs/research/notes/us_bands.md, Q4 timeline (web-search summaries; pages not opened): Broadband Breakfast; Verizon 10-Q Q2 2026"
+  },
+  {
+   "date": "2026-07-28",
+   "bands": "n77 (3.45 GHz), B71/n71 (600 MHz)",
+   "from": "EchoStar",
+   "to": "AT&T",
+   "status": "CURRENT",
+   "note": "closed",
+   "as_of": "2026-10-31",
+   "source": "docs/research/notes/us_bands.md, Q4 timeline (web-search summaries; pages not opened): AT&T 8-K"
+  },
+  {
+   "date": "2026-08-10",
+   "bands": "B26 (800 MHz, 817-824/862-869), B71",
+   "from": "T-Mobile",
+   "to": "Grain Management",
+   "status": "CURRENT",
+   "note": "800 MHz sold for $2.9B cash plus Grain's 600 MHz licences; the ex-Sprint 800 MHz slice touches both B26 and B27",
+   "as_of": "2026-10-31",
+   "source": "docs/research/notes/us_bands.md, Q4 timeline (web-search summaries; pages not opened): T-Mobile 10-Q Q3 2026"
+  },
+  {
+   "date": "2026-10",
+   "bands": "B26 (800 MHz)",
+   "from": "Grain Management",
+   "to": "SpaceX",
+   "status": "UNVERIFIED",
+   "note": "only a news headline ('reportedly agreed'), FCC status unknown",
+   "as_of": "2026-10-31",
+   "source": "docs/research/notes/us_bands.md, Q4 timeline (web-search summaries; pages not opened): Google News / Yahoo Finance headline"
+  },
+  {
+   "date": "2027-11-30",
+   "bands": "B70/n70 downlink, B66 2180-2200, B23 (AWS-4 / H-block)",
+   "from": "EchoStar (trust)",
+   "to": "SpaceX",
+   "status": "PENDING",
+   "note": "final transfer expected on or about this date",
+   "as_of": "2026-10-31",
+   "source": "EchoStar 10-Q Q2 2026 (https://www.sec.gov/Archives/edgar/data/0001415404/000110465926089370/sats-20260630x10q.htm), as quoted in docs/research/notes/us_bands.md Q4 timeline; the filing itself was not opened"
   }
  ]
 }

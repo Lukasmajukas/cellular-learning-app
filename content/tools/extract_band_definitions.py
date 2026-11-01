@@ -45,4 +45,44 @@ for line in open(SRC, encoding="utf-8"):
         "verification": d["Status"],
         "status": "CURRENT", "as_of": "2026-10-31", "source": src,
     })
-json.dump(rows, sys.stdout, indent=1, ensure_ascii=False)
+
+# --- T43 fixes: split grouped rows (A2), add plain number fields (A3), flag B23 (A1) ---
+def num_range(text, kind):
+    """First 'a-b' range in a text cell, in MHz (GHz cells are converted). None if there is none."""
+    m = re.search(r"(\d+(?:\.\d+)?)\s*[–-]\s*(\d+(?:\.\d+)?)", text or "")
+    if not m:
+        return None, None
+    lo, hi = float(m.group(1)), float(m.group(2))
+    if kind == "NR-FR2" or "GHz" in (text or ""):
+        lo, hi = lo * 1000, hi * 1000
+    return round(lo, 3), round(hi, 3)
+
+out = []
+for r in rows:
+    if r["id"] == "B35/B36/B37":   # three bands in one table row: one band per row, as the app needs
+        ids = ["B35", "B36", "B37"]
+        ranges = [x.strip().replace("TDD ", "") for x in r["uplink"].split("/")]
+        names = ["PCS TDD (uplink part)", "PCS TDD (downlink part)", "PCS TDD (duplex gap)"]
+        bws = [x.strip() for x in r["channel_bandwidths_mhz"].split("/")]
+        bws = [bws[0], bws[0] if bws[1] == "same" else bws[1], bws[2]]
+        notes = [x.strip().strip('"') for x in r["notes"].split("/")]
+        for i, b in enumerate(ids):
+            n = dict(r, id=b, name=names[i], uplink=ranges[i], channel_bandwidths_mhz=bws[i],
+                     notes=f'Wikipedia label: "{notes[i]}". Split from the row "B35 / B36 / B37"',
+                     group="PCS TDD (B35/B36/B37)")
+            out.append(n)
+    else:
+        out.append(dict(r, group=""))
+for r in out:
+    ul = num_range(r["uplink"], r["kind"]); dl = num_range(r["downlink"], r["kind"])
+    if r["duplex"].startswith("TDD") and ul != (None, None) and dl == (None, None):
+        dl = ul   # TDD: one range, used both ways
+    r["ul_low_mhz"], r["ul_high_mhz"] = ul
+    r["dl_low_mhz"], r["dl_high_mhz"] = dl
+    r["not_applicable"] = False
+    if r["id"] == "B23":
+        # Wikipedia footnote: "Bands b6 and b23 are not applicable". Never quiz on it as a live band.
+        r["not_applicable"] = True
+        r["status"] = "HISTORICAL"
+        r["notes"] += " | T43: Wikipedia marks this band not applicable, so it is not taught as a live band"
+json.dump(out, sys.stdout, indent=1, ensure_ascii=False)
