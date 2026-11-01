@@ -60,6 +60,7 @@ Claude adds new words here whenever they come up.
 | **GitHub Pages** | A free way to turn files on GitHub into a website. For a private repo it needs a paid plan, and the site is still public. |
 | **Access key (token)** | A long secret code that works like a password for one job. Never put it inside a page someone else could see. |
 | **Rate limit** | A cap on how often you can ask a website for something, like "5 cookies per hour". |
+| **Frame rate (fps)** | How many pictures per second the screen draws, like the pages of a flip-book. Around 60 looks smooth; much lower looks choppy. |
 
 ## Cell phone words
 | Word | What it means |
