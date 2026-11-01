@@ -4,6 +4,7 @@ One or two plain-English lines per chat. Newest at the top.
 
 | Date | What happened | Details |
 |---|---|---|
+| 2026-11-01 | Robot added 4 more free photo credits (rooftop small cells, a flagpole disguise, a monopole, a fake tree), so 11 in all. It looked at two by eye. The photo website said "slow down" a lot, so small-cell close-ups, water tanks and Flickr still wait. | [note](sessions/2026-11-01-session-39-t26-photos-more.md) |
 | 2026-11-01 | Robot built the new question types (match pairs, type a number, put bands in order, learn cards), with numbers filled in from the bands file. Missed questions come back once, every question gets a memory timer, and you now earn XP, a daily streak and signal bars. A new sample lesson at the end of the path shows it all. | [note](sessions/2026-11-01-session-38-t32-question-types.md) |
 | 2026-11-01 | Robot tried to check the unchecked carrier facts (T47): the official carrier and FCC pages wouldn't open, so no facts changed; it asks you for page links. | [note](sessions/2026-11-01-session-37-t47-carrier-facts.md) |
 | 2026-11-01 | Robot planned the first three units (15 lessons): which band facts go where, in what order, and with which kind of question. It found that most "which carrier uses this band" facts for low and mid band aren't checked yet, so lessons stick to checked facts and a new task (T47) checks the rest. | `docs/sessions/2026-11-01-session-36-t31-design-units-1-3.md` |

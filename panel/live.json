@@ -1,12 +1,12 @@
 {
- "asOf": "2026-11-01 (robot, T31)",
+ "asOf": "2026-11-01 (robot, T26)",
  "robot": {
   "on": true,
   "next": "right away (it starts its next job by itself), and every hour",
-  "last": "planned units 1 to 3 (T31)"
+  "last": "added 4 more photo credits (T26)"
  },
  "light": "green",
- "working": "Nothing in progress. Next up: the new question types (T32). T47 (carrier facts) needs official page links from you. Optional for you: two small questions about the lesson plan (T48), and your frame-rate number (T46).",
+ "working": "Nothing in progress. Next up: write units 1 to 3 (T33). T47 (carrier facts) needs official page links from you. Optional for you: two small questions about the lesson plan (T48), and your frame-rate number (T46).",
  "limit": {
   "state": "fine (it reset after a pause)",
   "resets": "unknown"

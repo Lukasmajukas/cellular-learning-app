@@ -1,4 +1,5 @@
 # Photo credits (T26, PARTIAL). Licences read from each file's own Commons data on 2026-11-01.
+# 'looked at by eye' in a note = a robot opened the picture and saw no faces or readable plates.
 # The files are NOT downloaded yet: 'file' is the planned name. Picked from titles + licence data;
 # a person or the next task must look at each picture before a lesson uses it (check no faces, no readable plates).
 
@@ -65,3 +66,39 @@
   date_checked: 2026-11-01
   ai_made: false
   note: "Cell on wheels, the portable site (unit 6); not yet looked at by eye"
+- id: small-cell-rooftop-01
+  file: small-cell-rooftop-01.webp
+  source_url: https://commons.wikimedia.org/wiki/File:5G_Small_Cell_Antennas_on_Pittsburgh_Rooftop_(48172678597).jpg
+  title: "5G Small Cell Antennas on Pittsburgh Rooftop (48172678597).jpg"
+  author: "Tony Webster"
+  licence: CC BY
+  date_checked: 2026-11-01
+  ai_made: false
+  note: "Rooftop 5G antennas, downtown Pittsburgh PA (units 6 and 8); exact licence CC BY 2.0; looked at by eye, no faces or plates; from Flickr via Commons"
+- id: site-flagpole-01
+  file: site-flagpole-01.webp
+  source_url: https://commons.wikimedia.org/wiki/File:Flagpole_Monopole_Concealed_Cell_Tower.jpg
+  title: "Flagpole Monopole Concealed Cell Tower.jpg"
+  author: "Celltowerleases"
+  licence: CC BY-SA
+  date_checked: 2026-11-01
+  ai_made: false
+  note: "Cell tower disguised as a flagpole, Randolph NJ (unit 6); exact licence CC BY-SA 3.0; looked at by eye, no faces or plates"
+- id: site-monopole-01
+  file: site-monopole-01.webp
+  source_url: https://commons.wikimedia.org/wiki/File:MonopoleCellSite.jpg
+  title: "MonopoleCellSite.jpg"
+  author: "Steve Kazella"
+  licence: CC BY-SA
+  date_checked: 2026-11-01
+  ai_made: false
+  note: "Monopole with five carriers' antennas (unit 6); exact licence CC BY-SA 3.0; not yet looked at by eye (thumbnail got 429)"
+- id: site-fake-tree-03
+  file: site-fake-tree-03.webp
+  source_url: https://commons.wikimedia.org/wiki/File:StealthCellSiteTree.jpg
+  title: "StealthCellSiteTree.jpg"
+  author: "Steve Kazella"
+  licence: CC BY-SA
+  date_checked: 2026-11-01
+  ai_made: false
+  note: "Stealth monopole tree (unit 6); exact licence CC BY-SA 3.0; not yet looked at by eye (thumbnail got 429)"
