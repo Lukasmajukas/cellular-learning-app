@@ -121,3 +121,11 @@ Claude adds new words here whenever they come up.
 | **Preload** | A tiny helper that gives the app screen a few safe doors to the save file (load, save, back up, show), and nothing else. |
 | **Frame rate (fps)** | How many pictures per second the screen draws. About 60 feels smooth; much lower feels choppy. The ⚙️ switch "Show frame rate" shows it in a corner. |
 | **Pivot (rotation point)** | The spot something turns around, like the hinge of a door. The mascot's antenna should turn around the tower tip. |
+| **Learn card** | A teaching screen before the questions, like a page in a picture book: it shows one idea with a little drawing. It isn't scored. |
+| **Checkpoint** | The last lesson of a unit: a test of everything in it, with no learn cards and no hints. Like an end-of-chapter quiz. |
+| **Wrong choices (distractors)** | The wrong answers in a multiple-choice question. Good ones are near-misses (B12 vs B17), not silly ones. |
+| **Nesting bands (subset)** | A band that fits completely inside a bigger one, like a small box inside a big box. B17 fits inside B12, and B12 fits inside B85. |
+| **Upside-down band** | A band whose uplink (phone → tower) sits above its downlink. In most bands it's the other way round. B13, B14 and B71 are the ones you'll meet. |
+| **Downlink-only band (SDL)** | A band that only goes tower → phone, like a one-way street that adds extra lanes for downloads. B29 is one. |
+| **Interleaving (mixing)** | Mixing different topics in one practice set instead of doing one topic at a time. It helps you tell look-alikes apart. |
+| **Tier** | Which part of the ruler a band is in: low, mid or high. In this app: low is below 1 GHz, high is mmWave, mid is everything in between. |

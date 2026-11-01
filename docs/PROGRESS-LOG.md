@@ -4,6 +4,7 @@ One or two plain-English lines per chat. Newest at the top.
 
 | Date | What happened | Details |
 |---|---|---|
+| 2026-11-01 | Robot planned the first three units (15 lessons): which band facts go where, in what order, and with which kind of question. It found that most "which carrier uses this band" facts for low and mid band aren't checked yet, so lessons stick to checked facts and a new task (T47) checks the rest. | `docs/sessions/2026-11-01-session-36-t31-design-units-1-3.md` |
 | 2026-11-01 | Robot did its part of the choppy-animation task: confetti is proven to show in the real app (picture checked by eye), the app no longer lets Windows' animation setting turn its own movement down, and ⚙️ has a new "show frame rate" switch (off by default). In the cloud the app drew 60 pictures a second, so the real number from your PC is the next clue. | `docs/sessions/2026-11-01-session-35-t46-smooth-animations.md` |
 | 2026-11-01 | Robot fixed the mascot: its little antenna ball was swinging around the wrong spot and coming loose from the tower. It now swings from the tower tip, and a new test watches it. | `docs/sessions/2026-11-01-session-34-t45-mascot-fix.md` |
 | 2026-11-01 | You tried the test build on Windows: the beep works, the visuals are solid and the idea is perfect, but the mascot looks cut off and the animations are a bit choppy. Level 3 is passed, so we're now on Level 4 (real lessons). Two fix tasks added: mascot (T45), smoothness and confetti (T46). | `docs/sessions/2026-11-01-session-33-t40-owner-tries-test-build.md` |
