@@ -65,6 +65,9 @@ def fact_index(bands, errors):
     for i, s in enumerate(bands.get("spectrum_changes", [])):
         check_fact(f"spectrum_change #{i} ({s.get('date')})", s, errors)
         index[f"change:{i}"] = s
+    for r in bands.get("frequency_ranges", []):
+        check_fact(f"frequency_range {r.get('id')}", r, errors)
+        index[f"range:{r.get('id')}"] = r
     return index
 
 
