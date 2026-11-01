@@ -38,7 +38,7 @@
   licence: CC0
   date_checked: 2026-11-01
   ai_made: false
-  note: "Plain US cell tower (unit 6); not yet looked at by eye"
+  note: "Plain US cell tower, three masts (unit 6); looked at by eye: a Texas car number plate is visible at the bottom left, so CROP the lower-left corner before the app uses it"
 - id: site-tower-02
   file: site-tower-02.webp
   source_url: https://commons.wikimedia.org/wiki/File:American_Tower_wireless_tower_Belleville_Michigan.JPG
