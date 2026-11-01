@@ -4,6 +4,7 @@ One or two plain-English lines per chat. Newest at the top.
 
 | Date | What happened | Details |
 |---|---|---|
+| 2026-11-01 | Robot fixed the mascot: its little antenna ball was swinging around the wrong spot and coming loose from the tower. It now swings from the tower tip, and a new test watches it. | `docs/sessions/2026-11-01-session-34-t45-mascot-fix.md` |
 | 2026-11-01 | You tried the test build on Windows: the beep works, the visuals are solid and the idea is perfect, but the mascot looks cut off and the animations are a bit choppy. Level 3 is passed, so we're now on Level 4 (real lessons). Two fix tasks added: mascot (T45), smoothness and confetti (T46). | `docs/sessions/2026-11-01-session-33-t40-owner-tries-test-build.md` |
 | 2026-11-01 | You told me the progress panel works, so I ticked off T22. Nothing in the app changed. | `docs/sessions/2026-11-01-session-32-t22-panel-checked.md` |
 | 2026-11-01 | The robot started the photo list (T26, partly done). It found 7 copyright-free US cell-tower photos (fake trees, plain towers, a portable cell-on-wheels) and wrote down who took each and which licence it has. Wikimedia kept saying "too many requests", so small cells, rooftops and water tanks wait for the next try. | `docs/sessions/2026-11-01-session-31-t26-photos.md` |
