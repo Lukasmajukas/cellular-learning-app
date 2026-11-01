@@ -4,6 +4,7 @@ One or two plain-English lines per chat. Newest at the top.
 
 | Date | What happened | Details |
 |---|---|---|
+| 2026-11-01 | Robot tried to look at 3 more photos; the photo website said "slow down" every time, so nothing changed. | `docs/sessions/2026-11-01-session-53-t26-photos-9.md` |
 | 2026-11-01 | Robot looked at 2 more photos (a fake pine tree and antennas hidden behind brick): both fine. The rest of the lookups were blocked by Commons for now. | `docs/sessions/2026-11-01-session-52-t26-photos-8.md` |
 | 2026-11-01 | T26 (robot): Commons answered this time. Added 2 water-tower photos (18 total); couldn't open the pictures to look at them (429), so they're still unchecked by eye. | [note](sessions/2026-11-01-session-51-t26-photos-7.md) |
 | 2026-11-01 | Robot: made the 4 short lessons longer (3 new questions each, from the bands file). Now all 15 lessons land in 3 to 5 minutes. | `docs/sessions/2026-11-01-session-50-t33-lengthen.md` |
