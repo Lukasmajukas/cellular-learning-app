@@ -4,6 +4,7 @@ One or two plain-English lines per chat. Newest at the top.
 
 | Date | What happened | Details |
 |---|---|---|
+| 2026-11-01 | Robot tried to check the unchecked carrier facts (T47): the official carrier and FCC pages wouldn't open, so no facts changed; it asks you for page links. | [note](sessions/2026-11-01-session-37-t47-carrier-facts.md) |
 | 2026-11-01 | Robot planned the first three units (15 lessons): which band facts go where, in what order, and with which kind of question. It found that most "which carrier uses this band" facts for low and mid band aren't checked yet, so lessons stick to checked facts and a new task (T47) checks the rest. | `docs/sessions/2026-11-01-session-36-t31-design-units-1-3.md` |
 | 2026-11-01 | Robot did its part of the choppy-animation task: confetti is proven to show in the real app (picture checked by eye), the app no longer lets Windows' animation setting turn its own movement down, and ⚙️ has a new "show frame rate" switch (off by default). In the cloud the app drew 60 pictures a second, so the real number from your PC is the next clue. | `docs/sessions/2026-11-01-session-35-t46-smooth-animations.md` |
 | 2026-11-01 | Robot fixed the mascot: its little antenna ball was swinging around the wrong spot and coming loose from the tower. It now swings from the tower tip, and a new test watches it. | `docs/sessions/2026-11-01-session-34-t45-mascot-fix.md` |
