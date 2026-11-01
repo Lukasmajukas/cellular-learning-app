@@ -1,0 +1,98 @@
+unit: unit03
+unit_title: Mid band
+lesson: unit03-l2
+title: "AWS 1700/2100: B4, B66 and n66"
+questions:
+  - id: u3-aws-learn-01
+    kind: learn
+    title: A very wide gap
+    facts: [band:B4, band:B66, band:n66]
+    text: >
+      AWS bands have a huge gap between uplink and downlink. Uplink sits near {band:B4.ul_low_mhz} MHz and downlink near {band:B4.dl_low_mhz} MHz, a gap of {band:B4.duplex_spacing_mhz} MHz.
+      That is why the nickname says "1700 / 2100".
+      B4 ("{band:B4.name}") fits inside the bigger box B66 ("{band:B66.name}"). n66 is the 5G twin of B66.
+    show: [B4, B66]
+  - id: u3-aws-learn-02
+    kind: learn
+    title: B66 has a one-way slice
+    facts: [band:B66]
+    text: >
+      B66's downlink runs {band:B66.dl_low_mhz} to {band:B66.dl_high_mhz} MHz, but the top slice of it can only be used for downloads.
+      That means the downlink is wider than the uplink ({band:B66.ul_low_mhz} to {band:B66.ul_high_mhz} MHz).
+    show: [B66]
+  - id: u3-aws-box-01
+    kind: choice
+    facts: [band:B4, band:B66]
+    prompt: B4 or B66, which one is the bigger box?
+    choices: [B66, B4]
+    answer: 0
+    why: B66's uplink is {band:B66.ul_low_mhz} to {band:B66.ul_high_mhz} MHz. B4's is {band:B4.ul_low_mhz} to {band:B4.ul_high_mhz} MHz.
+  - id: u3-aws-ul-01
+    kind: choice
+    facts: [band:B66]
+    prompt: Where is B66's uplink, near 1700 MHz or near 2100 MHz?
+    choices: [Near 1700 MHz, Near 2100 MHz]
+    answer: 0
+    why: B66's uplink starts at {band:B66.ul_low_mhz} MHz. Its downlink starts at {band:B66.dl_low_mhz} MHz.
+  - id: u3-aws-clue-01
+    kind: choice
+    facts: [band:B4, band:B66, band:B2]
+    prompt: "Which band has uplink {band:B4.ul_low_mhz} to {band:B4.ul_high_mhz} MHz and downlink {band:B4.dl_low_mhz} to {band:B4.dl_high_mhz} MHz?"
+    choices: [B4, B66, B2]
+    answer: 0
+    why: B4's uplink ends at {band:B4.ul_high_mhz} MHz. B66's runs to {band:B66.ul_high_mhz}.
+  - id: u3-aws-dl-01
+    kind: number
+    facts: [band:B66]
+    prompt: B66's downlink starts at how many MHz?
+    answer_from: band:B66.dl_low_mhz
+    tolerance_mhz: 5
+    unit: MHz
+    why: B66's downlink is {band:B66.dl_low_mhz} to {band:B66.dl_high_mhz} MHz.
+  - id: u3-aws-gap-01
+    kind: number
+    facts: [band:B4]
+    prompt: B4's duplex gap (uplink to downlink) is how many MHz?
+    answer_from: band:B4.duplex_spacing_mhz
+    tolerance_mhz: 5
+    unit: MHz
+    why: The bands file gives B4's duplex gap as {band:B4.duplex_spacing_mhz} MHz.
+  - id: u3-aws-pcs-01
+    kind: choice
+    facts: [band:B25]
+    prompt: Is B25 a PCS band or an AWS band?
+    choices: [PCS, AWS]
+    answer: 0
+    why: B25 is "{band:B25.name}".
+  - id: u3-aws-pcs-02
+    kind: choice
+    facts: [band:B66]
+    prompt: Is B66 a PCS band or an AWS band?
+    choices: [AWS, PCS]
+    answer: 0
+    why: B66 is "{band:B66.name}".
+  - id: u3-aws-pcs-03
+    kind: choice
+    facts: [band:B4]
+    prompt: Is B4 a PCS band or an AWS band?
+    choices: [AWS, PCS]
+    answer: 0
+    why: B4 is "{band:B4.name}".
+  - id: u3-aws-boost-01
+    kind: choice
+    facts: [carrier_use:n66/boost]
+    label: history
+    prompt: What about Boost and n66?
+    choices:
+      - "It used to run 5G on it, then its traffic moved to AT&T"
+      - "It runs n66 today"
+      - "It never used n66"
+    answer: 0
+    why: Boost's 5G traffic moved to AT&T by Nov 2025. That is history now.
+  - id: u3-aws-order-01
+    kind: order
+    facts: [band:B71, band:B12, band:B2, band:B66]
+    prompt: Put these bands in order, lowest frequency first.
+    bands: [B71, B12, B2, B66]
+    sort_by: dl_low_mhz
+    why: Sorted by where each downlink starts, in MHz.

@@ -58,3 +58,27 @@ describe('unit 2 content', () => {
     expect(r.choices[r.answer]).toBe(band('B71').dl_low_mhz < band('B12').dl_low_mhz ? 'B71' : 'B12');
   });
 });
+
+describe('unit 3 content', () => {
+  const u3 = () => allLessons(REAL_PATH).filter(l => l.id.startsWith('unit03'));
+  it('has 4 lessons and a checkpoint', () => {
+    expect(u3().map(l => l.id)).toEqual(['unit03-l1', 'unit03-l2', 'unit03-l3', 'unit03-l4', 'unit03-check']);
+    u3().forEach(l => expect(l.questions.length).toBeGreaterThanOrEqual(10));
+  });
+  it('"bigger box" answers pick the band with the wider downlink', () => {
+    const w = (id: string) => band(id).dl_high_mhz - band(id).dl_low_mhz;
+    const qs = u3().flatMap(l => l.questions) as any[];
+    const boxes = qs.filter(q => /which one is the bigger box/.test(q.prompt ?? ''));
+    expect(boxes.length).toBeGreaterThanOrEqual(6);
+    boxes.forEach(q => {
+      const [a, b] = q.choices as string[];
+      expect(q.choices[q.answer], q.id).toBe(w(a) >= w(b) ? a : b);
+    });
+  });
+  it('"sits highest" and the order items follow dl_low_mhz', () => {
+    const qs = u3().flatMap(l => l.questions) as any[];
+    const hi = qs.find(q => q.id === 'u3-wcs-high-01');
+    const top = [...hi.choices].sort((a: string, b: string) => band(b).dl_low_mhz - band(a).dl_low_mhz)[0];
+    expect(hi.choices[hi.answer]).toBe(top);
+  });
+});

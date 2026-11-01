@@ -1,0 +1,96 @@
+unit: unit03
+unit_title: Mid band
+lesson: unit03-l1
+title: "PCS 1900: B2, B25, n2 and n25"
+questions:
+  - id: u3-pcs-learn-01
+    kind: learn
+    title: Welcome to the middle of the ruler
+    facts: [band:B2, band:B25, band:n2, band:n25]
+    text: >
+      Mid band sits between the low bands (below 1000 MHz) and the very high mmWave bands. Mid-band waves travel less far than low-band ones, but they carry more data, like a medium-sized pipe.
+      The first mid band is "{band:B2.name}". Its downlink runs {band:B2.dl_low_mhz} to {band:B2.dl_high_mhz} MHz.
+      B25 ("{band:B25.name}") is a bigger box that holds B2 (it ends at {band:B25.dl_high_mhz} MHz instead of {band:B2.dl_high_mhz}).
+      Their 5G twins are n2 and n25.
+    show: [B2, B25]
+  - id: u3-mid-learn-01
+    kind: learn
+    title: Two mid bands wait for unit 4
+    facts: [band:n41, band:n77]
+    text: >
+      n41 and n77 are mid band too. They are big 5G-only "capacity" bands, so they get their own unit later (unit 4).
+      This unit covers the older mid bands from 4G days: PCS, AWS and WCS.
+    show: [n41, n77]
+  - id: u3-pcs-box-01
+    kind: choice
+    facts: [band:B2, band:B25]
+    prompt: B2 or B25, which one is the bigger box?
+    choices: [B25, B2]
+    answer: 0
+    why: B25's uplink is {band:B25.ul_low_mhz} to {band:B25.ul_high_mhz} MHz. B2's is only {band:B2.ul_low_mhz} to {band:B2.ul_high_mhz} MHz.
+  - id: u3-pcs-twin-01
+    kind: choice
+    facts: [band:n25, band:B25, band:B2]
+    prompt: Which 4G band is the twin of n25?
+    choices: [B25, B2, B66]
+    answer: 0
+    why: Twins share the same numbers. n25 and B25 both have a downlink of {band:n25.dl_low_mhz} to {band:n25.dl_high_mhz} MHz.
+  - id: u3-pcs-clue-01
+    kind: choice
+    facts: [band:B2, band:B25, band:B66]
+    prompt: "Which band has uplink {band:B25.ul_low_mhz} to {band:B25.ul_high_mhz} MHz?"
+    choices: [B25, B2, B66]
+    answer: 0
+    why: B25's uplink is {band:B25.ul_low_mhz} to {band:B25.ul_high_mhz} MHz. B2 stops at {band:B2.ul_high_mhz}.
+  - id: u3-pcs-name-01
+    kind: choice
+    facts: [band:B2, band:B25]
+    prompt: Which band numbers make up PCS (the "1900" bands)?
+    choices: ["2 and 25", "2 and 66", "4 and 25"]
+    answer: 0
+    why: B2 is "{band:B2.name}" and B25 is "{band:B25.name}".
+  - id: u3-pcs-gap-01
+    kind: number
+    facts: [band:B2]
+    prompt: B2's duplex gap (uplink to downlink) is how many MHz?
+    answer_from: band:B2.duplex_spacing_mhz
+    tolerance_mhz: 5
+    unit: MHz
+    why: The bands file gives B2's duplex gap as {band:B2.duplex_spacing_mhz} MHz.
+  - id: u3-pcs-dl-01
+    kind: number
+    facts: [band:B25]
+    prompt: B25's downlink starts at how many MHz?
+    answer_from: band:B25.dl_low_mhz
+    tolerance_mhz: 5
+    unit: MHz
+    why: B25's downlink is {band:B25.dl_low_mhz} to {band:B25.dl_high_mhz} MHz.
+  - id: u3-pcs-tier-01
+    kind: choice
+    facts: [band:B25]
+    prompt: Which part of the ruler is B25 in?
+    choices: [Mid band, Low band, High band]
+    answer: 0
+    why: B25's downlink starts at {band:B25.dl_low_mhz} MHz, above 1000 MHz but far below mmWave.
+  - id: u3-pcs-reach-01
+    kind: choice
+    facts: [band:B5, band:B2]
+    prompt: B5 or B2, which one reaches farther from the tower?
+    choices: [B5, B2]
+    answer: 0
+    why: B5's downlink starts at {band:B5.dl_low_mhz} MHz (low band) and B2's at {band:B2.dl_low_mhz} MHz. Lower frequencies travel farther.
+  - id: u3-pcs-sale-01
+    kind: choice
+    facts: [change:0, change:2, change:5]
+    prompt: Some of UScellular's spectrum (including PCS and AWS) was sold in a deal that closed in {change:0.date}. Who bought it?
+    choices: [T-Mobile, AT&T, Verizon]
+    answer: 0
+    why: T-Mobile's deal closed {change:0.date}. AT&T ({change:2.date}) and Verizon ({change:5.date}) bought from UScellular's successor, Array, later.
+  - id: u3-pcs-twins-02
+    kind: match
+    facts: [band:B2, band:n2, band:B25, band:n25]
+    prompt: Match each 4G band to its 5G twin.
+    pairs:
+      - ["{band:B2.id}", "{band:n2.id}"]
+      - ["{band:B25.id}", "{band:n25.id}"]
+    why: Twins share the same numbers. Only the letter changes.

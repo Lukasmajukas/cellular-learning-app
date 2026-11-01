@@ -1,0 +1,121 @@
+unit: unit03
+unit_title: Mid band
+lesson: unit03-check
+title: "Checkpoint: mid band"
+questions:
+  - id: u3-cp-box-01
+    kind: choice
+    facts: [band:B2, band:B25]
+    prompt: B2 fits inside which band?
+    choices: [B25, B66, B30]
+    answer: 0
+    why: B25 ({band:B25.dl_low_mhz} to {band:B25.dl_high_mhz} MHz) is the bigger box around B2.
+  - id: u3-cp-box-02
+    kind: choice
+    facts: [band:B4, band:B66]
+    prompt: B4 fits inside which band?
+    choices: [B66, B25, B70]
+    answer: 0
+    why: B66 ({band:B66.dl_low_mhz} to {band:B66.dl_high_mhz} MHz) is the bigger box around B4.
+  - id: u3-cp-box-03
+    kind: choice
+    facts: [band:B5, band:B26]
+    prompt: Which box is the bigger one?
+    choices: [B26, B5]
+    answer: 0
+    why: B26's downlink starts at {band:B26.dl_low_mhz} MHz. B5's starts at {band:B5.dl_low_mhz}.
+  - id: u3-cp-twins-01
+    kind: match
+    facts: [band:B25, band:n25, band:B66, band:n66]
+    prompt: Match each 4G band to its 5G twin.
+    pairs:
+      - ["{band:B25.id}", "{band:n25.id}"]
+      - ["{band:B66.id}", "{band:n66.id}"]
+    why: Twins share the same numbers. Only the letter changes.
+  - id: u3-cp-twins-02
+    kind: choice
+    facts: [band:B70, band:n70]
+    prompt: Which band is the 5G twin of B70?
+    choices: [n70, n66, n25]
+    answer: 0
+    why: B70 and n70 both have a downlink of {band:n70.dl_low_mhz} to {band:n70.dl_high_mhz} MHz.
+  - id: u3-cp-clue-01
+    kind: choice
+    facts: [band:B2, band:B25, band:B66]
+    prompt: "Which band has uplink {band:B25.ul_low_mhz} to {band:B25.ul_high_mhz} MHz?"
+    choices: [B25, B2, B66]
+    answer: 0
+    why: B25's uplink is {band:B25.ul_low_mhz} to {band:B25.ul_high_mhz} MHz.
+  - id: u3-cp-clue-02
+    kind: choice
+    facts: [band:B4, band:B66, band:B2]
+    prompt: "Which band has uplink {band:B66.ul_low_mhz} to {band:B66.ul_high_mhz} MHz?"
+    choices: [B66, B4, B2]
+    answer: 0
+    why: B66's uplink is {band:B66.ul_low_mhz} to {band:B66.ul_high_mhz} MHz. B4's stops at {band:B4.ul_high_mhz}.
+  - id: u3-cp-clue-03
+    kind: choice
+    facts: [band:B30, band:B66, band:B25]
+    prompt: "Which band has downlink {band:B30.dl_low_mhz} to {band:B30.dl_high_mhz} MHz?"
+    choices: [B30, B66, B25]
+    answer: 0
+    why: B30 is "{band:B30.name}".
+  - id: u3-cp-num-01
+    kind: choice
+    facts: [band:B66]
+    prompt: Which band number is the big AWS box?
+    choices: ["66", "30", "70"]
+    answer: 0
+    why: B66 is "{band:B66.name}" and holds B4.
+  - id: u3-cp-num-02
+    kind: number
+    facts: [band:B25]
+    prompt: B25's downlink ends at how many MHz?
+    answer_from: band:B25.dl_high_mhz
+    tolerance_mhz: 5
+    unit: MHz
+    why: B25's downlink is {band:B25.dl_low_mhz} to {band:B25.dl_high_mhz} MHz.
+  - id: u3-cp-hist-01
+    kind: choice
+    facts: [carrier_use:B70/boost]
+    label: history
+    prompt: Boost used to run on B70. What happened to its traffic?
+    choices:
+      - "It moved to AT&T's network by November 2025"
+      - "It moved to T-Mobile's network by November 2025"
+      - "It moved to another network in 2023"
+    answer: 0
+    why: Boost's traffic moved to AT&T's network by Nov 2025.
+  - id: u3-cp-coming-01
+    kind: choice
+    facts: [change:1]
+    label: coming
+    prompt: Who is expected to get the B70 uplink slice?
+    choices:
+      - SpaceX
+      - "EchoStar keeps it and sells nothing"
+      - AT&T
+    answer: 0
+    why: The deal is pending ({change:1.date}). EchoStar would sell it to SpaceX.
+  - id: u3-cp-tier-01
+    kind: choice
+    facts: [band:B66]
+    prompt: Which part of the ruler is B66 in?
+    choices: [Mid band, Low band, High band]
+    answer: 0
+    why: B66's downlink starts at {band:B66.dl_low_mhz} MHz.
+  - id: u3-cp-flip-01
+    kind: choice
+    facts: [band:B71, band:B30, band:B2]
+    prompt: Which one of these is upside-down?
+    choices: [B71, B30, B2]
+    answer: 0
+    why: B71's uplink ({band:B71.ul_low_mhz} MHz) sits above its downlink ({band:B71.dl_low_mhz} MHz).
+  - id: u3-cp-carrier-01
+    kind: choice
+    facts: [carrier_use:n71/tmobile, carrier_use:n71/att]
+    label: coming
+    prompt: Which carrier runs n71 ("Extended Range") today?
+    choices: [T-Mobile, "AT&T (it is only planning to build it)"]
+    answer: 0
+    why: T-Mobile runs n71 today. AT&T's 600 MHz build is only planned.
