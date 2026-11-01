@@ -12,7 +12,6 @@ Claude ticks tasks off, adds new ones, and saves (merges) its own work. ⭐ mean
 ## Now
 | # | Task | Who | Model + effort | Status |
 |---|---|---|---|---|
-| T22 | Open the progress panel (link in `panel/README.md`), pin it, and tell Claude in any chat if it looks right on your PC and phone. | You | — | Open: tell Claude in any chat |
 | T39 | Find a hands-free way for the robot to refresh your progress panel. One idea: keep the panel's numbers in the page's own storage, if robot chats can update that without a question. Do it in a chat you're in, because a test may ask you to approve once. | You + Claude | Medium (Sonnet), Medium effort | Open: start it in a chat when you like |
 | T40 | ⭐ Try the test build: open the pull request/Actions page Claude links in chat (or ask Claude in any chat for the link), download the `windows-installer` file, run it (click **More info**, then **Run anyway**), and tell Claude in any chat: does it feel smooth? Does the confetti, beep and mascot work? | You | — | Open: tell Claude in any chat |
 | T02 | Tell Claude: do you have an app name idea? (Your Mac/iPhone, `cellatlas-data` and South Hadley answers are recorded in `docs/DECISIONS.md`. Two chats heard different Mac answers; the latest one stands: Mac later.) | You | — | Open: tell Claude in any chat |
@@ -35,6 +34,7 @@ Claude ticks tasks off, adds new ones, and saves (merges) its own work. ⭐ mean
 ## Done
 | # | Task | Finished |
 |---|---|---|
+| T22 | You opened the progress panel and told Claude in chat: "the panel works". That was the only thing this task was waiting for. (You didn't say which device, so this records exactly your words, not a separate PC and phone check.) | 2026-11-01 |
 | T30 | Built the save file and the settings screen. Your stars and settings are now kept in one file in your Windows app-data folder, written safely (a crash can't half-write it). A backup copy is made each day (last 7 kept), and a damaged file is replaced by the newest good backup. The ⚙️ screen has sounds, reduce motion (no confetti), daily goal, dark look, "back up now" and "show my progress file". 9 new unit tests and a new real-app click test (close, reopen, progress still there) pass. The daily goal is only saved so far; it starts doing something with the streak (T32). | 2026-11-01 |
 | T44 | Fixed the robot stopping by itself. Your permission lines can't cover opening a chat, starting the next run or putting chats away: in Auto mode the safety check always decides those. So your own approval (typed in chat) is now in `CLAUDE.md`, a new launcher with the project attached reads it, and the alarm rings every hour. Tested with two starts minutes apart. A refusal is now unlikely but not impossible; if one happens, the next hourly alarm tries again. | 2026-11-01 |
 | T29 | Built the path map and the lesson player (`app/src/PathMap.tsx`, `LessonPlayer.tsx`, `path.ts`): lesson circles light up as you finish them and the next one unlocks, and you earn stars. It uses sample questions and the progress is only kept while the app is open (saving is T30). 8 unit tests and a real-app click test pass. | 2026-11-01 |
