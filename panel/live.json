@@ -1,14 +1,14 @@
 {
-  "asOf": "2026-11-01 08:35 UTC (robot, T46)",
-  "robot": {
-    "on": true,
-    "next": "right away (it starts its next job by itself), and every hour",
-    "last": "smoothness and confetti check (T46, Claude's part)"
-  },
-  "light": "green",
-  "working": "Nothing in progress. Waiting on you: tell Claude your frame-rate number (T46). Next up: design units 1 to 3 (T31).",
-  "limit": {
-    "state": "fine (it reset after a pause)",
-    "resets": "unknown"
-  }
+ "asOf": "2026-11-01 (robot, T31)",
+ "robot": {
+  "on": true,
+  "next": "right away (it starts its next job by itself), and every hour",
+  "last": "planned units 1 to 3 (T31)"
+ },
+ "light": "green",
+ "working": "Nothing in progress. Next up: check the carrier facts units 2-3 need (T47), and the new question types (T32). Optional for you: two small questions about the lesson plan (T48), and your frame-rate number (T46).",
+ "limit": {
+  "state": "fine (it reset after a pause)",
+  "resets": "unknown"
+ }
 }
