@@ -1,5 +1,7 @@
+import { prefs } from './prefs';
 let ctx: AudioContext | null = null;
 export function beep(good: boolean) {
+  if (!prefs.sounds) return;
   try {
     ctx ??= new AudioContext();
     const o = ctx.createOscillator(), g = ctx.createGain();

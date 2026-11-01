@@ -114,3 +114,7 @@ Claude adds new words here whenever they come up.
 | **Locked question ID** | Every quiz question has a name tag (its ID). Once a tag is on the locked list, it can never change or vanish, because the app remembers how well you know each question by that tag. |
 | **Path map** | The screen with a trail of lesson circles, like stepping stones. Finished ones turn green, the next one glows blue, and the rest stay locked until you get there. |
 | **Lesson player** | The part of the app that asks one lesson's questions one by one and gives you stars at the end. |
+| **Save file** | One small file on your computer that remembers your stars and settings, so they're still there when you reopen the app. Like a bookmark that never falls out. |
+| **Backup** | A spare copy of the save file, made once a day. If the main file ever breaks, the app uses the newest backup. |
+| **Atomic write** | Saving in a way that can't be half done: the app writes a new copy on the side, then swaps it in all at once. If the power dies mid-save, the old file is still fine. |
+| **Preload** | A tiny helper that gives the app screen a few safe doors to the save file (load, save, back up, show), and nothing else. |
