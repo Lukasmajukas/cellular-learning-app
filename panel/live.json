@@ -1,12 +1,12 @@
 {
- "asOf": "2026-11-01 (robot, T33 part 6)",
+ "asOf": "2026-11-01 (robot, T26 photos 12)",
  "robot": {
   "on": true,
   "next": "right away (it starts its next job by itself), and every hour",
-  "last": "built a lesson-length calculator: 11 of 15 lessons are 3 to 5 minutes (T33, part 6)"
+  "last": "looked at 1 more tower photo (T26): clean"
  },
  "light": "green",
- "working": "Nothing in progress. T26: 9 photos still to look at by eye. Next up: T33 leftovers (maybe lengthen 4 short lessons) or T26 photos when Commons answers. T47 (carrier facts) needs official page links from you. Optional for you: T48 questions and your frame-rate number (T46).",
+ "working": "Nothing in progress. T26: 6 photos still to look at by eye. Next up: T33 leftovers (maybe lengthen 4 short lessons) or T26 photos when Commons answers. T47 (carrier facts) needs official page links from you. Optional for you: T48 questions and your frame-rate number (T46).",
  "limit": {
   "state": "fine (it reset after a pause)",
   "resets": "unknown"
