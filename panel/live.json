@@ -3,7 +3,7 @@
  "robot": {
   "on": true,
   "next": "right away (it starts its next job by itself), and every 2 hours",
-  "last": "fixed the bands file (T43): unproven carrier rows marked unchecked, spectrum sales in their own list"
+  "last": "checked the carrier-code list (T27) against the official US registry"
  },
  "light": "green",
  "working": "Nothing in progress. Waiting for you: try the test build (T40).",
