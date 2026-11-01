@@ -30,7 +30,7 @@ Say it plainly, starting with "Time for a fresh chat:" or "Time for a new branch
 Before the owner switches, do the end-of-session steps below, including merging your pull request. Then tell them which model and effort to pick, and exactly what to type.
 
 ## Every session
-How chats share work without overlapping is in `docs/WORKFLOW.md`. Follow its "Rules for Claude" exactly.
+How chats share work without overlapping is in `docs/WORKFLOW.md`. Follow its "Rules for Claude" exactly. The one exception: the chat titled "Robot launcher (do not archive)" skips this whole section and follows only its launcher prompt (`docs/WORKFLOW.md` section G).
 
 **Start (before any other work):**
 1. Read this file, `TASKS.md`, and the newest note in `docs/sessions/` (latest date, then highest session number).
@@ -51,6 +51,10 @@ How chats share work without overlapping is in `docs/WORKFLOW.md`. Follow its "R
 4. Add new decisions to `docs/DECISIONS.md` and new words to `GLOSSARY.md`.
 5. Commit, push, update the pull request (template: simple words, plus "how to check it"), then **merge it yourself** (squash), as in `docs/WORKFLOW.md` section C.
 6. Tell the owner what changed and anything you need from them.
+
+## The robot: what the owner approved
+The owner typed this in chat on 2026-11-01 (task T44), word for word:
+> I approve this for my robot, any time of day: the "Robot launcher (do not archive)" chat may start one "Robot run" chat (create_session for Lukasmajukas/cellular-learning-app, Sonnet, Auto mode) each time it gets a message, even minutes after the last one, at most 6 an hour. Robot runs may start the next run (fire_trigger on "Robot"), hand a task to one new Haiku or Opus chat (create_session, same repository), and archive themselves and this project's finished robot chats (archive_session).
 
 ## Models and effort: pick by size (versions change, sizes don't)
 | Size | Current model | Effort | Use for |
