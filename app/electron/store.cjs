@@ -7,7 +7,7 @@ const KEEP_BACKUPS = 7;
 const DEFAULTS = () => ({
   version: 1,
   progress: {},
-  settings: { sounds: true, reduceMotion: false, dailyGoal: 1, theme: 'light' },
+  settings: { sounds: true, reduceMotion: false, showFps: false, dailyGoal: 1, theme: 'light' },
 });
 
 // Fills in anything missing, so an older or damaged file never crashes the app.
@@ -22,6 +22,7 @@ function normalize(raw) {
   const settings = {
     sounds: typeof s.sounds === 'boolean' ? s.sounds : d.settings.sounds,
     reduceMotion: typeof s.reduceMotion === 'boolean' ? s.reduceMotion : d.settings.reduceMotion,
+    showFps: typeof s.showFps === 'boolean' ? s.showFps : d.settings.showFps,
     dailyGoal: Number.isInteger(s.dailyGoal) && s.dailyGoal >= 1 && s.dailyGoal <= 10 ? s.dailyGoal : d.settings.dailyGoal,
     theme: s.theme === 'dark' ? 'dark' : 'light',
   };

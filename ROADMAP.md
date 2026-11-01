@@ -6,7 +6,7 @@ Think of the project like a game with levels. You finish one level, then the nex
 |---|---|---|---|---|
 | 1 | Research | Find out if the app is possible and how to build it | — | ✅ Done (Oct 31, 2026) |
 | 2 | The Plan | Write the PRD: the blueprint that says what's in the first version and what comes later | 1–2 chats | ✅ Done (Oct 31, 2026) |
-| 3 | Test build | One animated lesson screen, to prove the app runs smoothly on your PC | 1–3 chats | ✅ Done (Nov 1, 2026): you tried it and said the visuals are solid and the concept is perfect; the mascot and some choppiness are fix tasks (T45, T46) |
+| 3 | Test build | One animated lesson screen, to prove the app runs smoothly on your PC | 1–3 chats | ✅ Done (Nov 1, 2026): you tried it and said the visuals are solid and the concept is perfect; the mascot and some choppiness are fix tasks (T45 done, T46 in progress) |
 | 4 | First playable version | The real app: learning path, lessons, reviews, streaks. It's built one small piece per chat, band units first and tower-spotting units after. | about 1–3 months | 👉 You are here |
 | 5 | Polish | Smoother animations, sounds, a mascot, more photos | a few weeks | 🔒 Locked |
 | 6 | Keep it fresh | Every 3 months, check the band and carrier facts (they change!) and update the lessons | ongoing | 🔒 Locked |

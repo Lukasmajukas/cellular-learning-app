@@ -1,12 +1,12 @@
 {
-  "asOf": "2026-11-01 08:20 UTC (robot, T45)",
+  "asOf": "2026-11-01 08:35 UTC (robot, T46)",
   "robot": {
     "on": true,
     "next": "right away (it starts its next job by itself), and every hour",
-    "last": "fixed the mascot (T45)"
+    "last": "smoothness and confetti check (T46, Claude's part)"
   },
   "light": "green",
-  "working": "Nothing in progress. Next up: fix the choppy animations (T46).",
+  "working": "Nothing in progress. Waiting on you: tell Claude your frame-rate number (T46). Next up: design units 1 to 3 (T31).",
   "limit": {
     "state": "fine (it reset after a pause)",
     "resets": "unknown"

@@ -13,8 +13,10 @@ export function SettingsScreen({ settings, onChange, onBack }: { settings: Setti
       <h1 style={{ margin: '12px 0' }}>Settings</h1>
       <label style={row}>Sounds
         <input data-testid="set-sounds" type="checkbox" checked={settings.sounds} onChange={e => onChange({ ...settings, sounds: e.target.checked })} /></label>
-      <label style={row}>Reduce motion (no confetti)
+      <label style={row}>Reduce motion (no confetti, no movement)
         <input data-testid="set-motion" type="checkbox" checked={settings.reduceMotion} onChange={e => onChange({ ...settings, reduceMotion: e.target.checked })} /></label>
+      <label style={row}>Show frame rate (pictures per second)
+        <input data-testid="set-fps" type="checkbox" checked={settings.showFps} onChange={e => onChange({ ...settings, showFps: e.target.checked })} /></label>
       <label style={row}>Daily goal (lessons a day)
         <select data-testid="set-goal" value={settings.dailyGoal} onChange={e => onChange({ ...settings, dailyGoal: Number(e.target.value) })}>
           {[1, 2, 3, 5].map(n => <option key={n} value={n}>{n}</option>)}</select></label>

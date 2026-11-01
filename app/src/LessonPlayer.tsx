@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import rawConfetti from 'canvas-confetti';
 import { prefs } from './prefs';
-const confetti = (o: Parameters<typeof rawConfetti>[0]) => { if (!prefs.reduceMotion) rawConfetti(o); };
+// Only the in-app switch turns confetti off (not Windows' setting). window.__confettiBursts lets the click test prove bursts fire.
+const confetti = (o: Parameters<typeof rawConfetti>[0]) => { if (prefs.reduceMotion) return; (window as unknown as { __confettiBursts?: number }).__confettiBursts = ((window as unknown as { __confettiBursts?: number }).__confettiBursts ?? 0) + 1; rawConfetti({ disableForReducedMotion: false, ...o }); };
 import { isCorrect, stars } from './lesson';
 import type { Lesson } from './path';
 import { beep } from './sound';
