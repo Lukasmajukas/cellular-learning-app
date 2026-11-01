@@ -20,6 +20,7 @@
   - The alarm starting robot runs directly: no project attached (T13).
   - Robot runs starting the next run directly with `create_session`: still judged by the safety check, and chats have a family-tree limit of 8 levels (`lineage.limit` 8 in `get_session`), so a long chain would hit it.
 - **Part 1, merged as pull request #32:** the owner typed the approval (and "yes" to an hourly alarm) at about 07:25 UTC. Recorded word for word in `CLAUDE.md`, new section "The robot: what the owner approved", plus a line saying the launcher chat skips the "Every session" steps. Merged first because the new launcher reads `CLAUDE.md` from `main`. Part 2 continues on a new pull request.
+- **Part 2 claimed** (new launcher with the project attached, test, hourly alarm, docs).
 - **The way that can work:** the docs say the safety check "reads the same CLAUDE.md content Claude itself loads", and the refusing rule is a *soft* block that clears when the user's approval names the action and the specific detail. So: the owner states the approval in their own chat message, Claude records it in `CLAUDE.md`, and the new launcher gets the project attached so its safety check reads it on every call (the old launcher has no project, so it never saw any approval of the owner's; heartbeats arrive marked "not from the user"). The safety-check rules forbid Claude writing an approval the owner didn't give ("Self-Modification", "Instruction Poisoning"), so this needs the owner's own message.
 
 ## What's next
