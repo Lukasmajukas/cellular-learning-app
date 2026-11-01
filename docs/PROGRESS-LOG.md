@@ -4,6 +4,7 @@ One or two plain-English lines per chat. Newest at the top.
 
 | Date | What happened | Details |
 |---|---|---|
+| 2026-11-01 | T26 (robot): tried to find more photos but Wikimedia Commons answered "too many requests" (429), so nothing was added; the next run retries later. | [note](sessions/2026-11-01-session-48-t26-photos-5.md) |
 | 2026-11-01 | T26 (robot): added 5 more free photos (small cells on poles, a 5G tower, a warning sign) by browsing Commons folders; 16 photos now, licences checked, pictures not yet looked at. | [note](sessions/2026-11-01-session-47-t26-photos-4.md) |
 | 2026-11-01 | T33 (part 6, robot): built a lesson-length calculator. 11 of the 15 lessons land in 3 to 5 minutes; 4 are a bit short (about 2.5 to 2.9 minutes) and none is too long. | [note](sessions/2026-11-01-session-46-t33-timing.md) |
 | 2026-11-01 | T26 (robot): tried to find more free small-cell photos; the photo site only gave back scanned documents, so nothing was added. | [note](sessions/2026-11-01-session-45-t26-photos-3.md) |
