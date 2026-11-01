@@ -6,6 +6,7 @@ import { PathMap } from './PathMap';
 import { LessonPlayer } from './LessonPlayer';
 import { SettingsScreen } from './SettingsScreen';
 import { loadState, saveState, EMPTY_STATE, type SaveState } from './storage';
+import { FpsMeter } from './FpsMeter';
 import { prefs } from './prefs';
 
 function App() {
@@ -29,8 +30,10 @@ function App() {
   if (!state) return null;
 
   const lesson = allLessons(SAMPLE_PATH).find(l => l.id === playing);
+  // 'never' (not 'user'): don't let Windows' own animation-effects switch silently flatten the animations. Only the in-app switch does.
   return (
-    <MotionConfig reducedMotion={s.settings.reduceMotion ? 'always' : 'user'}>
+    <MotionConfig reducedMotion={s.settings.reduceMotion ? 'always' : 'never'}>
+      {s.settings.showFps && <FpsMeter />}
       <div style={{ fontFamily: 'Segoe UI, sans-serif' }}>
         {notice && <p data-testid="notice" style={{ margin: 0, padding: 8, background: '#fff3c4', color: '#333', textAlign: 'center' }}>{notice}</p>}
         {lesson ? (

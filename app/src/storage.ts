@@ -2,9 +2,9 @@
 // In a plain browser (no door) it falls back to the browser's own storage, so dev mode still works.
 import type { Progress } from './path';
 
-export type Settings = { sounds: boolean; reduceMotion: boolean; dailyGoal: number; theme: 'light' | 'dark' };
+export type Settings = { sounds: boolean; reduceMotion: boolean; showFps: boolean; dailyGoal: number; theme: 'light' | 'dark' };
 export type SaveState = { version: 1; progress: Progress; settings: Settings };
-export const DEFAULT_SETTINGS: Settings = { sounds: true, reduceMotion: false, dailyGoal: 1, theme: 'light' };
+export const DEFAULT_SETTINGS: Settings = { sounds: true, reduceMotion: false, showFps: false, dailyGoal: 1, theme: 'light' };
 export const EMPTY_STATE: SaveState = { version: 1, progress: {}, settings: DEFAULT_SETTINGS };
 
 type Api = {
