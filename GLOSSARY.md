@@ -104,3 +104,5 @@ Claude adds new words here whenever they come up.
 | **FirstNet** | AT&T's special network for police, fire and ambulance crews, with priority on the same towers. |
 | **UNVERIFIED** | Our label for a fact nobody has checked yet. The app never asks a quiz question about one. |
 | **Core band** | In the bands file: a band that some US carrier is said to use, as opposed to one the standard defines but nobody here uses. |
+| **Spectrum change** | When the right to use a slice of radio frequencies is sold or moves to someone else, like one shop selling its parking spaces to another. Owning the spectrum doesn't mean the new owner's towers are using it yet. |
+| **LRA (LTE in Rural America)** | A Verizon programme where small local carriers build towers that use Verizon's frequencies in their area. The research names Cellcom and Appalachian Wireless as partners, but that is not confirmed yet. |

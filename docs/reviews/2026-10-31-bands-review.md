@@ -1,6 +1,6 @@
 # Review of the draft bands file (task T42)
 
-**Status:** DONE (review only: nothing in `content/` was changed) · **Reviewed:** `content/bands.md` and `content/bands.json` (DRAFT v1, from T06), plus `content/tools/` · **Checked against:** `docs/research/notes/band_verification.md` (tables A–E, discrepancy list, Q2, Q3) and `docs/research/notes/us_bands.md` (Q2 carrier × band matrix, Q4 timeline) · **By:** Large (Opus), High effort, robot run · **Date:** 2026-11-01
+**Status:** DONE (review only: nothing in `content/` was changed) · **Reviewed:** `content/bands.md` and `content/bands.json` (DRAFT v1, from T06), plus `content/tools/` · **Checked against:** `docs/research/notes/band_verification.md` (tables A–E, discrepancy list, Q2, Q3) and `docs/research/notes/us_bands.md` (Q2 carrier × band matrix, Q4 timeline) · **By:** Large (Opus), High effort, robot run · **Date:** 2026-10-31
 
 ## In simple words (for the owner)
 I checked the bands file the way a teacher marks homework.
