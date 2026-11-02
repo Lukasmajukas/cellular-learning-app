@@ -1,0 +1,104 @@
+unit: unit06
+unit_title: Site types
+lesson: unit06-l3
+title: "Rooftops and small cells"
+questions:
+  - id: u6-small-learn-01
+    kind: learn
+    title: Sitting on something already there
+    facts: [site:type:rooftop]
+    text: >
+      {site:type:rooftop.text} It saves building a whole new tower.
+  - id: u6-small-learn-02
+    kind: learn
+    title: Small cells
+    facts: [site:type:small-cell]
+    text: >
+      {site:type:small-cell.text} Clue to spot: {site:type:small-cell.look}.
+  - id: u6-small-photo-01
+    kind: photo-choice
+    facts: [site:type:rooftop]
+    photo: small-cell-rooftop-01
+    alt: Several white antennas and radio boxes on a flat roof next to a brick building
+    prompt: Where are these antennas?
+    choices: [On a flat roof, On a utility pole, On a fake tree]
+    answer: 0
+    why: The antennas stand on the roof of a building, so this is a rooftop site.
+  - id: u6-small-photo-02
+    kind: photo-choice
+    facts: [site:type:small-cell]
+    photo: small-cell-pole-01
+    alt: A wooden utility pole with wires and a small radio fitted near the top, with a house behind
+    prompt: This small cell is fitted to what?
+    choices: [A utility pole, A water tank, A flagpole]
+    answer: 0
+    why: A small cell is a small radio on a pole or building. Here it is on a utility pole.
+  - id: u6-small-photo-03
+    kind: photo-choice
+    facts: [site:type:small-cell]
+    photo: small-cell-pole-02
+    alt: A tall grey street light pole beside a sidewalk and a building
+    prompt: This small cell is fitted to what?
+    choices: [A street light pole, A rooftop, A guyed mast]
+    answer: 0
+    why: Small cells often ride on street light poles, with the radio box lower down.
+  - id: u6-small-look-01
+    kind: choice
+    facts: [site:type:small-cell]
+    prompt: Which clue says "small cell"?
+    choices: [A canister on a pole with a box below, A thin mast with long cables, An open steel frame]
+    answer: 0
+    why: "{site:type:small-cell.look}."
+  - id: u6-small-roof-01
+    kind: choice
+    facts: [site:type:rooftop]
+    prompt: Where does a rooftop site put its antennas?
+    choices: [On the roof or edge of a building, Inside a flagpole, On cables]
+    answer: 0
+    why: "{site:type:rooftop.text}"
+  - id: u6-small-pick-01
+    kind: choice
+    facts: [site:type:small-cell, site:type:monopole]
+    prompt: Which one is a small radio on a pole, with a box below?
+    choices: [A monopole, A small cell, A guyed mast]
+    answer: 1
+    why: A monopole is a tall tower. The small cell is the little radio on a street pole.
+  - id: u6-small-match-01
+    kind: match
+    facts: [site:type:rooftop, site:type:small-cell, site:type:stealth]
+    prompt: Match each site to what it is.
+    pairs:
+      - [Rooftop site, Antennas on a building roof or edge]
+      - [Small cell, Canister on a pole with a box below]
+      - [Stealth site, Antennas hidden in a disguise]
+    why: Three ways to put antennas where people already are.
+  - id: u6-small-mix-01
+    kind: choice
+    facts: [band:n77]
+    prompt: Is n77 FDD or TDD?
+    choices: [TDD, FDD]
+    answer: 0
+    why: The bands file lists n77's duplex as {band:n77.duplex}.
+  - id: u6-small-photo-04
+    kind: photo-choice
+    facts: [site:type:rooftop]
+    photo: small-cell-rooftop-01
+    alt: Several white antennas and radio boxes on a flat roof next to a brick building
+    prompt: Which word fits this picture best?
+    choices: [Guyed mast, Rooftop site, Flagpole]
+    answer: 1
+    why: The antennas stand on top of a building, so it is a rooftop site.
+  - id: u6-small-pick-02
+    kind: choice
+    facts: [site:type:small-cell]
+    prompt: Where do you often see a small cell?
+    choices: [On a street pole, Inside a fake tree]
+    answer: 0
+    why: "{site:type:small-cell.text}"
+  - id: u6-small-pick-03
+    kind: choice
+    facts: [site:type:rooftop, site:type:small-cell]
+    prompt: Which one saves building a whole new tower by using a building that is already there?
+    choices: [A rooftop site, A guyed mast, A lattice tower]
+    answer: 0
+    why: "{site:type:rooftop.text}"

@@ -1,0 +1,224 @@
+unit: unit06
+unit_title: Site types
+lesson: unit06-check
+title: 'Checkpoint: site types'
+questions:
+- id: u6-cp-photo-01
+  kind: photo-choice
+  facts:
+  - site:type:lattice
+  photo: site-tower-02
+  alt: A tall red and white open steel framework tower
+  prompt: What type of tower is this?
+  choices:
+  - Lattice tower
+  - Guyed mast
+  - Monopole
+  answer: 0
+  why: 'An open steel frame: a lattice tower.'
+  outline:
+    x: 0.3
+    y: 0.02
+    w: 0.3
+    h: 0.75
+- id: u6-cp-photo-02
+  kind: photo-choice
+  facts:
+  - site:type:guyed
+  photo: type-guyed-drawing-01
+  alt: A drawing of a thin mast with cables running to the ground
+  prompt: What type of tower is in this drawing?
+  choices:
+  - Monopole
+  - Lattice tower
+  - Guyed mast
+  answer: 2
+  why: 'Cables running to the ground: a guyed mast.'
+- id: u6-cp-photo-03
+  kind: photo-choice
+  facts:
+  - site:type:stealth
+  photo: site-fake-tree-01
+  alt: A pine-shaped tower with antennas at the top among real trees
+  prompt: What is the disguise?
+  choices:
+  - Flagpole
+  - Fake tree
+  - Church steeple
+  answer: 1
+  why: 'A too-tidy pine shape taller than the trees around it: a fake tree.'
+  outline:
+    x: 0.4
+    y: 0.08
+    w: 0.16
+    h: 0.75
+- id: u6-cp-photo-04
+  kind: photo-choice
+  facts:
+  - site:type:stealth
+  photo: site-flagpole-01
+  alt: A very tall thin white flagpole with a flag
+  prompt: What is the disguise?
+  choices:
+  - Flagpole
+  - Fake tree
+  - Water tank
+  answer: 0
+  why: 'The antennas are inside the pole: a flagpole site.'
+  outline:
+    x: 0.4
+    y: 0.05
+    w: 0.18
+    h: 0.8
+- id: u6-cp-photo-05
+  kind: photo-choice
+  facts:
+  - site:type:stealth
+  photo: site-camouflaged-01
+  alt: A brick building corner with brick-coloured boxes hiding antennas
+  prompt: Where are the antennas hidden?
+  choices:
+  - In a fake tree
+  - In a flagpole
+  - On the wall of a building
+  answer: 2
+  why: Boxes painted to match the bricks hide the antennas.
+- id: u6-cp-photo-06
+  kind: photo-choice
+  facts:
+  - site:type:rooftop
+  photo: small-cell-rooftop-01
+  alt: Antennas and radio boxes on a flat roof beside a brick building
+  prompt: What type of site is this?
+  choices:
+  - Rooftop site
+  - Guyed mast
+  - COW
+  answer: 0
+  why: 'Antennas on a building roof: a rooftop site.'
+- id: u6-cp-photo-07
+  kind: photo-choice
+  facts:
+  - site:type:small-cell
+  photo: small-cell-pole-01
+  alt: A wooden utility pole with a small radio near the top
+  prompt: This small cell is fitted to what?
+  choices:
+  - A flagpole
+  - A utility pole
+  - A rooftop
+  answer: 1
+  why: A small radio on a pole is a small cell.
+- id: u6-cp-photo-08
+  kind: photo-choice
+  facts:
+  - site:type:temporary
+  photo: site-cow-01
+  alt: A thin temporary mast beside a lattice mast, behind orange fencing
+  prompt: The thin mast on the left was raised for a short time. What is it?
+  choices:
+  - A cell on wheels (COW)
+  - A fake tree
+  - A DAS
+  answer: 0
+  why: 'A portable site raised for a short time: a COW.'
+- id: u6-cp-photo-09
+  kind: photo-choice
+  facts:
+  - site:type:das
+  photo: type-das-drawing-01
+  alt: A drawing of a stadium with many small antennas inside
+  prompt: What is this system?
+  choices:
+  - A COW
+  - A DAS
+  - A monopole
+  answer: 1
+  why: 'Many small antennas spread around a venue: a DAS.'
+- id: u6-cp-match-01
+  kind: match
+  facts:
+  - site:type:lattice
+  - site:type:guyed
+  - site:type:monopole
+  prompt: Match each tower to its clue.
+  pairs:
+  - - Lattice tower
+    - Open steel frame
+  - - Guyed mast
+    - Cables to the ground
+  - - Monopole
+    - One tapered pole
+  why: One decisive clue per type.
+- id: u6-cp-match-02
+  kind: match
+  facts:
+  - site:type:rooftop
+  - site:type:small-cell
+  - site:type:stealth
+  prompt: Match each site to what it is.
+  pairs:
+  - - Rooftop site
+    - Antennas on a building roof or edge
+  - - Small cell
+    - Canister on a pole with a box below
+  - - Stealth site
+    - Antennas hidden in a disguise
+  why: Three ways to put antennas where people already are.
+- id: u6-cp-match-03
+  kind: match
+  facts:
+  - site:type:temporary
+  - site:type:das
+  prompt: Match each site to what it is.
+  pairs:
+  - - COW
+    - Cell site on a trailer
+  - - COLT
+    - Cell site on a vehicle
+  - - DAS
+    - Many small antennas in a venue
+  why: Two temporary kinds and one indoor system.
+- id: u6-cp-concept-01
+  kind: choice
+  facts:
+  - site:type:stealth
+  prompt: What does "stealth" mean for a cell site?
+  choices:
+  - The antennas are hidden in a disguise
+  - The signal is extra strong
+  - It only works at night
+  answer: 0
+  why: '{site:type:stealth.text}'
+- id: u6-cp-concept-02
+  kind: choice
+  facts:
+  - site:type:guyed
+  prompt: Which type needs the biggest patch of land around it?
+  choices:
+  - Monopole
+  - Guyed mast
+  - Small cell
+  answer: 1
+  why: The cables run out to anchors in the ground.
+- id: u6-cp-mix-01
+  kind: choice
+  facts:
+  - band:n71
+  - band:n41
+  prompt: n71 or n41, which one reaches farther from the tower?
+  choices:
+  - n41
+  - n71
+  answer: 1
+  why: n71 starts at {band:n71.dl_low_mhz} MHz and n41 at {band:n41.dl_low_mhz}. Lower frequencies travel farther.
+- id: u6-cp-mix-02
+  kind: choice
+  facts:
+  - band:n41
+  prompt: Is n41 FDD or TDD?
+  choices:
+  - FDD
+  - TDD
+  answer: 1
+  why: The bands file lists n41's duplex as {band:n41.duplex}.

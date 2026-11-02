@@ -4,6 +4,7 @@ One or two plain-English lines per chat. Newest at the top.
 
 | Date | What happened | Details |
 |---|---|---|
+| 2026-11-02 | Robot wrote unit 6, the tower-spotting unit: 4 lessons and a checkpoint (51 questions) with photos and drawings of tall towers, fake trees, rooftops, small cells, trailers and stadium antennas. | `docs/sessions/2026-11-02-session-78-t35-unit6.md` |
 | 2026-11-02 | Robot drew three tower pictures itself (open frame, cable mast, stadium antennas) because the photo website was still blocking downloads. | `docs/sessions/2026-11-02-session-77-t35-drawings.md` |
 | 2026-11-02 | Robot got one more lesson photo (15 of 18 now); the photo website still blocks most tries. | `docs/sessions/2026-11-02-session-76-t26-photos-retry.md` |
 | 2026-11-02 | Robot tried the last 4 lesson photos; the photo website said "too many requests" again, so nothing changed. | `docs/sessions/2026-11-02-session-75-t26-last-photos.md` |

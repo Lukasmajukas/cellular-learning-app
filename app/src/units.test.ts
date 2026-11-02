@@ -126,3 +126,26 @@ describe('scenario puzzles', () => {
     expect(rightAnswerText(q)).toContain(q.clues[0].choices[q.clues[0].answer]);
   });
 });
+
+describe('unit 6 content (site types)', () => {
+  const u6 = allLessons(REAL_PATH).filter(l => l.id.startsWith('unit06-'));
+  it('has 4 lessons and a checkpoint, all resolved', () => {
+    expect(u6.map(l => l.id)).toEqual(['unit06-l1', 'unit06-l2', 'unit06-l3', 'unit06-l4', 'unit06-check']);
+    u6.forEach(l => expect(l.questions.length).toBeGreaterThanOrEqual(10));
+  });
+  it('every photo question carries alt words and a credit line, and has 2 to 3 choices with one right answer', () => {
+    const pics = u6.flatMap(l => l.questions).filter((q: any) => q.kind === 'photo-choice') as any[];
+    expect(pics.length).toBeGreaterThanOrEqual(15);
+    pics.forEach(q => {
+      expect(q.photo.alt.length, q.id).toBeGreaterThan(10);
+      expect(q.photo.credit, q.id).toMatch(/by .+,/);
+      expect(q.answer, q.id).toBeGreaterThanOrEqual(0);
+      expect(q.answer, q.id).toBeLessThan(q.choices.length);
+    });
+  });
+  it('the site facts fill in with no leftover braces', () => {
+    const text = JSON.stringify(u6.flatMap(l => l.questions));
+    expect(text).not.toMatch(/\{(site|band):/);
+    expect(text).toContain('open steel framework');
+  });
+});

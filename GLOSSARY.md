@@ -147,3 +147,5 @@ Claude adds new words here whenever they come up.
 | **NOC** | Network Operations Center: the phone line where a tower's owner takes problem reports. |
 | **Alt text** | A few plain words describing a picture, for when the picture can't load (or for screen readers). Every picture question has one. |
 | **Tap the clue** | A question where you tap the right spot on a picture instead of picking from a list. |
+| **COW / COLT** | Cell on Wheels (on a trailer) and Cell on Light Truck (built onto a vehicle): temporary cell sites. |
+| **Small cell** | A small radio on a street pole or building, with a canister up high and a box below. |

@@ -125,6 +125,191 @@
    "title": "Lake View Sanatorium - Water Tower ^ Cell Tower - panoramio.jpg",
    "author": "Corey Coyle",
    "licence": "CC BY"
+  },
+  {
+   "id": "type-lattice-drawing-01",
+   "file": "lattice-drawing-01.webp",
+   "title": "Drawing of a lattice tower",
+   "author": "Claude (own drawing)",
+   "licence": "CC0"
+  },
+  {
+   "id": "type-guyed-drawing-01",
+   "file": "guyed-drawing-01.webp",
+   "title": "Drawing of a guyed mast",
+   "author": "Claude (own drawing)",
+   "licence": "CC0"
+  },
+  {
+   "id": "type-das-drawing-01",
+   "file": "das-drawing-01.webp",
+   "title": "Drawing of a stadium DAS",
+   "author": "Claude (own drawing)",
+   "licence": "CC0"
+  }
+ ],
+ "sites": [
+  {
+   "id": "type:lattice",
+   "kind": "type",
+   "grade": "C",
+   "text": "A lattice tower is an open steel framework with a wide base and no guy wires.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/sites_and_carriers.md section 1a (macro structures): PTTG, Connecticut Siting Council; looks only",
+   "look": "open criss-cross steel frame, wide at the bottom, narrowing up"
+  },
+  {
+   "id": "type:guyed",
+   "kind": "type",
+   "grade": "C",
+   "text": "A guyed mast is a slim mast held up by cables that run to anchors in the ground, so it needs a big patch of land.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/sites_and_carriers.md section 1a (macro structures): PTTG, Connecticut Siting Council; looks only",
+   "look": "thin mast with long cables slanting to the ground"
+  },
+  {
+   "id": "type:monopole",
+   "kind": "type",
+   "grade": "C",
+   "text": "A monopole is one tapered steel column with the antennas near the top.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/sites_and_carriers.md section 1a (macro structures): PTTG, Connecticut Siting Council; looks only",
+   "look": "a single smooth pole, thicker at the bottom"
+  },
+  {
+   "id": "type:rooftop",
+   "kind": "type",
+   "grade": "C",
+   "text": "A rooftop site puts the antennas on the roof or edge of a building.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/sites_and_carriers.md section 1c (building-mounted sites): ALB law firm, Raycap concealment guide; looks only",
+   "look": "antennas on a building edge or roof"
+  },
+  {
+   "id": "type:water-tank",
+   "kind": "type",
+   "grade": "C",
+   "text": "Some sites put the antennas around a water tank, or on a tower beside it.",
+   "status": "UNVERIFIED",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/sites_and_carriers.md Gaps section: no source found for water-tank designs (only a San Diego water-tower look-alike, section 1c); so UNVERIFIED until one is found",
+   "look": "antennas ringed on a water tank"
+  },
+  {
+   "id": "type:stealth",
+   "kind": "type",
+   "grade": "C",
+   "text": "A stealth site hides its antennas inside a disguise, such as a fake tree (monopine), palm (monopalm), flagpole or steeple.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/sites_and_carriers.md section 1d: PTTG, BroadbandSearch, local planning codes; looks only",
+   "look": "a tree, palm, flagpole or steeple shape that is too tidy to be real"
+  },
+  {
+   "id": "type:small-cell",
+   "kind": "type",
+   "grade": "B",
+   "text": "A small cell is a small radio on a pole or building, with a canister or shroud up high and a radio box or cabinet lower down. It reaches a small area.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/sites_and_carriers.md section 1e: municipal small-cell design standards; looks only",
+   "look": "canister or shroud on a street or utility pole, box or cabinet below"
+  },
+  {
+   "id": "type:das",
+   "kind": "type",
+   "grade": "B",
+   "text": "A DAS is many small antennas inside or on a big venue such as a stadium. One system is often shared by several carriers.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/sites_and_carriers.md section 1f: telecoms.com, RCR Wireless (2015); pages not opened here",
+   "look": "small antennas spread around a venue, sometimes behind fake vents"
+  },
+  {
+   "id": "type:temporary",
+   "kind": "type",
+   "grade": "A",
+   "text": "A COW is a cell site on a trailer; a COLT is built onto a vehicle. They run on generators and link back by satellite or microwave. FirstNet is AT&T's public-safety network and runs SatCOLTs and SatCOWs.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/sites_and_carriers.md section 1g: FirstNet Deployables PDF (https://www.firstnet.gov/sites/default/files/FirstNet_Deployables.pdf); not opened here",
+   "look": "trailer or truck with a telescoping mast, a generator and a dish"
+  },
+  {
+   "id": "rule:asr-200ft",
+   "kind": "rule",
+   "grade": "A",
+   "text": "A tower taller than 200 ft (60.96 m) above the ground must be registered with the FCC (ASR). A tower near an airport flight path may need it at any height.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/sites_and_carriers.md section 1b: FCC ASR help (https://www.fcc.gov/node/23343), Wikipedia ASR page; pages not opened here"
+  },
+  {
+   "id": "rule:asr-sign",
+   "kind": "rule",
+   "grade": "A",
+   "text": "The registration (ASR) number must be posted where the public can see it, near the base of the tower.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/sites_and_carriers.md section 1b: 47 CFR 17.4(g), Kelley Drye advisory, Federal Register 2024-02871; the note says the exact current eCFR wording was not confirmed"
+  },
+  {
+   "id": "rule:faa-marking",
+   "kind": "rule",
+   "grade": "A",
+   "text": "A structure taller than 200 ft should normally be marked with orange-and-white paint and/or lights, under FAA rules. The FAA can also ask for marking on shorter structures because of where they stand.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/sites_and_carriers.md section 1b: FAA FAQ (https://www.faa.gov/faq/what-are-requirements-aircraft-warning-lights-tall-structures); page not opened here"
+  },
+  {
+   "id": "infer:paint-lights",
+   "kind": "inference",
+   "grade": "inference",
+   "text": "A tower with orange-and-white paint or warning lights is very likely taller than 200 ft, or near an airport. Plain galvanized steel with no lights is more likely shorter. This is a good guess, not a law.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/sites_and_carriers.md Inferences section (lesson anchor, marked there as probable, not certain), built on rules rule:asr-200ft and rule:faa-marking"
+  },
+  {
+   "id": "sign:rf-warning",
+   "kind": "sign",
+   "grade": "C",
+   "text": "Signs at the foot of a tower typically include the registration (ASR) sign, a radio-wave (RF) warning sign and a no-trespassing sign.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/sites_and_carriers.md section 1h: Trident Solutions (vendor); typical, not required everywhere"
+  },
+  {
+   "id": "owner:tower-companies",
+   "kind": "owner",
+   "grade": "B",
+   "text": "Tower companies such as American Tower, Crown Castle, SBA, Vertical Bridge and Array own many towers and rent space on them to the carriers. The owner and the carrier are often not the same company.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/sites_and_carriers.md section 1h (tower owner companies and signage): Inside Towers, Array 8-K, Wilson Amplifiers, ModemGuides"
+  },
+  {
+   "id": "owner:noc",
+   "kind": "owner",
+   "grade": "C",
+   "text": "A sign at a tower base can give a phone number for problems. That number belongs to the owner of the structure, not always to the carrier on it.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/sites_and_carriers.md section 1h (tower owner companies and signage): Inside Towers, Array 8-K, Wilson Amplifiers, ModemGuides"
+  },
+  {
+   "id": "evidence:order",
+   "kind": "rule",
+   "grade": "C",
+   "text": "When working out who runs a site, the carrier's own sticker counts most and the equipment brand counts least.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/PRD.md section 4 (chain of evidence); app design rule, not a public fact"
   }
  ],
  "units": [
@@ -5258,6 +5443,1167 @@
         ]
        ],
        "why": "These tags are checked against the US registry."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "unit06",
+   "title": "Site types",
+   "lessons": [
+    {
+     "id": "unit06-l1",
+     "title": "The tall towers",
+     "questions": [
+      {
+       "id": "u6-tall-learn-01",
+       "kind": "learn",
+       "title": "Three tall shapes",
+       "facts": [
+        "site:type:lattice",
+        "site:type:guyed",
+        "site:type:monopole"
+       ],
+       "text": "A big tower that covers a wide area is called a \"macro\" site. You will meet that word again in unit 9. For now, learn the three tall shapes: lattice, guyed and monopole.\n"
+      },
+      {
+       "id": "u6-tall-learn-02",
+       "kind": "learn",
+       "title": "Lattice tower",
+       "facts": [
+        "site:type:lattice"
+       ],
+       "text": "{site:type:lattice.text} Clue to spot: {site:type:lattice.look}.\n"
+      },
+      {
+       "id": "u6-tall-learn-03",
+       "kind": "learn",
+       "title": "Guyed mast",
+       "facts": [
+        "site:type:guyed"
+       ],
+       "text": "{site:type:guyed.text} Clue to spot: {site:type:guyed.look}.\n"
+      },
+      {
+       "id": "u6-tall-learn-04",
+       "kind": "learn",
+       "title": "Monopole",
+       "facts": [
+        "site:type:monopole"
+       ],
+       "text": "{site:type:monopole.text} Clue to spot: {site:type:monopole.look}.\n"
+      },
+      {
+       "id": "u6-tall-draw-01",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:lattice"
+       ],
+       "photo": "type-lattice-drawing-01",
+       "alt": "A drawing of a tall open steel framework tower, wide at the bottom",
+       "prompt": "What type of tower is in this drawing?",
+       "choices": [
+        "Lattice tower",
+        "Guyed mast",
+        "Monopole"
+       ],
+       "answer": 0,
+       "why": "An open criss-cross steel frame, wide at the bottom, is a lattice tower."
+      },
+      {
+       "id": "u6-tall-draw-02",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:guyed"
+       ],
+       "photo": "type-guyed-drawing-01",
+       "alt": "A drawing of a thin mast with long cables running down to the ground",
+       "prompt": "What type of tower is in this drawing?",
+       "choices": [
+        "Monopole",
+        "Guyed mast",
+        "Lattice tower"
+       ],
+       "answer": 1,
+       "why": "A thin mast with long cables slanting to the ground is a guyed mast."
+      },
+      {
+       "id": "u6-tall-cable-01",
+       "kind": "choice",
+       "facts": [
+        "site:type:guyed"
+       ],
+       "prompt": "Which tower is held up by cables that run to the ground?",
+       "choices": [
+        "Lattice tower",
+        "Monopole",
+        "Guyed mast"
+       ],
+       "answer": 2,
+       "why": "{site:type:guyed.text}"
+      },
+      {
+       "id": "u6-tall-pole-01",
+       "kind": "choice",
+       "facts": [
+        "site:type:monopole"
+       ],
+       "prompt": "Which tower is one tapered steel column?",
+       "choices": [
+        "Guyed mast",
+        "Lattice tower",
+        "Monopole"
+       ],
+       "answer": 2,
+       "why": "{site:type:monopole.text}"
+      },
+      {
+       "id": "u6-tall-photo-01",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:lattice"
+       ],
+       "photo": "site-tower-02",
+       "alt": "A tall red and white tower made of an open steel framework, with trees and a house at its foot",
+       "outline": {
+        "x": 0.3,
+        "y": 0.02,
+        "w": 0.3,
+        "h": 0.75
+       },
+       "prompt": "What type of tower is this?",
+       "choices": [
+        "Lattice tower",
+        "Monopole",
+        "Guyed mast"
+       ],
+       "answer": 0,
+       "why": "You can see through it. It is an open steel frame, so it is a lattice tower."
+      },
+      {
+       "id": "u6-tall-photo-02",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:lattice"
+       ],
+       "photo": "site-tower-03",
+       "alt": "A thin red and white tower made of an open steel framework, with snow on the ground",
+       "outline": {
+        "x": 0.38,
+        "y": 0.1,
+        "w": 0.2,
+        "h": 0.65
+       },
+       "prompt": "What type of tower is this one?",
+       "choices": [
+        "Monopole",
+        "Guyed mast",
+        "Lattice tower"
+       ],
+       "answer": 2,
+       "why": "Same clue again, an open criss-cross frame. It is a lattice tower."
+      },
+      {
+       "id": "u6-tall-land-01",
+       "kind": "choice",
+       "facts": [
+        "site:type:guyed"
+       ],
+       "prompt": "Which type needs the biggest patch of land around it?",
+       "choices": [
+        "Guyed mast",
+        "Monopole"
+       ],
+       "answer": 0,
+       "why": "The cables run out to anchors in the ground, so a guyed mast needs room."
+      },
+      {
+       "id": "u6-tall-match-01",
+       "kind": "match",
+       "facts": [
+        "site:type:lattice",
+        "site:type:guyed",
+        "site:type:monopole"
+       ],
+       "prompt": "Match each tower to its clue.",
+       "pairs": [
+        [
+         "Lattice tower",
+         "Open steel frame"
+        ],
+        [
+         "Guyed mast",
+         "Cables to the ground"
+        ],
+        [
+         "Monopole",
+         "One tapered pole"
+        ]
+       ],
+       "why": "Each type has one clue that decides it."
+      },
+      {
+       "id": "u6-tall-mix-01",
+       "kind": "choice",
+       "facts": [
+        "band:n71",
+        "band:n41"
+       ],
+       "prompt": "n71 or n41, which one reaches farther from the tower?",
+       "choices": [
+        "n71",
+        "n41"
+       ],
+       "answer": 0,
+       "why": "n71 starts at {band:n71.dl_low_mhz} MHz and n41 at {band:n41.dl_low_mhz}. Lower frequencies travel farther."
+      }
+     ]
+    },
+    {
+     "id": "unit06-l2",
+     "title": "Hidden in plain sight",
+     "questions": [
+      {
+       "id": "u6-stealth-learn-01",
+       "kind": "learn",
+       "title": "Stealth sites",
+       "facts": [
+        "site:type:stealth"
+       ],
+       "text": "{site:type:stealth.text} Clue to spot: {site:type:stealth.look}.\n"
+      },
+      {
+       "id": "u6-stealth-learn-02",
+       "kind": "learn",
+       "title": "Too tidy to be real",
+       "facts": [
+        "site:type:stealth"
+       ],
+       "text": "A real tree is a bit messy. A fake one is too tidy. Look for a perfect shape, one thick trunk and no animals living in it.\n"
+      },
+      {
+       "id": "u6-stealth-photo-01",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:stealth"
+       ],
+       "photo": "site-fake-tree-01",
+       "alt": "A tall pine-shaped tower with antennas at the top, standing among real trees",
+       "outline": {
+        "x": 0.4,
+        "y": 0.08,
+        "w": 0.16,
+        "h": 0.75
+       },
+       "prompt": "What is the disguise on this site?",
+       "choices": [
+        "A fake tree",
+        "A flagpole",
+        "A church steeple"
+       ],
+       "answer": 0,
+       "why": "A tidy pine shape that is taller than the real trees around it is a fake tree."
+      },
+      {
+       "id": "u6-stealth-photo-02",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:stealth"
+       ],
+       "photo": "site-flagpole-01",
+       "alt": "A very tall thin white flagpole with an American flag, in a grassy field",
+       "outline": {
+        "x": 0.4,
+        "y": 0.05,
+        "w": 0.18,
+        "h": 0.8
+       },
+       "prompt": "What is the disguise on this site?",
+       "choices": [
+        "A fake tree",
+        "A flagpole",
+        "A water tank"
+       ],
+       "answer": 1,
+       "why": "The antennas are inside the pole. It is a cell site disguised as a flagpole."
+      },
+      {
+       "id": "u6-stealth-photo-03",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:stealth"
+       ],
+       "photo": "site-camouflaged-01",
+       "alt": "The corner of a brick building with brick-coloured boxes on the wall that hide antennas",
+       "prompt": "Where are the antennas hidden on this site?",
+       "choices": [
+        "Inside a fake tree",
+        "On the wall of a building",
+        "In a flagpole"
+       ],
+       "answer": 1,
+       "why": "The antennas sit in boxes painted to match the bricks."
+      },
+      {
+       "id": "u6-stealth-def-01",
+       "kind": "choice",
+       "facts": [
+        "site:type:stealth"
+       ],
+       "prompt": "What does \"stealth\" mean for a cell site?",
+       "choices": [
+        "The antennas are hidden in a disguise",
+        "The signal is extra strong",
+        "It only works at night"
+       ],
+       "answer": 0,
+       "why": "{site:type:stealth.text}"
+      },
+      {
+       "id": "u6-stealth-spot-01",
+       "kind": "choice",
+       "facts": [
+        "site:type:stealth"
+       ],
+       "prompt": "How can you spot a fake tree?",
+       "choices": [
+        "It has a too-tidy shape",
+        "It makes a humming sound",
+        "It is always near water"
+       ],
+       "answer": 0,
+       "why": "{site:type:stealth.look}."
+      },
+      {
+       "id": "u6-stealth-pick-01",
+       "kind": "choice",
+       "facts": [
+        "site:type:stealth",
+        "site:type:lattice"
+       ],
+       "prompt": "Which one is a stealth site?",
+       "choices": [
+        "An open steel frame",
+        "A fake tree with antennas inside",
+        "A tower held by cables"
+       ],
+       "answer": 1,
+       "why": "Only the fake tree hides its antennas in a disguise."
+      },
+      {
+       "id": "u6-stealth-mix-01",
+       "kind": "choice",
+       "facts": [
+        "site:type:guyed"
+       ],
+       "prompt": "Which tower is held up by cables to the ground?",
+       "choices": [
+        "Guyed mast",
+        "Lattice tower"
+       ],
+       "answer": 0,
+       "why": "{site:type:guyed.text}"
+      },
+      {
+       "id": "u6-stealth-match-01",
+       "kind": "match",
+       "facts": [
+        "site:type:stealth"
+       ],
+       "prompt": "Match each disguise to its clue.",
+       "pairs": [
+        [
+         "Fake tree",
+         "Pine shape that is too tidy"
+        ],
+        [
+         "Flagpole",
+         "One thin white pole with a flag"
+        ],
+        [
+         "Building wall",
+         "Boxes painted to match the bricks"
+        ]
+       ],
+       "why": "In every case the antennas are hidden inside or behind something ordinary."
+      },
+      {
+       "id": "u6-stealth-mix-02",
+       "kind": "choice",
+       "facts": [
+        "band:n41"
+       ],
+       "prompt": "Is n41 low, mid or high band?",
+       "choices": [
+        "Mid band",
+        "Low band",
+        "High band"
+       ],
+       "answer": 0,
+       "why": "n41 starts at {band:n41.dl_low_mhz} MHz, above 1000 MHz and far below mmWave."
+      },
+      {
+       "id": "u6-stealth-photo-04",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:stealth"
+       ],
+       "photo": "site-fake-tree-01",
+       "alt": "A tall pine-shaped tower with antennas at the top, standing among real trees",
+       "prompt": "Is the tall pine in this picture a real tree?",
+       "choices": [
+        "No, it is a cell site in disguise",
+        "Yes, it is a real tree"
+       ],
+       "answer": 0,
+       "why": "Its shape is too tidy and it sticks up above the real trees. It is a fake tree."
+      },
+      {
+       "id": "u6-stealth-pick-02",
+       "kind": "choice",
+       "facts": [
+        "site:type:stealth"
+       ],
+       "prompt": "Which one hides its antennas on the wall of a building?",
+       "choices": [
+        "A guyed mast",
+        "A stealth site",
+        "A lattice tower"
+       ],
+       "answer": 1,
+       "why": "A stealth site hides antennas inside a disguise, even one that looks like part of a wall."
+      },
+      {
+       "id": "u6-stealth-mix-03",
+       "kind": "choice",
+       "facts": [
+        "site:type:monopole"
+       ],
+       "prompt": "Which tower is one tapered steel column?",
+       "choices": [
+        "Lattice tower",
+        "Monopole",
+        "Guyed mast"
+       ],
+       "answer": 1,
+       "why": "{site:type:monopole.text}"
+      }
+     ]
+    },
+    {
+     "id": "unit06-l3",
+     "title": "Rooftops and small cells",
+     "questions": [
+      {
+       "id": "u6-small-learn-01",
+       "kind": "learn",
+       "title": "Sitting on something already there",
+       "facts": [
+        "site:type:rooftop"
+       ],
+       "text": "{site:type:rooftop.text} It saves building a whole new tower.\n"
+      },
+      {
+       "id": "u6-small-learn-02",
+       "kind": "learn",
+       "title": "Small cells",
+       "facts": [
+        "site:type:small-cell"
+       ],
+       "text": "{site:type:small-cell.text} Clue to spot: {site:type:small-cell.look}.\n"
+      },
+      {
+       "id": "u6-small-photo-01",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:rooftop"
+       ],
+       "photo": "small-cell-rooftop-01",
+       "alt": "Several white antennas and radio boxes on a flat roof next to a brick building",
+       "prompt": "Where are these antennas?",
+       "choices": [
+        "On a flat roof",
+        "On a utility pole",
+        "On a fake tree"
+       ],
+       "answer": 0,
+       "why": "The antennas stand on the roof of a building, so this is a rooftop site."
+      },
+      {
+       "id": "u6-small-photo-02",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:small-cell"
+       ],
+       "photo": "small-cell-pole-01",
+       "alt": "A wooden utility pole with wires and a small radio fitted near the top, with a house behind",
+       "prompt": "This small cell is fitted to what?",
+       "choices": [
+        "A utility pole",
+        "A water tank",
+        "A flagpole"
+       ],
+       "answer": 0,
+       "why": "A small cell is a small radio on a pole or building. Here it is on a utility pole."
+      },
+      {
+       "id": "u6-small-photo-03",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:small-cell"
+       ],
+       "photo": "small-cell-pole-02",
+       "alt": "A tall grey street light pole beside a sidewalk and a building",
+       "prompt": "This small cell is fitted to what?",
+       "choices": [
+        "A street light pole",
+        "A rooftop",
+        "A guyed mast"
+       ],
+       "answer": 0,
+       "why": "Small cells often ride on street light poles, with the radio box lower down."
+      },
+      {
+       "id": "u6-small-look-01",
+       "kind": "choice",
+       "facts": [
+        "site:type:small-cell"
+       ],
+       "prompt": "Which clue says \"small cell\"?",
+       "choices": [
+        "A canister on a pole with a box below",
+        "A thin mast with long cables",
+        "An open steel frame"
+       ],
+       "answer": 0,
+       "why": "{site:type:small-cell.look}."
+      },
+      {
+       "id": "u6-small-roof-01",
+       "kind": "choice",
+       "facts": [
+        "site:type:rooftop"
+       ],
+       "prompt": "Where does a rooftop site put its antennas?",
+       "choices": [
+        "On the roof or edge of a building",
+        "Inside a flagpole",
+        "On cables"
+       ],
+       "answer": 0,
+       "why": "{site:type:rooftop.text}"
+      },
+      {
+       "id": "u6-small-pick-01",
+       "kind": "choice",
+       "facts": [
+        "site:type:small-cell",
+        "site:type:monopole"
+       ],
+       "prompt": "Which one is a small radio on a pole, with a box below?",
+       "choices": [
+        "A monopole",
+        "A small cell",
+        "A guyed mast"
+       ],
+       "answer": 1,
+       "why": "A monopole is a tall tower. The small cell is the little radio on a street pole."
+      },
+      {
+       "id": "u6-small-match-01",
+       "kind": "match",
+       "facts": [
+        "site:type:rooftop",
+        "site:type:small-cell",
+        "site:type:stealth"
+       ],
+       "prompt": "Match each site to what it is.",
+       "pairs": [
+        [
+         "Rooftop site",
+         "Antennas on a building roof or edge"
+        ],
+        [
+         "Small cell",
+         "Canister on a pole with a box below"
+        ],
+        [
+         "Stealth site",
+         "Antennas hidden in a disguise"
+        ]
+       ],
+       "why": "Three ways to put antennas where people already are."
+      },
+      {
+       "id": "u6-small-mix-01",
+       "kind": "choice",
+       "facts": [
+        "band:n77"
+       ],
+       "prompt": "Is n77 FDD or TDD?",
+       "choices": [
+        "TDD",
+        "FDD"
+       ],
+       "answer": 0,
+       "why": "The bands file lists n77's duplex as {band:n77.duplex}."
+      },
+      {
+       "id": "u6-small-photo-04",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:rooftop"
+       ],
+       "photo": "small-cell-rooftop-01",
+       "alt": "Several white antennas and radio boxes on a flat roof next to a brick building",
+       "prompt": "Which word fits this picture best?",
+       "choices": [
+        "Guyed mast",
+        "Rooftop site",
+        "Flagpole"
+       ],
+       "answer": 1,
+       "why": "The antennas stand on top of a building, so it is a rooftop site."
+      },
+      {
+       "id": "u6-small-pick-02",
+       "kind": "choice",
+       "facts": [
+        "site:type:small-cell"
+       ],
+       "prompt": "Where do you often see a small cell?",
+       "choices": [
+        "On a street pole",
+        "Inside a fake tree"
+       ],
+       "answer": 0,
+       "why": "{site:type:small-cell.text}"
+      },
+      {
+       "id": "u6-small-pick-03",
+       "kind": "choice",
+       "facts": [
+        "site:type:rooftop",
+        "site:type:small-cell"
+       ],
+       "prompt": "Which one saves building a whole new tower by using a building that is already there?",
+       "choices": [
+        "A rooftop site",
+        "A guyed mast",
+        "A lattice tower"
+       ],
+       "answer": 0,
+       "why": "{site:type:rooftop.text}"
+      }
+     ]
+    },
+    {
+     "id": "unit06-l4",
+     "title": "Temporary and indoor sites",
+     "questions": [
+      {
+       "id": "u6-temp-learn-01",
+       "kind": "learn",
+       "title": "Cell on wheels",
+       "facts": [
+        "site:type:temporary"
+       ],
+       "text": "{site:type:temporary.text} Clue to spot: {site:type:temporary.look}.\n"
+      },
+      {
+       "id": "u6-temp-learn-02",
+       "kind": "learn",
+       "title": "Indoor systems (DAS)",
+       "facts": [
+        "site:type:das"
+       ],
+       "text": "{site:type:das.text} Clue to spot: {site:type:das.look}.\n"
+      },
+      {
+       "id": "u6-temp-photo-01",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:temporary"
+       ],
+       "photo": "site-cow-01",
+       "alt": "A thin temporary mast on the left beside a lattice mast, behind orange fencing",
+       "prompt": "The thin mast on the left was raised for a short time. What is it?",
+       "choices": [
+        "A cell on wheels (COW)",
+        "A flagpole",
+        "A fake tree"
+       ],
+       "answer": 0,
+       "why": "A COW is a portable site used when a normal site is down or a crowd is coming."
+      },
+      {
+       "id": "u6-temp-photo-02",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:das"
+       ],
+       "photo": "type-das-drawing-01",
+       "alt": "A drawing of a stadium with many small antennas spread around the inside",
+       "prompt": "This drawing shows many small antennas spread around a stadium. What is it?",
+       "choices": [
+        "A monopole",
+        "A DAS",
+        "A COW"
+       ],
+       "answer": 1,
+       "why": "Many small antennas spread around a venue is a DAS."
+      },
+      {
+       "id": "u6-temp-stadium-01",
+       "kind": "choice",
+       "facts": [
+        "site:type:das"
+       ],
+       "prompt": "Which fits a stadium best, a DAS or a lattice tower?",
+       "choices": [
+        "Lattice tower",
+        "DAS"
+       ],
+       "answer": 1,
+       "why": "{site:type:das.text}"
+      },
+      {
+       "id": "u6-temp-trailer-01",
+       "kind": "choice",
+       "facts": [
+        "site:type:temporary"
+       ],
+       "prompt": "Which one comes on a trailer, a COW or a DAS?",
+       "choices": [
+        "DAS",
+        "COW"
+       ],
+       "answer": 1,
+       "why": "{site:type:temporary.text}"
+      },
+      {
+       "id": "u6-temp-colt-01",
+       "kind": "choice",
+       "facts": [
+        "site:type:temporary"
+       ],
+       "prompt": "A COLT is built onto what?",
+       "choices": [
+        "A trailer",
+        "A vehicle",
+        "A roof"
+       ],
+       "answer": 1,
+       "why": "{site:type:temporary.text}"
+      },
+      {
+       "id": "u6-temp-share-01",
+       "kind": "choice",
+       "facts": [
+        "site:type:das"
+       ],
+       "prompt": "Who is a DAS often shared by?",
+       "choices": [
+        "Only one carrier",
+        "Several carriers"
+       ],
+       "answer": 1,
+       "why": "{site:type:das.text}"
+      },
+      {
+       "id": "u6-temp-match-01",
+       "kind": "match",
+       "facts": [
+        "site:type:temporary",
+        "site:type:das"
+       ],
+       "prompt": "Match each site to what it is.",
+       "pairs": [
+        [
+         "COW",
+         "Cell site on a trailer"
+        ],
+        [
+         "COLT",
+         "Cell site on a vehicle"
+        ],
+        [
+         "DAS",
+         "Many small antennas in a venue"
+        ]
+       ],
+       "why": "Two kinds of temporary sites and one kind of indoor system."
+      },
+      {
+       "id": "u6-temp-mix-01",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n41/tmobile"
+       ],
+       "prompt": "Which carrier's \"Ultra Capacity\" icon comes from n41?",
+       "choices": [
+        "T-Mobile",
+        "AT&T"
+       ],
+       "answer": 0,
+       "why": "T-Mobile runs n41 as \"Ultra Capacity\". AT&T's checked 5G band is n77."
+      },
+      {
+       "id": "u6-temp-photo-03",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:temporary"
+       ],
+       "photo": "site-cow-01",
+       "alt": "A thin temporary mast on the left beside a lattice mast, behind orange fencing",
+       "prompt": "Is the thin mast on the left a permanent tower or a temporary one?",
+       "choices": [
+        "Permanent",
+        "Temporary"
+       ],
+       "answer": 1,
+       "why": "A COW is raised for a short time, for example when a normal site is down."
+      },
+      {
+       "id": "u6-temp-power-01",
+       "kind": "choice",
+       "facts": [
+        "site:type:temporary"
+       ],
+       "prompt": "A COW has no power lines nearby. What does it run on?",
+       "choices": [
+        "A generator",
+        "A water wheel",
+        "A flagpole"
+       ],
+       "answer": 0,
+       "why": "{site:type:temporary.text}"
+      },
+      {
+       "id": "u6-temp-das-01",
+       "kind": "choice",
+       "facts": [
+        "site:type:das"
+       ],
+       "prompt": "Where would you find a DAS?",
+       "choices": [
+        "Inside or on a big venue",
+        "On a farm field",
+        "On a trailer"
+       ],
+       "answer": 0,
+       "why": "{site:type:das.text}"
+      }
+     ]
+    },
+    {
+     "id": "unit06-check",
+     "title": "Checkpoint: site types",
+     "questions": [
+      {
+       "id": "u6-cp-photo-01",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:lattice"
+       ],
+       "photo": "site-tower-02",
+       "alt": "A tall red and white open steel framework tower",
+       "prompt": "What type of tower is this?",
+       "choices": [
+        "Lattice tower",
+        "Guyed mast",
+        "Monopole"
+       ],
+       "answer": 0,
+       "why": "An open steel frame: a lattice tower.",
+       "outline": {
+        "x": 0.3,
+        "y": 0.02,
+        "w": 0.3,
+        "h": 0.75
+       }
+      },
+      {
+       "id": "u6-cp-photo-02",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:guyed"
+       ],
+       "photo": "type-guyed-drawing-01",
+       "alt": "A drawing of a thin mast with cables running to the ground",
+       "prompt": "What type of tower is in this drawing?",
+       "choices": [
+        "Monopole",
+        "Lattice tower",
+        "Guyed mast"
+       ],
+       "answer": 2,
+       "why": "Cables running to the ground: a guyed mast."
+      },
+      {
+       "id": "u6-cp-photo-03",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:stealth"
+       ],
+       "photo": "site-fake-tree-01",
+       "alt": "A pine-shaped tower with antennas at the top among real trees",
+       "prompt": "What is the disguise?",
+       "choices": [
+        "Flagpole",
+        "Fake tree",
+        "Church steeple"
+       ],
+       "answer": 1,
+       "why": "A too-tidy pine shape taller than the trees around it: a fake tree.",
+       "outline": {
+        "x": 0.4,
+        "y": 0.08,
+        "w": 0.16,
+        "h": 0.75
+       }
+      },
+      {
+       "id": "u6-cp-photo-04",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:stealth"
+       ],
+       "photo": "site-flagpole-01",
+       "alt": "A very tall thin white flagpole with a flag",
+       "prompt": "What is the disguise?",
+       "choices": [
+        "Flagpole",
+        "Fake tree",
+        "Water tank"
+       ],
+       "answer": 0,
+       "why": "The antennas are inside the pole: a flagpole site.",
+       "outline": {
+        "x": 0.4,
+        "y": 0.05,
+        "w": 0.18,
+        "h": 0.8
+       }
+      },
+      {
+       "id": "u6-cp-photo-05",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:stealth"
+       ],
+       "photo": "site-camouflaged-01",
+       "alt": "A brick building corner with brick-coloured boxes hiding antennas",
+       "prompt": "Where are the antennas hidden?",
+       "choices": [
+        "In a fake tree",
+        "In a flagpole",
+        "On the wall of a building"
+       ],
+       "answer": 2,
+       "why": "Boxes painted to match the bricks hide the antennas."
+      },
+      {
+       "id": "u6-cp-photo-06",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:rooftop"
+       ],
+       "photo": "small-cell-rooftop-01",
+       "alt": "Antennas and radio boxes on a flat roof beside a brick building",
+       "prompt": "What type of site is this?",
+       "choices": [
+        "Rooftop site",
+        "Guyed mast",
+        "COW"
+       ],
+       "answer": 0,
+       "why": "Antennas on a building roof: a rooftop site."
+      },
+      {
+       "id": "u6-cp-photo-07",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:small-cell"
+       ],
+       "photo": "small-cell-pole-01",
+       "alt": "A wooden utility pole with a small radio near the top",
+       "prompt": "This small cell is fitted to what?",
+       "choices": [
+        "A flagpole",
+        "A utility pole",
+        "A rooftop"
+       ],
+       "answer": 1,
+       "why": "A small radio on a pole is a small cell."
+      },
+      {
+       "id": "u6-cp-photo-08",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:temporary"
+       ],
+       "photo": "site-cow-01",
+       "alt": "A thin temporary mast beside a lattice mast, behind orange fencing",
+       "prompt": "The thin mast on the left was raised for a short time. What is it?",
+       "choices": [
+        "A cell on wheels (COW)",
+        "A fake tree",
+        "A DAS"
+       ],
+       "answer": 0,
+       "why": "A portable site raised for a short time: a COW."
+      },
+      {
+       "id": "u6-cp-photo-09",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:das"
+       ],
+       "photo": "type-das-drawing-01",
+       "alt": "A drawing of a stadium with many small antennas inside",
+       "prompt": "What is this system?",
+       "choices": [
+        "A COW",
+        "A DAS",
+        "A monopole"
+       ],
+       "answer": 1,
+       "why": "Many small antennas spread around a venue: a DAS."
+      },
+      {
+       "id": "u6-cp-match-01",
+       "kind": "match",
+       "facts": [
+        "site:type:lattice",
+        "site:type:guyed",
+        "site:type:monopole"
+       ],
+       "prompt": "Match each tower to its clue.",
+       "pairs": [
+        [
+         "Lattice tower",
+         "Open steel frame"
+        ],
+        [
+         "Guyed mast",
+         "Cables to the ground"
+        ],
+        [
+         "Monopole",
+         "One tapered pole"
+        ]
+       ],
+       "why": "One decisive clue per type."
+      },
+      {
+       "id": "u6-cp-match-02",
+       "kind": "match",
+       "facts": [
+        "site:type:rooftop",
+        "site:type:small-cell",
+        "site:type:stealth"
+       ],
+       "prompt": "Match each site to what it is.",
+       "pairs": [
+        [
+         "Rooftop site",
+         "Antennas on a building roof or edge"
+        ],
+        [
+         "Small cell",
+         "Canister on a pole with a box below"
+        ],
+        [
+         "Stealth site",
+         "Antennas hidden in a disguise"
+        ]
+       ],
+       "why": "Three ways to put antennas where people already are."
+      },
+      {
+       "id": "u6-cp-match-03",
+       "kind": "match",
+       "facts": [
+        "site:type:temporary",
+        "site:type:das"
+       ],
+       "prompt": "Match each site to what it is.",
+       "pairs": [
+        [
+         "COW",
+         "Cell site on a trailer"
+        ],
+        [
+         "COLT",
+         "Cell site on a vehicle"
+        ],
+        [
+         "DAS",
+         "Many small antennas in a venue"
+        ]
+       ],
+       "why": "Two temporary kinds and one indoor system."
+      },
+      {
+       "id": "u6-cp-concept-01",
+       "kind": "choice",
+       "facts": [
+        "site:type:stealth"
+       ],
+       "prompt": "What does \"stealth\" mean for a cell site?",
+       "choices": [
+        "The antennas are hidden in a disguise",
+        "The signal is extra strong",
+        "It only works at night"
+       ],
+       "answer": 0,
+       "why": "{site:type:stealth.text}"
+      },
+      {
+       "id": "u6-cp-concept-02",
+       "kind": "choice",
+       "facts": [
+        "site:type:guyed"
+       ],
+       "prompt": "Which type needs the biggest patch of land around it?",
+       "choices": [
+        "Monopole",
+        "Guyed mast",
+        "Small cell"
+       ],
+       "answer": 1,
+       "why": "The cables run out to anchors in the ground."
+      },
+      {
+       "id": "u6-cp-mix-01",
+       "kind": "choice",
+       "facts": [
+        "band:n71",
+        "band:n41"
+       ],
+       "prompt": "n71 or n41, which one reaches farther from the tower?",
+       "choices": [
+        "n41",
+        "n71"
+       ],
+       "answer": 1,
+       "why": "n71 starts at {band:n71.dl_low_mhz} MHz and n41 at {band:n41.dl_low_mhz}. Lower frequencies travel farther."
+      },
+      {
+       "id": "u6-cp-mix-02",
+       "kind": "choice",
+       "facts": [
+        "band:n41"
+       ],
+       "prompt": "Is n41 FDD or TDD?",
+       "choices": [
+        "FDD",
+        "TDD"
+       ],
+       "answer": 1,
+       "why": "The bands file lists n41's duplex as {band:n41.duplex}."
       }
      ]
     }
