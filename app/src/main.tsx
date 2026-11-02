@@ -11,6 +11,10 @@ import { loadState, saveState, EMPTY_STATE, type SaveState } from './storage';
 import { FpsMeter } from './FpsMeter';
 import { prefs } from './prefs';
 import { REAL_PATH } from './units';
+import { HeatMap } from './HeatMap';
+import { buildHeatmap, type BandRow, type RawLesson } from './heatmap';
+import rawLessons from '../../content/lessons.json';
+import { DATA } from './sampleLessons';
 
 // The real lessons, unless an automatic test asks for the samples (see electron/preload.cjs).
 const PATH = (window as unknown as { cellApi?: { useSamplePath?: boolean } }).cellApi?.useSamplePath ? SAMPLE_PATH : REAL_PATH;
@@ -19,6 +23,7 @@ function App() {
   const [state, setState] = useState<SaveState | null>(null);
   const [playing, setPlaying] = useState<string | null>(null);
   const [showSettings, setShowSettings] = useState(false);
+  const [showHeat, setShowHeat] = useState(false);
   const [notice, setNotice] = useState('');
   const loaded = useRef(false);
 
@@ -45,11 +50,16 @@ function App() {
         {lesson ? (
           <LessonPlayer key={lesson.id} lesson={lesson} onQuit={() => setPlaying(null)}
             onFinish={r => { setState(p => p && finishLesson(p, lesson.id, r)); setPlaying(null); }} />
+        ) : showHeat ? (
+          <HeatMap onBack={() => setShowHeat(false)} cells={buildHeatmap(DATA.bands as unknown as BandRow[],
+            (rawLessons as unknown as { units: { lessons: RawLesson[] }[] }).units.flatMap(u => u.lessons), s.reviews, Date.now())} />
         ) : showSettings ? (
           <SettingsScreen settings={s.settings} onChange={settings => setState(p => p && { ...p, settings })} onBack={() => setShowSettings(false)} />
         ) : (
           <>
             <div style={{ textAlign: 'right', padding: '12px 16px 0' }}>
+              <button data-testid="open-heatmap" aria-label="Band memory heatmap" onClick={() => setShowHeat(true)}
+                style={{ border: 0, background: 'transparent', fontSize: 24, cursor: 'pointer' }}>🌡️</button>
               <button data-testid="open-settings" aria-label="Settings" onClick={() => setShowSettings(true)}
                 style={{ border: 0, background: 'transparent', fontSize: 24, cursor: 'pointer' }}>⚙️</button>
             </div>

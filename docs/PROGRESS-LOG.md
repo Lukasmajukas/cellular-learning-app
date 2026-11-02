@@ -4,6 +4,7 @@ One or two plain-English lines per chat. Newest at the top.
 
 | Date | What happened | Details |
 |---|---|---|
+| 2026-11-02 | Robot built the band memory heatmap: a 🌡️ button opens tiles for every band you are taught, green when you remember it, red when it is fading, grey when new. | `docs/sessions/2026-11-02-session-66-t34-heatmap.md` |
 | 2026-11-02 | Robot added 3 number-tag questions to the unit 5 checkpoint, so it now tests lesson 4 too (18 questions, still 3 to 5 minutes). | `docs/sessions/2026-11-02-session-65-t34-unit-5-check-codes.md` |
 | 2026-11-02 | Robot wrote the number-tag lesson (unit 5, lesson 4): what the two-part number a network sends means, and which tag is T-Mobile, AT&T, Verizon and FirstNet. Unit 5 now has all 4 lessons plus its checkpoint. | `docs/sessions/2026-11-02-session-64-t34-unit-5-l4.md` |
 | 2026-11-02 | Robot wrote unit 5, "Who uses what": fingerprint bands, 5G icons, the 2025–26 spectrum sales and a checkpoint (54 questions, all 3 to 5 minutes, only checked facts). Only the number-tag lesson is left in T34. | `docs/sessions/2026-11-02-session-63-t34-unit-5.md` |
