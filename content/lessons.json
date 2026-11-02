@@ -4622,6 +4622,191 @@
      ]
     },
     {
+     "id": "unit05-l4",
+     "title": "Number tags",
+     "questions": [
+      {
+       "id": "u5-code-learn-01",
+       "kind": "learn",
+       "title": "A phone's name tag",
+       "facts": [
+        "code:310-260"
+       ],
+       "text": "Every phone network sends out a number tag with two parts, like {code:310-260.mcc}-{code:310-260.mnc}. The first part is called the MCC. The second part is called the MNC. In our list, {code:310-260.mcc}-{code:310-260.mnc} belongs to {code:310-260.shows_as}.\n"
+      },
+      {
+       "id": "u5-code-learn-02",
+       "kind": "learn",
+       "title": "Same company, many tags",
+       "facts": [
+        "code:310-010",
+        "code:310-012",
+        "code:311-480"
+       ],
+       "text": "One carrier can own many tags. Verizon, for example, has {code:310-010.mcc}-{code:310-010.mnc}, {code:310-012.mcc}-{code:310-012.mnc} and {code:311-480.mcc}-{code:311-480.mnc}, plus more. So the tag tells you who runs the network, but one carrier can have a whole pile of tags.\n"
+      },
+      {
+       "id": "u5-code-learn-03",
+       "kind": "learn",
+       "title": "Names can change, tags stay",
+       "facts": [
+        "code:311-580",
+        "code:313-100"
+       ],
+       "text": "A tag can keep an old name after a sale. {code:311-580.mcc}-{code:311-580.mnc} still shows as \"{code:311-580.shows_as}\", but the company running it is {code:311-580.operator}. FirstNet ({code:313-100.mcc}-{code:313-100.mnc}) is run by {code:313-100.operator}.\n"
+      },
+      {
+       "id": "u5-code-match-01",
+       "kind": "match",
+       "facts": [
+        "code:310-260",
+        "code:310-410",
+        "code:311-480",
+        "code:313-100"
+       ],
+       "prompt": "Match each number tag to the name it shows.",
+       "pairs": [
+        [
+         "{code:310-260.id}",
+         "{code:310-260.shows_as}"
+        ],
+        [
+         "{code:310-410.id}",
+         "{code:310-410.shows_as}"
+        ],
+        [
+         "{code:311-480.id}",
+         "{code:311-480.shows_as}"
+        ],
+        [
+         "{code:313-100.id}",
+         "{code:313-100.shows_as}"
+        ]
+       ],
+       "why": "These four tags are checked against the US registry."
+      },
+      {
+       "id": "u5-code-tmo-01",
+       "kind": "choice",
+       "facts": [
+        "code:310-260"
+       ],
+       "prompt": "Which carrier shows the tag {code:310-260.id}?",
+       "choices": [
+        "T-Mobile",
+        "AT&T",
+        "Verizon"
+       ],
+       "answer": 0,
+       "why": "{code:310-260.id} shows as {code:310-260.shows_as}."
+      },
+      {
+       "id": "u5-code-att-01",
+       "kind": "choice",
+       "facts": [
+        "code:310-410"
+       ],
+       "prompt": "Which carrier shows the tag {code:310-410.id}?",
+       "choices": [
+        "Verizon",
+        "AT&T",
+        "T-Mobile"
+       ],
+       "answer": 1,
+       "why": "{code:310-410.id} shows as {code:310-410.shows_as}."
+      },
+      {
+       "id": "u5-code-vz-01",
+       "kind": "choice",
+       "facts": [
+        "code:311-480"
+       ],
+       "prompt": "Which carrier shows the tag {code:311-480.id}?",
+       "choices": [
+        "AT&T",
+        "T-Mobile",
+        "Verizon"
+       ],
+       "answer": 2,
+       "why": "{code:311-480.id} shows as {code:311-480.shows_as}."
+      },
+      {
+       "id": "u5-code-312530-01",
+       "kind": "choice",
+       "facts": [
+        "code:312-530"
+       ],
+       "prompt": "The tag {code:312-530.id} is run by which company?",
+       "choices": [
+        "Charter (Spectrum)",
+        "T-Mobile",
+        "Verizon"
+       ],
+       "answer": 1,
+       "why": "The registry says {code:312-530.operator}. It is not Charter's Spectrum, even though some old lists say so."
+      },
+      {
+       "id": "u5-code-uscc-01",
+       "kind": "choice",
+       "facts": [
+        "code:311-580"
+       ],
+       "prompt": "The tag {code:311-580.id} still shows \"{code:311-580.shows_as}\". Who runs it now?",
+       "choices": [
+        "UScellular",
+        "T-Mobile",
+        "AT&T"
+       ],
+       "answer": 1,
+       "why": "The registry lists it under T-Mobile. The code changed hands."
+      },
+      {
+       "id": "u5-code-firstnet-01",
+       "kind": "choice",
+       "facts": [
+        "code:313-100"
+       ],
+       "prompt": "FirstNet is for police, fire and ambulance. Which carrier runs it?",
+       "choices": [
+        "AT&T",
+        "Verizon"
+       ],
+       "answer": 0,
+       "why": "{code:313-100.id} is run by {code:313-100.operator}."
+      },
+      {
+       "id": "u5-code-mcc-01",
+       "kind": "choice",
+       "facts": [
+        "code:310-260",
+        "code:311-480"
+       ],
+       "prompt": "Which part of {code:310-260.id} is the MNC, the carrier part?",
+       "choices": [
+        "{code:310-260.mcc}",
+        "{code:310-260.mnc}"
+       ],
+       "answer": 1,
+       "why": "The first part is the MCC. The second part, {code:310-260.mnc}, is the MNC."
+      },
+      {
+       "id": "u5-code-many-01",
+       "kind": "choice",
+       "facts": [
+        "code:310-010",
+        "code:311-480"
+       ],
+       "prompt": "Are {code:310-010.id} and {code:311-480.id} the same carrier?",
+       "choices": [
+        "Yes, both show as Verizon",
+        "No, they are two different carriers"
+       ],
+       "answer": 0,
+       "why": "Both are Verizon tags. One carrier can own many tags."
+      }
+     ]
+    },
+    {
      "id": "unit05-check",
      "title": "Checkpoint: who uses what",
      "questions": [

@@ -1,12 +1,12 @@
 {
- "asOf": "2026-11-02 (robot, T34 unit 5)",
+ "asOf": "2026-11-02 (robot, T34 unit 5 lesson 4)",
  "robot": {
   "on": true,
   "next": "right away (it starts its next job by itself), and every hour",
-  "last": "wrote unit 5 lessons 1–3 and the checkpoint (T34)"
+  "last": "wrote unit 5 lesson 4, number tags (T34)"
  },
  "light": "green",
- "working": "Nothing in progress. Next up: T34 unit 5 lesson 4 (number tags). T26 photos wait for Commons; T47 needs official page links from you. Optional for you: T48 questions and your frame-rate number (T46).",
+ "working": "Nothing in progress. Next up: T34 checkpoint code questions, then scenario puzzles. T26 photos wait for Commons; T47 needs official page links from you. Optional for you: T48 questions and your frame-rate number (T46).",
  "limit": {
   "state": "fine (it reset after a pause)",
   "resets": "unknown"
