@@ -4,6 +4,7 @@ One or two plain-English lines per chat. Newest at the top.
 
 | Date | What happened | Details |
 |---|---|---|
+| 2026-11-02 | T34 part 1 (robot): the data file now has a 5G icon field (3 checked rows) and a list of 35 carrier number tags (25 checked), and the fact checker knows about both. Nothing you can see changes yet. | [note](sessions/2026-11-02-session-61-t34-data-plumbing.md) |
 | 2026-11-02 | T34 (robot): wrote the lesson plan for units 4–5 (capacity bands; who uses what). Unit 5 is smaller for now because many carrier facts are still unchecked. | [plan](curriculum/units-4-5.md) |
 | 2026-11-02 | T26 (robot): tried the next photo (fake tree, New Jersey) again; Wikimedia said "too many requests" even after a wait. Nothing changed. 6 still to look at. | [note](sessions/2026-11-02-session-59-t26-photos-15.md) |
 | 2026-11-01 | T26 (robot): tried the next photo (fake tree, New Jersey) twice; Wikimedia said "too many requests" both times. Nothing changed. 6 still to look at. | [note](sessions/2026-11-01-session-58-t26-photos-14.md) |
