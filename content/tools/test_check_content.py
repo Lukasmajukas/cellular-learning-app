@@ -260,3 +260,48 @@ class HardwareAndCellIds(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+class MadeUpNumbers(unittest.TestCase):
+    """Unit 9 drill numbers are typed in the lessons, so the checker recomputes every one (decision G4)."""
+    ROOT = Path(__file__).resolve().parent.parent
+
+    def test_calc_examples(self):
+        self.assertEqual(cc.calc_value({"eci": [102006, 2]}), 26113538)   # the research's worked example
+        self.assertEqual(cc.calc_value({"enb": [26113538]}), 102006)
+        self.assertEqual(cc.calc_value({"cell": [26113538]}), 2)
+        self.assertEqual(cc.calc_value({"gnb": [417816578, 24]}), 102006)
+        self.assertEqual(cc.calc_value({"mhz_b66": [66786]}), 2145)       # the research's worked B66 example
+        self.assertEqual(cc.calc_value({"count": [3, 4]}), 12)
+        self.assertIsNone(cc.calc_value({"eci": [1, 300]}))               # a cell number must fit in 8 bits
+        self.assertIsNone(cc.calc_value({"gnb": [5, 40]}))                # gNB bits are 22 to 32
+        self.assertIsNone(cc.calc_value({"bogus": [1]}))
+
+    def test_wrong_answer_and_missing_calc_fail(self):
+        q = dict(id="u9-x", kind="number", facts=["band:B2"], answer=13, calc={"count": [3, 4]})
+        with tempfile.TemporaryDirectory() as t:
+            e = cc.run(make(t, questions=[q]))
+        self.assertTrue(any("does not match the calc" in x for x in e))
+        q2 = dict(id="u9-y", kind="number", facts=["band:B2"], answer=12)
+        with tempfile.TemporaryDirectory() as t:
+            e = cc.run(make(t, questions=[q2]))
+        self.assertTrue(any("needs a calc" in x for x in e))
+        q3 = dict(q, answer=12)
+        with tempfile.TemporaryDirectory() as t:
+            self.assertFalse(any("calc" in x for x in cc.run(make(t, questions=[q3]))))
+
+    def test_unit9_channel_numbers_land_in_the_right_band(self):
+        import re, yaml
+        ranges = {r["values"]["band"]: (r["values"]["n_low"], r["values"]["n_high"])
+                  for r in json.loads((self.ROOT / "cell-ids.json").read_text())["cell_ids"] if r["id"].startswith("lte:earfcn-b") and "values" in r}
+        seen = 0
+        for f in sorted((self.ROOT / "lessons" / "unit-09").glob("*.yaml")):
+            for q in yaml.safe_load(f.read_text())["questions"]:
+                m = re.search(r"channel number (\d+)\. Which band|Channel (\d+) (?:is in which band|falls in)", q.get("prompt", ""))
+                if q.get("kind") == "choice" and m:
+                    n = int(m.group(1) or m.group(2))
+                    right = q["choices"][q["answer"]]
+                    self.assertIn(right, ranges, q["id"])
+                    lo, hi = ranges[right]
+                    self.assertTrue(lo <= n <= hi, f"{q['id']}: {n} is not in {right}")
+                    seen += 1
+        self.assertGreaterEqual(seen, 6)

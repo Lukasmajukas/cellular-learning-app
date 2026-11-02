@@ -1,0 +1,90 @@
+unit: unit09
+unit_title: Cell IDs
+lesson: unit09-l1
+title: "Site, sector, cell"
+questions:
+  - id: u9-cell-learn-01
+    kind: learn
+    title: Site, sector, cell
+    facts: [cellid:cls:sectors]
+    text: >
+      A site is the place with the tower. A sector is one direction, like one slice of a pizza. A cell is one band on one sector. {cellid:cls:sectors.text}
+  - id: u9-cell-count-01
+    kind: choice
+    facts: [cellid:cls:sectors]
+    prompt: A site has 3 sectors and each sector uses 2 bands. How many cells is that, roughly?
+    choices: ["3", "6", "9"]
+    answer: 1
+    why: 3 sectors times 2 bands is 6 cells. It is a good rule of thumb, not a law.
+  - id: u9-cell-count-02
+    kind: number
+    facts: [cellid:cls:sectors]
+    prompt: A site has 3 sectors and each uses 4 bands. How many cells is that, roughly?
+    answer: 12
+    calc: {count: [3, 4]}
+    why: 3 sectors times 4 bands is 12 cells.
+  - id: u9-cell-count-03
+    kind: number
+    facts: [cellid:cls:sectors]
+    prompt: A site has 3 sectors and each uses 3 bands. How many cells is that, roughly?
+    answer: 9
+    calc: {count: [3, 3]}
+    why: 3 sectors times 3 bands is 9 cells.
+  - id: u9-cell-slice-01
+    kind: choice
+    facts: [cellid:cls:sectors]
+    prompt: About how much of a circle does one sector face?
+    choices: [About a third, About half, The whole circle]
+    answer: 0
+    why: Three sectors share the circle, so each faces about a third.
+  - id: u9-cell-learn-02
+    kind: learn
+    title: Cell sizes
+    facts: [cellid:cls:classes]
+    text: >
+      {cellid:cls:classes.text} Think of shirts: macro is extra large, femto is extra small.
+  - id: u9-cell-wide-01
+    kind: choice
+    facts: [cellid:cls:classes]
+    prompt: Which cell size covers the widest area?
+    choices: [Femto, Macro, Pico]
+    answer: 1
+    why: Macro cells sit on towers above the rooftops and reach the farthest.
+  - id: u9-cell-home-01
+    kind: choice
+    facts: [cellid:cls:classes]
+    prompt: Which size is the home cell, found only in 4G and not in 5G?
+    choices: [Macro, Micro, Femto]
+    answer: 2
+    why: Home cells are femto cells, and they exist only in LTE.
+  - id: u9-cell-mall-01
+    kind: choice
+    facts: [cellid:cls:classes]
+    prompt: A small cell inside a mall is a local-area cell. Which size is that?
+    choices: [Pico, Macro]
+    answer: 0
+    why: Pico means local area, such as inside a mall.
+  - id: u9-cell-match-01
+    kind: match
+    facts: [cellid:cls:classes]
+    prompt: Match each size to where it lives.
+    pairs:
+      - [Macro, On a tower above the rooftops]
+      - [Micro, Below the rooftops]
+      - [Pico, Inside a mall]
+      - [Femto, In a home]
+    why: From widest to smallest, the size follows where the cell lives.
+  - id: u9-cell-mix-01
+    kind: choice
+    facts: [site:type:lattice, site:type:small-cell]
+    prompt: Which site usually holds a macro cell, a lattice tower or a small cell on a pole?
+    choices: [The lattice tower, The small cell on a pole]
+    answer: 0
+    why: A tall tower serves a wide area. A small cell on a pole serves a small one.
+  - id: u9-cell-mix-02
+    kind: choice
+    facts: [site:type:small-cell]
+    prompt: A small cell on a pole is more likely a macro cell or a micro cell?
+    choices: [Micro, Macro]
+    answer: 0
+    why: Small cells sit below the rooftops, so they are micro or smaller.

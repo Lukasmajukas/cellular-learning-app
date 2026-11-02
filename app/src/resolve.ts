@@ -8,7 +8,7 @@ export type Def = {
   prompt?: string; why?: string; text?: string; title?: string; show?: string[];
   choices?: string[]; answer?: number;
   pairs?: [string, string][];
-  answer_from?: string; tolerance_mhz?: number; unit?: string;
+  answer_from?: string; tolerance_mhz?: number; unit?: string; calc?: Record<string, number[]>;
   bands?: string[]; sort_by?: string;
   photo?: string; alt?: string; outline?: Rect; target?: Rect; clue?: string;
   clues?: { text: string; choices: string[]; answer: number; why?: string }[];
@@ -47,7 +47,11 @@ export function resolveItem(d: Def, data: Data): Item {
       return { ...base, kind: 'match', prompt: f(d.prompt), pairs: d.pairs.map(([a, b]) => [f(a), f(b)] as [string, string]) };
     }
     case 'number': {
-      if (!d.answer_from) throw new Error(`${d.id}: number needs answer_from`);
+      // A made-up drill number (unit 9) has a typed `answer` plus a `calc` the content checker recomputes; every other number comes from a data file.
+      if (!d.answer_from) {
+        if (typeof d.answer !== 'number' || !d.calc) throw new Error(`${d.id}: number needs answer_from, or answer plus calc`);
+        return { ...base, kind: 'number', prompt: f(d.prompt), answer: d.answer, tolerance: d.tolerance_mhz ?? 0, unit: d.unit };
+      }
       const v = Number(lookup(d.answer_from, data));
       if (Number.isNaN(v)) throw new Error(`${d.id}: answer_from is not a number`);
       return { ...base, kind: 'number', prompt: f(d.prompt), answer: v, tolerance: d.tolerance_mhz ?? 5, unit: d.unit };

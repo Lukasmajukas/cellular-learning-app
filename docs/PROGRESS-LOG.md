@@ -4,6 +4,7 @@ One or two plain-English lines per chat. Newest at the top.
 
 | Date | What happened | Details |
 |---|---|---|
+| 2026-11-02 | Unit 9 (cell IDs) is written: 4 lessons plus a checkpoint, 63 questions, all 3 to 5 minutes, with a drawn practice phone screen (made-up numbers) you tap on. The fact checker now re-does every made-up sum, so a wrong answer can't slip in. | Robot run, T36; `docs/sessions/2026-11-02-session-86-t36-unit9.md` |
 | 2026-11-02 | Unit 8 (hardware) is written: 4 lessons plus a checkpoint, 63 questions, all 3 to 5 minutes, using Claude's five box and port drawings. The app can now fill in hardware and cell-ID facts, ready for unit 9. | Robot run, T36; `docs/sessions/2026-11-02-session-85-t36-unit8.md` |
 | 2026-11-02 | Robot drew five pictures for unit 8: the three kinds of tower box (plain panel, radio unit, massive MIMO) and the 6-port and 8-port panels. They are simple drawings, not real models. | `docs/sessions/2026-11-02-session-84-t36-drawings.md` |
 | 2026-11-02 | Robot built the two fact lists for units 8 and 9 (tower hardware, and what the numbers on a phone test screen mean), each fact with a source and a date. The fact checker now blocks any question that rests on a forum-only pattern or an unchecked number. | `docs/sessions/2026-11-02-session-83-t36-data.md` |

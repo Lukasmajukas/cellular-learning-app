@@ -1,0 +1,115 @@
+unit: unit09
+unit_title: Cell IDs
+lesson: unit09-check
+title: "Cell ID certification"
+questions:
+  - id: u9-cp-count-01
+    kind: number
+    facts: [cellid:cls:sectors]
+    prompt: A site has 3 sectors and each uses 4 bands. How many cells is that, roughly?
+    answer: 12
+    calc: {count: [3, 4]}
+    why: 3 sectors times 4 bands is 12 cells.
+  - id: u9-cp-size-01
+    kind: choice
+    facts: [cellid:cls:classes]
+    prompt: Which size is the home cell?
+    choices: [Macro, Pico, Femto]
+    answer: 2
+    why: Femto cells are the home size, and they exist only in LTE.
+  - id: u9-cp-size-02
+    kind: choice
+    facts: [cellid:cls:classes]
+    prompt: Which size covers the widest area?
+    choices: [Femto, Macro, Pico]
+    answer: 1
+    why: Macro cells reach the farthest.
+  - id: u9-cp-sector-01
+    kind: choice
+    facts: [cellid:cls:sectors]
+    prompt: One sector faces about how much of a circle, when a site has 3?
+    choices: [A third, A half, All of it]
+    answer: 0
+    why: Three sectors share the circle.
+  - id: u9-cp-eci-01
+    kind: number
+    facts: [cellid:lte:eci]
+    prompt: A cell number is 38,405 (150 times 256 is 38,400). What is the tower number?
+    answer: 150
+    calc: {enb: [38405]}
+    why: 38,405 divided by 256 is 150, with 5 left over.
+  - id: u9-cp-eci-02
+    kind: number
+    facts: [cellid:lte:eci]
+    prompt: Same cell number, 38,405. What is the cell number?
+    answer: 5
+    calc: {cell: [38405]}
+    why: 150 times 256 is 38,400. The leftover is 5.
+  - id: u9-cp-eci-03
+    kind: number
+    facts: [cellid:lte:eci]
+    prompt: The tower is 300 and the cell is 4. What is the big cell number?
+    answer: 76804
+    calc: {eci: [300, 4]}
+    why: 300 times 256 is 76,800. Plus 4 is 76,804.
+  - id: u9-cp-nci-01
+    kind: number
+    facts: [cellid:nr:nci]
+    prompt: A 5G cell number is 417,816,578 and the tower part is 24 bits. What is the tower number?
+    answer: 102006
+    calc: {gnb: [417816578, 24]}
+    why: Drop the last 12 bits, which hold the cell, and 102,006 is left.
+  - id: u9-cp-ear-01
+    kind: choice
+    facts: [cellid:lte:earfcn-b13]
+    prompt: Channel 5200 is in which band?
+    choices: [B12, B13, B66, B71]
+    answer: 1
+    why: B13 runs from 5180 to 5279.
+  - id: u9-cp-ear-02
+    kind: choice
+    facts: [cellid:lte:earfcn-b71]
+    prompt: Channel 68700 is in which band?
+    choices: [B12, B13, B66, B71]
+    answer: 3
+    why: B71 runs from 68586 to 68935.
+  - id: u9-cp-ear-03
+    kind: number
+    facts: [cellid:lte:earfcn-formula, cellid:lte:earfcn-b66]
+    prompt: B66 channel 66786. B66 starts at channel 66436 and 2110 MHz, and each step is 0.1 MHz. What is the frequency in MHz?
+    answer: 2145
+    calc: {mhz_b66: [66786]}
+    unit: MHz
+    why: 350 steps is 35 MHz. 2110 plus 35 is 2145 MHz.
+  - id: u9-cp-scr-01
+    kind: tap-clue
+    facts: [cellid:lte:earfcn-formula]
+    photo: tool-phone-screen-drawing-01
+    alt: A drawn phone test screen with three boxes, Cell ID, PCI and Channel
+    prompt: Tap the number that tells you the band.
+    clue: the Channel (EARFCN) box
+    target: {x: 0.30, y: 0.50625, w: 0.40, h: 0.1375}
+    why: The channel number points at the band.
+  - id: u9-cp-scr-02
+    kind: tap-clue
+    facts: [cellid:lte:eci]
+    photo: tool-phone-screen-drawing-01
+    alt: A drawn phone test screen with three boxes, Cell ID, PCI and Channel
+    prompt: Tap the number that holds the tower number.
+    clue: the Cell ID (ECI) box
+    target: {x: 0.30, y: 0.19375, w: 0.40, h: 0.1375}
+    why: Divide the Cell ID by 256 to get the tower.
+  - id: u9-cp-mix-01
+    kind: choice
+    facts: [site:evidence:order]
+    prompt: Which clue counts most for who runs a site?
+    choices: [The carrier's own sticker, A radio brand guessed from a number, The PCI]
+    answer: 0
+    why: "{site:evidence:order.text}"
+  - id: u9-cp-mix-02
+    kind: choice
+    facts: [site:type:small-cell, cellid:cls:classes]
+    prompt: A small cell on a pole is usually which size?
+    choices: [Micro or smaller, Macro]
+    answer: 0
+    why: Small cells sit below the rooftops, so they are micro or smaller.

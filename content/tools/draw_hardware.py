@@ -57,6 +57,29 @@ def mimo():
     return wrap(body)
 
 
+# Practice phone screen (unit 9): MADE-UP numbers on a drawn screen, not a real phone's. 400 x 320.
+# The three white boxes are the tap targets in unit 9 (fractions of the picture): x 0.30, w 0.40, h 0.1375, y 0.19375 / 0.35 / 0.50625.
+PHONE_ROWS = [("Cell ID (ECI)", "51207"), ("PCI", "211"), ("Channel (EARFCN)", "66800")]
+
+
+def phone_screen():
+    f = 'font-family="sans-serif"'
+    body = f'<rect width="400" height="320" fill="#eef3f8"/>'
+    body += f'<rect x="100" y="8" width="200" height="304" rx="26" fill="{DARK}"/>'
+    body += '<rect x="112" y="24" width="176" height="272" rx="8" fill="#ffffff"/>'
+    body += f'<rect x="112" y="24" width="176" height="26" rx="8" fill="{GREY}"/>'
+    body += f'<text x="200" y="42" text-anchor="middle" {f} font-size="13" font-weight="bold" fill="#ffffff">FIELD TEST (practice)</text>'
+    for i, (label, value) in enumerate(PHONE_ROWS):
+        y = 62 + i * 50
+        body += f'<rect x="120" y="{y}" width="160" height="44" rx="6" fill="#f4f7fa" stroke="{LIGHT}" stroke-width="2"/>'
+        body += f'<text x="128" y="{y+15}" {f} font-size="11" fill="{GREY}">{label}</text>'
+        body += f'<text x="128" y="{y+36}" {f} font-size="20" font-weight="bold" fill="{DARK}">{value}</text>'
+    body += f'<text x="200" y="250" text-anchor="middle" {f} font-size="11" fill="{GREY}">made-up numbers</text>'
+    body += f'<text x="200" y="266" text-anchor="middle" {f} font-size="11" fill="{GREY}">drawing, not a real phone screen</text>'
+    body += f'<rect x="176" y="300" width="48" height="5" rx="2.5" fill="{GREY}"/>'
+    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 320">{body}</svg>'
+
+
 def main():
     files = {
         "form-passive-panel-drawing-01": panel(2, 0, "Passive panel (only cables inside)"),
@@ -64,17 +87,19 @@ def main():
         "form-massive-mimo-drawing-01": mimo(),
         "ports-hexport-drawing-01": panel(6, 0, "Hexport panel: 6 ports"),
         "ports-nnhh-drawing-01": panel(8, 4, "8-port panel: 4 low + 4 mid"),
+        "tool-phone-screen-drawing-01": phone_screen(),
     }
+    tall = {"tool-phone-screen-drawing-01"}
     SVG_DIR.mkdir(parents=True, exist_ok=True)
     JS = ("const {chromium}=require('playwright');(async()=>{const b=await chromium.launch();"
           "const p=await b.newPage({viewport:{width:800,height:480}});"
-          "for(const [s,o] of JSON.parse(process.argv[1])){await p.goto('file://'+s);"
+          "for(const [s,o,h] of JSON.parse(process.argv[1])){await p.setViewportSize({width:800,height:h});await p.goto('file://'+s);"
           "await p.waitForLoadState('load');await p.screenshot({path:o});}await b.close();})()")
     tmp = pathlib.Path(tempfile.mkdtemp())
     jobs = []
     for name, svg in files.items():
         (SVG_DIR / f"{name}.svg").write_text(svg)
-        jobs.append([str(SVG_DIR / f"{name}.svg"), str(tmp / f"{name}.png")])
+        jobs.append([str(SVG_DIR / f"{name}.svg"), str(tmp / f"{name}.png"), 640 if name in tall else 480])
     subprocess.run(["node", "-e", JS, __import__("json").dumps(jobs)], check=True)
     for name in files:
         subprocess.run(["convert", str(tmp / f"{name}.png"), "-quality", "85", str(OUT_DIR / f"{name}.webp")], check=True)

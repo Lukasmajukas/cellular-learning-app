@@ -1,0 +1,90 @@
+unit: unit09
+unit_title: Cell IDs
+lesson: unit09-l3
+title: "Channel number to band"
+questions:
+  - id: u9-ear-learn-01
+    kind: learn
+    title: The channel number
+    facts: [cellid:lte:earfcn-formula]
+    text: >
+      {cellid:lte:earfcn-formula.text} Think of a radio dial: the number points at one exact spot.
+  - id: u9-ear-learn-02
+    kind: learn
+    title: Four bands we can check
+    facts: [cellid:lte:earfcn-b12, cellid:lte:earfcn-b13, cellid:lte:earfcn-b66, cellid:lte:earfcn-b71]
+    text: >
+      {cellid:lte:earfcn-b12.text} {cellid:lte:earfcn-b13.text} {cellid:lte:earfcn-b66.text} {cellid:lte:earfcn-b71.text}
+  - id: u9-ear-band-01
+    kind: choice
+    facts: [cellid:lte:earfcn-b13]
+    prompt: A phone shows channel number 5200. Which band is that?
+    choices: [B12, B13, B66, B71]
+    answer: 1
+    why: 5200 is inside B13, which runs from 5180 to 5279.
+  - id: u9-ear-band-02
+    kind: choice
+    facts: [cellid:lte:earfcn-b71]
+    prompt: A phone shows channel number 68700. Which band is that?
+    choices: [B12, B13, B66, B71]
+    answer: 3
+    why: 68700 is inside B71, which runs from 68586 to 68935.
+  - id: u9-ear-band-03
+    kind: choice
+    facts: [cellid:lte:earfcn-b66]
+    prompt: A phone shows channel number 66800. Which band is that?
+    choices: [B12, B13, B66, B71]
+    answer: 2
+    why: 66800 is inside B66, which runs from 66436 to 67335.
+  - id: u9-ear-band-04
+    kind: choice
+    facts: [cellid:lte:earfcn-b12]
+    prompt: A phone shows channel number 5100. Which band is that?
+    choices: [B12, B13, B66, B71]
+    answer: 0
+    why: 5100 is inside B12, which runs from 5010 to 5179.
+  - id: u9-ear-mhz-01
+    kind: number
+    facts: [cellid:lte:earfcn-formula, cellid:lte:earfcn-b66]
+    prompt: "B66 channel 66786. B66 starts at channel 66436 and at 2110 MHz, and each channel step is 0.1 MHz. What is the frequency in MHz?"
+    answer: 2145
+    calc: {mhz_b66: [66786]}
+    unit: MHz
+    why: 66786 minus 66436 is 350 steps. 350 times 0.1 is 35 MHz. 2110 plus 35 is 2145 MHz.
+  - id: u9-ear-mhz-02
+    kind: number
+    facts: [cellid:lte:earfcn-formula, cellid:lte:earfcn-b66]
+    prompt: "B66 channel 66936. It starts 500 steps above 66436. What is the frequency in MHz?"
+    answer: 2160
+    calc: {mhz_b66: [66936]}
+    unit: MHz
+    why: 500 steps times 0.1 MHz is 50 MHz. 2110 plus 50 is 2160 MHz.
+  - id: u9-ear-b71-01
+    kind: number
+    facts: [band:B71]
+    prompt: B71 starts at how many MHz in the downlink?
+    answer_from: band:B71.dl_low_mhz
+    tolerance_mhz: 5
+    unit: MHz
+    why: B71 runs from {band:B71.dl_low_mhz} to {band:B71.dl_high_mhz} MHz.
+  - id: u9-ear-low-01
+    kind: choice
+    facts: [band:B71, band:B66]
+    prompt: Which band is lower in frequency, B71 or B66?
+    choices: [B71, B66]
+    answer: 0
+    why: B71 starts at {band:B71.dl_low_mhz} MHz and B66 at {band:B66.dl_low_mhz} MHz.
+  - id: u9-ear-big-01
+    kind: choice
+    facts: [cellid:lte:earfcn-b12, cellid:lte:earfcn-b66]
+    prompt: B12 channels are around 5000 and B66 channels are around 66000. Does a bigger channel number always mean a higher frequency?
+    choices: ["No, each band has its own range", "Yes, always"]
+    answer: 0
+    why: Each band has its own channel range, so a band's number range has to be looked up.
+  - id: u9-ear-band-05
+    kind: choice
+    facts: [cellid:lte:earfcn-b12, cellid:lte:earfcn-b13]
+    prompt: Channel 5250 falls in B12 or B13?
+    choices: [B13, B12]
+    answer: 0
+    why: B13 runs from 5180 to 5279, and 5250 is inside it.

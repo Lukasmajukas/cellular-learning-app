@@ -1,0 +1,99 @@
+unit: unit09
+unit_title: Cell IDs
+lesson: unit09-l2
+title: "The big cell number"
+questions:
+  - id: u9-eci-learn-01
+    kind: learn
+    title: Two numbers in one
+    facts: [cellid:lte:eci]
+    text: >
+      The big cell number on a phone's test screen hides two small numbers, like a phone number hides an area code. {cellid:lte:eci.text}
+  - id: u9-eci-learn-02
+    kind: learn
+    title: A worked example
+    facts: [cellid:lte:eci]
+    text: >
+      Say the cell number is 26,113,538. Divide by 256 and you get 102,006 (the tower). What is left over is 2 (the cell). Check it: 102,006 times 256 plus 2 is 26,113,538. These are practice numbers, not a real site.
+  - id: u9-eci-enb-01
+    kind: number
+    facts: [cellid:lte:eci]
+    prompt: A cell number is 25,605. It is 25,600 plus 5, and 25,600 is 100 times 256. What is the tower (eNB) number?
+    answer: 100
+    calc: {enb: [25605]}
+    why: 25,605 divided by 256 is 100, with 5 left over.
+  - id: u9-eci-cell-01
+    kind: number
+    facts: [cellid:lte:eci]
+    prompt: Same cell number, 25,605. What is the cell number (the leftover)?
+    answer: 5
+    calc: {cell: [25605]}
+    why: 100 times 256 is 25,600, and 25,605 is 5 more.
+  - id: u9-eci-make-01
+    kind: number
+    facts: [cellid:lte:eci]
+    prompt: The tower is 1000 and the cell is 3. What is the big cell number?
+    answer: 256003
+    calc: {eci: [1000, 3]}
+    why: 1000 times 256 is 256,000. Add the cell, 3, and you get 256,003.
+  - id: u9-eci-enb-02
+    kind: number
+    facts: [cellid:lte:eci]
+    prompt: A cell number is 30,722. What is the tower number? (Hint 120 times 256 is 30,720.)
+    answer: 120
+    calc: {enb: [30722]}
+    why: 30,722 is 30,720 plus 2, so the tower is 120 and the cell is 2.
+  - id: u9-eci-pci-01
+    kind: choice
+    facts: [cellid:lte:pci]
+    prompt: Two cells show the same PCI. Are they at the same site?
+    choices: ["Not necessarily, PCIs get reused", "Yes, always"]
+    answer: 0
+    why: "{cellid:lte:pci.text}"
+  - id: u9-eci-band-01
+    kind: choice
+    facts: [cellid:lte:earfcn-formula]
+    prompt: Which number on the screen tells you the band?
+    choices: [The channel number (EARFCN), The PCI, The cell number]
+    answer: 0
+    why: "{cellid:lte:earfcn-formula.text}"
+  - id: u9-eci-learn-03
+    kind: learn
+    title: 5G is a bit different
+    facts: [cellid:nr:nci]
+    text: >
+      {cellid:nr:nci.text}
+  - id: u9-eci-gap-01
+    kind: choice
+    facts: [cellid:nr:gnb-length-unknown]
+    prompt: The same 5G cell number can decode to two different sites. Why?
+    choices: [The carrier decides how many bits belong to the tower, The phone picks one at random, 5G has no tower numbers]
+    answer: 0
+    why: "{cellid:nr:gnb-length-unknown.text}"
+  - id: u9-eci-nci-01
+    kind: number
+    facts: [cellid:nr:nci]
+    prompt: A 5G cell number is 417,816,578. Say the tower part is 24 bits. What is the tower (gNB) number?
+    answer: 102006
+    calc: {gnb: [417816578, 24]}
+    why: With 24 bits for the tower, the last 12 bits are the cell. Dropping them leaves 102,006.
+  - id: u9-eci-nci-02
+    kind: number
+    facts: [cellid:nr:nci, cellid:nr:gnb-length-unknown]
+    prompt: Same 5G cell number, 417,816,578, but now say the tower part is 22 bits. What is the tower number?
+    answer: 25501
+    calc: {gnb: [417816578, 22]}
+    why: A different bit length gives a different tower number, 25,501. That is why a drill always says the bit length.
+  - id: u9-eci-vendor-01
+    kind: learn
+    title: Brand guesses
+    no_facts_needed: true
+    text: >
+      {cellid:us:vendor-from-id.text} Treat it like a rumour, not a fact.
+  - id: u9-eci-mix-01
+    kind: choice
+    facts: [site:evidence:order]
+    prompt: A map app guesses the radio brand from a number. Which clue counts more for who runs a site?
+    choices: [The carrier's own sticker, The brand guess from a number]
+    answer: 0
+    why: "{site:evidence:order.text}"

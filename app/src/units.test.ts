@@ -203,3 +203,36 @@ describe('unit 8 content (hardware)', () => {
     expect(text).not.toMatch(/Verizon[^"]{0,40}AIR 6449 B77D/);
   });
 });
+
+describe('unit 9 content (cell IDs)', () => {
+  const u9 = allLessons(REAL_PATH).filter(l => l.id.startsWith('unit09-'));
+  const qs = u9.flatMap(l => l.questions) as any[];
+  it('has 4 lessons and a checkpoint, all resolved', () => {
+    expect(u9.map(l => l.id)).toEqual(['unit09-l1', 'unit09-l2', 'unit09-l3', 'unit09-l4', 'unit09-check']);
+    u9.forEach(l => expect(l.questions.length).toBeGreaterThanOrEqual(10));
+  });
+  it('made-up number questions keep their typed answer with no slack', () => {
+    const nums = qs.filter(q => q.kind === 'number' && q.id.startsWith('u9-eci'));
+    expect(nums.length).toBeGreaterThanOrEqual(5);
+    nums.forEach(q => { expect(q.tolerance, q.id).toBe(0); expect(Number.isInteger(q.answer), q.id).toBe(true); });
+    expect(qs.find(q => q.id === 'u9-eci-enb-01').answer).toBe(100);
+    expect(qs.find(q => q.id === 'u9-ear-mhz-01').answer).toBe(2145);
+  });
+  it('the practice screen is a drawing with three tap boxes inside the picture', () => {
+    const taps = qs.filter(q => q.kind === 'tap-clue');
+    expect(taps.length).toBeGreaterThanOrEqual(5);
+    taps.forEach(q => {
+      expect(q.photo.src, q.id).toContain('tool-phone-screen-drawing-01');
+      expect(q.photo.credit, q.id).toMatch(/Claude/);
+      expect(q.target.y + q.target.h, q.id).toBeLessThanOrEqual(1);
+    });
+  });
+  it('every choice has one right answer, no facts are left unfilled, and no real tower numbers appear', () => {
+    qs.filter(q => q.choices).forEach(q => {
+      expect(q.answer, q.id).toBeGreaterThanOrEqual(0);
+      expect(q.answer, q.id).toBeLessThan(q.choices.length);
+      expect(new Set(q.choices).size, q.id).toBe(q.choices.length);
+    });
+    expect(JSON.stringify(qs)).not.toMatch(/\{(site|band|carrier_use|cellid):/);
+  });
+});
