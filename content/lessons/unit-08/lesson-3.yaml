@@ -1,0 +1,94 @@
+unit: unit08
+unit_title: Hardware
+lesson: unit08-l3
+title: "Decode a model name"
+questions:
+  - id: u8-model-learn-01
+    kind: learn
+    title: Reading AIR 6449 B41
+    facts: [hardware:model:air-64xx]
+    text: >
+      Ericsson's AIR means Antenna Integrated Radio. In "AIR 6449" the first two digits usually match the radio paths: 64 means 64T64R. In "AIR 3268" it is 32. This is a pattern in the examples we found, not a law.
+  - id: u8-model-learn-02
+    kind: learn
+    title: The ending shows the band
+    facts: [hardware:model:air-suffix, band:B41, band:B48]
+    text: >
+      The ending of an Ericsson AIR name shows the band. B41 is 2.5 GHz (it starts at {band:B41.dl_low_mhz} MHz). B77D is C-band. B48 is CBRS (it starts at {band:B48.dl_low_mhz} MHz).
+  - id: u8-model-learn-03
+    kind: learn
+    title: Two bands in one name
+    facts: [hardware:model:radio-dual]
+    text: >
+      A dual-band Ericsson radio lists both bands in its name, such as Radio 4449 B5/B13 or Radio 4480 B71+B85.
+  - id: u8-model-band-01
+    kind: choice
+    facts: [hardware:model:air-suffix]
+    prompt: The name AIR 6449 B41 ends in B41. What does that tell you?
+    choices: [The box has 41 ports, The box is for band 41, The box has 41 antennas]
+    answer: 1
+    why: The ending shows the band. B41 is band 41.
+  - id: u8-model-paths-01
+    kind: choice
+    facts: [hardware:model:air-64xx]
+    prompt: In AIR 6449, the first two digits are 64. About how many radio paths is that?
+    choices: ["32", "64", "128"]
+    answer: 1
+    why: 64 means 64T64R, a usual pattern, not a law.
+  - id: u8-model-paths-02
+    kind: choice
+    facts: [hardware:model:air-64xx]
+    prompt: AIR 3268 starts with 32. It probably has...
+    choices: [32 paths, 64 paths]
+    answer: 0
+    why: The first two digits usually match the paths. That is a pattern in the examples, not a law.
+  - id: u8-model-c-01
+    kind: choice
+    facts: [hardware:model:air-suffix]
+    prompt: Which spectrum does the ending B77D mean?
+    choices: [C-band, CBRS, 2.5 GHz]
+    answer: 0
+    why: B77D is C-band.
+  - id: u8-model-match-01
+    kind: match
+    facts: [hardware:model:air-suffix]
+    prompt: Match each ending to its spectrum.
+    pairs:
+      - [B41, 2.5 GHz]
+      - [B77D, C-band]
+      - [B48, CBRS]
+    why: The ending of an Ericsson AIR name shows the band.
+  - id: u8-model-dual-01
+    kind: choice
+    facts: [hardware:model:radio-dual]
+    prompt: Radio 4480 B71+B85 lists two bands. How many bands does it cover?
+    choices: ["One", "Two", "Three"]
+    answer: 1
+    why: B71 and B85 are two bands in one radio.
+  - id: u8-model-dual-02
+    kind: choice
+    facts: [hardware:model:radio-dual]
+    prompt: Which name shows a dual-band radio?
+    choices: [Radio 4449 B5/B13, AIR 6449 B41]
+    answer: 0
+    why: B5/B13 lists two bands. AIR 6449 B41 lists one.
+  - id: u8-model-nokia-01
+    kind: learn
+    title: Nokia names
+    facts: [hardware:model:nokia-aehc]
+    text: >
+      Nokia's AEHC is the AirScale MAA 64T64R 192AE B41: a 64T64R massive MIMO box for band 41.
+  - id: u8-model-nokia-02
+    kind: choice
+    facts: [hardware:model:nokia-aehc]
+    prompt: Nokia's AEHC is a 64T64R massive MIMO box for which band?
+    choices: [Band 41, Band 71, Band 13]
+    answer: 0
+    why: The AEHC is made for band 41.
+  - id: u8-model-mix-01
+    kind: choice
+    facts: [band:B41, band:n41]
+    prompt: A box ends in B41. Which 5G band name matches the same airwaves?
+    choices: [n41, n71, n77]
+    answer: 0
+    why: n41 uses the same airwaves as B41 (it starts at {band:n41.dl_low_mhz} MHz).

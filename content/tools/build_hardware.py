@@ -34,7 +34,7 @@ ROWS = [
  ("form:radio-unit", "form", "P", "A radio unit (RRU or RRH, a remote radio head) is a small box that makes the signal. Short cables, called jumpers, link it to the connectors of a passive panel.", S_RRH, {}),
  ("form:massive-mimo", "form", "P", "A massive MIMO box has the radio and a big array of small antennas (about 128 to 192) in one box. It usually has no jumpers to a separate panel. These boxes serve fast mid-band (TDD) spectrum such as n41, n77 and CBRS.", S_AAU, {}),
  ("form:massive-mimo-pole", "form", "P", "Massive MIMO boxes often sit on their own support pipe next to the passive panels of the same sector.", f"{NOTE} question 3: Montgomery County MC2021061469 (AIR 6449 B41 installed on new support pipes for sectors 2 and 3); page not opened here", {}),
- ("ports:hexport", "ports", "W", "A hexport panel (like the SBNHH) has 6 connectors: one for low band and two pairs for mid band.", S_PANEL, {}),
+ ("ports:hexport", "ports", "W", "A hexport panel (like the SBNHH) has 6 connectors. We have not checked how they split between low and mid band.", S_PANEL, {}),
  ("ports:nnhh", "ports", "W", "An NNHH panel has 8 connectors: 4 for low band and 4 for mid band.", S_PANEL, {}),
  ("ports:ntnr", "ports", "inference", "A band that works as 4T4R needs 4 antenna ports, so counting a band's ports usually tells you its T and R number. This is a good guess from how the panels are built, not a law.", f"{NOTE} question 3 (inference from the panel and radio listings above)", {}),
  ("ports:panel-length", "ports", "W", "In a CommScope panel name, the last letter is the length: A is 1.3 m, B is 2.0 m and C is 2.6 m. In the band letters, N means 698 to 896 MHz and H means 1710 to 2180 MHz.", S_PANEL, {}),

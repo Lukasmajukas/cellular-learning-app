@@ -1,0 +1,103 @@
+unit: unit08
+unit_title: Hardware
+lesson: unit08-l1
+title: "Three kinds of boxes"
+questions:
+  - id: u8-box-learn-01
+    kind: learn
+    title: Boxes on the tower
+    facts: [hardware:form:passive-panel, hardware:form:radio-unit, hardware:form:massive-mimo]
+    text: >
+      Up on a tower you will see three kinds of boxes. Think of a speaker setup: a plain speaker, an amplifier, and a speaker with the amplifier built in. The tower has the same three jobs.
+  - id: u8-box-learn-02
+    kind: learn
+    title: The plain panel
+    facts: [hardware:form:passive-panel]
+    photo: form-passive-panel-drawing-01
+    text: >
+      A passive panel antenna is a tall plastic cover with no electronics inside. Its cable connectors sit in a row at the bottom. "Passive" means it only passes the signal along.
+  - id: u8-box-learn-03
+    kind: learn
+    title: The radio box
+    facts: [hardware:form:radio-unit]
+    photo: form-radio-unit-drawing-01
+    text: >
+      A radio unit is a small box that makes the signal. Short cables, called jumpers, link it to the connectors of a passive panel. People also call it an RRU or RRH.
+  - id: u8-box-learn-04
+    kind: learn
+    title: The massive MIMO box
+    facts: [hardware:form:massive-mimo]
+    photo: form-massive-mimo-drawing-01
+    text: >
+      A massive MIMO box has the radio and a big array of small antennas (about 128 to 192) in one box. It usually has no jumpers to a separate panel.
+  - id: u8-box-draw-01
+    kind: photo-choice
+    facts: [hardware:form:passive-panel]
+    photo: form-passive-panel-drawing-01
+    alt: A drawing of a tall flat antenna cover with a row of connectors at the bottom
+    prompt: Which box is in this drawing?
+    choices: [Passive panel, Radio unit, Massive MIMO box]
+    answer: 0
+    why: A tall cover with a row of connectors at the bottom is a passive panel.
+  - id: u8-box-draw-02
+    kind: photo-choice
+    facts: [hardware:form:radio-unit]
+    photo: form-radio-unit-drawing-01
+    alt: A drawing of a small finned box with short cables coming out
+    prompt: Which box is in this drawing?
+    choices: [Massive MIMO box, Passive panel, Radio unit]
+    answer: 2
+    why: A small box with short cables (jumpers) to a panel is a radio unit.
+  - id: u8-box-draw-03
+    kind: photo-choice
+    facts: [hardware:form:massive-mimo]
+    photo: form-massive-mimo-drawing-01
+    alt: A drawing of one big box covered with a grid of small antenna squares
+    prompt: Which box is in this drawing?
+    choices: [Radio unit, Massive MIMO box, Passive panel]
+    answer: 1
+    why: One big box with a grid of tiny antennas is a massive MIMO box.
+  - id: u8-box-empty-01
+    kind: choice
+    facts: [hardware:form:passive-panel]
+    prompt: Which box has no electronics inside?
+    choices: [Radio unit, Passive panel, Massive MIMO box]
+    answer: 1
+    why: A passive panel is only a cover and cables.
+  - id: u8-box-jumper-01
+    kind: choice
+    facts: [hardware:form:radio-unit]
+    prompt: Short cables called jumpers link a panel to which box?
+    choices: [Radio unit, Massive MIMO box]
+    answer: 0
+    why: The radio unit makes the signal and sends it to the panel through jumpers.
+  - id: u8-box-allinone-01
+    kind: choice
+    facts: [hardware:form:massive-mimo]
+    prompt: Which box usually has its own antennas inside, with no jumpers to a separate panel?
+    choices: [Passive panel, Massive MIMO box, Radio unit]
+    answer: 1
+    why: The radio and the antenna array share one box. "Usually" is the word to keep, because setups differ.
+  - id: u8-box-match-01
+    kind: match
+    facts: [hardware:form:passive-panel, hardware:form:radio-unit, hardware:form:massive-mimo]
+    prompt: Match each box to its clue.
+    pairs:
+      - [Passive panel, Only a cover and cables]
+      - [Radio unit, Small box that makes the signal]
+      - [Massive MIMO box, Radio and many antennas in one]
+    why: Each box has one clue that decides it.
+  - id: u8-box-mix-01
+    kind: choice
+    facts: [hardware:form:massive-mimo, band:n41]
+    prompt: n41 is fast mid-band spectrum. Which box is often used for it?
+    choices: [Plain panel only, Massive MIMO box]
+    answer: 1
+    why: Massive MIMO boxes serve fast mid-band (TDD) spectrum such as n41, n77 and CBRS.
+  - id: u8-box-mix-02
+    kind: choice
+    facts: [hardware:form:massive-mimo-pole]
+    prompt: Where does a massive MIMO box often sit?
+    choices: [Inside the plastic cover of a panel, On its own support pipe next to the panels]
+    answer: 1
+    why: Massive MIMO boxes often sit on their own support pipe next to the passive panels of the same sector.

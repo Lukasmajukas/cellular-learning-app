@@ -19,5 +19,7 @@ if cp.exists():
     for p in yaml.safe_load(cp.read_text(encoding="utf-8")) or []:
         photos.append({k: p[k] for k in ("id", "file", "title", "author", "licence")})
 sites = json.loads((content / "sites.json").read_text(encoding="utf-8"))["sites"] if (content / "sites.json").exists() else []
-(content / "lessons.json").write_text(json.dumps({"photos": photos, "sites": sites, "units": units}, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+hardware = json.loads((content / "hardware.json").read_text(encoding="utf-8"))["hardware"] if (content / "hardware.json").exists() else []
+cell_ids = json.loads((content / "cell-ids.json").read_text(encoding="utf-8"))["cell_ids"] if (content / "cell-ids.json").exists() else []
+(content / "lessons.json").write_text(json.dumps({"photos": photos, "sites": sites, "hardware": hardware, "cell_ids": cell_ids, "units": units}, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
 print(f"Wrote content/lessons.json: {len(units)} unit(s), {sum(len(u['lessons']) for u in units)} lesson(s).")

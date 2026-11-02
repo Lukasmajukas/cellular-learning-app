@@ -1,0 +1,101 @@
+unit: unit08
+unit_title: Hardware
+lesson: unit08-l4
+title: "Who uses which box"
+questions:
+  - id: u8-use-learn-01
+    kind: learn
+    title: Paper clues
+    facts: [hardware:evidence:brand-weakest]
+    text: >
+      Carriers must file papers when they put radios on a tower. Those filings name the radios. Think of them as a paper clue. They tell you what a box is, but the carrier's own sticker still counts most and the equipment brand counts least.
+  - id: u8-use-b41-01
+    kind: choice
+    facts: [hardware:use:air6449-b41-tmobile]
+    prompt: T-Mobile's filings list the Ericsson AIR 6449 B41. Which band does T-Mobile run on it?
+    choices: [n41, n71, n260]
+    answer: 0
+    why: AIR 6449 B41 is a T-Mobile n41 (2.5 GHz) radio.
+  - id: u8-use-b77d-01
+    kind: choice
+    facts: [hardware:use:air6449-b77d-attvz]
+    prompt: The Ericsson AIR 6449 B77D is a C-band radio. Which carrier is named in its filings?
+    choices: [AT&T, T-Mobile]
+    answer: 0
+    why: AT&T is named in its filings. Verizon's C-band uses Samsung boxes in the filings we found.
+  - id: u8-use-samsung-01
+    kind: choice
+    facts: [hardware:use:samsung-verizon]
+    prompt: Whose filings list the Samsung MT6407-77A, a 64T64R C-band all-in-one?
+    choices: [Verizon, T-Mobile, AT&T]
+    answer: 0
+    why: Verizon's filings list that Samsung box.
+  - id: u8-use-4480-01
+    kind: choice
+    facts: [hardware:use:4480-b71-b85]
+    prompt: A T-Mobile tower-share notice lists the Radio 4480 B71+B85. Which low band is one of its two?
+    choices: [B71 (600 MHz), B41]
+    answer: 0
+    why: B71 is the 600 MHz band, and T-Mobile runs it as n71.
+  - id: u8-use-scenario-01
+    kind: scenario
+    facts: [hardware:evidence:brand-weakest, hardware:use:air6449-b41-tmobile]
+    prompt: You see an Ericsson AIR 6449 B41 on a tower. A sticker on the fence says Verizon. What do you make of it?
+    clues:
+      - text: Which clue is stronger?
+        choices: [The radio brand, The carrier's own sticker]
+        answer: 1
+        why: The sticker counts most and the brand counts least.
+      - text: The box is a known T-Mobile model. What could be going on?
+        choices: ["The sticker must be wrong", "The tower may be shared, so look for more clues"]
+        answer: 1
+        why: A model name tells you what a box is, not always who runs it. Shared towers are common.
+  - id: u8-use-weak-01
+    kind: choice
+    facts: [hardware:evidence:brand-weakest]
+    prompt: Which is the stronger clue?
+    choices: [The carrier's sticker, The equipment brand]
+    answer: 0
+    why: The sticker counts most and the brand counts least.
+  - id: u8-use-weak-02
+    kind: choice
+    facts: [hardware:evidence:brand-weakest]
+    prompt: A radio's model name tells you...
+    choices: ["Always who runs it", "What the box is, but not always who runs it"]
+    answer: 1
+    why: Models are sold to many carriers. The name says what it is, not always who runs it.
+  - id: u8-use-mix-01
+    kind: choice
+    facts: [carrier_use:n41/tmobile]
+    prompt: n41 is mostly which carrier's?
+    choices: [T-Mobile, Verizon]
+    answer: 0
+    why: The bands file has a checked CURRENT row for T-Mobile on n41.
+  - id: u8-use-mix-02
+    kind: choice
+    facts: [carrier_use:n77/att, carrier_use:n77/verizon]
+    prompt: Which pair of carriers has a checked row for n77 C-band?
+    choices: [AT&T and Verizon, T-Mobile and C Spire]
+    answer: 0
+    why: The bands file has CURRENT rows for AT&T and Verizon on n77. The T-Mobile and C Spire rows are unchecked.
+  - id: u8-use-rf4440-01
+    kind: choice
+    facts: [hardware:use:samsung-verizon]
+    prompt: Verizon's filings also list the Samsung RF4440d-13A. What kind of radio is it?
+    choices: [A 700/850 MHz low-band radio, A mmWave radio, A C-band all-in-one]
+    answer: 0
+    why: The RF4440d-13A is a 700/850 MHz radio. The MT6407-77A is the C-band all-in-one.
+  - id: u8-use-c-all-01
+    kind: choice
+    facts: [hardware:use:air6449-b77d-attvz, hardware:use:samsung-verizon]
+    prompt: AT&T's filings name an Ericsson C-band box. Verizon's name a Samsung one. Which is true?
+    choices: [Both carriers use the same box, Different carriers can use different brands for C-band]
+    answer: 1
+    why: Brands differ by carrier. That is why the brand is the weakest clue.
+  - id: u8-use-mix-03
+    kind: choice
+    facts: [hardware:form:massive-mimo, band:n77]
+    prompt: n77 is C-band. Which box is often used for fast mid-band spectrum like it?
+    choices: [Massive MIMO box, Passive panel]
+    answer: 0
+    why: Massive MIMO boxes serve fast mid-band (TDD) spectrum such as n41, n77 and CBRS.
