@@ -1,12 +1,12 @@
 {
- "asOf": "2026-11-02 (robot, T34 heatmap)",
+ "asOf": "2026-11-02 (robot, T34 scenario puzzles)",
  "robot": {
   "on": true,
   "next": "right away (it starts its next job by itself), and every hour",
-  "last": "built the band memory heatmap (T34)"
+  "last": "built scenario puzzles (T34)"
  },
  "light": "green",
- "working": "Nothing in progress. Next up: T34 scenario puzzles. T26 photos wait for Commons; T47 needs official page links from you. Optional for you: T48 questions and your frame-rate number (T46).",
+ "working": "Nothing in progress. Next up: T35 (photo questions, units 6–7) once photos are checked; T26 waits for Commons; T47 needs official page links from you. Optional for you: T48 questions and your frame-rate number (T46).",
  "limit": {
   "state": "fine (it reset after a pause)",
   "resets": "unknown"

@@ -30,6 +30,7 @@ function Question({ q, locked, picked, onSubmit }: { q: Scored; locked: boolean;
   const [text, setText] = useState('');
   const [left, setLeft] = useState<number | null>(null), [paired, setPaired] = useState<(number | null)[]>(() => (q.kind === 'match' ? q.pairs.map(() => null) : []));
   const [placed, setPlaced] = useState<string[]>([]);
+  const [picks, setPicks] = useState<(number | null)[]>(() => (q.kind === 'scenario' ? q.clues.map(() => null) : []));
   const rightOrder = useMemo(() => (q.kind === 'match' ? shuffled(q.pairs.map((_, i) => i), q.id) : []), [q]);
   const orderPool = useMemo(() => (q.kind === 'order' ? shuffled(q.items.map(i => i.label), q.id) : []), [q]);
   if (q.kind === 'choice') return <>{q.choices.map((c, i) => (
@@ -55,6 +56,18 @@ function Question({ q, locked, picked, onSubmit }: { q: Scored; locked: boolean;
       </div>
       <button data-testid="check" disabled={locked || !all} onClick={() => onSubmit(paired as number[])} style={{ ...btn('#4a90d9'), marginTop: 12, opacity: all ? 1 : 0.5 }}>Check</button></>;
   }
+  if (q.kind === 'scenario') {
+    const all = picks.every(p => p !== null);
+    return <>
+      {q.clues.map((c, ci) => (
+        <div key={c.text} data-testid={`clue-${ci}`} style={{ textAlign: 'left', margin: '10px 0' }}>
+          <div style={{ fontSize: 17, marginBottom: 4 }}>🔎 {c.text}</div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>{c.choices.map((ch, i) => (
+            <button key={ch} data-testid={`clue-${ci}-choice-${i}`} disabled={locked} onClick={() => setPicks(p => p.map((v, k) => (k === ci ? i : v)))}
+              style={{ ...tile(!locked ? (picks[ci] === i ? '#dbeafe' : '#fff') : i === c.answer ? '#d7ffb8' : picks[ci] === i ? '#ffdfe0' : '#fff', picks[ci] === i && !locked ? '#4a90d9' : '#cfd8e0'), width: 'auto', margin: 0, fontSize: 16 }}>{ch}</button>))}</div>
+        </div>))}
+      <button data-testid="check" disabled={locked || !all} onClick={() => onSubmit(picks as number[])} style={{ ...btn('#4a90d9'), marginTop: 12, opacity: all ? 1 : 0.5 }}>Check</button></>;
+  }
   const rest = orderPool.filter(l => !placed.includes(l));
   return <>
     <div data-testid="order-placed" style={{ minHeight: 56, display: 'flex', flexWrap: 'wrap', gap: 6, justifyContent: 'center', padding: 8, border: '2px dashed #cfd8e0', borderRadius: 14 }}>
@@ -73,6 +86,7 @@ function Feedback({ q, ok, a }: { q: Scored; ok: boolean; a: Answer }) {
       {!ok && <div data-testid="right-answer">Right answer: {rightAnswerText(q)}</div>}
       {!ok && q.kind === 'choice' && typeof a === 'number' && <div>You picked: {q.choices[a]}</div>}
       {!ok && q.kind === 'number' && <div>You typed: {String(a)}</div>}
+      {q.kind === 'scenario' && Array.isArray(a) && q.clues.map((c, i) => <div key={c.text} data-testid={`clue-why-${i}`} style={{ marginTop: 4 }}>{(a as number[])[i] === c.answer ? '✅' : '❌'} {c.text}: {c.choices[c.answer]}{c.why ? `. ${c.why}` : ''}</div>)}
       {q.why && <div data-testid="why" style={{ marginTop: 6 }}>{q.why}</div>}
       {q.badge && <div data-testid="badge" style={{ marginTop: 6, fontSize: 13 }}>{q.badge.status} · as of {q.badge.asOf}</div>}
       {q.kind === 'order' && <SpectrumBar testId="order-bar" ranges={correctOrder(q).map(l => q.items.find(i => i.label === l)!).map(i => ({ label: i.label, low: i.low, high: i.high }))} />}

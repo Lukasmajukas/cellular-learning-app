@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { REAL_PATH } from './units';
 import { DATA } from './sampleLessons';
 import { allLessons } from './path';
+import { mark, rightAnswerText } from './questions';
 
 const band = (id: string) => DATA.bands.find(b => b.id === id) as Record<string, any>;
 // The app's own tier rule (decision D1): low = starts below 1000 MHz, high = mmWave (FR2), mid = the rest.
@@ -108,5 +109,20 @@ describe('unit 5 content', () => {
   });
   it('no question text leaves a template unfilled', () => {
     JSON.stringify(u5()).split('{').length === 1 || expect(JSON.stringify(u5())).not.toMatch(/\{(band|carrier_use|change|code):/);
+  });
+});
+
+describe('scenario puzzles', () => {
+  const sc = allLessons(REAL_PATH).flatMap(l => l.questions).filter((q: any) => q.kind === 'scenario') as any[];
+  it('at least one scenario exists with filled-in clues', () => {
+    expect(sc.length).toBeGreaterThanOrEqual(1);
+    sc.forEach(q => { expect(q.clues.length).toBeGreaterThanOrEqual(2); expect(JSON.stringify(q)).not.toMatch(/\{(band|carrier_use|change|code):/); });
+  });
+  it('is right only when every clue is right', () => {
+    const q = sc[0];
+    expect(mark(q, q.clues.map((c: any) => c.answer))).toBe(true);
+    expect(mark(q, q.clues.map((c: any, i: number) => (i === 0 ? (c.answer + 1) % c.choices.length : c.answer)))).toBe(false);
+    expect(mark(q, [q.clues[0].answer])).toBe(false);
+    expect(rightAnswerText(q)).toContain(q.clues[0].choices[q.clues[0].answer]);
   });
 });

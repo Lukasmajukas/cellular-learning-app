@@ -20,5 +20,10 @@ export const TYPES_DEMO: Def[] = [
     bands: ['B2', 'B71', 'B5', 'B12'], sort_by: 'dl_low_mhz', why: 'Sorted by where each downlink starts (MHz).' },
   { id: 'demo-carrier-01', kind: 'choice', facts: ['carrier_use:n71/tmobile', 'carrier_use:n71/boost'], prompt: 'Which of these runs 5G n71 (600 MHz) today?', choices: ['T-Mobile', 'Dish / Boost (it used to, then sold it)'], answer: 0,
     why: 'Carrier facts always show how sure we are and the date we checked.' },
+  { id: 'demo-scenario-01', kind: 'scenario', facts: ['band:B71', 'band:B2'], prompt: 'Two clues from a phone screen. What does each one tell you?',
+    clues: [
+      { text: 'The band is B71', choices: ['Low band', 'Mid band'], answer: 0, why: 'B71 starts at {band:B71.dl_low_mhz} MHz, under 1000.' },
+      { text: 'The band is B2', choices: ['Low band', 'Mid band'], answer: 1, why: 'B2 starts at {band:B2.dl_low_mhz} MHz, above 1000.' },
+    ] },
 ];
 export const typesDemoItems = (): Item[] => resolveLesson(TYPES_DEMO, DATA);
