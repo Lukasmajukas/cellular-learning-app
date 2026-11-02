@@ -68,6 +68,9 @@ Claude adds new words here whenever they come up.
 | **Frequency** | How fast a radio wave wiggles. It's measured in MHz (millions of wiggles per second) or GHz (billions). |
 | **Band** | A numbered "radio lane". LTE bands start with B (like B12); 5G bands start with n (like n71). |
 | **Low / mid / high band** | Low bands travel far and go through walls, but are slower. High bands are super fast, but only reach a short distance. Mid bands are in between. |
+| **Capacity band** | A wide band (like n41 or n77) that carries lots of data over shorter distances, instead of reaching far. |
+| **CBRS** | A shared band at 3550–3700 MHz (B48/n48). |
+| **Fingerprint band** | A band that points to one carrier, like n71 for T-Mobile. Check the date: these change. |
 | **mmWave** | The highest bands (n258, n260, n261). Very fast, very short range. |
 | **LTE (4G)** | The older network type. |
 | **5G NR** | The newer network type. "NR" means New Radio. |
