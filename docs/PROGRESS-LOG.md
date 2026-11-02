@@ -4,6 +4,7 @@ One or two plain-English lines per chat. Newest at the top.
 
 | Date | What happened | Details |
 |---|---|---|
+| 2026-11-02 | Robot tried the last 4 lesson photos; the photo website said "too many requests" again, so nothing changed. | `docs/sessions/2026-11-02-session-75-t26-last-photos.md` |
 | 2026-11-02 | Robot downloaded 14 of the 18 lesson photos from Wikimedia Commons (4 were refused for now: "too many requests"). | `docs/sessions/2026-11-02-session-74-t26-photo-downloads.md` |
 | 2026-11-02 | Robot fixed the two photos that showed car number plates: both are now downloaded and cropped so no plate shows. | `docs/sessions/2026-11-02-session-73-t26-more-photos.md` |
 | 2026-11-02 | Robot built two new question types: "which type is this?" with a photo, and "tap the clue" on a picture (a wrong tap shows where the right spot was). A demo lesson with a drawing plays them. Also fixed the checker so it really refuses AI-made photos. | docs/sessions/2026-11-02-session-72-t35-question-types.md |
