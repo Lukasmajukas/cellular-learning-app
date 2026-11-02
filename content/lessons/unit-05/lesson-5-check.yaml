@@ -1,0 +1,113 @@
+unit: unit05
+unit_title: Who uses what
+lesson: unit05-check
+title: "Checkpoint: who uses what"
+questions:
+  - id: u5-cp-fp-01
+    kind: choice
+    facts: [carrier_use:n41/tmobile]
+    prompt: T-Mobile's "{carrier_use:n41/tmobile.icon}" is built on which band?
+    choices: [n260, n41, n77]
+    answer: 1
+    why: T-Mobile runs n41 ({carrier_use:n41/tmobile.status}, {carrier_use:n41/tmobile.as_of}).
+  - id: u5-cp-fp-02
+    kind: choice
+    facts: [carrier_use:n260/verizon, band:n260]
+    prompt: Which carrier runs the mmWave band n260?
+    choices: [Verizon, T-Mobile, AT&T]
+    answer: 0
+    why: n260 is {band:n260.kind}, and Verizon has a CURRENT row for it.
+  - id: u5-cp-fp-03
+    kind: choice
+    facts: [carrier_use:n77/att, carrier_use:n77/verizon]
+    prompt: Which carriers run n77?
+    choices: ["AT&T and Verizon", "T-Mobile only", "Cellcom only"]
+    answer: 0
+    why: Both AT&T and Verizon have CURRENT rows for n77.
+  - id: u5-cp-icon-01
+    kind: choice
+    facts: [carrier_use:n77/verizon]
+    prompt: Which carrier shows "{carrier_use:n77/verizon.icon}"?
+    choices: [AT&T, T-Mobile, Verizon]
+    answer: 2
+    why: The icon is on Verizon's n77 row.
+  - id: u5-cp-icon-02
+    kind: choice
+    facts: [carrier_use:n77/att]
+    prompt: Which carrier shows "{carrier_use:n77/att.icon}"?
+    choices: [AT&T, Verizon, T-Mobile]
+    answer: 0
+    why: The icon is on AT&T's n77 row.
+  - id: u5-cp-icon-03
+    kind: match
+    facts: [carrier_use:n77/verizon, carrier_use:n77/att, carrier_use:n41/tmobile]
+    prompt: Match each icon to its carrier.
+    pairs:
+      - ["{carrier_use:n77/verizon.icon}", "Verizon"]
+      - ["{carrier_use:n77/att.icon}", "AT&T"]
+      - ["{carrier_use:n41/tmobile.icon}", "T-Mobile"]
+    why: The icon names come from the CURRENT rows in the bands file.
+  - id: u5-cp-sale-01
+    kind: choice
+    facts: [change:0]
+    prompt: In {change:0.date}, who took over most of UScellular's network?
+    choices: [AT&T, T-Mobile, Verizon]
+    answer: 1
+    why: The deal with {change:0.to} closed {change:0.date}.
+  - id: u5-cp-sale-02
+    kind: choice
+    facts: [change:6]
+    prompt: On {change:6.date}, AT&T bought n77 and 600 MHz spectrum. From whom?
+    choices: [EchoStar, Array, T-Mobile]
+    answer: 0
+    why: The seller was {change:6.from}.
+  - id: u5-cp-sale-03
+    kind: choice
+    facts: [change:7]
+    prompt: Who sold 800 MHz spectrum to Grain Management on {change:7.date}?
+    choices: [EchoStar, AT&T, T-Mobile]
+    answer: 2
+    why: The seller was {change:7.from}.
+  - id: u5-cp-mix-01
+    kind: number
+    facts: [band:n41]
+    prompt: n41 starts at how many MHz?
+    answer_from: band:n41.dl_low_mhz
+    tolerance_mhz: 5
+    unit: MHz
+    why: n41 runs from {band:n41.dl_low_mhz} to {band:n41.dl_high_mhz} MHz.
+  - id: u5-cp-mix-02
+    kind: choice
+    facts: [band:n71]
+    prompt: Is n71 FDD or TDD?
+    choices: [TDD, FDD]
+    answer: 1
+    why: The bands file lists n71's duplex as {band:n71.duplex}.
+  - id: u5-cp-mix-03
+    kind: choice
+    facts: [band:n260]
+    prompt: Is n260 FR1 or FR2?
+    choices: [FR1, FR2]
+    answer: 1
+    why: The bands file tags n260 as {band:n260.kind}. FR2 is the mmWave zone.
+  - id: u5-cp-mix-04
+    kind: order
+    facts: [band:n71, band:n41, band:n77]
+    prompt: Put these bands in order, lowest start frequency first.
+    bands: [n41, n71, n77]
+    sort_by: dl_low_mhz
+    why: Sorted by where each band starts, in MHz.
+  - id: u5-cp-mix-05
+    kind: choice
+    facts: [band:n77, band:n78]
+    prompt: n78 fits inside which band?
+    choices: [n41, n77, n260]
+    answer: 1
+    why: n77 spans {band:n77.dl_low_mhz} to {band:n77.dl_high_mhz} MHz and holds n78.
+  - id: u5-cp-mix-06
+    kind: choice
+    facts: [carrier_use:n41/tmobile, band:n41]
+    prompt: "{band:n41.id} is {band:n41.duplex}. Is T-Mobile's n41 row checked and current?"
+    choices: ["Yes, CURRENT with a date badge", "No, it is unchecked"]
+    answer: 0
+    why: The row is {carrier_use:n41/tmobile.status} as of {carrier_use:n41/tmobile.as_of}.

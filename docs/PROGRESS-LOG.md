@@ -4,6 +4,7 @@ One or two plain-English lines per chat. Newest at the top.
 
 | Date | What happened | Details |
 |---|---|---|
+| 2026-11-02 | Robot wrote unit 5, "Who uses what": fingerprint bands, 5G icons, the 2025–26 spectrum sales and a checkpoint (54 questions, all 3 to 5 minutes, only checked facts). Only the number-tag lesson is left in T34. | `docs/sessions/2026-11-02-session-63-t34-unit-5.md` |
 | 2026-11-02 | T34 part 2 (robot): unit 4 "Capacity bands" is written: 4 lessons and a checkpoint, 66 questions, every lesson 3 to 5 minutes, only checked facts. | `docs/sessions/2026-11-02-session-62-t34-unit-4.md` |
 | 2026-11-02 | T34 part 1 (robot): the data file now has a 5G icon field (3 checked rows) and a list of 35 carrier number tags (25 checked), and the fact checker knows about both. Nothing you can see changes yet. | [note](sessions/2026-11-02-session-61-t34-data-plumbing.md) |
 | 2026-11-02 | T34 (robot): wrote the lesson plan for units 4–5 (capacity bands; who uses what). Unit 5 is smaller for now because many carrier facts are still unchecked. | [plan](curriculum/units-4-5.md) |

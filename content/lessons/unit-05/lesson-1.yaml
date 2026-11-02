@@ -1,0 +1,100 @@
+unit: unit05
+unit_title: Who uses what
+lesson: unit05-l1
+title: Fingerprint bands
+questions:
+  - id: u5-fp-learn-01
+    kind: learn
+    title: A band that points to a carrier
+    facts: [carrier_use:n41/tmobile, carrier_use:n77/att, carrier_use:n77/verizon, carrier_use:n260/verizon]
+    text: >
+      A fingerprint band is a band that helps you guess the carrier, like a shoe print points to one pair of shoes.
+      We can check only a few so far. n41 is T-Mobile's. n260 is Verizon's. n77 is shared by AT&T and Verizon, so it is a weak clue.
+    show: [n41, n260, n77]
+  - id: u5-fp-learn-02
+    kind: learn
+    title: Shortcuts go out of date
+    facts: [carrier_use:n41/tmobile]
+    text: >
+      Carriers buy, sell and rename things. Every carrier fact in this app has a date badge. For example, "n41 is T-Mobile's" was last checked {carrier_use:n41/tmobile.as_of}.
+      Always look at the date before you trust a shortcut.
+  - id: u5-fp-uc-01
+    kind: choice
+    facts: [carrier_use:n41/tmobile]
+    prompt: T-Mobile's "{carrier_use:n41/tmobile.icon}" is built on which band?
+    choices: [n41, n260, n261]
+    answer: 0
+    why: The bands file says T-Mobile runs n41 ({carrier_use:n41/tmobile.status} as of {carrier_use:n41/tmobile.as_of}).
+  - id: u5-fp-mmw-01
+    kind: choice
+    facts: [carrier_use:n260/verizon, band:n260]
+    prompt: Verizon runs one of these mmWave bands. Which?
+    choices: [n41, n71, n260]
+    answer: 2
+    why: n260 is {band:n260.kind}, the mmWave zone, and Verizon runs it.
+  - id: u5-fp-shared-01
+    kind: choice
+    facts: [carrier_use:n77/att, carrier_use:n77/verizon]
+    prompt: Does n77 point to just one carrier?
+    choices: ["No, AT&T and Verizon both run it", "Yes, only one carrier does"]
+    answer: 0
+    why: Both AT&T and Verizon have a CURRENT row for n77, so it is a weak fingerprint.
+  - id: u5-fp-match-01
+    kind: match
+    facts: [carrier_use:n41/tmobile, carrier_use:n260/verizon, carrier_use:n5/cellcom]
+    prompt: Match each band to a carrier that runs it.
+    pairs:
+      - ["n41", "T-Mobile"]
+      - ["n260", "Verizon"]
+      - ["n5", "Cellcom"]
+    why: Each pair comes from a CURRENT row in the bands file.
+  - id: u5-fp-pair-01
+    kind: choice
+    facts: [carrier_use:n77/att, carrier_use:n77/verizon]
+    prompt: Which carriers run n77?
+    choices: ["T-Mobile only", "AT&T and Verizon", "Cellcom only"]
+    answer: 1
+    why: The checked rows for n77 are AT&T and Verizon.
+  - id: u5-fp-n71-01
+    kind: choice
+    facts: [carrier_use:n71/tmobile, band:n71]
+    prompt: T-Mobile runs a low band at {band:n71.dl_low_mhz} MHz. Which band is it?
+    choices: [n41, n260, n71]
+    answer: 2
+    why: T-Mobile's n71 row is {carrier_use:n71/tmobile.status} as of {carrier_use:n71/tmobile.as_of}.
+  - id: u5-fp-habit-01
+    kind: choice
+    facts: [carrier_use:n77/verizon]
+    prompt: A shortcut says "n77 is Verizon". What is the safest habit?
+    choices: ["Check the date badge first", "Trust it forever", "Ignore all shortcuts"]
+    answer: 0
+    why: n77 was last checked for Verizon on {carrier_use:n77/verizon.as_of}. Dates tell you how fresh a fact is.
+  - id: u5-fp-tier-01
+    kind: choice
+    facts: [band:n71]
+    prompt: "n71 runs at {band:n71.dl_low_mhz} MHz. Low, mid or high band?"
+    choices: [Low, Mid, High]
+    answer: 0
+    why: Below 1000 MHz (1 GHz) is low band.
+  - id: u5-fp-tier-02
+    kind: choice
+    facts: [band:n41]
+    prompt: "n41 starts at {band:n41.dl_low_mhz} MHz. Low, mid or high band?"
+    choices: [Low, Mid, High]
+    answer: 1
+    why: Between 1 GHz and mmWave is mid band.
+  - id: u5-fp-tier-03
+    kind: choice
+    facts: [band:n260]
+    prompt: n260 is mmWave. Low, mid or high band?
+    choices: [Low, Mid, High]
+    answer: 2
+    why: The bands file tags n260 as {band:n260.kind}. mmWave is high band.
+  - id: u5-fp-start-01
+    kind: number
+    facts: [band:n41]
+    prompt: n41 starts at how many MHz?
+    answer_from: band:n41.dl_low_mhz
+    tolerance_mhz: 5
+    unit: MHz
+    why: n41 runs from {band:n41.dl_low_mhz} to {band:n41.dl_high_mhz} MHz.

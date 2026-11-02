@@ -1,12 +1,12 @@
 {
- "asOf": "2026-11-01 (robot, T26 photos 12)",
+ "asOf": "2026-11-02 (robot, T34 unit 5)",
  "robot": {
   "on": true,
   "next": "right away (it starts its next job by itself), and every hour",
-  "last": "looked at 1 more tower photo (T26): clean"
+  "last": "wrote unit 5 lessons 1–3 and the checkpoint (T34)"
  },
  "light": "green",
- "working": "Nothing in progress. T26: 6 photos still to look at by eye. Next up: T33 leftovers (maybe lengthen 4 short lessons) or T26 photos when Commons answers. T47 (carrier facts) needs official page links from you. Optional for you: T48 questions and your frame-rate number (T46).",
+ "working": "Nothing in progress. Next up: T34 unit 5 lesson 4 (number tags). T26 photos wait for Commons; T47 needs official page links from you. Optional for you: T48 questions and your frame-rate number (T46).",
  "limit": {
   "state": "fine (it reset after a pause)",
   "resets": "unknown"
