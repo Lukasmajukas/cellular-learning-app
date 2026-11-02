@@ -38,7 +38,7 @@
   licence: CC0
   date_checked: 2026-11-01
   ai_made: false
-  note: "Plain US cell tower, three masts (unit 6); looked at by eye: a Texas car number plate is visible at the bottom left, so CROP the lower-left corner before the app uses it"
+  note: "Plain US cell tower, three masts (unit 6); looked at by eye: a Texas truck number plate was visible at the bottom left; FIXED 2026-11-02: the bottom 455 px are cropped off (file is the cropped copy, 1280x1820)"
 - id: site-tower-02
   file: site-tower-02.webp
   source_url: https://commons.wikimedia.org/wiki/File:American_Tower_wireless_tower_Belleville_Michigan.JPG
@@ -119,7 +119,7 @@
   licence: CC BY-SA
   date_checked: 2026-11-01
   ai_made: false
-  note: "Small cell on a light pole (unit 6); looked at by eye: a car number plate is visible at the bottom left, so CROP it out before the app uses it"
+  note: "Small cell on a light pole (unit 6); looked at by eye: a car number plate was visible at the bottom left; FIXED 2026-11-02: the left 580 px are cropped off (file is the cropped copy, 700x1754)"
 - id: small-cell-pole-03
   file: small-cell-pole-03.webp
   source_url: https://commons.wikimedia.org/wiki/File:Downtown_Minneapolis_5G_Antennas_-_Cellular_(53839195956).jpg

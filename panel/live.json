@@ -1,9 +1,9 @@
 {
- "asOf": "2026-11-02 (robot, T35 question types)",
+ "asOf": "2026-11-02 (robot, T26 plate crops)",
  "robot": {
   "on": true,
   "next": "right away (it starts its next job by itself), and every hour",
-  "last": "built the photo and tap-the-clue question types (T35 part 3)"
+  "last": "cropped the two photos that showed car plates (T26)"
  },
  "light": "green",
  "working": "Nothing in progress. Next up: T35 part 4 (drawings, then unit 6); T26 waits for Commons; T47 needs official page links from you. Optional for you: T48 questions and your frame-rate number (T46).",
