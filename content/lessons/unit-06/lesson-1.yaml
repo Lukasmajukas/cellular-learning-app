@@ -1,0 +1,105 @@
+unit: unit06
+unit_title: Site types
+lesson: unit06-l1
+title: "The tall towers"
+questions:
+  - id: u6-tall-learn-01
+    kind: learn
+    title: Three tall shapes
+    facts: [site:type:lattice, site:type:guyed, site:type:monopole]
+    text: >
+      A big tower that covers a wide area is called a "macro" site. You will meet that word again in unit 9.
+      For now, learn the three tall shapes: lattice, guyed and monopole.
+  - id: u6-tall-learn-02
+    kind: learn
+    title: Lattice tower
+    facts: [site:type:lattice]
+    text: >
+      {site:type:lattice.text} Clue to spot: {site:type:lattice.look}.
+  - id: u6-tall-learn-03
+    kind: learn
+    title: Guyed mast
+    facts: [site:type:guyed]
+    text: >
+      {site:type:guyed.text} Clue to spot: {site:type:guyed.look}.
+  - id: u6-tall-learn-04
+    kind: learn
+    title: Monopole
+    facts: [site:type:monopole]
+    text: >
+      {site:type:monopole.text} Clue to spot: {site:type:monopole.look}.
+  - id: u6-tall-draw-01
+    kind: photo-choice
+    facts: [site:type:lattice]
+    photo: type-lattice-drawing-01
+    alt: A drawing of a tall open steel framework tower, wide at the bottom
+    prompt: What type of tower is in this drawing?
+    choices: [Lattice tower, Guyed mast, Monopole]
+    answer: 0
+    why: An open criss-cross steel frame, wide at the bottom, is a lattice tower.
+  - id: u6-tall-draw-02
+    kind: photo-choice
+    facts: [site:type:guyed]
+    photo: type-guyed-drawing-01
+    alt: A drawing of a thin mast with long cables running down to the ground
+    prompt: What type of tower is in this drawing?
+    choices: [Monopole, Guyed mast, Lattice tower]
+    answer: 1
+    why: A thin mast with long cables slanting to the ground is a guyed mast.
+  - id: u6-tall-cable-01
+    kind: choice
+    facts: [site:type:guyed]
+    prompt: Which tower is held up by cables that run to the ground?
+    choices: [Lattice tower, Monopole, Guyed mast]
+    answer: 2
+    why: "{site:type:guyed.text}"
+  - id: u6-tall-pole-01
+    kind: choice
+    facts: [site:type:monopole]
+    prompt: Which tower is one tapered steel column?
+    choices: [Guyed mast, Lattice tower, Monopole]
+    answer: 2
+    why: "{site:type:monopole.text}"
+  - id: u6-tall-photo-01
+    kind: photo-choice
+    facts: [site:type:lattice]
+    photo: site-tower-02
+    alt: A tall red and white tower made of an open steel framework, with trees and a house at its foot
+    outline: {x: 0.3, y: 0.02, w: 0.3, h: 0.75}
+    prompt: What type of tower is this?
+    choices: [Lattice tower, Monopole, Guyed mast]
+    answer: 0
+    why: You can see through it. It is an open steel frame, so it is a lattice tower.
+  - id: u6-tall-photo-02
+    kind: photo-choice
+    facts: [site:type:lattice]
+    photo: site-tower-03
+    alt: A thin red and white tower made of an open steel framework, with snow on the ground
+    outline: {x: 0.38, y: 0.1, w: 0.2, h: 0.65}
+    prompt: What type of tower is this one?
+    choices: [Monopole, Guyed mast, Lattice tower]
+    answer: 2
+    why: Same clue again, an open criss-cross frame. It is a lattice tower.
+  - id: u6-tall-land-01
+    kind: choice
+    facts: [site:type:guyed]
+    prompt: Which type needs the biggest patch of land around it?
+    choices: [Guyed mast, Monopole]
+    answer: 0
+    why: "The cables run out to anchors in the ground, so a guyed mast needs room."
+  - id: u6-tall-match-01
+    kind: match
+    facts: [site:type:lattice, site:type:guyed, site:type:monopole]
+    prompt: Match each tower to its clue.
+    pairs:
+      - [Lattice tower, Open steel frame]
+      - [Guyed mast, Cables to the ground]
+      - [Monopole, One tapered pole]
+    why: Each type has one clue that decides it.
+  - id: u6-tall-mix-01
+    kind: choice
+    facts: [band:n71, band:n41]
+    prompt: n71 or n41, which one reaches farther from the tower?
+    choices: [n71, n41]
+    answer: 0
+    why: n71 starts at {band:n71.dl_low_mhz} MHz and n41 at {band:n41.dl_low_mhz}. Lower frequencies travel farther.

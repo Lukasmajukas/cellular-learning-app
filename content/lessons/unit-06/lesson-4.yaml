@@ -1,0 +1,102 @@
+unit: unit06
+unit_title: Site types
+lesson: unit06-l4
+title: "Temporary and indoor sites"
+questions:
+  - id: u6-temp-learn-01
+    kind: learn
+    title: Cell on wheels
+    facts: [site:type:temporary]
+    text: >
+      {site:type:temporary.text} Clue to spot: {site:type:temporary.look}.
+  - id: u6-temp-learn-02
+    kind: learn
+    title: Indoor systems (DAS)
+    facts: [site:type:das]
+    text: >
+      {site:type:das.text} Clue to spot: {site:type:das.look}.
+  - id: u6-temp-photo-01
+    kind: photo-choice
+    facts: [site:type:temporary]
+    photo: site-cow-01
+    alt: A thin temporary mast on the left beside a lattice mast, behind orange fencing
+    prompt: The thin mast on the left was raised for a short time. What is it?
+    choices: [A cell on wheels (COW), A flagpole, A fake tree]
+    answer: 0
+    why: A COW is a portable site used when a normal site is down or a crowd is coming.
+  - id: u6-temp-photo-02
+    kind: photo-choice
+    facts: [site:type:das]
+    photo: type-das-drawing-01
+    alt: A drawing of a stadium with many small antennas spread around the inside
+    prompt: This drawing shows many small antennas spread around a stadium. What is it?
+    choices: [A monopole, A DAS, A COW]
+    answer: 1
+    why: Many small antennas spread around a venue is a DAS.
+  - id: u6-temp-stadium-01
+    kind: choice
+    facts: [site:type:das]
+    prompt: Which fits a stadium best, a DAS or a lattice tower?
+    choices: [Lattice tower, DAS]
+    answer: 1
+    why: "{site:type:das.text}"
+  - id: u6-temp-trailer-01
+    kind: choice
+    facts: [site:type:temporary]
+    prompt: Which one comes on a trailer, a COW or a DAS?
+    choices: [DAS, COW]
+    answer: 1
+    why: "{site:type:temporary.text}"
+  - id: u6-temp-colt-01
+    kind: choice
+    facts: [site:type:temporary]
+    prompt: A COLT is built onto what?
+    choices: [A trailer, A vehicle, A roof]
+    answer: 1
+    why: "{site:type:temporary.text}"
+  - id: u6-temp-share-01
+    kind: choice
+    facts: [site:type:das]
+    prompt: Who is a DAS often shared by?
+    choices: [Only one carrier, Several carriers]
+    answer: 1
+    why: "{site:type:das.text}"
+  - id: u6-temp-match-01
+    kind: match
+    facts: [site:type:temporary, site:type:das]
+    prompt: Match each site to what it is.
+    pairs:
+      - [COW, Cell site on a trailer]
+      - [COLT, Cell site on a vehicle]
+      - [DAS, Many small antennas in a venue]
+    why: Two kinds of temporary sites and one kind of indoor system.
+  - id: u6-temp-mix-01
+    kind: choice
+    facts: [carrier_use:n41/tmobile]
+    prompt: Which carrier's "Ultra Capacity" icon comes from n41?
+    choices: [T-Mobile, AT&T]
+    answer: 0
+    why: T-Mobile runs n41 as "Ultra Capacity". AT&T's checked 5G band is n77.
+  - id: u6-temp-photo-03
+    kind: photo-choice
+    facts: [site:type:temporary]
+    photo: site-cow-01
+    alt: A thin temporary mast on the left beside a lattice mast, behind orange fencing
+    prompt: Is the thin mast on the left a permanent tower or a temporary one?
+    choices: [Permanent, Temporary]
+    answer: 1
+    why: A COW is raised for a short time, for example when a normal site is down.
+  - id: u6-temp-power-01
+    kind: choice
+    facts: [site:type:temporary]
+    prompt: A COW has no power lines nearby. What does it run on?
+    choices: [A generator, A water wheel, A flagpole]
+    answer: 0
+    why: "{site:type:temporary.text}"
+  - id: u6-temp-das-01
+    kind: choice
+    facts: [site:type:das]
+    prompt: Where would you find a DAS?
+    choices: [Inside or on a big venue, On a farm field, On a trailer]
+    answer: 0
+    why: "{site:type:das.text}"

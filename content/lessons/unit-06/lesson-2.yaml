@@ -1,0 +1,114 @@
+unit: unit06
+unit_title: Site types
+lesson: unit06-l2
+title: "Hidden in plain sight"
+questions:
+  - id: u6-stealth-learn-01
+    kind: learn
+    title: Stealth sites
+    facts: [site:type:stealth]
+    text: >
+      {site:type:stealth.text} Clue to spot: {site:type:stealth.look}.
+  - id: u6-stealth-learn-02
+    kind: learn
+    title: Too tidy to be real
+    facts: [site:type:stealth]
+    text: >
+      A real tree is a bit messy. A fake one is too tidy. Look for a perfect shape, one thick trunk
+      and no animals living in it.
+  - id: u6-stealth-photo-01
+    kind: photo-choice
+    facts: [site:type:stealth]
+    photo: site-fake-tree-01
+    alt: A tall pine-shaped tower with antennas at the top, standing among real trees
+    outline: {x: 0.4, y: 0.08, w: 0.16, h: 0.75}
+    prompt: What is the disguise on this site?
+    choices: [A fake tree, A flagpole, A church steeple]
+    answer: 0
+    why: A tidy pine shape that is taller than the real trees around it is a fake tree.
+  - id: u6-stealth-photo-02
+    kind: photo-choice
+    facts: [site:type:stealth]
+    photo: site-flagpole-01
+    alt: A very tall thin white flagpole with an American flag, in a grassy field
+    outline: {x: 0.4, y: 0.05, w: 0.18, h: 0.8}
+    prompt: What is the disguise on this site?
+    choices: [A fake tree, A flagpole, A water tank]
+    answer: 1
+    why: The antennas are inside the pole. It is a cell site disguised as a flagpole.
+  - id: u6-stealth-photo-03
+    kind: photo-choice
+    facts: [site:type:stealth]
+    photo: site-camouflaged-01
+    alt: The corner of a brick building with brick-coloured boxes on the wall that hide antennas
+    prompt: Where are the antennas hidden on this site?
+    choices: [Inside a fake tree, On the wall of a building, In a flagpole]
+    answer: 1
+    why: The antennas sit in boxes painted to match the bricks.
+  - id: u6-stealth-def-01
+    kind: choice
+    facts: [site:type:stealth]
+    prompt: What does "stealth" mean for a cell site?
+    choices: [The antennas are hidden in a disguise, The signal is extra strong, It only works at night]
+    answer: 0
+    why: "{site:type:stealth.text}"
+  - id: u6-stealth-spot-01
+    kind: choice
+    facts: [site:type:stealth]
+    prompt: How can you spot a fake tree?
+    choices: [It has a too-tidy shape, It makes a humming sound, It is always near water]
+    answer: 0
+    why: "{site:type:stealth.look}."
+  - id: u6-stealth-pick-01
+    kind: choice
+    facts: [site:type:stealth, site:type:lattice]
+    prompt: Which one is a stealth site?
+    choices: [An open steel frame, A fake tree with antennas inside, A tower held by cables]
+    answer: 1
+    why: Only the fake tree hides its antennas in a disguise.
+  - id: u6-stealth-mix-01
+    kind: choice
+    facts: [site:type:guyed]
+    prompt: Which tower is held up by cables to the ground?
+    choices: [Guyed mast, Lattice tower]
+    answer: 0
+    why: "{site:type:guyed.text}"
+  - id: u6-stealth-match-01
+    kind: match
+    facts: [site:type:stealth]
+    prompt: Match each disguise to its clue.
+    pairs:
+      - [Fake tree, Pine shape that is too tidy]
+      - [Flagpole, One thin white pole with a flag]
+      - [Building wall, Boxes painted to match the bricks]
+    why: In every case the antennas are hidden inside or behind something ordinary.
+  - id: u6-stealth-mix-02
+    kind: choice
+    facts: [band:n41]
+    prompt: Is n41 low, mid or high band?
+    choices: [Mid band, Low band, High band]
+    answer: 0
+    why: n41 starts at {band:n41.dl_low_mhz} MHz, above 1000 MHz and far below mmWave.
+  - id: u6-stealth-photo-04
+    kind: photo-choice
+    facts: [site:type:stealth]
+    photo: site-fake-tree-01
+    alt: A tall pine-shaped tower with antennas at the top, standing among real trees
+    prompt: Is the tall pine in this picture a real tree?
+    choices: ["No, it is a cell site in disguise", "Yes, it is a real tree"]
+    answer: 0
+    why: Its shape is too tidy and it sticks up above the real trees. It is a fake tree.
+  - id: u6-stealth-pick-02
+    kind: choice
+    facts: [site:type:stealth]
+    prompt: Which one hides its antennas on the wall of a building?
+    choices: [A guyed mast, A stealth site, A lattice tower]
+    answer: 1
+    why: A stealth site hides antennas inside a disguise, even one that looks like part of a wall.
+  - id: u6-stealth-mix-03
+    kind: choice
+    facts: [site:type:monopole]
+    prompt: Which tower is one tapered steel column?
+    choices: [Lattice tower, Monopole, Guyed mast]
+    answer: 1
+    why: "{site:type:monopole.text}"
