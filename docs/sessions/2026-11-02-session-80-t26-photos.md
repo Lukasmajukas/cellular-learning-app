@@ -1,17 +1,18 @@
 # Handoff note: 2026-11-02, T26 download the last 3 photos
 <!-- File name: docs/sessions/YYYY-MM-DD-session-N-short-name.md (N = the highest session number so far + 1) -->
 
-**Status:** IN PROGRESS <!-- change to DONE when the chat finishes -->
+**Status:** DONE (nothing changed: Commons said 429) <!-- change to DONE when the chat finishes -->
 **Model used:** Medium (Sonnet), Medium effort · **Branch / pull request:** claude/robot-t26-photos-3
 
 ## In simple words (for the owner)
-[2–3 sentences, as if explaining to a 12-year-old: what we did and why it matters.]
+Claude tried to fetch the last 3 photos. The picture website said "too many requests" every time, like a shop saying "come back later". So nothing new was added today.
 
 ## What was done
-- 
+- Asked Commons (`Special:FilePath/<name>?width=960`, following redirects) for fake-tree-02, fake-tree-03, monopole-01, 25 s apart: 429 on all 3. A longer wait wasn't allowed by the shell (sleep block), so I stopped. Nothing asked for approval. Panel not republished (robot run).
+
 
 ## What's next
-- Next task: [T__], model: [size], effort: [level], type: `Do the next task in TASKS.md`
+- Next task: T26 again (3 photos left) or T36, model: Medium (Sonnet), effort: Medium, type: `Do the next task in TASKS.md`
 
 ## Decisions made (also added to docs/DECISIONS.md)
 - 
