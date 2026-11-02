@@ -20,7 +20,7 @@
   licence: CC0
   date_checked: 2026-11-01
   ai_made: false
-  note: "Fake tree site (unit 6); not yet looked at by eye"
+  note: "Fake tree site (unit 6); looked at by eye, no faces or readable plates"
 - id: site-camouflaged-01
   file: site-camouflaged-01.webp
   source_url: https://commons.wikimedia.org/wiki/File:Amer_Bank_Note_camouflaged_antennas_jeh.jpg
@@ -101,7 +101,7 @@
   licence: CC BY-SA
   date_checked: 2026-11-01
   ai_made: false
-  note: "Stealth monopole tree (unit 6); exact licence CC BY-SA 3.0; not yet looked at by eye (thumbnail got 429)"
+  note: "Stealth monopole tree (unit 6); exact licence CC BY-SA 3.0; looked at by eye, no faces or plates (small, old-looking photo)"
 - id: small-cell-pole-01
   file: small-cell-pole-01.webp
   source_url: https://commons.wikimedia.org/wiki/File:Utility_pole_with_Verizon_5G_mmwave_antennas_-_Arlington,_MA.jpg
