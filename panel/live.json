@@ -1,14 +1,14 @@
 {
- "asOf": "2026-11-02 (robot, T36 data files)",
- "robot": {
-  "on": true,
-  "next": "right away (it starts its next job by itself), and every hour",
-  "last": "built the hardware and cell-ID fact files for units 8-9 (T36)"
- },
- "light": "green",
- "working": "Nothing in progress. Next up: T36 drawings and lessons for units 8-9; T26 has 3 photos left to download; T47 needs official page links from you. Optional for you: T48 questions and your frame-rate number (T46).",
- "limit": {
-  "state": "fine (it reset after a pause)",
-  "resets": "unknown"
- }
+  "asOf": "2026-11-02 (robot, T36 drawings)",
+  "robot": {
+    "on": true,
+    "next": "right away (it starts its next job by itself), and every hour",
+    "last": "drew the unit 8 equipment pictures (T36)"
+  },
+  "light": "green",
+  "working": "Nothing in progress. Next up: T36 phone-screen drawing and lessons for units 8-9; T26 has 3 photos left to download; T47 needs official page links from you. Optional for you: T48 questions and your frame-rate number (T46).",
+  "limit": {
+    "state": "fine (it reset after a pause)",
+    "resets": "unknown"
+  }
 }
