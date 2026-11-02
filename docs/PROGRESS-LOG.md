@@ -4,6 +4,7 @@ One or two plain-English lines per chat. Newest at the top.
 
 | Date | What happened | Details |
 |---|---|---|
+| 2026-11-02 | Robot drew three tower pictures itself (open frame, cable mast, stadium antennas) because the photo website was still blocking downloads. | `docs/sessions/2026-11-02-session-77-t35-drawings.md` |
 | 2026-11-02 | Robot got one more lesson photo (15 of 18 now); the photo website still blocks most tries. | `docs/sessions/2026-11-02-session-76-t26-photos-retry.md` |
 | 2026-11-02 | Robot tried the last 4 lesson photos; the photo website said "too many requests" again, so nothing changed. | `docs/sessions/2026-11-02-session-75-t26-last-photos.md` |
 | 2026-11-02 | Robot downloaded 14 of the 18 lesson photos from Wikimedia Commons (4 were refused for now: "too many requests"). | `docs/sessions/2026-11-02-session-74-t26-photo-downloads.md` |
