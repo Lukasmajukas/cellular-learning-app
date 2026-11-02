@@ -4,6 +4,7 @@ One or two plain-English lines per chat. Newest at the top.
 
 | Date | What happened | Details |
 |---|---|---|
+| 2026-11-02 | T26 (robot): tried the next photo (fake tree, New Jersey) again; Wikimedia said "too many requests" even after a wait. Nothing changed. 6 still to look at. | [note](sessions/2026-11-02-session-59-t26-photos-15.md) |
 | 2026-11-01 | T26 (robot): tried the next photo (fake tree, New Jersey) twice; Wikimedia said "too many requests" both times. Nothing changed. 6 still to look at. | [note](sessions/2026-11-01-session-58-t26-photos-14.md) |
 | 2026-11-01 | T26 (robot): tried to look at the next photo (fake tree, New Jersey); Wikimedia said "too many requests" on every try over about 5 minutes. Nothing changed. 6 still to look at. | [note](sessions/2026-11-01-session-57-t26-photos-13.md) |
 | 2026-11-01 | T26 (robot): looked at 1 more photo (the portable "cell on wheels" site): clean, no faces or plates. 6 still to look at; Wikimedia said "too many requests" again. | [note](sessions/2026-11-01-session-56-t26-photos-12.md) |
