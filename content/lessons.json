@@ -2982,6 +2982,1028 @@
      ]
     }
    ]
+  },
+  {
+   "id": "unit04",
+   "title": "Capacity bands",
+   "lessons": [
+    {
+     "id": "unit04-l1",
+     "title": "2500 MHz: B41 and n41",
+     "questions": [
+      {
+       "id": "u4-n41-learn-01",
+       "kind": "learn",
+       "title": "What is a capacity band?",
+       "facts": [
+        "band:n41",
+        "band:B41"
+       ],
+       "text": "A capacity band is a wide band that carries lots of data over a shorter distance, like a wide road with many lanes. n41 is the 5G band nicknamed \"{band:n41.name}\". It runs from {band:n41.dl_low_mhz} to {band:n41.dl_high_mhz} MHz. B41 is its 4G twin. It is TDD (unit 1): uploads and downloads take turns on the same road, so there is no separate uplink range.\n",
+       "show": [
+        "n41",
+        "B41"
+       ]
+      },
+      {
+       "id": "u4-n41-learn-02",
+       "kind": "learn",
+       "title": "T-Mobile's Ultra Capacity band",
+       "facts": [
+        "carrier_use:n41/tmobile"
+       ],
+       "text": "T-Mobile runs n41 and calls it \"Ultra Capacity\". Other carriers may use 2500 MHz too, but we have not checked that yet, so the app will not quiz you on it.\n",
+       "show": [
+        "n41"
+       ]
+      },
+      {
+       "id": "u4-n41-duplex-01",
+       "kind": "choice",
+       "facts": [
+        "band:n41"
+       ],
+       "prompt": "Is n41 FDD or TDD?",
+       "choices": [
+        "TDD",
+        "FDD"
+       ],
+       "answer": 0,
+       "why": "The bands file lists n41's duplex as {band:n41.duplex}. Uplink and downlink share one range."
+      },
+      {
+       "id": "u4-n41-dl-01",
+       "kind": "number",
+       "facts": [
+        "band:n41"
+       ],
+       "prompt": "n41 starts at how many MHz?",
+       "answer_from": "band:n41.dl_low_mhz",
+       "tolerance_mhz": 5,
+       "unit": "MHz",
+       "why": "n41 runs from {band:n41.dl_low_mhz} to {band:n41.dl_high_mhz} MHz."
+      },
+      {
+       "id": "u4-n41-twin-01",
+       "kind": "choice",
+       "facts": [
+        "band:n41",
+        "band:B41",
+        "band:B25"
+       ],
+       "prompt": "Which 4G band is the twin of n41?",
+       "choices": [
+        "B41",
+        "B25",
+        "B71"
+       ],
+       "answer": 0,
+       "why": "Twins share the same numbers. n41 and B41 both run {band:n41.dl_low_mhz} to {band:n41.dl_high_mhz} MHz."
+      },
+      {
+       "id": "u4-n41-clue-01",
+       "kind": "choice",
+       "facts": [
+        "band:n41",
+        "band:n77",
+        "band:n71"
+       ],
+       "prompt": "Which band is TDD and runs {band:n41.dl_low_mhz} to {band:n41.dl_high_mhz} MHz?",
+       "choices": [
+        "n41",
+        "n77",
+        "n71"
+       ],
+       "answer": 0,
+       "why": "n41 is {band:n41.duplex} at {band:n41.dl_low_mhz} to {band:n41.dl_high_mhz} MHz. n77 starts at {band:n77.dl_low_mhz}, and n71 is FDD."
+      },
+      {
+       "id": "u4-n41-carrier-01",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n41/tmobile",
+        "carrier_use:n77/att"
+       ],
+       "prompt": "Which carrier's \"Ultra Capacity\" icon comes from n41?",
+       "choices": [
+        "T-Mobile",
+        "AT&T"
+       ],
+       "answer": 0,
+       "why": "T-Mobile runs n41 as \"Ultra Capacity\". AT&T's checked 5G band is n77."
+      },
+      {
+       "id": "u4-n41-tier-01",
+       "kind": "choice",
+       "facts": [
+        "band:n41"
+       ],
+       "prompt": "Is n41 low, mid or high band?",
+       "choices": [
+        "Mid band",
+        "Low band",
+        "High band"
+       ],
+       "answer": 0,
+       "why": "n41 starts at {band:n41.dl_low_mhz} MHz, above 1000 MHz and far below mmWave."
+      },
+      {
+       "id": "u4-n41-reach-01",
+       "kind": "choice",
+       "facts": [
+        "band:n71",
+        "band:n41"
+       ],
+       "prompt": "n71 or n41, which one reaches farther from the tower?",
+       "choices": [
+        "n71",
+        "n41"
+       ],
+       "answer": 0,
+       "why": "n71 starts at {band:n71.dl_low_mhz} MHz and n41 at {band:n41.dl_low_mhz}. Lower frequencies travel farther."
+      },
+      {
+       "id": "u4-n41-order-01",
+       "kind": "order",
+       "facts": [
+        "band:n71",
+        "band:n25",
+        "band:n41"
+       ],
+       "prompt": "Put these bands in order, lowest frequency first.",
+       "bands": [
+        "n41",
+        "n71",
+        "n25"
+       ],
+       "sort_by": "dl_low_mhz",
+       "why": "Sorted by where each downlink starts, in MHz."
+      },
+      {
+       "id": "u4-n41-uplink-01",
+       "kind": "choice",
+       "facts": [
+        "band:n41",
+        "band:n71"
+       ],
+       "prompt": "Which band has one shared range for uploads and downloads, n41 or n71?",
+       "choices": [
+        "n41",
+        "n71"
+       ],
+       "answer": 0,
+       "why": "n41 is {band:n41.duplex}, so it has one shared range. n71 is FDD, with separate uplink and downlink."
+      },
+      {
+       "id": "u4-n41-name-01",
+       "kind": "choice",
+       "facts": [
+        "band:n41",
+        "band:n77",
+        "band:n71"
+       ],
+       "prompt": "Which band is the \"2500\" band?",
+       "choices": [
+        "n41",
+        "n77",
+        "n71"
+       ],
+       "answer": 0,
+       "why": "n41 is \"{band:n41.name}\". n77 is a 3700 band and n71 is a 600 band."
+      },
+      {
+       "id": "u4-n41-high-01",
+       "kind": "number",
+       "facts": [
+        "band:n41"
+       ],
+       "prompt": "n41 ends at how many MHz?",
+       "answer_from": "band:n41.dl_high_mhz",
+       "tolerance_mhz": 5,
+       "unit": "MHz",
+       "why": "n41 runs from {band:n41.dl_low_mhz} to {band:n41.dl_high_mhz} MHz."
+      }
+     ]
+    },
+    {
+     "id": "unit04-l2",
+     "title": "C-band: n77, n78 and n79",
+     "questions": [
+      {
+       "id": "u4-cband-learn-01",
+       "kind": "learn",
+       "title": "Boxes inside boxes",
+       "facts": [
+        "band:n77",
+        "band:n78",
+        "band:n48"
+       ],
+       "text": "n77 is a huge TDD band: {band:n77.dl_low_mhz} to {band:n77.dl_high_mhz} MHz, nicknamed \"{band:n77.name}\". n78 ({band:n78.dl_low_mhz} to {band:n78.dl_high_mhz} MHz) sits inside n77, and n48 (CBRS, {band:n48.dl_low_mhz} to {band:n48.dl_high_mhz} MHz) sits inside n78. Think of three boxes, one inside the next.\n",
+       "show": [
+        "n77",
+        "n78",
+        "n48"
+       ]
+      },
+      {
+       "id": "u4-cband-learn-02",
+       "kind": "learn",
+       "title": "n79 is a different box",
+       "facts": [
+        "band:n79"
+       ],
+       "text": "n79 runs {band:n79.dl_low_mhz} to {band:n79.dl_high_mhz} MHz. It is a separate TDD band that does not overlap n77, so it is not inside the same family of boxes.\n",
+       "show": [
+        "n79"
+       ]
+      },
+      {
+       "id": "u4-cband-box-01",
+       "kind": "choice",
+       "facts": [
+        "band:n77",
+        "band:n78",
+        "band:n48"
+       ],
+       "prompt": "n77, n78 or n48, which one is the biggest box?",
+       "choices": [
+        "n77",
+        "n78",
+        "n48"
+       ],
+       "answer": 0,
+       "why": "n77 spans {band:n77.dl_low_mhz} to {band:n77.dl_high_mhz} MHz. n78 and n48 both fit inside it."
+      },
+      {
+       "id": "u4-cband-inside-01",
+       "kind": "choice",
+       "facts": [
+        "band:n78",
+        "band:n77",
+        "band:n79"
+       ],
+       "prompt": "n78 fits inside which band?",
+       "choices": [
+        "n77",
+        "n79",
+        "n41"
+       ],
+       "answer": 0,
+       "why": "n78 ({band:n78.dl_low_mhz} to {band:n78.dl_high_mhz} MHz) is inside n77 ({band:n77.dl_low_mhz} to {band:n77.dl_high_mhz} MHz)."
+      },
+      {
+       "id": "u4-cband-clue-01",
+       "kind": "choice",
+       "facts": [
+        "band:n77",
+        "band:n78",
+        "band:n41"
+       ],
+       "prompt": "Which band is TDD and runs {band:n77.dl_low_mhz} to {band:n77.dl_high_mhz} MHz?",
+       "choices": [
+        "n77",
+        "n78",
+        "n41"
+       ],
+       "answer": 0,
+       "why": "n77 is the widest. n78 stops at {band:n78.dl_high_mhz} MHz."
+      },
+      {
+       "id": "u4-cband-dl-01",
+       "kind": "number",
+       "facts": [
+        "band:n77"
+       ],
+       "prompt": "n77 starts at how many MHz?",
+       "answer_from": "band:n77.dl_low_mhz",
+       "tolerance_mhz": 5,
+       "unit": "MHz",
+       "why": "n77 runs from {band:n77.dl_low_mhz} to {band:n77.dl_high_mhz} MHz."
+      },
+      {
+       "id": "u4-cband-learn-03",
+       "kind": "learn",
+       "title": "Who rides on n77",
+       "facts": [
+        "carrier_use:n77/att",
+        "carrier_use:n77/verizon"
+       ],
+       "text": "AT&T (\"5G+\") and Verizon (\"5G UW\") both run n77. Other carriers may use it too, but we have not checked that yet, so the app will not quiz you on it. Icon names change over time, so look at the date.\n",
+       "show": [
+        "n77"
+       ]
+      },
+      {
+       "id": "u4-cband-carrier-01",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n77/att",
+        "carrier_use:n41/tmobile"
+       ],
+       "prompt": "Which band carries AT&T's \"5G+\": n41 or n77?",
+       "choices": [
+        "n77",
+        "n41"
+       ],
+       "answer": 0,
+       "why": "AT&T runs n77. The checked n41 row belongs to T-Mobile."
+      },
+      {
+       "id": "u4-cband-sale-01",
+       "kind": "choice",
+       "facts": [
+        "change:2"
+       ],
+       "prompt": "In {change:2.date}, AT&T bought n77 (3.45 GHz) and 700 MHz spectrum. From whom?",
+       "choices": [
+        "Array (the former UScellular)",
+        "EchoStar",
+        "Verizon"
+       ],
+       "answer": 0,
+       "why": "The seller was \"{change:2.from}\". The deal closed {change:2.date}."
+      },
+      {
+       "id": "u4-cband-tier-01",
+       "kind": "choice",
+       "facts": [
+        "band:n77"
+       ],
+       "prompt": "Is n77 low, mid or high band?",
+       "choices": [
+        "Mid band",
+        "Low band",
+        "High band"
+       ],
+       "answer": 0,
+       "why": "n77 starts at {band:n77.dl_low_mhz} MHz, above 1000 MHz and far below mmWave."
+      },
+      {
+       "id": "u4-cband-high-01",
+       "kind": "number",
+       "facts": [
+        "band:n77"
+       ],
+       "prompt": "n77 ends at how many MHz?",
+       "answer_from": "band:n77.dl_high_mhz",
+       "tolerance_mhz": 5,
+       "unit": "MHz",
+       "why": "n77 runs from {band:n77.dl_low_mhz} to {band:n77.dl_high_mhz} MHz."
+      },
+      {
+       "id": "u4-cband-n79-01",
+       "kind": "number",
+       "facts": [
+        "band:n79"
+       ],
+       "prompt": "n79 starts at how many MHz?",
+       "answer_from": "band:n79.dl_low_mhz",
+       "tolerance_mhz": 5,
+       "unit": "MHz",
+       "why": "n79 runs from {band:n79.dl_low_mhz} to {band:n79.dl_high_mhz} MHz."
+      },
+      {
+       "id": "u4-cband-verizon-01",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n77/verizon",
+        "carrier_use:n41/tmobile"
+       ],
+       "prompt": "Which band carries Verizon's \"5G UW\" in our checked facts?",
+       "choices": [
+        "n77",
+        "n41"
+       ],
+       "answer": 0,
+       "why": "Verizon runs n77. The checked n41 row belongs to T-Mobile."
+      }
+     ]
+    },
+    {
+     "id": "unit04-l3",
+     "title": "CBRS: B48, n48 and B49",
+     "questions": [
+      {
+       "id": "u4-cbrs-learn-01",
+       "kind": "learn",
+       "title": "CBRS in plain words",
+       "facts": [
+        "band:B48",
+        "band:n48",
+        "band:B49"
+       ],
+       "text": "CBRS is the band at {band:B48.dl_low_mhz} to {band:B48.dl_high_mhz} MHz, nicknamed \"{band:B48.name}\". It is TDD. B48 is the 4G name and n48 is the 5G name. B49 (\"{band:B49.name}\") covers the same range and sits inside B48.\n",
+       "show": [
+        "B48",
+        "n48",
+        "B49"
+       ]
+      },
+      {
+       "id": "u4-cbrs-learn-02",
+       "kind": "learn",
+       "title": "Who uses CBRS",
+       "facts": [
+        "band:B48"
+       ],
+       "label": "not checked",
+       "text": "Verizon is often said to use B48, but we are still checking, so the app will not quiz you on it.\n",
+       "show": [
+        "B48"
+       ]
+      },
+      {
+       "id": "u4-cbrs-box-01",
+       "kind": "choice",
+       "facts": [
+        "band:B48",
+        "band:B49"
+       ],
+       "prompt": "B48 or B49, which one is the bigger box?",
+       "choices": [
+        "B48",
+        "B49"
+       ],
+       "answer": 0,
+       "why": "The bands file says B48 contains B49 ({band:B48.relations})."
+      },
+      {
+       "id": "u4-cbrs-inside-01",
+       "kind": "choice",
+       "facts": [
+        "band:n48",
+        "band:n78",
+        "band:n79"
+       ],
+       "prompt": "n48 fits inside which band?",
+       "choices": [
+        "n78",
+        "n79",
+        "n41"
+       ],
+       "answer": 0,
+       "why": "n48 ({band:n48.dl_low_mhz} to {band:n48.dl_high_mhz} MHz) is inside n78 ({band:n78.dl_low_mhz} to {band:n78.dl_high_mhz} MHz)."
+      },
+      {
+       "id": "u4-cbrs-dl-01",
+       "kind": "number",
+       "facts": [
+        "band:B48"
+       ],
+       "prompt": "CBRS starts at how many MHz?",
+       "answer_from": "band:B48.dl_low_mhz",
+       "tolerance_mhz": 5,
+       "unit": "MHz",
+       "why": "CBRS runs from {band:B48.dl_low_mhz} to {band:B48.dl_high_mhz} MHz."
+      },
+      {
+       "id": "u4-cbrs-duplex-01",
+       "kind": "choice",
+       "facts": [
+        "band:B48"
+       ],
+       "prompt": "Is CBRS (B48) FDD or TDD?",
+       "choices": [
+        "TDD",
+        "FDD"
+       ],
+       "answer": 0,
+       "why": "The bands file lists B48's duplex as {band:B48.duplex}."
+      },
+      {
+       "id": "u4-cbrs-clue-01",
+       "kind": "choice",
+       "facts": [
+        "band:B48",
+        "band:n41",
+        "band:B30"
+       ],
+       "prompt": "Which 4G band is TDD and runs {band:B48.dl_low_mhz} to {band:B48.dl_high_mhz} MHz?",
+       "choices": [
+        "B48",
+        "B41",
+        "B30"
+       ],
+       "answer": 0,
+       "why": "B48 is {band:B48.duplex} at {band:B48.dl_low_mhz} to {band:B48.dl_high_mhz} MHz. B30 is FDD at {band:B30.dl_low_mhz}."
+      },
+      {
+       "id": "u4-cbrs-order-01",
+       "kind": "order",
+       "facts": [
+        "band:n41",
+        "band:n48",
+        "band:n77"
+       ],
+       "prompt": "Put these bands in order, lowest start frequency first.",
+       "bands": [
+        "n41",
+        "n77",
+        "n48"
+       ],
+       "sort_by": "dl_low_mhz",
+       "why": "Sorted by where each band starts, in MHz."
+      },
+      {
+       "id": "u4-cbrs-mixed-01",
+       "kind": "choice",
+       "facts": [
+        "band:B2",
+        "band:B48"
+       ],
+       "prompt": "B2 or B48, which one has its uplink on a different frequency from its downlink?",
+       "choices": [
+        "B2",
+        "B48"
+       ],
+       "answer": 0,
+       "why": "B2 is {band:B2.duplex}, with uplink {band:B2.ul_low_mhz} to {band:B2.ul_high_mhz} MHz. B48 is TDD, so both share one range."
+      },
+      {
+       "id": "u4-cbrs-b49-01",
+       "kind": "choice",
+       "facts": [
+        "band:B48",
+        "band:B49"
+       ],
+       "prompt": "B49 fits inside which band?",
+       "choices": [
+        "B48",
+        "B41",
+        "B30"
+       ],
+       "answer": 0,
+       "why": "B48 ({band:B48.dl_low_mhz} to {band:B48.dl_high_mhz} MHz) holds B49."
+      },
+      {
+       "id": "u4-cbrs-high-01",
+       "kind": "number",
+       "facts": [
+        "band:B48"
+       ],
+       "prompt": "CBRS ends at how many MHz?",
+       "answer_from": "band:B48.dl_high_mhz",
+       "tolerance_mhz": 5,
+       "unit": "MHz",
+       "why": "CBRS runs from {band:B48.dl_low_mhz} to {band:B48.dl_high_mhz} MHz."
+      },
+      {
+       "id": "u4-cbrs-twin-01",
+       "kind": "choice",
+       "facts": [
+        "band:B48",
+        "band:n48"
+       ],
+       "prompt": "Which band is the 5G twin of B48?",
+       "choices": [
+        "n48",
+        "n41",
+        "n77"
+       ],
+       "answer": 0,
+       "why": "Twins share the same numbers. n48 and B48 both run {band:n48.dl_low_mhz} to {band:n48.dl_high_mhz} MHz."
+      }
+     ]
+    },
+    {
+     "id": "unit04-l4",
+     "title": "mmWave: n257, n258, n260 and n261",
+     "questions": [
+      {
+       "id": "u4-mmw-learn-01",
+       "kind": "learn",
+       "title": "High band is mmWave",
+       "facts": [
+        "band:n257",
+        "band:n258",
+        "band:n260",
+        "band:n261"
+       ],
+       "text": "High band means mmWave (FR2). It is very fast but reaches only a short way, like a fire hose that cannot go far. Four names to know: n257 (\"{band:n257.name}\"), n258 (\"{band:n258.name}\"), n260 (\"{band:n260.name}\") and n261 (\"{band:n261.name}\"). All are TDD.\n",
+       "show": [
+        "n257",
+        "n258",
+        "n260",
+        "n261"
+       ]
+      },
+      {
+       "id": "u4-mmw-learn-02",
+       "kind": "learn",
+       "title": "Who uses mmWave",
+       "facts": [
+        "carrier_use:n260/verizon",
+        "carrier_use:n261/verizon",
+        "carrier_use:n261/cellcom"
+       ],
+       "text": "Verizon runs n260 and n261. Cellcom runs n261. Other carriers may use mmWave too, but we have not checked that yet, so the app will not quiz you on it.\n",
+       "show": [
+        "n260",
+        "n261"
+       ]
+      },
+      {
+       "id": "u4-mmw-fr-01",
+       "kind": "choice",
+       "facts": [
+        "band:n260"
+       ],
+       "prompt": "Is n260 FR1 or FR2?",
+       "choices": [
+        "FR2",
+        "FR1"
+       ],
+       "answer": 0,
+       "why": "The bands file tags n260 as {band:n260.kind}. FR2 is the mmWave zone."
+      },
+      {
+       "id": "u4-mmw-inside-01",
+       "kind": "choice",
+       "facts": [
+        "band:n261",
+        "band:n257",
+        "band:n258"
+       ],
+       "prompt": "n261 fits inside which band?",
+       "choices": [
+        "n257",
+        "n258",
+        "n260"
+       ],
+       "answer": 0,
+       "why": "n261 ({band:n261.dl_low_mhz} to {band:n261.dl_high_mhz} MHz) is inside n257 ({band:n257.dl_low_mhz} to {band:n257.dl_high_mhz} MHz)."
+      },
+      {
+       "id": "u4-mmw-dl-01",
+       "kind": "number",
+       "facts": [
+        "band:n260"
+       ],
+       "prompt": "n260 starts at how many MHz? (A little under 37 GHz is a clue.)",
+       "answer_from": "band:n260.dl_low_mhz",
+       "tolerance_mhz": 500,
+       "unit": "MHz",
+       "why": "n260 runs from {band:n260.dl_low_mhz} to {band:n260.dl_high_mhz} MHz."
+      },
+      {
+       "id": "u4-mmw-carrier-01",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n260/verizon",
+        "carrier_use:n77/verizon",
+        "band:n260",
+        "band:n77"
+       ],
+       "prompt": "Which of Verizon's bands is the mmWave one?",
+       "choices": [
+        "n260",
+        "n77"
+       ],
+       "answer": 0,
+       "why": "n260 is {band:n260.kind}, which is mmWave. n77 is {band:n77.kind}."
+      },
+      {
+       "id": "u4-mmw-clue-01",
+       "kind": "choice",
+       "facts": [
+        "band:n260",
+        "band:n258",
+        "band:n77"
+       ],
+       "prompt": "Which band is FR2 and runs {band:n260.dl_low_mhz} to {band:n260.dl_high_mhz} MHz?",
+       "choices": [
+        "n260",
+        "n258",
+        "n77"
+       ],
+       "answer": 0,
+       "why": "n260 runs {band:n260.dl_low_mhz} to {band:n260.dl_high_mhz} MHz. n258 starts at {band:n258.dl_low_mhz}."
+      },
+      {
+       "id": "u4-mmw-order-01",
+       "kind": "order",
+       "facts": [
+        "band:n77",
+        "band:n258",
+        "band:n260"
+       ],
+       "prompt": "Put these bands in order, lowest frequency first.",
+       "bands": [
+        "n77",
+        "n258",
+        "n260"
+       ],
+       "sort_by": "dl_low_mhz",
+       "why": "Sorted by where each band starts, in MHz."
+      },
+      {
+       "id": "u4-mmw-tier-01",
+       "kind": "choice",
+       "facts": [
+        "band:n258"
+       ],
+       "prompt": "Is n258 low, mid or high band?",
+       "choices": [
+        "High band",
+        "Mid band",
+        "Low band"
+       ],
+       "answer": 0,
+       "why": "n258 is {band:n258.kind}, the mmWave zone."
+      },
+      {
+       "id": "u4-mmw-tier-02",
+       "kind": "choice",
+       "facts": [
+        "band:n71",
+        "band:n41",
+        "band:n261"
+       ],
+       "prompt": "Which of these is a high band (mmWave)?",
+       "choices": [
+        "n261",
+        "n41",
+        "n71"
+       ],
+       "answer": 0,
+       "why": "n261 is {band:n261.kind}. n41 and n71 are FR1, below mmWave."
+      },
+      {
+       "id": "u4-mmw-n257-01",
+       "kind": "number",
+       "facts": [
+        "band:n257"
+       ],
+       "prompt": "n257 starts at how many MHz? (A little over 26 GHz is a clue.)",
+       "answer_from": "band:n257.dl_low_mhz",
+       "tolerance_mhz": 500,
+       "unit": "MHz",
+       "why": "n257 runs from {band:n257.dl_low_mhz} to {band:n257.dl_high_mhz} MHz."
+      },
+      {
+       "id": "u4-mmw-cellcom-01",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n261/cellcom",
+        "carrier_use:n41/tmobile"
+       ],
+       "prompt": "Which band does Cellcom run in our checked facts?",
+       "choices": [
+        "n261",
+        "n41"
+       ],
+       "answer": 0,
+       "why": "Cellcom runs n261. The checked n41 row belongs to T-Mobile."
+      },
+      {
+       "id": "u4-mmw-reach-01",
+       "kind": "choice",
+       "facts": [
+        "band:n41",
+        "band:n260"
+       ],
+       "prompt": "n41 or n260, which one reaches farther from the tower?",
+       "choices": [
+        "n41",
+        "n260"
+       ],
+       "answer": 0,
+       "why": "n41 starts at {band:n41.dl_low_mhz} MHz and n260 at {band:n260.dl_low_mhz}. Lower frequencies travel farther."
+      }
+     ]
+    },
+    {
+     "id": "unit04-check",
+     "title": "Checkpoint: capacity bands",
+     "questions": [
+      {
+       "id": "u4-cp-box-01",
+       "kind": "choice",
+       "facts": [
+        "band:n78",
+        "band:n77"
+       ],
+       "prompt": "n78 fits inside which band?",
+       "choices": [
+        "n77",
+        "n79",
+        "n41"
+       ],
+       "answer": 0,
+       "why": "n77 spans {band:n77.dl_low_mhz} to {band:n77.dl_high_mhz} MHz and holds n78."
+      },
+      {
+       "id": "u4-cp-box-02",
+       "kind": "choice",
+       "facts": [
+        "band:B48",
+        "band:B49"
+       ],
+       "prompt": "B48 or B49, which one is the bigger box?",
+       "choices": [
+        "B48",
+        "B49"
+       ],
+       "answer": 0,
+       "why": "B48 contains B49 ({band:B48.relations})."
+      },
+      {
+       "id": "u4-cp-box-03",
+       "kind": "choice",
+       "facts": [
+        "band:n261",
+        "band:n257"
+       ],
+       "prompt": "n261 fits inside which band?",
+       "choices": [
+        "n257",
+        "n258",
+        "n260"
+       ],
+       "answer": 0,
+       "why": "n261 ({band:n261.dl_low_mhz} to {band:n261.dl_high_mhz} MHz) is inside n257."
+      },
+      {
+       "id": "u4-cp-duplex-01",
+       "kind": "choice",
+       "facts": [
+        "band:n77"
+       ],
+       "prompt": "Is n77 FDD or TDD?",
+       "choices": [
+        "TDD",
+        "FDD"
+       ],
+       "answer": 0,
+       "why": "The bands file lists n77's duplex as {band:n77.duplex}."
+      },
+      {
+       "id": "u4-cp-duplex-02",
+       "kind": "choice",
+       "facts": [
+        "band:B2",
+        "band:B48"
+       ],
+       "prompt": "Which band is FDD (separate uplink and downlink ranges)?",
+       "choices": [
+        "B2",
+        "B48"
+       ],
+       "answer": 0,
+       "why": "B2 is {band:B2.duplex}. B48 is TDD."
+      },
+      {
+       "id": "u4-cp-tier-01",
+       "kind": "choice",
+       "facts": [
+        "band:n260"
+       ],
+       "prompt": "Which part of the ruler is n260 in?",
+       "choices": [
+        "High band",
+        "Mid band",
+        "Low band"
+       ],
+       "answer": 0,
+       "why": "n260 is {band:n260.kind}, the mmWave zone."
+      },
+      {
+       "id": "u4-cp-dl-01",
+       "kind": "number",
+       "facts": [
+        "band:n77"
+       ],
+       "prompt": "n77 starts at how many MHz?",
+       "answer_from": "band:n77.dl_low_mhz",
+       "tolerance_mhz": 5,
+       "unit": "MHz",
+       "why": "n77 runs from {band:n77.dl_low_mhz} to {band:n77.dl_high_mhz} MHz."
+      },
+      {
+       "id": "u4-cp-dl-02",
+       "kind": "number",
+       "facts": [
+        "band:B48"
+       ],
+       "prompt": "CBRS starts at how many MHz?",
+       "answer_from": "band:B48.dl_low_mhz",
+       "tolerance_mhz": 5,
+       "unit": "MHz",
+       "why": "CBRS runs from {band:B48.dl_low_mhz} to {band:B48.dl_high_mhz} MHz."
+      },
+      {
+       "id": "u4-cp-order-01",
+       "kind": "order",
+       "facts": [
+        "band:n41",
+        "band:n77",
+        "band:n260"
+       ],
+       "prompt": "Put these bands in order, lowest frequency first.",
+       "bands": [
+        "n41",
+        "n77",
+        "n260"
+       ],
+       "sort_by": "dl_low_mhz",
+       "why": "Sorted by where each band starts, in MHz."
+      },
+      {
+       "id": "u4-cp-order-02",
+       "kind": "order",
+       "facts": [
+        "band:n71",
+        "band:n41",
+        "band:n48"
+       ],
+       "prompt": "Put these bands in order, lowest frequency first.",
+       "bands": [
+        "n71",
+        "n41",
+        "n48"
+       ],
+       "sort_by": "dl_low_mhz",
+       "why": "Sorted by where each band starts, in MHz."
+      },
+      {
+       "id": "u4-cp-carrier-01",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n41/tmobile",
+        "carrier_use:n77/att"
+       ],
+       "prompt": "Which carrier's \"Ultra Capacity\" icon is built on n41?",
+       "choices": [
+        "T-Mobile",
+        "AT&T"
+       ],
+       "answer": 0,
+       "why": "T-Mobile runs n41 as \"Ultra Capacity\". AT&T's checked 5G band is n77."
+      },
+      {
+       "id": "u4-cp-carrier-02",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n260/verizon",
+        "carrier_use:n41/tmobile"
+       ],
+       "prompt": "Which carrier runs the mmWave band n260?",
+       "choices": [
+        "Verizon",
+        "T-Mobile"
+       ],
+       "answer": 0,
+       "why": "Verizon runs n260. The checked T-Mobile row is n41."
+      },
+      {
+       "id": "u4-cp-sale-01",
+       "kind": "choice",
+       "facts": [
+        "change:2"
+       ],
+       "prompt": "In {change:2.date}, who sold AT&T the n77 (3.45 GHz) spectrum?",
+       "choices": [
+        "Array (the former UScellular)",
+        "EchoStar",
+        "Verizon"
+       ],
+       "answer": 0,
+       "why": "The seller was \"{change:2.from}\"."
+      },
+      {
+       "id": "u4-cp-mixed-01",
+       "kind": "choice",
+       "facts": [
+        "band:B71",
+        "band:B41"
+       ],
+       "prompt": "B71 or B41, which one reaches farther from the tower?",
+       "choices": [
+        "B71",
+        "B41"
+       ],
+       "answer": 0,
+       "why": "B71 starts at {band:B71.dl_low_mhz} MHz and B41 at {band:B41.dl_low_mhz}. Lower frequencies travel farther."
+      },
+      {
+       "id": "u4-cp-mixed-02",
+       "kind": "choice",
+       "facts": [
+        "band:B25",
+        "band:B2"
+       ],
+       "prompt": "B2 fits inside which band?",
+       "choices": [
+        "B25",
+        "B48",
+        "B41"
+       ],
+       "answer": 0,
+       "why": "B25 is the bigger box around B2."
+      }
+     ]
+    }
+   ]
   }
  ]
 }

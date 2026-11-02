@@ -1,0 +1,93 @@
+unit: unit04
+unit_title: Capacity bands
+lesson: unit04-l3
+title: "CBRS: B48, n48 and B49"
+questions:
+  - id: u4-cbrs-learn-01
+    kind: learn
+    title: CBRS in plain words
+    facts: [band:B48, band:n48, band:B49]
+    text: >
+      CBRS is the band at {band:B48.dl_low_mhz} to {band:B48.dl_high_mhz} MHz, nicknamed "{band:B48.name}". It is TDD.
+      B48 is the 4G name and n48 is the 5G name. B49 ("{band:B49.name}") covers the same range and sits inside B48.
+    show: [B48, n48, B49]
+  - id: u4-cbrs-learn-02
+    kind: learn
+    title: Who uses CBRS
+    facts: [band:B48]
+    label: not checked
+    text: >
+      Verizon is often said to use B48, but we are still checking, so the app will not quiz you on it.
+    show: [B48]
+  - id: u4-cbrs-box-01
+    kind: choice
+    facts: [band:B48, band:B49]
+    prompt: B48 or B49, which one is the bigger box?
+    choices: [B48, B49]
+    answer: 0
+    why: The bands file says B48 contains B49 ({band:B48.relations}).
+  - id: u4-cbrs-inside-01
+    kind: choice
+    facts: [band:n48, band:n78, band:n79]
+    prompt: n48 fits inside which band?
+    choices: [n78, n79, n41]
+    answer: 0
+    why: n48 ({band:n48.dl_low_mhz} to {band:n48.dl_high_mhz} MHz) is inside n78 ({band:n78.dl_low_mhz} to {band:n78.dl_high_mhz} MHz).
+  - id: u4-cbrs-dl-01
+    kind: number
+    facts: [band:B48]
+    prompt: CBRS starts at how many MHz?
+    answer_from: band:B48.dl_low_mhz
+    tolerance_mhz: 5
+    unit: MHz
+    why: CBRS runs from {band:B48.dl_low_mhz} to {band:B48.dl_high_mhz} MHz.
+  - id: u4-cbrs-duplex-01
+    kind: choice
+    facts: [band:B48]
+    prompt: Is CBRS (B48) FDD or TDD?
+    choices: [TDD, FDD]
+    answer: 0
+    why: The bands file lists B48's duplex as {band:B48.duplex}.
+  - id: u4-cbrs-clue-01
+    kind: choice
+    facts: [band:B48, band:n41, band:B30]
+    prompt: "Which 4G band is TDD and runs {band:B48.dl_low_mhz} to {band:B48.dl_high_mhz} MHz?"
+    choices: [B48, B41, B30]
+    answer: 0
+    why: B48 is {band:B48.duplex} at {band:B48.dl_low_mhz} to {band:B48.dl_high_mhz} MHz. B30 is FDD at {band:B30.dl_low_mhz}.
+  - id: u4-cbrs-order-01
+    kind: order
+    facts: [band:n41, band:n48, band:n77]
+    prompt: Put these bands in order, lowest start frequency first.
+    bands: [n41, n77, n48]
+    sort_by: dl_low_mhz
+    why: Sorted by where each band starts, in MHz.
+  - id: u4-cbrs-mixed-01
+    kind: choice
+    facts: [band:B2, band:B48]
+    prompt: B2 or B48, which one has its uplink on a different frequency from its downlink?
+    choices: [B2, B48]
+    answer: 0
+    why: B2 is {band:B2.duplex}, with uplink {band:B2.ul_low_mhz} to {band:B2.ul_high_mhz} MHz. B48 is TDD, so both share one range.
+  - id: u4-cbrs-b49-01
+    kind: choice
+    facts: [band:B48, band:B49]
+    prompt: B49 fits inside which band?
+    choices: [B48, B41, B30]
+    answer: 0
+    why: B48 ({band:B48.dl_low_mhz} to {band:B48.dl_high_mhz} MHz) holds B49.
+  - id: u4-cbrs-high-01
+    kind: number
+    facts: [band:B48]
+    prompt: CBRS ends at how many MHz?
+    answer_from: band:B48.dl_high_mhz
+    tolerance_mhz: 5
+    unit: MHz
+    why: CBRS runs from {band:B48.dl_low_mhz} to {band:B48.dl_high_mhz} MHz.
+  - id: u4-cbrs-twin-01
+    kind: choice
+    facts: [band:B48, band:n48]
+    prompt: Which band is the 5G twin of B48?
+    choices: [n48, n41, n77]
+    answer: 0
+    why: Twins share the same numbers. n48 and B48 both run {band:n48.dl_low_mhz} to {band:n48.dl_high_mhz} MHz.

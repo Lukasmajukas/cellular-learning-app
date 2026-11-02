@@ -1,0 +1,100 @@
+unit: unit04
+unit_title: Capacity bands
+lesson: unit04-l4
+title: "mmWave: n257, n258, n260 and n261"
+questions:
+  - id: u4-mmw-learn-01
+    kind: learn
+    title: High band is mmWave
+    facts: [band:n257, band:n258, band:n260, band:n261]
+    text: >
+      High band means mmWave (FR2). It is very fast but reaches only a short way, like a fire hose that cannot go far.
+      Four names to know: n257 ("{band:n257.name}"), n258 ("{band:n258.name}"), n260 ("{band:n260.name}") and n261 ("{band:n261.name}"). All are TDD.
+    show: [n257, n258, n260, n261]
+  - id: u4-mmw-learn-02
+    kind: learn
+    title: Who uses mmWave
+    facts: [carrier_use:n260/verizon, carrier_use:n261/verizon, carrier_use:n261/cellcom]
+    text: >
+      Verizon runs n260 and n261. Cellcom runs n261. Other carriers may use mmWave too, but we have not checked that yet,
+      so the app will not quiz you on it.
+    show: [n260, n261]
+  - id: u4-mmw-fr-01
+    kind: choice
+    facts: [band:n260]
+    prompt: Is n260 FR1 or FR2?
+    choices: [FR2, FR1]
+    answer: 0
+    why: The bands file tags n260 as {band:n260.kind}. FR2 is the mmWave zone.
+  - id: u4-mmw-inside-01
+    kind: choice
+    facts: [band:n261, band:n257, band:n258]
+    prompt: n261 fits inside which band?
+    choices: [n257, n258, n260]
+    answer: 0
+    why: n261 ({band:n261.dl_low_mhz} to {band:n261.dl_high_mhz} MHz) is inside n257 ({band:n257.dl_low_mhz} to {band:n257.dl_high_mhz} MHz).
+  - id: u4-mmw-dl-01
+    kind: number
+    facts: [band:n260]
+    prompt: n260 starts at how many MHz? (A little under 37 GHz is a clue.)
+    answer_from: band:n260.dl_low_mhz
+    tolerance_mhz: 500
+    unit: MHz
+    why: n260 runs from {band:n260.dl_low_mhz} to {band:n260.dl_high_mhz} MHz.
+  - id: u4-mmw-carrier-01
+    kind: choice
+    facts: [carrier_use:n260/verizon, carrier_use:n77/verizon, band:n260, band:n77]
+    prompt: Which of Verizon's bands is the mmWave one?
+    choices: [n260, n77]
+    answer: 0
+    why: n260 is {band:n260.kind}, which is mmWave. n77 is {band:n77.kind}.
+  - id: u4-mmw-clue-01
+    kind: choice
+    facts: [band:n260, band:n258, band:n77]
+    prompt: "Which band is FR2 and runs {band:n260.dl_low_mhz} to {band:n260.dl_high_mhz} MHz?"
+    choices: [n260, n258, n77]
+    answer: 0
+    why: n260 runs {band:n260.dl_low_mhz} to {band:n260.dl_high_mhz} MHz. n258 starts at {band:n258.dl_low_mhz}.
+  - id: u4-mmw-order-01
+    kind: order
+    facts: [band:n77, band:n258, band:n260]
+    prompt: Put these bands in order, lowest frequency first.
+    bands: [n77, n258, n260]
+    sort_by: dl_low_mhz
+    why: Sorted by where each band starts, in MHz.
+  - id: u4-mmw-tier-01
+    kind: choice
+    facts: [band:n258]
+    prompt: Is n258 low, mid or high band?
+    choices: [High band, Mid band, Low band]
+    answer: 0
+    why: n258 is {band:n258.kind}, the mmWave zone.
+  - id: u4-mmw-tier-02
+    kind: choice
+    facts: [band:n71, band:n41, band:n261]
+    prompt: Which of these is a high band (mmWave)?
+    choices: [n261, n41, n71]
+    answer: 0
+    why: n261 is {band:n261.kind}. n41 and n71 are FR1, below mmWave.
+  - id: u4-mmw-n257-01
+    kind: number
+    facts: [band:n257]
+    prompt: n257 starts at how many MHz? (A little over 26 GHz is a clue.)
+    answer_from: band:n257.dl_low_mhz
+    tolerance_mhz: 500
+    unit: MHz
+    why: n257 runs from {band:n257.dl_low_mhz} to {band:n257.dl_high_mhz} MHz.
+  - id: u4-mmw-cellcom-01
+    kind: choice
+    facts: [carrier_use:n261/cellcom, carrier_use:n41/tmobile]
+    prompt: Which band does Cellcom run in our checked facts?
+    choices: [n261, n41]
+    answer: 0
+    why: Cellcom runs n261. The checked n41 row belongs to T-Mobile.
+  - id: u4-mmw-reach-01
+    kind: choice
+    facts: [band:n41, band:n260]
+    prompt: n41 or n260, which one reaches farther from the tower?
+    choices: [n41, n260]
+    answer: 0
+    why: n41 starts at {band:n41.dl_low_mhz} MHz and n260 at {band:n260.dl_low_mhz}. Lower frequencies travel farther.

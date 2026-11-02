@@ -1,0 +1,112 @@
+unit: unit04
+unit_title: Capacity bands
+lesson: unit04-check
+title: "Checkpoint: capacity bands"
+questions:
+  - id: u4-cp-box-01
+    kind: choice
+    facts: [band:n78, band:n77]
+    prompt: n78 fits inside which band?
+    choices: [n77, n79, n41]
+    answer: 0
+    why: n77 spans {band:n77.dl_low_mhz} to {band:n77.dl_high_mhz} MHz and holds n78.
+  - id: u4-cp-box-02
+    kind: choice
+    facts: [band:B48, band:B49]
+    prompt: B48 or B49, which one is the bigger box?
+    choices: [B48, B49]
+    answer: 0
+    why: B48 contains B49 ({band:B48.relations}).
+  - id: u4-cp-box-03
+    kind: choice
+    facts: [band:n261, band:n257]
+    prompt: n261 fits inside which band?
+    choices: [n257, n258, n260]
+    answer: 0
+    why: n261 ({band:n261.dl_low_mhz} to {band:n261.dl_high_mhz} MHz) is inside n257.
+  - id: u4-cp-duplex-01
+    kind: choice
+    facts: [band:n77]
+    prompt: Is n77 FDD or TDD?
+    choices: [TDD, FDD]
+    answer: 0
+    why: The bands file lists n77's duplex as {band:n77.duplex}.
+  - id: u4-cp-duplex-02
+    kind: choice
+    facts: [band:B2, band:B48]
+    prompt: Which band is FDD (separate uplink and downlink ranges)?
+    choices: [B2, B48]
+    answer: 0
+    why: B2 is {band:B2.duplex}. B48 is TDD.
+  - id: u4-cp-tier-01
+    kind: choice
+    facts: [band:n260]
+    prompt: Which part of the ruler is n260 in?
+    choices: [High band, Mid band, Low band]
+    answer: 0
+    why: n260 is {band:n260.kind}, the mmWave zone.
+  - id: u4-cp-dl-01
+    kind: number
+    facts: [band:n77]
+    prompt: n77 starts at how many MHz?
+    answer_from: band:n77.dl_low_mhz
+    tolerance_mhz: 5
+    unit: MHz
+    why: n77 runs from {band:n77.dl_low_mhz} to {band:n77.dl_high_mhz} MHz.
+  - id: u4-cp-dl-02
+    kind: number
+    facts: [band:B48]
+    prompt: CBRS starts at how many MHz?
+    answer_from: band:B48.dl_low_mhz
+    tolerance_mhz: 5
+    unit: MHz
+    why: CBRS runs from {band:B48.dl_low_mhz} to {band:B48.dl_high_mhz} MHz.
+  - id: u4-cp-order-01
+    kind: order
+    facts: [band:n41, band:n77, band:n260]
+    prompt: Put these bands in order, lowest frequency first.
+    bands: [n41, n77, n260]
+    sort_by: dl_low_mhz
+    why: Sorted by where each band starts, in MHz.
+  - id: u4-cp-order-02
+    kind: order
+    facts: [band:n71, band:n41, band:n48]
+    prompt: Put these bands in order, lowest frequency first.
+    bands: [n71, n41, n48]
+    sort_by: dl_low_mhz
+    why: Sorted by where each band starts, in MHz.
+  - id: u4-cp-carrier-01
+    kind: choice
+    facts: [carrier_use:n41/tmobile, carrier_use:n77/att]
+    prompt: Which carrier's "Ultra Capacity" icon is built on n41?
+    choices: [T-Mobile, AT&T]
+    answer: 0
+    why: T-Mobile runs n41 as "Ultra Capacity". AT&T's checked 5G band is n77.
+  - id: u4-cp-carrier-02
+    kind: choice
+    facts: [carrier_use:n260/verizon, carrier_use:n41/tmobile]
+    prompt: Which carrier runs the mmWave band n260?
+    choices: [Verizon, T-Mobile]
+    answer: 0
+    why: Verizon runs n260. The checked T-Mobile row is n41.
+  - id: u4-cp-sale-01
+    kind: choice
+    facts: [change:2]
+    prompt: In {change:2.date}, who sold AT&T the n77 (3.45 GHz) spectrum?
+    choices: [Array (the former UScellular), EchoStar, Verizon]
+    answer: 0
+    why: The seller was "{change:2.from}".
+  - id: u4-cp-mixed-01
+    kind: choice
+    facts: [band:B71, band:B41]
+    prompt: B71 or B41, which one reaches farther from the tower?
+    choices: [B71, B41]
+    answer: 0
+    why: B71 starts at {band:B71.dl_low_mhz} MHz and B41 at {band:B41.dl_low_mhz}. Lower frequencies travel farther.
+  - id: u4-cp-mixed-02
+    kind: choice
+    facts: [band:B25, band:B2]
+    prompt: B2 fits inside which band?
+    choices: [B25, B48, B41]
+    answer: 0
+    why: B25 is the bigger box around B2.
