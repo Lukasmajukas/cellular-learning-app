@@ -140,6 +140,13 @@ use = [u for u in use if not (u["carrier_id"]=="cspire" and u["band"]=="B17")]
 # T-Mobile's Lower 700 is the A block = B12 only.
 use = [u for u in use if not (u["carrier_id"]=="tmobile" and u["band"]=="B17")]
 
+# T34: the 5G icon each carrier shows for a band. Only on rows that are CURRENT (the names were in the notes: 'Ultra Capacity',
+# '5G+', '5G UW'). The icon shares the row's status, as_of and source. Every other row gets icon "" so the field always exists.
+ICONS = {("n41","tmobile"):"Ultra Capacity", ("n77","att"):"5G+", ("n77","verizon"):"5G UW"}
+for u in use:
+    u["icon"] = ICONS.get((u["band"], u["carrier_id"]), "")
+    assert not u["icon"] or u["status"] == "CURRENT", f"icon on a row that is not CURRENT: {u['band']}/{u['carrier_id']}"
+
 # B5: ownership changes live in their own list. Not "a phone sees this band on this carrier's sites".
 # (date, bands, from, to, status, note, source)  Source texts come from the Q4 timeline in us_bands.md.
 S = "docs/research/notes/us_bands.md, Q4 timeline (web-search summaries; pages not opened): "
@@ -157,6 +164,28 @@ SPECTRUM = [
 ]
 spectrum = [{"date":d,"bands":b,"from":f,"to":t,"status":st,"note":n,"as_of":AS_OF,"source":src} for d,b,f,t,st,n,src in SPECTRUM]
 
+# T34: carrier codes (MCC-MNC) parsed from the two tables at the top of content/carrier-codes.md (the "T27 follow-up" table has no
+# status column in the same place and every row is UNVERIFIED, so it is skipped). Every code gets its own row with the row's status.
+# Rows written as a range ("310-200 to 310-310 (several)") are skipped: they are HISTORICAL and can't be split safely.
+import re
+CC_AS_OF = "2026-11-01"
+CC_SRC = "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
+codes = []
+skipped_codes = []
+_sec = ""
+for line in open("content/carrier-codes.md", encoding="utf-8"):
+    if line.startswith("## "): _sec = line
+    if not (_sec.startswith("## The big carriers") or _sec.startswith("## Other codes seen")): continue
+    cells = [c.strip() for c in line.strip().strip("|").split("|")]
+    if len(cells) != 5 or not re.match(r"\d{3}-\d{3}", cells[0]): continue
+    codes_txt, shows, who, status, note = cells
+    if " to " in codes_txt or "several" in codes_txt:
+        skipped_codes.append(codes_txt); continue
+    for code in re.findall(r"\d{3}-\d{3}", codes_txt):
+        mcc, mnc = code.split("-")
+        codes.append({"id":code,"mcc":mcc,"mnc":mnc,"shows_as":shows,"operator":who,"status":status,"note":note,"as_of":CC_AS_OF,"source":CC_SRC})
+assert len({c["id"] for c in codes}) == len(codes), "duplicate carrier code"
+
 # A5: "core" was misleading. Now: has_carrier_rows (any carrier row) and us_active_claim (a CURRENT/PLANNED claim).
 rows_by_band = {}
 for u in use: rows_by_band.setdefault(u["band"], []).append(u)
@@ -173,7 +202,7 @@ RANGES = [
  {"id":"FR2","name":"Frequency Range 2 (mmWave)","low_mhz":24250,"high_mhz":71000,"text":"24.25 to 71 GHz"},
 ]
 ranges = [dict(r, status="CURRENT", as_of=AS_OF, source=FRSRC) for r in RANGES]
-json.dump({"as_of":AS_OF,"carriers":CARRIERS,"bands":defs,"carrier_use":use,"spectrum_changes":spectrum,"frequency_ranges":ranges}, open("content/bands.json","w"), indent=1, ensure_ascii=False)
+json.dump({"as_of":AS_OF,"carriers":CARRIERS,"bands":defs,"carrier_use":use,"spectrum_changes":spectrum,"frequency_ranges":ranges,"carrier_codes":codes}, open("content/bands.json","w"), indent=1, ensure_ascii=False)
 open("content/bands.json","a").write("\n")
 
 o = ["# US bands data file: DRAFT v2","",
@@ -215,4 +244,5 @@ o += ["","Sources for each row are in `bands.json` (`spectrum_changes`). Same ca
  "- C Spire's band list is unsettled (weak sources only). The NR carrier table has no cited source for most rows.",
  "- Not yet checked against the 3GPP documents: task T07. Carrier-code list: `content/carrier-codes.md`.",""]
 open("content/bands.md","w").write("\n".join(o))
+print(len(codes),"carrier codes (",sum(c['status']=='CURRENT' for c in codes),"CURRENT; skipped:",skipped_codes,")")
 print(len(defs),"bands,",len(use),"carrier rows,",sum(u['status']!='UNVERIFIED' for u in use),"with a trusted status")

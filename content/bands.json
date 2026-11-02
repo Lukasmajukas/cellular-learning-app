@@ -2099,7 +2099,8 @@
    "note": "capacity layer",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2113,7 +2114,8 @@
    "note": "capacity layer; plus Array PCS licences (Jun 2026; band mix disputed)",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2127,7 +2129,8 @@
    "note": "as B2/B25",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2141,7 +2144,8 @@
    "note": "",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2155,7 +2159,8 @@
    "note": "main capacity layer (research grouped this as B4/B66)",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2169,7 +2174,8 @@
    "note": "main capacity layer (research grouped this as B4/B66)",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2183,7 +2189,8 @@
    "note": "main capacity layer (research grouped this as B4/B66)",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2197,7 +2204,8 @@
    "note": "main capacity layer (research grouped this as B4/B66)",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2211,7 +2219,8 @@
    "note": "(research grouped this as B4/B66)",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2225,7 +2234,8 @@
    "note": "(research grouped this as B4/B66)",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2239,7 +2249,8 @@
    "note": "own network wound down; LTE use on this band not shown by the source (research grouped this as B4/B66)",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2253,7 +2264,8 @@
    "note": "B4 (research grouped this as B4/B66)",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2267,7 +2279,8 @@
    "note": "coverage layer",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2281,7 +2294,8 @@
    "note": "coverage layer",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2295,7 +2309,8 @@
    "note": "former UScellular markets only",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2309,7 +2324,8 @@
    "note": "source lists 850 MHz as n5 only; LTE B5 is an inference",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2323,7 +2339,8 @@
    "note": "B/C blocks, shown as B17 or B12; plus Array 700 (Jan 2026) (research grouped this as B12/B17/B85)",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "Wikipedia deployments table (undated), band_verification.md Q3; not enough to upgrade (undated table)"
+   "source": "Wikipedia deployments table (undated), band_verification.md Q3; not enough to upgrade (undated table)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2337,7 +2354,8 @@
    "note": "B/C blocks, shown as B17 or B12; plus Array 700 (Jan 2026) (research grouped this as B12/B17/B85)",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "Wikipedia deployments table (undated), band_verification.md Q3; not enough to upgrade (undated table)"
+   "source": "Wikipedia deployments table (undated), band_verification.md Q3; not enough to upgrade (undated table)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2351,7 +2369,8 @@
    "note": "A block; plus Array 700 (May 2026) (research grouped this as B12/B17/B85)",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "Wikipedia deployments table (undated), band_verification.md Q3; not enough to upgrade (undated table)"
+   "source": "Wikipedia deployments table (undated), band_verification.md Q3; not enough to upgrade (undated table)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2365,7 +2384,8 @@
    "note": "B12 (research grouped this as B12/B17/B85)",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2379,7 +2399,8 @@
    "note": "nationwide coverage anchor",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "Wikipedia deployments table (undated), band_verification.md Q3; not enough to upgrade (undated table)"
+   "source": "Wikipedia deployments table (undated), band_verification.md Q3; not enough to upgrade (undated table)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2393,7 +2414,8 @@
    "note": "has access to Verizon 700 MHz (LRA partner); B13 use not confirmed",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2407,7 +2429,8 @@
    "note": "FirstNet public safety plus commercial",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "Wikipedia deployments table (undated), band_verification.md Q3; not enough to upgrade (undated table)"
+   "source": "Wikipedia deployments table (undated), band_verification.md Q3; not enough to upgrade (undated table)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2421,7 +2444,8 @@
    "note": "",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "Wikipedia deployments table (undated), band_verification.md Q3; not enough to upgrade (undated table)"
+   "source": "Wikipedia deployments table (undated), band_verification.md Q3; not enough to upgrade (undated table)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2435,7 +2459,8 @@
    "note": "800 MHz licences sold, closed 2026-08-10 (the ex-Sprint 800 MHz slice touches B26 and B27)",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2449,7 +2474,8 @@
    "note": "downlink-only booster",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2463,7 +2489,8 @@
    "note": "E block; LTE use not shown by the source",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2477,7 +2504,8 @@
    "note": "capacity layer",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2491,7 +2519,8 @@
    "note": "residual LTE; mostly moved to n41",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "Wikipedia deployments table (undated), band_verification.md Q3; not enough to upgrade (undated table)"
+   "source": "Wikipedia deployments table (undated), band_verification.md Q3; not enough to upgrade (undated table)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2505,7 +2534,8 @@
    "note": "limited, urban",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2519,7 +2549,8 @@
    "note": "limited, urban",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2533,7 +2564,8 @@
    "note": "limited, urban",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2547,7 +2579,8 @@
    "note": "capacity layer (CBRS)",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2561,7 +2594,8 @@
    "note": "traffic moved to AT&T by 2025-11-15",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2575,7 +2609,8 @@
    "note": "owns ~20 MHz since 2026-07-28; multiyear build",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2589,7 +2624,8 @@
    "note": "coverage layer; plus Grain 600 (Aug 2026), Array 600 (May 2026)",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "Wikipedia deployments table (undated), band_verification.md Q3; not enough to upgrade (undated table)"
+   "source": "Wikipedia deployments table (undated), band_verification.md Q3; not enough to upgrade (undated table)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2603,7 +2639,8 @@
    "note": "licences now AT&T's",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -2617,7 +2654,8 @@
    "note": "research lists n71; Wikipedia deployments table also lists LTE B71 (undated)",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "Wikipedia deployments table (undated), band_verification.md Q3; not enough to upgrade (undated table)"
+   "source": "Wikipedia deployments table (undated), band_verification.md Q3; not enough to upgrade (undated table)",
+   "icon": ""
   },
   {
    "tech": "NR",
@@ -2631,7 +2669,8 @@
    "note": "DSS, 'Nationwide 5G'",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "NR",
@@ -2645,7 +2684,8 @@
    "note": "some deployments",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "NR",
@@ -2659,7 +2699,8 @@
    "note": "",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "NR",
@@ -2673,7 +2714,8 @@
    "note": "DSS low-band '5G'",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "NR",
@@ -2687,7 +2729,8 @@
    "note": "DSS, main low-band",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "NR",
@@ -2701,7 +2744,8 @@
    "note": "",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "NR",
@@ -2715,7 +2759,8 @@
    "note": "",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "NR",
@@ -2729,7 +2774,8 @@
    "note": "",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "NR",
@@ -2743,7 +2789,8 @@
    "note": "'Ultra Capacity' core",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": "Ultra Capacity"
   },
   {
    "tech": "NR",
@@ -2757,7 +2804,8 @@
    "note": "",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "NR",
@@ -2771,7 +2819,8 @@
    "note": "private 5G and cable offload",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "NR",
@@ -2785,7 +2834,8 @@
    "note": "DSS",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "NR",
@@ -2799,7 +2849,8 @@
    "note": "some",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "NR",
@@ -2813,7 +2864,8 @@
    "note": "all 5G Network traffic moved to AT&T by 2025-11-15",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "EchoStar 10-Q Q2 2026 (https://www.sec.gov/Archives/edgar/data/0001415404/000110465926089370/sats-20260630x10q.htm), as quoted in docs/research/notes/us_bands.md Q4 timeline; the filing itself was not opened"
+   "source": "EchoStar 10-Q Q2 2026 (https://www.sec.gov/Archives/edgar/data/0001415404/000110465926089370/sats-20260630x10q.htm), as quoted in docs/research/notes/us_bands.md Q4 timeline; the filing itself was not opened",
+   "icon": ""
   },
   {
    "tech": "NR",
@@ -2827,7 +2879,8 @@
    "note": "all 5G Network traffic moved to AT&T by 2025-11-15",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "EchoStar 10-Q Q2 2026 (https://www.sec.gov/Archives/edgar/data/0001415404/000110465926089370/sats-20260630x10q.htm), as quoted in docs/research/notes/us_bands.md Q4 timeline; the filing itself was not opened"
+   "source": "EchoStar 10-Q Q2 2026 (https://www.sec.gov/Archives/edgar/data/0001415404/000110465926089370/sats-20260630x10q.htm), as quoted in docs/research/notes/us_bands.md Q4 timeline; the filing itself was not opened",
+   "icon": ""
   },
   {
    "tech": "NR",
@@ -2841,7 +2894,8 @@
    "note": "multiyear",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "NR",
@@ -2855,7 +2909,8 @@
    "note": "'Extended Range'",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "NR",
@@ -2869,7 +2924,8 @@
    "note": "all 5G Network traffic moved to AT&T by 2025-11-15",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "EchoStar 10-Q Q2 2026 (https://www.sec.gov/Archives/edgar/data/0001415404/000110465926089370/sats-20260630x10q.htm), as quoted in docs/research/notes/us_bands.md Q4 timeline; the filing itself was not opened"
+   "source": "EchoStar 10-Q Q2 2026 (https://www.sec.gov/Archives/edgar/data/0001415404/000110465926089370/sats-20260630x10q.htm), as quoted in docs/research/notes/us_bands.md Q4 timeline; the filing itself was not opened",
+   "icon": ""
   },
   {
    "tech": "NR",
@@ -2883,7 +2939,8 @@
    "note": "",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "NR",
@@ -2897,7 +2954,8 @@
    "note": "'5G+': C-band plus 3.45 GHz incl. EchoStar 30 MHz on ~23k sites",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": "5G+"
   },
   {
    "tech": "NR",
@@ -2911,7 +2969,8 @@
    "note": "'5G UW': C-band; mid-band reached 175M+ people (DCD)",
    "weak_note": "~161 MHz average; weak source, do not quiz",
    "as_of": "2026-10-31",
-   "source": "SlashGear (https://www.slashgear.com/1868963/5g-ultra-capacity-vs-wideband-network-differences/), MakeUseOf (https://www.makeuseof.com/verizon-att-t-mobile-different-names-fast-5g/), DCD (https://www.datacenterdynamics.com/en/news/verizon-and-att-receive-full-access-to-entire-c-band-spectrum/), as quoted in docs/research/notes/us_bands.md; pages themselves not opened"
+   "source": "SlashGear (https://www.slashgear.com/1868963/5g-ultra-capacity-vs-wideband-network-differences/), MakeUseOf (https://www.makeuseof.com/verizon-att-t-mobile-different-names-fast-5g/), DCD (https://www.datacenterdynamics.com/en/news/verizon-and-att-receive-full-access-to-entire-c-band-spectrum/), as quoted in docs/research/notes/us_bands.md; pages themselves not opened",
+   "icon": "5G UW"
   },
   {
    "tech": "NR",
@@ -2925,7 +2984,8 @@
    "note": "~40 MHz C-band licences; live use unconfirmed",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "NR",
@@ -2939,7 +2999,8 @@
    "note": "",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "NR",
@@ -2953,7 +3014,8 @@
    "note": "listed only",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "NR",
@@ -2967,7 +3029,8 @@
    "note": "mmWave; matrix tag [S, conflicting]: sources disagree on the band, so UNVERIFIED",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "NR",
@@ -2981,7 +3044,8 @@
    "note": "mmWave",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "NR",
@@ -2995,7 +3059,8 @@
    "note": "mmWave",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "NR",
@@ -3009,7 +3074,8 @@
    "note": "mmWave",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)"
+   "source": "docs/research/notes/us_bands.md, carrier x band matrix (built from web-search summaries; SEC/FCC/press pages were not reachable)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -3023,7 +3089,8 @@
    "note": "listed only in Wikipedia's deployments table",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "Wikipedia deployments table (undated), band_verification.md Q3; not enough to upgrade (undated table)"
+   "source": "Wikipedia deployments table (undated), band_verification.md Q3; not enough to upgrade (undated table)",
+   "icon": ""
   },
   {
    "tech": "LTE",
@@ -3037,7 +3104,8 @@
    "note": "listed only in Wikipedia's deployments table",
    "weak_note": "",
    "as_of": "2026-10-31",
-   "source": "Wikipedia deployments table (undated), band_verification.md Q3; not enough to upgrade (undated table)"
+   "source": "Wikipedia deployments table (undated), band_verification.md Q3; not enough to upgrade (undated table)",
+   "icon": ""
   }
  ],
  "spectrum_changes": [
@@ -3162,6 +3230,393 @@
    "status": "CURRENT",
    "as_of": "2026-10-31",
    "source": "docs/research/notes/band_verification.md section C; Wikipedia 5G NR frequency bands (oldid 1382980478), citing 3GPP TS 38.101-1 V19.3.1 and TS 38.101-2 V19.2.0; not yet compared with the 3GPP documents themselves (T07)"
+  }
+ ],
+ "carrier_codes": [
+  {
+   "id": "310-260",
+   "mcc": "310",
+   "mnc": "260",
+   "shows_as": "T-Mobile",
+   "operator": "T-Mobile US",
+   "status": "CURRENT",
+   "note": "Registry: T-Mobile USA ✔. The main T-Mobile code. Also used by some resellers (e.g. Mint Mobile).",
+   "as_of": "2026-11-01",
+   "source": "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
+  },
+  {
+   "id": "310-410",
+   "mcc": "310",
+   "mnc": "410",
+   "shows_as": "AT&T",
+   "operator": "AT&T Mobility",
+   "status": "CURRENT",
+   "note": "Registry: AT&T Mobility ✔. The main AT&T code (it used to be Cingular).",
+   "as_of": "2026-11-01",
+   "source": "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
+  },
+  {
+   "id": "311-480",
+   "mcc": "311",
+   "mnc": "480",
+   "shows_as": "Verizon",
+   "operator": "Verizon Wireless",
+   "status": "CURRENT",
+   "note": "Registry: Verizon Wireless ✔. Listed with LTE 700 (\"C Block\"). Verizon has many other codes (see below).",
+   "as_of": "2026-11-01",
+   "source": "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
+  },
+  {
+   "id": "313-100",
+   "mcc": "313",
+   "mnc": "100",
+   "shows_as": "FirstNet",
+   "operator": "AT&T (for police, fire, ambulance)",
+   "status": "CURRENT",
+   "note": "Registry: AT&T FirstNet ✔ (313-100 to 313-140 are all FirstNet). AT&T runs FirstNet. Same towers, special priority for first responders.",
+   "as_of": "2026-11-01",
+   "source": "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
+  },
+  {
+   "id": "313-340",
+   "mcc": "313",
+   "mnc": "340",
+   "shows_as": "Dish / Boost",
+   "operator": "Dish Wireless",
+   "status": "CURRENT",
+   "note": "Registry: Dish Network ✔ (also 313-350, 313-360, 311-200 \"Dish Wireless\"). Wikipedia says operational, 5G 600/1700. Boost Network also appears as 314-800 (registry: Boost Network ✔).",
+   "as_of": "2026-11-01",
+   "source": "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
+  },
+  {
+   "id": "311-580",
+   "mcc": "311",
+   "mnc": "580",
+   "shows_as": "UScellular",
+   "operator": "T-Mobile US (bought UScellular's network)",
+   "status": "CURRENT",
+   "note": "Registry: T-Mobile USA ✔ (not UScellular: the code changed hands). Old UScellular towers now belong to T-Mobile.",
+   "as_of": "2026-11-01",
+   "source": "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
+  },
+  {
+   "id": "310-120",
+   "mcc": "310",
+   "mnc": "120",
+   "shows_as": "T-Mobile",
+   "operator": "T-Mobile US",
+   "status": "HISTORICAL",
+   "note": "Registry: T-Mobile USA ✔ (still assigned). Was Sprint. Sprint is gone: merged into T-Mobile. Wikipedia: not operational.",
+   "as_of": "2026-11-01",
+   "source": "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
+  },
+  {
+   "id": "312-530",
+   "mcc": "312",
+   "mnc": "530",
+   "shows_as": "T-Mobile",
+   "operator": "T-Mobile US",
+   "status": "CURRENT",
+   "note": "Registry: T-Mobile USA ✔ (so it is **not** Charter's Spectrum). Was Sprint (Sprint's company name was \"Sprint Spectrum\").",
+   "as_of": "2026-11-01",
+   "source": "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
+  },
+  {
+   "id": "310-010",
+   "mcc": "310",
+   "mnc": "010",
+   "shows_as": "Verizon",
+   "operator": "Verizon Wireless",
+   "status": "CURRENT",
+   "note": "Registry: Verizon Wireless ✔ (Verizon holds dozens of codes, e.g. 311-480 to 311-489, 310-590 to 310-599, 310-890 to 310-899).",
+   "as_of": "2026-11-01",
+   "source": "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
+  },
+  {
+   "id": "310-012",
+   "mcc": "310",
+   "mnc": "012",
+   "shows_as": "Verizon",
+   "operator": "Verizon Wireless",
+   "status": "CURRENT",
+   "note": "Registry: Verizon Wireless ✔ (Verizon holds dozens of codes, e.g. 311-480 to 311-489, 310-590 to 310-599, 310-890 to 310-899).",
+   "as_of": "2026-11-01",
+   "source": "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
+  },
+  {
+   "id": "310-013",
+   "mcc": "310",
+   "mnc": "013",
+   "shows_as": "Verizon",
+   "operator": "Verizon Wireless",
+   "status": "CURRENT",
+   "note": "Registry: Verizon Wireless ✔ (Verizon holds dozens of codes, e.g. 311-480 to 311-489, 310-590 to 310-599, 310-890 to 310-899).",
+   "as_of": "2026-11-01",
+   "source": "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
+  },
+  {
+   "id": "310-004",
+   "mcc": "310",
+   "mnc": "004",
+   "shows_as": "Verizon",
+   "operator": "Verizon Wireless",
+   "status": "UNVERIFIED",
+   "note": "**Not in the US registry**, so the registry can't confirm them. Wikipedia says Verizon. 310-005 CDMA shut off Dec 2022.",
+   "as_of": "2026-11-01",
+   "source": "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
+  },
+  {
+   "id": "310-005",
+   "mcc": "310",
+   "mnc": "005",
+   "shows_as": "Verizon",
+   "operator": "Verizon Wireless",
+   "status": "UNVERIFIED",
+   "note": "**Not in the US registry**, so the registry can't confirm them. Wikipedia says Verizon. 310-005 CDMA shut off Dec 2022.",
+   "as_of": "2026-11-01",
+   "source": "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
+  },
+  {
+   "id": "310-006",
+   "mcc": "310",
+   "mnc": "006",
+   "shows_as": "Verizon",
+   "operator": "Verizon Wireless",
+   "status": "UNVERIFIED",
+   "note": "**Not in the US registry**, so the registry can't confirm them. Wikipedia says Verizon. 310-005 CDMA shut off Dec 2022.",
+   "as_of": "2026-11-01",
+   "source": "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
+  },
+  {
+   "id": "311-270",
+   "mcc": "311",
+   "mnc": "270",
+   "shows_as": "Verizon",
+   "operator": "Verizon Wireless",
+   "status": "CURRENT",
+   "note": "Registry: Verizon Wireless ✔. Former Alltel.",
+   "as_of": "2026-11-01",
+   "source": "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
+  },
+  {
+   "id": "311-271",
+   "mcc": "311",
+   "mnc": "271",
+   "shows_as": "Verizon",
+   "operator": "Verizon Wireless",
+   "status": "CURRENT",
+   "note": "Registry: Verizon Wireless ✔. Former Alltel.",
+   "as_of": "2026-11-01",
+   "source": "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
+  },
+  {
+   "id": "310-070",
+   "mcc": "310",
+   "mnc": "070",
+   "shows_as": "AT&T",
+   "operator": "AT&T Mobility",
+   "status": "CURRENT",
+   "note": "Registry: AT&T Mobility ✔. Old GSM-era codes (Cingular and others).",
+   "as_of": "2026-11-01",
+   "source": "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
+  },
+  {
+   "id": "310-080",
+   "mcc": "310",
+   "mnc": "080",
+   "shows_as": "AT&T",
+   "operator": "AT&T Mobility",
+   "status": "CURRENT",
+   "note": "Registry: AT&T Mobility ✔. Old GSM-era codes (Cingular and others).",
+   "as_of": "2026-11-01",
+   "source": "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
+  },
+  {
+   "id": "310-090",
+   "mcc": "310",
+   "mnc": "090",
+   "shows_as": "AT&T",
+   "operator": "AT&T Mobility",
+   "status": "CURRENT",
+   "note": "Registry: AT&T Mobility ✔. Old GSM-era codes (Cingular and others).",
+   "as_of": "2026-11-01",
+   "source": "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
+  },
+  {
+   "id": "310-150",
+   "mcc": "310",
+   "mnc": "150",
+   "shows_as": "AT&T",
+   "operator": "AT&T Mobility",
+   "status": "CURRENT",
+   "note": "Registry: AT&T Mobility ✔. Old GSM-era codes (Cingular and others).",
+   "as_of": "2026-11-01",
+   "source": "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
+  },
+  {
+   "id": "310-170",
+   "mcc": "310",
+   "mnc": "170",
+   "shows_as": "AT&T",
+   "operator": "AT&T Mobility",
+   "status": "CURRENT",
+   "note": "Registry: AT&T Mobility ✔. Old GSM-era codes (Cingular and others).",
+   "as_of": "2026-11-01",
+   "source": "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
+  },
+  {
+   "id": "310-280",
+   "mcc": "310",
+   "mnc": "280",
+   "shows_as": "AT&T",
+   "operator": "AT&T Mobility",
+   "status": "HISTORICAL",
+   "note": "Registry: AT&T Mobility (still assigned). Was Centennial Puerto Rico. Wikipedia: not operational.",
+   "as_of": "2026-11-01",
+   "source": "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
+  },
+  {
+   "id": "311-490",
+   "mcc": "311",
+   "mnc": "490",
+   "shows_as": "T-Mobile",
+   "operator": "T-Mobile US",
+   "status": "CURRENT",
+   "note": "Registry: T-Mobile USA ✔. Former Sprint or Clearwire codes.",
+   "as_of": "2026-11-01",
+   "source": "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
+  },
+  {
+   "id": "311-870",
+   "mcc": "311",
+   "mnc": "870",
+   "shows_as": "T-Mobile",
+   "operator": "T-Mobile US",
+   "status": "CURRENT",
+   "note": "Registry: T-Mobile USA ✔. Former Sprint or Clearwire codes.",
+   "as_of": "2026-11-01",
+   "source": "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
+  },
+  {
+   "id": "311-882",
+   "mcc": "311",
+   "mnc": "882",
+   "shows_as": "T-Mobile",
+   "operator": "T-Mobile US",
+   "status": "CURRENT",
+   "note": "Registry: T-Mobile USA ✔. Former Sprint or Clearwire codes.",
+   "as_of": "2026-11-01",
+   "source": "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
+  },
+  {
+   "id": "312-190",
+   "mcc": "312",
+   "mnc": "190",
+   "shows_as": "T-Mobile",
+   "operator": "T-Mobile US",
+   "status": "CURRENT",
+   "note": "Registry: T-Mobile USA ✔. Former Sprint or Clearwire codes.",
+   "as_of": "2026-11-01",
+   "source": "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
+  },
+  {
+   "id": "312-250",
+   "mcc": "312",
+   "mnc": "250",
+   "shows_as": "T-Mobile",
+   "operator": "T-Mobile US",
+   "status": "UNVERIFIED",
+   "note": "Registry: T-Mobile USA ✔ (holder only). Wikipedia says its LTE shut down June 2022, so \"in use\" is doubtful.",
+   "as_of": "2026-11-01",
+   "source": "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
+  },
+  {
+   "id": "310-660",
+   "mcc": "310",
+   "mnc": "660",
+   "shows_as": "T-Mobile",
+   "operator": "T-Mobile US",
+   "status": "UNVERIFIED",
+   "note": "New in T27: registry lists both as T-Mobile USA. Not yet checked for use.",
+   "as_of": "2026-11-01",
+   "source": "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
+  },
+  {
+   "id": "310-800",
+   "mcc": "310",
+   "mnc": "800",
+   "shows_as": "T-Mobile",
+   "operator": "T-Mobile US",
+   "status": "UNVERIFIED",
+   "note": "New in T27: registry lists both as T-Mobile USA. Not yet checked for use.",
+   "as_of": "2026-11-01",
+   "source": "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
+  },
+  {
+   "id": "311-660",
+   "mcc": "311",
+   "mnc": "660",
+   "shows_as": "Metro",
+   "operator": "Metro by T-Mobile",
+   "status": "CURRENT",
+   "note": "Registry: \"MetroPCS Wireless, Inc\" ✔ (Metro's old company name). Reseller brand owned by T-Mobile.",
+   "as_of": "2026-11-01",
+   "source": "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
+  },
+  {
+   "id": "310-053",
+   "mcc": "310",
+   "mnc": "053",
+   "shows_as": "Virgin Mobile",
+   "operator": "T-Mobile US",
+   "status": "UNVERIFIED",
+   "note": "**Not in the US registry**, so the registry can't confirm it. Former Sprint reseller (Wikipedia).",
+   "as_of": "2026-11-01",
+   "source": "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
+  },
+  {
+   "id": "311-230",
+   "mcc": "311",
+   "mnc": "230",
+   "shows_as": "C Spire",
+   "operator": "C Spire (Mississippi)",
+   "status": "CURRENT",
+   "note": "Registry: Cellular South, Inc. dba C Spire ✔ (also 311-630, 314-400). A regional carrier.",
+   "as_of": "2026-11-01",
+   "source": "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
+  },
+  {
+   "id": "311-840",
+   "mcc": "311",
+   "mnc": "840",
+   "shows_as": "Cellcom",
+   "operator": "Nsight (Wisconsin)",
+   "status": "CURRENT",
+   "note": "Registry: Nsight ✔ (also 310-510; 310-600 is \"NewCell dba Cellcom\"). A regional carrier.",
+   "as_of": "2026-11-01",
+   "source": "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
+  },
+  {
+   "id": "311-850",
+   "mcc": "311",
+   "mnc": "850",
+   "shows_as": "Cellcom",
+   "operator": "Nsight (Wisconsin)",
+   "status": "CURRENT",
+   "note": "Registry: Nsight ✔ (also 310-510; 310-600 is \"NewCell dba Cellcom\"). A regional carrier.",
+   "as_of": "2026-11-01",
+   "source": "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
+  },
+  {
+   "id": "312-670",
+   "mcc": "312",
+   "mnc": "670",
+   "shows_as": "FirstNet",
+   "operator": "AT&T",
+   "status": "UNVERIFIED",
+   "note": "Registry lists **AT&T Mobility**, not FirstNet, so the FirstNet label rests on Wikipedia only. The AT&T part is confirmed ✔.",
+   "as_of": "2026-11-01",
+   "source": "content/carrier-codes.md (DRAFT v2): US registry (ATIS HNI Assignments via https://imsiadmin.com/assignments/hni/, fetched 2026-11-01) for who holds the code; Wikipedia 'Mobile network codes in ITU region 3xx' (fetched 2026-10-31) for use and brand; ITU list not checked"
   }
  ]
 }

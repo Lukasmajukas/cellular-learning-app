@@ -85,5 +85,43 @@ class Checker(unittest.TestCase):
         self.assertTrue(any("duplicate" in x for x in e))
 
 
+class CodesAndIcons(unittest.TestCase):
+    def test_code_fact_is_referable_and_needs_source(self):
+        bands = {"bands": [], "carrier_codes": [dict(id="310-260", **GOOD)]}
+        errs = []
+        self.assertIn("code:310-260", cc.fact_index(bands, errs))
+        self.assertEqual(errs, [])
+        e = []
+        cc.fact_index({"carrier_codes": [{"id": "310-260", "status": "CURRENT", "as_of": "2026-11-01"}]}, e)
+        self.assertTrue(any("carrier_code 310-260" in x and "source missing" in x for x in e))
+
+    def test_bad_code_id_fails(self):
+        e = []
+        cc.fact_index({"carrier_codes": [dict(id="3105", **GOOD)]}, e)
+        self.assertTrue(any("must look like 310-260" in x for x in e))
+
+    def test_unverified_code_blocks_a_question(self):
+        bands = {"bands": [], "carrier_codes": [dict(id="310-004", status="UNVERIFIED", as_of="2026-11-01", source="x")]}
+        q = [dict(id="u1", facts=["code:310-004"])]
+        with tempfile.TemporaryDirectory() as t:
+            e = cc.run(make(t, bands=bands, questions=q))
+        self.assertTrue(any("UNVERIFIED fact code:310-004" in x for x in e))
+
+    def test_good_code_allows_a_question(self):
+        bands = {"bands": [], "carrier_codes": [dict(id="310-260", **GOOD)]}
+        q = [dict(id="u1", facts=["code:310-260"])]
+        with tempfile.TemporaryDirectory() as t:
+            self.assertEqual(cc.run(make(t, bands=bands, questions=q)), [])
+
+    def test_icon_only_on_current_rows(self):
+        row = dict(tech="NR", band="n77", carrier_id="att", icon="5G+")
+        e = []
+        cc.fact_index({"carrier_use": [dict(row, **GOOD)]}, e)
+        self.assertEqual(e, [])
+        e = []
+        cc.fact_index({"carrier_use": [dict(row, status="UNVERIFIED", as_of="2026-11-01", source="x")]}, e)
+        self.assertTrue(any("icon" in x for x in e))
+
+
 if __name__ == "__main__":
     unittest.main()

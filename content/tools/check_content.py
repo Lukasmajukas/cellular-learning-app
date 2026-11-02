@@ -2,7 +2,7 @@
 """The fact checker (T28). Run it before every build: python3 content/tools/check_content.py
 
 What it refuses (docs/PRD.md section 5):
-  1. any fact (band, carrier row, spectrum change) without a status, an as-of date and a source;
+  1. any fact (band, carrier row, carrier code, spectrum change) without a status, an as-of date and a source;
   2. any photo without an allowed licence, a credit, a source link or a date checked;
   3. any question whose answer rests on an UNVERIFIED fact (or a fact that is not allowed for that
      kind of question: HISTORICAL needs label "history", PENDING/PLANNED need label "coming");
@@ -15,6 +15,7 @@ Only needs Python 3 (PyYAML is used for lessons and photo credits if it is insta
 import argparse
 import datetime
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -62,6 +63,13 @@ def fact_index(bands, errors):
         where = f"carrier_use {c.get('tech')}/{c.get('band')}/{c.get('carrier_id')}"
         check_fact(where, c, errors)
         index[f"carrier_use:{c.get('band')}/{c.get('carrier_id')}"] = c
+        if str(c.get("icon", "")).strip() and c.get("status") != "CURRENT":
+            errors.append(f"{where}: has an icon but status is {c.get('status')} (icons are only allowed on CURRENT rows)")
+    for c in bands.get("carrier_codes", []):
+        check_fact(f"carrier_code {c.get('id')}", c, errors)
+        if not re.fullmatch(r"\d{3}-\d{3}", str(c.get("id", ""))):
+            errors.append(f"carrier_code {c.get('id')!r}: id must look like 310-260")
+        index[f"code:{c.get('id')}"] = c
     for i, s in enumerate(bands.get("spectrum_changes", [])):
         check_fact(f"spectrum_change #{i} ({s.get('date')})", s, errors)
         index[f"change:{i}"] = s
