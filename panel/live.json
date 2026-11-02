@@ -1,12 +1,12 @@
 {
- "asOf": "2026-11-02 (robot, T35 plan for units 6–7)",
+ "asOf": "2026-11-02 (robot, T35 tower-facts file)",
  "robot": {
   "on": true,
   "next": "right away (it starts its next job by itself), and every hour",
-  "last": "wrote the plan for units 6–7 (T35)"
+  "last": "made the tower-facts data file (T35 part 2)"
  },
  "light": "green",
- "working": "Nothing in progress. Next up: T35 (data file and photo question types for units 6–7); T26 waits for Commons; T47 needs official page links from you. Optional for you: T48 questions and your frame-rate number (T46).",
+ "working": "Nothing in progress. Next up: T35 part 3 (photo and tap-the-clue question types); T26 waits for Commons; T47 needs official page links from you. Optional for you: T48 questions and your frame-rate number (T46).",
  "limit": {
   "state": "fine (it reset after a pause)",
   "resets": "unknown"

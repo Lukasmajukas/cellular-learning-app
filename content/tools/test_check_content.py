@@ -9,8 +9,10 @@ import check_content as cc
 GOOD = {"status": "CURRENT", "as_of": "2026-11-01", "source": "x"}
 
 
-def make(tmp, bands=None, credits=None, questions=None, locked=None):
+def make(tmp, bands=None, credits=None, questions=None, locked=None, sites=None):
     root = Path(tmp)
+    if sites is not None:
+        (root / "sites.json").write_text(json.dumps(sites))
     (root / "bands.json").write_text(json.dumps(bands or {"bands": [dict(id="B2", **GOOD), dict(id="B9", status="UNVERIFIED", as_of="2026-11-01", source="x")]}))
     if credits is not None:
         (root / "photos").mkdir()
@@ -48,6 +50,33 @@ class Checker(unittest.TestCase):
         with tempfile.TemporaryDirectory() as t:
             idx = cc.fact_index(bands, [])
         self.assertIn("range:FR1", idx)
+
+    def site(self, **kw):
+        row = dict(id="type:x", kind="type", grade="C", text="A thing that looks odd.", **GOOD)
+        row.update(kw)
+        return {"sites": [row]}
+
+    def test_good_site_row_passes_and_is_referable(self):
+        self.assertEqual(self.check(sites=self.site(), questions=[{"id": "q1", "facts": ["site:type:x"]}]), [])
+
+    def test_site_row_needs_source_grade_and_text(self):
+        e = self.check(sites=self.site(source="", grade="Z", text=""))
+        self.assertTrue(any("source missing" in x for x in e))
+        self.assertTrue(any("grade must be" in x for x in e))
+        self.assertTrue(any("text missing" in x for x in e))
+
+    def test_grade_c_site_row_may_not_carry_numbers(self):
+        e = self.check(sites=self.site(text="About 120 m tall."))
+        self.assertTrue(any("may not carry numbers" in x for x in e))
+        self.assertEqual(self.check(sites=self.site(grade="A", text="Over 200 ft needs a registration.")), [])
+
+    def test_site_row_with_phone_number_fails(self):
+        e = self.check(sites=self.site(grade="A", text="Call 877-282-7483 for problems."))
+        self.assertTrue(any("phone number" in x for x in e))
+
+    def test_unverified_site_answer_fails(self):
+        e = self.check(sites=self.site(status="UNVERIFIED"), questions=[{"id": "q1", "facts": ["site:type:x"]}])
+        self.assertTrue(any("UNVERIFIED" in x for x in e))
 
     def test_unverified_answer_fails(self):
         e = self.check(questions=[{"id": "q1", "facts": ["band:B9"]}])

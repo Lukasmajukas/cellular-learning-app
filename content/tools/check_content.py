@@ -79,6 +79,37 @@ def fact_index(bands, errors):
     return index
 
 
+SITE_GRADES = {"A", "B", "C", "inference"}
+SITE_KINDS = {"type", "rule", "inference", "sign", "owner"}
+
+
+def check_sites(sites, errors):
+    """Tower and site facts (content/sites.json). Same status/date/source rules as bands, plus:
+    a grade (A/B/C/inference), a plain sentence, no numbers in grade B/C rows (decision F2: those are
+    for looks and ideas only), and never a phone number (decision F4)."""
+    index = {}
+    for r in sites.get("sites", []):
+        rid = r.get("id")
+        where = f"site {rid}"
+        if not rid or ":" not in str(rid):
+            errors.append(f"{where}: id must look like kind:name")
+            continue
+        check_fact(where, r, errors)
+        if r.get("kind") not in SITE_KINDS:
+            errors.append(f"{where}: kind must be one of {sorted(SITE_KINDS)} (got {r.get('kind')!r})")
+        if r.get("grade") not in SITE_GRADES:
+            errors.append(f"{where}: grade must be one of {sorted(SITE_GRADES)} (got {r.get('grade')!r})")
+        text = str(r.get("text", "")).strip()
+        if not text:
+            errors.append(f"{where}: text missing")
+        if r.get("grade") in ("B", "C") and re.search(r"\d", text):
+            errors.append(f"{where}: grade {r.get('grade')} rows may not carry numbers (only grade A does)")
+        if re.search(r"\d{3}[-. )]+\d{3}[-. ]+\d{4}|\d{3}-[A-Z]{3}-[A-Z]{4}", text):
+            errors.append(f"{where}: looks like a phone number (never stored)")
+        index[f"site:{rid}"] = r
+    return index
+
+
 def check_photos(credits, errors):
     photos = {}
     for p in credits or []:
@@ -168,6 +199,9 @@ def run(content, update_ids=False):
         return [f"{bands_path} not found"]
     bands = json.loads(bands_path.read_text(encoding="utf-8"))
     facts = fact_index(bands, errors)
+    sites_path = content / "sites.json"
+    if sites_path.exists():
+        facts.update(check_sites(json.loads(sites_path.read_text(encoding="utf-8")), errors))
     credits_path = content / "photos" / "credits.yaml"
     photos = check_photos(load_yaml(credits_path), errors) if credits_path.exists() else {}
     questions = collect_questions(content) if (content / "lessons").exists() else []
