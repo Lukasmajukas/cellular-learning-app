@@ -4004,6 +4004,865 @@
      ]
     }
    ]
+  },
+  {
+   "id": "unit05",
+   "title": "Who uses what",
+   "lessons": [
+    {
+     "id": "unit05-l1",
+     "title": "Fingerprint bands",
+     "questions": [
+      {
+       "id": "u5-fp-learn-01",
+       "kind": "learn",
+       "title": "A band that points to a carrier",
+       "facts": [
+        "carrier_use:n41/tmobile",
+        "carrier_use:n77/att",
+        "carrier_use:n77/verizon",
+        "carrier_use:n260/verizon"
+       ],
+       "text": "A fingerprint band is a band that helps you guess the carrier, like a shoe print points to one pair of shoes. We can check only a few so far. n41 is T-Mobile's. n260 is Verizon's. n77 is shared by AT&T and Verizon, so it is a weak clue.\n",
+       "show": [
+        "n41",
+        "n260",
+        "n77"
+       ]
+      },
+      {
+       "id": "u5-fp-learn-02",
+       "kind": "learn",
+       "title": "Shortcuts go out of date",
+       "facts": [
+        "carrier_use:n41/tmobile"
+       ],
+       "text": "Carriers buy, sell and rename things. Every carrier fact in this app has a date badge. For example, \"n41 is T-Mobile's\" was last checked {carrier_use:n41/tmobile.as_of}. Always look at the date before you trust a shortcut.\n"
+      },
+      {
+       "id": "u5-fp-uc-01",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n41/tmobile"
+       ],
+       "prompt": "T-Mobile's \"{carrier_use:n41/tmobile.icon}\" is built on which band?",
+       "choices": [
+        "n41",
+        "n260",
+        "n261"
+       ],
+       "answer": 0,
+       "why": "The bands file says T-Mobile runs n41 ({carrier_use:n41/tmobile.status} as of {carrier_use:n41/tmobile.as_of})."
+      },
+      {
+       "id": "u5-fp-mmw-01",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n260/verizon",
+        "band:n260"
+       ],
+       "prompt": "Verizon runs one of these mmWave bands. Which?",
+       "choices": [
+        "n41",
+        "n71",
+        "n260"
+       ],
+       "answer": 2,
+       "why": "n260 is {band:n260.kind}, the mmWave zone, and Verizon runs it."
+      },
+      {
+       "id": "u5-fp-shared-01",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n77/att",
+        "carrier_use:n77/verizon"
+       ],
+       "prompt": "Does n77 point to just one carrier?",
+       "choices": [
+        "No, AT&T and Verizon both run it",
+        "Yes, only one carrier does"
+       ],
+       "answer": 0,
+       "why": "Both AT&T and Verizon have a CURRENT row for n77, so it is a weak fingerprint."
+      },
+      {
+       "id": "u5-fp-match-01",
+       "kind": "match",
+       "facts": [
+        "carrier_use:n41/tmobile",
+        "carrier_use:n260/verizon",
+        "carrier_use:n5/cellcom"
+       ],
+       "prompt": "Match each band to a carrier that runs it.",
+       "pairs": [
+        [
+         "n41",
+         "T-Mobile"
+        ],
+        [
+         "n260",
+         "Verizon"
+        ],
+        [
+         "n5",
+         "Cellcom"
+        ]
+       ],
+       "why": "Each pair comes from a CURRENT row in the bands file."
+      },
+      {
+       "id": "u5-fp-pair-01",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n77/att",
+        "carrier_use:n77/verizon"
+       ],
+       "prompt": "Which carriers run n77?",
+       "choices": [
+        "T-Mobile only",
+        "AT&T and Verizon",
+        "Cellcom only"
+       ],
+       "answer": 1,
+       "why": "The checked rows for n77 are AT&T and Verizon."
+      },
+      {
+       "id": "u5-fp-n71-01",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n71/tmobile",
+        "band:n71"
+       ],
+       "prompt": "T-Mobile runs a low band at {band:n71.dl_low_mhz} MHz. Which band is it?",
+       "choices": [
+        "n41",
+        "n260",
+        "n71"
+       ],
+       "answer": 2,
+       "why": "T-Mobile's n71 row is {carrier_use:n71/tmobile.status} as of {carrier_use:n71/tmobile.as_of}."
+      },
+      {
+       "id": "u5-fp-habit-01",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n77/verizon"
+       ],
+       "prompt": "A shortcut says \"n77 is Verizon\". What is the safest habit?",
+       "choices": [
+        "Check the date badge first",
+        "Trust it forever",
+        "Ignore all shortcuts"
+       ],
+       "answer": 0,
+       "why": "n77 was last checked for Verizon on {carrier_use:n77/verizon.as_of}. Dates tell you how fresh a fact is."
+      },
+      {
+       "id": "u5-fp-tier-01",
+       "kind": "choice",
+       "facts": [
+        "band:n71"
+       ],
+       "prompt": "n71 runs at {band:n71.dl_low_mhz} MHz. Low, mid or high band?",
+       "choices": [
+        "Low",
+        "Mid",
+        "High"
+       ],
+       "answer": 0,
+       "why": "Below 1000 MHz (1 GHz) is low band."
+      },
+      {
+       "id": "u5-fp-tier-02",
+       "kind": "choice",
+       "facts": [
+        "band:n41"
+       ],
+       "prompt": "n41 starts at {band:n41.dl_low_mhz} MHz. Low, mid or high band?",
+       "choices": [
+        "Low",
+        "Mid",
+        "High"
+       ],
+       "answer": 1,
+       "why": "Between 1 GHz and mmWave is mid band."
+      },
+      {
+       "id": "u5-fp-tier-03",
+       "kind": "choice",
+       "facts": [
+        "band:n260"
+       ],
+       "prompt": "n260 is mmWave. Low, mid or high band?",
+       "choices": [
+        "Low",
+        "Mid",
+        "High"
+       ],
+       "answer": 2,
+       "why": "The bands file tags n260 as {band:n260.kind}. mmWave is high band."
+      },
+      {
+       "id": "u5-fp-start-01",
+       "kind": "number",
+       "facts": [
+        "band:n41"
+       ],
+       "prompt": "n41 starts at how many MHz?",
+       "answer_from": "band:n41.dl_low_mhz",
+       "tolerance_mhz": 5,
+       "unit": "MHz",
+       "why": "n41 runs from {band:n41.dl_low_mhz} to {band:n41.dl_high_mhz} MHz."
+      }
+     ]
+    },
+    {
+     "id": "unit05-l2",
+     "title": "5G icons",
+     "questions": [
+      {
+       "id": "u5-icon-learn-01",
+       "kind": "learn",
+       "title": "The icon is a marketing name",
+       "facts": [
+        "carrier_use:n77/verizon",
+        "carrier_use:n77/att",
+        "carrier_use:n41/tmobile"
+       ],
+       "text": "The little icon on your phone is a brand name, not a band. We have checked three. Verizon's \"{carrier_use:n77/verizon.icon}\" is built on n77. AT&T's \"{carrier_use:n77/att.icon}\" is built on n77 too. T-Mobile's \"{carrier_use:n41/tmobile.icon}\" is built on n41.\n",
+       "show": [
+        "n77",
+        "n41"
+       ]
+      },
+      {
+       "id": "u5-icon-learn-02",
+       "kind": "learn",
+       "title": "Other icons",
+       "facts": [
+        "carrier_use:n41/tmobile"
+       ],
+       "label": "not checked",
+       "text": "Carriers rename their icons now and then, and we have not checked the other icons yet. The app will not quiz you on them. Check the date badge ({carrier_use:n41/tmobile.as_of}) on the ones we have.\n"
+      },
+      {
+       "id": "u5-icon-match-01",
+       "kind": "match",
+       "facts": [
+        "carrier_use:n77/verizon",
+        "carrier_use:n77/att",
+        "carrier_use:n41/tmobile"
+       ],
+       "prompt": "Match each icon to its carrier.",
+       "pairs": [
+        [
+         "{carrier_use:n77/verizon.icon}",
+         "Verizon"
+        ],
+        [
+         "{carrier_use:n77/att.icon}",
+         "AT&T"
+        ],
+        [
+         "{carrier_use:n41/tmobile.icon}",
+         "T-Mobile"
+        ]
+       ],
+       "why": "The icon names come from the CURRENT rows in the bands file."
+      },
+      {
+       "id": "u5-icon-uw-01",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n77/verizon"
+       ],
+       "prompt": "Which carrier shows \"{carrier_use:n77/verizon.icon}\"?",
+       "choices": [
+        "Verizon",
+        "AT&T",
+        "T-Mobile"
+       ],
+       "answer": 0,
+       "why": "The icon is on Verizon's n77 row ({carrier_use:n77/verizon.status}, {carrier_use:n77/verizon.as_of})."
+      },
+      {
+       "id": "u5-icon-plus-01",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n77/att"
+       ],
+       "prompt": "Which carrier shows \"{carrier_use:n77/att.icon}\"?",
+       "choices": [
+        "T-Mobile",
+        "Verizon",
+        "AT&T"
+       ],
+       "answer": 2,
+       "why": "The icon is on AT&T's n77 row ({carrier_use:n77/att.status}, {carrier_use:n77/att.as_of})."
+      },
+      {
+       "id": "u5-icon-uc-01",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n41/tmobile"
+       ],
+       "prompt": "\"{carrier_use:n41/tmobile.icon}\" is built on which band?",
+       "choices": [
+        "n77",
+        "n260",
+        "n41"
+       ],
+       "answer": 2,
+       "why": "T-Mobile's icon sits on its n41 row."
+      },
+      {
+       "id": "u5-icon-uwband-01",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n77/verizon"
+       ],
+       "prompt": "\"{carrier_use:n77/verizon.icon}\" is built on which band?",
+       "choices": [
+        "n77",
+        "n41",
+        "n71"
+       ],
+       "answer": 0,
+       "why": "Verizon's icon sits on its n77 row."
+      },
+      {
+       "id": "u5-icon-share-01",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n77/att",
+        "carrier_use:n77/verizon"
+       ],
+       "prompt": "Can two different icons sit on the same band?",
+       "choices": [
+        "Yes, both AT&T and Verizon use n77",
+        "No, one icon per band"
+       ],
+       "answer": 0,
+       "why": "\"{carrier_use:n77/att.icon}\" and \"{carrier_use:n77/verizon.icon}\" are different icons, both on n77."
+      },
+      {
+       "id": "u5-icon-name-01",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n41/tmobile"
+       ],
+       "prompt": "Is \"{carrier_use:n41/tmobile.icon}\" a band or a brand name?",
+       "choices": [
+        "A brand name",
+        "A band"
+       ],
+       "answer": 0,
+       "why": "Bands have names like n41. Icons are marketing names the carrier picks."
+      },
+      {
+       "id": "u5-icon-tmo-01",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n41/tmobile",
+        "carrier_use:n77/att",
+        "carrier_use:n77/verizon"
+       ],
+       "prompt": "Which icon goes with T-Mobile?",
+       "choices": [
+        "{carrier_use:n77/verizon.icon}",
+        "{carrier_use:n41/tmobile.icon}",
+        "{carrier_use:n77/att.icon}"
+       ],
+       "answer": 1,
+       "why": "\"{carrier_use:n41/tmobile.icon}\" is T-Mobile's. The other two use n77."
+      },
+      {
+       "id": "u5-icon-tier-01",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n41/tmobile",
+        "band:n41"
+       ],
+       "prompt": "\"{carrier_use:n41/tmobile.icon}\" sits on n41 ({band:n41.dl_low_mhz} MHz). Low, mid or high band?",
+       "choices": [
+        "Low",
+        "High",
+        "Mid"
+       ],
+       "answer": 2,
+       "why": "Between 1 GHz and mmWave is mid band."
+      },
+      {
+       "id": "u5-icon-tier-02",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n77/verizon",
+        "band:n77"
+       ],
+       "prompt": "\"{carrier_use:n77/verizon.icon}\" sits on n77 ({band:n77.dl_low_mhz} MHz). Low, mid or high band?",
+       "choices": [
+        "Mid",
+        "Low",
+        "High"
+       ],
+       "answer": 0,
+       "why": "n77 starts above 1 GHz and is not mmWave, so it is mid band."
+      },
+      {
+       "id": "u5-icon-start-01",
+       "kind": "number",
+       "facts": [
+        "band:n77"
+       ],
+       "prompt": "n77 starts at how many MHz?",
+       "answer_from": "band:n77.dl_low_mhz",
+       "tolerance_mhz": 5,
+       "unit": "MHz",
+       "why": "n77 runs from {band:n77.dl_low_mhz} to {band:n77.dl_high_mhz} MHz."
+      }
+     ]
+    },
+    {
+     "id": "unit05-l3",
+     "title": "The 2025–26 changes",
+     "questions": [
+      {
+       "id": "u5-sale-learn-01",
+       "kind": "learn",
+       "title": "Spectrum changes hands",
+       "facts": [
+        "change:0",
+        "change:2",
+        "change:3",
+        "change:4",
+        "change:5",
+        "change:6",
+        "change:7"
+       ],
+       "text": "Carriers sell spectrum to each other. Closed deals so far: UScellular to T-Mobile ({change:0.date}), Array to AT&T ({change:2.date}), Array to T-Mobile ({change:3.date} and {change:4.date}), Array to Verizon ({change:5.date}), EchoStar to AT&T ({change:6.date}) and T-Mobile to Grain Management ({change:7.date}). Array is what UScellular's spectrum company is called now.\n"
+      },
+      {
+       "id": "u5-sale-learn-02",
+       "kind": "learn",
+       "title": "A deal that is still coming",
+       "facts": [
+        "change:9"
+       ],
+       "label": "coming",
+       "text": "EchoStar's trust is expected to hand spectrum to {change:9.to}. The last transfer is expected on or about {change:9.date}. It has not happened yet, so it stays marked \"coming\".\n"
+      },
+      {
+       "id": "u5-sale-us-01",
+       "kind": "choice",
+       "facts": [
+        "change:0"
+       ],
+       "prompt": "In {change:0.date}, who took over most of UScellular's network?",
+       "choices": [
+        "T-Mobile",
+        "AT&T",
+        "Verizon"
+       ],
+       "answer": 0,
+       "why": "The deal with {change:0.to} closed {change:0.date}."
+      },
+      {
+       "id": "u5-sale-att-01",
+       "kind": "choice",
+       "facts": [
+        "change:2"
+       ],
+       "prompt": "On {change:2.date}, who bought n77 and 700 MHz spectrum from Array?",
+       "choices": [
+        "Verizon",
+        "AT&T",
+        "T-Mobile"
+       ],
+       "answer": 1,
+       "why": "The buyer was {change:2.to}."
+      },
+      {
+       "id": "u5-sale-700-01",
+       "kind": "choice",
+       "facts": [
+        "change:3"
+       ],
+       "prompt": "On {change:3.date}, Array sold 700 MHz (B12) to which carrier?",
+       "choices": [
+        "AT&T",
+        "Verizon",
+        "T-Mobile"
+       ],
+       "answer": 2,
+       "why": "The buyer was {change:3.to}."
+      },
+      {
+       "id": "u5-sale-600-01",
+       "kind": "choice",
+       "facts": [
+        "change:4"
+       ],
+       "prompt": "On {change:4.date}, T-Mobile bought which band from Array?",
+       "choices": [
+        "B66 (AWS)",
+        "{change:4.bands}",
+        "B2 (PCS)"
+       ],
+       "answer": 1,
+       "why": "The deal of {change:4.date} was for {change:4.bands}."
+      },
+      {
+       "id": "u5-sale-vz-01",
+       "kind": "choice",
+       "facts": [
+        "change:5"
+       ],
+       "prompt": "Who bought spectrum from Array on {change:5.date}?",
+       "choices": [
+        "Verizon",
+        "AT&T",
+        "T-Mobile"
+       ],
+       "answer": 0,
+       "why": "The buyer was {change:5.to}. Sources disagree on exactly which bands, so the app does not quiz you on that."
+      },
+      {
+       "id": "u5-sale-echo-01",
+       "kind": "choice",
+       "facts": [
+        "change:6"
+       ],
+       "prompt": "On {change:6.date}, AT&T bought n77 and 600 MHz spectrum. From whom?",
+       "choices": [
+        "Array",
+        "T-Mobile",
+        "EchoStar"
+       ],
+       "answer": 2,
+       "why": "The seller was {change:6.from}."
+      },
+      {
+       "id": "u5-sale-grain-01",
+       "kind": "choice",
+       "facts": [
+        "change:7"
+       ],
+       "prompt": "Who sold 800 MHz spectrum to Grain Management on {change:7.date}?",
+       "choices": [
+        "AT&T",
+        "T-Mobile",
+        "EchoStar"
+       ],
+       "answer": 1,
+       "why": "The seller was {change:7.from}."
+      },
+      {
+       "id": "u5-sale-first-01",
+       "kind": "choice",
+       "facts": [
+        "change:0",
+        "change:6"
+       ],
+       "prompt": "Which came first?",
+       "choices": [
+        "UScellular to T-Mobile",
+        "EchoStar to AT&T"
+       ],
+       "answer": 0,
+       "why": "UScellular to T-Mobile closed {change:0.date}. EchoStar to AT&T closed {change:6.date}."
+      },
+      {
+       "id": "u5-sale-array-01",
+       "kind": "choice",
+       "facts": [
+        "change:2",
+        "change:3",
+        "change:5"
+       ],
+       "prompt": "Array made deals with three carriers. Which closed first?",
+       "choices": [
+        "Verizon",
+        "T-Mobile",
+        "AT&T"
+       ],
+       "answer": 2,
+       "why": "AT&T closed {change:2.date}, T-Mobile {change:3.date}, Verizon {change:5.date}."
+      },
+      {
+       "id": "u5-sale-twice-01",
+       "kind": "choice",
+       "facts": [
+        "change:3",
+        "change:4"
+       ],
+       "prompt": "Which carrier bought from Array twice in May 2026?",
+       "choices": [
+        "AT&T",
+        "T-Mobile",
+        "Verizon"
+       ],
+       "answer": 1,
+       "why": "T-Mobile closed one deal on {change:3.date} and another on {change:4.date}."
+      },
+      {
+       "id": "u5-sale-coming-01",
+       "kind": "choice",
+       "facts": [
+        "change:9"
+       ],
+       "label": "coming",
+       "prompt": "Is the EchoStar trust's last transfer to {change:9.to} finished?",
+       "choices": [
+        "Not yet, it is expected later",
+        "Yes, it is finished"
+       ],
+       "answer": 0,
+       "why": "It is expected on or about {change:9.date}."
+      }
+     ]
+    },
+    {
+     "id": "unit05-check",
+     "title": "Checkpoint: who uses what",
+     "questions": [
+      {
+       "id": "u5-cp-fp-01",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n41/tmobile"
+       ],
+       "prompt": "T-Mobile's \"{carrier_use:n41/tmobile.icon}\" is built on which band?",
+       "choices": [
+        "n260",
+        "n41",
+        "n77"
+       ],
+       "answer": 1,
+       "why": "T-Mobile runs n41 ({carrier_use:n41/tmobile.status}, {carrier_use:n41/tmobile.as_of})."
+      },
+      {
+       "id": "u5-cp-fp-02",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n260/verizon",
+        "band:n260"
+       ],
+       "prompt": "Which carrier runs the mmWave band n260?",
+       "choices": [
+        "Verizon",
+        "T-Mobile",
+        "AT&T"
+       ],
+       "answer": 0,
+       "why": "n260 is {band:n260.kind}, and Verizon has a CURRENT row for it."
+      },
+      {
+       "id": "u5-cp-fp-03",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n77/att",
+        "carrier_use:n77/verizon"
+       ],
+       "prompt": "Which carriers run n77?",
+       "choices": [
+        "AT&T and Verizon",
+        "T-Mobile only",
+        "Cellcom only"
+       ],
+       "answer": 0,
+       "why": "Both AT&T and Verizon have CURRENT rows for n77."
+      },
+      {
+       "id": "u5-cp-icon-01",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n77/verizon"
+       ],
+       "prompt": "Which carrier shows \"{carrier_use:n77/verizon.icon}\"?",
+       "choices": [
+        "AT&T",
+        "T-Mobile",
+        "Verizon"
+       ],
+       "answer": 2,
+       "why": "The icon is on Verizon's n77 row."
+      },
+      {
+       "id": "u5-cp-icon-02",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n77/att"
+       ],
+       "prompt": "Which carrier shows \"{carrier_use:n77/att.icon}\"?",
+       "choices": [
+        "AT&T",
+        "Verizon",
+        "T-Mobile"
+       ],
+       "answer": 0,
+       "why": "The icon is on AT&T's n77 row."
+      },
+      {
+       "id": "u5-cp-icon-03",
+       "kind": "match",
+       "facts": [
+        "carrier_use:n77/verizon",
+        "carrier_use:n77/att",
+        "carrier_use:n41/tmobile"
+       ],
+       "prompt": "Match each icon to its carrier.",
+       "pairs": [
+        [
+         "{carrier_use:n77/verizon.icon}",
+         "Verizon"
+        ],
+        [
+         "{carrier_use:n77/att.icon}",
+         "AT&T"
+        ],
+        [
+         "{carrier_use:n41/tmobile.icon}",
+         "T-Mobile"
+        ]
+       ],
+       "why": "The icon names come from the CURRENT rows in the bands file."
+      },
+      {
+       "id": "u5-cp-sale-01",
+       "kind": "choice",
+       "facts": [
+        "change:0"
+       ],
+       "prompt": "In {change:0.date}, who took over most of UScellular's network?",
+       "choices": [
+        "AT&T",
+        "T-Mobile",
+        "Verizon"
+       ],
+       "answer": 1,
+       "why": "The deal with {change:0.to} closed {change:0.date}."
+      },
+      {
+       "id": "u5-cp-sale-02",
+       "kind": "choice",
+       "facts": [
+        "change:6"
+       ],
+       "prompt": "On {change:6.date}, AT&T bought n77 and 600 MHz spectrum. From whom?",
+       "choices": [
+        "EchoStar",
+        "Array",
+        "T-Mobile"
+       ],
+       "answer": 0,
+       "why": "The seller was {change:6.from}."
+      },
+      {
+       "id": "u5-cp-sale-03",
+       "kind": "choice",
+       "facts": [
+        "change:7"
+       ],
+       "prompt": "Who sold 800 MHz spectrum to Grain Management on {change:7.date}?",
+       "choices": [
+        "EchoStar",
+        "AT&T",
+        "T-Mobile"
+       ],
+       "answer": 2,
+       "why": "The seller was {change:7.from}."
+      },
+      {
+       "id": "u5-cp-mix-01",
+       "kind": "number",
+       "facts": [
+        "band:n41"
+       ],
+       "prompt": "n41 starts at how many MHz?",
+       "answer_from": "band:n41.dl_low_mhz",
+       "tolerance_mhz": 5,
+       "unit": "MHz",
+       "why": "n41 runs from {band:n41.dl_low_mhz} to {band:n41.dl_high_mhz} MHz."
+      },
+      {
+       "id": "u5-cp-mix-02",
+       "kind": "choice",
+       "facts": [
+        "band:n71"
+       ],
+       "prompt": "Is n71 FDD or TDD?",
+       "choices": [
+        "TDD",
+        "FDD"
+       ],
+       "answer": 1,
+       "why": "The bands file lists n71's duplex as {band:n71.duplex}."
+      },
+      {
+       "id": "u5-cp-mix-03",
+       "kind": "choice",
+       "facts": [
+        "band:n260"
+       ],
+       "prompt": "Is n260 FR1 or FR2?",
+       "choices": [
+        "FR1",
+        "FR2"
+       ],
+       "answer": 1,
+       "why": "The bands file tags n260 as {band:n260.kind}. FR2 is the mmWave zone."
+      },
+      {
+       "id": "u5-cp-mix-04",
+       "kind": "order",
+       "facts": [
+        "band:n71",
+        "band:n41",
+        "band:n77"
+       ],
+       "prompt": "Put these bands in order, lowest start frequency first.",
+       "bands": [
+        "n41",
+        "n71",
+        "n77"
+       ],
+       "sort_by": "dl_low_mhz",
+       "why": "Sorted by where each band starts, in MHz."
+      },
+      {
+       "id": "u5-cp-mix-05",
+       "kind": "choice",
+       "facts": [
+        "band:n77",
+        "band:n78"
+       ],
+       "prompt": "n78 fits inside which band?",
+       "choices": [
+        "n41",
+        "n77",
+        "n260"
+       ],
+       "answer": 1,
+       "why": "n77 spans {band:n77.dl_low_mhz} to {band:n77.dl_high_mhz} MHz and holds n78."
+      },
+      {
+       "id": "u5-cp-mix-06",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n41/tmobile",
+        "band:n41"
+       ],
+       "prompt": "{band:n41.id} is {band:n41.duplex}. Is T-Mobile's n41 row checked and current?",
+       "choices": [
+        "Yes, CURRENT with a date badge",
+        "No, it is unchecked"
+       ],
+       "answer": 0,
+       "why": "The row is {carrier_use:n41/tmobile.status} as of {carrier_use:n41/tmobile.as_of}."
+      }
+     ]
+    }
+   ]
   }
  ]
 }

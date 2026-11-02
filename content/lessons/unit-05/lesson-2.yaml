@@ -1,0 +1,102 @@
+unit: unit05
+unit_title: Who uses what
+lesson: unit05-l2
+title: 5G icons
+questions:
+  - id: u5-icon-learn-01
+    kind: learn
+    title: The icon is a marketing name
+    facts: [carrier_use:n77/verizon, carrier_use:n77/att, carrier_use:n41/tmobile]
+    text: >
+      The little icon on your phone is a brand name, not a band. We have checked three.
+      Verizon's "{carrier_use:n77/verizon.icon}" is built on n77. AT&T's "{carrier_use:n77/att.icon}" is built on n77 too.
+      T-Mobile's "{carrier_use:n41/tmobile.icon}" is built on n41.
+    show: [n77, n41]
+  - id: u5-icon-learn-02
+    kind: learn
+    title: Other icons
+    facts: [carrier_use:n41/tmobile]
+    label: not checked
+    text: >
+      Carriers rename their icons now and then, and we have not checked the other icons yet.
+      The app will not quiz you on them. Check the date badge ({carrier_use:n41/tmobile.as_of}) on the ones we have.
+  - id: u5-icon-match-01
+    kind: match
+    facts: [carrier_use:n77/verizon, carrier_use:n77/att, carrier_use:n41/tmobile]
+    prompt: Match each icon to its carrier.
+    pairs:
+      - ["{carrier_use:n77/verizon.icon}", "Verizon"]
+      - ["{carrier_use:n77/att.icon}", "AT&T"]
+      - ["{carrier_use:n41/tmobile.icon}", "T-Mobile"]
+    why: The icon names come from the CURRENT rows in the bands file.
+  - id: u5-icon-uw-01
+    kind: choice
+    facts: [carrier_use:n77/verizon]
+    prompt: Which carrier shows "{carrier_use:n77/verizon.icon}"?
+    choices: [Verizon, AT&T, T-Mobile]
+    answer: 0
+    why: The icon is on Verizon's n77 row ({carrier_use:n77/verizon.status}, {carrier_use:n77/verizon.as_of}).
+  - id: u5-icon-plus-01
+    kind: choice
+    facts: [carrier_use:n77/att]
+    prompt: Which carrier shows "{carrier_use:n77/att.icon}"?
+    choices: [T-Mobile, Verizon, AT&T]
+    answer: 2
+    why: The icon is on AT&T's n77 row ({carrier_use:n77/att.status}, {carrier_use:n77/att.as_of}).
+  - id: u5-icon-uc-01
+    kind: choice
+    facts: [carrier_use:n41/tmobile]
+    prompt: '"{carrier_use:n41/tmobile.icon}" is built on which band?'
+    choices: [n77, n260, n41]
+    answer: 2
+    why: T-Mobile's icon sits on its n41 row.
+  - id: u5-icon-uwband-01
+    kind: choice
+    facts: [carrier_use:n77/verizon]
+    prompt: '"{carrier_use:n77/verizon.icon}" is built on which band?'
+    choices: [n77, n41, n71]
+    answer: 0
+    why: Verizon's icon sits on its n77 row.
+  - id: u5-icon-share-01
+    kind: choice
+    facts: [carrier_use:n77/att, carrier_use:n77/verizon]
+    prompt: Can two different icons sit on the same band?
+    choices: ["Yes, both AT&T and Verizon use n77", "No, one icon per band"]
+    answer: 0
+    why: '"{carrier_use:n77/att.icon}" and "{carrier_use:n77/verizon.icon}" are different icons, both on n77.'
+  - id: u5-icon-name-01
+    kind: choice
+    facts: [carrier_use:n41/tmobile]
+    prompt: Is "{carrier_use:n41/tmobile.icon}" a band or a brand name?
+    choices: [A brand name, A band]
+    answer: 0
+    why: Bands have names like n41. Icons are marketing names the carrier picks.
+  - id: u5-icon-tmo-01
+    kind: choice
+    facts: [carrier_use:n41/tmobile, carrier_use:n77/att, carrier_use:n77/verizon]
+    prompt: Which icon goes with T-Mobile?
+    choices: ["{carrier_use:n77/verizon.icon}", "{carrier_use:n41/tmobile.icon}", "{carrier_use:n77/att.icon}"]
+    answer: 1
+    why: '"{carrier_use:n41/tmobile.icon}" is T-Mobile''s. The other two use n77.'
+  - id: u5-icon-tier-01
+    kind: choice
+    facts: [carrier_use:n41/tmobile, band:n41]
+    prompt: '"{carrier_use:n41/tmobile.icon}" sits on n41 ({band:n41.dl_low_mhz} MHz). Low, mid or high band?'
+    choices: [Low, High, Mid]
+    answer: 2
+    why: Between 1 GHz and mmWave is mid band.
+  - id: u5-icon-tier-02
+    kind: choice
+    facts: [carrier_use:n77/verizon, band:n77]
+    prompt: '"{carrier_use:n77/verizon.icon}" sits on n77 ({band:n77.dl_low_mhz} MHz). Low, mid or high band?'
+    choices: [Mid, Low, High]
+    answer: 0
+    why: n77 starts above 1 GHz and is not mmWave, so it is mid band.
+  - id: u5-icon-start-01
+    kind: number
+    facts: [band:n77]
+    prompt: n77 starts at how many MHz?
+    answer_from: band:n77.dl_low_mhz
+    tolerance_mhz: 5
+    unit: MHz
+    why: n77 runs from {band:n77.dl_low_mhz} to {band:n77.dl_high_mhz} MHz.

@@ -82,3 +82,19 @@ describe('unit 3 content', () => {
     expect(hi.choices[hi.answer]).toBe(top);
   });
 });
+
+describe('unit 5 content', () => {
+  const u5 = () => allLessons(REAL_PATH).filter(l => l.id.startsWith('unit05'));
+  const row = (b: string, c: string) => DATA.carrier_use.find(r => r.band === b && r.carrier_id === c) as Record<string, any>;
+  it('has 3 lessons and a checkpoint, all with 10+ steps', () => {
+    expect(u5().map(l => l.id)).toEqual(['unit05-l1', 'unit05-l2', 'unit05-l3', 'unit05-check']);
+    u5().forEach(l => expect(l.questions.length).toBeGreaterThanOrEqual(10));
+  });
+  it('icon matches use the icon field of the CURRENT rows', () => {
+    const m = u5().flatMap(l => l.questions).find((q: any) => q.id === 'u5-icon-match-01') as any;
+    expect(m.pairs).toEqual([[row('n77', 'verizon').icon, 'Verizon'], [row('n77', 'att').icon, 'AT&T'], [row('n41', 'tmobile').icon, 'T-Mobile']]);
+  });
+  it('no question text leaves a template unfilled', () => {
+    JSON.stringify(u5()).split('{').length === 1 || expect(JSON.stringify(u5())).not.toMatch(/\{(band|carrier_use|change):/);
+  });
+});

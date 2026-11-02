@@ -1,0 +1,100 @@
+unit: unit05
+unit_title: Who uses what
+lesson: unit05-l3
+title: The 2025–26 changes
+questions:
+  - id: u5-sale-learn-01
+    kind: learn
+    title: Spectrum changes hands
+    facts: [change:0, change:2, change:3, change:4, change:5, change:6, change:7]
+    text: >
+      Carriers sell spectrum to each other. Closed deals so far: UScellular to T-Mobile ({change:0.date}),
+      Array to AT&T ({change:2.date}), Array to T-Mobile ({change:3.date} and {change:4.date}),
+      Array to Verizon ({change:5.date}), EchoStar to AT&T ({change:6.date}) and T-Mobile to Grain Management ({change:7.date}).
+      Array is what UScellular's spectrum company is called now.
+  - id: u5-sale-learn-02
+    kind: learn
+    title: A deal that is still coming
+    facts: [change:9]
+    label: coming
+    text: >
+      EchoStar's trust is expected to hand spectrum to {change:9.to}. The last transfer is expected on or about {change:9.date}.
+      It has not happened yet, so it stays marked "coming".
+  - id: u5-sale-us-01
+    kind: choice
+    facts: [change:0]
+    prompt: In {change:0.date}, who took over most of UScellular's network?
+    choices: [T-Mobile, AT&T, Verizon]
+    answer: 0
+    why: The deal with {change:0.to} closed {change:0.date}.
+  - id: u5-sale-att-01
+    kind: choice
+    facts: [change:2]
+    prompt: On {change:2.date}, who bought n77 and 700 MHz spectrum from Array?
+    choices: [Verizon, AT&T, T-Mobile]
+    answer: 1
+    why: The buyer was {change:2.to}.
+  - id: u5-sale-700-01
+    kind: choice
+    facts: [change:3]
+    prompt: On {change:3.date}, Array sold 700 MHz (B12) to which carrier?
+    choices: [AT&T, Verizon, T-Mobile]
+    answer: 2
+    why: The buyer was {change:3.to}.
+  - id: u5-sale-600-01
+    kind: choice
+    facts: [change:4]
+    prompt: On {change:4.date}, T-Mobile bought which band from Array?
+    choices: [B66 (AWS), "{change:4.bands}", B2 (PCS)]
+    answer: 1
+    why: The deal of {change:4.date} was for {change:4.bands}.
+  - id: u5-sale-vz-01
+    kind: choice
+    facts: [change:5]
+    prompt: Who bought spectrum from Array on {change:5.date}?
+    choices: [Verizon, AT&T, T-Mobile]
+    answer: 0
+    why: The buyer was {change:5.to}. Sources disagree on exactly which bands, so the app does not quiz you on that.
+  - id: u5-sale-echo-01
+    kind: choice
+    facts: [change:6]
+    prompt: On {change:6.date}, AT&T bought n77 and 600 MHz spectrum. From whom?
+    choices: [Array, T-Mobile, EchoStar]
+    answer: 2
+    why: The seller was {change:6.from}.
+  - id: u5-sale-grain-01
+    kind: choice
+    facts: [change:7]
+    prompt: Who sold 800 MHz spectrum to Grain Management on {change:7.date}?
+    choices: [AT&T, T-Mobile, EchoStar]
+    answer: 1
+    why: The seller was {change:7.from}.
+  - id: u5-sale-first-01
+    kind: choice
+    facts: [change:0, change:6]
+    prompt: Which came first?
+    choices: ["UScellular to T-Mobile", "EchoStar to AT&T"]
+    answer: 0
+    why: UScellular to T-Mobile closed {change:0.date}. EchoStar to AT&T closed {change:6.date}.
+  - id: u5-sale-array-01
+    kind: choice
+    facts: [change:2, change:3, change:5]
+    prompt: Array made deals with three carriers. Which closed first?
+    choices: [Verizon, T-Mobile, AT&T]
+    answer: 2
+    why: AT&T closed {change:2.date}, T-Mobile {change:3.date}, Verizon {change:5.date}.
+  - id: u5-sale-twice-01
+    kind: choice
+    facts: [change:3, change:4]
+    prompt: Which carrier bought from Array twice in May 2026?
+    choices: [AT&T, T-Mobile, Verizon]
+    answer: 1
+    why: T-Mobile closed one deal on {change:3.date} and another on {change:4.date}.
+  - id: u5-sale-coming-01
+    kind: choice
+    facts: [change:9]
+    label: coming
+    prompt: Is the EchoStar trust's last transfer to {change:9.to} finished?
+    choices: ["Not yet, it is expected later", "Yes, it is finished"]
+    answer: 0
+    why: It is expected on or about {change:9.date}.
