@@ -4,6 +4,7 @@ One or two plain-English lines per chat. Newest at the top.
 
 | Date | What happened | Details |
 |---|---|---|
+| 2026-11-02 | Robot put two real photos (a pole tower and a pine-tree disguise) into unit 6 as new questions; all checks and 76 tests pass. | `docs/sessions/2026-11-02-session-90-t35-real-photos.md` |
 | 2026-11-02 | Robot tried again for the last tower photo; the photo site said "too many requests" three times, so nothing changed (17 of 18 photos are in). | `docs/sessions/2026-11-02-session-89-t26-last-photo.md` |
 | 2026-11-02 | Robot got two more tower photos (a pine-tree disguise and a plain pole tower) and checked them by eye. 17 of 18 photos are in; one is still blocked by the photo site. | `docs/sessions/2026-11-02-session-88-t26-photos.md` |
 | 2026-11-02 | Robot: a new click test plays a real unit 8 lesson and a real unit 9 lesson in the app, so units 8–9 (T36) are finished. | `docs/sessions/2026-11-02-session-87-t36-clicktest.md` |
