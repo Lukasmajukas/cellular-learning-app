@@ -1,0 +1,103 @@
+unit: unit04
+unit_title: Capacity bands
+lesson: unit04-l2
+title: "C-band: n77, n78 and n79"
+questions:
+  - id: u4-cband-learn-01
+    kind: learn
+    title: Boxes inside boxes
+    facts: [band:n77, band:n78, band:n48]
+    text: >
+      n77 is a huge TDD band: {band:n77.dl_low_mhz} to {band:n77.dl_high_mhz} MHz, nicknamed "{band:n77.name}".
+      n78 ({band:n78.dl_low_mhz} to {band:n78.dl_high_mhz} MHz) sits inside n77, and n48 (CBRS, {band:n48.dl_low_mhz} to {band:n48.dl_high_mhz} MHz) sits inside n78.
+      Think of three boxes, one inside the next.
+    show: [n77, n78, n48]
+  - id: u4-cband-learn-02
+    kind: learn
+    title: n79 is a different box
+    facts: [band:n79]
+    text: >
+      n79 runs {band:n79.dl_low_mhz} to {band:n79.dl_high_mhz} MHz. It is a separate TDD band that does not overlap n77,
+      so it is not inside the same family of boxes.
+    show: [n79]
+  - id: u4-cband-box-01
+    kind: choice
+    facts: [band:n77, band:n78, band:n48]
+    prompt: n77, n78 or n48, which one is the biggest box?
+    choices: [n77, n78, n48]
+    answer: 0
+    why: n77 spans {band:n77.dl_low_mhz} to {band:n77.dl_high_mhz} MHz. n78 and n48 both fit inside it.
+  - id: u4-cband-inside-01
+    kind: choice
+    facts: [band:n78, band:n77, band:n79]
+    prompt: n78 fits inside which band?
+    choices: [n77, n79, n41]
+    answer: 0
+    why: n78 ({band:n78.dl_low_mhz} to {band:n78.dl_high_mhz} MHz) is inside n77 ({band:n77.dl_low_mhz} to {band:n77.dl_high_mhz} MHz).
+  - id: u4-cband-clue-01
+    kind: choice
+    facts: [band:n77, band:n78, band:n41]
+    prompt: "Which band is TDD and runs {band:n77.dl_low_mhz} to {band:n77.dl_high_mhz} MHz?"
+    choices: [n77, n78, n41]
+    answer: 0
+    why: n77 is the widest. n78 stops at {band:n78.dl_high_mhz} MHz.
+  - id: u4-cband-dl-01
+    kind: number
+    facts: [band:n77]
+    prompt: n77 starts at how many MHz?
+    answer_from: band:n77.dl_low_mhz
+    tolerance_mhz: 5
+    unit: MHz
+    why: n77 runs from {band:n77.dl_low_mhz} to {band:n77.dl_high_mhz} MHz.
+  - id: u4-cband-learn-03
+    kind: learn
+    title: Who rides on n77
+    facts: [carrier_use:n77/att, carrier_use:n77/verizon]
+    text: >
+      AT&T ("5G+") and Verizon ("5G UW") both run n77. Other carriers may use it too, but we have not checked that yet,
+      so the app will not quiz you on it. Icon names change over time, so look at the date.
+    show: [n77]
+  - id: u4-cband-carrier-01
+    kind: choice
+    facts: [carrier_use:n77/att, carrier_use:n41/tmobile]
+    prompt: "Which band carries AT&T's \"5G+\": n41 or n77?"
+    choices: [n77, n41]
+    answer: 0
+    why: AT&T runs n77. The checked n41 row belongs to T-Mobile.
+  - id: u4-cband-sale-01
+    kind: choice
+    facts: [change:2]
+    prompt: In {change:2.date}, AT&T bought n77 (3.45 GHz) and 700 MHz spectrum. From whom?
+    choices: [Array (the former UScellular), EchoStar, Verizon]
+    answer: 0
+    why: The seller was "{change:2.from}". The deal closed {change:2.date}.
+  - id: u4-cband-tier-01
+    kind: choice
+    facts: [band:n77]
+    prompt: Is n77 low, mid or high band?
+    choices: [Mid band, Low band, High band]
+    answer: 0
+    why: n77 starts at {band:n77.dl_low_mhz} MHz, above 1000 MHz and far below mmWave.
+  - id: u4-cband-high-01
+    kind: number
+    facts: [band:n77]
+    prompt: n77 ends at how many MHz?
+    answer_from: band:n77.dl_high_mhz
+    tolerance_mhz: 5
+    unit: MHz
+    why: n77 runs from {band:n77.dl_low_mhz} to {band:n77.dl_high_mhz} MHz.
+  - id: u4-cband-n79-01
+    kind: number
+    facts: [band:n79]
+    prompt: n79 starts at how many MHz?
+    answer_from: band:n79.dl_low_mhz
+    tolerance_mhz: 5
+    unit: MHz
+    why: n79 runs from {band:n79.dl_low_mhz} to {band:n79.dl_high_mhz} MHz.
+  - id: u4-cband-verizon-01
+    kind: choice
+    facts: [carrier_use:n77/verizon, carrier_use:n41/tmobile]
+    prompt: Which band carries Verizon's "5G UW" in our checked facts?
+    choices: [n77, n41]
+    answer: 0
+    why: Verizon runs n77. The checked n41 row belongs to T-Mobile.

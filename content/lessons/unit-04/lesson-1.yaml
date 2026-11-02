@@ -1,0 +1,101 @@
+unit: unit04
+unit_title: Capacity bands
+lesson: unit04-l1
+title: "2500 MHz: B41 and n41"
+questions:
+  - id: u4-n41-learn-01
+    kind: learn
+    title: What is a capacity band?
+    facts: [band:n41, band:B41]
+    text: >
+      A capacity band is a wide band that carries lots of data over a shorter distance, like a wide road with many lanes.
+      n41 is the 5G band nicknamed "{band:n41.name}". It runs from {band:n41.dl_low_mhz} to {band:n41.dl_high_mhz} MHz. B41 is its 4G twin.
+      It is TDD (unit 1): uploads and downloads take turns on the same road, so there is no separate uplink range.
+    show: [n41, B41]
+  - id: u4-n41-learn-02
+    kind: learn
+    title: T-Mobile's Ultra Capacity band
+    facts: [carrier_use:n41/tmobile]
+    text: >
+      T-Mobile runs n41 and calls it "Ultra Capacity". Other carriers may use 2500 MHz too, but we have not checked that yet,
+      so the app will not quiz you on it.
+    show: [n41]
+  - id: u4-n41-duplex-01
+    kind: choice
+    facts: [band:n41]
+    prompt: Is n41 FDD or TDD?
+    choices: [TDD, FDD]
+    answer: 0
+    why: The bands file lists n41's duplex as {band:n41.duplex}. Uplink and downlink share one range.
+  - id: u4-n41-dl-01
+    kind: number
+    facts: [band:n41]
+    prompt: n41 starts at how many MHz?
+    answer_from: band:n41.dl_low_mhz
+    tolerance_mhz: 5
+    unit: MHz
+    why: n41 runs from {band:n41.dl_low_mhz} to {band:n41.dl_high_mhz} MHz.
+  - id: u4-n41-twin-01
+    kind: choice
+    facts: [band:n41, band:B41, band:B25]
+    prompt: Which 4G band is the twin of n41?
+    choices: [B41, B25, B71]
+    answer: 0
+    why: Twins share the same numbers. n41 and B41 both run {band:n41.dl_low_mhz} to {band:n41.dl_high_mhz} MHz.
+  - id: u4-n41-clue-01
+    kind: choice
+    facts: [band:n41, band:n77, band:n71]
+    prompt: "Which band is TDD and runs {band:n41.dl_low_mhz} to {band:n41.dl_high_mhz} MHz?"
+    choices: [n41, n77, n71]
+    answer: 0
+    why: n41 is {band:n41.duplex} at {band:n41.dl_low_mhz} to {band:n41.dl_high_mhz} MHz. n77 starts at {band:n77.dl_low_mhz}, and n71 is FDD.
+  - id: u4-n41-carrier-01
+    kind: choice
+    facts: [carrier_use:n41/tmobile, carrier_use:n77/att]
+    prompt: Which carrier's "Ultra Capacity" icon comes from n41?
+    choices: [T-Mobile, AT&T]
+    answer: 0
+    why: T-Mobile runs n41 as "Ultra Capacity". AT&T's checked 5G band is n77.
+  - id: u4-n41-tier-01
+    kind: choice
+    facts: [band:n41]
+    prompt: Is n41 low, mid or high band?
+    choices: [Mid band, Low band, High band]
+    answer: 0
+    why: n41 starts at {band:n41.dl_low_mhz} MHz, above 1000 MHz and far below mmWave.
+  - id: u4-n41-reach-01
+    kind: choice
+    facts: [band:n71, band:n41]
+    prompt: n71 or n41, which one reaches farther from the tower?
+    choices: [n71, n41]
+    answer: 0
+    why: n71 starts at {band:n71.dl_low_mhz} MHz and n41 at {band:n41.dl_low_mhz}. Lower frequencies travel farther.
+  - id: u4-n41-order-01
+    kind: order
+    facts: [band:n71, band:n25, band:n41]
+    prompt: Put these bands in order, lowest frequency first.
+    bands: [n41, n71, n25]
+    sort_by: dl_low_mhz
+    why: Sorted by where each downlink starts, in MHz.
+  - id: u4-n41-uplink-01
+    kind: choice
+    facts: [band:n41, band:n71]
+    prompt: Which band has one shared range for uploads and downloads, n41 or n71?
+    choices: [n41, n71]
+    answer: 0
+    why: n41 is {band:n41.duplex}, so it has one shared range. n71 is FDD, with separate uplink and downlink.
+  - id: u4-n41-name-01
+    kind: choice
+    facts: [band:n41, band:n77, band:n71]
+    prompt: Which band is the "2500" band?
+    choices: [n41, n77, n71]
+    answer: 0
+    why: n41 is "{band:n41.name}". n77 is a 3700 band and n71 is a 600 band.
+  - id: u4-n41-high-01
+    kind: number
+    facts: [band:n41]
+    prompt: n41 ends at how many MHz?
+    answer_from: band:n41.dl_high_mhz
+    tolerance_mhz: 5
+    unit: MHz
+    why: n41 runs from {band:n41.dl_low_mhz} to {band:n41.dl_high_mhz} MHz.
