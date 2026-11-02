@@ -1,12 +1,12 @@
 {
- "asOf": "2026-11-02 (robot, T26 photos)",
+ "asOf": "2026-11-02",
  "robot": {
   "on": true,
   "next": "right away (it starts its next job by itself), and every hour",
   "last": "downloaded 2 more tower photos and checked them by eye (17 of 18 in)"
  },
  "light": "green",
- "working": "Nothing in progress. Next up: T37 (unit 10 and polish) needs its own plan; T26 has 1 photo left to download; T47 needs official page links from you. Optional for you: T48 questions and your frame-rate number (T46).",
+ "working": "Nothing in progress. Next up: T37 (build unit 10 from its new plan); T26 has 1 photo left to download; T47 needs official page links from you. Optional for you: T48 questions and your frame-rate number (T46).",
  "limit": {
   "state": "fine (it reset after a pause)",
   "resets": "unknown"
