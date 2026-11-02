@@ -110,6 +110,44 @@ def check_sites(sites, errors):
     return index
 
 
+KB_GRADES = {"P", "T", "W", "C", "inference", "gap"}
+HARDWARE_KINDS = {"form", "ports", "model", "use", "weight", "rule"}
+CELLID_KINDS = {"cls", "lte", "nr", "us", "tool"}
+HEDGE_WORDS = re.compile(r"usually|very likely|good guess|pattern|roughly|rule of thumb|may have changed|guess|often|may differ|differ", re.I)
+
+
+def check_kb(rows, label, prefix, kinds, errors):
+    """Hardware (content/hardware.json) and cell-ID (content/cell-ids.json) facts, decisions G1 to G7.
+    Same status/date/source rules as bands, plus: a kind and a grade (P/T/W/C/inference/gap),
+    a plain sentence, hedge words in 'inference' and 'C' rows, `quiz: false` on every grade C row
+    (forum patterns are never asked, G3), and never a phone number."""
+    index = {}
+    for r in rows:
+        rid = r.get("id")
+        where = f"{label} {rid}"
+        if not rid or ":" not in str(rid):
+            errors.append(f"{where}: id must look like kind:name")
+            continue
+        check_fact(where, r, errors)
+        if r.get("kind") not in kinds:
+            errors.append(f"{where}: kind must be one of {sorted(kinds)} (got {r.get('kind')!r})")
+        elif str(rid).split(":")[0] != r.get("kind") and not (r.get("kind") == "rule" and str(rid).startswith("evidence:")):
+            errors.append(f"{where}: id must start with its kind ({r.get('kind')}:)")
+        if r.get("grade") not in KB_GRADES:
+            errors.append(f"{where}: grade must be one of {sorted(KB_GRADES)} (got {r.get('grade')!r})")
+        text = str(r.get("text", "")).strip()
+        if not text:
+            errors.append(f"{where}: text missing")
+        if r.get("grade") in ("inference", "C") and not HEDGE_WORDS.search(text):
+            errors.append(f"{where}: grade {r.get('grade')} rows must say 'usually', 'pattern', 'good guess' or similar (never taught as a law)")
+        if r.get("grade") == "C" and r.get("quiz") is not False:
+            errors.append(f"{where}: grade C (forum) rows must have quiz: false (never asked as a question)")
+        if re.search(r"\d{3}[-. )]+\d{3}[-. ]+\d{4}", text):
+            errors.append(f"{where}: looks like a phone number (never stored)")
+        index[f"{prefix}:{rid}"] = r
+    return index
+
+
 IDENTIFY_KINDS = ('identify', 'photo-choice', 'tap-clue')  # questions where the player must recognise something in a picture
 
 
@@ -158,6 +196,8 @@ def check_questions(questions, facts, photos, errors):
             st = row.get("status")
             if st == "UNVERIFIED":
                 errors.append(f"{where}: answer rests on UNVERIFIED fact {ref}")
+            elif row.get("quiz") is False:
+                errors.append(f"{where}: fact {ref} is taught only, never asked (quiz: false)")
             elif st in ALLOWED_FOR_ANSWER and ALLOWED_FOR_ANSWER[st] and label != ALLOWED_FOR_ANSWER[st]:
                 errors.append(f"{where}: fact {ref} is {st}; the question needs label: {ALLOWED_FOR_ANSWER[st]}")
         pid = q.get("photo")
@@ -205,6 +245,12 @@ def run(content, update_ids=False):
     sites_path = content / "sites.json"
     if sites_path.exists():
         facts.update(check_sites(json.loads(sites_path.read_text(encoding="utf-8")), errors))
+    for fname, key, label, prefix, kinds in (("hardware.json", "hardware", "hardware", "hardware", HARDWARE_KINDS),
+                                              ("cell-ids.json", "cell_ids", "cell-id", "cellid", CELLID_KINDS)):
+        kb_path = content / fname
+        if kb_path.exists():
+            kb = json.loads(kb_path.read_text(encoding="utf-8"))
+            facts.update(check_kb(kb.get(key, []), label, prefix, kinds, errors))
     credits_path = content / "photos" / "credits.yaml"
     photos = check_photos(load_yaml(credits_path), errors) if credits_path.exists() else {}
     questions = collect_questions(content) if (content / "lessons").exists() else []

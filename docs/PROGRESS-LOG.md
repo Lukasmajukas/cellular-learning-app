@@ -4,6 +4,7 @@ One or two plain-English lines per chat. Newest at the top.
 
 | Date | What happened | Details |
 |---|---|---|
+| 2026-11-02 | Robot built the two fact lists for units 8 and 9 (tower hardware, and what the numbers on a phone test screen mean), each fact with a source and a date. The fact checker now blocks any question that rests on a forum-only pattern or an unchecked number. | `docs/sessions/2026-11-02-session-83-t36-data.md` |
 | 2026-11-02 | Robot wrote the plan for units 8 and 9 (tower hardware, and what the numbers on a phone's test screen mean), since the photo site was still blocking downloads. Nothing to build from it yet. | `docs/sessions/2026-11-02-session-82-t36-plan.md` |
 | 2026-11-02 | Robot tried the last 3 photo downloads once more; still "too many requests", nothing changed. | `docs/sessions/2026-11-02-session-81-t26-photos.md` |
 | 2026-11-02 | Robot tried the last 3 photo downloads; the picture site said "too many requests" again, so nothing changed. | `docs/sessions/2026-11-02-session-80-t26-photos.md` |

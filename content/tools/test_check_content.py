@@ -158,5 +158,105 @@ class CodesAndIcons(unittest.TestCase):
         self.assertTrue(any("icon" in x for x in e))
 
 
+class HardwareAndCellIds(unittest.TestCase):
+    ROOT = Path(__file__).resolve().parent.parent
+
+    def kb(self, key, **kw):
+        row = dict(id="form:x", kind="form", grade="W", text="A plain box.", **GOOD)
+        row.update(kw)
+        return [row]
+
+    def errs(self, rows, kinds=None, prefix="hardware"):
+        e = []
+        cc.check_kb(rows, "hardware", prefix, kinds or cc.HARDWARE_KINDS, e)
+        return e
+
+    def test_good_row_passes_and_is_referable(self):
+        e = []
+        idx = cc.check_kb(self.kb("h"), "hardware", "hardware", cc.HARDWARE_KINDS, e)
+        self.assertEqual(e, [])
+        self.assertIn("hardware:form:x", idx)
+
+    def test_missing_source_bad_grade_and_bad_kind_fail(self):
+        self.assertTrue(any("source missing" in x for x in self.errs(self.kb("h", source=""))))
+        self.assertTrue(any("grade must be" in x for x in self.errs(self.kb("h", grade="Z"))))
+        self.assertTrue(any("kind must be" in x for x in self.errs(self.kb("h", kind="bogus"))))
+
+    def test_inference_row_must_hedge(self):
+        self.assertTrue(any("must say" in x for x in self.errs(self.kb("h", grade="inference", text="It is exactly so."))))
+        self.assertEqual(self.errs(self.kb("h", grade="inference", text="It is usually so.")), [])
+
+    def test_forum_row_must_be_never_quizzed(self):
+        row = self.kb("h", grade="C", text="A community pattern, may have changed.")
+        self.assertTrue(any("quiz: false" in x for x in self.errs(row)))
+        self.assertEqual(self.errs([dict(row[0], quiz=False)]), [])
+
+    def test_quiz_false_row_blocks_a_question(self):
+        row = dict(id="weight:x", kind="weight", grade="T", text="Roughly 12 kg.", quiz=False, **GOOD)
+        with tempfile.TemporaryDirectory() as t:
+            root = make(t, questions=[dict(id="u1", facts=["hardware:weight:x"])])
+            (root / "hardware.json").write_text(json.dumps({"hardware": [row]}))
+            e = cc.run(root)
+        self.assertTrue(any("taught only" in x for x in e))
+
+    def test_unverified_cell_id_row_blocks_a_question(self):
+        row = dict(id="nr:pci", kind="nr", grade="gap", text="PCI is 0 to 1007.", status="UNVERIFIED", as_of="2026-11-01", source="x")
+        with tempfile.TemporaryDirectory() as t:
+            root = make(t, questions=[dict(id="u1", facts=["cellid:nr:pci"])])
+            (root / "cell-ids.json").write_text(json.dumps({"cell_ids": [row]}))
+            e = cc.run(root)
+        self.assertTrue(any("UNVERIFIED fact cellid:nr:pci" in x for x in e))
+
+    # ---- cross-checks against the real files ----
+    def load(self, name):
+        return json.loads((self.ROOT / name).read_text(encoding="utf-8"))
+
+    def test_earfcn_ranges_match_bands_file(self):
+        bands = {b["id"]: b for b in self.load("bands.json")["bands"]}
+        rows = [r for r in self.load("cell-ids.json")["cell_ids"] if r["id"].startswith("lte:earfcn-b")]
+        self.assertEqual(len(rows), 4)
+        for r in rows:
+            v = r["values"]
+            b = bands[v["band"]]
+            channels = v["n_high"] - v["n_low"] + 1
+            self.assertAlmostEqual(channels * 0.1, b["dl_high_mhz"] - b["dl_low_mhz"], places=6, msg=r["id"])
+            self.assertIn(f"{b['dl_low_mhz']:g} to {b['dl_high_mhz']:g} MHz", r["text"], r["id"])
+            self.assertIn(f"{v['n_low']} to {v['n_high']}", r["text"], r["id"])
+
+    def test_panel_band_letters_match_bands_file(self):
+        bands = {b["id"]: b for b in self.load("bands.json")["bands"]}
+        text = next(r for r in self.load("hardware.json")["hardware"] if r["id"] == "ports:panel-length")["text"]
+        self.assertIn("698 to 896 MHz", text)
+        self.assertIn("1710 to 2180 MHz", text)
+        for b in ("B5", "B12", "B13"):
+            self.assertTrue(698 <= bands[b]["dl_low_mhz"] and bands[b]["dl_high_mhz"] <= 896, b)
+        for b in ("B2", "B4"):
+            self.assertTrue(1710 <= bands[b]["dl_low_mhz"] and bands[b]["dl_high_mhz"] <= 2180, b)
+
+    def test_worked_arithmetic(self):
+        v = next(r for r in self.load("cell-ids.json")["cell_ids"] if r["id"] == "lte:eci")["values"]
+        self.assertEqual(v["eci_bits"], v["enb_bits"] + v["cell_bits"])
+        self.assertEqual(2 ** v["cell_bits"], v["multiplier"])
+        self.assertEqual(102006 * v["multiplier"] + 2, 26113538)       # the research's worked example
+        self.assertEqual(divmod(26113538, v["multiplier"]), (102006, 2))
+        n = next(r for r in self.load("cell-ids.json")["cell_ids"] if r["id"] == "nr:nci")["values"]
+        nci = 102006 * 2 ** (n["nci_bits"] - 24) + 5                   # a 24-bit gNB ID
+        self.assertEqual(divmod(nci, 2 ** (n["nci_bits"] - 24)), (102006, 5))
+        self.assertNotEqual(nci >> (n["nci_bits"] - 22), nci >> (n["nci_bits"] - 24))   # the length matters
+        b66 = next(r for r in self.load("cell-ids.json")["cell_ids"] if r["id"] == "lte:earfcn-b66")["values"]
+        self.assertAlmostEqual(2110 + 0.1 * (66786 - b66["n_low"]), 2145.0)  # the research's worked example
+
+    def test_uncertain_rows_are_marked(self):
+        rows = {r["id"]: r for r in self.load("cell-ids.json")["cell_ids"]}
+        self.assertEqual(rows["lte:earfcn-other"]["status"], "UNVERIFIED")
+        self.assertEqual(rows["nr:pci"]["status"], "UNVERIFIED")
+        hw = {r["id"]: r for r in self.load("hardware.json")["hardware"]}
+        self.assertEqual(hw["model:samsung-suffix"]["status"], "UNVERIFIED")
+        self.assertIs(hw["weight:massive-mimo"].get("quiz"), False)
+        for r in list(rows.values()):
+            if r["grade"] == "C":
+                self.assertIs(r.get("quiz"), False, r["id"])
+
+
 if __name__ == "__main__":
     unittest.main()
