@@ -1,0 +1,104 @@
+unit: unit07
+unit_title: Reading a site
+lesson: unit07-l2
+title: "Signs and stickers"
+questions:
+  - id: u7-sign-learn-01
+    kind: learn
+    title: Signs at the foot
+    facts: [site:sign:rf-warning, site:rule:asr-sign]
+    text: >
+      {site:sign:rf-warning.text} {site:rule:asr-sign.text}
+  - id: u7-sign-learn-02
+    kind: learn
+    title: The phone number belongs to the owner
+    facts: [site:owner:noc]
+    text: >
+      {site:owner:noc.text} You will read what a sign says, not copy its number: numbers on signs change.
+  - id: u7-sign-tap-01
+    kind: tap-clue
+    facts: [site:sign:rf-warning]
+    photo: site-sign-01
+    alt: The base of a tower with several signs stacked on the pole
+    prompt: Tap the radio-wave warning sign. It has a "caution" banner and a warning triangle.
+    clue: radio-wave (RF) warning sign
+    target: {x: 0.45, y: 0.445, w: 0.15, h: 0.15}
+    why: The white sign with the CAUTION banner and a triangle warns about radio waves near the antennas.
+  - id: u7-sign-tap-02
+    kind: tap-clue
+    facts: [site:owner:noc]
+    photo: site-sign-01
+    alt: The base of a tower with several signs stacked on the pole
+    prompt: Tap the sign that names who manages this site.
+    clue: the sign naming the site manager
+    target: {x: 0.43, y: 0.35, w: 0.19, h: 0.10}
+    why: The white sign near the top says "Managed by" and a tower company. That is the owner side, not the carrier.
+  - id: u7-sign-tap-03
+    kind: tap-clue
+    facts: [site:sign:rf-warning]
+    photo: site-sign-01
+    alt: The base of a tower with several signs stacked on the pole
+    prompt: Tap the no-trespassing sign.
+    clue: the no-trespassing sign
+    target: {x: 0.45, y: 0.20, w: 0.16, h: 0.09}
+    why: The black-and-white sign at the top says "Posted, no trespassing, keep out".
+  - id: u7-sign-rf-01
+    kind: choice
+    facts: [site:sign:rf-warning]
+    prompt: What does a radio-wave (RF) warning sign tell you?
+    choices: [Radio waves are strong near the antennas, Which carrier is on the tower, How tall the tower is]
+    answer: 0
+    why: It warns you about radio waves. It does not name a carrier.
+  - id: u7-sign-rf-02
+    kind: choice
+    facts: [site:sign:rf-warning]
+    prompt: Does an RF warning sign tell you which carrier uses the site?
+    choices: ["No, it only warns about radio waves", "Yes, it names the carrier"]
+    answer: 0
+    why: It is a safety sign, so it tells you nothing about the carrier.
+  - id: u7-sign-where-01
+    kind: choice
+    facts: [site:rule:asr-sign]
+    prompt: Where must a tower's registration number be posted?
+    choices: [Near the base where the public can see it, Only inside the building, On the antennas]
+    answer: 0
+    why: "{site:rule:asr-sign.text}"
+  - id: u7-sign-owner-01
+    kind: choice
+    facts: [site:owner:noc]
+    prompt: A sign's phone number is for problems. Whose number is it most likely?
+    choices: [The owner of the structure, Always the carrier]
+    answer: 0
+    why: "{site:owner:noc.text}"
+  - id: u7-sign-typical-01
+    kind: choice
+    facts: [site:sign:rf-warning]
+    prompt: Which of these is typical at the foot of a tower?
+    choices: [A no-trespassing sign, A menu board, A bus timetable]
+    answer: 0
+    why: "{site:sign:rf-warning.text}"
+  - id: u7-sign-tap-04
+    kind: tap-clue
+    facts: [site:sign:rf-warning]
+    photo: site-sign-01
+    alt: The base of a tower with several signs stacked on the pole
+    prompt: Tap the yellow caution sign near the bottom.
+    clue: the yellow caution sign
+    target: {x: 0.475, y: 0.69, w: 0.10, h: 0.12}
+    why: The yellow CAUTION sign with a triangle is another radio-wave warning.
+  - id: u7-sign-mix-01
+    kind: photo-choice
+    facts: [site:type:stealth]
+    photo: site-fake-tree-01
+    alt: A tall tree shape with antennas hidden among the branches
+    prompt: Is this a real tree or a stealth site?
+    choices: [A stealth site, A real tree]
+    answer: 0
+    why: "{site:type:stealth.text}"
+  - id: u7-sign-mix-02
+    kind: choice
+    facts: [site:type:small-cell]
+    prompt: "{site:type:small-cell.text} Is that a small cell or a big tower?"
+    choices: [A small cell, A big tower]
+    answer: 0
+    why: "{site:type:small-cell.text}"

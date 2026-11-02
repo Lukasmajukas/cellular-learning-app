@@ -6608,6 +6608,828 @@
      ]
     }
    ]
+  },
+  {
+   "id": "unit07",
+   "title": "Reading a site",
+   "lessons": [
+    {
+     "id": "unit07-l1",
+     "title": "The 200 ft rule",
+     "questions": [
+      {
+       "id": "u7-rule-learn-01",
+       "kind": "learn",
+       "title": "Tall towers get papers",
+       "facts": [
+        "site:rule:asr-200ft",
+        "site:rule:faa-marking"
+       ],
+       "text": "{site:rule:asr-200ft.text} {site:rule:faa-marking.text}\n"
+      },
+      {
+       "id": "u7-rule-learn-02",
+       "kind": "learn",
+       "title": "Paint is a clue",
+       "facts": [
+        "site:infer:paint-lights"
+       ],
+       "text": "{site:infer:paint-lights.text} Think of it like a tall person wearing a bright vest: you notice them from far away, and that is the point.\n"
+      },
+      {
+       "id": "u7-rule-photo-01",
+       "kind": "photo-choice",
+       "facts": [
+        "site:infer:paint-lights"
+       ],
+       "photo": "site-tower-03",
+       "alt": "A tall tower painted in red and white stripes with antennas near the top",
+       "prompt": "This tower has red-and-white paint. Is it very likely over 200 ft, or under?",
+       "choices": [
+        "Very likely over 200 ft",
+        "Very likely under 200 ft"
+       ],
+       "answer": 0,
+       "why": "Orange-and-white (here red-and-white) paint is a sign of a tall tower. It is a good guess, not a law."
+      },
+      {
+       "id": "u7-rule-reg-01",
+       "kind": "choice",
+       "facts": [
+        "site:rule:asr-200ft"
+       ],
+       "prompt": "A tower is 250 ft tall. Does it need to be registered with the FCC?",
+       "choices": [
+        "Yes, it is taller than 200 ft",
+        "No, only short towers are registered"
+       ],
+       "answer": 0,
+       "why": "{site:rule:asr-200ft.text}"
+      },
+      {
+       "id": "u7-rule-air-01",
+       "kind": "choice",
+       "facts": [
+        "site:rule:asr-200ft"
+       ],
+       "prompt": "A short tower stands right beside an airport runway. Could it still need to be registered?",
+       "choices": [
+        "Yes, near an airport any height can count",
+        "No, short towers never do"
+       ],
+       "answer": 0,
+       "why": "{site:rule:asr-200ft.text}"
+      },
+      {
+       "id": "u7-rule-mark-01",
+       "kind": "choice",
+       "facts": [
+        "site:rule:faa-marking"
+       ],
+       "prompt": "Which marking is normal on a structure taller than 200 ft?",
+       "choices": [
+        "Orange-and-white paint or lights",
+        "A fake tree shape",
+        "A green roof"
+       ],
+       "answer": 0,
+       "why": "{site:rule:faa-marking.text}"
+      },
+      {
+       "id": "u7-rule-photo-02",
+       "kind": "photo-choice",
+       "facts": [
+        "site:infer:paint-lights"
+       ],
+       "photo": "site-tower-02",
+       "alt": "A tall open steel tower with red-and-white paint and platforms near the top",
+       "prompt": "This tower is painted red and white. What does that most likely tell you?",
+       "choices": [
+        "It is probably over 200 ft or near an airport",
+        "It is a small cell",
+        "It is a stealth site"
+       ],
+       "answer": 0,
+       "why": "Orange-and-white paint most likely means a tall tower, or one near an airport.",
+       "outline": {
+        "x": 0.35,
+        "y": 0.03,
+        "w": 0.22,
+        "h": 0.62
+       }
+      },
+      {
+       "id": "u7-rule-tap-01",
+       "kind": "tap-clue",
+       "facts": [
+        "site:infer:paint-lights"
+       ],
+       "photo": "site-tower-03",
+       "alt": "A tall red-and-white painted tower against a blue sky",
+       "prompt": "Tap the clue that says this tower is probably tall.",
+       "clue": "red-and-white paint",
+       "target": {
+        "x": 0.43,
+        "y": 0.22,
+        "w": 0.15,
+        "h": 0.45
+       },
+       "why": "The red-and-white paint is the clue. It is a good guess for a tall tower, not a law."
+      },
+      {
+       "id": "u7-rule-plain-01",
+       "kind": "choice",
+       "facts": [
+        "site:infer:paint-lights"
+       ],
+       "prompt": "A tower is plain grey steel with no paint stripes and no lights. Which is more likely?",
+       "choices": [
+        "Under 200 ft",
+        "Over 200 ft"
+       ],
+       "answer": 0,
+       "why": "Plain steel with no lights is more likely shorter. This is a good guess, not a law."
+      },
+      {
+       "id": "u7-rule-law-01",
+       "kind": "choice",
+       "facts": [
+        "site:infer:paint-lights"
+       ],
+       "prompt": "Is \"red-and-white paint means over 200 ft\" always true?",
+       "choices": [
+        "No, it is a good guess, not a law",
+        "Yes, always"
+       ],
+       "answer": 0,
+       "why": "Near an airport the FAA can ask for marking on shorter towers too."
+      },
+      {
+       "id": "u7-rule-photo-03",
+       "kind": "photo-choice",
+       "facts": [
+        "site:rule:faa-marking"
+       ],
+       "photo": "site-tower-02",
+       "alt": "A tall painted open steel tower beside trees and a small house",
+       "prompt": "Compared with the house at its foot, is this tower tall or short?",
+       "choices": [
+        "Tall",
+        "Short"
+       ],
+       "answer": 0,
+       "why": "It towers over the trees and the house. Painted towers that tall usually must be marked."
+      },
+      {
+       "id": "u7-rule-mix-01",
+       "kind": "choice",
+       "facts": [
+        "site:type:lattice"
+       ],
+       "prompt": "{site:type:lattice.text} Which kind of tower is that?",
+       "choices": [
+        "Lattice tower",
+        "Monopole"
+       ],
+       "answer": 0,
+       "why": "{site:type:lattice.text}"
+      },
+      {
+       "id": "u7-rule-mix-02",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n41/tmobile"
+       ],
+       "prompt": "Which carrier calls its n41 5G \"Ultra Capacity\"?",
+       "choices": [
+        "T-Mobile",
+        "AT&T"
+       ],
+       "answer": 0,
+       "why": "T-Mobile runs n41 as \"Ultra Capacity\"."
+      }
+     ]
+    },
+    {
+     "id": "unit07-l2",
+     "title": "Signs and stickers",
+     "questions": [
+      {
+       "id": "u7-sign-learn-01",
+       "kind": "learn",
+       "title": "Signs at the foot",
+       "facts": [
+        "site:sign:rf-warning",
+        "site:rule:asr-sign"
+       ],
+       "text": "{site:sign:rf-warning.text} {site:rule:asr-sign.text}\n"
+      },
+      {
+       "id": "u7-sign-learn-02",
+       "kind": "learn",
+       "title": "The phone number belongs to the owner",
+       "facts": [
+        "site:owner:noc"
+       ],
+       "text": "{site:owner:noc.text} You will read what a sign says, not copy its number: numbers on signs change.\n"
+      },
+      {
+       "id": "u7-sign-tap-01",
+       "kind": "tap-clue",
+       "facts": [
+        "site:sign:rf-warning"
+       ],
+       "photo": "site-sign-01",
+       "alt": "The base of a tower with several signs stacked on the pole",
+       "prompt": "Tap the radio-wave warning sign. It has a \"caution\" banner and a warning triangle.",
+       "clue": "radio-wave (RF) warning sign",
+       "target": {
+        "x": 0.45,
+        "y": 0.445,
+        "w": 0.15,
+        "h": 0.15
+       },
+       "why": "The white sign with the CAUTION banner and a triangle warns about radio waves near the antennas."
+      },
+      {
+       "id": "u7-sign-tap-02",
+       "kind": "tap-clue",
+       "facts": [
+        "site:owner:noc"
+       ],
+       "photo": "site-sign-01",
+       "alt": "The base of a tower with several signs stacked on the pole",
+       "prompt": "Tap the sign that names who manages this site.",
+       "clue": "the sign naming the site manager",
+       "target": {
+        "x": 0.43,
+        "y": 0.35,
+        "w": 0.19,
+        "h": 0.1
+       },
+       "why": "The white sign near the top says \"Managed by\" and a tower company. That is the owner side, not the carrier."
+      },
+      {
+       "id": "u7-sign-tap-03",
+       "kind": "tap-clue",
+       "facts": [
+        "site:sign:rf-warning"
+       ],
+       "photo": "site-sign-01",
+       "alt": "The base of a tower with several signs stacked on the pole",
+       "prompt": "Tap the no-trespassing sign.",
+       "clue": "the no-trespassing sign",
+       "target": {
+        "x": 0.45,
+        "y": 0.2,
+        "w": 0.16,
+        "h": 0.09
+       },
+       "why": "The black-and-white sign at the top says \"Posted, no trespassing, keep out\"."
+      },
+      {
+       "id": "u7-sign-rf-01",
+       "kind": "choice",
+       "facts": [
+        "site:sign:rf-warning"
+       ],
+       "prompt": "What does a radio-wave (RF) warning sign tell you?",
+       "choices": [
+        "Radio waves are strong near the antennas",
+        "Which carrier is on the tower",
+        "How tall the tower is"
+       ],
+       "answer": 0,
+       "why": "It warns you about radio waves. It does not name a carrier."
+      },
+      {
+       "id": "u7-sign-rf-02",
+       "kind": "choice",
+       "facts": [
+        "site:sign:rf-warning"
+       ],
+       "prompt": "Does an RF warning sign tell you which carrier uses the site?",
+       "choices": [
+        "No, it only warns about radio waves",
+        "Yes, it names the carrier"
+       ],
+       "answer": 0,
+       "why": "It is a safety sign, so it tells you nothing about the carrier."
+      },
+      {
+       "id": "u7-sign-where-01",
+       "kind": "choice",
+       "facts": [
+        "site:rule:asr-sign"
+       ],
+       "prompt": "Where must a tower's registration number be posted?",
+       "choices": [
+        "Near the base where the public can see it",
+        "Only inside the building",
+        "On the antennas"
+       ],
+       "answer": 0,
+       "why": "{site:rule:asr-sign.text}"
+      },
+      {
+       "id": "u7-sign-owner-01",
+       "kind": "choice",
+       "facts": [
+        "site:owner:noc"
+       ],
+       "prompt": "A sign's phone number is for problems. Whose number is it most likely?",
+       "choices": [
+        "The owner of the structure",
+        "Always the carrier"
+       ],
+       "answer": 0,
+       "why": "{site:owner:noc.text}"
+      },
+      {
+       "id": "u7-sign-typical-01",
+       "kind": "choice",
+       "facts": [
+        "site:sign:rf-warning"
+       ],
+       "prompt": "Which of these is typical at the foot of a tower?",
+       "choices": [
+        "A no-trespassing sign",
+        "A menu board",
+        "A bus timetable"
+       ],
+       "answer": 0,
+       "why": "{site:sign:rf-warning.text}"
+      },
+      {
+       "id": "u7-sign-tap-04",
+       "kind": "tap-clue",
+       "facts": [
+        "site:sign:rf-warning"
+       ],
+       "photo": "site-sign-01",
+       "alt": "The base of a tower with several signs stacked on the pole",
+       "prompt": "Tap the yellow caution sign near the bottom.",
+       "clue": "the yellow caution sign",
+       "target": {
+        "x": 0.475,
+        "y": 0.69,
+        "w": 0.1,
+        "h": 0.12
+       },
+       "why": "The yellow CAUTION sign with a triangle is another radio-wave warning."
+      },
+      {
+       "id": "u7-sign-mix-01",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:stealth"
+       ],
+       "photo": "site-fake-tree-01",
+       "alt": "A tall tree shape with antennas hidden among the branches",
+       "prompt": "Is this a real tree or a stealth site?",
+       "choices": [
+        "A stealth site",
+        "A real tree"
+       ],
+       "answer": 0,
+       "why": "{site:type:stealth.text}"
+      },
+      {
+       "id": "u7-sign-mix-02",
+       "kind": "choice",
+       "facts": [
+        "site:type:small-cell"
+       ],
+       "prompt": "{site:type:small-cell.text} Is that a small cell or a big tower?",
+       "choices": [
+        "A small cell",
+        "A big tower"
+       ],
+       "answer": 0,
+       "why": "{site:type:small-cell.text}"
+      }
+     ]
+    },
+    {
+     "id": "unit07-l3",
+     "title": "Owner versus carrier",
+     "questions": [
+      {
+       "id": "u7-own-learn-01",
+       "kind": "learn",
+       "title": "A tower is like an apartment building",
+       "facts": [
+        "site:owner:tower-companies"
+       ],
+       "text": "{site:owner:tower-companies.text} Think of an apartment building. One landlord owns it, and several families rent floors.\n"
+      },
+      {
+       "id": "u7-own-learn-02",
+       "kind": "learn",
+       "title": "What counts most",
+       "facts": [
+        "site:evidence:order"
+       ],
+       "text": "{site:evidence:order.text} A carrier sticker is like a name on a mailbox. A radio brand is like the make of a car: many people drive the same make.\n"
+      },
+      {
+       "id": "u7-own-same-01",
+       "kind": "choice",
+       "facts": [
+        "site:owner:tower-companies"
+       ],
+       "prompt": "Is the tower owner always the same company as the carrier?",
+       "choices": [
+        "No, they are often different",
+        "Yes, always the same"
+       ],
+       "answer": 0,
+       "why": "{site:owner:tower-companies.text}"
+      },
+      {
+       "id": "u7-own-rent-01",
+       "kind": "choice",
+       "facts": [
+        "site:owner:tower-companies"
+       ],
+       "prompt": "Which of these companies owns many towers and rents space to carriers?",
+       "choices": [
+        "American Tower",
+        "A cereal maker",
+        "A pizza chain"
+       ],
+       "answer": 0,
+       "why": "{site:owner:tower-companies.text}"
+      },
+      {
+       "id": "u7-own-sign-01",
+       "kind": "choice",
+       "facts": [
+        "site:owner:noc",
+        "site:owner:tower-companies"
+       ],
+       "prompt": "A sign at the base says \"Managed by American Tower\". What does that tell you?",
+       "choices": [
+        "Who owns or manages the structure",
+        "Which carrier is on it"
+       ],
+       "answer": 0,
+       "why": "It names the owner side. The carriers on the tower may be different."
+      },
+      {
+       "id": "u7-own-photo-01",
+       "kind": "photo-choice",
+       "facts": [
+        "site:owner:tower-companies"
+       ],
+       "photo": "site-tower-02",
+       "alt": "A tall painted tower with several levels of antennas",
+       "prompt": "Several carriers can put antennas on a tower like this. Who usually rents space to them?",
+       "choices": [
+        "The tower owner",
+        "The mail carrier"
+       ],
+       "answer": 0,
+       "why": "{site:owner:tower-companies.text}"
+      },
+      {
+       "id": "u7-own-best-01",
+       "kind": "choice",
+       "facts": [
+        "site:evidence:order"
+       ],
+       "prompt": "Which clue is the strongest for \"who runs this site\"?",
+       "choices": [
+        "The carrier's own sticker",
+        "The radio brand",
+        "The paint colour"
+       ],
+       "answer": 0,
+       "why": "{site:evidence:order.text}"
+      },
+      {
+       "id": "u7-own-weak-01",
+       "kind": "choice",
+       "facts": [
+        "site:evidence:order"
+       ],
+       "prompt": "Which clue is the weakest?",
+       "choices": [
+        "The equipment brand",
+        "The carrier's own sticker"
+       ],
+       "answer": 0,
+       "why": "{site:evidence:order.text}"
+      },
+      {
+       "id": "u7-own-scn-01",
+       "kind": "scenario",
+       "facts": [
+        "site:owner:noc",
+        "site:evidence:order"
+       ],
+       "prompt": "You find a tower with a sign and a radio box. Work it out clue by clue.",
+       "clues": [
+        {
+         "text": "A sign says \"Managed by\" a tower company. What does that tell you?",
+         "choices": [
+          "It names the owner",
+          "It names the carrier"
+         ],
+         "answer": 0,
+         "why": "The managing company is the owner side."
+        },
+        {
+         "text": "A sticker on the radio cabinet names a carrier. How strong is that clue?",
+         "choices": [
+          "Strongest",
+          "Weakest"
+         ],
+         "answer": 0,
+         "why": "The carrier's own sticker counts most."
+        },
+        {
+         "text": "The radio box has a brand name on it. How strong is that clue?",
+         "choices": [
+          "Weakest",
+          "Strongest"
+         ],
+         "answer": 0,
+         "why": "Many carriers buy the same brands, so it counts least."
+        }
+       ],
+       "why": "Sticker first, owner sign next, equipment brand last."
+      },
+      {
+       "id": "u7-own-noc-01",
+       "kind": "choice",
+       "facts": [
+        "site:owner:noc"
+       ],
+       "prompt": "The sign shows a phone number for problems. Do you need to memorise it?",
+       "choices": [
+        "No, numbers on signs change",
+        "Yes, it never changes"
+       ],
+       "answer": 0,
+       "why": "Read what the sign says, but do not memorise phone numbers."
+      },
+      {
+       "id": "u7-own-mix-01",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n71/tmobile"
+       ],
+       "prompt": "Which carrier runs n71, the low band known as 600 MHz?",
+       "choices": [
+        "T-Mobile",
+        "Verizon"
+       ],
+       "answer": 0,
+       "why": "T-Mobile runs n71 (600 MHz)."
+      },
+      {
+       "id": "u7-own-mix-02",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:temporary"
+       ],
+       "photo": "site-cow-01",
+       "alt": "A thin temporary mast on the left beside a lattice mast, behind orange fencing",
+       "prompt": "The thin mast on the left was raised for a short time. What is it?",
+       "choices": [
+        "A cell on wheels (COW)",
+        "A flagpole"
+       ],
+       "answer": 0,
+       "why": "{site:type:temporary.text}"
+      }
+     ]
+    },
+    {
+     "id": "unit07-check",
+     "title": "Checkpoint: reading a site",
+     "questions": [
+      {
+       "id": "u7-cp-rule-01",
+       "kind": "choice",
+       "facts": [
+        "site:rule:asr-200ft"
+       ],
+       "prompt": "Above what height must a tower normally be registered with the FCC?",
+       "choices": [
+        "200 ft",
+        "20 ft",
+        "2000 ft"
+       ],
+       "answer": 0,
+       "why": "{site:rule:asr-200ft.text}"
+      },
+      {
+       "id": "u7-cp-rule-02",
+       "kind": "photo-choice",
+       "facts": [
+        "site:infer:paint-lights"
+       ],
+       "photo": "site-tower-03",
+       "alt": "A tall tower painted in red and white stripes",
+       "prompt": "What does the red-and-white paint most likely tell you?",
+       "choices": [
+        "The tower is probably over 200 ft or near an airport",
+        "The tower is a stealth site",
+        "The tower belongs to T-Mobile"
+       ],
+       "answer": 0,
+       "why": "{site:infer:paint-lights.text}",
+       "outline": {
+        "x": 0.43,
+        "y": 0.22,
+        "w": 0.15,
+        "h": 0.45
+       }
+      },
+      {
+       "id": "u7-cp-rule-03",
+       "kind": "choice",
+       "facts": [
+        "site:rule:faa-marking"
+       ],
+       "prompt": "Is the FAA only ever interested in towers over 200 ft?",
+       "choices": [
+        "No, it can ask for marking on shorter ones too",
+        "Yes, never shorter ones"
+       ],
+       "answer": 0,
+       "why": "{site:rule:faa-marking.text}"
+      },
+      {
+       "id": "u7-cp-sign-01",
+       "kind": "tap-clue",
+       "facts": [
+        "site:sign:rf-warning"
+       ],
+       "photo": "site-sign-01",
+       "alt": "The base of a tower with several signs stacked on the pole",
+       "prompt": "Tap the radio-wave warning sign.",
+       "clue": "radio-wave (RF) warning sign",
+       "target": {
+        "x": 0.45,
+        "y": 0.445,
+        "w": 0.15,
+        "h": 0.15
+       },
+       "why": "The CAUTION sign with the triangle warns about radio waves."
+      },
+      {
+       "id": "u7-cp-sign-02",
+       "kind": "choice",
+       "facts": [
+        "site:sign:rf-warning"
+       ],
+       "prompt": "What does an RF warning sign tell you?",
+       "choices": [
+        "Radio waves are strong near the antennas",
+        "Which carrier is on the tower"
+       ],
+       "answer": 0,
+       "why": "It is a safety sign. It does not name a carrier."
+      },
+      {
+       "id": "u7-cp-sign-03",
+       "kind": "choice",
+       "facts": [
+        "site:rule:asr-sign"
+       ],
+       "prompt": "Where must the registration number be posted?",
+       "choices": [
+        "Near the base where the public can see it",
+        "Inside the equipment cabinet"
+       ],
+       "answer": 0,
+       "why": "{site:rule:asr-sign.text}"
+      },
+      {
+       "id": "u7-cp-own-01",
+       "kind": "choice",
+       "facts": [
+        "site:owner:tower-companies"
+       ],
+       "prompt": "Is the company that owns a tower always the carrier on it?",
+       "choices": [
+        "No, often not",
+        "Yes, always"
+       ],
+       "answer": 0,
+       "why": "{site:owner:tower-companies.text}"
+      },
+      {
+       "id": "u7-cp-own-02",
+       "kind": "choice",
+       "facts": [
+        "site:evidence:order"
+       ],
+       "prompt": "Which clue counts most for working out which carrier runs a site?",
+       "choices": [
+        "The carrier's own sticker",
+        "The equipment brand",
+        "The tower's paint"
+       ],
+       "answer": 0,
+       "why": "{site:evidence:order.text}"
+      },
+      {
+       "id": "u7-cp-own-03",
+       "kind": "choice",
+       "facts": [
+        "site:owner:noc"
+       ],
+       "prompt": "A sign's problem phone number belongs to whom?",
+       "choices": [
+        "The owner of the structure",
+        "Always the carrier"
+       ],
+       "answer": 0,
+       "why": "{site:owner:noc.text}"
+      },
+      {
+       "id": "u7-cp-mix-01",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:stealth"
+       ],
+       "photo": "site-flagpole-01",
+       "alt": "A tall flagpole with antennas hidden inside",
+       "prompt": "What kind of site is this?",
+       "choices": [
+        "A stealth site",
+        "A water tank",
+        "A COW"
+       ],
+       "answer": 0,
+       "why": "{site:type:stealth.text}"
+      },
+      {
+       "id": "u7-cp-mix-02",
+       "kind": "choice",
+       "facts": [
+        "site:type:lattice"
+       ],
+       "prompt": "Which tower type is an open steel framework with a wide base and no guy wires?",
+       "choices": [
+        "Lattice tower",
+        "Guyed mast",
+        "Monopole"
+       ],
+       "answer": 0,
+       "why": "{site:type:lattice.text}"
+      },
+      {
+       "id": "u7-cp-mix-03",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n71/tmobile"
+       ],
+       "prompt": "Which carrier runs n71 (600 MHz)?",
+       "choices": [
+        "T-Mobile",
+        "Verizon"
+       ],
+       "answer": 0,
+       "why": "T-Mobile runs n71."
+      },
+      {
+       "id": "u7-cp-scn-01",
+       "kind": "scenario",
+       "facts": [
+        "site:infer:paint-lights",
+        "site:owner:noc"
+       ],
+       "prompt": "You see a tower. Read it clue by clue.",
+       "clues": [
+        {
+         "text": "It has red-and-white paint. What is most likely?",
+         "choices": [
+          "It is over 200 ft or near an airport",
+          "It is a small cell"
+         ],
+         "answer": 0,
+         "why": "Orange-and-white paint most likely means a tall tower."
+        },
+        {
+         "text": "A sign says \"Managed by\" a tower company. What does it name?",
+         "choices": [
+          "The owner",
+          "The carrier"
+         ],
+         "answer": 0,
+         "why": "The managing company is the owner side."
+        }
+       ],
+       "why": "Paint hints at height. The sign names the owner, not the carrier."
+      }
+     ]
+    }
+   ]
   }
  ]
 }

@@ -1,0 +1,102 @@
+unit: unit07
+unit_title: Reading a site
+lesson: unit07-l3
+title: "Owner versus carrier"
+questions:
+  - id: u7-own-learn-01
+    kind: learn
+    title: A tower is like an apartment building
+    facts: [site:owner:tower-companies]
+    text: >
+      {site:owner:tower-companies.text} Think of an apartment building. One landlord owns it, and several families rent floors.
+  - id: u7-own-learn-02
+    kind: learn
+    title: What counts most
+    facts: [site:evidence:order]
+    text: >
+      {site:evidence:order.text} A carrier sticker is like a name on a mailbox. A radio brand is like the make of a car: many people drive the same make.
+  - id: u7-own-same-01
+    kind: choice
+    facts: [site:owner:tower-companies]
+    prompt: Is the tower owner always the same company as the carrier?
+    choices: ["No, they are often different", "Yes, always the same"]
+    answer: 0
+    why: "{site:owner:tower-companies.text}"
+  - id: u7-own-rent-01
+    kind: choice
+    facts: [site:owner:tower-companies]
+    prompt: Which of these companies owns many towers and rents space to carriers?
+    choices: [American Tower, A cereal maker, A pizza chain]
+    answer: 0
+    why: "{site:owner:tower-companies.text}"
+  - id: u7-own-sign-01
+    kind: choice
+    facts: [site:owner:noc, site:owner:tower-companies]
+    prompt: A sign at the base says "Managed by American Tower". What does that tell you?
+    choices: [Who owns or manages the structure, Which carrier is on it]
+    answer: 0
+    why: It names the owner side. The carriers on the tower may be different.
+  - id: u7-own-photo-01
+    kind: photo-choice
+    facts: [site:owner:tower-companies]
+    photo: site-tower-02
+    alt: A tall painted tower with several levels of antennas
+    prompt: Several carriers can put antennas on a tower like this. Who usually rents space to them?
+    choices: [The tower owner, The mail carrier]
+    answer: 0
+    why: "{site:owner:tower-companies.text}"
+  - id: u7-own-best-01
+    kind: choice
+    facts: [site:evidence:order]
+    prompt: Which clue is the strongest for "who runs this site"?
+    choices: [The carrier's own sticker, The radio brand, The paint colour]
+    answer: 0
+    why: "{site:evidence:order.text}"
+  - id: u7-own-weak-01
+    kind: choice
+    facts: [site:evidence:order]
+    prompt: Which clue is the weakest?
+    choices: [The equipment brand, The carrier's own sticker]
+    answer: 0
+    why: "{site:evidence:order.text}"
+  - id: u7-own-scn-01
+    kind: scenario
+    facts: [site:owner:noc, site:evidence:order]
+    prompt: You find a tower with a sign and a radio box. Work it out clue by clue.
+    clues:
+      - text: A sign says "Managed by" a tower company. What does that tell you?
+        choices: [It names the owner, It names the carrier]
+        answer: 0
+        why: The managing company is the owner side.
+      - text: A sticker on the radio cabinet names a carrier. How strong is that clue?
+        choices: [Strongest, Weakest]
+        answer: 0
+        why: The carrier's own sticker counts most.
+      - text: The radio box has a brand name on it. How strong is that clue?
+        choices: [Weakest, Strongest]
+        answer: 0
+        why: Many carriers buy the same brands, so it counts least.
+    why: Sticker first, owner sign next, equipment brand last.
+  - id: u7-own-noc-01
+    kind: choice
+    facts: [site:owner:noc]
+    prompt: The sign shows a phone number for problems. Do you need to memorise it?
+    choices: ["No, numbers on signs change", "Yes, it never changes"]
+    answer: 0
+    why: Read what the sign says, but do not memorise phone numbers.
+  - id: u7-own-mix-01
+    kind: choice
+    facts: [carrier_use:n71/tmobile]
+    prompt: Which carrier runs n71, the low band known as 600 MHz?
+    choices: [T-Mobile, Verizon]
+    answer: 0
+    why: T-Mobile runs n71 (600 MHz).
+  - id: u7-own-mix-02
+    kind: photo-choice
+    facts: [site:type:temporary]
+    photo: site-cow-01
+    alt: A thin temporary mast on the left beside a lattice mast, behind orange fencing
+    prompt: The thin mast on the left was raised for a short time. What is it?
+    choices: [A cell on wheels (COW), A flagpole]
+    answer: 0
+    why: "{site:type:temporary.text}"

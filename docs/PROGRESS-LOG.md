@@ -4,6 +4,7 @@ One or two plain-English lines per chat. Newest at the top.
 
 | Date | What happened | Details |
 |---|---|---|
+| 2026-11-02 | Robot wrote unit 7, the "reading a site" unit: 4 lessons-worth (3 lessons + checkpoint, 51 questions) about red-and-white paint, the signs at a tower's foot, and owner versus carrier, with tap-the-photo questions. | `docs/sessions/2026-11-02-session-79-t35-unit7.md` |
 | 2026-11-02 | Robot wrote unit 6, the tower-spotting unit: 4 lessons and a checkpoint (51 questions) with photos and drawings of tall towers, fake trees, rooftops, small cells, trailers and stadium antennas. | `docs/sessions/2026-11-02-session-78-t35-unit6.md` |
 | 2026-11-02 | Robot drew three tower pictures itself (open frame, cable mast, stadium antennas) because the photo website was still blocking downloads. | `docs/sessions/2026-11-02-session-77-t35-drawings.md` |
 | 2026-11-02 | Robot got one more lesson photo (15 of 18 now); the photo website still blocks most tries. | `docs/sessions/2026-11-02-session-76-t26-photos-retry.md` |

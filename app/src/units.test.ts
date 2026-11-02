@@ -149,3 +149,27 @@ describe('unit 6 content (site types)', () => {
     expect(text).toContain('open steel framework');
   });
 });
+
+describe('unit 7 content (reading a site)', () => {
+  const u7 = allLessons(REAL_PATH).filter(l => l.id.startsWith('unit07-'));
+  it('has 3 lessons and a checkpoint, all resolved', () => {
+    expect(u7.map(l => l.id)).toEqual(['unit07-l1', 'unit07-l2', 'unit07-l3', 'unit07-check']);
+    u7.forEach(l => expect(l.questions.length).toBeGreaterThanOrEqual(10));
+  });
+  it('tap-the-clue questions carry a clue, a target inside the picture and a credit line', () => {
+    const taps = u7.flatMap(l => l.questions).filter((q: any) => q.kind === 'tap-clue') as any[];
+    expect(taps.length).toBeGreaterThanOrEqual(5);
+    taps.forEach(q => {
+      expect(q.clue.length, q.id).toBeGreaterThan(3);
+      expect(q.target.x + q.target.w, q.id).toBeLessThanOrEqual(1);
+      expect(q.target.y + q.target.h, q.id).toBeLessThanOrEqual(1);
+      expect(q.photo.credit, q.id).toMatch(/by .+,/);
+    });
+  });
+  it('the facts fill in with no leftover braces, and no phone numbers are shown', () => {
+    const text = JSON.stringify(u7.flatMap(l => l.questions));
+    expect(text).not.toMatch(/\{(site|band|carrier_use):/);
+    expect(text).not.toMatch(/\d{3}[-\s]\d{3}[-\s]\d{4}/);
+    expect(text).toContain('200 ft');
+  });
+});
