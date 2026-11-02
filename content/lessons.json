@@ -146,6 +146,41 @@
    "title": "Drawing of a stadium DAS",
    "author": "Claude (own drawing)",
    "licence": "CC0"
+  },
+  {
+   "id": "form-passive-panel-drawing-01",
+   "file": "form-passive-panel-drawing-01.webp",
+   "title": "Drawing of a passive antenna panel",
+   "author": "Claude (own drawing)",
+   "licence": "CC0"
+  },
+  {
+   "id": "form-radio-unit-drawing-01",
+   "file": "form-radio-unit-drawing-01.webp",
+   "title": "Drawing of a radio unit",
+   "author": "Claude (own drawing)",
+   "licence": "CC0"
+  },
+  {
+   "id": "form-massive-mimo-drawing-01",
+   "file": "form-massive-mimo-drawing-01.webp",
+   "title": "Drawing of a massive MIMO box",
+   "author": "Claude (own drawing)",
+   "licence": "CC0"
+  },
+  {
+   "id": "ports-hexport-drawing-01",
+   "file": "ports-hexport-drawing-01.webp",
+   "title": "Drawing of a 6-port (hexport) panel",
+   "author": "Claude (own drawing)",
+   "licence": "CC0"
+  },
+  {
+   "id": "ports-nnhh-drawing-01",
+   "file": "ports-nnhh-drawing-01.webp",
+   "title": "Drawing of an 8-port panel",
+   "author": "Claude (own drawing)",
+   "licence": "CC0"
   }
  ],
  "sites": [
@@ -310,6 +345,391 @@
    "status": "CURRENT",
    "as_of": "2026-11-02",
    "source": "docs/PRD.md section 4 (chain of evidence); app design rule, not a public fact"
+  }
+ ],
+ "hardware": [
+  {
+   "id": "form:passive-panel",
+   "kind": "form",
+   "grade": "W",
+   "text": "A passive panel antenna is a tall plastic cover with no electronics inside. Its cable connectors sit in a row at the bottom.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 3: The Antenna Farm (SBNHH-1D65C, NNHH-65C-R4 listings), Argus/CommScope model-number chart (Scribd); resellers, pages not opened here"
+  },
+  {
+   "id": "form:radio-unit",
+   "kind": "form",
+   "grade": "P",
+   "text": "A radio unit (RRU or RRH, a remote radio head) is a small box that makes the signal. Short cables, called jumpers, link it to the connectors of a passive panel.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 3: fccid.io / device.report (Samsung RF4440d-13A, FCC ID A3LRF4440D-13A), Ericsson Radio 4449 overview; pages not opened here"
+  },
+  {
+   "id": "form:massive-mimo",
+   "kind": "form",
+   "grade": "P",
+   "text": "A massive MIMO box has the radio and a big array of small antennas (about 128 to 192) in one box. It usually has no jumpers to a separate panel. These boxes serve fast mid-band (TDD) spectrum such as n41, n77 and CBRS.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 3: Montgomery County MD filings (AIR 6449 B77D), fccid.io VBNAEHC-01 (Nokia AEHC), CT Griswold filing (Samsung MT6407-77A), Telecoms.com (AIR 3268); pages not opened here"
+  },
+  {
+   "id": "form:massive-mimo-pole",
+   "kind": "form",
+   "grade": "P",
+   "text": "Massive MIMO boxes often sit on their own support pipe next to the passive panels of the same sector.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 3: Montgomery County MC2021061469 (AIR 6449 B41 installed on new support pipes for sectors 2 and 3); page not opened here"
+  },
+  {
+   "id": "ports:hexport",
+   "kind": "ports",
+   "grade": "W",
+   "text": "A hexport panel (like the SBNHH) has 6 connectors. We have not checked how they split between low and mid band.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 3: The Antenna Farm (SBNHH-1D65C, NNHH-65C-R4 listings), Argus/CommScope model-number chart (Scribd); resellers, pages not opened here"
+  },
+  {
+   "id": "ports:nnhh",
+   "kind": "ports",
+   "grade": "W",
+   "text": "An NNHH panel has 8 connectors: 4 for low band and 4 for mid band.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 3: The Antenna Farm (SBNHH-1D65C, NNHH-65C-R4 listings), Argus/CommScope model-number chart (Scribd); resellers, pages not opened here"
+  },
+  {
+   "id": "ports:ntnr",
+   "kind": "ports",
+   "grade": "inference",
+   "text": "A band that works as 4T4R needs 4 antenna ports, so counting a band's ports usually tells you its T and R number. This is a good guess from how the panels are built, not a law.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 3 (inference from the panel and radio listings above)"
+  },
+  {
+   "id": "ports:panel-length",
+   "kind": "ports",
+   "grade": "W",
+   "text": "In a CommScope panel name, the last letter is the length: A is 1.3 m, B is 2.0 m and C is 2.6 m. In the band letters, N means 698 to 896 MHz and H means 1710 to 2180 MHz.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 3: The Antenna Farm (SBNHH-1D65C, NNHH-65C-R4 listings), Argus/CommScope model-number chart (Scribd); resellers, pages not opened here"
+  },
+  {
+   "id": "model:air-64xx",
+   "kind": "model",
+   "grade": "inference",
+   "text": "Ericsson's AIR means Antenna Integrated Radio. The first two digits of the model number usually match the radio paths: AIR 6449 has 64 (64T64R) and AIR 3268 has 32. This is a pattern in the examples we found, not a law.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 3: Montgomery County MD filings (AIR 6449 B77D), fccid.io VBNAEHC-01 (Nokia AEHC), CT Griswold filing (Samsung MT6407-77A), Telecoms.com (AIR 3268); pages not opened here; the 'first two digits' rule is our reading of the AIR 6449, AIR 6419 and AIR 3268 examples"
+  },
+  {
+   "id": "model:air-suffix",
+   "kind": "model",
+   "grade": "P",
+   "text": "The ending of an Ericsson AIR name shows the band: B41 is 2.5 GHz (2496 to 2690 MHz), B77D is C-band (3700 to 3980 MHz) and B48 is CBRS.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 2: Montgomery County MD filings MC2020061185, MC2021011358, MC2021061469 (Ericsson AIR 6449 B41 / B77D); fccid.io TA8AKRD901206; pages not opened here"
+  },
+  {
+   "id": "model:radio-dual",
+   "kind": "model",
+   "grade": "P",
+   "text": "A dual-band Ericsson radio lists both bands in its name, such as Radio 4449 B5/B13 or Radio 4480 B71+B85.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 2: Ericsson Radio 4449 overview, RRUS 4449 B5/B12 spec sheet, CT Sterling filing (Radio 4480 B71+B85, RRUS 8843 B2 B66A); pages not opened here"
+  },
+  {
+   "id": "model:nokia-aehc",
+   "kind": "model",
+   "grade": "P",
+   "text": "Nokia's AEHC is the AirScale MAA 64T64R 192AE B41: a 64T64R massive MIMO box for band 41.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 2: fccid.io VBNAEHC-01, Nokia Massive MIMO Adaptive Antenna Product Description; pages not opened here"
+  },
+  {
+   "id": "model:samsung-suffix",
+   "kind": "model",
+   "grade": "inference",
+   "text": "Samsung names may end in the band: -77A for n77 and -13A for band 13. This is only our guess from two examples.",
+   "status": "UNVERIFIED",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 2 inference only: the -77A and -13A endings are our reading of two Samsung names; no Samsung document explains them"
+  },
+  {
+   "id": "use:air6449-b41-tmobile",
+   "kind": "use",
+   "grade": "P",
+   "text": "T-Mobile's filings list the Ericsson AIR 6449 B41, so it is a T-Mobile n41 (2.5 GHz) radio.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 2: Montgomery County MD filings MC2021011358, MC2021061469, MC2021111611, MC2020101317 (T-Mobile, AIR 6449 B41); pages not opened here"
+  },
+  {
+   "id": "use:air6449-b77d-attvz",
+   "kind": "use",
+   "grade": "P",
+   "text": "The Ericsson AIR 6449 B77D is a C-band radio. AT&T is named in its filings. Verizon's C-band uses Samsung boxes in the filings we found.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 2: Montgomery County MD filings MC2020061185, MC2021011358, MC2021061469 (Ericsson AIR 6449 B41 / B77D); fccid.io TA8AKRD901206; pages not opened here"
+  },
+  {
+   "id": "use:samsung-verizon",
+   "kind": "use",
+   "grade": "P",
+   "text": "Verizon's filings list the Samsung MT6407-77A (a 64T64R C-band all-in-one) and the Samsung RF4440d-13A (a 700/850 MHz radio).",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 2: Montgomery County MC2022051756, CT Griswold filing em-ver-058-211018 (Samsung MT6407-77A, RF4440d-13A); pages not opened here"
+  },
+  {
+   "id": "use:4480-b71-b85",
+   "kind": "use",
+   "grade": "P",
+   "text": "A T-Mobile tower-share notice lists the Ericsson Radio 4480 B71+B85, a dual-band radio that includes the 600 MHz band 71.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 2: CT Sterling T-Mobile tower-share notice (Radio 4480 B71+B85); the AT&T Clinton notice is ambiguous and is not used; page not opened here"
+  },
+  {
+   "id": "weight:massive-mimo",
+   "kind": "weight",
+   "grade": "T",
+   "text": "Massive MIMO boxes have got lighter with each generation. Very roughly, a big one is about 25 to 40 kg and a small one about 12 kg. Sources disagree on exact weights.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 3: The Mobile Network (AIR 6468), Nokia (Habrok 64, 24 kg), Telecoms.com (AIR 3268, 12 kg); one reseller says 46 kg for the B41 AIR 6449, which conflicts with the filings (35 to 38 kg)",
+   "quiz": false
+  },
+  {
+   "id": "evidence:brand-weakest",
+   "kind": "rule",
+   "grade": "inference",
+   "text": "A radio's model name usually tells you what the box is, but not always who runs it. The carrier's own sticker counts most and the equipment brand counts least.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/PRD.md section 4 (chain of evidence); app design rule, not a public fact"
+  }
+ ],
+ "cell_ids": [
+  {
+   "id": "cls:classes",
+   "kind": "cls",
+   "grade": "P",
+   "text": "Cells come in size classes, from widest to smallest: macro (wide area, on towers above the rooftops), micro (medium range, below the rooftops), pico (local area, such as inside a mall) and femto (home). Home cells exist only in LTE, not in 5G.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 4: Techplayon LTE and NR base-station classes, ScienceDirect overview; pages not opened here"
+  },
+  {
+   "id": "cls:sectors",
+   "kind": "cls",
+   "grade": "inference",
+   "text": "A site usually has 3 sectors, each facing about a third of a circle. Each band on each sector is its own cell, so the number of cells is roughly the number of sectors times the number of bands. This is a good rule of thumb, not a law.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 4: Montgomery County filing MC2021061469 (sectors numbered), MIT cellular numerology page; pages not opened here"
+  },
+  {
+   "id": "lte:eci",
+   "kind": "lte",
+   "grade": "P",
+   "text": "An LTE cell number (the ECI) is 28 bits: 20 bits are the tower (eNB) number and 8 bits are the cell number. So ECI = eNB x 256 + cell, and eNB = ECI divided by 256 (rounded down).",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 5: US Patent 8346280 (20-bit eNB ID, 8-bit cell), HowardForums 'LTE sectors' (ECI = eNB x 256 + sector); pages not opened here",
+   "values": {
+    "eci_bits": 28,
+    "enb_bits": 20,
+    "cell_bits": 8,
+    "multiplier": 256
+   }
+  },
+  {
+   "id": "lte:pci",
+   "kind": "lte",
+   "grade": "P",
+   "text": "An LTE PCI (physical cell ID) is a number from 0 to 503. Cells reuse PCIs, so a PCI tells you neither the site nor the band.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 5: MIT cellular numerology page, Cellfire app on GitHub (PCI 0 to 503); pages not opened here",
+   "values": {
+    "pci_low": 0,
+    "pci_high": 503
+   }
+  },
+  {
+   "id": "lte:earfcn-formula",
+   "kind": "lte",
+   "grade": "P",
+   "text": "A channel number (EARFCN) gives the exact frequency: the downlink frequency in MHz = the band's lowest downlink frequency + 0.1 x (channel number - the band's first channel number).",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 5: 3GPP TS 36.101 Table 5.7.3-1 as copied by Halberd Bastion, Electronics Notes, CableFree, Wikipedia LTE frequency bands, celltowers.ca; the ranges also match content/bands.json (a test checks); not yet compared with 3GPP itself (T07)"
+  },
+  {
+   "id": "lte:earfcn-b12",
+   "kind": "lte",
+   "grade": "P",
+   "text": "Band 12 downlink channel numbers run from 5010 to 5179 (729 to 746 MHz).",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 5: 3GPP TS 36.101 Table 5.7.3-1 as copied by Halberd Bastion, Electronics Notes, CableFree, Wikipedia LTE frequency bands, celltowers.ca; the ranges also match content/bands.json (a test checks); not yet compared with 3GPP itself (T07)",
+   "values": {
+    "band": "B12",
+    "n_low": 5010,
+    "n_high": 5179
+   }
+  },
+  {
+   "id": "lte:earfcn-b13",
+   "kind": "lte",
+   "grade": "P",
+   "text": "Band 13 downlink channel numbers run from 5180 to 5279 (746 to 756 MHz).",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 5: 3GPP TS 36.101 Table 5.7.3-1 as copied by Halberd Bastion, Electronics Notes, CableFree, Wikipedia LTE frequency bands, celltowers.ca; the ranges also match content/bands.json (a test checks); not yet compared with 3GPP itself (T07)",
+   "values": {
+    "band": "B13",
+    "n_low": 5180,
+    "n_high": 5279
+   }
+  },
+  {
+   "id": "lte:earfcn-b66",
+   "kind": "lte",
+   "grade": "P",
+   "text": "Band 66 downlink channel numbers run from 66436 to 67335 (2110 to 2200 MHz).",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 5: 3GPP TS 36.101 Table 5.7.3-1 as copied by Halberd Bastion, Electronics Notes, CableFree, Wikipedia LTE frequency bands, celltowers.ca; the ranges also match content/bands.json (a test checks); not yet compared with 3GPP itself (T07)",
+   "values": {
+    "band": "B66",
+    "n_low": 66436,
+    "n_high": 67335
+   }
+  },
+  {
+   "id": "lte:earfcn-b71",
+   "kind": "lte",
+   "grade": "P",
+   "text": "Band 71 downlink channel numbers run from 68586 to 68935 (617 to 652 MHz).",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 5: 3GPP TS 36.101 Table 5.7.3-1 as copied by Halberd Bastion, Electronics Notes, CableFree, Wikipedia LTE frequency bands, celltowers.ca; the ranges also match content/bands.json (a test checks); not yet compared with 3GPP itself (T07)",
+   "values": {
+    "band": "B71",
+    "n_low": 68586,
+    "n_high": 68935
+   }
+  },
+  {
+   "id": "lte:earfcn-other",
+   "kind": "lte",
+   "grade": "gap",
+   "text": "Channel number ranges for the other US LTE bands (B2, B4, B5, B14, B17, B25, B30, B41, B48).",
+   "status": "UNVERIFIED",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 5 gaps: EARFCN ranges for B2, B4, B5, B14, B17, B25, B30, B41 and B48 were not sourced; verify against 3GPP (T07)"
+  },
+  {
+   "id": "nr:nci",
+   "kind": "nr",
+   "grade": "P",
+   "text": "A 5G cell number (the NCI) is 36 bits. The first 22 to 32 bits are the tower (gNB) number and the rest are the cell number. The screen does not say where the split is, so a drill always states the bit length.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 5: Techplayon NR cell global identity planning, 5G-Tools NCI calculator, arXiv 2506.12461; pages not opened here",
+   "values": {
+    "nci_bits": 36,
+    "gnb_bits_low": 22,
+    "gnb_bits_high": 32
+   }
+  },
+  {
+   "id": "nr:gnb-length-unknown",
+   "kind": "nr",
+   "grade": "gap",
+   "text": "We did not find how many bits any US carrier uses for the tower number in 5G. The same 5G cell number decodes to two different sites if you assume two different lengths.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 5 gaps: no source found for any US carrier's gNB ID length (UK examples exist only as community posts)"
+  },
+  {
+   "id": "nr:pci",
+   "kind": "nr",
+   "grade": "gap",
+   "text": "A 5G PCI is a number from 0 to 1007.",
+   "status": "UNVERIFIED",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 5 (PCI range for 5G not covered); the value 0 to 1007 is a 3GPP standard figure we recalled and did not source, so it stays UNVERIFIED until T07"
+  },
+  {
+   "id": "nr:arfcn",
+   "kind": "nr",
+   "grade": "P",
+   "text": "A 5G channel number (NR-ARFCN) also maps to an exact frequency, by one global formula with a fixed step size. Learners only need the idea, not the formula.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 5: 3GLTEInfo, nrarfcn on PyPI (3GPP TS 38.104 section 5.4.2.1); concept only; pages not opened here"
+  },
+  {
+   "id": "us:verizon-pattern",
+   "kind": "us",
+   "grade": "C",
+   "text": "Community pattern, may have changed: on Verizon, the tens digit of the LTE cell number often shows the sector and the ones digit shows the layer (for example 1, 2 and 3 are often 700 MHz).",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 5: S4GRU posts (Trip) and HowardForums Verizon B2 PCS thread; forum posts only, two agree; may have changed",
+   "quiz": false
+  },
+  {
+   "id": "us:tmobile-pattern",
+   "kind": "us",
+   "grade": "C",
+   "text": "Community pattern, may have changed: T-Mobile cell numbers often group by band, such as band 66 in 1 to 10, band 2 in 11 to 20 and band 71 in 61 to 70, with exceptions.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 5: S4GRU 'How to Identify T-Mobile network equipment (Nokia Networks)'; one forum post with stated exceptions; may have changed",
+   "quiz": false
+  },
+  {
+   "id": "us:vendor-from-id",
+   "kind": "us",
+   "grade": "C",
+   "text": "A vendor name that a map app shows next to a cell number is a guess from the number's pattern, so do not trust it.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 5: HowardForums 'who is the vendor of this cell equipment' (CellMapper and LTE Discovery 'just make a best guess'); forum post",
+   "quiz": false
+  },
+  {
+   "id": "tool:field-test-iphone",
+   "kind": "tool",
+   "grade": "W",
+   "text": "On many iPhones, dialling a Field Test code opens a hidden test screen that shows the cell number and PCI. The menus differ by iOS version and phone, so yours may look different.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 6: iTechGuides, FindCellID, UberSignal, Wilson (iPhone Field Test); web guides, not tried on a real phone by us"
+  },
+  {
+   "id": "tool:android-4636",
+   "kind": "tool",
+   "grade": "W",
+   "text": "On many Android phones, a hidden test code shows the channel number (EARFCN) next to the serving cell. Some phones block it or show other screens.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/vendors_and_cells.md question 6: HiCellTek EARFCN guide, XDA ServiceMode threads; web and forum posts, not tried by us"
   }
  ],
  "units": [
@@ -7426,6 +7846,1025 @@
         }
        ],
        "why": "Paint hints at height. The sign names the owner, not the carrier."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "unit08",
+   "title": "Hardware",
+   "lessons": [
+    {
+     "id": "unit08-l1",
+     "title": "Three kinds of boxes",
+     "questions": [
+      {
+       "id": "u8-box-learn-01",
+       "kind": "learn",
+       "title": "Boxes on the tower",
+       "facts": [
+        "hardware:form:passive-panel",
+        "hardware:form:radio-unit",
+        "hardware:form:massive-mimo"
+       ],
+       "text": "Up on a tower you will see three kinds of boxes. Think of a speaker setup: a plain speaker, an amplifier, and a speaker with the amplifier built in. The tower has the same three jobs.\n"
+      },
+      {
+       "id": "u8-box-learn-02",
+       "kind": "learn",
+       "title": "The plain panel",
+       "facts": [
+        "hardware:form:passive-panel"
+       ],
+       "photo": "form-passive-panel-drawing-01",
+       "text": "A passive panel antenna is a tall plastic cover with no electronics inside. Its cable connectors sit in a row at the bottom. \"Passive\" means it only passes the signal along.\n"
+      },
+      {
+       "id": "u8-box-learn-03",
+       "kind": "learn",
+       "title": "The radio box",
+       "facts": [
+        "hardware:form:radio-unit"
+       ],
+       "photo": "form-radio-unit-drawing-01",
+       "text": "A radio unit is a small box that makes the signal. Short cables, called jumpers, link it to the connectors of a passive panel. People also call it an RRU or RRH.\n"
+      },
+      {
+       "id": "u8-box-learn-04",
+       "kind": "learn",
+       "title": "The massive MIMO box",
+       "facts": [
+        "hardware:form:massive-mimo"
+       ],
+       "photo": "form-massive-mimo-drawing-01",
+       "text": "A massive MIMO box has the radio and a big array of small antennas (about 128 to 192) in one box. It usually has no jumpers to a separate panel.\n"
+      },
+      {
+       "id": "u8-box-draw-01",
+       "kind": "photo-choice",
+       "facts": [
+        "hardware:form:passive-panel"
+       ],
+       "photo": "form-passive-panel-drawing-01",
+       "alt": "A drawing of a tall flat antenna cover with a row of connectors at the bottom",
+       "prompt": "Which box is in this drawing?",
+       "choices": [
+        "Passive panel",
+        "Radio unit",
+        "Massive MIMO box"
+       ],
+       "answer": 0,
+       "why": "A tall cover with a row of connectors at the bottom is a passive panel."
+      },
+      {
+       "id": "u8-box-draw-02",
+       "kind": "photo-choice",
+       "facts": [
+        "hardware:form:radio-unit"
+       ],
+       "photo": "form-radio-unit-drawing-01",
+       "alt": "A drawing of a small finned box with short cables coming out",
+       "prompt": "Which box is in this drawing?",
+       "choices": [
+        "Massive MIMO box",
+        "Passive panel",
+        "Radio unit"
+       ],
+       "answer": 2,
+       "why": "A small box with short cables (jumpers) to a panel is a radio unit."
+      },
+      {
+       "id": "u8-box-draw-03",
+       "kind": "photo-choice",
+       "facts": [
+        "hardware:form:massive-mimo"
+       ],
+       "photo": "form-massive-mimo-drawing-01",
+       "alt": "A drawing of one big box covered with a grid of small antenna squares",
+       "prompt": "Which box is in this drawing?",
+       "choices": [
+        "Radio unit",
+        "Massive MIMO box",
+        "Passive panel"
+       ],
+       "answer": 1,
+       "why": "One big box with a grid of tiny antennas is a massive MIMO box."
+      },
+      {
+       "id": "u8-box-empty-01",
+       "kind": "choice",
+       "facts": [
+        "hardware:form:passive-panel"
+       ],
+       "prompt": "Which box has no electronics inside?",
+       "choices": [
+        "Radio unit",
+        "Passive panel",
+        "Massive MIMO box"
+       ],
+       "answer": 1,
+       "why": "A passive panel is only a cover and cables."
+      },
+      {
+       "id": "u8-box-jumper-01",
+       "kind": "choice",
+       "facts": [
+        "hardware:form:radio-unit"
+       ],
+       "prompt": "Short cables called jumpers link a panel to which box?",
+       "choices": [
+        "Radio unit",
+        "Massive MIMO box"
+       ],
+       "answer": 0,
+       "why": "The radio unit makes the signal and sends it to the panel through jumpers."
+      },
+      {
+       "id": "u8-box-allinone-01",
+       "kind": "choice",
+       "facts": [
+        "hardware:form:massive-mimo"
+       ],
+       "prompt": "Which box usually has its own antennas inside, with no jumpers to a separate panel?",
+       "choices": [
+        "Passive panel",
+        "Massive MIMO box",
+        "Radio unit"
+       ],
+       "answer": 1,
+       "why": "The radio and the antenna array share one box. \"Usually\" is the word to keep, because setups differ."
+      },
+      {
+       "id": "u8-box-match-01",
+       "kind": "match",
+       "facts": [
+        "hardware:form:passive-panel",
+        "hardware:form:radio-unit",
+        "hardware:form:massive-mimo"
+       ],
+       "prompt": "Match each box to its clue.",
+       "pairs": [
+        [
+         "Passive panel",
+         "Only a cover and cables"
+        ],
+        [
+         "Radio unit",
+         "Small box that makes the signal"
+        ],
+        [
+         "Massive MIMO box",
+         "Radio and many antennas in one"
+        ]
+       ],
+       "why": "Each box has one clue that decides it."
+      },
+      {
+       "id": "u8-box-mix-01",
+       "kind": "choice",
+       "facts": [
+        "hardware:form:massive-mimo",
+        "band:n41"
+       ],
+       "prompt": "n41 is fast mid-band spectrum. Which box is often used for it?",
+       "choices": [
+        "Plain panel only",
+        "Massive MIMO box"
+       ],
+       "answer": 1,
+       "why": "Massive MIMO boxes serve fast mid-band (TDD) spectrum such as n41, n77 and CBRS."
+      },
+      {
+       "id": "u8-box-mix-02",
+       "kind": "choice",
+       "facts": [
+        "hardware:form:massive-mimo-pole"
+       ],
+       "prompt": "Where does a massive MIMO box often sit?",
+       "choices": [
+        "Inside the plastic cover of a panel",
+        "On its own support pipe next to the panels"
+       ],
+       "answer": 1,
+       "why": "Massive MIMO boxes often sit on their own support pipe next to the passive panels of the same sector."
+      }
+     ]
+    },
+    {
+     "id": "unit08-l2",
+     "title": "Count the ports",
+     "questions": [
+      {
+       "id": "u8-port-learn-01",
+       "kind": "learn",
+       "title": "What \"4T4R\" means",
+       "facts": [
+        "hardware:ports:ntnr"
+       ],
+       "text": "4T4R means 4 sending paths (T) and 4 receiving paths (R). A band that works as 4T4R needs 4 antenna ports. So counting ports usually tells you the T and R numbers. That is a good guess from how panels are built, not a law.\n"
+      },
+      {
+       "id": "u8-port-learn-02",
+       "kind": "learn",
+       "title": "Hexport and NNHH",
+       "facts": [
+        "hardware:ports:hexport",
+        "hardware:ports:nnhh"
+       ],
+       "text": "Panels are named by how many ports they have. A hexport panel has 6 connectors. An NNHH panel has 8 connectors: 4 for low band and 4 for mid band.\n"
+      },
+      {
+       "id": "u8-port-draw-01",
+       "kind": "photo-choice",
+       "facts": [
+        "hardware:ports:hexport"
+       ],
+       "photo": "ports-hexport-drawing-01",
+       "alt": "A drawing of a flat panel with six connectors in a row at the bottom",
+       "prompt": "How many connectors does this panel drawing show?",
+       "choices": [
+        "4",
+        "6",
+        "8"
+       ],
+       "answer": 1,
+       "why": "Count them one by one. This drawing shows 6, like a hexport panel."
+      },
+      {
+       "id": "u8-port-draw-02",
+       "kind": "photo-choice",
+       "facts": [
+        "hardware:ports:nnhh"
+       ],
+       "photo": "ports-nnhh-drawing-01",
+       "alt": "A drawing of a flat panel with eight connectors in a row at the bottom",
+       "prompt": "How many connectors does this panel drawing show?",
+       "choices": [
+        "6",
+        "8",
+        "10"
+       ],
+       "answer": 1,
+       "why": "This drawing shows 8, like an NNHH panel."
+      },
+      {
+       "id": "u8-port-low-01",
+       "kind": "choice",
+       "facts": [
+        "hardware:ports:nnhh"
+       ],
+       "prompt": "An NNHH panel has 8 connectors. How many are for low band?",
+       "choices": [
+        "2",
+        "4",
+        "6"
+       ],
+       "answer": 1,
+       "why": "4 are for low band and 4 are for mid band."
+      },
+      {
+       "id": "u8-port-name-01",
+       "kind": "choice",
+       "facts": [
+        "hardware:ports:hexport",
+        "hardware:ports:nnhh"
+       ],
+       "prompt": "Which panel has more connectors?",
+       "choices": [
+        "Hexport",
+        "NNHH"
+       ],
+       "answer": 1,
+       "why": "A hexport has 6 and an NNHH has 8."
+      },
+      {
+       "id": "u8-port-ntnr-01",
+       "kind": "choice",
+       "facts": [
+        "hardware:ports:ntnr"
+       ],
+       "prompt": "A band uses 4 ports. It is most likely...",
+       "choices": [
+        "2T2R",
+        "4T4R",
+        "8T8R"
+       ],
+       "answer": 1,
+       "why": "4 ports usually means 4T4R. \"Usually\" because this is a good guess, not a law."
+      },
+      {
+       "id": "u8-port-len-learn-01",
+       "kind": "learn",
+       "title": "Panel lengths",
+       "facts": [
+        "hardware:ports:panel-length"
+       ],
+       "text": "In a CommScope panel name, the last letter is the length. A is 1.3 m, B is 2.0 m and C is 2.6 m. The band letters work the same way: N is a low-band letter and H is a mid-band letter.\n"
+      },
+      {
+       "id": "u8-port-len-01",
+       "kind": "choice",
+       "facts": [
+        "hardware:ports:panel-length"
+       ],
+       "prompt": "A panel name ends in C. How long is it?",
+       "choices": [
+        "1.3 m",
+        "2.0 m",
+        "2.6 m"
+       ],
+       "answer": 2,
+       "why": "A is 1.3 m, B is 2.0 m and C is 2.6 m."
+      },
+      {
+       "id": "u8-port-len-02",
+       "kind": "choice",
+       "facts": [
+        "hardware:ports:panel-length"
+       ],
+       "prompt": "Which letter means the shortest panel?",
+       "choices": [
+        "A",
+        "B",
+        "C"
+       ],
+       "answer": 0,
+       "why": "A is 1.3 m, the shortest of the three."
+      },
+      {
+       "id": "u8-port-letter-01",
+       "kind": "choice",
+       "facts": [
+        "hardware:ports:panel-length"
+       ],
+       "prompt": "In a panel's band letters, which one is for low band?",
+       "choices": [
+        "N",
+        "H"
+       ],
+       "answer": 0,
+       "why": "N is the low-band letter and H is the mid-band letter."
+      },
+      {
+       "id": "u8-port-match-01",
+       "kind": "match",
+       "facts": [
+        "hardware:ports:hexport",
+        "hardware:ports:nnhh"
+       ],
+       "prompt": "Match each panel to its connector count.",
+       "pairs": [
+        [
+         "Hexport",
+         "6 connectors"
+        ],
+        [
+         "NNHH",
+         "8 connectors"
+        ]
+       ],
+       "why": "Hexport means six. NNHH has 4 low plus 4 mid."
+      },
+      {
+       "id": "u8-port-mix-01",
+       "kind": "choice",
+       "facts": [
+        "band:B71",
+        "band:B41"
+       ],
+       "prompt": "B71 or B41, which one is the low band?",
+       "choices": [
+        "B71",
+        "B41"
+       ],
+       "answer": 0,
+       "why": "B71 starts at {band:B71.dl_low_mhz} MHz and B41 at {band:B41.dl_low_mhz} MHz. Lower is low band."
+      }
+     ]
+    },
+    {
+     "id": "unit08-l3",
+     "title": "Decode a model name",
+     "questions": [
+      {
+       "id": "u8-model-learn-01",
+       "kind": "learn",
+       "title": "Reading AIR 6449 B41",
+       "facts": [
+        "hardware:model:air-64xx"
+       ],
+       "text": "Ericsson's AIR means Antenna Integrated Radio. In \"AIR 6449\" the first two digits usually match the radio paths: 64 means 64T64R. In \"AIR 3268\" it is 32. This is a pattern in the examples we found, not a law.\n"
+      },
+      {
+       "id": "u8-model-learn-02",
+       "kind": "learn",
+       "title": "The ending shows the band",
+       "facts": [
+        "hardware:model:air-suffix",
+        "band:B41",
+        "band:B48"
+       ],
+       "text": "The ending of an Ericsson AIR name shows the band. B41 is 2.5 GHz (it starts at {band:B41.dl_low_mhz} MHz). B77D is C-band. B48 is CBRS (it starts at {band:B48.dl_low_mhz} MHz).\n"
+      },
+      {
+       "id": "u8-model-learn-03",
+       "kind": "learn",
+       "title": "Two bands in one name",
+       "facts": [
+        "hardware:model:radio-dual"
+       ],
+       "text": "A dual-band Ericsson radio lists both bands in its name, such as Radio 4449 B5/B13 or Radio 4480 B71+B85.\n"
+      },
+      {
+       "id": "u8-model-band-01",
+       "kind": "choice",
+       "facts": [
+        "hardware:model:air-suffix"
+       ],
+       "prompt": "The name AIR 6449 B41 ends in B41. What does that tell you?",
+       "choices": [
+        "The box has 41 ports",
+        "The box is for band 41",
+        "The box has 41 antennas"
+       ],
+       "answer": 1,
+       "why": "The ending shows the band. B41 is band 41."
+      },
+      {
+       "id": "u8-model-paths-01",
+       "kind": "choice",
+       "facts": [
+        "hardware:model:air-64xx"
+       ],
+       "prompt": "In AIR 6449, the first two digits are 64. About how many radio paths is that?",
+       "choices": [
+        "32",
+        "64",
+        "128"
+       ],
+       "answer": 1,
+       "why": "64 means 64T64R, a usual pattern, not a law."
+      },
+      {
+       "id": "u8-model-paths-02",
+       "kind": "choice",
+       "facts": [
+        "hardware:model:air-64xx"
+       ],
+       "prompt": "AIR 3268 starts with 32. It probably has...",
+       "choices": [
+        "32 paths",
+        "64 paths"
+       ],
+       "answer": 0,
+       "why": "The first two digits usually match the paths. That is a pattern in the examples, not a law."
+      },
+      {
+       "id": "u8-model-c-01",
+       "kind": "choice",
+       "facts": [
+        "hardware:model:air-suffix"
+       ],
+       "prompt": "Which spectrum does the ending B77D mean?",
+       "choices": [
+        "C-band",
+        "CBRS",
+        "2.5 GHz"
+       ],
+       "answer": 0,
+       "why": "B77D is C-band."
+      },
+      {
+       "id": "u8-model-match-01",
+       "kind": "match",
+       "facts": [
+        "hardware:model:air-suffix"
+       ],
+       "prompt": "Match each ending to its spectrum.",
+       "pairs": [
+        [
+         "B41",
+         "2.5 GHz"
+        ],
+        [
+         "B77D",
+         "C-band"
+        ],
+        [
+         "B48",
+         "CBRS"
+        ]
+       ],
+       "why": "The ending of an Ericsson AIR name shows the band."
+      },
+      {
+       "id": "u8-model-dual-01",
+       "kind": "choice",
+       "facts": [
+        "hardware:model:radio-dual"
+       ],
+       "prompt": "Radio 4480 B71+B85 lists two bands. How many bands does it cover?",
+       "choices": [
+        "One",
+        "Two",
+        "Three"
+       ],
+       "answer": 1,
+       "why": "B71 and B85 are two bands in one radio."
+      },
+      {
+       "id": "u8-model-dual-02",
+       "kind": "choice",
+       "facts": [
+        "hardware:model:radio-dual"
+       ],
+       "prompt": "Which name shows a dual-band radio?",
+       "choices": [
+        "Radio 4449 B5/B13",
+        "AIR 6449 B41"
+       ],
+       "answer": 0,
+       "why": "B5/B13 lists two bands. AIR 6449 B41 lists one."
+      },
+      {
+       "id": "u8-model-nokia-01",
+       "kind": "learn",
+       "title": "Nokia names",
+       "facts": [
+        "hardware:model:nokia-aehc"
+       ],
+       "text": "Nokia's AEHC is the AirScale MAA 64T64R 192AE B41: a 64T64R massive MIMO box for band 41.\n"
+      },
+      {
+       "id": "u8-model-nokia-02",
+       "kind": "choice",
+       "facts": [
+        "hardware:model:nokia-aehc"
+       ],
+       "prompt": "Nokia's AEHC is a 64T64R massive MIMO box for which band?",
+       "choices": [
+        "Band 41",
+        "Band 71",
+        "Band 13"
+       ],
+       "answer": 0,
+       "why": "The AEHC is made for band 41."
+      },
+      {
+       "id": "u8-model-mix-01",
+       "kind": "choice",
+       "facts": [
+        "band:B41",
+        "band:n41"
+       ],
+       "prompt": "A box ends in B41. Which 5G band name matches the same airwaves?",
+       "choices": [
+        "n41",
+        "n71",
+        "n77"
+       ],
+       "answer": 0,
+       "why": "n41 uses the same airwaves as B41 (it starts at {band:n41.dl_low_mhz} MHz)."
+      }
+     ]
+    },
+    {
+     "id": "unit08-l4",
+     "title": "Who uses which box",
+     "questions": [
+      {
+       "id": "u8-use-learn-01",
+       "kind": "learn",
+       "title": "Paper clues",
+       "facts": [
+        "hardware:evidence:brand-weakest"
+       ],
+       "text": "Carriers must file papers when they put radios on a tower. Those filings name the radios. Think of them as a paper clue. They tell you what a box is, but the carrier's own sticker still counts most and the equipment brand counts least.\n"
+      },
+      {
+       "id": "u8-use-b41-01",
+       "kind": "choice",
+       "facts": [
+        "hardware:use:air6449-b41-tmobile"
+       ],
+       "prompt": "T-Mobile's filings list the Ericsson AIR 6449 B41. Which band does T-Mobile run on it?",
+       "choices": [
+        "n41",
+        "n71",
+        "n260"
+       ],
+       "answer": 0,
+       "why": "AIR 6449 B41 is a T-Mobile n41 (2.5 GHz) radio."
+      },
+      {
+       "id": "u8-use-b77d-01",
+       "kind": "choice",
+       "facts": [
+        "hardware:use:air6449-b77d-attvz"
+       ],
+       "prompt": "The Ericsson AIR 6449 B77D is a C-band radio. Which carrier is named in its filings?",
+       "choices": [
+        "AT&T",
+        "T-Mobile"
+       ],
+       "answer": 0,
+       "why": "AT&T is named in its filings. Verizon's C-band uses Samsung boxes in the filings we found."
+      },
+      {
+       "id": "u8-use-samsung-01",
+       "kind": "choice",
+       "facts": [
+        "hardware:use:samsung-verizon"
+       ],
+       "prompt": "Whose filings list the Samsung MT6407-77A, a 64T64R C-band all-in-one?",
+       "choices": [
+        "Verizon",
+        "T-Mobile",
+        "AT&T"
+       ],
+       "answer": 0,
+       "why": "Verizon's filings list that Samsung box."
+      },
+      {
+       "id": "u8-use-4480-01",
+       "kind": "choice",
+       "facts": [
+        "hardware:use:4480-b71-b85"
+       ],
+       "prompt": "A T-Mobile tower-share notice lists the Radio 4480 B71+B85. Which low band is one of its two?",
+       "choices": [
+        "B71 (600 MHz)",
+        "B41"
+       ],
+       "answer": 0,
+       "why": "B71 is the 600 MHz band, and T-Mobile runs it as n71."
+      },
+      {
+       "id": "u8-use-scenario-01",
+       "kind": "scenario",
+       "facts": [
+        "hardware:evidence:brand-weakest",
+        "hardware:use:air6449-b41-tmobile"
+       ],
+       "prompt": "You see an Ericsson AIR 6449 B41 on a tower. A sticker on the fence says Verizon. What do you make of it?",
+       "clues": [
+        {
+         "text": "Which clue is stronger?",
+         "choices": [
+          "The radio brand",
+          "The carrier's own sticker"
+         ],
+         "answer": 1,
+         "why": "The sticker counts most and the brand counts least."
+        },
+        {
+         "text": "The box is a known T-Mobile model. What could be going on?",
+         "choices": [
+          "The sticker must be wrong",
+          "The tower may be shared, so look for more clues"
+         ],
+         "answer": 1,
+         "why": "A model name tells you what a box is, not always who runs it. Shared towers are common."
+        }
+       ]
+      },
+      {
+       "id": "u8-use-weak-01",
+       "kind": "choice",
+       "facts": [
+        "hardware:evidence:brand-weakest"
+       ],
+       "prompt": "Which is the stronger clue?",
+       "choices": [
+        "The carrier's sticker",
+        "The equipment brand"
+       ],
+       "answer": 0,
+       "why": "The sticker counts most and the brand counts least."
+      },
+      {
+       "id": "u8-use-weak-02",
+       "kind": "choice",
+       "facts": [
+        "hardware:evidence:brand-weakest"
+       ],
+       "prompt": "A radio's model name tells you...",
+       "choices": [
+        "Always who runs it",
+        "What the box is, but not always who runs it"
+       ],
+       "answer": 1,
+       "why": "Models are sold to many carriers. The name says what it is, not always who runs it."
+      },
+      {
+       "id": "u8-use-mix-01",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n41/tmobile"
+       ],
+       "prompt": "n41 is mostly which carrier's?",
+       "choices": [
+        "T-Mobile",
+        "Verizon"
+       ],
+       "answer": 0,
+       "why": "The bands file has a checked CURRENT row for T-Mobile on n41."
+      },
+      {
+       "id": "u8-use-mix-02",
+       "kind": "choice",
+       "facts": [
+        "carrier_use:n77/att",
+        "carrier_use:n77/verizon"
+       ],
+       "prompt": "Which pair of carriers has a checked row for n77 C-band?",
+       "choices": [
+        "AT&T and Verizon",
+        "T-Mobile and C Spire"
+       ],
+       "answer": 0,
+       "why": "The bands file has CURRENT rows for AT&T and Verizon on n77. The T-Mobile and C Spire rows are unchecked."
+      },
+      {
+       "id": "u8-use-rf4440-01",
+       "kind": "choice",
+       "facts": [
+        "hardware:use:samsung-verizon"
+       ],
+       "prompt": "Verizon's filings also list the Samsung RF4440d-13A. What kind of radio is it?",
+       "choices": [
+        "A 700/850 MHz low-band radio",
+        "A mmWave radio",
+        "A C-band all-in-one"
+       ],
+       "answer": 0,
+       "why": "The RF4440d-13A is a 700/850 MHz radio. The MT6407-77A is the C-band all-in-one."
+      },
+      {
+       "id": "u8-use-c-all-01",
+       "kind": "choice",
+       "facts": [
+        "hardware:use:air6449-b77d-attvz",
+        "hardware:use:samsung-verizon"
+       ],
+       "prompt": "AT&T's filings name an Ericsson C-band box. Verizon's name a Samsung one. Which is true?",
+       "choices": [
+        "Both carriers use the same box",
+        "Different carriers can use different brands for C-band"
+       ],
+       "answer": 1,
+       "why": "Brands differ by carrier. That is why the brand is the weakest clue."
+      },
+      {
+       "id": "u8-use-mix-03",
+       "kind": "choice",
+       "facts": [
+        "hardware:form:massive-mimo",
+        "band:n77"
+       ],
+       "prompt": "n77 is C-band. Which box is often used for fast mid-band spectrum like it?",
+       "choices": [
+        "Massive MIMO box",
+        "Passive panel"
+       ],
+       "answer": 0,
+       "why": "Massive MIMO boxes serve fast mid-band (TDD) spectrum such as n41, n77 and CBRS."
+      }
+     ]
+    },
+    {
+     "id": "unit08-check",
+     "title": "Hardware certification",
+     "questions": [
+      {
+       "id": "u8-cp-draw-01",
+       "kind": "photo-choice",
+       "facts": [
+        "hardware:form:radio-unit"
+       ],
+       "photo": "form-radio-unit-drawing-01",
+       "alt": "A drawing of a small finned box with short cables coming out",
+       "prompt": "Which box is in this drawing?",
+       "choices": [
+        "Passive panel",
+        "Radio unit",
+        "Massive MIMO box"
+       ],
+       "answer": 1,
+       "why": "A small box that makes the signal, with jumpers to a panel, is a radio unit."
+      },
+      {
+       "id": "u8-cp-draw-02",
+       "kind": "photo-choice",
+       "facts": [
+        "hardware:form:massive-mimo"
+       ],
+       "photo": "form-massive-mimo-drawing-01",
+       "alt": "A drawing of one big box covered with a grid of small antenna squares",
+       "prompt": "Which box is in this drawing?",
+       "choices": [
+        "Massive MIMO box",
+        "Radio unit",
+        "Passive panel"
+       ],
+       "answer": 0,
+       "why": "Radio and many small antennas in one box is massive MIMO."
+      },
+      {
+       "id": "u8-cp-empty-01",
+       "kind": "choice",
+       "facts": [
+        "hardware:form:passive-panel"
+       ],
+       "prompt": "Which box is only a cover and cables, with no electronics?",
+       "choices": [
+        "Radio unit",
+        "Massive MIMO box",
+        "Passive panel"
+       ],
+       "answer": 2,
+       "why": "Passive means nothing inside makes the signal."
+      },
+      {
+       "id": "u8-cp-mimo-01",
+       "kind": "choice",
+       "facts": [
+        "hardware:form:massive-mimo",
+        "band:n41"
+       ],
+       "prompt": "n41 is fast mid-band TDD spectrum. Which box is often used for it?",
+       "choices": [
+        "Massive MIMO box",
+        "Plain panel only"
+       ],
+       "answer": 0,
+       "why": "Massive MIMO boxes serve fast mid-band (TDD) spectrum such as n41, n77 and CBRS."
+      },
+      {
+       "id": "u8-cp-port-01",
+       "kind": "photo-choice",
+       "facts": [
+        "hardware:ports:nnhh"
+       ],
+       "photo": "ports-nnhh-drawing-01",
+       "alt": "A drawing of a flat panel with eight connectors in a row at the bottom",
+       "prompt": "How many connectors does this panel drawing show?",
+       "choices": [
+        "6",
+        "8",
+        "10"
+       ],
+       "answer": 1,
+       "why": "Eight connectors, like an NNHH panel."
+      },
+      {
+       "id": "u8-cp-port-02",
+       "kind": "choice",
+       "facts": [
+        "hardware:ports:nnhh"
+       ],
+       "prompt": "An NNHH panel has 8 connectors. How many are for mid band?",
+       "choices": [
+        "2",
+        "4",
+        "8"
+       ],
+       "answer": 1,
+       "why": "4 low band and 4 mid band."
+      },
+      {
+       "id": "u8-cp-port-03",
+       "kind": "choice",
+       "facts": [
+        "hardware:ports:panel-length"
+       ],
+       "prompt": "A panel name ends in B. How long is it?",
+       "choices": [
+        "1.3 m",
+        "2.0 m",
+        "2.6 m"
+       ],
+       "answer": 1,
+       "why": "A is 1.3 m, B is 2.0 m and C is 2.6 m."
+      },
+      {
+       "id": "u8-cp-model-01",
+       "kind": "choice",
+       "facts": [
+        "hardware:model:air-suffix"
+       ],
+       "prompt": "Which spectrum does the ending B48 mean?",
+       "choices": [
+        "CBRS",
+        "C-band",
+        "2.5 GHz"
+       ],
+       "answer": 0,
+       "why": "B48 is CBRS."
+      },
+      {
+       "id": "u8-cp-model-02",
+       "kind": "choice",
+       "facts": [
+        "hardware:model:air-64xx"
+       ],
+       "prompt": "AIR 6449 usually means how many radio paths?",
+       "choices": [
+        "32",
+        "64",
+        "192"
+       ],
+       "answer": 1,
+       "why": "The first two digits usually match the paths. That is a pattern, not a law."
+      },
+      {
+       "id": "u8-cp-model-03",
+       "kind": "choice",
+       "facts": [
+        "hardware:model:radio-dual"
+       ],
+       "prompt": "Radio 4449 B5/B13 lists how many bands?",
+       "choices": [
+        "One",
+        "Two"
+       ],
+       "answer": 1,
+       "why": "B5 and B13 are two bands in one name."
+      },
+      {
+       "id": "u8-cp-use-01",
+       "kind": "choice",
+       "facts": [
+        "hardware:use:air6449-b41-tmobile"
+       ],
+       "prompt": "T-Mobile's filings list the AIR 6449 B41. Which band is that?",
+       "choices": [
+        "n41",
+        "n71"
+       ],
+       "answer": 0,
+       "why": "It is a T-Mobile n41 radio."
+      },
+      {
+       "id": "u8-cp-use-02",
+       "kind": "choice",
+       "facts": [
+        "hardware:evidence:brand-weakest"
+       ],
+       "prompt": "Which clue counts most?",
+       "choices": [
+        "The carrier's sticker",
+        "The equipment brand",
+        "The panel length"
+       ],
+       "answer": 0,
+       "why": "The sticker counts most and the brand counts least."
+      },
+      {
+       "id": "u8-cp-mix-01",
+       "kind": "choice",
+       "facts": [
+        "band:n71",
+        "band:n41"
+       ],
+       "prompt": "n71 or n41, which one reaches farther from the tower?",
+       "choices": [
+        "n71",
+        "n41"
+       ],
+       "answer": 0,
+       "why": "n71 starts at {band:n71.dl_low_mhz} MHz and n41 at {band:n41.dl_low_mhz} MHz. Lower travels farther."
+      },
+      {
+       "id": "u8-cp-mix-02",
+       "kind": "choice",
+       "facts": [
+        "site:type:monopole"
+       ],
+       "prompt": "Which tower is one tapered steel column?",
+       "choices": [
+        "Guyed mast",
+        "Lattice tower",
+        "Monopole"
+       ],
+       "answer": 2,
+       "why": "{site:type:monopole.text}"
+      },
+      {
+       "id": "u8-cp-mix-03",
+       "kind": "choice",
+       "facts": [
+        "band:n41",
+        "band:n71"
+       ],
+       "prompt": "Which of these is TDD, with uplink and downlink sharing one lane?",
+       "choices": [
+        "n41",
+        "n71"
+       ],
+       "answer": 0,
+       "why": "n41 is {band:n41.duplex}. n71 is {band:n71.duplex}."
       }
      ]
     }

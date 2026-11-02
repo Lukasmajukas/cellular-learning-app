@@ -1,0 +1,98 @@
+unit: unit08
+unit_title: Hardware
+lesson: unit08-l2
+title: "Count the ports"
+questions:
+  - id: u8-port-learn-01
+    kind: learn
+    title: What "4T4R" means
+    facts: [hardware:ports:ntnr]
+    text: >
+      4T4R means 4 sending paths (T) and 4 receiving paths (R). A band that works as 4T4R needs 4 antenna ports. So counting ports usually tells you the T and R numbers. That is a good guess from how panels are built, not a law.
+  - id: u8-port-learn-02
+    kind: learn
+    title: Hexport and NNHH
+    facts: [hardware:ports:hexport, hardware:ports:nnhh]
+    text: >
+      Panels are named by how many ports they have. A hexport panel has 6 connectors. An NNHH panel has 8 connectors: 4 for low band and 4 for mid band.
+  - id: u8-port-draw-01
+    kind: photo-choice
+    facts: [hardware:ports:hexport]
+    photo: ports-hexport-drawing-01
+    alt: A drawing of a flat panel with six connectors in a row at the bottom
+    prompt: How many connectors does this panel drawing show?
+    choices: ["4", "6", "8"]
+    answer: 1
+    why: Count them one by one. This drawing shows 6, like a hexport panel.
+  - id: u8-port-draw-02
+    kind: photo-choice
+    facts: [hardware:ports:nnhh]
+    photo: ports-nnhh-drawing-01
+    alt: A drawing of a flat panel with eight connectors in a row at the bottom
+    prompt: How many connectors does this panel drawing show?
+    choices: ["6", "8", "10"]
+    answer: 1
+    why: This drawing shows 8, like an NNHH panel.
+  - id: u8-port-low-01
+    kind: choice
+    facts: [hardware:ports:nnhh]
+    prompt: An NNHH panel has 8 connectors. How many are for low band?
+    choices: ["2", "4", "6"]
+    answer: 1
+    why: 4 are for low band and 4 are for mid band.
+  - id: u8-port-name-01
+    kind: choice
+    facts: [hardware:ports:hexport, hardware:ports:nnhh]
+    prompt: Which panel has more connectors?
+    choices: [Hexport, NNHH]
+    answer: 1
+    why: A hexport has 6 and an NNHH has 8.
+  - id: u8-port-ntnr-01
+    kind: choice
+    facts: [hardware:ports:ntnr]
+    prompt: A band uses 4 ports. It is most likely...
+    choices: [2T2R, 4T4R, 8T8R]
+    answer: 1
+    why: 4 ports usually means 4T4R. "Usually" because this is a good guess, not a law.
+  - id: u8-port-len-learn-01
+    kind: learn
+    title: Panel lengths
+    facts: [hardware:ports:panel-length]
+    text: >
+      In a CommScope panel name, the last letter is the length. A is 1.3 m, B is 2.0 m and C is 2.6 m. The band letters work the same way: N is a low-band letter and H is a mid-band letter.
+  - id: u8-port-len-01
+    kind: choice
+    facts: [hardware:ports:panel-length]
+    prompt: A panel name ends in C. How long is it?
+    choices: [1.3 m, 2.0 m, 2.6 m]
+    answer: 2
+    why: A is 1.3 m, B is 2.0 m and C is 2.6 m.
+  - id: u8-port-len-02
+    kind: choice
+    facts: [hardware:ports:panel-length]
+    prompt: Which letter means the shortest panel?
+    choices: [A, B, C]
+    answer: 0
+    why: A is 1.3 m, the shortest of the three.
+  - id: u8-port-letter-01
+    kind: choice
+    facts: [hardware:ports:panel-length]
+    prompt: In a panel's band letters, which one is for low band?
+    choices: [N, H]
+    answer: 0
+    why: N is the low-band letter and H is the mid-band letter.
+  - id: u8-port-match-01
+    kind: match
+    facts: [hardware:ports:hexport, hardware:ports:nnhh]
+    prompt: Match each panel to its connector count.
+    pairs:
+      - [Hexport, 6 connectors]
+      - [NNHH, 8 connectors]
+    why: Hexport means six. NNHH has 4 low plus 4 mid.
+  - id: u8-port-mix-01
+    kind: choice
+    facts: [band:B71, band:B41]
+    prompt: B71 or B41, which one is the low band?
+    choices: [B71, B41]
+    answer: 0
+    why: B71 starts at {band:B71.dl_low_mhz} MHz and B41 at {band:B41.dl_low_mhz} MHz. Lower is low band.

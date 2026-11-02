@@ -173,3 +173,33 @@ describe('unit 7 content (reading a site)', () => {
     expect(text).toContain('200 ft');
   });
 });
+
+describe('unit 8 content (hardware)', () => {
+  const u8 = allLessons(REAL_PATH).filter(l => l.id.startsWith('unit08-'));
+  it('has 4 lessons and a checkpoint, all resolved', () => {
+    expect(u8.map(l => l.id)).toEqual(['unit08-l1', 'unit08-l2', 'unit08-l3', 'unit08-l4', 'unit08-check']);
+    u8.forEach(l => expect(l.questions.length).toBeGreaterThanOrEqual(10));
+  });
+  it('the drawing questions carry alt words and a credit line', () => {
+    const pics = u8.flatMap(l => l.questions).filter((q: any) => q.kind === 'photo-choice') as any[];
+    expect(pics.length).toBeGreaterThanOrEqual(8);
+    pics.forEach(q => {
+      expect(q.photo.alt.length, q.id).toBeGreaterThan(10);
+      expect(q.photo.credit, q.id).toMatch(/by .+,/);
+    });
+  });
+  it('every choice has one right answer, and no facts are left unfilled', () => {
+    const qs = u8.flatMap(l => l.questions) as any[];
+    qs.filter(q => q.choices).forEach(q => {
+      expect(q.answer, q.id).toBeGreaterThanOrEqual(0);
+      expect(q.answer, q.id).toBeLessThan(q.choices.length);
+      expect(new Set(q.choices).size, q.id).toBe(q.choices.length);
+    });
+    expect(JSON.stringify(qs)).not.toMatch(/\{(site|band|carrier_use):/);
+  });
+  it('never claims Verizon uses the Ericsson C-band box, and never asks about weights', () => {
+    const text = JSON.stringify(u8.flatMap(l => l.questions));
+    expect(text).not.toMatch(/\bkg\b/);
+    expect(text).not.toMatch(/Verizon[^"]{0,40}AIR 6449 B77D/);
+  });
+});

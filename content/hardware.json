@@ -41,7 +41,7 @@
    "id": "ports:hexport",
    "kind": "ports",
    "grade": "W",
-   "text": "A hexport panel (like the SBNHH) has 6 connectors: one for low band and two pairs for mid band.",
+   "text": "A hexport panel (like the SBNHH) has 6 connectors. We have not checked how they split between low and mid band.",
    "status": "CURRENT",
    "as_of": "2026-11-02",
    "source": "docs/research/notes/vendors_and_cells.md question 3: The Antenna Farm (SBNHH-1D65C, NNHH-65C-R4 listings), Argus/CommScope model-number chart (Scribd); resellers, pages not opened here"
