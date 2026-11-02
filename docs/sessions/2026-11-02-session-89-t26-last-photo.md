@@ -1,26 +1,27 @@
 # Handoff note: 2026-11-02, T26 last photo (fake-tree-02)
-<!-- File name: docs/sessions/YYYY-MM-DD-session-N-short-name.md (N = the highest session number so far + 1) -->
 
-**Status:** IN PROGRESS <!-- change to DONE when the chat finishes -->
-**Model used:** [Small/Medium/Large], [Low/Medium/High] effort · **Branch / pull request:** [link]
+**Status:** DONE
+**Model used:** Medium, Medium effort (Sonnet) · **Branch / pull request:** claude/robot-run-t26-fake-tree, #93
 
 ## In simple words (for the owner)
-[2–3 sentences, as if explaining to a 12-year-old: what we did and why it matters.]
+Robot tried again to get the last missing tower photo (the fake trees in New Jersey). The free photo site said "too many requests" three times, so nothing changed. 17 of 18 photos are still in.
 
 ## What was done
-- 
+- 3 tries with `curl -L` at width 960, 25 s apart: 429 each time. No files changed except this note, the T26 row and the diary.
+- Panel not republished (robot run). Nothing asked for approval; BLOCKED only in the sense of the photo site's rate limit.
 
 ## What's next
-- Next task: [T__], model: [size], effort: [level], type: `Do the next task in TASKS.md`
+- T26: site-fake-tree-02, more small cells, Flickr. Tip: an eye check and download on the owner's own PC is quicker than the cloud.
+- Nothing else open for Claude except T37 (Later); the robot may say "Nothing for me to do".
 
-## Decisions made (also added to docs/DECISIONS.md)
-- 
+## Decisions made
+- None.
 
 ## Questions for the owner
-- 
+- None.
 
-## New words (also added to GLOSSARY.md)
-- 
+## New words
+- None.
 
 ## Notes for the next Claude
-[Anything technical the next chat needs: gotchas, half-finished bits, files touched.]
+Same recipe as session 88. Don't spend many more runs on this single photo; 17 of 18 is enough for lessons.
