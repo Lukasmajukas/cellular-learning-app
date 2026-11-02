@@ -4,6 +4,7 @@ One or two plain-English lines per chat. Newest at the top.
 
 | Date | What happened | Details |
 |---|---|---|
+| 2026-11-02 | Robot looked at 4 more photos for the lessons: none show faces or readable plates (T26 is nearly done with the eye check). | docs/sessions/2026-11-02-session-68-t26-photos.md |
 | 2026-11-02 | Robot: added a new question type, the scenario puzzle (a short story with several clues; you say what each clue tells you). One is in the unit 4 checkpoint and one in the sample lesson. | T34, branch robot-t34-scenario |
 | 2026-11-02 | Robot built the band memory heatmap: a 🌡️ button opens tiles for every band you are taught, green when you remember it, red when it is fading, grey when new. | `docs/sessions/2026-11-02-session-66-t34-heatmap.md` |
 | 2026-11-02 | Robot added 3 number-tag questions to the unit 5 checkpoint, so it now tests lesson 4 too (18 questions, still 3 to 5 minutes). | `docs/sessions/2026-11-02-session-65-t34-unit-5-check-codes.md` |
