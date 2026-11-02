@@ -138,3 +138,10 @@ Claude adds new words here whenever they come up.
 | **Signal bars** | 1 to 5 bars at the end of a lesson, like phone signal: more bars means more answers right the first time. |
 | **Heatmap** | A picture where colour shows how much of something there is. Ours colours each band by how well you remember it: green strong, red fading, grey new. |
 | **Scenario puzzle** | A question with a little story and several clues. For each clue you say what it tells you. You only get the question right if every clue is right. |
+| **ASR** | Antenna Structure Registration. A tall tower (over 200 ft) must be listed with the FCC, like a car with a licence plate. The number is posted near its base. |
+| **Monopole** | A cell tower that is one single pole, like a giant flagpole with antennas on top. |
+| **Lattice tower** | A cell tower built like an open steel frame, wide at the bottom, like the Eiffel Tower's cousin. |
+| **Guyed mast** | A thin tower held up by long cables to the ground, like a tent pole with ropes. |
+| **DAS** | Distributed Antenna System. Lots of small antennas inside a stadium or big building, often shared by several carriers. |
+| **COW** | Cell On Wheels: a cell tower on a trailer that can be towed to an event or a disaster. |
+| **NOC** | Network Operations Center: the phone line where a tower's owner takes problem reports. |
