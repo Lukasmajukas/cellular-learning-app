@@ -1,7 +1,7 @@
 // The learning path: units hold lessons, lessons hold questions.
 // The sample path below is a PLACEHOLDER (no real band facts). Real units come from content/ later (T31, T33).
 import { SAMPLE_ITEMS } from './lesson';
-import { typesDemoItems } from './sampleLessons';
+import { typesDemoItems, picturesDemoItems } from './sampleLessons';
 import type { Item } from './questions';
 
 export type Lesson = { id: string; title: string; questions: Item[] };
@@ -20,6 +20,7 @@ export const SAMPLE_PATH: Unit[] = [
     { id: 'u2-l1', title: 'Sample lesson 4', questions: SAMPLE_ITEMS },
     { id: 'u2-l2', title: 'Sample lesson 5', questions: SAMPLE_ITEMS },
     { id: 'u2-l3', title: 'New question types (from the bands file)', questions: typesDemoItems() },
+    { id: 'u2-l4', title: 'Picture questions (a drawing)', questions: picturesDemoItems() },
   ] },
 ];
 

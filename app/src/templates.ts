@@ -1,7 +1,8 @@
 // Fills {band:B71.dl_low_mhz}, {carrier_use:n71/tmobile.status}, {change:0.to} and {code:310-260.shows_as} from the bands file.
 // A lesson never types a frequency itself. A missing fact or field is an error on purpose (loud, not silent).
 export type Row = Record<string, unknown>;
-export type Data = { bands: Row[]; carrier_use: Row[]; spectrum_changes: Row[]; carrier_codes: Row[] };
+export type PhotoRow = { id: string; file: string; title: string; author: string; licence: string };
+export type Data = { bands: Row[]; carrier_use: Row[]; spectrum_changes: Row[]; carrier_codes: Row[]; photos?: PhotoRow[] };
 
 export function lookup(ref: string, data: Data): unknown {
   const m = /^(band|carrier_use|change|code):([^.]+)\.(\w+)$/.exec(ref.trim());

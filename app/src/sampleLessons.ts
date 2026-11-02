@@ -5,7 +5,9 @@ import { resolveLesson, type Def } from './resolve';
 import type { Data } from './templates';
 import type { Item } from './questions';
 
-export const DATA = bands as unknown as Data;
+// A drawing made for the demo (not a photo): a monopole with antennas at the top.
+export const DEMO_PHOTOS = [{ id: 'demo-drawing-01', file: 'demo-drawing-01.svg', title: 'Demo drawing of a monopole', author: 'Claude (own drawing)', licence: 'CC0' }];
+export const DATA = { ...(bands as unknown as Data), photos: DEMO_PHOTOS } as Data;
 export const TYPES_DEMO: Def[] = [
   { id: 'demo-learn-01', kind: 'learn', facts: ['band:B71', 'band:n71'], title: 'What is a band?',
     text: 'A band is a stretch of radio frequencies with a number for its name. B71 sends to your phone on {band:B71.dl_low_mhz} to {band:B71.dl_high_mhz} MHz. "B" means 4G. "n" means 5G, and n71 uses the very same space.', show: ['B71'] },
@@ -27,3 +29,13 @@ export const TYPES_DEMO: Def[] = [
     ] },
 ];
 export const typesDemoItems = (): Item[] => resolveLesson(TYPES_DEMO, DATA);
+
+// Demo lesson for the picture question types (a drawing stands in until real photos are downloaded, T26).
+export const PICTURES_DEMO: Def[] = [
+  { id: 'demo-photo-01', kind: 'photo-choice', no_facts_needed: true, photo: 'demo-drawing-01', alt: 'A single tapered pole with antennas at the top',
+    prompt: 'What type of tower is this?', choices: ['Lattice tower', 'Guyed mast', 'Monopole'], answer: 2, outline: { x: 0.4, y: 0.12, w: 0.2, h: 0.35 },
+    why: 'One tapered pole with the antennas on top is a monopole.' },
+  { id: 'demo-tap-01', kind: 'tap-clue', no_facts_needed: true, photo: 'demo-drawing-01', alt: 'A single tapered pole with antennas at the top',
+    prompt: 'Tap the antennas.', clue: 'antennas', target: { x: 0.38, y: 0.12, w: 0.24, h: 0.35 }, why: 'Antennas sit in a bunch at the very top.' },
+];
+export const picturesDemoItems = (): Item[] => resolveLesson(PICTURES_DEMO, DATA);

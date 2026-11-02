@@ -11,12 +11,19 @@ export type Order = Base & { kind: 'order'; prompt: string; items: OrderItem[] }
 export type Clue = { text: string; choices: string[]; answer: number; why?: string };
 // Scenario puzzle: a short story with several clues. For each clue the player picks what it tells them; every clue must be right.
 export type Scenario = Base & { kind: 'scenario'; prompt: string; clues: Clue[] };
-export type Item = Learn | Choice | Match | NumberQ | Order | Scenario;
+// A rectangle on a picture, as fractions of its width and height (0 to 1).
+export type Rect = { x: number; y: number; w: number; h: number };
+export type Photo = { id: string; src: string; alt: string; credit: string };
+// Photo question: a picture above the choices. The outline (if any) marks the deciding part in the feedback.
+export type PhotoChoice = Base & { kind: 'photo-choice'; prompt: string; photo: Photo; choices: string[]; answer: number; outline?: Rect };
+// Tap-the-clue: tap the right spot on the picture. `clue` names what to find; `target` is the right area.
+export type TapClue = Base & { kind: 'tap-clue'; prompt: string; photo: Photo; clue: string; target: Rect };
+export type Item = Learn | Choice | Match | NumberQ | Order | Scenario | PhotoChoice | TapClue;
 export type Scored = Exclude<Item, Learn>;
 export const isScored = (i: Item): i is Scored => i.kind !== 'learn';
 
 // What the player gave: choice = index, match = for each left side the index of the right side picked,
-// number = the typed text, order = labels in the order the player put them, scenario = for each clue the index picked.
+// photo-choice = index, tap-clue = [x, y] as fractions, number = the typed text, order = labels in the order the player put them, scenario = for each clue the index picked.
 export type Answer = number | number[] | string | string[];
 
 export const parseNumber = (t: string): number | null => {
@@ -33,8 +40,11 @@ export function mark(q: Scored, a: Answer): boolean {
     case 'number': { const n = typeof a === 'string' ? parseNumber(a) : null; return n !== null && Math.abs(n - q.answer) <= q.tolerance; }
     case 'order': return Array.isArray(a) && a.join('|') === correctOrder(q).join('|');
     case 'scenario': return Array.isArray(a) && a.length === q.clues.length && q.clues.every((c, i) => (a as number[])[i] === c.answer);
+    case 'photo-choice': return a === q.answer;
+    case 'tap-clue': return Array.isArray(a) && a.length === 2 && inside(q.target, a[0] as number, a[1] as number);
   }
 }
+export const inside = (r: Rect, x: number, y: number) => x >= r.x && x <= r.x + r.w && y >= r.y && y <= r.y + r.h;
 // The right answer, in words, for the feedback line.
 export function rightAnswerText(q: Scored): string {
   switch (q.kind) {
@@ -43,5 +53,7 @@ export function rightAnswerText(q: Scored): string {
     case 'number': return `${q.answer}${q.unit ? ' ' + q.unit : ''}`;
     case 'order': return correctOrder(q).join(' → ');
     case 'scenario': return q.clues.map(c => `${c.text} = ${c.choices[c.answer]}`).join('; ');
+    case 'photo-choice': return q.choices[q.answer];
+    case 'tap-clue': return `the ${q.clue} (outlined on the picture)`;
   }
 }

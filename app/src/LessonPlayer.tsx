@@ -9,7 +9,7 @@ import type { Lesson } from './path';
 import { beep } from './sound';
 import { Mascot } from './Mascot';
 import { SpectrumBar, rangesFor } from './SpectrumBar';
-import { mark, rightAnswerText, isScored, correctOrder, type Answer, type Item, type Scored } from './questions';
+import { mark, rightAnswerText, isScored, correctOrder, type Answer, type Item, type Scored, type Photo, type Rect } from './questions';
 import { startRun, advance, current, finished, scoredCount } from './session';
 import { xpFor, signalBars } from './gamify';
 
@@ -26,16 +26,43 @@ function shuffled<T>(arr: T[], seed: string): T[] {
 const btn = (bg: string): React.CSSProperties => ({ padding: '12px 32px', fontSize: 18, border: 0, borderRadius: 14, background: bg, color: '#fff', cursor: 'pointer' });
 const tile = (bg: string, border = '#cfd8e0'): React.CSSProperties => ({ display: 'block', width: '100%', margin: '8px 0', padding: 12, fontSize: 18, borderRadius: 14, cursor: 'pointer', border: `2px solid ${border}`, background: bg, color: '#222' });
 
+// A picture with its credit line. `outline` draws a box on it; `tap` makes it tappable (gives x, y as fractions); `dot` shows where the player tapped.
+function PhotoView({ photo, outline, tap, dot, locked }: { photo: Photo; outline?: Rect; tap?: (x: number, y: number) => void; dot?: [number, number] | null; locked?: boolean }) {
+  const [broken, setBroken] = useState(false);
+  const box = (r: Rect): React.CSSProperties => ({ position: 'absolute', left: `${r.x * 100}%`, top: `${r.y * 100}%`, width: `${r.w * 100}%`, height: `${r.h * 100}%`, border: '3px solid #ff9600', borderRadius: 8, boxSizing: 'border-box', pointerEvents: 'none' });
+  return (
+    <figure style={{ margin: '8px 0' }}>
+      <div data-testid="photo" role={tap ? 'button' : 'img'} aria-label={photo.alt}
+        onClick={e => { if (!tap || locked) return; const b = e.currentTarget.getBoundingClientRect(); tap((e.clientX - b.left) / b.width, (e.clientY - b.top) / b.height); }}
+        style={{ position: 'relative', lineHeight: 0, cursor: tap && !locked ? 'crosshair' : 'default', borderRadius: 14, overflow: 'hidden', background: '#dde6ee', minHeight: 120 }}>
+        {broken ? <div style={{ lineHeight: 1.3, padding: 40, color: '#555' }}>🖼️ Picture not downloaded yet: {photo.alt}</div>
+          : <img src={photo.src} alt={photo.alt} draggable={false} onError={() => setBroken(true)} style={{ width: '100%', display: 'block' }} />}
+        {outline && <div data-testid="outline" style={box(outline)} />}
+        {dot && <div data-testid="tap-dot" style={{ position: 'absolute', left: `${dot[0] * 100}%`, top: `${dot[1] * 100}%`, width: 16, height: 16, margin: -8, borderRadius: 8, background: '#e53935', border: '2px solid #fff', pointerEvents: 'none' }} />}
+      </div>
+      <figcaption data-testid="photo-credit" style={{ fontSize: 12, color: '#666', marginTop: 4 }}>{photo.credit}</figcaption>
+    </figure>);
+}
+
 function Question({ q, locked, picked, onSubmit }: { q: Scored; locked: boolean; picked?: Answer; onSubmit: (a: Answer) => void }) {
   const [text, setText] = useState('');
   const [left, setLeft] = useState<number | null>(null), [paired, setPaired] = useState<(number | null)[]>(() => (q.kind === 'match' ? q.pairs.map(() => null) : []));
   const [placed, setPlaced] = useState<string[]>([]);
   const [picks, setPicks] = useState<(number | null)[]>(() => (q.kind === 'scenario' ? q.clues.map(() => null) : []));
+  const [tapped, setTapped] = useState<[number, number] | null>(null);
   const rightOrder = useMemo(() => (q.kind === 'match' ? shuffled(q.pairs.map((_, i) => i), q.id) : []), [q]);
   const orderPool = useMemo(() => (q.kind === 'order' ? shuffled(q.items.map(i => i.label), q.id) : []), [q]);
   if (q.kind === 'choice') return <>{q.choices.map((c, i) => (
     <motion.button key={c} data-testid={`choice-${i}`} disabled={locked} whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.92 }} transition={{ type: 'spring', stiffness: 500, damping: 12 }}
       onClick={() => onSubmit(i)} style={tile(!locked ? '#fff' : i === q.answer ? '#d7ffb8' : i === picked ? '#ffdfe0' : '#fff')}>{c}</motion.button>))}</>;
+  if (q.kind === 'photo-choice') return <>
+    <PhotoView photo={q.photo} outline={locked ? q.outline : undefined} />
+    {q.choices.map((c, i) => (
+      <motion.button key={c} data-testid={`choice-${i}`} disabled={locked} whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.92 }} transition={{ type: 'spring', stiffness: 500, damping: 12 }}
+        onClick={() => onSubmit(i)} style={tile(!locked ? '#fff' : i === q.answer ? '#d7ffb8' : i === picked ? '#ffdfe0' : '#fff')}>{c}</motion.button>))}</>;
+  if (q.kind === 'tap-clue') return <>
+    <PhotoView photo={q.photo} outline={locked ? q.target : undefined} dot={tapped} locked={locked} tap={(x, y) => { setTapped([x, y]); onSubmit([x, y]); }} />
+    <div style={{ fontSize: 14, color: '#666' }}>Tap the picture where you see it.</div></>;
   if (q.kind === 'number') return (
     <form onSubmit={e => { e.preventDefault(); if (!locked && text.trim()) onSubmit(text); }}>
       <input data-testid="number-input" autoFocus inputMode="decimal" value={text} disabled={locked} onChange={e => setText(e.target.value)} aria-label="Your answer"

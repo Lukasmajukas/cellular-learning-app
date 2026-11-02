@@ -105,6 +105,12 @@ class Checker(unittest.TestCase):
         e = self.check(credits=[dict(p, ai_generated=True)], questions=[{"id": "q1", "facts": ["band:B2"], "photo": "p1", "kind": "identify"}])
         self.assertTrue(any("AI-made" in x for x in e))
 
+    def test_ai_made_photo_fails_in_picture_questions(self):
+        p = {"id": "p1", "file": "a.webp", "source_url": "u", "author": "me", "licence": "CC0", "date_checked": "2026-11-01", "ai_made": True}
+        for kind in ("photo-choice", "tap-clue"):
+            e = self.check(credits=[p], questions=[{"id": "q1", "facts": ["band:B2"], "photo": "p1", "kind": kind}])
+            self.assertTrue(any("AI-made" in x for x in e), kind)
+
     def test_missing_locked_id_fails(self):
         e = self.check(questions=[{"id": "q2", "facts": ["band:B2"]}], locked=["q1"])
         self.assertTrue(any("locked" in x for x in e))

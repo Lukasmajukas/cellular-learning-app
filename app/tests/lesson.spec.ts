@@ -6,7 +6,7 @@ import { playSampleLesson } from './helpers';
 test('path map opens a lesson, finishing it unlocks the next one', async () => {
   const app = await electron.launch({ args: ['.', '--no-sandbox'], env: { ...process.env, CELL_SAMPLE_PATH: '1', CELL_DATA_DIR: mkdtempSync(join(tmpdir(), 'cell-e2e-')) } });
   const w = await app.firstWindow();
-  await expect(w.getByTestId('path-count')).toHaveText('0 of 6 lessons done');
+  await expect(w.getByTestId('path-count')).toHaveText('0 of 7 lessons done');
   await expect(w.getByTestId('lesson-u1-l2')).toBeDisabled();
   await w.screenshot({ path: 'test-results/path-start.png' });
   await w.getByTestId('lesson-u1-l1').click();
@@ -19,7 +19,7 @@ test('path map opens a lesson, finishing it unlocks the next one', async () => {
   await w.waitForTimeout(600);
   await w.screenshot({ path: 'test-results/done.png' });
   await w.getByTestId('finish').click();
-  await expect(w.getByTestId('path-count')).toHaveText('1 of 6 lessons done');
+  await expect(w.getByTestId('path-count')).toHaveText('1 of 7 lessons done');
   await expect(w.getByTestId('lesson-u1-l1')).toHaveAttribute('data-status', 'done');
   await expect(w.getByTestId('lesson-u1-l2')).toBeEnabled();
   await w.waitForTimeout(600);

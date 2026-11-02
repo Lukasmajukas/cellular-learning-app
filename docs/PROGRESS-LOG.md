@@ -4,6 +4,7 @@ One or two plain-English lines per chat. Newest at the top.
 
 | Date | What happened | Details |
 |---|---|---|
+| 2026-11-02 | Robot built two new question types: "which type is this?" with a photo, and "tap the clue" on a picture (a wrong tap shows where the right spot was). A demo lesson with a drawing plays them. Also fixed the checker so it really refuses AI-made photos. | docs/sessions/2026-11-02-session-72-t35-question-types.md |
 | 2026-11-02 | Robot made the tower-facts file (`content/sites.json`, 17 rows, each with a source and date) and taught the fact checker to read it. Water tanks stay "unchecked" because no source was found. | docs/sessions/2026-11-02-session-71-t35-sites-data.md |
 | 2026-11-02 | Robot wrote the plan for units 6–7 (tower types and reading a site): 4 + 3 lessons, a new site-facts file, and two new question types (photo choice, tap the clue). No lessons yet. | docs/sessions/2026-11-02-session-70-t35-plan.md |
 | 2026-11-02 | Robot looked at the last 2 lesson photos: both clean. Every photo has now had an eye check. | docs/sessions/2026-11-02-session-69-t26-photos.md |
