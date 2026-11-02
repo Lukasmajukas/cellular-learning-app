@@ -92,7 +92,7 @@
   licence: CC BY-SA
   date_checked: 2026-11-01
   ai_made: false
-  note: "Monopole with five carriers' antennas (unit 6); exact licence CC BY-SA 3.0; not yet looked at by eye (thumbnail got 429)"
+  note: "Monopole with five carriers' antennas (unit 6); exact licence CC BY-SA 3.0; looked at by eye (tiny 157 px thumbnail only): no faces; parked cars at the bottom, plates not readable at this size, so check the full-size picture before using it large"
 - id: site-fake-tree-03
   file: site-fake-tree-03.webp
   source_url: https://commons.wikimedia.org/wiki/File:StealthCellSiteTree.jpg
@@ -128,7 +128,7 @@
   licence: CC BY
   date_checked: 2026-11-01
   ai_made: false
-  note: "Small cells on city poles (unit 6); not yet looked at by eye"
+  note: "Small cells (unit 6); looked at by eye: no faces or plates; NOTE it actually shows antennas and radios on a ROOFTOP in downtown Minneapolis, not city poles, so use it as a rooftop example"
 - id: site-5g-equipment-01
   file: site-5g-equipment-01.webp
   source_url: https://commons.wikimedia.org/wiki/File:Cellular_5G_Equipment_-_Cell_Tower_Antennas.jpg
@@ -137,7 +137,7 @@
   licence: CC BY
   date_checked: 2026-11-01
   ai_made: false
-  note: "5G equipment on a tower (units 6 and 8, as a generic look-alike, not a brand); not yet looked at by eye"
+  note: "5G equipment on a tower (units 6 and 8, as a generic look-alike, not a brand); looked at by eye, no faces or plates; a small radio-box label is visible but not readable"
 - id: site-sign-01
   file: site-sign-01.webp
   source_url: https://commons.wikimedia.org/wiki/File:Caution_signs_at_base_of_Mariani_Square_water_tower,_San_Jose,_California.jpg
@@ -146,7 +146,7 @@
   licence: CC BY-SA
   date_checked: 2026-11-01
   ai_made: false
-  note: "Warning signs at a site base (unit 7, reading a site); not yet looked at by eye"
+  note: "Warning signs at a site base (unit 7, reading a site); looked at by eye, no faces or plates; shows an American Tower site sign with a site number and phone numbers (public tower info, not personal)"
 - id: site-water-tower-01
   file: site-water-tower-01.webp
   source_url: https://commons.wikimedia.org/wiki/File:Cell_Tower_%5E_Water_Tower_-_panoramio.jpg
