@@ -5044,6 +5044,61 @@
        ],
        "answer": 0,
        "why": "The row is {carrier_use:n41/tmobile.status} as of {carrier_use:n41/tmobile.as_of}."
+      },
+      {
+       "id": "u5-cp-code-01",
+       "kind": "choice",
+       "facts": [
+        "code:311-480"
+       ],
+       "prompt": "Which carrier shows the tag {code:311-480.id}?",
+       "choices": [
+        "T-Mobile",
+        "Verizon",
+        "AT&T"
+       ],
+       "answer": 1,
+       "why": "{code:311-480.id} shows as {code:311-480.shows_as}."
+      },
+      {
+       "id": "u5-cp-code-02",
+       "kind": "choice",
+       "facts": [
+        "code:312-530"
+       ],
+       "prompt": "The tag {code:312-530.id} is run by which company?",
+       "choices": [
+        "Verizon",
+        "Charter (Spectrum)",
+        "T-Mobile"
+       ],
+       "answer": 2,
+       "why": "The registry says {code:312-530.operator}. Some old lists wrongly say Charter."
+      },
+      {
+       "id": "u5-cp-code-03",
+       "kind": "match",
+       "facts": [
+        "code:310-260",
+        "code:310-410",
+        "code:313-100"
+       ],
+       "prompt": "Match each number tag to its carrier.",
+       "pairs": [
+        [
+         "{code:310-260.id}",
+         "{code:310-260.shows_as}"
+        ],
+        [
+         "{code:310-410.id}",
+         "{code:310-410.shows_as}"
+        ],
+        [
+         "{code:313-100.id}",
+         "{code:313-100.shows_as}"
+        ]
+       ],
+       "why": "These tags are checked against the US registry."
       }
      ]
     }
