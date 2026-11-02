@@ -1,4 +1,132 @@
 {
+ "photos": [
+  {
+   "id": "site-fake-tree-01",
+   "file": "site-fake-tree-01.webp",
+   "title": "Cell phone tower disguised 2008.jpg",
+   "author": "SayCheeeeeese",
+   "licence": "Public domain"
+  },
+  {
+   "id": "site-fake-tree-02",
+   "file": "site-fake-tree-02.webp",
+   "title": "Cell phone tower resembles trees in Shrewsbury NJ.JPG",
+   "author": "Tomwsulcer",
+   "licence": "CC0"
+  },
+  {
+   "id": "site-camouflaged-01",
+   "file": "site-camouflaged-01.webp",
+   "title": "Amer Bank Note camouflaged antennas jeh.jpg",
+   "author": "Jim.henderson",
+   "licence": "CC0"
+  },
+  {
+   "id": "site-tower-01",
+   "file": "site-tower-01.webp",
+   "title": "Antenna & Mobile Tower McKinney, Texas.jpg",
+   "author": "Ranch9613",
+   "licence": "CC0"
+  },
+  {
+   "id": "site-tower-02",
+   "file": "site-tower-02.webp",
+   "title": "American Tower wireless tower Belleville Michigan.JPG",
+   "author": "Dwight Burdette",
+   "licence": "CC BY"
+  },
+  {
+   "id": "site-tower-03",
+   "file": "site-tower-03.webp",
+   "title": "AT&T cell phone tower, 4836 Van Gordon St., Wheat Ridge, CO.jpg",
+   "author": "Xnatedawgx",
+   "licence": "CC BY-SA"
+  },
+  {
+   "id": "site-cow-01",
+   "file": "site-cow-01.webp",
+   "title": "Cell on wheels.jpg",
+   "author": "Mdwyer",
+   "licence": "CC BY-SA"
+  },
+  {
+   "id": "small-cell-rooftop-01",
+   "file": "small-cell-rooftop-01.webp",
+   "title": "5G Small Cell Antennas on Pittsburgh Rooftop (48172678597).jpg",
+   "author": "Tony Webster",
+   "licence": "CC BY"
+  },
+  {
+   "id": "site-flagpole-01",
+   "file": "site-flagpole-01.webp",
+   "title": "Flagpole Monopole Concealed Cell Tower.jpg",
+   "author": "Celltowerleases",
+   "licence": "CC BY-SA"
+  },
+  {
+   "id": "site-monopole-01",
+   "file": "site-monopole-01.webp",
+   "title": "MonopoleCellSite.jpg",
+   "author": "Steve Kazella",
+   "licence": "CC BY-SA"
+  },
+  {
+   "id": "site-fake-tree-03",
+   "file": "site-fake-tree-03.webp",
+   "title": "StealthCellSiteTree.jpg",
+   "author": "Steve Kazella",
+   "licence": "CC BY-SA"
+  },
+  {
+   "id": "small-cell-pole-01",
+   "file": "small-cell-pole-01.webp",
+   "title": "Utility pole with Verizon 5G mmwave antennas - Arlington, MA.jpg",
+   "author": "Daderot",
+   "licence": "CC0"
+  },
+  {
+   "id": "small-cell-pole-02",
+   "file": "small-cell-pole-02.webp",
+   "title": "3225 Wilshire light pole.jpg",
+   "author": "Downtowngal",
+   "licence": "CC BY-SA"
+  },
+  {
+   "id": "small-cell-pole-03",
+   "file": "small-cell-pole-03.webp",
+   "title": "Downtown Minneapolis 5G Antennas - Cellular (53839195956).jpg",
+   "author": "Tony Webster",
+   "licence": "CC BY"
+  },
+  {
+   "id": "site-5g-equipment-01",
+   "file": "site-5g-equipment-01.webp",
+   "title": "Cellular 5G Equipment - Cell Tower Antennas.jpg",
+   "author": "Tony Webster",
+   "licence": "CC BY"
+  },
+  {
+   "id": "site-sign-01",
+   "file": "site-sign-01.webp",
+   "title": "Caution signs at base of Mariani Square water tower, San Jose, California.jpg",
+   "author": "Mxn",
+   "licence": "CC BY-SA"
+  },
+  {
+   "id": "site-water-tower-01",
+   "file": "site-water-tower-01.webp",
+   "title": "Cell Tower ^ Water Tower - panoramio.jpg",
+   "author": "Corey Coyle",
+   "licence": "CC BY"
+  },
+  {
+   "id": "site-water-tower-02",
+   "file": "site-water-tower-02.webp",
+   "title": "Lake View Sanatorium - Water Tower ^ Cell Tower - panoramio.jpg",
+   "author": "Corey Coyle",
+   "licence": "CC BY"
+  }
+ ],
  "units": [
   {
    "id": "unit01",

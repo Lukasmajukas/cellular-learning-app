@@ -110,6 +110,9 @@ def check_sites(sites, errors):
     return index
 
 
+IDENTIFY_KINDS = ('identify', 'photo-choice', 'tap-clue')  # questions where the player must recognise something in a picture
+
+
 def check_photos(credits, errors):
     photos = {}
     for p in credits or []:
@@ -162,7 +165,7 @@ def check_questions(questions, facts, photos, errors):
             p = photos.get(pid)
             if p is None:
                 errors.append(f"{where}: photo {pid} is not in the credits file")
-            elif q.get("kind") == "identify" and p.get("ai_generated"):
+            elif q.get("kind") in IDENTIFY_KINDS and (p.get("ai_generated") or p.get("ai_made")):
                 errors.append(f"{where}: AI-made photo {pid} used in an identify question")
     return ids
 

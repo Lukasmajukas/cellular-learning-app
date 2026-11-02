@@ -13,7 +13,7 @@ test('progress and settings survive closing and reopening, and a backup exists',
   await w.getByTestId('lesson-u1-l1').click();
   await playSampleLesson(w);
   await w.getByTestId('finish').click();
-  await expect(w.getByTestId('path-count')).toHaveText('1 of 6 lessons done');
+  await expect(w.getByTestId('path-count')).toHaveText('1 of 7 lessons done');
   await w.getByTestId('open-settings').click();
   await w.getByTestId('set-sounds').uncheck();
   await w.getByTestId('set-dark').check();
@@ -29,7 +29,7 @@ test('progress and settings survive closing and reopening, and a backup exists',
 
   app = await launch(dir);
   w = await app.firstWindow();
-  await expect(w.getByTestId('path-count')).toHaveText('1 of 6 lessons done');
+  await expect(w.getByTestId('path-count')).toHaveText('1 of 7 lessons done');
   await expect(w.getByTestId('lesson-u1-l2')).toBeEnabled();
   await expect(w.getByTestId('streak')).toHaveText('🔥 1');
   await w.getByTestId('open-settings').click();

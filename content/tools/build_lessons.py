@@ -13,5 +13,10 @@ for ud in sorted((content / "lessons").glob("unit-*")):
         meta = {"id": d["unit"], "title": d["unit_title"]}
         lessons.append({"id": d["lesson"], "title": d["title"], "questions": d["questions"]})
     units.append({**meta, "lessons": lessons})
-(content / "lessons.json").write_text(json.dumps({"units": units}, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+photos = []
+cp = content / "photos" / "credits.yaml"
+if cp.exists():
+    for p in yaml.safe_load(cp.read_text(encoding="utf-8")) or []:
+        photos.append({k: p[k] for k in ("id", "file", "title", "author", "licence")})
+(content / "lessons.json").write_text(json.dumps({"photos": photos, "units": units}, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
 print(f"Wrote content/lessons.json: {len(units)} unit(s), {sum(len(u['lessons']) for u in units)} lesson(s).")

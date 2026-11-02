@@ -145,3 +145,5 @@ Claude adds new words here whenever they come up.
 | **DAS** | Distributed Antenna System. Lots of small antennas inside a stadium or big building, often shared by several carriers. |
 | **COW** | Cell On Wheels: a cell tower on a trailer that can be towed to an event or a disaster. |
 | **NOC** | Network Operations Center: the phone line where a tower's owner takes problem reports. |
+| **Alt text** | A few plain words describing a picture, for when the picture can't load (or for screen readers). Every picture question has one. |
+| **Tap the clue** | A question where you tap the right spot on a picture instead of picking from a list. |
