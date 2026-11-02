@@ -26,6 +26,16 @@ questions:
     choices: [A fake tree, A flagpole, A church steeple]
     answer: 0
     why: A tidy pine shape that is taller than the real trees around it is a fake tree.
+  - id: u6-stealth-photo-05
+    kind: photo-choice
+    facts: [site:type:stealth]
+    photo: site-fake-tree-03
+    alt: A tall, perfectly shaped pine tree standing beside a car park, taller than the real trees behind it
+    outline: {x: 0.4, y: 0.1, w: 0.25, h: 0.72}
+    prompt: What is the disguise on this site?
+    choices: [A flagpole, A fake tree, A church steeple]
+    answer: 1
+    why: The shape is too perfect and it rises above the real trees. It is a fake pine tree.
   - id: u6-stealth-photo-02
     kind: photo-choice
     facts: [site:type:stealth]

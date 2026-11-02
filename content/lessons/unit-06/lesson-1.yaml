@@ -80,6 +80,16 @@ questions:
     choices: [Monopole, Guyed mast, Lattice tower]
     answer: 2
     why: Same clue again, an open criss-cross frame. It is a lattice tower.
+  - id: u6-tall-photo-03
+    kind: photo-choice
+    facts: [site:type:monopole]
+    photo: site-monopole-01
+    alt: One tall smooth grey steel pole, thicker at the bottom, with antennas clustered near the top and parked cars below
+    outline: {x: 0.33, y: 0.05, w: 0.25, h: 0.8}
+    prompt: What type of tower is this?
+    choices: [Guyed mast, Lattice tower, Monopole]
+    answer: 2
+    why: It is one smooth tapered pole with the antennas bunched near the top. That is a monopole.
   - id: u6-tall-land-01
     kind: choice
     facts: [site:type:guyed]

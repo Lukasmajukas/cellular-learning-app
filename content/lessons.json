@@ -6032,6 +6032,29 @@
        "why": "Same clue again, an open criss-cross frame. It is a lattice tower."
       },
       {
+       "id": "u6-tall-photo-03",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:monopole"
+       ],
+       "photo": "site-monopole-01",
+       "alt": "One tall smooth grey steel pole, thicker at the bottom, with antennas clustered near the top and parked cars below",
+       "outline": {
+        "x": 0.33,
+        "y": 0.05,
+        "w": 0.25,
+        "h": 0.8
+       },
+       "prompt": "What type of tower is this?",
+       "choices": [
+        "Guyed mast",
+        "Lattice tower",
+        "Monopole"
+       ],
+       "answer": 2,
+       "why": "It is one smooth tapered pole with the antennas bunched near the top. That is a monopole."
+      },
+      {
        "id": "u6-tall-land-01",
        "kind": "choice",
        "facts": [
@@ -6131,6 +6154,29 @@
        ],
        "answer": 0,
        "why": "A tidy pine shape that is taller than the real trees around it is a fake tree."
+      },
+      {
+       "id": "u6-stealth-photo-05",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:stealth"
+       ],
+       "photo": "site-fake-tree-03",
+       "alt": "A tall, perfectly shaped pine tree standing beside a car park, taller than the real trees behind it",
+       "outline": {
+        "x": 0.4,
+        "y": 0.1,
+        "w": 0.25,
+        "h": 0.72
+       },
+       "prompt": "What is the disguise on this site?",
+       "choices": [
+        "A flagpole",
+        "A fake tree",
+        "A church steeple"
+       ],
+       "answer": 1,
+       "why": "The shape is too perfect and it rises above the real trees. It is a fake pine tree."
       },
       {
        "id": "u6-stealth-photo-02",
