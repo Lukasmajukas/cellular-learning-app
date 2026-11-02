@@ -1,0 +1,110 @@
+unit: unit07
+unit_title: Reading a site
+lesson: unit07-check
+title: "Checkpoint: reading a site"
+questions:
+  - id: u7-cp-rule-01
+    kind: choice
+    facts: [site:rule:asr-200ft]
+    prompt: Above what height must a tower normally be registered with the FCC?
+    choices: [200 ft, 20 ft, "2000 ft"]
+    answer: 0
+    why: "{site:rule:asr-200ft.text}"
+  - id: u7-cp-rule-02
+    kind: photo-choice
+    facts: [site:infer:paint-lights]
+    photo: site-tower-03
+    alt: A tall tower painted in red and white stripes
+    prompt: What does the red-and-white paint most likely tell you?
+    choices: [The tower is probably over 200 ft or near an airport, The tower is a stealth site, The tower belongs to T-Mobile]
+    answer: 0
+    why: "{site:infer:paint-lights.text}"
+    outline: {x: 0.43, y: 0.22, w: 0.15, h: 0.45}
+  - id: u7-cp-rule-03
+    kind: choice
+    facts: [site:rule:faa-marking]
+    prompt: Is the FAA only ever interested in towers over 200 ft?
+    choices: ["No, it can ask for marking on shorter ones too", "Yes, never shorter ones"]
+    answer: 0
+    why: "{site:rule:faa-marking.text}"
+  - id: u7-cp-sign-01
+    kind: tap-clue
+    facts: [site:sign:rf-warning]
+    photo: site-sign-01
+    alt: The base of a tower with several signs stacked on the pole
+    prompt: Tap the radio-wave warning sign.
+    clue: radio-wave (RF) warning sign
+    target: {x: 0.45, y: 0.445, w: 0.15, h: 0.15}
+    why: The CAUTION sign with the triangle warns about radio waves.
+  - id: u7-cp-sign-02
+    kind: choice
+    facts: [site:sign:rf-warning]
+    prompt: What does an RF warning sign tell you?
+    choices: [Radio waves are strong near the antennas, Which carrier is on the tower]
+    answer: 0
+    why: It is a safety sign. It does not name a carrier.
+  - id: u7-cp-sign-03
+    kind: choice
+    facts: [site:rule:asr-sign]
+    prompt: Where must the registration number be posted?
+    choices: [Near the base where the public can see it, Inside the equipment cabinet]
+    answer: 0
+    why: "{site:rule:asr-sign.text}"
+  - id: u7-cp-own-01
+    kind: choice
+    facts: [site:owner:tower-companies]
+    prompt: Is the company that owns a tower always the carrier on it?
+    choices: ["No, often not", "Yes, always"]
+    answer: 0
+    why: "{site:owner:tower-companies.text}"
+  - id: u7-cp-own-02
+    kind: choice
+    facts: [site:evidence:order]
+    prompt: Which clue counts most for working out which carrier runs a site?
+    choices: [The carrier's own sticker, The equipment brand, The tower's paint]
+    answer: 0
+    why: "{site:evidence:order.text}"
+  - id: u7-cp-own-03
+    kind: choice
+    facts: [site:owner:noc]
+    prompt: A sign's problem phone number belongs to whom?
+    choices: [The owner of the structure, Always the carrier]
+    answer: 0
+    why: "{site:owner:noc.text}"
+  - id: u7-cp-mix-01
+    kind: photo-choice
+    facts: [site:type:stealth]
+    photo: site-flagpole-01
+    alt: A tall flagpole with antennas hidden inside
+    prompt: What kind of site is this?
+    choices: [A stealth site, A water tank, A COW]
+    answer: 0
+    why: "{site:type:stealth.text}"
+  - id: u7-cp-mix-02
+    kind: choice
+    facts: [site:type:lattice]
+    prompt: Which tower type is an open steel framework with a wide base and no guy wires?
+    choices: [Lattice tower, Guyed mast, Monopole]
+    answer: 0
+    why: "{site:type:lattice.text}"
+  - id: u7-cp-mix-03
+    kind: choice
+    facts: [carrier_use:n71/tmobile]
+    prompt: Which carrier runs n71 (600 MHz)?
+    choices: [T-Mobile, Verizon]
+    answer: 0
+    why: T-Mobile runs n71.
+  - id: u7-cp-scn-01
+    kind: scenario
+    facts: [site:infer:paint-lights, site:owner:noc]
+    prompt: You see a tower. Read it clue by clue.
+    clues:
+      - text: It has red-and-white paint. What is most likely?
+        choices: [It is over 200 ft or near an airport, It is a small cell]
+        answer: 0
+        why: Orange-and-white paint most likely means a tall tower.
+      - text: A sign says "Managed by" a tower company. What does it name?
+        choices: [The owner, The carrier]
+        answer: 0
+        why: The managing company is the owner side.
+    why: Paint hints at height. The sign names the owner, not the carrier.

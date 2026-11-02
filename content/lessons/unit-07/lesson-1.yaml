@@ -1,0 +1,103 @@
+unit: unit07
+unit_title: Reading a site
+lesson: unit07-l1
+title: "The 200 ft rule"
+questions:
+  - id: u7-rule-learn-01
+    kind: learn
+    title: Tall towers get papers
+    facts: [site:rule:asr-200ft, site:rule:faa-marking]
+    text: >
+      {site:rule:asr-200ft.text} {site:rule:faa-marking.text}
+  - id: u7-rule-learn-02
+    kind: learn
+    title: Paint is a clue
+    facts: [site:infer:paint-lights]
+    text: >
+      {site:infer:paint-lights.text} Think of it like a tall person wearing a bright vest: you notice them from far away, and that is the point.
+  - id: u7-rule-photo-01
+    kind: photo-choice
+    facts: [site:infer:paint-lights]
+    photo: site-tower-03
+    alt: A tall tower painted in red and white stripes with antennas near the top
+    prompt: This tower has red-and-white paint. Is it very likely over 200 ft, or under?
+    choices: [Very likely over 200 ft, Very likely under 200 ft]
+    answer: 0
+    why: Orange-and-white (here red-and-white) paint is a sign of a tall tower. It is a good guess, not a law.
+  - id: u7-rule-reg-01
+    kind: choice
+    facts: [site:rule:asr-200ft]
+    prompt: A tower is 250 ft tall. Does it need to be registered with the FCC?
+    choices: ["Yes, it is taller than 200 ft", "No, only short towers are registered"]
+    answer: 0
+    why: "{site:rule:asr-200ft.text}"
+  - id: u7-rule-air-01
+    kind: choice
+    facts: [site:rule:asr-200ft]
+    prompt: A short tower stands right beside an airport runway. Could it still need to be registered?
+    choices: ["Yes, near an airport any height can count", "No, short towers never do"]
+    answer: 0
+    why: "{site:rule:asr-200ft.text}"
+  - id: u7-rule-mark-01
+    kind: choice
+    facts: [site:rule:faa-marking]
+    prompt: Which marking is normal on a structure taller than 200 ft?
+    choices: [Orange-and-white paint or lights, A fake tree shape, A green roof]
+    answer: 0
+    why: "{site:rule:faa-marking.text}"
+  - id: u7-rule-photo-02
+    kind: photo-choice
+    facts: [site:infer:paint-lights]
+    photo: site-tower-02
+    alt: A tall open steel tower with red-and-white paint and platforms near the top
+    prompt: This tower is painted red and white. What does that most likely tell you?
+    choices: [It is probably over 200 ft or near an airport, It is a small cell, It is a stealth site]
+    answer: 0
+    why: Orange-and-white paint most likely means a tall tower, or one near an airport.
+    outline: {x: 0.35, y: 0.03, w: 0.22, h: 0.62}
+  - id: u7-rule-tap-01
+    kind: tap-clue
+    facts: [site:infer:paint-lights]
+    photo: site-tower-03
+    alt: A tall red-and-white painted tower against a blue sky
+    prompt: Tap the clue that says this tower is probably tall.
+    clue: red-and-white paint
+    target: {x: 0.43, y: 0.22, w: 0.15, h: 0.45}
+    why: The red-and-white paint is the clue. It is a good guess for a tall tower, not a law.
+  - id: u7-rule-plain-01
+    kind: choice
+    facts: [site:infer:paint-lights]
+    prompt: A tower is plain grey steel with no paint stripes and no lights. Which is more likely?
+    choices: [Under 200 ft, Over 200 ft]
+    answer: 0
+    why: Plain steel with no lights is more likely shorter. This is a good guess, not a law.
+  - id: u7-rule-law-01
+    kind: choice
+    facts: [site:infer:paint-lights]
+    prompt: Is "red-and-white paint means over 200 ft" always true?
+    choices: ["No, it is a good guess, not a law", "Yes, always"]
+    answer: 0
+    why: Near an airport the FAA can ask for marking on shorter towers too.
+  - id: u7-rule-photo-03
+    kind: photo-choice
+    facts: [site:rule:faa-marking]
+    photo: site-tower-02
+    alt: A tall painted open steel tower beside trees and a small house
+    prompt: Compared with the house at its foot, is this tower tall or short?
+    choices: [Tall, Short]
+    answer: 0
+    why: It towers over the trees and the house. Painted towers that tall usually must be marked.
+  - id: u7-rule-mix-01
+    kind: choice
+    facts: [site:type:lattice]
+    prompt: "{site:type:lattice.text} Which kind of tower is that?"
+    choices: [Lattice tower, Monopole]
+    answer: 0
+    why: "{site:type:lattice.text}"
+  - id: u7-rule-mix-02
+    kind: choice
+    facts: [carrier_use:n41/tmobile]
+    prompt: Which carrier calls its n41 5G "Ultra Capacity"?
+    choices: [T-Mobile, AT&T]
+    answer: 0
+    why: T-Mobile runs n41 as "Ultra Capacity".
