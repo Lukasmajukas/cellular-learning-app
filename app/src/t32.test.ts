@@ -46,7 +46,7 @@ describe('templates', () => {
 describe('resolving lessons from the bands file', () => {
   const items = resolveLesson(TYPES_DEMO, DATA);
   it('builds every type with data-filled numbers', () => {
-    expect(items.map(i => i.kind)).toEqual(['learn', 'choice', 'number', 'match', 'order', 'choice']);
+    expect(items.map(i => i.kind)).toEqual(['learn', 'choice', 'number', 'match', 'order', 'choice', 'scenario']);
     const n = items[2] as NumberQ; expect(n.answer).toBe(617);
     expect(JSON.stringify(items)).not.toMatch(/\{band:/);
   });
@@ -76,9 +76,9 @@ describe('missed questions come back once', () => {
     expect(r.firstMissed).toEqual([id]);
   });
   it('counts each question once and ignores learn cards', () => {
-    const r = startRun(qs); expect(scoredCount(r)).toBe(5);
+    const r = startRun(qs); expect(scoredCount(r)).toBe(6);
     let x = r; while (!finished(x)) x = advance(x, true);
-    expect(x.firstRight).toHaveLength(5); expect(x.firstMissed).toHaveLength(0);
+    expect(x.firstRight).toHaveLength(6); expect(x.firstMissed).toHaveLength(0);
   });
 });
 

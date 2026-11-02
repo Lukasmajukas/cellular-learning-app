@@ -137,3 +137,4 @@ Claude adds new words here whenever they come up.
 | **XP** | Points you earn for right answers. They only count how much you practised. |
 | **Signal bars** | 1 to 5 bars at the end of a lesson, like phone signal: more bars means more answers right the first time. |
 | **Heatmap** | A picture where colour shows how much of something there is. Ours colours each band by how well you remember it: green strong, red fading, grey new. |
+| **Scenario puzzle** | A question with a little story and several clues. For each clue you say what it tells you. You only get the question right if every clue is right. |

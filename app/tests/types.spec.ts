@@ -34,8 +34,11 @@ test('every question type works, a miss comes back, XP and streak show', async (
   await w.getByTestId('next').click();
   await w.getByTestId('choice-0').click();                      // carrier question: shows the badge
   await expect(w.getByTestId('badge')).toContainText('HISTORICAL · as of 2026'); await w.getByTestId('next').click();
+  await w.getByTestId('clue-0-choice-0').click(); await w.getByTestId('clue-1-choice-1').click();   // scenario: both clues right
+  await w.getByTestId('check').click(); await expect(w.getByTestId('verdict')).toHaveText('Right!');
+  await expect(w.getByTestId('clue-why-0')).toContainText('✅'); await w.getByTestId('next').click();
   await expect(w.getByTestId('done')).toBeVisible();
-  await expect(w.getByTestId('xp')).toHaveText('+45 XP');       // 4 right first try (40) + the missed one right on its retry (5), no perfect bonus
+  await expect(w.getByTestId('xp')).toHaveText('+55 XP');       // 5 right first try (50) + the missed one right on its retry (5), no perfect bonus
   await w.getByTestId('finish').click();
   await expect(w.getByTestId('streak')).toHaveText('🔥 1');
   await app.close();

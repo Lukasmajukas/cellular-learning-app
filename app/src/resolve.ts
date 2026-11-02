@@ -3,13 +3,14 @@ import { fill, lookup, type Data } from './templates';
 import type { Item, Badge } from './questions';
 
 export type Def = {
-  id: string; kind: 'learn' | 'choice' | 'match' | 'number' | 'order';
+  id: string; kind: 'learn' | 'choice' | 'match' | 'number' | 'order' | 'scenario';
   facts?: string[]; no_facts_needed?: boolean; label?: 'history' | 'coming';
   prompt?: string; why?: string; text?: string; title?: string; show?: string[];
   choices?: string[]; answer?: number;
   pairs?: [string, string][];
   answer_from?: string; tolerance_mhz?: number; unit?: string;
   bands?: string[]; sort_by?: string;
+  clues?: { text: string; choices: string[]; answer: number; why?: string }[];
 };
 const RANK = ['CURRENT', 'HISTORICAL', 'PENDING', 'PLANNED', 'UNVERIFIED'];
 
@@ -48,6 +49,11 @@ export function resolveItem(d: Def, data: Data): Item {
         low: Number(lookup(`band:${id}.dl_low_mhz`, data)), high: Number(lookup(`band:${id}.dl_high_mhz`, data)) }));
       if (new Set(items.map(i => i.value)).size !== items.length) throw new Error(`${d.id}: two bands tie on ${key}`);
       return { ...base, kind: 'order', prompt: f(d.prompt), items };
+    }
+    case 'scenario': {
+      if (!d.clues || d.clues.length < 2) throw new Error(`${d.id}: scenario needs 2+ clues`);
+      for (const c of d.clues) if (!c.choices || c.choices.length < 2 || c.answer < 0 || c.answer >= c.choices.length) throw new Error(`${d.id}: bad clue choices/answer`);
+      return { ...base, kind: 'scenario', prompt: f(d.prompt), clues: d.clues.map(c => ({ text: f(c.text), choices: c.choices.map(f), answer: c.answer, why: c.why && f(c.why) })) };
     }
   }
 }

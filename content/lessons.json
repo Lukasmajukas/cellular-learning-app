@@ -4000,6 +4000,37 @@
        ],
        "answer": 0,
        "why": "B25 is the bigger box around B2."
+      },
+      {
+       "id": "u4-cp-scenario-01",
+       "kind": "scenario",
+       "facts": [
+        "band:n260",
+        "carrier_use:n260/verizon"
+       ],
+       "prompt": "A phone is on a 5G signal. Two clues show up. What does each one tell you?",
+       "clues": [
+        {
+         "text": "The band is n260",
+         "choices": [
+          "Low band",
+          "Mid band",
+          "High band (mmWave)"
+         ],
+         "answer": 2,
+         "why": "n260 starts at {band:n260.dl_low_mhz} MHz, so it is mmWave."
+        },
+        {
+         "text": "The checked carrier row for n260 says...",
+         "choices": [
+          "Verizon",
+          "T-Mobile",
+          "AT&T"
+         ],
+         "answer": 0,
+         "why": "Verizon is the carrier with the checked n260 row."
+        }
+       ]
       }
      ]
     }
