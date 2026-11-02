@@ -166,3 +166,30 @@
   date_checked: 2026-11-01
   ai_made: false
   note: "(CC BY 3.0) Water tower and cell tower, Wisconsin, USA (GPS 43.13, -89.37) (unit 6); looked at by eye, no faces or plates; good example: antennas on the pole and on the water tank"
+- id: type-lattice-drawing-01
+  file: lattice-drawing-01.webp
+  source_url: "own drawing (source: content/photos/drawings/lattice-drawing-01.svg)"
+  title: "Drawing of a lattice tower"
+  author: "Claude (own drawing)"
+  licence: CC0
+  date_checked: 2026-11-02
+  ai_made: false
+  note: "Drawing, not a photo (unit 6); looked at by eye"
+- id: type-guyed-drawing-01
+  file: guyed-drawing-01.webp
+  source_url: "own drawing (source: content/photos/drawings/guyed-drawing-01.svg)"
+  title: "Drawing of a guyed mast"
+  author: "Claude (own drawing)"
+  licence: CC0
+  date_checked: 2026-11-02
+  ai_made: false
+  note: "Drawing, not a photo (unit 6); looked at by eye"
+- id: type-das-drawing-01
+  file: das-drawing-01.webp
+  source_url: "own drawing (source: content/photos/drawings/das-drawing-01.svg)"
+  title: "Drawing of a stadium DAS"
+  author: "Claude (own drawing)"
+  licence: CC0
+  date_checked: 2026-11-02
+  ai_made: false
+  note: "Drawing, not a photo (unit 6); looked at by eye"
