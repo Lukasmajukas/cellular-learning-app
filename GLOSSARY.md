@@ -136,3 +136,4 @@ Claude adds new words here whenever they come up.
 | **Stability** | In FSRS, the number of days until you'd forget a question about 1 time in 10. |
 | **XP** | Points you earn for right answers. They only count how much you practised. |
 | **Signal bars** | 1 to 5 bars at the end of a lesson, like phone signal: more bars means more answers right the first time. |
+| **Heatmap** | A picture where colour shows how much of something there is. Ours colours each band by how well you remember it: green strong, red fading, grey new. |
