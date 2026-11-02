@@ -181,6 +181,13 @@
    "title": "Drawing of an 8-port panel",
    "author": "Claude (own drawing)",
    "licence": "CC0"
+  },
+  {
+   "id": "tool-phone-screen-drawing-01",
+   "file": "tool-phone-screen-drawing-01.webp",
+   "title": "Drawing of a practice phone test screen",
+   "author": "Claude (own drawing)",
+   "licence": "CC0"
   }
  ],
  "sites": [
@@ -8865,6 +8872,1002 @@
        ],
        "answer": 0,
        "why": "n41 is {band:n41.duplex}. n71 is {band:n71.duplex}."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "unit09",
+   "title": "Cell IDs",
+   "lessons": [
+    {
+     "id": "unit09-l1",
+     "title": "Site, sector, cell",
+     "questions": [
+      {
+       "id": "u9-cell-learn-01",
+       "kind": "learn",
+       "title": "Site, sector, cell",
+       "facts": [
+        "cellid:cls:sectors"
+       ],
+       "text": "A site is the place with the tower. A sector is one direction, like one slice of a pizza. A cell is one band on one sector. {cellid:cls:sectors.text}\n"
+      },
+      {
+       "id": "u9-cell-count-01",
+       "kind": "choice",
+       "facts": [
+        "cellid:cls:sectors"
+       ],
+       "prompt": "A site has 3 sectors and each sector uses 2 bands. How many cells is that, roughly?",
+       "choices": [
+        "3",
+        "6",
+        "9"
+       ],
+       "answer": 1,
+       "why": "3 sectors times 2 bands is 6 cells. It is a good rule of thumb, not a law."
+      },
+      {
+       "id": "u9-cell-count-02",
+       "kind": "number",
+       "facts": [
+        "cellid:cls:sectors"
+       ],
+       "prompt": "A site has 3 sectors and each uses 4 bands. How many cells is that, roughly?",
+       "answer": 12,
+       "calc": {
+        "count": [
+         3,
+         4
+        ]
+       },
+       "why": "3 sectors times 4 bands is 12 cells."
+      },
+      {
+       "id": "u9-cell-count-03",
+       "kind": "number",
+       "facts": [
+        "cellid:cls:sectors"
+       ],
+       "prompt": "A site has 3 sectors and each uses 3 bands. How many cells is that, roughly?",
+       "answer": 9,
+       "calc": {
+        "count": [
+         3,
+         3
+        ]
+       },
+       "why": "3 sectors times 3 bands is 9 cells."
+      },
+      {
+       "id": "u9-cell-slice-01",
+       "kind": "choice",
+       "facts": [
+        "cellid:cls:sectors"
+       ],
+       "prompt": "About how much of a circle does one sector face?",
+       "choices": [
+        "About a third",
+        "About half",
+        "The whole circle"
+       ],
+       "answer": 0,
+       "why": "Three sectors share the circle, so each faces about a third."
+      },
+      {
+       "id": "u9-cell-learn-02",
+       "kind": "learn",
+       "title": "Cell sizes",
+       "facts": [
+        "cellid:cls:classes"
+       ],
+       "text": "{cellid:cls:classes.text} Think of shirts: macro is extra large, femto is extra small.\n"
+      },
+      {
+       "id": "u9-cell-wide-01",
+       "kind": "choice",
+       "facts": [
+        "cellid:cls:classes"
+       ],
+       "prompt": "Which cell size covers the widest area?",
+       "choices": [
+        "Femto",
+        "Macro",
+        "Pico"
+       ],
+       "answer": 1,
+       "why": "Macro cells sit on towers above the rooftops and reach the farthest."
+      },
+      {
+       "id": "u9-cell-home-01",
+       "kind": "choice",
+       "facts": [
+        "cellid:cls:classes"
+       ],
+       "prompt": "Which size is the home cell, found only in 4G and not in 5G?",
+       "choices": [
+        "Macro",
+        "Micro",
+        "Femto"
+       ],
+       "answer": 2,
+       "why": "Home cells are femto cells, and they exist only in LTE."
+      },
+      {
+       "id": "u9-cell-mall-01",
+       "kind": "choice",
+       "facts": [
+        "cellid:cls:classes"
+       ],
+       "prompt": "A small cell inside a mall is a local-area cell. Which size is that?",
+       "choices": [
+        "Pico",
+        "Macro"
+       ],
+       "answer": 0,
+       "why": "Pico means local area, such as inside a mall."
+      },
+      {
+       "id": "u9-cell-match-01",
+       "kind": "match",
+       "facts": [
+        "cellid:cls:classes"
+       ],
+       "prompt": "Match each size to where it lives.",
+       "pairs": [
+        [
+         "Macro",
+         "On a tower above the rooftops"
+        ],
+        [
+         "Micro",
+         "Below the rooftops"
+        ],
+        [
+         "Pico",
+         "Inside a mall"
+        ],
+        [
+         "Femto",
+         "In a home"
+        ]
+       ],
+       "why": "From widest to smallest, the size follows where the cell lives."
+      },
+      {
+       "id": "u9-cell-mix-01",
+       "kind": "choice",
+       "facts": [
+        "site:type:lattice",
+        "site:type:small-cell"
+       ],
+       "prompt": "Which site usually holds a macro cell, a lattice tower or a small cell on a pole?",
+       "choices": [
+        "The lattice tower",
+        "The small cell on a pole"
+       ],
+       "answer": 0,
+       "why": "A tall tower serves a wide area. A small cell on a pole serves a small one."
+      },
+      {
+       "id": "u9-cell-mix-02",
+       "kind": "choice",
+       "facts": [
+        "site:type:small-cell"
+       ],
+       "prompt": "A small cell on a pole is more likely a macro cell or a micro cell?",
+       "choices": [
+        "Micro",
+        "Macro"
+       ],
+       "answer": 0,
+       "why": "Small cells sit below the rooftops, so they are micro or smaller."
+      }
+     ]
+    },
+    {
+     "id": "unit09-l2",
+     "title": "The big cell number",
+     "questions": [
+      {
+       "id": "u9-eci-learn-01",
+       "kind": "learn",
+       "title": "Two numbers in one",
+       "facts": [
+        "cellid:lte:eci"
+       ],
+       "text": "The big cell number on a phone's test screen hides two small numbers, like a phone number hides an area code. {cellid:lte:eci.text}\n"
+      },
+      {
+       "id": "u9-eci-learn-02",
+       "kind": "learn",
+       "title": "A worked example",
+       "facts": [
+        "cellid:lte:eci"
+       ],
+       "text": "Say the cell number is 26,113,538. Divide by 256 and you get 102,006 (the tower). What is left over is 2 (the cell). Check it: 102,006 times 256 plus 2 is 26,113,538. These are practice numbers, not a real site.\n"
+      },
+      {
+       "id": "u9-eci-enb-01",
+       "kind": "number",
+       "facts": [
+        "cellid:lte:eci"
+       ],
+       "prompt": "A cell number is 25,605. It is 25,600 plus 5, and 25,600 is 100 times 256. What is the tower (eNB) number?",
+       "answer": 100,
+       "calc": {
+        "enb": [
+         25605
+        ]
+       },
+       "why": "25,605 divided by 256 is 100, with 5 left over."
+      },
+      {
+       "id": "u9-eci-cell-01",
+       "kind": "number",
+       "facts": [
+        "cellid:lte:eci"
+       ],
+       "prompt": "Same cell number, 25,605. What is the cell number (the leftover)?",
+       "answer": 5,
+       "calc": {
+        "cell": [
+         25605
+        ]
+       },
+       "why": "100 times 256 is 25,600, and 25,605 is 5 more."
+      },
+      {
+       "id": "u9-eci-make-01",
+       "kind": "number",
+       "facts": [
+        "cellid:lte:eci"
+       ],
+       "prompt": "The tower is 1000 and the cell is 3. What is the big cell number?",
+       "answer": 256003,
+       "calc": {
+        "eci": [
+         1000,
+         3
+        ]
+       },
+       "why": "1000 times 256 is 256,000. Add the cell, 3, and you get 256,003."
+      },
+      {
+       "id": "u9-eci-enb-02",
+       "kind": "number",
+       "facts": [
+        "cellid:lte:eci"
+       ],
+       "prompt": "A cell number is 30,722. What is the tower number? (Hint 120 times 256 is 30,720.)",
+       "answer": 120,
+       "calc": {
+        "enb": [
+         30722
+        ]
+       },
+       "why": "30,722 is 30,720 plus 2, so the tower is 120 and the cell is 2."
+      },
+      {
+       "id": "u9-eci-pci-01",
+       "kind": "choice",
+       "facts": [
+        "cellid:lte:pci"
+       ],
+       "prompt": "Two cells show the same PCI. Are they at the same site?",
+       "choices": [
+        "Not necessarily, PCIs get reused",
+        "Yes, always"
+       ],
+       "answer": 0,
+       "why": "{cellid:lte:pci.text}"
+      },
+      {
+       "id": "u9-eci-band-01",
+       "kind": "choice",
+       "facts": [
+        "cellid:lte:earfcn-formula"
+       ],
+       "prompt": "Which number on the screen tells you the band?",
+       "choices": [
+        "The channel number (EARFCN)",
+        "The PCI",
+        "The cell number"
+       ],
+       "answer": 0,
+       "why": "{cellid:lte:earfcn-formula.text}"
+      },
+      {
+       "id": "u9-eci-learn-03",
+       "kind": "learn",
+       "title": "5G is a bit different",
+       "facts": [
+        "cellid:nr:nci"
+       ],
+       "text": "{cellid:nr:nci.text}\n"
+      },
+      {
+       "id": "u9-eci-gap-01",
+       "kind": "choice",
+       "facts": [
+        "cellid:nr:gnb-length-unknown"
+       ],
+       "prompt": "The same 5G cell number can decode to two different sites. Why?",
+       "choices": [
+        "The carrier decides how many bits belong to the tower",
+        "The phone picks one at random",
+        "5G has no tower numbers"
+       ],
+       "answer": 0,
+       "why": "{cellid:nr:gnb-length-unknown.text}"
+      },
+      {
+       "id": "u9-eci-nci-01",
+       "kind": "number",
+       "facts": [
+        "cellid:nr:nci"
+       ],
+       "prompt": "A 5G cell number is 417,816,578. Say the tower part is 24 bits. What is the tower (gNB) number?",
+       "answer": 102006,
+       "calc": {
+        "gnb": [
+         417816578,
+         24
+        ]
+       },
+       "why": "With 24 bits for the tower, the last 12 bits are the cell. Dropping them leaves 102,006."
+      },
+      {
+       "id": "u9-eci-nci-02",
+       "kind": "number",
+       "facts": [
+        "cellid:nr:nci",
+        "cellid:nr:gnb-length-unknown"
+       ],
+       "prompt": "Same 5G cell number, 417,816,578, but now say the tower part is 22 bits. What is the tower number?",
+       "answer": 25501,
+       "calc": {
+        "gnb": [
+         417816578,
+         22
+        ]
+       },
+       "why": "A different bit length gives a different tower number, 25,501. That is why a drill always says the bit length."
+      },
+      {
+       "id": "u9-eci-vendor-01",
+       "kind": "learn",
+       "title": "Brand guesses",
+       "no_facts_needed": true,
+       "text": "{cellid:us:vendor-from-id.text} Treat it like a rumour, not a fact.\n"
+      },
+      {
+       "id": "u9-eci-mix-01",
+       "kind": "choice",
+       "facts": [
+        "site:evidence:order"
+       ],
+       "prompt": "A map app guesses the radio brand from a number. Which clue counts more for who runs a site?",
+       "choices": [
+        "The carrier's own sticker",
+        "The brand guess from a number"
+       ],
+       "answer": 0,
+       "why": "{site:evidence:order.text}"
+      }
+     ]
+    },
+    {
+     "id": "unit09-l3",
+     "title": "Channel number to band",
+     "questions": [
+      {
+       "id": "u9-ear-learn-01",
+       "kind": "learn",
+       "title": "The channel number",
+       "facts": [
+        "cellid:lte:earfcn-formula"
+       ],
+       "text": "{cellid:lte:earfcn-formula.text} Think of a radio dial: the number points at one exact spot.\n"
+      },
+      {
+       "id": "u9-ear-learn-02",
+       "kind": "learn",
+       "title": "Four bands we can check",
+       "facts": [
+        "cellid:lte:earfcn-b12",
+        "cellid:lte:earfcn-b13",
+        "cellid:lte:earfcn-b66",
+        "cellid:lte:earfcn-b71"
+       ],
+       "text": "{cellid:lte:earfcn-b12.text} {cellid:lte:earfcn-b13.text} {cellid:lte:earfcn-b66.text} {cellid:lte:earfcn-b71.text}\n"
+      },
+      {
+       "id": "u9-ear-band-01",
+       "kind": "choice",
+       "facts": [
+        "cellid:lte:earfcn-b13"
+       ],
+       "prompt": "A phone shows channel number 5200. Which band is that?",
+       "choices": [
+        "B12",
+        "B13",
+        "B66",
+        "B71"
+       ],
+       "answer": 1,
+       "why": "5200 is inside B13, which runs from 5180 to 5279."
+      },
+      {
+       "id": "u9-ear-band-02",
+       "kind": "choice",
+       "facts": [
+        "cellid:lte:earfcn-b71"
+       ],
+       "prompt": "A phone shows channel number 68700. Which band is that?",
+       "choices": [
+        "B12",
+        "B13",
+        "B66",
+        "B71"
+       ],
+       "answer": 3,
+       "why": "68700 is inside B71, which runs from 68586 to 68935."
+      },
+      {
+       "id": "u9-ear-band-03",
+       "kind": "choice",
+       "facts": [
+        "cellid:lte:earfcn-b66"
+       ],
+       "prompt": "A phone shows channel number 66800. Which band is that?",
+       "choices": [
+        "B12",
+        "B13",
+        "B66",
+        "B71"
+       ],
+       "answer": 2,
+       "why": "66800 is inside B66, which runs from 66436 to 67335."
+      },
+      {
+       "id": "u9-ear-band-04",
+       "kind": "choice",
+       "facts": [
+        "cellid:lte:earfcn-b12"
+       ],
+       "prompt": "A phone shows channel number 5100. Which band is that?",
+       "choices": [
+        "B12",
+        "B13",
+        "B66",
+        "B71"
+       ],
+       "answer": 0,
+       "why": "5100 is inside B12, which runs from 5010 to 5179."
+      },
+      {
+       "id": "u9-ear-mhz-01",
+       "kind": "number",
+       "facts": [
+        "cellid:lte:earfcn-formula",
+        "cellid:lte:earfcn-b66"
+       ],
+       "prompt": "B66 channel 66786. B66 starts at channel 66436 and at 2110 MHz, and each channel step is 0.1 MHz. What is the frequency in MHz?",
+       "answer": 2145,
+       "calc": {
+        "mhz_b66": [
+         66786
+        ]
+       },
+       "unit": "MHz",
+       "why": "66786 minus 66436 is 350 steps. 350 times 0.1 is 35 MHz. 2110 plus 35 is 2145 MHz."
+      },
+      {
+       "id": "u9-ear-mhz-02",
+       "kind": "number",
+       "facts": [
+        "cellid:lte:earfcn-formula",
+        "cellid:lte:earfcn-b66"
+       ],
+       "prompt": "B66 channel 66936. It starts 500 steps above 66436. What is the frequency in MHz?",
+       "answer": 2160,
+       "calc": {
+        "mhz_b66": [
+         66936
+        ]
+       },
+       "unit": "MHz",
+       "why": "500 steps times 0.1 MHz is 50 MHz. 2110 plus 50 is 2160 MHz."
+      },
+      {
+       "id": "u9-ear-b71-01",
+       "kind": "number",
+       "facts": [
+        "band:B71"
+       ],
+       "prompt": "B71 starts at how many MHz in the downlink?",
+       "answer_from": "band:B71.dl_low_mhz",
+       "tolerance_mhz": 5,
+       "unit": "MHz",
+       "why": "B71 runs from {band:B71.dl_low_mhz} to {band:B71.dl_high_mhz} MHz."
+      },
+      {
+       "id": "u9-ear-low-01",
+       "kind": "choice",
+       "facts": [
+        "band:B71",
+        "band:B66"
+       ],
+       "prompt": "Which band is lower in frequency, B71 or B66?",
+       "choices": [
+        "B71",
+        "B66"
+       ],
+       "answer": 0,
+       "why": "B71 starts at {band:B71.dl_low_mhz} MHz and B66 at {band:B66.dl_low_mhz} MHz."
+      },
+      {
+       "id": "u9-ear-big-01",
+       "kind": "choice",
+       "facts": [
+        "cellid:lte:earfcn-b12",
+        "cellid:lte:earfcn-b66"
+       ],
+       "prompt": "B12 channels are around 5000 and B66 channels are around 66000. Does a bigger channel number always mean a higher frequency?",
+       "choices": [
+        "No, each band has its own range",
+        "Yes, always"
+       ],
+       "answer": 0,
+       "why": "Each band has its own channel range, so a band's number range has to be looked up."
+      },
+      {
+       "id": "u9-ear-band-05",
+       "kind": "choice",
+       "facts": [
+        "cellid:lte:earfcn-b12",
+        "cellid:lte:earfcn-b13"
+       ],
+       "prompt": "Channel 5250 falls in B12 or B13?",
+       "choices": [
+        "B13",
+        "B12"
+       ],
+       "answer": 0,
+       "why": "B13 runs from 5180 to 5279, and 5250 is inside it."
+      }
+     ]
+    },
+    {
+     "id": "unit09-l4",
+     "title": "The practice screen",
+     "questions": [
+      {
+       "id": "u9-scr-learn-01",
+       "kind": "learn",
+       "title": "A hidden test screen",
+       "facts": [
+        "cellid:tool:field-test-iphone",
+        "cellid:tool:android-4636"
+       ],
+       "text": "{cellid:tool:field-test-iphone.text} {cellid:tool:android-4636.text} Only look at it. Never change settings on it. The next picture is a drawing with made-up numbers.\n"
+      },
+      {
+       "id": "u9-scr-eci-01",
+       "kind": "tap-clue",
+       "facts": [
+        "cellid:lte:eci"
+       ],
+       "photo": "tool-phone-screen-drawing-01",
+       "alt": "A drawn phone test screen with three boxes, Cell ID, PCI and Channel",
+       "prompt": "Tap the box that holds the big cell number. It hides the tower number.",
+       "clue": "the Cell ID (ECI) box",
+       "target": {
+        "x": 0.3,
+        "y": 0.19375,
+        "w": 0.4,
+        "h": 0.1375
+       },
+       "why": "The Cell ID box is the big cell number. Divide it by 256 to get the tower."
+      },
+      {
+       "id": "u9-scr-ear-01",
+       "kind": "tap-clue",
+       "facts": [
+        "cellid:lte:earfcn-formula"
+       ],
+       "photo": "tool-phone-screen-drawing-01",
+       "alt": "A drawn phone test screen with three boxes, Cell ID, PCI and Channel",
+       "prompt": "Tap the box that tells you the band.",
+       "clue": "the Channel (EARFCN) box",
+       "target": {
+        "x": 0.3,
+        "y": 0.50625,
+        "w": 0.4,
+        "h": 0.1375
+       },
+       "why": "The channel number points at the band."
+      },
+      {
+       "id": "u9-scr-pci-01",
+       "kind": "tap-clue",
+       "facts": [
+        "cellid:lte:pci"
+       ],
+       "photo": "tool-phone-screen-drawing-01",
+       "alt": "A drawn phone test screen with three boxes, Cell ID, PCI and Channel",
+       "prompt": "Tap the PCI. It is a number from 0 to 503 that gets reused.",
+       "clue": "the PCI box",
+       "target": {
+        "x": 0.3,
+        "y": 0.35,
+        "w": 0.4,
+        "h": 0.1375
+       },
+       "why": "The PCI box is the middle one. It does not tell you the site or the band."
+      },
+      {
+       "id": "u9-scr-scn-01",
+       "kind": "scenario",
+       "facts": [
+        "cellid:lte:eci",
+        "cellid:lte:earfcn-b66",
+        "cellid:lte:pci"
+       ],
+       "prompt": "The practice screen shows Cell ID 51207, PCI 211 and channel 66800. Work it out.",
+       "clues": [
+        {
+         "text": "Which band is channel 66800?",
+         "choices": [
+          "B66",
+          "B13",
+          "B71"
+         ],
+         "answer": 0,
+         "why": "66800 is inside B66 (66436 to 67335)."
+        },
+        {
+         "text": "51207 is 200 times 256 plus 7. What is the tower number?",
+         "choices": [
+          "200",
+          "51207",
+          "7"
+         ],
+         "answer": 0,
+         "why": "Divide by 256. The tower is 200 and the cell is 7."
+        },
+        {
+         "text": "Does PCI 211 tell you the site?",
+         "choices": [
+          "No, PCIs get reused",
+          "Yes, it names the site"
+         ],
+         "answer": 0,
+         "why": "A PCI is reused, so it tells neither the site nor the band."
+        }
+       ],
+       "why": "Channel gives the band, the big number gives tower and cell, and the PCI gives neither."
+      },
+      {
+       "id": "u9-scr-cell-01",
+       "kind": "number",
+       "facts": [
+        "cellid:lte:eci"
+       ],
+       "prompt": "The screen shows Cell ID 51207, which is 200 times 256 plus 7. What is the cell number?",
+       "answer": 7,
+       "calc": {
+        "cell": [
+         51207
+        ]
+       },
+       "why": "200 times 256 is 51,200, and 51,207 is 7 more."
+      },
+      {
+       "id": "u9-scr-enb-01",
+       "kind": "number",
+       "facts": [
+        "cellid:lte:eci"
+       ],
+       "prompt": "A screen shows Cell ID 51,207. What is the tower number?",
+       "answer": 200,
+       "calc": {
+        "enb": [
+         51207
+        ]
+       },
+       "why": "51,207 divided by 256 is 200, with 7 left over."
+      },
+      {
+       "id": "u9-scr-ecimake-01",
+       "kind": "number",
+       "facts": [
+        "cellid:lte:eci"
+       ],
+       "prompt": "Another practice screen has tower 200 and cell 8. What is its Cell ID?",
+       "answer": 51208,
+       "calc": {
+        "eci": [
+         200,
+         8
+        ]
+       },
+       "why": "200 times 256 is 51,200. Plus 8 is 51,208."
+      },
+      {
+       "id": "u9-scr-sticker-01",
+       "kind": "choice",
+       "facts": [
+        "site:evidence:order"
+       ],
+       "prompt": "The screen shows a tower number, but the tower has a carrier sticker. Which clue counts more?",
+       "choices": [
+        "The carrier's own sticker",
+        "A number on the phone screen"
+       ],
+       "answer": 0,
+       "why": "{site:evidence:order.text}"
+      },
+      {
+       "id": "u9-scr-bits-01",
+       "kind": "choice",
+       "facts": [
+        "cellid:nr:gnb-length-unknown"
+       ],
+       "prompt": "A 5G screen shows one long cell number. Can you tell the tower from it alone?",
+       "choices": [
+        "Not without knowing the bit length",
+        "Yes, always"
+       ],
+       "answer": 0,
+       "why": "{cellid:nr:gnb-length-unknown.text}"
+      }
+     ]
+    },
+    {
+     "id": "unit09-check",
+     "title": "Cell ID certification",
+     "questions": [
+      {
+       "id": "u9-cp-count-01",
+       "kind": "number",
+       "facts": [
+        "cellid:cls:sectors"
+       ],
+       "prompt": "A site has 3 sectors and each uses 4 bands. How many cells is that, roughly?",
+       "answer": 12,
+       "calc": {
+        "count": [
+         3,
+         4
+        ]
+       },
+       "why": "3 sectors times 4 bands is 12 cells."
+      },
+      {
+       "id": "u9-cp-size-01",
+       "kind": "choice",
+       "facts": [
+        "cellid:cls:classes"
+       ],
+       "prompt": "Which size is the home cell?",
+       "choices": [
+        "Macro",
+        "Pico",
+        "Femto"
+       ],
+       "answer": 2,
+       "why": "Femto cells are the home size, and they exist only in LTE."
+      },
+      {
+       "id": "u9-cp-size-02",
+       "kind": "choice",
+       "facts": [
+        "cellid:cls:classes"
+       ],
+       "prompt": "Which size covers the widest area?",
+       "choices": [
+        "Femto",
+        "Macro",
+        "Pico"
+       ],
+       "answer": 1,
+       "why": "Macro cells reach the farthest."
+      },
+      {
+       "id": "u9-cp-sector-01",
+       "kind": "choice",
+       "facts": [
+        "cellid:cls:sectors"
+       ],
+       "prompt": "One sector faces about how much of a circle, when a site has 3?",
+       "choices": [
+        "A third",
+        "A half",
+        "All of it"
+       ],
+       "answer": 0,
+       "why": "Three sectors share the circle."
+      },
+      {
+       "id": "u9-cp-eci-01",
+       "kind": "number",
+       "facts": [
+        "cellid:lte:eci"
+       ],
+       "prompt": "A cell number is 38,405 (150 times 256 is 38,400). What is the tower number?",
+       "answer": 150,
+       "calc": {
+        "enb": [
+         38405
+        ]
+       },
+       "why": "38,405 divided by 256 is 150, with 5 left over."
+      },
+      {
+       "id": "u9-cp-eci-02",
+       "kind": "number",
+       "facts": [
+        "cellid:lte:eci"
+       ],
+       "prompt": "Same cell number, 38,405. What is the cell number?",
+       "answer": 5,
+       "calc": {
+        "cell": [
+         38405
+        ]
+       },
+       "why": "150 times 256 is 38,400. The leftover is 5."
+      },
+      {
+       "id": "u9-cp-eci-03",
+       "kind": "number",
+       "facts": [
+        "cellid:lte:eci"
+       ],
+       "prompt": "The tower is 300 and the cell is 4. What is the big cell number?",
+       "answer": 76804,
+       "calc": {
+        "eci": [
+         300,
+         4
+        ]
+       },
+       "why": "300 times 256 is 76,800. Plus 4 is 76,804."
+      },
+      {
+       "id": "u9-cp-nci-01",
+       "kind": "number",
+       "facts": [
+        "cellid:nr:nci"
+       ],
+       "prompt": "A 5G cell number is 417,816,578 and the tower part is 24 bits. What is the tower number?",
+       "answer": 102006,
+       "calc": {
+        "gnb": [
+         417816578,
+         24
+        ]
+       },
+       "why": "Drop the last 12 bits, which hold the cell, and 102,006 is left."
+      },
+      {
+       "id": "u9-cp-ear-01",
+       "kind": "choice",
+       "facts": [
+        "cellid:lte:earfcn-b13"
+       ],
+       "prompt": "Channel 5200 is in which band?",
+       "choices": [
+        "B12",
+        "B13",
+        "B66",
+        "B71"
+       ],
+       "answer": 1,
+       "why": "B13 runs from 5180 to 5279."
+      },
+      {
+       "id": "u9-cp-ear-02",
+       "kind": "choice",
+       "facts": [
+        "cellid:lte:earfcn-b71"
+       ],
+       "prompt": "Channel 68700 is in which band?",
+       "choices": [
+        "B12",
+        "B13",
+        "B66",
+        "B71"
+       ],
+       "answer": 3,
+       "why": "B71 runs from 68586 to 68935."
+      },
+      {
+       "id": "u9-cp-ear-03",
+       "kind": "number",
+       "facts": [
+        "cellid:lte:earfcn-formula",
+        "cellid:lte:earfcn-b66"
+       ],
+       "prompt": "B66 channel 66786. B66 starts at channel 66436 and 2110 MHz, and each step is 0.1 MHz. What is the frequency in MHz?",
+       "answer": 2145,
+       "calc": {
+        "mhz_b66": [
+         66786
+        ]
+       },
+       "unit": "MHz",
+       "why": "350 steps is 35 MHz. 2110 plus 35 is 2145 MHz."
+      },
+      {
+       "id": "u9-cp-scr-01",
+       "kind": "tap-clue",
+       "facts": [
+        "cellid:lte:earfcn-formula"
+       ],
+       "photo": "tool-phone-screen-drawing-01",
+       "alt": "A drawn phone test screen with three boxes, Cell ID, PCI and Channel",
+       "prompt": "Tap the number that tells you the band.",
+       "clue": "the Channel (EARFCN) box",
+       "target": {
+        "x": 0.3,
+        "y": 0.50625,
+        "w": 0.4,
+        "h": 0.1375
+       },
+       "why": "The channel number points at the band."
+      },
+      {
+       "id": "u9-cp-scr-02",
+       "kind": "tap-clue",
+       "facts": [
+        "cellid:lte:eci"
+       ],
+       "photo": "tool-phone-screen-drawing-01",
+       "alt": "A drawn phone test screen with three boxes, Cell ID, PCI and Channel",
+       "prompt": "Tap the number that holds the tower number.",
+       "clue": "the Cell ID (ECI) box",
+       "target": {
+        "x": 0.3,
+        "y": 0.19375,
+        "w": 0.4,
+        "h": 0.1375
+       },
+       "why": "Divide the Cell ID by 256 to get the tower."
+      },
+      {
+       "id": "u9-cp-mix-01",
+       "kind": "choice",
+       "facts": [
+        "site:evidence:order"
+       ],
+       "prompt": "Which clue counts most for who runs a site?",
+       "choices": [
+        "The carrier's own sticker",
+        "A radio brand guessed from a number",
+        "The PCI"
+       ],
+       "answer": 0,
+       "why": "{site:evidence:order.text}"
+      },
+      {
+       "id": "u9-cp-mix-02",
+       "kind": "choice",
+       "facts": [
+        "site:type:small-cell",
+        "cellid:cls:classes"
+       ],
+       "prompt": "A small cell on a pole is usually which size?",
+       "choices": [
+        "Micro or smaller",
+        "Macro"
+       ],
+       "answer": 0,
+       "why": "Small cells sit below the rooftops, so they are micro or smaller."
       }
      ]
     }

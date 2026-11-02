@@ -238,3 +238,12 @@
   date_checked: 2026-11-02
   ai_made: false
   note: "Drawing, not a photo (unit 8); looked at by eye. A simple shape, not any real model."
+- id: tool-phone-screen-drawing-01
+  file: tool-phone-screen-drawing-01.webp
+  source_url: "own drawing (source: content/photos/drawings/tool-phone-screen-drawing-01.svg, made by content/tools/draw_hardware.py)"
+  title: "Drawing of a practice phone test screen"
+  author: "Claude (own drawing)"
+  licence: CC0
+  date_checked: 2026-11-02
+  ai_made: false
+  note: "Drawing, not a real phone screen (unit 9). The numbers are made up. Looked at by eye. Replace with the owner's own screenshot later (T49)."

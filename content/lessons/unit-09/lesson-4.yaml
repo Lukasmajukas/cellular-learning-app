@@ -1,0 +1,91 @@
+unit: unit09
+unit_title: Cell IDs
+lesson: unit09-l4
+title: "The practice screen"
+questions:
+  - id: u9-scr-learn-01
+    kind: learn
+    title: A hidden test screen
+    facts: [cellid:tool:field-test-iphone, cellid:tool:android-4636]
+    text: >
+      {cellid:tool:field-test-iphone.text} {cellid:tool:android-4636.text} Only look at it. Never change settings on it. The next picture is a drawing with made-up numbers.
+  - id: u9-scr-eci-01
+    kind: tap-clue
+    facts: [cellid:lte:eci]
+    photo: tool-phone-screen-drawing-01
+    alt: A drawn phone test screen with three boxes, Cell ID, PCI and Channel
+    prompt: Tap the box that holds the big cell number. It hides the tower number.
+    clue: the Cell ID (ECI) box
+    target: {x: 0.30, y: 0.19375, w: 0.40, h: 0.1375}
+    why: The Cell ID box is the big cell number. Divide it by 256 to get the tower.
+  - id: u9-scr-ear-01
+    kind: tap-clue
+    facts: [cellid:lte:earfcn-formula]
+    photo: tool-phone-screen-drawing-01
+    alt: A drawn phone test screen with three boxes, Cell ID, PCI and Channel
+    prompt: Tap the box that tells you the band.
+    clue: the Channel (EARFCN) box
+    target: {x: 0.30, y: 0.50625, w: 0.40, h: 0.1375}
+    why: The channel number points at the band.
+  - id: u9-scr-pci-01
+    kind: tap-clue
+    facts: [cellid:lte:pci]
+    photo: tool-phone-screen-drawing-01
+    alt: A drawn phone test screen with three boxes, Cell ID, PCI and Channel
+    prompt: Tap the PCI. It is a number from 0 to 503 that gets reused.
+    clue: the PCI box
+    target: {x: 0.30, y: 0.35, w: 0.40, h: 0.1375}
+    why: The PCI box is the middle one. It does not tell you the site or the band.
+  - id: u9-scr-scn-01
+    kind: scenario
+    facts: [cellid:lte:eci, cellid:lte:earfcn-b66, cellid:lte:pci]
+    prompt: The practice screen shows Cell ID 51207, PCI 211 and channel 66800. Work it out.
+    clues:
+      - text: Which band is channel 66800?
+        choices: [B66, B13, B71]
+        answer: 0
+        why: 66800 is inside B66 (66436 to 67335).
+      - text: 51207 is 200 times 256 plus 7. What is the tower number?
+        choices: ["200", "51207", "7"]
+        answer: 0
+        why: Divide by 256. The tower is 200 and the cell is 7.
+      - text: Does PCI 211 tell you the site?
+        choices: ["No, PCIs get reused", "Yes, it names the site"]
+        answer: 0
+        why: A PCI is reused, so it tells neither the site nor the band.
+    why: Channel gives the band, the big number gives tower and cell, and the PCI gives neither.
+  - id: u9-scr-cell-01
+    kind: number
+    facts: [cellid:lte:eci]
+    prompt: The screen shows Cell ID 51207, which is 200 times 256 plus 7. What is the cell number?
+    answer: 7
+    calc: {cell: [51207]}
+    why: 200 times 256 is 51,200, and 51,207 is 7 more.
+  - id: u9-scr-enb-01
+    kind: number
+    facts: [cellid:lte:eci]
+    prompt: A screen shows Cell ID 51,207. What is the tower number?
+    answer: 200
+    calc: {enb: [51207]}
+    why: 51,207 divided by 256 is 200, with 7 left over.
+  - id: u9-scr-ecimake-01
+    kind: number
+    facts: [cellid:lte:eci]
+    prompt: Another practice screen has tower 200 and cell 8. What is its Cell ID?
+    answer: 51208
+    calc: {eci: [200, 8]}
+    why: 200 times 256 is 51,200. Plus 8 is 51,208.
+  - id: u9-scr-sticker-01
+    kind: choice
+    facts: [site:evidence:order]
+    prompt: The screen shows a tower number, but the tower has a carrier sticker. Which clue counts more?
+    choices: [The carrier's own sticker, A number on the phone screen]
+    answer: 0
+    why: "{site:evidence:order.text}"
+  - id: u9-scr-bits-01
+    kind: choice
+    facts: [cellid:nr:gnb-length-unknown]
+    prompt: A 5G screen shows one long cell number. Can you tell the tower from it alone?
+    choices: ["Not without knowing the bit length", "Yes, always"]
+    answer: 0
+    why: "{cellid:nr:gnb-length-unknown.text}"

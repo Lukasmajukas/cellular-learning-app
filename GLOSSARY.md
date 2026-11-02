@@ -83,6 +83,9 @@ Claude adds new words here whenever they come up.
 | **Radio (RRU)** | The box that makes the signal. The antenna sends it out. |
 | **Massive MIMO** | A big box antenna with lots of tiny antennas inside, used for fast 5G. |
 | **eNB / gNB** | A tower's ID "name tag": eNB for LTE, gNB for 5G. |
+| **ECI** | The big LTE cell number. It hides two smaller numbers: the tower (eNB) and the cell. ECI = eNB × 256 + cell. |
+| **NCI** | The big 5G cell number. It hides the tower (gNB) and the cell, but the screen does not say where the split is. |
+| **Sector** | One direction a site's antennas face, about a third of a circle. Each band on a sector is its own cell. |
 | **PCI** | A short number that helps phones tell nearby cells apart. It's not unique. |
 | **EARFCN / NR-ARFCN** | A channel number that points to one exact frequency. |
 | **MCC / MNC (carrier code)** | Two short numbers every cell broadcasts, like a license plate for the phone company. 310/260 means T-Mobile, 311/480 means Verizon. |

@@ -1,12 +1,12 @@
 {
-  "asOf": "2026-11-02 (robot, T36 unit 8)",
+  "asOf": "2026-11-02 (robot, T36 unit 9)",
   "robot": {
     "on": true,
     "next": "right away (it starts its next job by itself), and every hour",
-    "last": "wrote the unit 8 hardware lessons (T36)"
+    "last": "wrote the unit 9 cell-ID lessons and the practice phone screen (T36)"
   },
   "light": "green",
-  "working": "Nothing in progress. Next up: T36 phone-screen drawing and unit 9 lessons; T26 has 3 photos left to download; T47 needs official page links from you. Optional for you: T48 questions and your frame-rate number (T46).",
+  "working": "Nothing in progress. Next up: T36 click test for units 8 and 9, then T37; T26 has 3 photos left to download; T47 needs official page links from you. Optional for you: T48 questions and your frame-rate number (T46).",
   "limit": {
     "state": "fine (it reset after a pause)",
     "resets": "unknown"

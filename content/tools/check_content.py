@@ -172,6 +172,29 @@ def check_photos(credits, errors):
     return photos
 
 
+def calc_value(calc):
+    """Recompute a made-up drill answer from its inputs (unit 9). Returns None if the calc is not understood."""
+    if not isinstance(calc, dict) or len(calc) != 1:
+        return None
+    (kind, a), = calc.items()
+    try:
+        if kind == "eci" and len(a) == 2 and 0 <= a[1] < 256:
+            return a[0] * 256 + a[1]          # ECI = eNB x 256 + cell
+        if kind == "enb" and len(a) == 1:
+            return a[0] // 256
+        if kind == "cell" and len(a) == 1:
+            return a[0] % 256
+        if kind == "count" and len(a) == 2:
+            return a[0] * a[1]                # sectors x bands
+        if kind == "gnb" and len(a) == 2 and 22 <= a[1] <= 32:
+            return a[0] >> (36 - a[1])        # leftmost bits of the 36-bit NCI
+        if kind == "mhz_b66" and len(a) == 1 and 66436 <= a[0] <= 67335:
+            return round(2110 + 0.1 * (a[0] - 66436), 1)
+    except TypeError:
+        return None
+    return None
+
+
 def check_questions(questions, facts, photos, errors):
     """questions: list of (file, dict). Returns the list of ids found."""
     ids = []
@@ -200,6 +223,12 @@ def check_questions(questions, facts, photos, errors):
                 errors.append(f"{where}: fact {ref} is taught only, never asked (quiz: false)")
             elif st in ALLOWED_FOR_ANSWER and ALLOWED_FOR_ANSWER[st] and label != ALLOWED_FOR_ANSWER[st]:
                 errors.append(f"{where}: fact {ref} is {st}; the question needs label: {ALLOWED_FOR_ANSWER[st]}")
+        if q.get("kind") == "number" and not q.get("answer_from"):
+            want = calc_value(q.get("calc"))
+            if want is None:
+                errors.append(f"{where}: a made-up number answer needs a calc the checker understands (eci, enb, cell, count, gnb, mhz_b66)")
+            elif q.get("answer") != want:
+                errors.append(f"{where}: answer {q.get('answer')!r} does not match the calc (it works out to {want})")
         pid = q.get("photo")
         if pid:
             p = photos.get(pid)
