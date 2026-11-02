@@ -1,0 +1,167 @@
+{
+ "as_of": "2026-11-02",
+ "sites": [
+  {
+   "id": "type:lattice",
+   "kind": "type",
+   "grade": "C",
+   "text": "A lattice tower is an open steel framework with a wide base and no guy wires.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/sites_and_carriers.md section 1a (macro structures): PTTG, Connecticut Siting Council; looks only",
+   "look": "open criss-cross steel frame, wide at the bottom, narrowing up"
+  },
+  {
+   "id": "type:guyed",
+   "kind": "type",
+   "grade": "C",
+   "text": "A guyed mast is a slim mast held up by cables that run to anchors in the ground, so it needs a big patch of land.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/sites_and_carriers.md section 1a (macro structures): PTTG, Connecticut Siting Council; looks only",
+   "look": "thin mast with long cables slanting to the ground"
+  },
+  {
+   "id": "type:monopole",
+   "kind": "type",
+   "grade": "C",
+   "text": "A monopole is one tapered steel column with the antennas near the top.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/sites_and_carriers.md section 1a (macro structures): PTTG, Connecticut Siting Council; looks only",
+   "look": "a single smooth pole, thicker at the bottom"
+  },
+  {
+   "id": "type:rooftop",
+   "kind": "type",
+   "grade": "C",
+   "text": "A rooftop site puts the antennas on the roof or edge of a building.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/sites_and_carriers.md section 1c (building-mounted sites): ALB law firm, Raycap concealment guide; looks only",
+   "look": "antennas on a building edge or roof"
+  },
+  {
+   "id": "type:water-tank",
+   "kind": "type",
+   "grade": "C",
+   "text": "Some sites put the antennas around a water tank, or on a tower beside it.",
+   "status": "UNVERIFIED",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/sites_and_carriers.md Gaps section: no source found for water-tank designs (only a San Diego water-tower look-alike, section 1c); so UNVERIFIED until one is found",
+   "look": "antennas ringed on a water tank"
+  },
+  {
+   "id": "type:stealth",
+   "kind": "type",
+   "grade": "C",
+   "text": "A stealth site hides its antennas inside a disguise, such as a fake tree (monopine), palm (monopalm), flagpole or steeple.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/sites_and_carriers.md section 1d: PTTG, BroadbandSearch, local planning codes; looks only",
+   "look": "a tree, palm, flagpole or steeple shape that is too tidy to be real"
+  },
+  {
+   "id": "type:small-cell",
+   "kind": "type",
+   "grade": "B",
+   "text": "A small cell is a small radio on a pole or building, with a canister or shroud up high and a radio box or cabinet lower down. It reaches a small area.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/sites_and_carriers.md section 1e: municipal small-cell design standards; looks only",
+   "look": "canister or shroud on a street or utility pole, box or cabinet below"
+  },
+  {
+   "id": "type:das",
+   "kind": "type",
+   "grade": "B",
+   "text": "A DAS is many small antennas inside or on a big venue such as a stadium. One system is often shared by several carriers.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/sites_and_carriers.md section 1f: telecoms.com, RCR Wireless (2015); pages not opened here",
+   "look": "small antennas spread around a venue, sometimes behind fake vents"
+  },
+  {
+   "id": "type:temporary",
+   "kind": "type",
+   "grade": "A",
+   "text": "A COW is a cell site on a trailer; a COLT is built onto a vehicle. They run on generators and link back by satellite or microwave. FirstNet is AT&T's public-safety network and runs SatCOLTs and SatCOWs.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/sites_and_carriers.md section 1g: FirstNet Deployables PDF (https://www.firstnet.gov/sites/default/files/FirstNet_Deployables.pdf); not opened here",
+   "look": "trailer or truck with a telescoping mast, a generator and a dish"
+  },
+  {
+   "id": "rule:asr-200ft",
+   "kind": "rule",
+   "grade": "A",
+   "text": "A tower taller than 200 ft (60.96 m) above the ground must be registered with the FCC (ASR). A tower near an airport flight path may need it at any height.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/sites_and_carriers.md section 1b: FCC ASR help (https://www.fcc.gov/node/23343), Wikipedia ASR page; pages not opened here"
+  },
+  {
+   "id": "rule:asr-sign",
+   "kind": "rule",
+   "grade": "A",
+   "text": "The registration (ASR) number must be posted where the public can see it, near the base of the tower.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/sites_and_carriers.md section 1b: 47 CFR 17.4(g), Kelley Drye advisory, Federal Register 2024-02871; the note says the exact current eCFR wording was not confirmed"
+  },
+  {
+   "id": "rule:faa-marking",
+   "kind": "rule",
+   "grade": "A",
+   "text": "A structure taller than 200 ft should normally be marked with orange-and-white paint and/or lights, under FAA rules. The FAA can also ask for marking on shorter structures because of where they stand.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/sites_and_carriers.md section 1b: FAA FAQ (https://www.faa.gov/faq/what-are-requirements-aircraft-warning-lights-tall-structures); page not opened here"
+  },
+  {
+   "id": "infer:paint-lights",
+   "kind": "inference",
+   "grade": "inference",
+   "text": "A tower with orange-and-white paint or warning lights is very likely taller than 200 ft, or near an airport. Plain galvanized steel with no lights is more likely shorter. This is a good guess, not a law.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/sites_and_carriers.md Inferences section (lesson anchor, marked there as probable, not certain), built on rules rule:asr-200ft and rule:faa-marking"
+  },
+  {
+   "id": "sign:rf-warning",
+   "kind": "sign",
+   "grade": "C",
+   "text": "Signs at the foot of a tower typically include the registration (ASR) sign, a radio-wave (RF) warning sign and a no-trespassing sign.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/sites_and_carriers.md section 1h: Trident Solutions (vendor); typical, not required everywhere"
+  },
+  {
+   "id": "owner:tower-companies",
+   "kind": "owner",
+   "grade": "B",
+   "text": "Tower companies such as American Tower, Crown Castle, SBA, Vertical Bridge and Array own many towers and rent space on them to the carriers. The owner and the carrier are often not the same company.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/sites_and_carriers.md section 1h (tower owner companies and signage): Inside Towers, Array 8-K, Wilson Amplifiers, ModemGuides"
+  },
+  {
+   "id": "owner:noc",
+   "kind": "owner",
+   "grade": "C",
+   "text": "A sign at a tower base can give a phone number for problems. That number belongs to the owner of the structure, not always to the carrier on it.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/research/notes/sites_and_carriers.md section 1h (tower owner companies and signage): Inside Towers, Array 8-K, Wilson Amplifiers, ModemGuides"
+  },
+  {
+   "id": "evidence:order",
+   "kind": "rule",
+   "grade": "C",
+   "text": "When working out who runs a site, the carrier's own sticker counts most and the equipment brand counts least.",
+   "status": "CURRENT",
+   "as_of": "2026-11-02",
+   "source": "docs/PRD.md section 4 (chain of evidence); app design rule, not a public fact"
+  }
+ ]
+}
