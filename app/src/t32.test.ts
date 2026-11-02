@@ -33,6 +33,8 @@ describe('templates', () => {
     expect(fill('{band:B71.dl_low_mhz}–{band:B71.dl_high_mhz}', DATA)).toBe('617–652');
     expect(lookup('carrier_use:n71/tmobile.status', DATA)).toBe('CURRENT');
     expect(lookup('change:0.status', DATA)).toBeTruthy();
+    expect(fill('{code:310-260.shows_as}', DATA)).toBe('T-Mobile');
+    expect(() => fill('{code:999-999.shows_as}', DATA)).toThrow(/No such fact/);
   });
   it('fails loudly on a missing band, field or bad reference', () => {
     expect(() => fill('{band:B999.dl_low_mhz}', DATA)).toThrow(/No such fact/);
