@@ -4,6 +4,7 @@ One or two plain-English lines per chat. Newest at the top.
 
 | Date | What happened | Details |
 |---|---|---|
+| 2026-11-02 | Robot tried again for the last tower photo; the photo site said "too many requests" three times, so nothing changed (17 of 18 photos are in). | `docs/sessions/2026-11-02-session-89-t26-last-photo.md` |
 | 2026-11-02 | Robot got two more tower photos (a pine-tree disguise and a plain pole tower) and checked them by eye. 17 of 18 photos are in; one is still blocked by the photo site. | `docs/sessions/2026-11-02-session-88-t26-photos.md` |
 | 2026-11-02 | Robot: a new click test plays a real unit 8 lesson and a real unit 9 lesson in the app, so units 8–9 (T36) are finished. | `docs/sessions/2026-11-02-session-87-t36-clicktest.md` |
 | 2026-11-02 | Unit 9 (cell IDs) is written: 4 lessons plus a checkpoint, 63 questions, all 3 to 5 minutes, with a drawn practice phone screen (made-up numbers) you tap on. The fact checker now re-does every made-up sum, so a wrong answer can't slip in. | Robot run, T36; `docs/sessions/2026-11-02-session-86-t36-unit9.md` |
