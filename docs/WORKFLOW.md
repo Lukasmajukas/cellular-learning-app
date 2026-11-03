@@ -165,6 +165,7 @@ Find it with `list_sessions` and run `unarchive_session` on it. Tell the owner i
 1. **Quick checks, before reading anything big:**
    - `list_triggers`: if the one named exactly "Robot" is off, stop with "The robot is paused." (Ignore the old paused one.)
    - `get_session` with no ID: if `rate_limit_info.isUsingOverage` is true, stop with "Your plan's limit is used up. I'll try again after it resets." Never work on paid usage.
+   - **A warning is not a stop.** If `rate_limit_info.status` is `allowed_warning` (the limit is nearly used up), carry on exactly as normal: same model, same tasks. No "small chores only" runs. The owner chose this on 2026-11-03 (T50): work until the limit is really used up. Only `isUsingOverage` stops a run.
    - `list_pull_requests`: if another chat is busy (🔴, section A2), stop with "Another chat is working."
 2. **Start-up check:** sections A1 and A2 as usual.
 3. **Pick one job**, in this order:
@@ -208,7 +209,7 @@ RIGHT NOW (this first message only): reply with ONE line saying whether these ch
 
 AFTER THAT, every message you receive means "start one robot run". Messages can come close together: the hourly "Robot" schedule sends one, each robot run sends one when it finishes its job (the chain), and the owner or Claude may send one by hand. That is expected, and it is what the owner approved. A new run doesn't disturb the one before it: every robot run first checks whether another chat is busy and stops if so, so don't try to judge that yourself. Do exactly these steps, in order:
 1. Call list_triggers. Find the scheduled task named exactly "Robot". If it is missing or not enabled, reply "The robot is paused." and stop.
-2. Call get_session with no session ID. If rate_limit_info.isUsingOverage is true, reply "Your plan's limit is used up. Not starting." and stop. Never use paid extra usage.
+2. Call get_session with no session ID. If rate_limit_info.isUsingOverage is true, reply "Your plan's limit is used up. Not starting." and stop. Never use paid extra usage. A status of "allowed_warning" is NOT a reason to stop or to change anything: start the normal run in step 3 (Sonnet, the prompt below, word for word). Never switch to Haiku or "small chore" runs.
 2b. Runaway guard: if you have started 6 or more robot runs in the last 60 minutes, reply "Runaway guard: not starting" and stop. The next heartbeat tries again.
 3. Call create_session with exactly these settings:
    - source_url: https://github.com/Lukasmajukas/cellular-learning-app
