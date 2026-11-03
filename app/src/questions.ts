@@ -26,10 +26,25 @@ export const isScored = (i: Item): i is Scored => i.kind !== 'learn';
 // photo-choice = index, tap-clue = [x, y] as fractions, number = the typed text, order = labels in the order the player put them, scenario = for each clue the index picked.
 export type Answer = number | number[] | string | string[];
 
+// Reads what the player typed. "1,710" and "104,972" (US thousands commas, the way the prompts write them) are
+// 1710 and 104972; "1 710" too. A lone comma that isn't a thousands group ("1,5") is a decimal point.
+// "37 GHz" is 37000 (MHz). A trailing "MHz" is ignored.
 export const parseNumber = (t: string): number | null => {
-  const n = Number(t.trim().replace(/,/g, '.').replace(/\s*(mhz|b|n)?$/i, ''));
-  return t.trim() === '' || Number.isNaN(n) ? null : n;
+  let s = t.trim().toLowerCase(), scale = 1;
+  if (/\s*ghz$/.test(s)) { scale = 1000; s = s.replace(/\s*ghz$/, ''); }
+  else s = s.replace(/\s*(mhz|b|n)?$/, '');
+  s = s.trim();
+  if (/^-?\d{1,3}([, ]\d{3})+(\.\d+)?$/.test(s)) s = s.replace(/[, ]/g, '');
+  else s = s.replace(/,/g, '.');
+  const n = Number(s);
+  return s === '' || Number.isNaN(n) ? null : n * scale;
 };
+// A fresh random order for answer buttons (0..n-1), so the right answer isn't always in the same place.
+export function shuffleOrder(n: number, rand: () => number = Math.random): number[] {
+  const a = Array.from({ length: n }, (_, i) => i);
+  for (let i = n - 1; i > 0; i--) { const j = Math.floor(rand() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+  return a;
+}
 export const correctOrder = (q: Order): string[] =>
   [...q.items].sort((a, b) => a.value - b.value).map(i => i.label);
 

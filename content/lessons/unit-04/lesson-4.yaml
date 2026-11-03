@@ -36,7 +36,7 @@ questions:
   - id: u4-mmw-dl-01
     kind: number
     facts: [band:n260]
-    prompt: n260 starts at how many MHz? (A little under 37 GHz is a clue.)
+    prompt: n260 starts at how many MHz? (Think 37 GHz. 1 GHz is 1000 MHz.)
     answer_from: band:n260.dl_low_mhz
     tolerance_mhz: 500
     unit: MHz

@@ -2003,8 +2003,7 @@
        "choices": [
         "Extra download speed only",
         "Sending photos from your phone",
-        "Both",
-        "like any other band"
+        "Both, like any other band"
        ],
        "answer": 0,
        "why": "B29 is {band:B29.duplex} (downlink only), so it can only add download."
@@ -4379,7 +4378,7 @@
        "facts": [
         "band:n260"
        ],
-       "prompt": "n260 starts at how many MHz? (A little under 37 GHz is a clue.)",
+       "prompt": "n260 starts at how many MHz? (Think 37 GHz. 1 GHz is 1000 MHz.)",
        "answer_from": "band:n260.dl_low_mhz",
        "tolerance_mhz": 500,
        "unit": "MHz",
@@ -10088,7 +10087,9 @@
        "id": "u10-honest-01",
        "kind": "choice",
        "facts": [
-        "band:n77"
+        "band:n77",
+        "carrier_use:n77/att",
+        "carrier_use:n77/verizon"
        ],
        "prompt": "A clue says only \"n77\". Can you name the carrier from that alone?",
        "choices": [
@@ -10707,7 +10708,7 @@
           "It is definitely T-Mobile"
          ],
          "answer": 0,
-         "why": "A phone on n41 may see more than one tower, so one band clue is not proof of who runs this tree."
+         "why": "Your phone may be talking to a different tower nearby, so the band on your phone does not prove who runs this tree."
         }
        ],
        "why": "Not enough clues. Saying so is the right answer."
