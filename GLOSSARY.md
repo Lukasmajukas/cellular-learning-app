@@ -63,6 +63,8 @@ Claude adds new words here whenever they come up.
 | **Access key (token)** | A long secret code that works like a password for one job. Never put it inside a page someone else could see. |
 | **Rate limit** | A cap on how often you can ask a website for something, like "5 cookies per hour". |
 | **Frame rate (fps)** | How many pictures per second the screen draws, like the pages of a flip-book. Around 60 looks smooth; much lower looks choppy. |
+| **Shuffle** | Mixing up the order of the answer buttons each time, like shuffling cards, so you have to read them instead of remembering "it's the top one". |
+| **Case-insensitive file names** | Windows treats `HeatMap` and `heatmap` as the same name (it ignores capital letters); Linux treats them as two different names. Two such files work in the cloud but break on Windows. |
 
 ## Cell phone words
 | Word | What it means |
@@ -154,5 +156,3 @@ Claude adds new words here whenever they come up.
 | **Tap the clue** | A question where you tap the right spot on a picture instead of picking from a list. |
 | **COW / COLT** | Cell on Wheels (on a trailer) and Cell on Light Truck (built onto a vehicle): temporary cell sites. |
 | **Small cell** | A small radio on a street pole or building, with a canister up high and a box below. |
-| **Shuffle** | Mixing up the order of the answer buttons each time, like shuffling cards, so you have to read them instead of remembering "it's the top one". |
-| **Case-insensitive file names** | Windows treats `HeatMap` and `heatmap` as the same name (it ignores capital letters); Linux treats them as two different names. Two such files work in the cloud but break on Windows. |
