@@ -1,0 +1,92 @@
+unit: unit10
+unit_title: Final challenge
+lesson: unit10-l1
+title: "One clue at a time"
+questions:
+  - id: u10-method-learn-01
+    kind: learn
+    title: Be a detective
+    no_facts_needed: true
+    text: >
+      A detective does not guess. Each clue only narrows things down. Ask four questions in order:
+      what is the frequency, which band is it, who holds that band, and what proof can I see on the ground?
+      Today you practise one clue at a time.
+  - id: u10-method-learn-02
+    kind: learn
+    title: Honest answers
+    no_facts_needed: true
+    text: >
+      Some clues are not enough. Then the right answer is "I can't tell yet". That is a real skill, not a failure.
+  - id: u10-grp-01
+    kind: choice
+    facts: [band:n71]
+    prompt: A clue says n71. Is that a low, mid or high band?
+    choices: [Low, Mid, High]
+    answer: 0
+    why: n71 runs {band:n71.dl_low_mhz} to {band:n71.dl_high_mhz} MHz, below 1 GHz (1000 MHz). That is low band.
+  - id: u10-grp-02
+    kind: choice
+    facts: [band:n41]
+    prompt: A clue says n41. Low, mid or high?
+    choices: [Low, Mid, High]
+    answer: 1
+    why: n41 sits at {band:n41.dl_low_mhz} to {band:n41.dl_high_mhz} MHz. That is mid band.
+  - id: u10-grp-03
+    kind: choice
+    facts: [band:n260]
+    prompt: A clue says n260. Low, mid or high?
+    choices: [Low, Mid, High]
+    answer: 2
+    why: n260 is at {band:n260.dl_low_mhz} to {band:n260.dl_high_mhz} MHz. That is mmWave, the high band.
+  - id: u10-grp-04
+    kind: choice
+    facts: [band:n77]
+    prompt: A clue says n77. Low, mid or high?
+    choices: [High, Low, Mid]
+    answer: 2
+    why: n77 runs {band:n77.dl_low_mhz} to {band:n77.dl_high_mhz} MHz. That is mid band.
+  - id: u10-duplex-01
+    kind: choice
+    facts: [band:n41, band:n71]
+    prompt: One clue says n41 and another says n71. Which one is TDD (the same channel for sending and receiving)?
+    choices: [n71, n41]
+    answer: 1
+    why: n41 is {band:n41.duplex}. n71 is FDD.
+  - id: u10-chan-01
+    kind: choice
+    facts: [cellid:lte:earfcn-b66]
+    prompt: A phone screen shows channel 66800. Which band is that?
+    choices: [B13, B66, B12]
+    answer: 1
+    why: 66800 is inside the B66 range (66436 to 67335).
+  - id: u10-chan-02
+    kind: choice
+    facts: [cellid:lte:earfcn-b71]
+    prompt: A phone screen shows channel 68700. Which band is that?
+    choices: [B71, B66, B13]
+    answer: 0
+    why: 68700 is inside the B71 range (68586 to 68935).
+  - id: u10-chan-03
+    kind: choice
+    facts: [cellid:lte:earfcn-b13]
+    prompt: A phone screen shows channel 5230. Which band is that?
+    choices: [B12, B71, B13]
+    answer: 2
+    why: 5230 is inside the B13 range (5180 to 5279).
+  - id: u10-photo-01
+    kind: photo-choice
+    facts: [site:type:stealth]
+    photo: site-flagpole-01
+    alt: A very tall thin white flagpole with an American flag, in a grassy field
+    outline: {x: 0.4, y: 0.05, w: 0.18, h: 0.8}
+    prompt: One clue is this photo. What kind of site is it?
+    choices: [A flagpole disguise, A lattice tower, A water tank]
+    answer: 0
+    why: The antennas are inside the pole. The photo narrows the site type, but it does not name the carrier.
+  - id: u10-honest-01
+    kind: choice
+    facts: [band:n77]
+    prompt: A clue says only "n77". Can you name the carrier from that alone?
+    choices: ["No, more than one carrier uses n77", "Yes, it is always one carrier"]
+    answer: 0
+    why: Our checked list has AT&T and Verizon on n77, so you need a second clue.
