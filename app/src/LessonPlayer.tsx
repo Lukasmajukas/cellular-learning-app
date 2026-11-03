@@ -9,7 +9,7 @@ import type { Lesson } from './path';
 import { beep } from './sound';
 import { Mascot } from './Mascot';
 import { SpectrumBar, rangesFor } from './SpectrumBar';
-import { mark, rightAnswerText, isScored, correctOrder, type Answer, type Item, type Scored, type Photo, type Rect } from './questions';
+import { mark, rightAnswerText, isScored, correctOrder, shuffleOrder, type Answer, type Item, type Scored, type Photo, type Rect } from './questions';
 import { startRun, advance, current, finished, scoredCount } from './session';
 import { xpFor, signalBars } from './gamify';
 
@@ -52,12 +52,16 @@ function Question({ q, locked, picked, onSubmit }: { q: Scored; locked: boolean;
   const [tapped, setTapped] = useState<[number, number] | null>(null);
   const rightOrder = useMemo(() => (q.kind === 'match' ? shuffled(q.pairs.map((_, i) => i), q.id) : []), [q]);
   const orderPool = useMemo(() => (q.kind === 'order' ? shuffled(q.items.map(i => i.label), q.id) : []), [q]);
-  if (q.kind === 'choice') return <>{q.choices.map((c, i) => (
-    <motion.button key={c} data-testid={`choice-${i}`} disabled={locked} whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.92 }} transition={{ type: 'spring', stiffness: 500, damping: 12 }}
-      onClick={() => onSubmit(i)} style={tile(!locked ? '#fff' : i === q.answer ? '#d7ffb8' : i === picked ? '#ffdfe0' : '#fff')}>{c}</motion.button>))}</>;
+  // Answer buttons come in a new random order each time a question is shown (the lesson files mostly list the right one first).
+  // Buttons keep their written number in data-testid and in what they submit, so marking doesn't change.
+  const choiceOrder = useMemo(() => (q.kind === 'choice' || q.kind === 'photo-choice' ? shuffleOrder(q.choices.length) : []), [q]);
+  const clueOrders = useMemo(() => (q.kind === 'scenario' ? q.clues.map(c => shuffleOrder(c.choices.length)) : []), [q]);
+  if (q.kind === 'choice') return <>{choiceOrder.map(i => (
+    <motion.button key={q.choices[i]} data-testid={`choice-${i}`} disabled={locked} whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.92 }} transition={{ type: 'spring', stiffness: 500, damping: 12 }}
+      onClick={() => onSubmit(i)} style={tile(!locked ? '#fff' : i === q.answer ? '#d7ffb8' : i === picked ? '#ffdfe0' : '#fff')}>{q.choices[i]}</motion.button>))}</>;
   if (q.kind === 'photo-choice') return <>
     <PhotoView photo={q.photo} outline={locked ? q.outline : undefined} />
-    {q.choices.map((c, i) => (
+    {choiceOrder.map(i => [q.choices[i], i] as const).map(([c, i]) => (
       <motion.button key={c} data-testid={`choice-${i}`} disabled={locked} whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.92 }} transition={{ type: 'spring', stiffness: 500, damping: 12 }}
         onClick={() => onSubmit(i)} style={tile(!locked ? '#fff' : i === q.answer ? '#d7ffb8' : i === picked ? '#ffdfe0' : '#fff')}>{c}</motion.button>))}</>;
   if (q.kind === 'tap-clue') return <>
@@ -89,7 +93,7 @@ function Question({ q, locked, picked, onSubmit }: { q: Scored; locked: boolean;
       {q.clues.map((c, ci) => (
         <div key={c.text} data-testid={`clue-${ci}`} style={{ textAlign: 'left', margin: '10px 0' }}>
           <div style={{ fontSize: 17, marginBottom: 4 }}>🔎 {c.text}</div>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>{c.choices.map((ch, i) => (
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>{clueOrders[ci].map(i => [c.choices[i], i] as const).map(([ch, i]) => (
             <button key={ch} data-testid={`clue-${ci}-choice-${i}`} disabled={locked} onClick={() => setPicks(p => p.map((v, k) => (k === ci ? i : v)))}
               style={{ ...tile(!locked ? (picks[ci] === i ? '#dbeafe' : '#fff') : i === c.answer ? '#d7ffb8' : picks[ci] === i ? '#ffdfe0' : '#fff', picks[ci] === i && !locked ? '#4a90d9' : '#cfd8e0'), width: 'auto', margin: 0, fontSize: 16 }}>{ch}</button>))}</div>
         </div>))}

@@ -11,7 +11,7 @@ import { loadState, saveState, EMPTY_STATE, type SaveState } from './storage';
 import { FpsMeter } from './FpsMeter';
 import { prefs } from './prefs';
 import { REAL_PATH } from './units';
-import { HeatMap } from './HeatMap';
+import { HeatMap } from './HeatMapScreen';
 import { buildHeatmap, type BandRow, type RawLesson } from './heatmap';
 import rawLessons from '../../content/lessons.json';
 import { DATA } from './sampleLessons';

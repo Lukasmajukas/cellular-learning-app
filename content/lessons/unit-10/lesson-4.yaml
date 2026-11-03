@@ -62,7 +62,7 @@ questions:
       - text: What is the honest answer?
         choices: ["I can't tell the carrier yet; I need a sticker or a code", "It is definitely T-Mobile"]
         answer: 0
-        why: A phone on n41 may see more than one tower, so one band clue is not proof of who runs this tree.
+        why: Your phone may be talking to a different tower nearby, so the band on your phone does not prove who runs this tree.
     why: Not enough clues. Saying so is the right answer.
   - id: u10-full-photo-01
     kind: photo-choice

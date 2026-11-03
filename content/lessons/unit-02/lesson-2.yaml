@@ -45,7 +45,7 @@ questions:
     kind: choice
     facts: [band:B29]
     prompt: B29 has no uplink. What is it used for?
-    choices: [Extra download speed only, Sending photos from your phone, Both, like any other band]
+    choices: [Extra download speed only, Sending photos from your phone, "Both, like any other band"]
     answer: 0
     why: B29 is {band:B29.duplex} (downlink only), so it can only add download.
   - id: u2-b12-number-01

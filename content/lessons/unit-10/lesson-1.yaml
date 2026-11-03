@@ -85,7 +85,7 @@ questions:
     why: The antennas are inside the pole. The photo narrows the site type, but it does not name the carrier.
   - id: u10-honest-01
     kind: choice
-    facts: [band:n77]
+    facts: [band:n77, carrier_use:n77/att, carrier_use:n77/verizon]
     prompt: A clue says only "n77". Can you name the carrier from that alone?
     choices: ["No, more than one carrier uses n77", "Yes, it is always one carrier"]
     answer: 0
