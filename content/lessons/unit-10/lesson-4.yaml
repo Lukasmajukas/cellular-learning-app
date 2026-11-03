@@ -1,0 +1,137 @@
+unit: unit10
+unit_title: Final challenge
+lesson: unit10-l4
+title: "Full cases"
+questions:
+  - id: u10-full-learn-01
+    kind: learn
+    title: Build the chain
+    no_facts_needed: true
+    text: >
+      A full case has three or four clues. After each clue, say what it narrows down. At the end, write one chain:
+      frequency, band, who holds it, proof on the ground. If the chain has a hole, say so.
+  - id: u10-full-scn-01
+    kind: scenario
+    facts: [band:n260, carrier_use:n260/verizon, site:type:small-cell, cellid:lte:eci]
+    prompt: "Case 5. Clue A: band n260. Clue B: a small radio on a city pole. Clue C: the sticker says Verizon. Work it out."
+    clues:
+      - text: What does n260 tell you?
+        choices: [It is mmWave (high band), It is low band, It is a 3G band]
+        answer: 0
+        why: n260 is {band:n260.kind}, the high band.
+      - text: What does the pole radio tell you?
+        choices: [A small cell, A guyed mast, A stealth tree]
+        answer: 0
+        why: "{site:type:small-cell.text}"
+      - text: Which carrier does the chain point to?
+        choices: [Verizon, T-Mobile]
+        answer: 0
+        why: The sticker says Verizon, and our checked list has Verizon on n260.
+    why: "Chain: mmWave band, Verizon holds n260, small cell on a pole, Verizon sticker as proof."
+  - id: u10-full-scn-02
+    kind: scenario
+    facts: [band:n41, carrier_use:n41/tmobile, site:type:lattice, site:evidence:order]
+    prompt: "Case 6. Clue A: band n41. Clue B: a lattice tower. Clue C: a sticker says AT&T. The clues disagree. Work it out."
+    clues:
+      - text: Which carrier has the checked row for n41?
+        choices: [T-Mobile, AT&T]
+        answer: 0
+        why: Our checked list has T-Mobile on n41, and no AT&T row for it.
+      - text: Which clue counts most when they disagree?
+        choices: [The carrier sticker, The tower shape, The band alone]
+        answer: 0
+        why: "{site:evidence:order.text}"
+      - text: What is the best answer?
+        choices: ["The tower may be shared; the sticker says AT&T runs it, and the n41 clue may come from another carrier on the same tower", "The sticker is wrong"]
+        answer: 0
+        why: Towers are often shared by several carriers. Do not throw a clue away. Explain it.
+    why: A tower can hold more than one carrier, so the sticker names one and the band may belong to another.
+  - id: u10-full-scn-03
+    kind: scenario
+    facts: [site:type:stealth, band:n41]
+    prompt: "Case 7. Clue A: a fake tree. Clue B: the phone shows n41. No sticker, no sign. Can you name the carrier?"
+    clues:
+      - text: What does the fake tree tell you?
+        choices: [The site type, The carrier]
+        answer: 0
+        why: "{site:type:stealth.text}"
+      - text: What does n41 tell you, using only checked facts?
+        choices: [It is a mid band, It is a low band]
+        answer: 0
+        why: n41 runs {band:n41.dl_low_mhz} to {band:n41.dl_high_mhz} MHz, mid band.
+      - text: What is the honest answer?
+        choices: ["I can't tell the carrier yet; I need a sticker or a code", "It is definitely T-Mobile"]
+        answer: 0
+        why: A phone on n41 may see more than one tower, so one band clue is not proof of who runs this tree.
+    why: Not enough clues. Saying so is the right answer.
+  - id: u10-full-photo-01
+    kind: photo-choice
+    facts: [site:type:stealth]
+    photo: site-flagpole-01
+    alt: A very tall thin white flagpole with an American flag, in a grassy field
+    outline: {x: 0.4, y: 0.05, w: 0.18, h: 0.8}
+    prompt: Clue C is this photo. What kind of site is it?
+    choices: [A flagpole disguise, A monopole, A lattice tower]
+    answer: 0
+    why: "{site:type:stealth.text}"
+  - id: u10-full-tap-01
+    kind: tap-clue
+    facts: [site:sign:rf-warning]
+    photo: site-sign-01
+    alt: The base of a tower with several signs stacked on the pole
+    prompt: Tap the radio-wave warning sign.
+    clue: radio-wave (RF) warning sign
+    target: {x: 0.45, y: 0.445, w: 0.15, h: 0.15}
+    why: The CAUTION sign with the triangle warns about radio waves.
+  - id: u10-full-noc-01
+    kind: choice
+    facts: [site:owner:noc]
+    prompt: A sign at a tower base gives a phone number for problems. Whose number is it?
+    choices: ["The owner of the structure", "Always the carrier"]
+    answer: 0
+    why: "{site:owner:noc.text}"
+  - id: u10-full-ord-01
+    kind: choice
+    facts: [site:evidence:order]
+    prompt: Which clue counts least when you work out who runs a site?
+    choices: [The equipment brand, The carrier sticker, The band]
+    answer: 0
+    why: "{site:evidence:order.text}"
+  - id: u10-full-stale-01
+    kind: choice
+    facts: [change:0]
+    prompt: "In {change:0.date}, UScellular's spectrum was sold to T-Mobile. Why can a shortcut like \"this band means that carrier\" go out of date?"
+    choices: ["Carriers buy and sell spectrum", "Radio waves change speed", "Bands get renamed every week"]
+    answer: 0
+    why: Spectrum changes hands. Always look at the date on a fact.
+  - id: u10-full-recap-01
+    kind: learn
+    title: Your chain
+    no_facts_needed: true
+    text: >
+      Frequency, band, who holds it, proof on the ground. Say what each clue narrows down. If the chain has a hole, say "I can't tell yet".
+      Next up: the final exam, with no hints.
+  - id: u10-full-tier-01
+    kind: choice
+    facts: [band:n71, band:n260]
+    prompt: Clue A says n71 and clue B says n260. Which one is mmWave?
+    choices: [n260, n71]
+    answer: 0
+    why: n260 is the high band, mmWave. n71 is low band.
+  - id: u10-full-photo-02
+    kind: photo-choice
+    facts: [site:type:lattice]
+    photo: site-tower-02
+    alt: A tall red and white tower made of an open steel framework, with trees and a house at its foot
+    outline: {x: 0.3, y: 0.02, w: 0.3, h: 0.75}
+    prompt: Clue D is this photo. What type of tower is this?
+    choices: [Lattice tower, Monopole, Guyed mast]
+    answer: 0
+    why: "{site:type:lattice.text}"
+  - id: u10-full-paint-01
+    kind: choice
+    facts: [site:infer:paint-lights]
+    prompt: A tower has red-and-white paint. What does that most likely tell you?
+    choices: [It is probably over 200 ft or near an airport, It names the carrier]
+    answer: 0
+    why: "{site:infer:paint-lights.text}"

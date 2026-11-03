@@ -236,3 +236,28 @@ describe('unit 9 content (cell IDs)', () => {
     expect(JSON.stringify(qs)).not.toMatch(/\{(site|band|carrier_use|cellid):/);
   });
 });
+
+describe('unit 10 content (final challenge)', () => {
+  const u10 = allLessons(REAL_PATH).filter(l => l.id.startsWith('unit10-'));
+  const qs = u10.flatMap(l => l.questions) as any[];
+  it('has 4 lessons and a checkpoint last, all with at least 10 steps', () => {
+    expect(u10.map(l => l.id)).toEqual(['unit10-l1', 'unit10-l2', 'unit10-l3', 'unit10-l4', 'unit10-check']);
+    u10.forEach(l => expect(l.questions.length, l.id).toBeGreaterThanOrEqual(10));
+  });
+  it('has several multi-clue cases, each clue with one valid right answer', () => {
+    const cases = qs.filter(q => q.kind === 'scenario');
+    expect(cases.length).toBeGreaterThanOrEqual(8);
+    cases.forEach(q => q.clues.forEach((c: any) => {
+      expect(c.answer, q.id).toBeGreaterThanOrEqual(0);
+      expect(c.answer, q.id).toBeLessThan(c.choices.length);
+    }));
+  });
+  it('made-up number questions are exact, and no fact placeholder is left unfilled', () => {
+    const nums = qs.filter(q => q.kind === 'number');
+    expect(nums.length).toBeGreaterThanOrEqual(5);
+    nums.forEach(q => expect(Number.isInteger(q.answer), q.id).toBe(true));
+    expect(qs.find(q => q.id === 'u10-scr-enb-01').answer).toBe(410);
+    expect(qs.find(q => q.id === 'u10-cp-num-02').answer).toBe(104972);
+    expect(JSON.stringify(qs)).not.toMatch(/\{(site|band|carrier_use|cellid|change):/);
+  });
+});

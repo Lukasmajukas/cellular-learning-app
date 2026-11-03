@@ -1,0 +1,140 @@
+unit: unit10
+unit_title: Final challenge
+lesson: unit10-check
+title: "Final certification"
+questions:
+  - id: u10-cp-grp-01
+    kind: choice
+    facts: [band:n71]
+    prompt: A clue says n71. Low, mid or high band?
+    choices: [Low, Mid, High]
+    answer: 0
+    why: n71 is below 1 GHz, so it is low band.
+  - id: u10-cp-grp-02
+    kind: choice
+    facts: [band:n260]
+    prompt: A clue says n260. Low, mid or high band?
+    choices: [High, Mid, Low]
+    answer: 0
+    why: n260 is mmWave, the high band.
+  - id: u10-cp-grp-03
+    kind: choice
+    facts: [band:n41]
+    prompt: Is n41 FDD or TDD?
+    choices: [TDD, FDD]
+    answer: 0
+    why: n41 is {band:n41.duplex}.
+  - id: u10-cp-photo-01
+    kind: photo-choice
+    facts: [site:type:monopole]
+    photo: site-monopole-01
+    alt: One tall smooth grey steel pole, thicker at the bottom, with antennas clustered near the top and parked cars below
+    outline: {x: 0.33, y: 0.05, w: 0.25, h: 0.8}
+    prompt: What type of tower is this?
+    choices: [Monopole, Guyed mast, Lattice tower]
+    answer: 0
+    why: "{site:type:monopole.text}"
+  - id: u10-cp-photo-02
+    kind: photo-choice
+    facts: [site:type:rooftop]
+    photo: small-cell-rooftop-01
+    alt: Several white antennas and radio boxes on a flat roof next to a brick building
+    prompt: Where are these antennas?
+    choices: [On a flat roof, On a utility pole, On a fake tree]
+    answer: 0
+    why: "{site:type:rooftop.text}"
+  - id: u10-cp-chan-01
+    kind: choice
+    facts: [cellid:lte:earfcn-b13]
+    prompt: A practice screen shows channel 5230. Which band is that?
+    choices: [B12, B71, B13]
+    answer: 2
+    why: 5230 is inside the B13 range (5180 to 5279).
+  - id: u10-cp-scn-01
+    kind: scenario
+    facts: [band:n260, carrier_use:n260/verizon, site:type:rooftop]
+    prompt: "Case A. Clue 1: band n260. Clue 2: antennas on a city rooftop. Clue 3: the sticker says Verizon."
+    clues:
+      - text: What does n260 tell you?
+        choices: [High band, mmWave, Low band, Mid band]
+        answer: 0
+        why: n260 is the high band.
+      - text: Which carrier does the chain point to?
+        choices: [Verizon, T-Mobile]
+        answer: 0
+        why: The sticker says Verizon, and our checked list has Verizon on n260.
+    why: mmWave, Verizon holds n260, rooftop site, Verizon sticker.
+  - id: u10-cp-scn-02
+    kind: scenario
+    facts: [band:n77, carrier_use:n77/att, carrier_use:n77/verizon]
+    prompt: "Case B. The phone shows n77. There is no sticker. Which carrier is it?"
+    clues:
+      - text: Can the band alone name the carrier?
+        choices: ["No, AT&T and Verizon both have n77 rows", "Yes, only one carrier uses it"]
+        answer: 0
+        why: Our checked list has both AT&T and Verizon on n77.
+      - text: What do you do next?
+        choices: [Look for a sticker or a carrier code, Pick one at random]
+        answer: 0
+        why: A second clue is needed. Honest uncertainty is a skill.
+    why: One clue is not enough. Look for a second.
+  - id: u10-cp-scn-03
+    kind: scenario
+    facts: [cellid:lte:eci, cellid:lte:earfcn-b66, cellid:lte:pci]
+    prompt: "Case C. The practice screen shows Cell ID 104,972, PCI 211 and channel 66600."
+    clues:
+      - text: Which band is channel 66600?
+        choices: [B66, B13, B71]
+        answer: 0
+        why: 66600 is inside B66 (66436 to 67335).
+      - text: What is the tower number?
+        choices: ["410", "12", "104972"]
+        answer: 0
+        why: Divide by 256. The tower is 410 and the cell is 12.
+      - text: Does PCI 211 name the site?
+        choices: ["No, PCIs get reused", "Yes"]
+        answer: 0
+        why: A PCI is reused.
+    why: Channel gives the band, the big number gives tower and cell, the PCI gives neither.
+  - id: u10-cp-scn-04
+    kind: scenario
+    facts: [site:type:stealth, site:evidence:order]
+    prompt: "Case D. A fake tree, no sticker, no sign, no phone data. Name the carrier."
+    clues:
+      - text: What does the fake tree tell you?
+        choices: [The site type, The carrier]
+        answer: 0
+        why: "{site:type:stealth.text}"
+      - text: What is the honest answer?
+        choices: ["I can't tell the carrier yet", "It is T-Mobile"]
+        answer: 0
+        why: A disguise does not name a carrier.
+    why: Not enough clues.
+  - id: u10-cp-order-01
+    kind: choice
+    facts: [site:evidence:order]
+    prompt: Which clue counts most when you work out who runs a site?
+    choices: [The carrier sticker, The equipment brand, The tower shape]
+    answer: 0
+    why: "{site:evidence:order.text}"
+  - id: u10-cp-stale-01
+    kind: choice
+    facts: [change:0]
+    prompt: "Why can \"this band means that carrier\" go out of date?"
+    choices: ["Carriers buy and sell spectrum", "Bands get renamed", "Phones change them"]
+    answer: 0
+    why: Spectrum changes hands, so always check the date.
+  - id: u10-cp-num-01
+    kind: number
+    facts: [cellid:lte:eci]
+    prompt: A screen shows Cell ID 76,805. What is the tower number?
+    answer: 300
+    calc: {enb: [76805]}
+    why: 76,805 divided by 256 is 300, with 5 left over.
+  - id: u10-cp-num-02
+    kind: number
+    facts: [cellid:lte:eci]
+    prompt: A tower is number 410 and the cell is number 12. What is the Cell ID?
+    answer: 104972
+    calc: {eci: [410, 12]}
+    why: 410 times 256 is 104,960. Add 12.

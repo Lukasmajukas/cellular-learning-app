@@ -1,0 +1,126 @@
+unit: unit10
+unit_title: Final challenge
+lesson: unit10-l2
+title: "Two clues: band plus place"
+questions:
+  - id: u10-two-learn-01
+    kind: learn
+    title: Two clues beat one
+    no_facts_needed: true
+    text: >
+      One clue narrows things down. A second clue narrows them down much more. A band clue says how far the signal travels.
+      A place clue says what kind of site you are standing at. Put them together.
+  - id: u10-two-scn-01
+    kind: scenario
+    facts: [band:n260, site:type:rooftop]
+    prompt: "Case 1. Clue A: a phone shows band n260. Clue B: you see antennas on the edge of a city rooftop. Work it out."
+    clues:
+      - text: Is n260 low, mid or high band?
+        choices: [High (mmWave), Low, Mid]
+        answer: 0
+        why: n260 runs {band:n260.dl_low_mhz} to {band:n260.dl_high_mhz} MHz. That is mmWave, the high band.
+      - text: What kind of site is clue B?
+        choices: [A rooftop site, A guyed mast, A fake tree]
+        answer: 0
+        why: "{site:type:rooftop.text}"
+      - text: What do the two clues say together?
+        choices: ["Fast but short range, in a dense area", "Slow but very long range, in the countryside"]
+        answer: 0
+        why: mmWave is fast but does not travel far, and a rooftop in a city fits a busy, packed area.
+    why: Band gives the speed and reach. The place gives the setting. Together they fit a busy city block.
+  - id: u10-two-scn-02
+    kind: scenario
+    facts: [band:n71, carrier_use:n71/tmobile, site:type:monopole]
+    prompt: "Case 2. Clue A: a phone shows band n71. Clue B: a single smooth steel pole stands beside a rural road. Work it out."
+    clues:
+      - text: Is n71 low, mid or high band?
+        choices: [Low, High, Mid]
+        answer: 0
+        why: n71 is below 1 GHz ({band:n71.dl_low_mhz} to {band:n71.dl_high_mhz} MHz), so it is low band.
+      - text: Which kind of tower is clue B?
+        choices: [A monopole, A lattice tower, A water tank]
+        answer: 0
+        why: "{site:type:monopole.text}"
+      - text: In our checked facts, which carrier runs n71?
+        choices: [T-Mobile, Cellcom]
+        answer: 0
+        why: Our checked list has T-Mobile on n71.
+    why: Low band travels far, which suits a pole on a country road. n71 is checked for T-Mobile.
+  - id: u10-two-photo-01
+    kind: photo-choice
+    facts: [site:type:rooftop]
+    photo: small-cell-rooftop-01
+    alt: Several white antennas and radio boxes on a flat roof next to a brick building
+    prompt: Clue B is this photo. Where are the antennas?
+    choices: [On a flat roof, On a fake tree, On a guyed mast]
+    answer: 0
+    why: "{site:type:rooftop.text}"
+  - id: u10-two-photo-02
+    kind: photo-choice
+    facts: [site:type:small-cell]
+    photo: small-cell-pole-01
+    alt: A wooden utility pole with wires and a small radio fitted near the top, with a house behind
+    prompt: Clue B is this photo. This radio is fitted to what?
+    choices: [A utility pole, A flagpole, A water tank]
+    answer: 0
+    why: "{site:type:small-cell.text}"
+  - id: u10-two-n77-01
+    kind: scenario
+    facts: [band:n77, carrier_use:n77/att, carrier_use:n77/verizon]
+    prompt: "Case 3. Clue A: a phone shows band n77. Clue B: the carrier name \"Verizon\" is on the base station sticker. Work it out."
+    clues:
+      - text: Can clue A alone name the carrier?
+        choices: ["No, AT&T and Verizon both have n77 rows", "Yes, only one carrier uses n77"]
+        answer: 0
+        why: Our checked list has both AT&T and Verizon on n77.
+      - text: Which clue settles it?
+        choices: ["The sticker (clue B)", "The band number (clue A)"]
+        answer: 0
+        why: "{site:evidence:order.text}"
+      - text: So which carrier is it?
+        choices: [Verizon, AT&T]
+        answer: 0
+        why: The sticker says Verizon, and Verizon has a checked n77 row.
+    why: The band narrowed it to two carriers. The sticker picked one.
+  - id: u10-two-group-01
+    kind: choice
+    facts: [band:n41, band:n260]
+    prompt: Clue A says n41 and clue B says n260. Which one will reach farther from the tower?
+    choices: [n41, n260]
+    answer: 0
+    why: Lower frequencies travel farther. n41 is mid band and n260 is mmWave.
+  - id: u10-two-duplex-01
+    kind: choice
+    facts: [band:n41, band:n260]
+    prompt: Clue A says n41 and clue B says n260. Both are what kind of duplex?
+    choices: [TDD, FDD]
+    answer: 0
+    why: n41 is {band:n41.duplex} and n260 is {band:n260.duplex}.
+  - id: u10-two-honest-01
+    kind: choice
+    facts: [site:type:stealth]
+    prompt: Your only clue is a photo of a fake tree. Can you name the carrier?
+    choices: ["No, a disguise does not name the carrier", "Yes, fake trees belong to one carrier"]
+    answer: 0
+    why: "{site:type:stealth.text} A disguise shows the site type, not who runs it."
+  - id: u10-two-tier-01
+    kind: choice
+    facts: [band:n77]
+    prompt: Clue A says n77. Low, mid or high band?
+    choices: [Mid, Low, High]
+    answer: 0
+    why: n77 runs {band:n77.dl_low_mhz} to {band:n77.dl_high_mhz} MHz, mid band.
+  - id: u10-two-tier-02
+    kind: choice
+    facts: [band:n71, band:n260]
+    prompt: Clue A says n71 and clue B says n260. Which one fits a long, thin country road best?
+    choices: [n71, n260]
+    answer: 0
+    why: n71 is low band and travels far. n260 is mmWave and does not.
+  - id: u10-two-site-01
+    kind: choice
+    facts: [site:type:stealth]
+    prompt: Clue B is a very tall fake tree with antennas hidden inside. Which word fits?
+    choices: [Stealth site, Rooftop site, Guyed mast]
+    answer: 0
+    why: "{site:type:stealth.text}"
