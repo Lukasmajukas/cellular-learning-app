@@ -3,10 +3,10 @@
  "robot": {
   "on": true,
   "next": "right away (it starts its next job by itself), and every hour",
-  "last": "nothing for about 30 hours: it was stuck on \"small chores only\" because of the usage warning (fixed in T50)"
+  "last": "working again: wrote unit 10 (lessons 1 to 4 and the final exam, T37)"
  },
  "light": "green",
- "working": "Unit 10 (T37): lesson 1 written; lessons 2–4 and the exam next. T47 needs official page links from you. Optional for you: T48 questions and your frame-rate number (T46).",
+ "working": "Nothing in progress. For you: paste one message into the robot's launcher chat, then type /clear (T51). Optional: T48 questions and your frame-rate number (T46).",
  "limit": {
   "state": "warning",
   "resets": "Wed Nov 4, 5:00 AM Eastern. The robot keeps working until it runs out"
