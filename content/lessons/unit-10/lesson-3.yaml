@@ -1,0 +1,106 @@
+unit: unit10
+unit_title: Final challenge
+lesson: unit10-l3
+title: "Read the phone screen"
+questions:
+  - id: u10-scr-learn-01
+    kind: learn
+    title: The phone is a clue machine
+    no_facts_needed: true
+    text: >
+      A phone's test screen gives you numbers. The channel number points to the band. The big cell number splits into a tower number and a cell number.
+      The PCI is a small number that gets reused, so it does not name a site. All numbers here are made up for practice.
+  - id: u10-scr-photo-01
+    kind: photo-choice
+    facts: [cellid:lte:eci]
+    photo: tool-phone-screen-drawing-01
+    alt: A drawing of a practice phone test screen with a channel number, a PCI box and a big cell number
+    prompt: This is a drawing of a practice screen. Which number do you use to find the band?
+    choices: [The channel number, The PCI box, The signal strength]
+    answer: 0
+    why: The channel number sits inside one band's range, so it tells you the band.
+  - id: u10-scr-chan-01
+    kind: choice
+    facts: [cellid:lte:earfcn-b66]
+    prompt: A practice screen shows channel 66600. Which band is that?
+    choices: [B66, B13, B71]
+    answer: 0
+    why: 66600 is inside the B66 range (66436 to 67335).
+  - id: u10-scr-chan-02
+    kind: choice
+    facts: [cellid:lte:earfcn-b71]
+    prompt: A practice screen shows channel 68800. Which band is that?
+    choices: [B13, B71, B66]
+    answer: 1
+    why: 68800 is inside the B71 range (68586 to 68935).
+  - id: u10-scr-enb-01
+    kind: number
+    facts: [cellid:lte:eci]
+    prompt: A practice screen shows Cell ID 104,972. What is the tower number?
+    answer: 410
+    calc: {enb: [104972]}
+    why: 104,972 divided by 256 is 410, with 12 left over.
+  - id: u10-scr-cell-01
+    kind: number
+    facts: [cellid:lte:eci]
+    prompt: The same screen shows Cell ID 104,972. What is the cell number?
+    answer: 12
+    calc: {cell: [104972]}
+    why: 410 times 256 is 104,960. The leftover is 12.
+  - id: u10-scr-pci-01
+    kind: choice
+    facts: [cellid:lte:pci]
+    prompt: The screen shows PCI 305. Does it name the tower?
+    choices: ["No, PCIs get reused", "Yes, it names the tower"]
+    answer: 0
+    why: A PCI is reused by many cells, so it tells neither the site nor the band.
+  - id: u10-scr-scn-01
+    kind: scenario
+    facts: [cellid:lte:eci, cellid:lte:earfcn-b71, cellid:lte:pci, band:n71]
+    prompt: "Case 4. The practice screen shows Cell ID 104,972, PCI 305 and channel 68700. Work it out."
+    clues:
+      - text: Which band is channel 68700?
+        choices: [B71, B66, B13]
+        answer: 0
+        why: 68700 is inside B71 (68586 to 68935).
+      - text: Is that band low, mid or high?
+        choices: [Low, Mid, High]
+        answer: 0
+        why: B71 is a 600 MHz band, below 1 GHz, so it is low band.
+      - text: What is the tower number in Cell ID 104,972?
+        choices: ["410", "12", "104972"]
+        answer: 0
+        why: Divide by 256. The tower is 410 and the cell is 12.
+      - text: Does PCI 305 tell you the site?
+        choices: ["No, PCIs get reused", "Yes, it names the site"]
+        answer: 0
+        why: A PCI is reused, so it names neither the site nor the band.
+    why: Channel gives the band, the big number gives tower and cell, and the PCI gives neither.
+  - id: u10-scr-eci-01
+    kind: number
+    facts: [cellid:lte:eci]
+    prompt: A tower is number 300 and the cell is number 5. What is the Cell ID? (300 times 256, plus 5.)
+    answer: 76805
+    calc: {eci: [300, 5]}
+    why: 300 times 256 is 76,800. Add 5 to get 76,805.
+  - id: u10-scr-chan-03
+    kind: choice
+    facts: [cellid:lte:earfcn-b13]
+    prompt: A practice screen shows channel 5200. Which band is that?
+    choices: [B13, B66, B71]
+    answer: 0
+    why: 5200 is inside the B13 range (5180 to 5279).
+  - id: u10-scr-enb-02
+    kind: number
+    facts: [cellid:lte:eci]
+    prompt: A practice screen shows Cell ID 76,805. What is the tower number?
+    answer: 300
+    calc: {enb: [76805]}
+    why: 76,805 divided by 256 is 300, with 5 left over.
+  - id: u10-scr-cell-02
+    kind: number
+    facts: [cellid:lte:eci]
+    prompt: A practice screen shows Cell ID 76,805. What is the cell number?
+    answer: 5
+    calc: {cell: [76805]}
+    why: 300 times 256 is 76,800. The leftover is 5.

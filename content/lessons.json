@@ -9918,6 +9918,1249 @@
      ]
     }
    ]
+  },
+  {
+   "id": "unit10",
+   "title": "Final challenge",
+   "lessons": [
+    {
+     "id": "unit10-l1",
+     "title": "One clue at a time",
+     "questions": [
+      {
+       "id": "u10-method-learn-01",
+       "kind": "learn",
+       "title": "Be a detective",
+       "no_facts_needed": true,
+       "text": "A detective does not guess. Each clue only narrows things down. Ask four questions in order: what is the frequency, which band is it, who holds that band, and what proof can I see on the ground? Today you practise one clue at a time.\n"
+      },
+      {
+       "id": "u10-method-learn-02",
+       "kind": "learn",
+       "title": "Honest answers",
+       "no_facts_needed": true,
+       "text": "Some clues are not enough. Then the right answer is \"I can't tell yet\". That is a real skill, not a failure.\n"
+      },
+      {
+       "id": "u10-grp-01",
+       "kind": "choice",
+       "facts": [
+        "band:n71"
+       ],
+       "prompt": "A clue says n71. Is that a low, mid or high band?",
+       "choices": [
+        "Low",
+        "Mid",
+        "High"
+       ],
+       "answer": 0,
+       "why": "n71 runs {band:n71.dl_low_mhz} to {band:n71.dl_high_mhz} MHz, below 1 GHz (1000 MHz). That is low band."
+      },
+      {
+       "id": "u10-grp-02",
+       "kind": "choice",
+       "facts": [
+        "band:n41"
+       ],
+       "prompt": "A clue says n41. Low, mid or high?",
+       "choices": [
+        "Low",
+        "Mid",
+        "High"
+       ],
+       "answer": 1,
+       "why": "n41 sits at {band:n41.dl_low_mhz} to {band:n41.dl_high_mhz} MHz. That is mid band."
+      },
+      {
+       "id": "u10-grp-03",
+       "kind": "choice",
+       "facts": [
+        "band:n260"
+       ],
+       "prompt": "A clue says n260. Low, mid or high?",
+       "choices": [
+        "Low",
+        "Mid",
+        "High"
+       ],
+       "answer": 2,
+       "why": "n260 is at {band:n260.dl_low_mhz} to {band:n260.dl_high_mhz} MHz. That is mmWave, the high band."
+      },
+      {
+       "id": "u10-grp-04",
+       "kind": "choice",
+       "facts": [
+        "band:n77"
+       ],
+       "prompt": "A clue says n77. Low, mid or high?",
+       "choices": [
+        "High",
+        "Low",
+        "Mid"
+       ],
+       "answer": 2,
+       "why": "n77 runs {band:n77.dl_low_mhz} to {band:n77.dl_high_mhz} MHz. That is mid band."
+      },
+      {
+       "id": "u10-duplex-01",
+       "kind": "choice",
+       "facts": [
+        "band:n41",
+        "band:n71"
+       ],
+       "prompt": "One clue says n41 and another says n71. Which one is TDD (the same channel for sending and receiving)?",
+       "choices": [
+        "n71",
+        "n41"
+       ],
+       "answer": 1,
+       "why": "n41 is {band:n41.duplex}. n71 is FDD."
+      },
+      {
+       "id": "u10-chan-01",
+       "kind": "choice",
+       "facts": [
+        "cellid:lte:earfcn-b66"
+       ],
+       "prompt": "A phone screen shows channel 66800. Which band is that?",
+       "choices": [
+        "B13",
+        "B66",
+        "B12"
+       ],
+       "answer": 1,
+       "why": "66800 is inside the B66 range (66436 to 67335)."
+      },
+      {
+       "id": "u10-chan-02",
+       "kind": "choice",
+       "facts": [
+        "cellid:lte:earfcn-b71"
+       ],
+       "prompt": "A phone screen shows channel 68700. Which band is that?",
+       "choices": [
+        "B71",
+        "B66",
+        "B13"
+       ],
+       "answer": 0,
+       "why": "68700 is inside the B71 range (68586 to 68935)."
+      },
+      {
+       "id": "u10-chan-03",
+       "kind": "choice",
+       "facts": [
+        "cellid:lte:earfcn-b13"
+       ],
+       "prompt": "A phone screen shows channel 5230. Which band is that?",
+       "choices": [
+        "B12",
+        "B71",
+        "B13"
+       ],
+       "answer": 2,
+       "why": "5230 is inside the B13 range (5180 to 5279)."
+      },
+      {
+       "id": "u10-photo-01",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:stealth"
+       ],
+       "photo": "site-flagpole-01",
+       "alt": "A very tall thin white flagpole with an American flag, in a grassy field",
+       "outline": {
+        "x": 0.4,
+        "y": 0.05,
+        "w": 0.18,
+        "h": 0.8
+       },
+       "prompt": "One clue is this photo. What kind of site is it?",
+       "choices": [
+        "A flagpole disguise",
+        "A lattice tower",
+        "A water tank"
+       ],
+       "answer": 0,
+       "why": "The antennas are inside the pole. The photo narrows the site type, but it does not name the carrier."
+      },
+      {
+       "id": "u10-honest-01",
+       "kind": "choice",
+       "facts": [
+        "band:n77"
+       ],
+       "prompt": "A clue says only \"n77\". Can you name the carrier from that alone?",
+       "choices": [
+        "No, more than one carrier uses n77",
+        "Yes, it is always one carrier"
+       ],
+       "answer": 0,
+       "why": "Our checked list has AT&T and Verizon on n77, so you need a second clue."
+      }
+     ]
+    },
+    {
+     "id": "unit10-l2",
+     "title": "Two clues: band plus place",
+     "questions": [
+      {
+       "id": "u10-two-learn-01",
+       "kind": "learn",
+       "title": "Two clues beat one",
+       "no_facts_needed": true,
+       "text": "One clue narrows things down. A second clue narrows them down much more. A band clue says how far the signal travels. A place clue says what kind of site you are standing at. Put them together.\n"
+      },
+      {
+       "id": "u10-two-scn-01",
+       "kind": "scenario",
+       "facts": [
+        "band:n260",
+        "site:type:rooftop"
+       ],
+       "prompt": "Case 1. Clue A: a phone shows band n260. Clue B: you see antennas on the edge of a city rooftop. Work it out.",
+       "clues": [
+        {
+         "text": "Is n260 low, mid or high band?",
+         "choices": [
+          "High (mmWave)",
+          "Low",
+          "Mid"
+         ],
+         "answer": 0,
+         "why": "n260 runs {band:n260.dl_low_mhz} to {band:n260.dl_high_mhz} MHz. That is mmWave, the high band."
+        },
+        {
+         "text": "What kind of site is clue B?",
+         "choices": [
+          "A rooftop site",
+          "A guyed mast",
+          "A fake tree"
+         ],
+         "answer": 0,
+         "why": "{site:type:rooftop.text}"
+        },
+        {
+         "text": "What do the two clues say together?",
+         "choices": [
+          "Fast but short range, in a dense area",
+          "Slow but very long range, in the countryside"
+         ],
+         "answer": 0,
+         "why": "mmWave is fast but does not travel far, and a rooftop in a city fits a busy, packed area."
+        }
+       ],
+       "why": "Band gives the speed and reach. The place gives the setting. Together they fit a busy city block."
+      },
+      {
+       "id": "u10-two-scn-02",
+       "kind": "scenario",
+       "facts": [
+        "band:n71",
+        "carrier_use:n71/tmobile",
+        "site:type:monopole"
+       ],
+       "prompt": "Case 2. Clue A: a phone shows band n71. Clue B: a single smooth steel pole stands beside a rural road. Work it out.",
+       "clues": [
+        {
+         "text": "Is n71 low, mid or high band?",
+         "choices": [
+          "Low",
+          "High",
+          "Mid"
+         ],
+         "answer": 0,
+         "why": "n71 is below 1 GHz ({band:n71.dl_low_mhz} to {band:n71.dl_high_mhz} MHz), so it is low band."
+        },
+        {
+         "text": "Which kind of tower is clue B?",
+         "choices": [
+          "A monopole",
+          "A lattice tower",
+          "A water tank"
+         ],
+         "answer": 0,
+         "why": "{site:type:monopole.text}"
+        },
+        {
+         "text": "In our checked facts, which carrier runs n71?",
+         "choices": [
+          "T-Mobile",
+          "Cellcom"
+         ],
+         "answer": 0,
+         "why": "Our checked list has T-Mobile on n71."
+        }
+       ],
+       "why": "Low band travels far, which suits a pole on a country road. n71 is checked for T-Mobile."
+      },
+      {
+       "id": "u10-two-photo-01",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:rooftop"
+       ],
+       "photo": "small-cell-rooftop-01",
+       "alt": "Several white antennas and radio boxes on a flat roof next to a brick building",
+       "prompt": "Clue B is this photo. Where are the antennas?",
+       "choices": [
+        "On a flat roof",
+        "On a fake tree",
+        "On a guyed mast"
+       ],
+       "answer": 0,
+       "why": "{site:type:rooftop.text}"
+      },
+      {
+       "id": "u10-two-photo-02",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:small-cell"
+       ],
+       "photo": "small-cell-pole-01",
+       "alt": "A wooden utility pole with wires and a small radio fitted near the top, with a house behind",
+       "prompt": "Clue B is this photo. This radio is fitted to what?",
+       "choices": [
+        "A utility pole",
+        "A flagpole",
+        "A water tank"
+       ],
+       "answer": 0,
+       "why": "{site:type:small-cell.text}"
+      },
+      {
+       "id": "u10-two-n77-01",
+       "kind": "scenario",
+       "facts": [
+        "band:n77",
+        "carrier_use:n77/att",
+        "carrier_use:n77/verizon"
+       ],
+       "prompt": "Case 3. Clue A: a phone shows band n77. Clue B: the carrier name \"Verizon\" is on the base station sticker. Work it out.",
+       "clues": [
+        {
+         "text": "Can clue A alone name the carrier?",
+         "choices": [
+          "No, AT&T and Verizon both have n77 rows",
+          "Yes, only one carrier uses n77"
+         ],
+         "answer": 0,
+         "why": "Our checked list has both AT&T and Verizon on n77."
+        },
+        {
+         "text": "Which clue settles it?",
+         "choices": [
+          "The sticker (clue B)",
+          "The band number (clue A)"
+         ],
+         "answer": 0,
+         "why": "{site:evidence:order.text}"
+        },
+        {
+         "text": "So which carrier is it?",
+         "choices": [
+          "Verizon",
+          "AT&T"
+         ],
+         "answer": 0,
+         "why": "The sticker says Verizon, and Verizon has a checked n77 row."
+        }
+       ],
+       "why": "The band narrowed it to two carriers. The sticker picked one."
+      },
+      {
+       "id": "u10-two-group-01",
+       "kind": "choice",
+       "facts": [
+        "band:n41",
+        "band:n260"
+       ],
+       "prompt": "Clue A says n41 and clue B says n260. Which one will reach farther from the tower?",
+       "choices": [
+        "n41",
+        "n260"
+       ],
+       "answer": 0,
+       "why": "Lower frequencies travel farther. n41 is mid band and n260 is mmWave."
+      },
+      {
+       "id": "u10-two-duplex-01",
+       "kind": "choice",
+       "facts": [
+        "band:n41",
+        "band:n260"
+       ],
+       "prompt": "Clue A says n41 and clue B says n260. Both are what kind of duplex?",
+       "choices": [
+        "TDD",
+        "FDD"
+       ],
+       "answer": 0,
+       "why": "n41 is {band:n41.duplex} and n260 is {band:n260.duplex}."
+      },
+      {
+       "id": "u10-two-honest-01",
+       "kind": "choice",
+       "facts": [
+        "site:type:stealth"
+       ],
+       "prompt": "Your only clue is a photo of a fake tree. Can you name the carrier?",
+       "choices": [
+        "No, a disguise does not name the carrier",
+        "Yes, fake trees belong to one carrier"
+       ],
+       "answer": 0,
+       "why": "{site:type:stealth.text} A disguise shows the site type, not who runs it."
+      },
+      {
+       "id": "u10-two-tier-01",
+       "kind": "choice",
+       "facts": [
+        "band:n77"
+       ],
+       "prompt": "Clue A says n77. Low, mid or high band?",
+       "choices": [
+        "Mid",
+        "Low",
+        "High"
+       ],
+       "answer": 0,
+       "why": "n77 runs {band:n77.dl_low_mhz} to {band:n77.dl_high_mhz} MHz, mid band."
+      },
+      {
+       "id": "u10-two-tier-02",
+       "kind": "choice",
+       "facts": [
+        "band:n71",
+        "band:n260"
+       ],
+       "prompt": "Clue A says n71 and clue B says n260. Which one fits a long, thin country road best?",
+       "choices": [
+        "n71",
+        "n260"
+       ],
+       "answer": 0,
+       "why": "n71 is low band and travels far. n260 is mmWave and does not."
+      },
+      {
+       "id": "u10-two-site-01",
+       "kind": "choice",
+       "facts": [
+        "site:type:stealth"
+       ],
+       "prompt": "Clue B is a very tall fake tree with antennas hidden inside. Which word fits?",
+       "choices": [
+        "Stealth site",
+        "Rooftop site",
+        "Guyed mast"
+       ],
+       "answer": 0,
+       "why": "{site:type:stealth.text}"
+      }
+     ]
+    },
+    {
+     "id": "unit10-l3",
+     "title": "Read the phone screen",
+     "questions": [
+      {
+       "id": "u10-scr-learn-01",
+       "kind": "learn",
+       "title": "The phone is a clue machine",
+       "no_facts_needed": true,
+       "text": "A phone's test screen gives you numbers. The channel number points to the band. The big cell number splits into a tower number and a cell number. The PCI is a small number that gets reused, so it does not name a site. All numbers here are made up for practice.\n"
+      },
+      {
+       "id": "u10-scr-photo-01",
+       "kind": "photo-choice",
+       "facts": [
+        "cellid:lte:eci"
+       ],
+       "photo": "tool-phone-screen-drawing-01",
+       "alt": "A drawing of a practice phone test screen with a channel number, a PCI box and a big cell number",
+       "prompt": "This is a drawing of a practice screen. Which number do you use to find the band?",
+       "choices": [
+        "The channel number",
+        "The PCI box",
+        "The signal strength"
+       ],
+       "answer": 0,
+       "why": "The channel number sits inside one band's range, so it tells you the band."
+      },
+      {
+       "id": "u10-scr-chan-01",
+       "kind": "choice",
+       "facts": [
+        "cellid:lte:earfcn-b66"
+       ],
+       "prompt": "A practice screen shows channel 66600. Which band is that?",
+       "choices": [
+        "B66",
+        "B13",
+        "B71"
+       ],
+       "answer": 0,
+       "why": "66600 is inside the B66 range (66436 to 67335)."
+      },
+      {
+       "id": "u10-scr-chan-02",
+       "kind": "choice",
+       "facts": [
+        "cellid:lte:earfcn-b71"
+       ],
+       "prompt": "A practice screen shows channel 68800. Which band is that?",
+       "choices": [
+        "B13",
+        "B71",
+        "B66"
+       ],
+       "answer": 1,
+       "why": "68800 is inside the B71 range (68586 to 68935)."
+      },
+      {
+       "id": "u10-scr-enb-01",
+       "kind": "number",
+       "facts": [
+        "cellid:lte:eci"
+       ],
+       "prompt": "A practice screen shows Cell ID 104,972. What is the tower number?",
+       "answer": 410,
+       "calc": {
+        "enb": [
+         104972
+        ]
+       },
+       "why": "104,972 divided by 256 is 410, with 12 left over."
+      },
+      {
+       "id": "u10-scr-cell-01",
+       "kind": "number",
+       "facts": [
+        "cellid:lte:eci"
+       ],
+       "prompt": "The same screen shows Cell ID 104,972. What is the cell number?",
+       "answer": 12,
+       "calc": {
+        "cell": [
+         104972
+        ]
+       },
+       "why": "410 times 256 is 104,960. The leftover is 12."
+      },
+      {
+       "id": "u10-scr-pci-01",
+       "kind": "choice",
+       "facts": [
+        "cellid:lte:pci"
+       ],
+       "prompt": "The screen shows PCI 305. Does it name the tower?",
+       "choices": [
+        "No, PCIs get reused",
+        "Yes, it names the tower"
+       ],
+       "answer": 0,
+       "why": "A PCI is reused by many cells, so it tells neither the site nor the band."
+      },
+      {
+       "id": "u10-scr-scn-01",
+       "kind": "scenario",
+       "facts": [
+        "cellid:lte:eci",
+        "cellid:lte:earfcn-b71",
+        "cellid:lte:pci",
+        "band:n71"
+       ],
+       "prompt": "Case 4. The practice screen shows Cell ID 104,972, PCI 305 and channel 68700. Work it out.",
+       "clues": [
+        {
+         "text": "Which band is channel 68700?",
+         "choices": [
+          "B71",
+          "B66",
+          "B13"
+         ],
+         "answer": 0,
+         "why": "68700 is inside B71 (68586 to 68935)."
+        },
+        {
+         "text": "Is that band low, mid or high?",
+         "choices": [
+          "Low",
+          "Mid",
+          "High"
+         ],
+         "answer": 0,
+         "why": "B71 is a 600 MHz band, below 1 GHz, so it is low band."
+        },
+        {
+         "text": "What is the tower number in Cell ID 104,972?",
+         "choices": [
+          "410",
+          "12",
+          "104972"
+         ],
+         "answer": 0,
+         "why": "Divide by 256. The tower is 410 and the cell is 12."
+        },
+        {
+         "text": "Does PCI 305 tell you the site?",
+         "choices": [
+          "No, PCIs get reused",
+          "Yes, it names the site"
+         ],
+         "answer": 0,
+         "why": "A PCI is reused, so it names neither the site nor the band."
+        }
+       ],
+       "why": "Channel gives the band, the big number gives tower and cell, and the PCI gives neither."
+      },
+      {
+       "id": "u10-scr-eci-01",
+       "kind": "number",
+       "facts": [
+        "cellid:lte:eci"
+       ],
+       "prompt": "A tower is number 300 and the cell is number 5. What is the Cell ID? (300 times 256, plus 5.)",
+       "answer": 76805,
+       "calc": {
+        "eci": [
+         300,
+         5
+        ]
+       },
+       "why": "300 times 256 is 76,800. Add 5 to get 76,805."
+      },
+      {
+       "id": "u10-scr-chan-03",
+       "kind": "choice",
+       "facts": [
+        "cellid:lte:earfcn-b13"
+       ],
+       "prompt": "A practice screen shows channel 5200. Which band is that?",
+       "choices": [
+        "B13",
+        "B66",
+        "B71"
+       ],
+       "answer": 0,
+       "why": "5200 is inside the B13 range (5180 to 5279)."
+      },
+      {
+       "id": "u10-scr-enb-02",
+       "kind": "number",
+       "facts": [
+        "cellid:lte:eci"
+       ],
+       "prompt": "A practice screen shows Cell ID 76,805. What is the tower number?",
+       "answer": 300,
+       "calc": {
+        "enb": [
+         76805
+        ]
+       },
+       "why": "76,805 divided by 256 is 300, with 5 left over."
+      },
+      {
+       "id": "u10-scr-cell-02",
+       "kind": "number",
+       "facts": [
+        "cellid:lte:eci"
+       ],
+       "prompt": "A practice screen shows Cell ID 76,805. What is the cell number?",
+       "answer": 5,
+       "calc": {
+        "cell": [
+         76805
+        ]
+       },
+       "why": "300 times 256 is 76,800. The leftover is 5."
+      }
+     ]
+    },
+    {
+     "id": "unit10-l4",
+     "title": "Full cases",
+     "questions": [
+      {
+       "id": "u10-full-learn-01",
+       "kind": "learn",
+       "title": "Build the chain",
+       "no_facts_needed": true,
+       "text": "A full case has three or four clues. After each clue, say what it narrows down. At the end, write one chain: frequency, band, who holds it, proof on the ground. If the chain has a hole, say so.\n"
+      },
+      {
+       "id": "u10-full-scn-01",
+       "kind": "scenario",
+       "facts": [
+        "band:n260",
+        "carrier_use:n260/verizon",
+        "site:type:small-cell",
+        "cellid:lte:eci"
+       ],
+       "prompt": "Case 5. Clue A: band n260. Clue B: a small radio on a city pole. Clue C: the sticker says Verizon. Work it out.",
+       "clues": [
+        {
+         "text": "What does n260 tell you?",
+         "choices": [
+          "It is mmWave (high band)",
+          "It is low band",
+          "It is a 3G band"
+         ],
+         "answer": 0,
+         "why": "n260 is {band:n260.kind}, the high band."
+        },
+        {
+         "text": "What does the pole radio tell you?",
+         "choices": [
+          "A small cell",
+          "A guyed mast",
+          "A stealth tree"
+         ],
+         "answer": 0,
+         "why": "{site:type:small-cell.text}"
+        },
+        {
+         "text": "Which carrier does the chain point to?",
+         "choices": [
+          "Verizon",
+          "T-Mobile"
+         ],
+         "answer": 0,
+         "why": "The sticker says Verizon, and our checked list has Verizon on n260."
+        }
+       ],
+       "why": "Chain: mmWave band, Verizon holds n260, small cell on a pole, Verizon sticker as proof."
+      },
+      {
+       "id": "u10-full-scn-02",
+       "kind": "scenario",
+       "facts": [
+        "band:n41",
+        "carrier_use:n41/tmobile",
+        "site:type:lattice",
+        "site:evidence:order"
+       ],
+       "prompt": "Case 6. Clue A: band n41. Clue B: a lattice tower. Clue C: a sticker says AT&T. The clues disagree. Work it out.",
+       "clues": [
+        {
+         "text": "Which carrier has the checked row for n41?",
+         "choices": [
+          "T-Mobile",
+          "AT&T"
+         ],
+         "answer": 0,
+         "why": "Our checked list has T-Mobile on n41, and no AT&T row for it."
+        },
+        {
+         "text": "Which clue counts most when they disagree?",
+         "choices": [
+          "The carrier sticker",
+          "The tower shape",
+          "The band alone"
+         ],
+         "answer": 0,
+         "why": "{site:evidence:order.text}"
+        },
+        {
+         "text": "What is the best answer?",
+         "choices": [
+          "The tower may be shared; the sticker says AT&T runs it, and the n41 clue may come from another carrier on the same tower",
+          "The sticker is wrong"
+         ],
+         "answer": 0,
+         "why": "Towers are often shared by several carriers. Do not throw a clue away. Explain it."
+        }
+       ],
+       "why": "A tower can hold more than one carrier, so the sticker names one and the band may belong to another."
+      },
+      {
+       "id": "u10-full-scn-03",
+       "kind": "scenario",
+       "facts": [
+        "site:type:stealth",
+        "band:n41"
+       ],
+       "prompt": "Case 7. Clue A: a fake tree. Clue B: the phone shows n41. No sticker, no sign. Can you name the carrier?",
+       "clues": [
+        {
+         "text": "What does the fake tree tell you?",
+         "choices": [
+          "The site type",
+          "The carrier"
+         ],
+         "answer": 0,
+         "why": "{site:type:stealth.text}"
+        },
+        {
+         "text": "What does n41 tell you, using only checked facts?",
+         "choices": [
+          "It is a mid band",
+          "It is a low band"
+         ],
+         "answer": 0,
+         "why": "n41 runs {band:n41.dl_low_mhz} to {band:n41.dl_high_mhz} MHz, mid band."
+        },
+        {
+         "text": "What is the honest answer?",
+         "choices": [
+          "I can't tell the carrier yet; I need a sticker or a code",
+          "It is definitely T-Mobile"
+         ],
+         "answer": 0,
+         "why": "A phone on n41 may see more than one tower, so one band clue is not proof of who runs this tree."
+        }
+       ],
+       "why": "Not enough clues. Saying so is the right answer."
+      },
+      {
+       "id": "u10-full-photo-01",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:stealth"
+       ],
+       "photo": "site-flagpole-01",
+       "alt": "A very tall thin white flagpole with an American flag, in a grassy field",
+       "outline": {
+        "x": 0.4,
+        "y": 0.05,
+        "w": 0.18,
+        "h": 0.8
+       },
+       "prompt": "Clue C is this photo. What kind of site is it?",
+       "choices": [
+        "A flagpole disguise",
+        "A monopole",
+        "A lattice tower"
+       ],
+       "answer": 0,
+       "why": "{site:type:stealth.text}"
+      },
+      {
+       "id": "u10-full-tap-01",
+       "kind": "tap-clue",
+       "facts": [
+        "site:sign:rf-warning"
+       ],
+       "photo": "site-sign-01",
+       "alt": "The base of a tower with several signs stacked on the pole",
+       "prompt": "Tap the radio-wave warning sign.",
+       "clue": "radio-wave (RF) warning sign",
+       "target": {
+        "x": 0.45,
+        "y": 0.445,
+        "w": 0.15,
+        "h": 0.15
+       },
+       "why": "The CAUTION sign with the triangle warns about radio waves."
+      },
+      {
+       "id": "u10-full-noc-01",
+       "kind": "choice",
+       "facts": [
+        "site:owner:noc"
+       ],
+       "prompt": "A sign at a tower base gives a phone number for problems. Whose number is it?",
+       "choices": [
+        "The owner of the structure",
+        "Always the carrier"
+       ],
+       "answer": 0,
+       "why": "{site:owner:noc.text}"
+      },
+      {
+       "id": "u10-full-ord-01",
+       "kind": "choice",
+       "facts": [
+        "site:evidence:order"
+       ],
+       "prompt": "Which clue counts least when you work out who runs a site?",
+       "choices": [
+        "The equipment brand",
+        "The carrier sticker",
+        "The band"
+       ],
+       "answer": 0,
+       "why": "{site:evidence:order.text}"
+      },
+      {
+       "id": "u10-full-stale-01",
+       "kind": "choice",
+       "facts": [
+        "change:0"
+       ],
+       "prompt": "In {change:0.date}, UScellular's spectrum was sold to T-Mobile. Why can a shortcut like \"this band means that carrier\" go out of date?",
+       "choices": [
+        "Carriers buy and sell spectrum",
+        "Radio waves change speed",
+        "Bands get renamed every week"
+       ],
+       "answer": 0,
+       "why": "Spectrum changes hands. Always look at the date on a fact."
+      },
+      {
+       "id": "u10-full-recap-01",
+       "kind": "learn",
+       "title": "Your chain",
+       "no_facts_needed": true,
+       "text": "Frequency, band, who holds it, proof on the ground. Say what each clue narrows down. If the chain has a hole, say \"I can't tell yet\". Next up: the final exam, with no hints.\n"
+      },
+      {
+       "id": "u10-full-tier-01",
+       "kind": "choice",
+       "facts": [
+        "band:n71",
+        "band:n260"
+       ],
+       "prompt": "Clue A says n71 and clue B says n260. Which one is mmWave?",
+       "choices": [
+        "n260",
+        "n71"
+       ],
+       "answer": 0,
+       "why": "n260 is the high band, mmWave. n71 is low band."
+      },
+      {
+       "id": "u10-full-photo-02",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:lattice"
+       ],
+       "photo": "site-tower-02",
+       "alt": "A tall red and white tower made of an open steel framework, with trees and a house at its foot",
+       "outline": {
+        "x": 0.3,
+        "y": 0.02,
+        "w": 0.3,
+        "h": 0.75
+       },
+       "prompt": "Clue D is this photo. What type of tower is this?",
+       "choices": [
+        "Lattice tower",
+        "Monopole",
+        "Guyed mast"
+       ],
+       "answer": 0,
+       "why": "{site:type:lattice.text}"
+      },
+      {
+       "id": "u10-full-paint-01",
+       "kind": "choice",
+       "facts": [
+        "site:infer:paint-lights"
+       ],
+       "prompt": "A tower has red-and-white paint. What does that most likely tell you?",
+       "choices": [
+        "It is probably over 200 ft or near an airport",
+        "It names the carrier"
+       ],
+       "answer": 0,
+       "why": "{site:infer:paint-lights.text}"
+      }
+     ]
+    },
+    {
+     "id": "unit10-check",
+     "title": "Final certification",
+     "questions": [
+      {
+       "id": "u10-cp-grp-01",
+       "kind": "choice",
+       "facts": [
+        "band:n71"
+       ],
+       "prompt": "A clue says n71. Low, mid or high band?",
+       "choices": [
+        "Low",
+        "Mid",
+        "High"
+       ],
+       "answer": 0,
+       "why": "n71 is below 1 GHz, so it is low band."
+      },
+      {
+       "id": "u10-cp-grp-02",
+       "kind": "choice",
+       "facts": [
+        "band:n260"
+       ],
+       "prompt": "A clue says n260. Low, mid or high band?",
+       "choices": [
+        "High",
+        "Mid",
+        "Low"
+       ],
+       "answer": 0,
+       "why": "n260 is mmWave, the high band."
+      },
+      {
+       "id": "u10-cp-grp-03",
+       "kind": "choice",
+       "facts": [
+        "band:n41"
+       ],
+       "prompt": "Is n41 FDD or TDD?",
+       "choices": [
+        "TDD",
+        "FDD"
+       ],
+       "answer": 0,
+       "why": "n41 is {band:n41.duplex}."
+      },
+      {
+       "id": "u10-cp-photo-01",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:monopole"
+       ],
+       "photo": "site-monopole-01",
+       "alt": "One tall smooth grey steel pole, thicker at the bottom, with antennas clustered near the top and parked cars below",
+       "outline": {
+        "x": 0.33,
+        "y": 0.05,
+        "w": 0.25,
+        "h": 0.8
+       },
+       "prompt": "What type of tower is this?",
+       "choices": [
+        "Monopole",
+        "Guyed mast",
+        "Lattice tower"
+       ],
+       "answer": 0,
+       "why": "{site:type:monopole.text}"
+      },
+      {
+       "id": "u10-cp-photo-02",
+       "kind": "photo-choice",
+       "facts": [
+        "site:type:rooftop"
+       ],
+       "photo": "small-cell-rooftop-01",
+       "alt": "Several white antennas and radio boxes on a flat roof next to a brick building",
+       "prompt": "Where are these antennas?",
+       "choices": [
+        "On a flat roof",
+        "On a utility pole",
+        "On a fake tree"
+       ],
+       "answer": 0,
+       "why": "{site:type:rooftop.text}"
+      },
+      {
+       "id": "u10-cp-chan-01",
+       "kind": "choice",
+       "facts": [
+        "cellid:lte:earfcn-b13"
+       ],
+       "prompt": "A practice screen shows channel 5230. Which band is that?",
+       "choices": [
+        "B12",
+        "B71",
+        "B13"
+       ],
+       "answer": 2,
+       "why": "5230 is inside the B13 range (5180 to 5279)."
+      },
+      {
+       "id": "u10-cp-scn-01",
+       "kind": "scenario",
+       "facts": [
+        "band:n260",
+        "carrier_use:n260/verizon",
+        "site:type:rooftop"
+       ],
+       "prompt": "Case A. Clue 1: band n260. Clue 2: antennas on a city rooftop. Clue 3: the sticker says Verizon.",
+       "clues": [
+        {
+         "text": "What does n260 tell you?",
+         "choices": [
+          "High band",
+          "mmWave",
+          "Low band",
+          "Mid band"
+         ],
+         "answer": 0,
+         "why": "n260 is the high band."
+        },
+        {
+         "text": "Which carrier does the chain point to?",
+         "choices": [
+          "Verizon",
+          "T-Mobile"
+         ],
+         "answer": 0,
+         "why": "The sticker says Verizon, and our checked list has Verizon on n260."
+        }
+       ],
+       "why": "mmWave, Verizon holds n260, rooftop site, Verizon sticker."
+      },
+      {
+       "id": "u10-cp-scn-02",
+       "kind": "scenario",
+       "facts": [
+        "band:n77",
+        "carrier_use:n77/att",
+        "carrier_use:n77/verizon"
+       ],
+       "prompt": "Case B. The phone shows n77. There is no sticker. Which carrier is it?",
+       "clues": [
+        {
+         "text": "Can the band alone name the carrier?",
+         "choices": [
+          "No, AT&T and Verizon both have n77 rows",
+          "Yes, only one carrier uses it"
+         ],
+         "answer": 0,
+         "why": "Our checked list has both AT&T and Verizon on n77."
+        },
+        {
+         "text": "What do you do next?",
+         "choices": [
+          "Look for a sticker or a carrier code",
+          "Pick one at random"
+         ],
+         "answer": 0,
+         "why": "A second clue is needed. Honest uncertainty is a skill."
+        }
+       ],
+       "why": "One clue is not enough. Look for a second."
+      },
+      {
+       "id": "u10-cp-scn-03",
+       "kind": "scenario",
+       "facts": [
+        "cellid:lte:eci",
+        "cellid:lte:earfcn-b66",
+        "cellid:lte:pci"
+       ],
+       "prompt": "Case C. The practice screen shows Cell ID 104,972, PCI 211 and channel 66600.",
+       "clues": [
+        {
+         "text": "Which band is channel 66600?",
+         "choices": [
+          "B66",
+          "B13",
+          "B71"
+         ],
+         "answer": 0,
+         "why": "66600 is inside B66 (66436 to 67335)."
+        },
+        {
+         "text": "What is the tower number?",
+         "choices": [
+          "410",
+          "12",
+          "104972"
+         ],
+         "answer": 0,
+         "why": "Divide by 256. The tower is 410 and the cell is 12."
+        },
+        {
+         "text": "Does PCI 211 name the site?",
+         "choices": [
+          "No, PCIs get reused",
+          "Yes"
+         ],
+         "answer": 0,
+         "why": "A PCI is reused."
+        }
+       ],
+       "why": "Channel gives the band, the big number gives tower and cell, the PCI gives neither."
+      },
+      {
+       "id": "u10-cp-scn-04",
+       "kind": "scenario",
+       "facts": [
+        "site:type:stealth",
+        "site:evidence:order"
+       ],
+       "prompt": "Case D. A fake tree, no sticker, no sign, no phone data. Name the carrier.",
+       "clues": [
+        {
+         "text": "What does the fake tree tell you?",
+         "choices": [
+          "The site type",
+          "The carrier"
+         ],
+         "answer": 0,
+         "why": "{site:type:stealth.text}"
+        },
+        {
+         "text": "What is the honest answer?",
+         "choices": [
+          "I can't tell the carrier yet",
+          "It is T-Mobile"
+         ],
+         "answer": 0,
+         "why": "A disguise does not name a carrier."
+        }
+       ],
+       "why": "Not enough clues."
+      },
+      {
+       "id": "u10-cp-order-01",
+       "kind": "choice",
+       "facts": [
+        "site:evidence:order"
+       ],
+       "prompt": "Which clue counts most when you work out who runs a site?",
+       "choices": [
+        "The carrier sticker",
+        "The equipment brand",
+        "The tower shape"
+       ],
+       "answer": 0,
+       "why": "{site:evidence:order.text}"
+      },
+      {
+       "id": "u10-cp-stale-01",
+       "kind": "choice",
+       "facts": [
+        "change:0"
+       ],
+       "prompt": "Why can \"this band means that carrier\" go out of date?",
+       "choices": [
+        "Carriers buy and sell spectrum",
+        "Bands get renamed",
+        "Phones change them"
+       ],
+       "answer": 0,
+       "why": "Spectrum changes hands, so always check the date."
+      },
+      {
+       "id": "u10-cp-num-01",
+       "kind": "number",
+       "facts": [
+        "cellid:lte:eci"
+       ],
+       "prompt": "A screen shows Cell ID 76,805. What is the tower number?",
+       "answer": 300,
+       "calc": {
+        "enb": [
+         76805
+        ]
+       },
+       "why": "76,805 divided by 256 is 300, with 5 left over."
+      },
+      {
+       "id": "u10-cp-num-02",
+       "kind": "number",
+       "facts": [
+        "cellid:lte:eci"
+       ],
+       "prompt": "A tower is number 410 and the cell is number 12. What is the Cell ID?",
+       "answer": 104972,
+       "calc": {
+        "eci": [
+         410,
+         12
+        ]
+       },
+       "why": "410 times 256 is 104,960. Add 12."
+      }
+     ]
+    }
+   ]
   }
  ]
 }

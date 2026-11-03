@@ -86,3 +86,16 @@ test('a real unit 9 lesson can be played to the end and unlocks the next one', a
   expect(errors).toEqual([]);
   await app.close();
 });
+
+// Unit 10 (T37): play one real two-clue lesson of the final challenge.
+test('a real unit 10 lesson can be played to the end and unlocks the next one', async () => {
+  test.setTimeout(240_000);
+  const UNIT9 = ['unit09-l1', 'unit09-l2', 'unit09-l3', 'unit09-l4', 'unit09-check'];
+  const { app, w, errors } = await launch([...EARLIER, ...UNIT8, ...UNIT9]);
+  await expect(w.getByTestId('lesson-unit10-l1')).toBeEnabled();
+  await expect(w.getByTestId('lesson-unit10-l2')).toBeDisabled();
+  await playLesson(w, 'unit10-l1');
+  await expect(w.getByTestId('lesson-unit10-l2')).toBeEnabled();
+  expect(errors).toEqual([]);
+  await app.close();
+});
