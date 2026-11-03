@@ -1,4 +1,5 @@
 # 📓 Progress log: the project diary
+- 2026-11-03 (robot run, session 109, T37): wrote unit 10 lesson 1 ("One clue at a time", 12 questions, 3.1 minutes) in a draft folder; it joins the app once lessons 2–4 and the exam exist.
 - 2026-11-03 (robot run, session 108): looked for a small chore; none in TASKS.md, so nothing changed (handoff note added).
 - 2026-11-03 (T50, session 107): the robot had been stuck on "small chores only" since your weekly limit hit its warning; at your request it now works normally until the limit is really used up.
 - 2026-11-03 (robot run, session 106): looked for a small chore; none in TASKS.md, so nothing changed (handoff note added).
