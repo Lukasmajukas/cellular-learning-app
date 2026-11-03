@@ -24,6 +24,7 @@ Claude adds new words here whenever they come up.
 | **Permission file** | A small file of rules (`.claude/settings.json`) that tells Claude's safety check which jobs are OK without stopping to ask. Only you add it. In Auto mode, three robot jobs ignore it (opening a chat, starting the next run, putting chats away). |
 | **Chat / session** | One conversation with Claude. Best kept to one task. |
 | **Context** | Claude's short-term memory for one chat. It's like a backpack: the more you stuff in, the harder it is to find things. That's why we start fresh chats. |
+| **/clear and /compact** | Two commands you type in a chat. `/clear` empties Claude's backpack (its memory of the chat) and starts fresh in the same chat. `/compact` squashes the backpack into a short summary. A smaller backpack costs less of your limit every time Claude answers. |
 | **Handoff note** | A note one chat leaves for the next, like passing the baton in a relay race. |
 | **Model** | Which Claude "brain" you use: Haiku (small), Sonnet (medium), Opus (large), Fable (extra large). |
 | **Effort** | How hard Claude thinks before answering. Low is a quick answer; High is careful checking. More effort is slower and uses more of your limit. |
