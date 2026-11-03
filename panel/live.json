@@ -8,7 +8,7 @@
  "light": "green",
  "working": "Nothing in progress. Next up: T37 (build unit 10 from its plan). T47 needs official page links from you. Optional for you: T48 questions and your frame-rate number (T46).",
  "limit": {
-  "state": "nearly used up (weekly warning); the robot keeps going until it runs out",
-  "resets": "Wed Nov 4, 5:00 AM Eastern"
+  "state": "warning",
+  "resets": "Wed Nov 4, 5:00 AM Eastern. The robot keeps working until it runs out"
  }
 }
