@@ -18,8 +18,12 @@ jobs:
       - run: npm test
       - run: npm run e2e
       - run: npm run make
+      # Keep only the one file you run (Setup.exe, not the zip and update files), only for main or a manual run, for 14 days.
+      # Saving all four files from every pull request for 30 days filled the repository's storage (about 12.6 GB by Nov 3).
       - uses: actions/upload-artifact@v4
-        with: { name: windows-installer, path: app/out/make/**/*, retention-days: 30 }
+        if: github.event_name != 'pull_request'
+        with: { name: windows-installer, path: 'app/out/make/squirrel.windows/x64/*.exe', retention-days: 14, if-no-files-found: error }
+      # Test pictures only when something failed (that's when they help).
       - uses: actions/upload-artifact@v4
-        if: always()
-        with: { name: screenshots, path: app/test-results, retention-days: 14 }
+        if: failure()
+        with: { name: screenshots, path: app/test-results, retention-days: 7 }
