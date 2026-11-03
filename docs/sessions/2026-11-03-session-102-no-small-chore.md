@@ -1,7 +1,7 @@
 # Handoff note: 2026-11-03, Robot run (no small chore found)
 
 **Status:** DONE
-**Model used:** Haiku, Low effort · **Branch / pull request:** robot/no-chore-session-102 (draft PR)
+**Effort:** Low · **Branch / pull request:** robot/no-chore-session-102 (draft PR)
 
 ## In simple words (for the owner)
 The robot checked the to-do list and found no small jobs (typos, renames, tiny doc fixes). It did not start any big job, to save your usage. Nothing in the app changed.
