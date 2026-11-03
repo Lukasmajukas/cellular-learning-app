@@ -37,6 +37,7 @@ Claude adds new words here whenever they come up.
 | **Classifier** | The technical name for Claude's safety check in Auto mode. It looks at each action and decides yes or no by itself, like a guard at a door. It reads `CLAUDE.md`, so an approval you typed and Claude wrote down there helps it say yes. |
 | **Bypass permissions** | A setting that turns the safety check off completely. Claude's cloud chats don't offer it, so Auto mode is the hands-free choice. |
 | **Usage limit** | How much Claude you can use in a stretch of time. Bigger models, higher effort and longer chats use it up faster. |
+| **Usage warning** | A "you're nearly out" sign on your usage limit, like a fuel light. It isn't a stop: the robot keeps working until the limit is really used up. |
 | **PRD** | The plan, or blueprint. It says what the app will do before anyone builds it. |
 | **MVP** | The first playable version: small, but it works. |
 | **Installer** | The file you double-click to put the app on your computer. |

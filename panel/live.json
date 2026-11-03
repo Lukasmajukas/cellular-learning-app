@@ -1,14 +1,14 @@
 {
- "asOf": "2026-11-02",
+ "asOf": "2026-11-03",
  "robot": {
   "on": true,
   "next": "right away (it starts its next job by itself), and every hour",
-  "last": "downloaded 2 more tower photos and checked them by eye (17 of 18 in)"
+  "last": "nothing for about 30 hours: it was stuck on \"small chores only\" because of the usage warning (fixed in T50)"
  },
  "light": "green",
- "working": "Nothing in progress. Next up: T37 (build unit 10 from its new plan); T26 has 1 photo left to download; T47 needs official page links from you. Optional for you: T48 questions and your frame-rate number (T46).",
+ "working": "Nothing in progress. Next up: T37 (build unit 10 from its plan). T47 needs official page links from you. Optional for you: T48 questions and your frame-rate number (T46).",
  "limit": {
-  "state": "fine (it reset after a pause)",
-  "resets": "unknown"
+  "state": "warning",
+  "resets": "Wed Nov 4, 5:00 AM Eastern. The robot keeps working until it runs out"
  }
 }
