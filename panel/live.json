@@ -3,10 +3,10 @@
  "robot": {
   "on": true,
   "next": "right away (it starts its next job by itself), and every hour",
-  "last": "working again: wrote unit 10 (lessons 1 to 4 and the final exam, T37)"
+  "last": "final review of the whole app done (T37); fixed shuffled answers, typed commas and the Windows build"
  },
  "light": "green",
- "working": "Nothing in progress. For you: paste one message into the robot's launcher chat, then type /clear (T51). Optional: T48 questions and your frame-rate number (T46).",
+ "working": "Nothing in progress. Next for Claude: the daily review screen (T53). For you: paste one message into the robot launcher chat, then type /clear (T51). Optional: T48 questions, frame-rate number (T46).",
  "limit": {
   "state": "warning",
   "resets": "Wed Nov 4, 5:00 AM Eastern. The robot keeps working until it runs out"

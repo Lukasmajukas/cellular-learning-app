@@ -1,4 +1,5 @@
 # 📓 Progress log: the project diary
+- 2026-11-03 (T37, session 112): final review of the whole app. Fixed three real problems: the right answer was nearly always the top button (now shuffled), typing "1,710" was marked wrong, and the Windows build had been broken since Nov 2 (a file-name clash). Next: the daily review screen (T53).
 - 2026-11-03 (T52, session 111): the robot's launcher chat can now have its memory wiped with /clear; you paste one message into it first (T51).
 - 2026-11-03 (robot run, session 110, T37): finished unit 10, the detective unit: lessons 2–4 and the no-hints final exam (49 steps in all, every lesson 3 to 4 minutes). It is now on the path map after unit 9. The Opus review is next.
 - 2026-11-03 (robot run, session 109, T37): wrote unit 10 lesson 1 ("One clue at a time", 12 questions, 3.1 minutes) in a draft folder; it joins the app once lessons 2–4 and the exam exist.
