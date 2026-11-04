@@ -38,6 +38,7 @@ The first design review. I took fresh pictures of every screen and scored each o
 - Nothing asked for approval; nothing was blocked. Panel not republished (robot run): `panel/live.json` updated and `panel/index.html` rebuilt.
 
 ## Notes for the next Claude
+- **Windows frame rate:** the first Windows run of #131 failed only on "coming on air": 49.2 fps (bar 50). Not caused by this change (6x CPU slowdown in the cloud: 51.4 / 55.3 / 51.5 fps with it, 53.6 / 52.6 / 49.5 without; scratch test, not kept: `w.context().newCDPSession(w)` then `Emulation.setCPUThrottlingRate` rate 6). Noted in I26. If it fails on Windows again, make the moment cheaper (fewer layers moving at once, whole `transform` strings) rather than lowering the bar.
 - **The click tests need a pretend screen in the cloud:** run them as `xvfb-run -a npm run e2e` (or `xvfb-run -a npx playwright test tests/x.spec.ts`). Without it Electron fails with "Missing X server or $DISPLAY". `npm run gallery` restarts itself inside xvfb-run on its own.
 - The click tests' window is shorter than the gallery's 620 × 960, so Settings scrolls there; the Review tab is the one short screen to use when a test needs "no scrollbar".
 - With `scrollbar-gutter: stable` the fixed tab bar and the sticky top bar both centre in the same width on every screen, scrolling or not. If a future screen hides the page scrollbar on purpose, check the frame test still holds.

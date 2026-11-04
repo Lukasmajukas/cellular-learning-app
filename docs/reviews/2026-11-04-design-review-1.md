@@ -57,6 +57,9 @@ I looked at every screen the way you'd look at a house halfway through a renovat
 ## DESIGN.md change
 - Section 4 gets one line: the page always keeps the scrollbar's strip (`scrollbar-gutter: stable`), so nothing jumps sideways between screens. **Why:** fix 1 above.
 
+## Found, not fixed
+- **"Coming on air" is close to the 50 fps bar on GitHub's Windows machines.** The first Windows run of this pull request measured 49.2 fps there (R07's runs: 50.0 and 54.4). This review's change isn't the cause: with the CPU slowed 6x in the cloud, three runs measured 51.4 / 55.3 / 51.5 fps with it and 53.6 / 52.6 / 49.5 without it. Added to idea I26 (make the path's big moments cheaper), to be done before R23 if the Windows check fails on it again.
+
 ## What I didn't check
 - Movement only through the click tests' measurements and the earlier sessions' flip books: this review takes still pictures. The frame rates in this run are in the handoff note.
 - Your PC: the Windows build on GitHub runs the same tests; anything only your graphics chip shows (like the start-up picture, T57) still needs your eyes.
