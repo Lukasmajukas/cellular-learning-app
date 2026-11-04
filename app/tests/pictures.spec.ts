@@ -25,6 +25,7 @@ test('photo-choice and tap-the-clue questions work, with credit, outline and tap
   await w.mouse.click(box.x + box.width * 0.1, box.y + box.height * 0.9);   // wrong spot (the grass)
   await expect(w.getByTestId('verdict')).toHaveText('Not quite');
   await expect(w.getByTestId('tap-dot')).toBeVisible();
+  await expect(w.getByTestId('tap-dot')).toHaveAttribute('data-ok', 'false');   // R10: a red dot for a missed tap
   await expect(w.getByTestId('outline')).toBeVisible();
   await w.screenshot({ path: 'test-results/pictures-tap-wrong.png' });
   await w.getByTestId('next').click();
@@ -36,6 +37,7 @@ test('photo-choice and tap-the-clue questions work, with credit, outline and tap
   const box2 = (await w.getByTestId('photo').boundingBox())!;
   await w.mouse.click(box2.x + box2.width * 0.5, box2.y + box2.height * 0.3);   // on the antennas
   await expect(w.getByTestId('verdict')).toHaveText('Right!');
+  await expect(w.getByTestId('tap-dot')).toHaveAttribute('data-ok', 'true');    // and a green one for a right tap
   await w.getByTestId('next').click();
   await expect(w.getByTestId('done')).toBeVisible();
   await app.close();

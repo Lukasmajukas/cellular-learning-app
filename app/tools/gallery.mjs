@@ -2,8 +2,9 @@
 // Run from app/:  npm run gallery            (builds first, then takes the pictures)
 // Options:        node tools/gallery.mjs --out <folder>   (default ../docs/redesign/gallery/latest)
 //                 node tools/gallery.mjs --icons-only     (just the icon sheet, 00-icons.webp; no build needed)
+//                 node tools/gallery.mjs --types-only     (just the other question types, 18-27; build first; keeps the rest)
 // It starts the real Electron app with a made-up save file (3 lessons done, a 4-day streak, some reviews due),
-// shows the building blocks page (#blocks, from R03; Beacon's faces 16, 17 from R17), the Review tab (13, from R04), the top bar mid-moment and the repair card (14, 15, from R07),
+// the other question types (18-27, from R10), shows the building blocks page (#blocks, from R03; Beacon's faces 16, 17 from R17), the Review tab (13, from R04), the top bar mid-moment and the repair card (14, 15, from R07),
 // draws a sheet of all our icons (00-icons), visits each screen at the owner's window size (620 x 960) and a wide one (1280 x 800), and saves small WebP files.
 // In the cloud (Linux with no screen) it restarts itself inside xvfb-run, a pretend screen.
 import { _electron as electron } from 'playwright';
@@ -27,7 +28,7 @@ const today = (d = new Date()) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-$
 
 // A made-up save: unit 1 lessons 1-3 done, so lesson 4 is "current"; review cards of different ages so the
 // heatmap shows several colours and the daily review has questions due.
-function seedSave(dir, game = {}) {
+function seedSave(dir, game = {}, progress = { 'unit01-l1': 3, 'unit01-l2': 3, 'unit01-l3': 2 }) {
   const now = Date.now();
   const ids = ['u1-4g5g-01', 'u1-4g5g-02', 'u1-higher-01', 'u1-twin-01', 'u1-higher-02', 'u1-tier-01', 'u1-tier-02', 'u1-fr-01',
     'u1-duplex-01', 'u1-duplex-02', 'u1-duplex-03', 'u1-gap-01'];
@@ -37,7 +38,7 @@ function seedSave(dir, game = {}) {
   }));
   const save = {
     version: 1,
-    progress: { 'unit01-l1': 3, 'unit01-l2': 3, 'unit01-l3': 2 },
+    progress,
     settings: { sounds: false, reduceMotion: false, showFps: false, dailyGoal: 2, look: 'night' },
     reviews,
     game: { streak: 4, lastDay: today(), xp: 120, xpToday: 30, xpDay: today(), doneToday: 1, doneDay: today(), freezes: 1, lost: 0, lostDay: '', ...game },
@@ -46,9 +47,9 @@ function seedSave(dir, game = {}) {
   writeFileSync(join(dir, 'save.json'), JSON.stringify(save));
 }
 
-async function launch(env, game) {
+async function launch(env, game, progress) {
   const dir = mkdtempSync(join(tmpdir(), 'cell-gallery-'));
-  seedSave(dir, game);
+  seedSave(dir, game, progress);
   const app = await electron.launch({ cwd: APP, args: ['.', '--no-sandbox'], env: { ...process.env, CELL_SAMPLE_PATH: '', CELL_DATA_DIR: dir, ...env } });
   const w = await app.firstWindow();
   await w.waitForLoadState('domcontentloaded');
@@ -143,6 +144,50 @@ async function completeScreen(s) {
   await app.close();
 }
 
+// The other question types (R10), from the two demo lessons of the sample path: the learn card with its spectrum bar,
+// type the number, match the pairs (half done), put them in order (half done, then a wrong order with "Why?" open),
+// the scenario clues (one picked, then checked with one clue missed), the photo question and a missed tap on the picture.
+async function typeScreens(s) {
+  const done = Object.fromEntries(['u1-l1', 'u1-l2', 'u1-l3', 'u2-l1', 'u2-l2', 'u2-l3'].map(id => [id, 3]));
+  const { app, w } = await launch({ CELL_SAMPLE_PATH: '1' }, {}, done);
+  await resize(app, s);
+  const go = async () => { await w.getByTestId('next').click(); await w.getByTestId('verdict').waitFor({ state: 'detached' }); };
+  const why = async () => { const t = w.getByTestId('why-toggle'); if (await t.count()) await t.click(); };
+  await w.getByTestId('lesson-u2-l3').click();
+  await w.getByTestId('learn-card').waitFor();
+  await shot(w, '18-learn-card', s);
+  await w.getByTestId('learn-ok').click();
+  await w.getByTestId('choice-0').click(); await go();
+  await w.getByTestId('number-input').fill('617');
+  await shot(w, '19-type-number', s, 900);
+  await w.getByTestId('check').click();
+  await shot(w, '20-type-number-right', s, 900); await go();
+  await w.getByTestId('match-left-0').click(); await w.getByTestId('match-right-0').click(); await w.getByTestId('match-left-1').click();
+  await shot(w, '21-match', s, 900);
+  await w.getByTestId('match-right-1').click(); await w.getByTestId('match-left-2').click(); await w.getByTestId('match-right-2').click();
+  await w.getByTestId('check').click(); await go();
+  for (const b of ['B71', 'B12']) await w.getByTestId(`order-item-${b}`).click();
+  await shot(w, '22-order', s, 900);
+  for (const b of ['B2', 'B5']) await w.getByTestId(`order-item-${b}`).click();
+  await w.getByTestId('check').click(); await why();
+  await shot(w, '23-order-wrong', s); await go();
+  await w.getByTestId('choice-0').click(); await go();
+  await w.getByTestId('clue-0-choice-0').click();
+  await shot(w, '24-scenario', s, 900);
+  await w.getByTestId('clue-1-choice-0').click();
+  await w.getByTestId('check').click();
+  await shot(w, '25-scenario-wrong', s);
+  await w.getByTestId('quit').click();
+  await w.getByTestId('lesson-u2-l4').click();
+  await w.getByTestId('photo').locator('img').waitFor();
+  await shot(w, '26-photo', s);
+  await w.getByTestId('choice-2').click(); await go();
+  const b = (await w.getByTestId('photo').boundingBox());
+  await w.mouse.click(b.x + b.width * 0.1, b.y + b.height * 0.9);
+  await shot(w, '27-tap-wrong', s);
+  await app.close();
+}
+
 // The streak repair card (R07): a 5-day streak whose last lesson was two days ago (yesterday was missed).
 async function repairScreen(s) {
   const ago = today(new Date(Date.now() - 2 * DAY));
@@ -195,10 +240,12 @@ async function iconSheet() {
   await app.close();
 }
 
-if (existsSync(OUT) && !process.argv.includes('--icons-only')) for (const f of readdirSync(OUT)) if (f.endsWith('.webp')) rmSync(join(OUT, f));
+const typesOnly = process.argv.includes('--types-only');
+if (existsSync(OUT) && !process.argv.includes('--icons-only') && !typesOnly) for (const f of readdirSync(OUT)) if (f.endsWith('.webp')) rmSync(join(OUT, f));
 mkdirSync(OUT, { recursive: true });
 console.log(`Gallery -> ${OUT}`);
+if (typesOnly) { for (const s of SIZES) await typeScreens(s); console.log('Done.'); process.exit(0); }
 await iconSheet();
 if (process.argv.includes('--icons-only')) process.exit(0);
-for (const s of SIZES) { await realScreens(s); await completeScreen(s); await repairScreen(s); await blocksScreens(s); }
+for (const s of SIZES) { await realScreens(s); await completeScreen(s); await repairScreen(s); await blocksScreens(s); await typeScreens(s); }
 console.log('Done.');

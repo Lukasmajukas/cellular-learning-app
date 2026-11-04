@@ -3,6 +3,7 @@
 export { Button, IconButton } from './Button';
 export { Card, SectionLabel } from './Card';
 export { AnswerTile } from './AnswerTile';
+export { Chip } from './Chip';
 export { Pill, StatChip, PillChoice } from './Pill';
 export { Switch } from './Switch';
 export { ProgressBar } from './ProgressBar';

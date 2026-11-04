@@ -30,12 +30,15 @@ test('every question type works, a miss comes back, XP and streak show', async (
   await w.getByTestId('choice-0').click(); await w.getByTestId('next').click();
   for (const b of ['B71', 'B12', 'B5', 'B2']) await w.getByTestId(`order-item-${b}`).click();
   await w.getByTestId('check').click(); await expect(w.getByTestId('verdict')).toHaveText('Right!');
+  await w.getByTestId('why-toggle').click();                   // R10: the ruler waits behind "Show them on the ruler" (idea I38)
   await expect(w.getByTestId('order-bar')).toBeVisible(); await w.screenshot({ path: 'test-results/t32-order.png' });
   await w.getByTestId('next').click();
   await w.getByTestId('choice-0').click();                      // carrier question: shows the badge
   await expect(w.getByTestId('badge')).toContainText('HISTORICAL · as of 2026'); await w.getByTestId('next').click();
   await w.getByTestId('clue-0-choice-0').click(); await w.getByTestId('clue-1-choice-1').click();   // scenario: both clues right
   await w.getByTestId('check').click(); await expect(w.getByTestId('verdict')).toHaveText('Right!');
+  await expect(w.getByTestId('clue-score')).toHaveText('Both clues right.');
+  await w.getByTestId('why-toggle').click();                   // R10: each clue's reason waits behind "Clue by clue"
   await expect(w.getByTestId('clue-why-0')).toHaveAttribute('data-ok', 'true'); await w.getByTestId('next').click();
   await expect(w.getByTestId('done')).toBeVisible();
   await expect(w.getByTestId('xp')).toHaveText('+55 XP');       // 5 right first try (50) + the missed one right on its retry (5), no perfect bonus

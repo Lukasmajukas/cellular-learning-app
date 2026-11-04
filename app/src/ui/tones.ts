@@ -26,11 +26,13 @@ export const PILL = {
 } as const satisfies Record<string, Tone>;
 export type PillTone = keyof typeof PILL;
 
-// Answer tiles: plain, picked (before checking), right, wrong, and dim (the other tiles after checking).
+// Answer tiles: plain, picked (before checking), paired (matched up or placed, not checked yet; R10), right, wrong,
+// and dim (the other tiles after checking). Chips (src/ui/Chip.tsx) use the same looks.
 // Right and wrong always add an icon too, so colour is never the only clue (DESIGN.md section 2).
 export const TILE = {
   idle: { bg: 'surface', fg: 'text', border: 'border', key: 'textMuted' },
   selected: { bg: 'surface2', fg: 'text', border: 'signal', key: 'signal' },
+  paired: { bg: 'surface2', fg: 'text', border: 'borderStrong', key: 'signal' },
   right: { bg: 'onAirBg', fg: 'text', border: 'onAir', key: 'onAir' },
   wrong: { bg: 'missBg', fg: 'missText', border: 'miss', key: 'miss' },
   dim: { bg: 'surface', fg: 'textMuted', border: 'border', key: 'textMuted' },

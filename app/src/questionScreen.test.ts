@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { KIND_LABEL, counter, BEACON_LINES, beaconLine, type Moment } from './questionScreen';
+import { KIND_LABEL, KIND_HINT, FOLD_LABEL, counter, BEACON_LINES, beaconLine, type Moment } from './questionScreen';
 
 // Redesign R09: the question screen's words (the label above each question, the counter, Beacon's speech bubble).
 describe('question screen words', () => {
@@ -10,6 +10,16 @@ describe('question screen words', () => {
       expect(words.length, k).toBeLessThanOrEqual(4);
     }
     expect(KIND_LABEL.choice.toUpperCase()).toBe('PICK ONE');
+  });
+
+  it('the "how to answer" hints and the fold buttons are short and hold no facts (R10)', () => {
+    for (const k of ['number', 'match', 'order', 'scenario', 'tap-clue'] as const) expect(KIND_HINT[k], k).toBeTruthy();
+    expect(KIND_HINT.choice).toBeUndefined(); // the numbered tiles say it all (look A)
+    for (const line of [...Object.values(KIND_HINT), ...Object.values(FOLD_LABEL)] as string[]) {
+      expect(line.split(/\s+/).length, line).toBeLessThanOrEqual(10);
+      expect(line, line).not.toMatch(/\d/); // no numbers at all: an example number could give an answer away
+    }
+    expect(Object.keys(FOLD_LABEL).sort()).toEqual(['order', 'scenario']);
   });
 
   it('the counter shows the question on screen, counting from 1, and never goes past the total', () => {

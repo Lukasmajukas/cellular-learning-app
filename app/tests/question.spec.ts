@@ -3,6 +3,7 @@ import { mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { film } from './helpers';
+import { SAMPLE } from '../src/lesson';
 
 // Redesign R09: the question screen in the look A layout, tried in the real app. The top row (leave, progress bar,
 // "1 / 12"), Beacon at the left with its speech bubble, the "PICK ONE" label, the question and the numbered tiles all
@@ -64,8 +65,11 @@ test('after an answer the sheet sits on the window\'s bottom edge, Continue matc
     const tiles = w.locator('[data-testid^=choice-]:not([disabled])');
     await tiles.first().waitFor();
     const before = await w.getByTestId('beacon-says').textContent(), counted = await w.getByTestId('lesson-count').textContent();
-    // Try the second tile first: a miss is likelier there, so both sheets show up quickly.
-    await (await tiles.count() > 1 && !seen.has('wrong') ? tiles.nth(1) : tiles.first()).click();
+    // Miss on purpose until "Not quite" has shown, then answer right. The tiles are shuffled at random, so picking by
+    // place sometimes got three right in a row and the 3-question lesson ended before a miss (R10: fixed, not skipped).
+    const prompt = await w.getByTestId('prompt').textContent(), q = SAMPLE.find(x => x.prompt === prompt)!;
+    const pick = seen.has('wrong') ? q.answer : q.choices.findIndex((_, k) => k !== q.answer);
+    await w.getByTestId(`choice-${pick}`).click();
     const sheet = w.locator(SHEET);
     await expect(sheet).toBeVisible();
     const tone = (await sheet.getAttribute('data-tone'))!;

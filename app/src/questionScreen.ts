@@ -16,6 +16,23 @@ export const KIND_LABEL: Record<Item['kind'], string> = {
   learn: 'Something new',
 };
 
+// A short "how to answer" line under the question (R10), for the types that aren't just "tap an answer".
+// Plain help with the controls only: no facts (those live in the lesson files).
+export const KIND_HINT: Partial<Record<Item['kind'], string>> = {
+  number: 'Type the number. Commas are fine.',
+  match: 'Tap one on the left, then its partner.',
+  order: 'Tap them in order. Tap one again to undo.',
+  scenario: 'Pick one answer for every clue.',
+  'tap-clue': 'Tap the picture where you see it.',
+};
+
+// The quiet button in the "Right!" / "Not quite" sheet that opens the longer explanation (R10, idea I38).
+// Only these two types have one: the rest fit in the sheet as they are.
+export const FOLD_LABEL: Partial<Record<Item['kind'], string>> = {
+  order: 'Show them on the ruler',
+  scenario: 'Clue by clue',
+};
+
 // "Question 5 of 12": the one on screen now (counting from 1), and how many there are in this run.
 // A missed question comes back once later on, so the total can grow by one after a miss.
 export const counter = (index: number, length: number) => `${Math.min(index + 1, length)} / ${length}`;
