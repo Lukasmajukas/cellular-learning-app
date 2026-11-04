@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import { allLessons, lessonStatus, doneCount, type Unit, type Progress } from './path';
 import { c, mono, COLUMN } from './theme';
+import { Icon } from './Icon';
 
 // Done = on air (green glow), current = signal (bright), locked = dim with a dashed ring. R05 redraws the whole map.
 const LOOK = {
@@ -19,8 +20,9 @@ export function PathMap({ units, progress, onStart, due = 0, onReview }: { units
       {onReview && (
         <motion.button data-testid="daily-review" disabled={due === 0} onClick={onReview} whileHover={due ? { scale: 1.04 } : undefined} whileTap={due ? { scale: 0.94 } : undefined}
           style={{ width: '100%', padding: 14, fontSize: 18, borderRadius: 14, cursor: due ? 'pointer' : 'default', fontWeight: due ? 700 : 400,
-            border: `1px solid ${due ? c.review : c.border}`, color: due ? c.onBright : c.textMuted, background: due ? c.review : c.surface }}>
-          {due ? `🚗 Daily review: ${due} due` : '🚗 Daily review: nothing due today'}
+            border: `1px solid ${due ? c.review : c.border}`, color: due ? c.onBright : c.textMuted, background: due ? c.review : c.surface,
+            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10 }}>
+          <Icon name="repeat" size={22} />{due ? `Daily review: ${due} due` : 'Daily review: nothing due today'}
         </motion.button>)}
       {units.map(u => (
         <section key={u.id} data-testid={`unit-${u.id}`}>
@@ -34,14 +36,15 @@ export function PathMap({ units, progress, onStart, due = 0, onReview }: { units
                   aria-label={`${l.title}, ${s}`}
                   initial={{ scale: 0.6, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: 'spring', bounce: 0.5, delay: i * 0.08 }}
                   whileHover={open ? { scale: 1.1 } : undefined} whileTap={open ? { scale: 0.9 } : undefined}
-                  style={{ width: 76, height: 76, borderRadius: '50%', margin: '10px 0 2px', fontSize: 30, fontWeight: 700,
+                  style={{ width: 76, height: 76, borderRadius: '50%', margin: '10px 0 2px', display: 'inline-grid', placeItems: 'center',
                     ...LOOK[s], cursor: open ? 'pointer' : 'not-allowed',
                     // A still glow ring (not animated): the current lesson is "on air next".
                     boxShadow: s === 'current' ? `0 0 0 6px ${c.surface2}, 0 0 0 8px ${c.borderStrong}` : 'none' }}>
-                  {s === 'locked' ? '🔒' : s === 'done' ? '✓' : '📡'}
+                  <Icon name={s === 'locked' ? 'lock' : s === 'done' ? 'check' : 'tower'} size={s === 'locked' ? 28 : 38} />
                 </motion.button>
                 <div style={{ fontSize: 14, color: s === 'locked' ? c.textMuted : c.text }}>{l.title}</div>
-                {stars > 0 && <div data-testid={`stars-${l.id}`} style={{ color: c.streak }}>{'⭐'.repeat(stars)}</div>}
+                {stars > 0 && <div data-testid={`stars-${l.id}`} data-count={stars} aria-label={`${stars} of 3 stars`} style={{ color: c.streak, display: 'flex', justifyContent: 'center', gap: 2, marginTop: 2 }}>
+                  {Array.from({ length: stars }, (_, k) => <Icon key={k} name="star" size={16} solid />)}</div>}
               </div>
             );
           })}

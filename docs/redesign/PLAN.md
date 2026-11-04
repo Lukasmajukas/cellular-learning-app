@@ -32,7 +32,7 @@ Each row is one chat: Large (Opus), High effort. R01 to R04 must go in order (ev
 | # | Session | What changes on screen | Status |
 |---|---|---|---|
 | R01 | **Paint and letters** | Every colour comes from one token file; the old Duolingo colours are gone; the bundled fonts (Space Grotesk, JetBrains Mono); the night background glow. Also builds the **gallery tool** (`npm run gallery`: pictures of every screen) and two tests: "no Duolingo colours" and "text contrast". | ✅ 2026-11-04, #124 |
-| R02 | **Our own icons** | About 20 icons drawn in code replace the emoji in buttons and labels (🔥 ⚡ 🔒 ⚙️ 🌡️ 🚗 📡). Test: no emoji in screen files. | ⬜ |
+| R02 | **Our own icons** | About 20 icons drawn in code replace the emoji in buttons and labels (🔥 ⚡ 🔒 ⚙️ 🌡️ 🚗 📡). Test: no emoji in screen files. | ✅ 2026-11-04, #125 |
 | R03 | **Building blocks** | Buttons, cards, answer tiles, pills, switches, progress bar, bottom sheet, speech bubble, each with its press-and-hover springs. The Settings screen is switched over first, as the proof. | ⬜ |
 | R04 | **Motion kit and app frame** | One speed file (springs, timings, reduce motion in one place); the app frame with the top bar and the bottom tabs (Path, Review, Heatmap, Settings); screens glide into each other; keyboard keys 1–4, Enter and Esc (promised in PRD 4e, never built). | ⬜ |
 

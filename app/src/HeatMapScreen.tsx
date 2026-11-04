@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import type { Cell, Group } from './heatmap';
 import { heatColor, heatLabel } from './heatmap';
 import { c, mono, COLUMN } from './theme';
+import { Icon } from './Icon';
 
 const TITLES: Record<Group, string> = { low: 'Low bands (below 1 GHz)', mid: 'Mid bands', high: 'High bands (mmWave)' };
 
@@ -9,7 +10,7 @@ const TITLES: Record<Group, string> = { low: 'Low bands (below 1 GHz)', mid: 'Mi
 export function HeatMap({ cells, onBack }: { cells: Cell[]; onBack: () => void }) {
   return (
     <div data-testid="heatmap" style={{ maxWidth: COLUMN, margin: '0 auto', padding: 20, boxSizing: 'border-box' }}>
-      <button data-testid="heatmap-back" onClick={onBack} style={{ border: 0, background: 'transparent', color: c.signal, fontSize: 16, cursor: 'pointer' }}>← Back</button>
+      <button data-testid="heatmap-back" onClick={onBack} style={{ minHeight: 44, display: 'inline-flex', alignItems: 'center', gap: 6, padding: '0 8px 0 0', border: 0, background: 'transparent', color: c.signal, fontSize: 16, cursor: 'pointer' }}><Icon name="back" size={20} />Back</button>
       <h1 style={{ margin: '8px 0 4px' }}>Band memory</h1>
       <p style={{ margin: '0 0 12px', color: c.textMuted }}>Green = you know it. Red = it is fading, so review it. Grey = you have not been quizzed on it yet.</p>
       {(['low', 'mid', 'high'] as Group[]).map(g => {

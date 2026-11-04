@@ -1,8 +1,9 @@
 // The gallery tool (redesign R01): pictures of every screen of the real app, for docs/redesign/gallery/latest/.
 // Run from app/:  npm run gallery            (builds first, then takes the pictures)
 // Options:        node tools/gallery.mjs --out <folder>   (default ../docs/redesign/gallery/latest)
+//                 node tools/gallery.mjs --icons-only     (just the icon sheet, 00-icons.webp; no build needed)
 // It starts the real Electron app with a made-up save file (3 lessons done, a 4-day streak, some reviews due),
-// visits each screen at the owner's window size (620 x 960) and a wide one (1280 x 800), and saves small WebP files.
+// draws a sheet of all our icons (00-icons), visits each screen at the owner's window size (620 x 960) and a wide one (1280 x 800), and saves small WebP files.
 // In the cloud (Linux with no screen) it restarts itself inside xvfb-run, a pretend screen.
 import { _electron as electron } from 'playwright';
 import { mkdtempSync, writeFileSync, mkdirSync, rmSync, readdirSync, existsSync } from 'node:fs';
@@ -55,8 +56,8 @@ async function launch(env) {
 const resize = (app, s) => app.evaluate(({ BrowserWindow }, s) => BrowserWindow.getAllWindows()[0].setContentSize(s.w, s.h), s);
 
 // Screenshot -> WebP, using the app's own Chromium (no extra tools needed).
-async function shot(w, name, s) {
-  await w.waitForTimeout(1300); // let pop-ins and slides finish
+async function shot(w, name, s, wait = 1300) {
+  await w.waitForTimeout(wait); // let pop-ins and slides finish
   const png = await w.screenshot();
   const webp = await w.evaluate(async b64 => {
     const blob = await (await fetch(`data:image/png;base64,${b64}`)).blob();
@@ -134,8 +135,28 @@ async function completeScreen(s) {
   await app.close();
 }
 
-if (existsSync(OUT)) for (const f of readdirSync(OUT)) if (f.endsWith('.webp')) rmSync(join(OUT, f));
+// The icon sheet (R02): every icon from src/theme/icons.ts at 24 px and 48 px, in the Night colours, plus the filled star.
+// Node reads the .ts files directly (Node 22.18 or newer strips the types; ignore its "Reparsing as ES module" warning).
+async function iconSheet() {
+  const { ICONS, ICON_NAMES } = await import('../src/theme/icons.ts');
+  const { NIGHT } = await import('../src/theme/tokens.ts');
+  const svg = (name, size, solid = false) => `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${
+    ICONS[name].lines.map(d => `<path d="${d}" fill="${solid ? 'currentColor' : 'none'}"/>`).join('')}${(ICONS[name].dots ?? []).map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="currentColor" stroke="none"/>`).join('')}</svg>`;
+  const cell = (name, solid) => `<div class="c"><div style="color:${NIGHT.signal}">${svg(name, 48, solid)}</div><div style="color:${NIGHT.text}">${svg(name, 24, solid)}</div><span>${name}${solid ? ' (solid)' : ''}</span></div>`;
+  const html = `<html><body style="margin:0;padding:20px;background:${NIGHT.bg};color:${NIGHT.textMuted};font:13px monospace">
+    <style>.g{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}.c{background:${NIGHT.surface};border:1px solid ${NIGHT.border};border-radius:14px;padding:12px;display:flex;flex-direction:column;align-items:center;gap:8px}</style>
+    <div class="g">${ICON_NAMES.map(n => cell(n, false)).join('')}${cell('star', true)}</div></body></html>`;
+  const { app, w } = await launch({}); // the app's own window, just as a page to draw on (needs no extra browser)
+  await resize(app, { w: 760, h: 640 });
+  await w.setContent(html);
+  await shot(w, '00-icons', { suffix: '' }, 300);
+  await app.close();
+}
+
+if (existsSync(OUT) && !process.argv.includes('--icons-only')) for (const f of readdirSync(OUT)) if (f.endsWith('.webp')) rmSync(join(OUT, f));
 mkdirSync(OUT, { recursive: true });
 console.log(`Gallery -> ${OUT}`);
+await iconSheet();
+if (process.argv.includes('--icons-only')) process.exit(0);
 for (const s of SIZES) { await realScreens(s); await completeScreen(s); }
 console.log('Done.');

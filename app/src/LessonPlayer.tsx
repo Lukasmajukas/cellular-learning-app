@@ -11,6 +11,7 @@ import { stars } from './lesson';
 import type { Lesson } from './path';
 import { beep } from './sound';
 import { Mascot } from './Mascot';
+import { Icon, SignalBars } from './Icon';
 import { SpectrumBar, rangesFor } from './SpectrumBar';
 import { mark, rightAnswerText, isScored, correctOrder, shuffleOrder, type Answer, type Item, type Scored, type Photo, type Rect } from './questions';
 import { startRun, advance, current, finished, scoredCount } from './session';
@@ -42,7 +43,7 @@ function PhotoView({ photo, outline, tap, dot, locked }: { photo: Photo; outline
       <div data-testid="photo" role={tap ? 'button' : 'img'} aria-label={photo.alt}
         onClick={e => { if (!tap || locked) return; const b = e.currentTarget.getBoundingClientRect(); tap((e.clientX - b.left) / b.width, (e.clientY - b.top) / b.height); }}
         style={{ position: 'relative', lineHeight: 0, cursor: tap && !locked ? 'crosshair' : 'default', borderRadius: 14, overflow: 'hidden', background: c.surface2, minHeight: 120 }}>
-        {broken ? <div style={{ lineHeight: 1.3, padding: 40, color: c.textMuted }}>🖼️ Picture not downloaded yet: {photo.alt}</div>
+        {broken ? <div style={{ lineHeight: 1.3, padding: 40, color: c.textMuted }}><Icon name="image" size={32} style={{ display: 'block', margin: '0 auto 8px' }} />Picture not downloaded yet: {photo.alt}</div>
           : <img src={photo.src} alt={photo.alt} draggable={false} onError={() => setBroken(true)} style={{ width: '100%', display: 'block' }} />}
         {outline && <div data-testid="outline" style={box(outline)} />}
         {dot && <div data-testid="tap-dot" style={{ position: 'absolute', left: `${dot[0] * 100}%`, top: `${dot[1] * 100}%`, width: 16, height: 16, margin: -8, borderRadius: 8, background: c.miss, border: `2px solid ${c.text}`, pointerEvents: 'none' }} />}
@@ -88,7 +89,7 @@ function Question({ q, locked, picked, onSubmit }: { q: Scored; locked: boolean;
       <div style={{ display: 'flex', gap: 12 }}>
         <div style={{ flex: 1 }}>{q.pairs.map((p, i) => (
           <button key={p[0]} data-testid={`match-left-${i}`} disabled={locked} onClick={() => setLeft(i)}
-            style={tile(left === i || paired[i] !== null ? c.surface2 : c.surface, left === i ? c.signal : paired[i] !== null ? c.borderStrong : c.border)}>{p[0]}{paired[i] !== null && <small> → {q.pairs[paired[i]!][1]}</small>}</button>))}</div>
+            style={tile(left === i || paired[i] !== null ? c.surface2 : c.surface, left === i ? c.signal : paired[i] !== null ? c.borderStrong : c.border)}>{p[0]}{paired[i] !== null && <small style={{ color: c.textMuted }}> <Icon name="chevron" size={14} label="goes with" /> {q.pairs[paired[i]!][1]}</small>}</button>))}</div>
         <div style={{ flex: 1 }}>{rightOrder.map(j => (
           <button key={q.pairs[j][1]} data-testid={`match-right-${j}`} disabled={locked} onClick={() => tap(j)} style={tile(used.has(j) ? c.surface2 : c.surface, used.has(j) ? c.borderStrong : c.border)}>{q.pairs[j][1]}</button>))}</div>
       </div>
@@ -99,7 +100,7 @@ function Question({ q, locked, picked, onSubmit }: { q: Scored; locked: boolean;
     return <>
       {q.clues.map((clue, ci) => (
         <div key={clue.text} data-testid={`clue-${ci}`} style={{ textAlign: 'left', margin: '10px 0' }}>
-          <div style={{ fontSize: 17, marginBottom: 4 }}>🔎 {clue.text}</div>
+          <div style={{ fontSize: 17, marginBottom: 4, display: 'flex', gap: 8, alignItems: 'flex-start' }}><Icon name="search" size={20} style={{ color: c.signal, marginTop: 1 }} /><span>{clue.text}</span></div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>{clueOrders[ci].map(i => [clue.choices[i], i] as const).map(([ch, i]) => (
             <button key={ch} data-testid={`clue-${ci}-choice-${i}`} disabled={locked} onClick={() => setPicks(p => p.map((v, k) => (k === ci ? i : v)))}
               style={{ ...tile(...(!locked && picks[ci] === i ? [c.surface2, c.signal] as [string, string] : answerLook(locked, i === clue.answer, picks[ci] === i))), width: 'auto', margin: 0, fontSize: 16 }}>{ch}</button>))}</div>
@@ -120,11 +121,13 @@ function Question({ q, locked, picked, onSubmit }: { q: Scored; locked: boolean;
 function Feedback({ q, ok, a }: { q: Scored; ok: boolean; a: Answer }) {
   return (
     <motion.div data-testid="feedback" initial={{ y: 16, opacity: 0 }} animate={{ y: 0, opacity: 1 }} style={{ marginTop: 14, padding: 12, borderRadius: 14, textAlign: 'left', background: ok ? c.onAirBg : c.missBg, border: `1px solid ${ok ? c.onAir : c.miss}`, color: c.text }}>
-      <strong data-testid="verdict" style={{ color: ok ? c.onAir : c.miss, fontSize: 18 }}>{ok ? 'Right!' : 'Not quite.'}</strong>
+      <strong data-testid="verdict" style={{ color: ok ? c.onAir : c.miss, fontSize: 18, display: 'flex', alignItems: 'center', gap: 6 }}><Icon name={ok ? 'check' : 'cross'} size={20} />{ok ? 'Right!' : 'Not quite.'}</strong>
       {!ok && <div data-testid="right-answer">Right answer: {rightAnswerText(q)}</div>}
       {!ok && q.kind === 'choice' && typeof a === 'number' && <div>You picked: {q.choices[a]}</div>}
       {!ok && q.kind === 'number' && <div>You typed: {String(a)}</div>}
-      {q.kind === 'scenario' && Array.isArray(a) && q.clues.map((clue, i) => <div key={clue.text} data-testid={`clue-why-${i}`} style={{ marginTop: 4 }}>{(a as number[])[i] === clue.answer ? '✅' : '❌'} {clue.text}: {clue.choices[clue.answer]}{clue.why ? `. ${clue.why}` : ''}</div>)}
+      {q.kind === 'scenario' && Array.isArray(a) && q.clues.map((clue, i) => <div key={clue.text} data-testid={`clue-why-${i}`} data-ok={(a as number[])[i] === clue.answer} style={{ marginTop: 4, display: 'flex', gap: 6, alignItems: 'flex-start' }}>
+        {(a as number[])[i] === clue.answer ? <Icon name="check" size={18} label="Right:" style={{ color: c.onAir, marginTop: 2 }} /> : <Icon name="cross" size={18} label="Missed:" style={{ color: c.miss, marginTop: 2 }} />}
+        <span>{clue.text}: {clue.choices[clue.answer]}{clue.why ? `. ${clue.why}` : ''}</span></div>)}
       {q.why && <div data-testid="why" style={{ marginTop: 6 }}>{q.why}</div>}
       {q.badge && <div data-testid="badge" style={{ marginTop: 6, fontSize: 13, color: c.textMuted, ...mono }}>{q.badge.status} · as of {q.badge.asOf}</div>}
       {q.kind === 'order' && <SpectrumBar testId="order-bar" ranges={correctOrder(q).map(l => q.items.find(i => i.label === l)!).map(i => ({ label: i.label, low: i.low, high: i.high }))} />}
@@ -155,7 +158,7 @@ export function LessonPlayer({ lesson, onFinish, onQuit }: { lesson: Lesson; onF
   return (
     <div style={{ maxWidth: 440, margin: '0 auto', padding: 20, textAlign: 'center' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-        <button data-testid="quit" onClick={onQuit} aria-label="Leave the lesson" style={{ border: 0, background: 'none', color: c.textMuted, fontSize: 22, cursor: 'pointer' }}>✕</button>
+        <button data-testid="quit" onClick={onQuit} aria-label="Leave the lesson" title="Leave the lesson" style={{ width: 44, height: 44, display: 'grid', placeItems: 'center', border: 0, borderRadius: '50%', background: 'none', color: c.textMuted, cursor: 'pointer', flexShrink: 0 }}><Icon name="close" /></button>
         <div style={{ flex: 1, height: 10, background: c.track, borderRadius: 5, overflow: 'hidden' }}>
           <motion.div style={{ height: '100%', background: c.signal }} animate={{ width: `${(Math.min(run.index, run.queue.length) / run.queue.length) * 100}%` }} />
         </div>
@@ -186,10 +189,11 @@ export function LessonPlayer({ lesson, onFinish, onQuit }: { lesson: Lesson; onF
         ) : (
           <motion.div key="end" initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: 'spring', bounce: 0.5 }}>
             <h2 data-testid="done">Lesson complete!</h2>
-            <div style={{ fontSize: 40, color: c.streak }} data-testid="stars">{'⭐'.repeat(stars(right, total))}</div>
+            <div data-testid="stars" data-count={stars(right, total)} aria-label={`${stars(right, total)} of 3 stars`} style={{ display: 'flex', justifyContent: 'center', gap: 8, color: c.streak, minHeight: 44 }}>
+              {[0, 1, 2].map(k => <Icon key={k} name="star" size={44} solid={k < stars(right, total)} style={{ opacity: k < stars(right, total) ? 1 : 0.35 }} />)}</div>
             <p>{right} of {total} right the first time</p>
             <p data-testid="xp" style={{ ...mono, fontSize: 28, color: c.signal, margin: '8px 0' }}>+{xp} XP</p>
-            <p data-testid="bars" aria-label={`${signalBars(right, total)} of 5 signal bars`} style={{ fontSize: 28, margin: '0 0 16px', letterSpacing: 2, color: c.onAir }}>{'▮'.repeat(signalBars(right, total))}{'▯'.repeat(5 - signalBars(right, total))}</p>
+            <p data-testid="bars" data-count={signalBars(right, total)} aria-label={`${signalBars(right, total)} of 5 signal bars`} style={{ margin: '0 0 16px', color: c.onAir }}><SignalBars on={signalBars(right, total)} size={40} /></p>
             <button onClick={restart} style={{ ...btn(c.signal), marginRight: 8 }}>Again</button>
             <button data-testid="finish" onClick={() => onFinish(result())} style={btn(c.onAir)}>Back to the path</button>
           </motion.div>
