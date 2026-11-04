@@ -10,6 +10,13 @@ const launch = async () => {
   const w = await app.firstWindow(); await w.getByTestId('path-count').waitFor();
   return { app, w };
 };
+// R04: Settings is a tab that glides in from the side. Sizes and positions are measured only after the glide ends.
+const openSettings = async (w: Page) => {
+  await w.getByTestId('tab-settings').click();
+  await w.getByTestId('settings').waitFor();
+  await w.waitForFunction(() => { const s = document.querySelector('[data-testid=screen-settings]');
+    return !!s && getComputedStyle(s).transform === 'none' && getComputedStyle(s).opacity === '1'; });
+};
 const openBlocks = async (w: Page) => { await w.evaluate(() => { location.hash = '#blocks'; location.reload(); }); await w.getByTestId('blocks').waitFor(); };
 
 // Watches an element every frame for `ms` while `act` runs. Returns its x positions and the gaps between frames.
@@ -36,7 +43,7 @@ const scaleOf = (w: Page, testId: string) => w.getByTestId(testId).evaluate(el =
 
 test('Settings is built from the blocks: four switches, a goal choice, big enough to click, and it all still saves', async () => {
   const { app, w } = await launch();
-  await w.getByTestId('tab-settings').click();
+  await openSettings(w);
   await expect(w.getByRole('switch')).toHaveCount(4);
   await expect(w.locator('[data-testid=settings] input[type=checkbox]:not([role=switch]), [data-testid=settings] select')).toHaveCount(0);
   // Everything you click is at least 44 x 44 (DESIGN.md section 4).
@@ -64,7 +71,7 @@ test('Settings is built from the blocks: four switches, a goal choice, big enoug
 
 test('the switch knob slides smoothly (50+ frames a second), buttons squish when pressed, and Reduce motion stops both', async () => {
   const { app, w } = await launch();
-  await w.getByTestId('tab-settings').click();
+  await openSettings(w); // measure only after the glide (on Windows the first try measured mid-glide, so the start was off)
   const knob = 'set-sounds-knob';
   const from = (await w.getByTestId(knob).boundingBox())!.x;
   const seen = await watch(w, knob, () => w.getByTestId('set-sounds').click());
