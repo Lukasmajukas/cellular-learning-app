@@ -135,6 +135,8 @@ test('a broken streak shows the repair card; repairing gives the streak back and
   await expect(w.getByTestId('streak')).toHaveText('0');
   await expect(w.getByTestId('repair-card')).toContainText('Save your 5-day streak');
   await expect(w.getByTestId('repair')).toHaveAccessibleName('Repair your 5-day streak');
+  // No XP yet today: no "+0" beside the total (design review 1).
+  await expect(w.getByTestId('xp-today')).toHaveCount(0);
   await w.getByTestId('repair-card').screenshot({ path: 'test-results/repair-card.png' });
   const f = await film(w, [S.flame, S.glow], () => w.getByTestId('repair').click(), 1600);
   await expect(w.getByTestId('streak')).toHaveText('5');

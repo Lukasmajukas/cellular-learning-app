@@ -49,6 +49,7 @@ One file holds every colour, size and speed (`app/src/theme/` from session R01).
 - One content column, at most 440 px wide, centred. Wider windows show more background, not wider tiles (so a phone version later is the same layout).
 - Corners: 14 px (tiles, buttons), 16–18 px (cards), round (pills, lesson circles).
 - Smallest thing you can click: 44 × 44 px.
+- The page always keeps the scrollbar's strip (`scrollbar-gutter: stable`), even on a screen too short to scroll. *(Design review 1, 2026-11-04: without it, the whole frame jumped sideways by the scrollbar's width when you switched from the Path tab to a short tab.)*
 
 ## 5. Icons
 - Our own icon set, drawn in code (SVG): 24 × 24 grid, 2 px lines, round ends, one colour (`currentColor`). One file (from R02).

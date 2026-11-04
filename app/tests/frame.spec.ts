@@ -37,6 +37,20 @@ async function film(w: Page, selector: string, act: () => Promise<void>, ms = 70
 // Frames seen strictly between where it started and where it ended up.
 const between = (vs: number[], end = vs[vs.length - 1]) => vs.filter(v => Math.abs(v - end) > 1 && Math.abs(v - end) < Math.max(...vs.map(x => Math.abs(x - end)))).length;
 
+test('switching tabs doesn\'t shift the frame sideways, even when only one tab needs a scrollbar (design review 1)', async () => {
+  const { app, w } = await launch();
+  const where = async () => ({ top: (await w.getByTestId('hud').boundingBox())!.x, tabs: (await w.getByTestId('tab-path').boundingBox())!.x,
+    scrolls: await w.evaluate(() => document.documentElement.scrollHeight > innerHeight) });
+  const path = await where();
+  await w.getByTestId('tab-review').click(); await w.getByTestId('screen-review').waitFor();
+  await w.waitForTimeout(600); // let the glide finish
+  const review = await where();
+  expect(path.scrolls).toBe(true); expect(review.scrolls).toBe(false); // the case that used to jump by the scrollbar's width
+  expect(review.top).toBeCloseTo(path.top, 0);
+  expect(review.tabs).toBeCloseTo(path.tabs, 0);
+  await app.close();
+});
+
 test('the app frame: a top bar that stays put, four tabs big enough to tap, and the Review tab', async () => {
   const { app, w } = await launch();
   await expect(w.getByTestId('top-bar')).toBeVisible();
