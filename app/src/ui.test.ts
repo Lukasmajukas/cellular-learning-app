@@ -48,8 +48,8 @@ describe('building blocks: springs (DESIGN.md section 7)', () => {
 
 describe('building blocks: used, and used properly', () => {
   const ui = readdirSync(join(SRC, 'ui')).filter(f => f.endsWith('.tsx'));
-  it('has a file for each block DESIGN.md section 6 asks of R03 and R04 (R04 added the app frame, AppShell; R05 the unit banner and the lesson node; R07 the top bar; R17 Beacon; R10 the chip; R11 feedback.tsx, the glow, pop, shake and glide of answers)', () => {
-    expect(ui.sort()).toEqual(['AnswerTile.tsx', 'AppShell.tsx', 'Beacon.tsx', 'BottomSheet.tsx', 'Button.tsx', 'Card.tsx', 'Chip.tsx', 'LessonNode.tsx', 'Pill.tsx', 'ProgressBar.tsx', 'SpeechBubble.tsx', 'Switch.tsx', 'TopBar.tsx', 'UnitBanner.tsx', 'feedback.tsx']);
+  it('has a file for each block DESIGN.md section 6 asks of R03 and R04 (R04 added the app frame, AppShell; R05 the unit banner and the lesson node; R07 the top bar; R17 Beacon; R10 the chip; R11 feedback.tsx, the glow, pop, shake and glide of answers; R12 the signal burst)', () => {
+    expect(ui.sort()).toEqual(['AnswerTile.tsx', 'AppShell.tsx', 'Beacon.tsx', 'BottomSheet.tsx', 'Button.tsx', 'Card.tsx', 'Chip.tsx', 'LessonNode.tsx', 'Pill.tsx', 'ProgressBar.tsx', 'SignalBurst.tsx', 'SpeechBubble.tsx', 'Switch.tsx', 'TopBar.tsx', 'UnitBanner.tsx', 'feedback.tsx']);
   });
   it('every clickable block gets its springs from usePress (so "Reduce motion" turns them all off in one place)', () => {
     for (const f of ui) {
@@ -75,7 +75,7 @@ describe('building blocks: used, and used properly', () => {
 
 describe('building blocks: Reduce motion is read live', () => {
   it('every block that moves by itself checks useCalm() (Motion alone only reads the setting when a block first appears)', () => {
-    for (const f of ['Switch.tsx', 'ProgressBar.tsx', 'BottomSheet.tsx', 'SpeechBubble.tsx', 'AppShell.tsx', 'feedback.tsx', 'AnswerTile.tsx'])
+    for (const f of ['Switch.tsx', 'ProgressBar.tsx', 'BottomSheet.tsx', 'SpeechBubble.tsx', 'AppShell.tsx', 'feedback.tsx', 'AnswerTile.tsx', 'SignalBurst.tsx'])
       expect(readFileSync(join(SRC, 'ui', f), 'utf8'), f).toContain('useCalm()');
   });
 });

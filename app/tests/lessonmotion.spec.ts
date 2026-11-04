@@ -24,7 +24,7 @@ const key = async (w: Page) => {
   const prompt = await w.getByTestId('prompt').textContent(), q = SAMPLE.find(x => x.prompt === prompt)!;
   return { right: q.answer, wrong: q.choices.findIndex((_, k) => k !== q.answer) };
 };
-const bursts = (w: Page) => w.evaluate(() => (window as unknown as { __confettiBursts?: number }).__confettiBursts ?? 0);
+const bursts = (w: Page) => w.evaluate(() => (window as unknown as { __signalBursts?: number }).__signalBursts ?? 0);
 const range = (xs: number[]) => Math.max(...xs) - Math.min(...xs);
 const BODY = '[data-testid=question-body]', FILL = '[data-testid=lesson-progress] [data-fill]', SPARK = '[data-testid=lesson-progress] [data-spark]';
 
@@ -60,7 +60,7 @@ test('a wrong pick shakes gently, the right tile pops and its glow flashes on, a
   await expect(w.getByTestId('verdict')).toHaveText('Right!');
   await w.waitForTimeout(500);
   await w.screenshot({ path: 'test-results/r11-right.png' });
-  expect(await bursts(w), 'no confetti after a right answer').toBe(0);
+  expect(await bursts(w), 'no burst after a right answer').toBe(0);
   expect(await w.evaluate(() => document.querySelectorAll('canvas').length)).toBe(0);
   await app.close();
 });
@@ -113,7 +113,7 @@ test('the counter counts first-time questions only: a miss never makes the total
   expect(Math.abs((pill.y + pill.height / 2) - (label.y + label.height / 2))).toBeLessThan(4);
   await w.getByTestId(`choice-${(await key(w)).right}`).click(); await next();
   await w.getByTestId('done').waitFor();
-  expect(await bursts(w), 'the lesson-complete burst is still there').toBe(1);
+  expect(await bursts(w), 'the lesson-complete signal burst is there').toBe(1);
   await app.close();
 });
 

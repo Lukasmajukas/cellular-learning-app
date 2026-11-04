@@ -3,7 +3,8 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
-import { SPRING, TIME, PRESS, PRESS_BIG, PRESS_ROUND, PRESS_PILL, QUICK_FADE, INSTANT, LOOP, popInDelay, screenGlide, ON_AIR, BREATHE, waveDelay, popInQueue, TOP_BAR, barAt, FEEDBACK, questionGlide } from './theme/motion';
+import { SPRING, TIME, PRESS, PRESS_BIG, PRESS_ROUND, PRESS_PILL, QUICK_FADE, INSTANT, LOOP, popInDelay, screenGlide, ON_AIR, BREATHE, waveDelay, popInQueue, TOP_BAR, barAt, FEEDBACK, questionGlide, COMPLETE, nth } from './theme/motion';
+import { BEACON_SIZE } from './ui/Beacon';
 import { grew } from './ui/TopBar';
 
 const SRC = __dirname;
@@ -194,5 +195,39 @@ describe('lesson movement (redesign R11)', () => {
     const calm = questionGlide(true) as unknown as Record<string, Record<string, unknown>>;
     for (const k of ['initial', 'animate', 'exit']) expect(Object.keys(calm[k]).filter(p => p !== 'transition'), k).toEqual(['opacity']);
     expect((calm.animate.transition as { duration: number }).duration).toBeLessThanOrEqual(0.15);
+  });
+});
+
+describe('lesson complete (R12, DESIGN.md section 7, moment 3)', () => {
+  const end = (t: { delay: number; duration?: number }) => t.delay + (t.duration ?? 0.7); // springs counted as 0.7 s (R06)
+  it('everything ends within a celebration (1.6 s): the burst, every star, XP counting up, every bar', () => {
+    expect(end(COMPLETE.grow)).toBeLessThanOrEqual(TIME.celebration);
+    expect(end(nth(COMPLETE.ring, COMPLETE.rings - 1, COMPLETE.ringGap))).toBeLessThanOrEqual(TIME.celebration);
+    expect(end(COMPLETE.piece)).toBeLessThanOrEqual(TIME.celebration);
+    expect(end(nth(COMPLETE.star, 2, COMPLETE.starGap))).toBeLessThanOrEqual(TIME.celebration);   // the 3rd star
+    expect(end(COMPLETE.count)).toBeLessThanOrEqual(TIME.celebration);
+    expect(end(nth(COMPLETE.bar, 4, COMPLETE.barGap))).toBeLessThanOrEqual(TIME.celebration);     // the 5th bar
+  });
+  it('one after another: the stars drop in order, then XP counts, and the bars fill one by one', () => {
+    expect(COMPLETE.starGap).toBeGreaterThan(0); expect(COMPLETE.barGap).toBeGreaterThan(0);
+    expect(COMPLETE.count.delay).toBeGreaterThan(COMPLETE.star.delay);
+    expect(COMPLETE.bar.delay).toBeGreaterThan(COMPLETE.count.delay);
+    expect(nth(COMPLETE.star, 2, COMPLETE.starGap).delay).toBeCloseTo(COMPLETE.star.delay + 2 * COMPLETE.starGap);
+  });
+  it('only whole transforms and see-through-ness move (so the browser runs them on its graphics side)', () => {
+    for (const k of ['growKeys', 'ringKeys', 'starKeys', 'barKeys'] as const) {
+      for (const p of Object.keys(COMPLETE[k])) expect(['transform', 'opacity'], `${k}.${p}`).toContain(p);
+      for (const t of COMPLETE[k].transform) expect(t, k).toMatch(/^((translateY|scale|scaleY)\([-\d.]+(px)?\) ?)+$/);
+    }
+    expect(COMPLETE.ringKeys.opacity.at(-1)).toBe(0);                       // the rings fade away to nothing ...
+    expect(COMPLETE.pieceFade[0]).toBe(0); expect(COMPLETE.pieceFade.at(-1)).toBe(0); // ... and so do the wave pieces
+  });
+  it('Beacon grows from its question size, so it no longer jumps (idea I34)', () => {
+    expect(COMPLETE.growKeys.transform[0]).toBe(`scale(${(BEACON_SIZE.question / BEACON_SIZE.complete).toFixed(3)})`);
+    expect(COMPLETE.growKeys.transform.at(-1)).toBe('scale(1)');
+  });
+  it('the burst stays near Beacon: a short "signal burst", not a screenful of confetti', () => {
+    expect(COMPLETE.rings).toBeLessThanOrEqual(3); expect(COMPLETE.pieces).toBeLessThanOrEqual(16);
+    expect(COMPLETE.pieceTo).toBeLessThanOrEqual(90);
   });
 });

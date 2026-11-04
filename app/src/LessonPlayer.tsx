@@ -1,32 +1,22 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence, useIsPresent } from 'motion/react';
-import rawConfetti from 'canvas-confetti';
-import { prefs } from './prefs';
 import { c, mono } from './theme';
-// Confetti draws on a canvas, so it needs real colour codes: read the current look's token values.
-const burstColors = () => ['--signal', '--on-air', '--streak', '--review'].map(v => getComputedStyle(document.documentElement).getPropertyValue(v).trim()).filter(Boolean);
-// Only the in-app switch turns confetti off (not Windows' setting). window.__confettiBursts lets the click test prove bursts fire.
-const confetti = (o: Parameters<typeof rawConfetti>[0]) => { if (prefs.reduceMotion) return; (window as unknown as { __confettiBursts?: number }).__confettiBursts = ((window as unknown as { __confettiBursts?: number }).__confettiBursts ?? 0) + 1; rawConfetti({ disableForReducedMotion: false, colors: burstColors(), ...o }); };
 import { stars } from './lesson';
 import type { Lesson } from './path';
 import { beep } from './sound';
 import { Beacon, BEACON_SIZE } from './ui/Beacon';
-import { Icon, SignalBars } from './Icon';
 import { SpectrumBar, rangesFor } from './SpectrumBar';
 import { mark, isScored, type Answer, type Item, type Scored } from './questions';
 import { Question, Feedback, KindHint, FactBadge } from './QuestionTypes';
 import { startRun, advance, current, finished, scoredCount } from './session';
 import { xpFor, signalBars } from './gamify';
 import { Button, IconButton, ProgressBar, BottomSheet, SpeechBubble, SectionLabel, Card, Pill } from './ui';
-import { SPRING, TIME, useCalm, questionGlide } from './theme/motion';
+import { SPRING, QUICK_FADE, useCalm, questionGlide } from './theme/motion';
+import { LessonComplete } from './LessonComplete';
 import { KIND_LABEL, questionCount, beaconLine } from './questionScreen';
 import { useKeys, pressFor } from './keys';
 
 export type LessonResult = { stars: number; xp: number; results: { id: string; ok: boolean }[] };
-
-// Bright buttons (signal / on-air) always carry dark text (DESIGN.md: "Text on signal, on-air, miss buttons").
-// Only the lesson-complete screen still uses this; R12 redraws that screen with the R03 buttons.
-const btn = (bg: string): React.CSSProperties => ({ padding: '12px 32px', fontSize: 18, fontWeight: 700, border: 0, borderRadius: 14, background: bg, color: c.onBright, cursor: 'pointer' });
 
 // Plays one lesson. Calls onFinish with the result when the player taps "Back to the path".
 // The question screen (redesign R09, look A): a top row (leave, progress bar, "5 / 12"), Beacon at the left with a
@@ -39,11 +29,6 @@ export function LessonPlayer({ lesson, onFinish, onQuit }: { lesson: Lesson; onF
   // What the sheet shows. Kept after Continue, so the sheet keeps its words while it slides away (the next question is already in).
   const [shown, setShown] = useState<{ q: Scored; ok: boolean; a: Answer; n: number } | null>(null);
   const [sheetH, setSheetH] = useState(0);
-  // Leaving the lesson clears its confetti (and a burst still waiting to start), so it doesn't keep falling over the path
-  // while "coming on air" plays: two celebrations at once (idea I23), and on a computer without a graphics chip the
-  // confetti and the path's moment fight for the same processor (design review 1: 47.9-49.8 fps on GitHub's Windows machines).
-  const burst = useRef<ReturnType<typeof setTimeout>>(undefined);
-  useEffect(() => () => { clearTimeout(burst.current); rawConfetti.reset(); }, []);
   const done = finished(run), it: Item | undefined = current(run);
   const total = scoredCount(run), right = run.firstRight.length;
   const submit = (a: Answer) => {
@@ -52,13 +37,12 @@ export function LessonPlayer({ lesson, onFinish, onQuit }: { lesson: Lesson; onF
     if (ok && run.seen.includes(it.id)) setRetriesRight(n => n + 1);
     // The sound starts on the next frame, after the answer and Beacon's new face are drawn (R17: Beacon must react
     // within 0.1 s). Inside the click, the first answer's sound set-up alone held the face back ~55 ms. R19 brings the new sounds.
-    // No confetti after a right answer any more (R11, idea I31: it fell over the words and the Continue button): the right
-    // tile's pop and glow and Beacon's ring pulse say it. The burst is kept for the end of the lesson only.
+    // No burst after a right answer (R11, idea I31: confetti fell over the words and the Continue button): the right
+    // tile's pop and glow and Beacon's ring pulse say it. The signal burst is for the end of the lesson only (R12).
     requestAnimationFrame(() => beep(ok));
   };
   const next = (ok: boolean) => {
     const r = advance(run, ok); setRun(r); setRes(null);
-    if (finished(r)) burst.current = setTimeout(() => confetti({ particleCount: 200, spread: 120 }), TIME.burstWait * 1000);
   };
   const perfect = right === total;
   const xp = xpFor(right, retriesRight, perfect);
@@ -84,7 +68,7 @@ export function LessonPlayer({ lesson, onFinish, onQuit }: { lesson: Lesson; onF
   // The counter (R11, idea I37): only first-time questions count, so a miss doesn't make the total grow. A missed
   // question coming back shows a quiet "Comeback" pill instead, and the counter stays where it was.
   const count = questionCount(run.queue.map(q => q.id), run.index);
-  const face = done ? 'cheering' : !res ? 'idle' : res.ok ? 'happy' : 'oops';
+  const face = !res ? 'idle' : res.ok ? 'happy' : 'oops';
   const says = !it || done ? '' : res ? beaconLine(res.ok ? 'right' : 'wrong', `${it.id}-${run.index}`) : beaconLine(it.kind === 'learn' ? 'learn' : 'ask', `${it.id}-${run.index}`);
   return (
     <div ref={root} style={{ maxWidth: 440, margin: '0 auto', padding: `20px 20px ${20 + sheetH}px`, boxSizing: 'border-box', textAlign: 'left' }}>
@@ -97,14 +81,12 @@ export function LessonPlayer({ lesson, onFinish, onQuit }: { lesson: Lesson; onF
           style={{ ...mono, fontSize: 13, color: c.textMuted, fontVariantNumeric: 'tabular-nums', minWidth: 44, textAlign: 'right' }}>{count.text}</span>
       </div>
       {/* Beacon's spot (R09): at the left, with what it says beside it. It waits, is happy or a little worried within 0.1 s
-          of an answer (R17), and cheers, bigger and centred, when the lesson is done (R12 reworks that screen). */}
-      {!done ? (
+          of an answer (R17). When the lesson is done, the lesson-complete screen has its own big Beacon, which grows in (R12, I34). */}
+      {!done && (
         <div data-testid="beacon-spot" style={{ display: 'flex', alignItems: 'flex-end', gap: 10, marginTop: 6, minHeight: 79 }}>
           <Beacon face={face} size={BEACON_SIZE.question} />
           {says && <SpeechBubble key={says} data-testid="beacon-says" style={{ marginBottom: 8 }}>{says}</SpeechBubble>}
         </div>
-      ) : (
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: 8 }}><Beacon face={face} size={BEACON_SIZE.complete} /></div>
       )}
       {/* initial={false}: the first question is already in place while the whole lesson rises (R04); later ones glide in
           from the right as the old one glides out to the left (R11, questionGlide). With Reduce motion: a quick fade only. */}
@@ -136,15 +118,10 @@ export function LessonPlayer({ lesson, onFinish, onQuit }: { lesson: Lesson; onF
             )}
           </motion.div>
         ) : (
-          <motion.div key="end" initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={SPRING.bouncy} style={{ textAlign: 'center' }}>
-            <h2 data-testid="done">Lesson complete!</h2>
-            <div data-testid="stars" data-count={stars(right, total)} aria-label={`${stars(right, total)} of 3 stars`} style={{ display: 'flex', justifyContent: 'center', gap: 8, color: c.streak, minHeight: 44 }}>
-              {[0, 1, 2].map(k => <Icon key={k} name="star" size={44} solid={k < stars(right, total)} style={{ opacity: k < stars(right, total) ? 1 : 0.35 }} />)}</div>
-            <p>{right} of {total} right the first time</p>
-            <p data-testid="xp" style={{ ...mono, fontSize: 28, color: c.signal, margin: '8px 0' }}>+{xp} XP</p>
-            <p data-testid="bars" data-count={signalBars(right, total)} aria-label={`${signalBars(right, total)} of 5 signal bars`} style={{ margin: '0 0 16px', color: c.onAir }}><SignalBars on={signalBars(right, total)} size={40} /></p>
-            <button onClick={restart} style={{ ...btn(c.signal), marginRight: 8 }}>Again</button>
-            <button data-testid="finish" data-primary aria-keyshortcuts="Enter" onClick={finish} style={btn(c.onAir)}>Back to the path</button>
+          // The lesson-complete screen (R12): src/LessonComplete.tsx. It appears once the last question has glided out.
+          <motion.div key="end" data-testid="end" initial={{ opacity: 0 }} animate={{ opacity: 1, transition: QUICK_FADE }}>
+            <LessonComplete stars={stars(right, total)} right={right} total={total} fixed={retriesRight} xp={xp}
+              bars={signalBars(right, total)} onFinish={finish} onAgain={restart} />
           </motion.div>
         )}
       </AnimatePresence>
