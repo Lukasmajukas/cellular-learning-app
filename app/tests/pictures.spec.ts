@@ -14,7 +14,7 @@ test('photo-choice and tap-the-clue questions work, with credit, outline and tap
   await expect(w.getByTestId('photo-credit')).toContainText('CC0');
   await expect(w.getByTestId('photo').locator('img')).toBeVisible();
   await w.getByTestId('choice-0').click();                       // wrong on purpose
-  await expect(w.getByTestId('verdict')).toHaveText('Not quite.');
+  await expect(w.getByTestId('verdict')).toHaveText('Not quite');
   await expect(w.getByTestId('right-answer')).toContainText('Monopole');
   await expect(w.getByTestId('outline')).toBeVisible();
   await w.screenshot({ path: 'test-results/pictures-photo.png' });
@@ -23,7 +23,7 @@ test('photo-choice and tap-the-clue questions work, with credit, outline and tap
   await expect(w.getByTestId('verdict')).toHaveCount(0);
   const box = (await w.getByTestId('photo').boundingBox())!;
   await w.mouse.click(box.x + box.width * 0.1, box.y + box.height * 0.9);   // wrong spot (the grass)
-  await expect(w.getByTestId('verdict')).toHaveText('Not quite.');
+  await expect(w.getByTestId('verdict')).toHaveText('Not quite');
   await expect(w.getByTestId('tap-dot')).toBeVisible();
   await expect(w.getByTestId('outline')).toBeVisible();
   await w.screenshot({ path: 'test-results/pictures-tap-wrong.png' });

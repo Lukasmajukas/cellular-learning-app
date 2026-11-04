@@ -44,7 +44,7 @@ Each row is one chat: Large (Opus), High effort. R01 to R04 must go in order (ev
 | R07 | **Top bar and daily goal** | Streak, XP and goal redrawn; XP counts up; the flame flickers when your streak grows; goal bar fills with a spring; streak freeze and repair restyled. | ✅ 2026-11-04, #130 |
 | R08 | **Design review 1** | A full review of R01–R07 against `DESIGN.md` and the look A picture: score every screen, fix small things, re-order the rest of this plan if needed. | ✅ 2026-11-04, #131 (`docs/reviews/2026-11-04-design-review-1.md`) |
 | R17 | **Beacon is drawn** | The new mascot with six faces (idle, happy, oops, thinking, cheering, sleepy), breathing rings and blinks. Replaces the old tower. *(Moved up by design review 1: R09–R12 all place Beacon, so it's drawn first and they're built around the real one, not the old triangle.)* | ✅ 2026-11-04, #132 |
-| R09 | **Question screen** | Progress bar, Beacon's spot with a speech bubble, the "PICK ONE" label, numbered answer tiles, the bottom "Right!" / "Not quite" sheet. *(Review 1: use the R03 bottom sheet; Continue matches the answer, red after "Not quite", as in look A.)* | ⬜ |
+| R09 | **Question screen** | Progress bar, Beacon's spot with a speech bubble, the "PICK ONE" label, numbered answer tiles, the bottom "Right!" / "Not quite" sheet. *(Review 1: use the R03 bottom sheet; Continue matches the answer, red after "Not quite", as in look A.)* | ✅ 2026-11-04, #133 |
 | R10 | **The other question types** | Match pairs, type the number, put bands in order, scenario clues, photo questions, tap-the-clue, learn cards and the spectrum bar, all in the new look. | ⬜ |
 | R11 | **Lesson movement** | Questions glide in and out; right answers glow, wrong ones shake gently; the progress bar springs forward. *(Review 1: no confetti after each right answer; the tile glow does that job (I31).)* | ⬜ |
 | R12 | **Lesson complete** | Stars drop in one by one, XP counts up like a meter, signal bars fill, a short "signal burst" instead of plain confetti. Checks that the burst shows on Windows (the confetti you never saw, T46/T57). *(Review 1: one main button, "Back to the path"; "Again" becomes quiet (I32).)* | ⬜ |
@@ -56,7 +56,7 @@ Each row is one chat: Large (Opus), High effort. R01 to R04 must go in order (ev
 ### Part 3: Beacon and sound
 | # | Session | What changes on screen | Status |
 |---|---|---|---|
-| R18 | **Beacon reacts** | Beacon joins the questions, the lesson-complete screen and the path map ("you are here"), with short kind lines from a data file. | ⬜ |
+| R18 | **Beacon reacts** | Beacon joins the questions, the lesson-complete screen and the path map ("you are here"), with short kind lines from a data file. *(R09 started that file, `app/src/questionScreen.ts`, with the question screen's lines; R18 adds the rest there.)* | ⬜ |
 | R19 | **Sound** | Free CC0 sound effects, credited, about 7 sounds; volume and sample button. If no free source can be reached, nicer code-made sounds, and a "You" row asking you to download a pack. | ⬜ |
 
 ### Part 4: finishing

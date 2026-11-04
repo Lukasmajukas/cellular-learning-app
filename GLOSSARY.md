@@ -189,5 +189,6 @@ Claude adds new words here whenever they come up.
 | **Breathing (animation)** | A slow, soft loop that makes something grow a tiny bit and fade a little, then come back, over and over, like breathing. The current lesson's rings do it. |
 | **Count-up** | A number that rolls up quickly from the old value to the new one, like a car's meter, so you see how much was added. Your XP does it after a lesson. |
 | **Next frame** | The screen redraws about 60 times a second; each redraw is a frame. "On the next frame" means a tiny wait (about 1/60 of a second), so something quick, like Beacon's face, gets drawn first. |
+| **Portal** | A way to draw one part of a screen somewhere else in the page, outside the screen's own box. The "Right!" / "Not quite" panel uses it, so it stays stuck to the bottom of the window even while the lesson slides. |
 | **Scrollbar gutter** | The strip at the side of the window where the scrollbar sits. Keeping it there even when a page is too short to scroll stops everything jumping sideways when you switch screens. |
 | **Zig-zag path** | The path map's layout: lesson circles go left, right, left down the screen, with each name beside its circle, joined by a dotted line. |
