@@ -160,3 +160,4 @@ Claude adds new words here whenever they come up.
 | **COW / COLT** | Cell on Wheels (on a trailer) and Cell on Light Truck (built onto a vehicle): temporary cell sites. |
 | **Small cell** | A small radio on a street pole or building, with a canister up high and a box below. |
 | **Daily review (drive test)** | The orange 🚗 button on the path map. It replays the questions the memory schedule says are due today, so you see them just before you'd forget. |
+| **Streak freeze (🧊)** | A spare day off. You earn one every 7 days in a row. If you miss one day, it is used up and your streak keeps going. |

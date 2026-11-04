@@ -6,7 +6,7 @@ import { resolveItem, resolveLesson } from './resolve';
 import { DATA, TYPES_DEMO } from './sampleLessons';
 import { review, retrievability, dueIds } from './fsrs';
 import { startRun, advance, current, finished, scoredCount } from './session';
-import { recordDay, liveStreak, signalBars, xpFor, EMPTY_GAME } from './gamify';
+import { recordDay, liveStreak, signalBars, xpFor, EMPTY_GAME, doneToday, repairable, repairStreak } from './gamify';
 import { finishLesson } from './finish';
 import { EMPTY_STATE } from './storage';
 const { normalize } = createRequire(import.meta.url)('../electron/store.cjs');
@@ -126,7 +126,29 @@ describe('save file keeps reviews and game', () => {
     const s = finishLesson(EMPTY_STATE, 'a', { stars: 1, xp: 10, results: [{ id: 'q1', ok: true }] }, new Date(2026, 10, 1));
     const n = normalize(JSON.parse(JSON.stringify(s))); expect(n.reviews).toEqual(s.reviews); expect(n.game).toEqual(s.game);
     const bad = normalize({ reviews: { x: { d: 'no' }, y: null }, game: { streak: -3, lastDay: 'tuesday', xp: 1.5 } });
-    expect(bad.reviews).toEqual({}); expect(bad.game).toEqual({ streak: 0, lastDay: '', xp: 0, xpToday: 0, xpDay: '' });
+    expect(bad.reviews).toEqual({}); expect(bad.game).toEqual(EMPTY_GAME);
     expect(normalize({ progress: { a: 2 } }).reviews).toEqual({});
+  });
+});
+
+describe('T54 goal, freeze and repair', () => {
+  const d = (n: number) => new Date(2026, 10, n, 12);
+  const run = (days: number[]) => days.reduce((g, n) => recordDay(g, 10, d(n)), EMPTY_GAME);
+  it('counts lessons done today for the goal bar', () => {
+    const g = run([1, 1, 1]); expect(doneToday(g, d(1))).toBe(3); expect(doneToday(g, d(2))).toBe(0);
+  });
+  it('earns a freeze at 7 days (max 2) and spends it on one missed day', () => {
+    let g = run([1, 2, 3, 4, 5, 6, 7]); expect(g.freezes).toBe(1);
+    expect(liveStreak(g, d(9))).toBe(7);
+    g = recordDay(g, 10, d(9)); expect(g.streak).toBe(8); expect(g.freezes).toBe(0);
+    expect(liveStreak(run([1, 2, 3, 4, 5, 6, 7]), d(10))).toBe(0);
+  });
+  it('lets you repair within 48 hours, before or after the next lesson', () => {
+    const g = run([1, 2, 3]);
+    expect(repairable(g, d(4))).toBe(0);
+    expect(repairable(g, d(5))).toBe(3);
+    expect(repairable(g, d(7))).toBe(0);
+    const pre = recordDay(repairStreak(g, d(5)), 10, d(5)); expect(pre.streak).toBe(4);
+    const post = repairStreak(recordDay(g, 10, d(5)), d(5)); expect(post.streak).toBe(4); expect(repairable(post, d(5))).toBe(0);
   });
 });
