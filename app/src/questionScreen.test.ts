@@ -1,5 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import { KIND_LABEL, KIND_HINT, FOLD_LABEL, counter, BEACON_LINES, beaconLine, type Moment } from './questionScreen';
+import { KIND_LABEL, KIND_HINT, FOLD_LABEL, questionCount, BEACON_LINES, beaconLine, type Moment } from './questionScreen';
+import { startRun, advance } from './session';
+import type { Item } from './questions';
 
 // Redesign R09: the question screen's words (the label above each question, the counter, Beacon's speech bubble).
 describe('question screen words', () => {
@@ -23,9 +25,25 @@ describe('question screen words', () => {
   });
 
   it('the counter shows the question on screen, counting from 1, and never goes past the total', () => {
-    expect(counter(0, 12)).toBe('1 / 12');
-    expect(counter(4, 12)).toBe('5 / 12');
-    expect(counter(12, 12)).toBe('12 / 12');
+    const ids = Array.from({ length: 12 }, (_, i) => `q${i}`);
+    expect(questionCount(ids, 0).text).toBe('1 / 12');
+    expect(questionCount(ids, 4).text).toBe('5 / 12');
+    expect(questionCount(ids, 12).text).toBe('12 / 12');
+  });
+
+  it('R11 (idea I37): a miss never makes the total grow; a question coming back is a "comeback" and the number stays', () => {
+    // The real lesson queue after missing q1: it comes back once, 3 places later (src/session.ts).
+    let run = startRun(['q0', 'q1', 'q2', 'q3', 'q4'].map(id => ({ id, kind: 'choice', prompt: id, choices: ['a', 'b'], answer: 0 }) as Item));
+    const seen: string[] = [];
+    for (const ok of [true, false, true, true, true, true]) {
+      const n = questionCount(run.queue.map(q => q.id), run.index);
+      seen.push(`${n.text}${n.comeback ? ' comeback' : ''}`);
+      run = advance(run, ok);
+    }
+    expect(run.queue.length).toBe(6); // the queue did grow by one ...
+    expect(seen).toEqual(['1 / 5', '2 / 5', '3 / 5', '4 / 5', '4 / 5 comeback', '5 / 5']); // ... the counter didn't
+    const end = questionCount(run.queue.map(q => q.id), run.index);
+    expect([end.text, end.comeback]).toEqual(['5 / 5', false]);
   });
 
   it("Beacon's lines are 8 words or fewer, kind, and hold no numbers (no facts in the bubble)", () => {

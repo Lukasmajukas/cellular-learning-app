@@ -14,11 +14,12 @@ const canvasBox = (w: import('@playwright/test').Page) => w.evaluate(() => {
   const r = c.getBoundingClientRect(); return { w: r.width, h: r.height, z: getComputedStyle(c).zIndex, vis: getComputedStyle(c).visibility };
 });
 
+// R11 (idea I31): confetti only falls at the end of a lesson now, not after each right answer, so these play the lesson to the end.
 test('confetti really shows, even when Windows says "reduce motion"', async () => {
   const app = await launch(); const w = await app.firstWindow();
   await w.emulateMedia({ reducedMotion: 'reduce' }); await w.reload(); // what Windows "animation effects: off" tells the app (read when the page loads)
   await w.getByTestId('lesson-u1-l1').click();
-  await w.getByTestId('choice-0').click();
+  await playSampleLesson(w);
   await expect.poll(() => bursts(w), { timeout: 3000 }).toBe(1);
   await w.waitForTimeout(250);
   const box = await canvasBox(w);
@@ -33,7 +34,7 @@ test('the in-app "reduce motion" switch still turns confetti off', async () => {
   await w.getByTestId('set-motion').check();
   await w.getByTestId('tab-path').click();
   await w.getByTestId('lesson-u1-l1').click();
-  await w.getByTestId('choice-0').click();
+  await playSampleLesson(w);
   await w.waitForTimeout(800);
   expect(await bursts(w)).toBe(0);
   expect(await canvasBox(w)).toBeNull();
