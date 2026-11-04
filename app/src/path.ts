@@ -63,3 +63,24 @@ export function unitStatus(units: Unit[], progress: Progress, unitId: string): U
   const s = u.lessons.map(l => lessonStatus(units, progress, l.id));
   return s.every(x => x === 'done') ? 'done' : s.some(x => x !== 'locked') ? 'open' : 'locked';
 }
+
+// --- The path map's movement (redesign R06) ---
+// "Coming on air": what changed since the path was last shown, so it can play the moment. Before = the progress the
+// path last showed, after = now. Exactly one newly finished lesson gives a moment (none for a replay, which changes
+// nothing new, or for a big jump such as a restored backup). It says which lesson came on air, which lesson it unlocked,
+// whether that finished its whole unit, and whether it opened the next unit.
+export type OnAir = { lesson: string; next?: string; unitDone?: string; unitOpened?: string };
+export function onAirMoment(units: Unit[], before: Progress, after: Progress): OnAir | null {
+  const list = allLessons(units);
+  const fresh = list.filter(l => after[l.id] !== undefined && before[l.id] === undefined);
+  if (fresh.length !== 1) return null;
+  const lesson = fresh[0].id, i = list.findIndex(l => l.id === lesson);
+  const unitOf = (id: string) => units.find(u => u.lessons.some(l => l.id === id))!;
+  const n = list[i + 1];
+  const next = n && lessonStatus(units, after, n.id) === 'current' ? n.id : undefined;
+  const unit = unitOf(lesson);
+  const unitDone = unitStatus(units, before, unit.id) !== 'done' && unitStatus(units, after, unit.id) === 'done' ? unit.id : undefined;
+  const nu = next ? unitOf(next) : undefined;
+  const unitOpened = nu && nu.id !== unit.id && unitStatus(units, before, nu.id) === 'locked' ? nu.id : undefined;
+  return { lesson, next, unitDone, unitOpened };
+}
