@@ -24,7 +24,10 @@ test('the question screen lines up as in look A: top row, Beacon with its bubble
   const { app, w } = await launch();
   await w.getByTestId('lesson-u1-l1').click();
   await w.locator('[data-testid^=choice-]:not([disabled])').first().waitFor();
-  await w.waitForTimeout(500); // the lesson finishes rising
+  // Move the pointer off the tiles first: a hovered tile grows a little (1.5%), which moved its edge 3 px on Windows,
+  // where the pointer was still resting where the lesson circle had been.
+  await w.mouse.move(2, 2);
+  await w.waitForTimeout(500); // the lesson finishes rising (and a hovered tile shrinks back)
   // Top row: leave, the bar (empty at the start), the counter.
   await expect(w.getByTestId('lesson-count')).toHaveText(/^1 \/ \d+$/);
   await expect(w.getByTestId('lesson-progress')).toHaveAttribute('data-value', '0');

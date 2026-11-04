@@ -31,7 +31,7 @@ The question screen now looks like the Night Signal picture you picked. At the t
 - **Checks:** unit tests 165 pass (161 + 4). Click tests: 53 pass in a full run (48 + 5 new). TypeScript OK. Content checker OK (253 facts, 27 photos, 635 questions; `content/` untouched). Windows build: see the pull request.
 
 ## Test results
-- Unit tests: 165 pass. Click tests: 53 pass (full run, 9.3 min). The sheet slides up at 60 fps in the cloud (23 steps, no overshoot). The older frame-rate tests (top bar, path moments, Beacon) still pass with the new progress bar.
+- Unit tests: 165 pass. Click tests: 53 pass (full run, 9.3 min). First Windows build: 52 of 53 passed; the line-up test measured a tile 3 px off, because the mouse pointer was resting on it (a hovered tile grows 1.5%). Reproduced in the cloud by hovering on purpose (3.00 px); the test now moves the pointer away before measuring. The sheet slides up at 60 fps in the cloud (23 steps, no overshoot). The older frame-rate tests (top bar, path moments, Beacon) still pass with the new progress bar.
 
 ## What I looked at (by eye)
 - `03-question`, `04-feedback-wrong`, `05-feedback-right` (both sizes) next to look A's question screen: same order and spacing (top row, Beacon left with its bubble, PICK ONE in blue capitals, the question on the left, numbered tiles, the red or green sheet with Continue in its colour). A 620 × 700 picture question (test screenshot): the page scrolled so the right tile sits just above the sheet.
