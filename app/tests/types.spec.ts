@@ -17,7 +17,7 @@ test('every question type works, a miss comes back, XP and streak show', async (
   await w.getByTestId('lesson-u2-l3').click();
   await w.getByTestId('learn-ok').click();                      // learn card (with spectrum bar shown)
   await w.getByTestId('choice-1').click();                      // WRONG on purpose (4G)
-  await expect(w.getByTestId('verdict')).toHaveText('Not quite.');
+  await expect(w.getByTestId('verdict')).toHaveText('Not quite');
   await expect(w.getByTestId('right-answer')).toContainText('5G');
   await w.screenshot({ path: 'test-results/t32-wrong.png' });
   await w.getByTestId('next').click();

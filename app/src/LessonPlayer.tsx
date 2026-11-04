@@ -16,8 +16,9 @@ import { SpectrumBar, rangesFor } from './SpectrumBar';
 import { mark, rightAnswerText, isScored, correctOrder, shuffleOrder, type Answer, type Item, type Scored, type Photo, type Rect } from './questions';
 import { startRun, advance, current, finished, scoredCount } from './session';
 import { xpFor, signalBars } from './gamify';
-import { AnswerTile, usePress, type TileState } from './ui';
-import { SPRING, PRESS_PILL, TIME } from './theme/motion';
+import { AnswerTile, Button, IconButton, ProgressBar, BottomSheet, SpeechBubble, SectionLabel, type TileState } from './ui';
+import { SPRING, TIME, useCalm } from './theme/motion';
+import { KIND_LABEL, counter, beaconLine } from './questionScreen';
 import { useKeys, pressFor } from './keys';
 
 export type LessonResult = { stars: number; xp: number; results: { id: string; ok: boolean }[] };
@@ -125,11 +126,11 @@ function Question({ q, locked, picked, onSubmit }: { q: Scored; locked: boolean;
     <button data-testid="check" data-primary aria-keyshortcuts="Enter" disabled={locked || rest.length > 0} onClick={() => onSubmit(placed)} style={{ ...btn(c.signal), marginTop: 12, opacity: rest.length ? 0.5 : 1 }}>Check</button></>;
 }
 
+// What the bottom sheet explains after an answer (R09: the sheet itself is the box, with the verdict as its title).
 function Feedback({ q, ok, a }: { q: Scored; ok: boolean; a: Answer }) {
   return (
-    <motion.div data-testid="feedback" initial={{ y: 16, opacity: 0 }} animate={{ y: 0, opacity: 1 }} style={{ marginTop: 14, padding: 12, borderRadius: 14, textAlign: 'left', background: ok ? c.onAirBg : c.missBg, border: `1px solid ${ok ? c.onAir : c.miss}`, color: c.text }}>
-      <strong data-testid="verdict" style={{ color: ok ? c.onAir : c.miss, fontSize: 18, display: 'flex', alignItems: 'center', gap: 6 }}><Icon name={ok ? 'check' : 'cross'} size={20} />{ok ? 'Right!' : 'Not quite.'}</strong>
-      {!ok && <div data-testid="right-answer">Right answer: {rightAnswerText(q)}</div>}
+    <div data-testid="explain">
+      {!ok && <div data-testid="right-answer"><strong>Right answer:</strong> {rightAnswerText(q)}</div>}
       {!ok && q.kind === 'choice' && typeof a === 'number' && <div>You picked: {q.choices[a]}</div>}
       {!ok && q.kind === 'number' && <div>You typed: {String(a)}</div>}
       {q.kind === 'scenario' && Array.isArray(a) && q.clues.map((clue, i) => <div key={clue.text} data-testid={`clue-why-${i}`} data-ok={(a as number[])[i] === clue.answer} style={{ marginTop: 4, display: 'flex', gap: 6, alignItems: 'flex-start' }}>
@@ -138,14 +139,20 @@ function Feedback({ q, ok, a }: { q: Scored; ok: boolean; a: Answer }) {
       {q.why && <div data-testid="why" style={{ marginTop: 6 }}>{q.why}</div>}
       {q.badge && <div data-testid="badge" style={{ marginTop: 6, fontSize: 13, color: c.textMuted, ...mono }}>{q.badge.status} · as of {q.badge.asOf}</div>}
       {q.kind === 'order' && <SpectrumBar testId="order-bar" ranges={correctOrder(q).map(l => q.items.find(i => i.label === l)!).map(i => ({ label: i.label, low: i.low, high: i.high }))} />}
-    </motion.div>);
+    </div>);
 }
 
 // Plays one lesson. Calls onFinish with the result when the player taps "Back to the path".
+// The question screen (redesign R09, look A): a top row (leave, progress bar, "5 / 12"), Beacon at the left with a
+// speech bubble, a small label ("PICK ONE"), the question, numbered answer tiles, and after an answer the bottom sheet
+// ("Right!" / "Not quite") with a Continue button in the sheet's own colour.
 export function LessonPlayer({ lesson, onFinish, onQuit }: { lesson: Lesson; onFinish: (r: LessonResult) => void; onQuit: () => void }) {
   const [run, setRun] = useState(() => startRun(lesson.questions));
   const [res, setRes] = useState<{ ok: boolean; a: Answer } | null>(null);
   const [retriesRight, setRetriesRight] = useState(0);
+  // What the sheet shows. Kept after Continue, so the sheet keeps its words while it slides away (the next question is already in).
+  const [shown, setShown] = useState<{ q: Scored; ok: boolean; a: Answer } | null>(null);
+  const [sheetH, setSheetH] = useState(0);
   // Leaving the lesson clears its confetti (and a burst still waiting to start), so it doesn't keep falling over the path
   // while "coming on air" plays: two celebrations at once (idea I23), and on a computer without a graphics chip the
   // confetti and the path's moment fight for the same processor (design review 1: 47.9-49.8 fps on GitHub's Windows machines).
@@ -155,7 +162,7 @@ export function LessonPlayer({ lesson, onFinish, onQuit }: { lesson: Lesson; onF
   const total = scoredCount(run), right = run.firstRight.length;
   const submit = (a: Answer) => {
     if (res || !it || !isScored(it)) return;
-    const ok = mark(it, a); setRes({ ok, a });
+    const ok = mark(it, a); setRes({ ok, a }); setShown({ q: it, ok, a });
     if (ok && run.seen.includes(it.id)) setRetriesRight(n => n + 1);
     // The sound and the confetti start on the next frame, after the answer and Beacon's new face are drawn (R17: Beacon
     // must react within 0.1 s). Inside the click, the first answer's sound set-up alone held the face back ~55 ms.
@@ -174,28 +181,45 @@ export function LessonPlayer({ lesson, onFinish, onQuit }: { lesson: Lesson; onF
   const sent = useRef(false);
   const finish = () => { if (sent.current) return; sent.current = true; onFinish(result()); };
   // Keys (src/keys.ts): 1-9 pick an answer tile, Enter presses the main button, Esc leaves. Off while the lesson glides away.
+  // The sheet lives outside the lesson's box (see BottomSheet), so Enter looks for its Continue button there too.
   const root = useRef<HTMLDivElement>(null);
-  const continuePress = usePress(true, PRESS_PILL);
-  useKeys(k => (k === 'back' ? (onQuit(), true) : pressFor(root.current, k)), useIsPresent());
+  const present = useIsPresent(), calm = useCalm();
+  useKeys(k => (k === 'back' ? (onQuit(), true) : pressFor(root.current, k) || (k === 'enter' && pressFor(document.querySelector('[data-testid=feedback]'), k))), present);
+  // After an answer, if the sheet covers the bottom of the question (a picture question, a short window), scroll just
+  // enough to show it above the sheet, so you can see which tile was right.
+  const body = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = body.current;
+    if (!res || !sheetH || !el) return;
+    const hidden = el.getBoundingClientRect().bottom - (window.innerHeight - sheetH) + 12;
+    if (hidden > 0) window.scrollBy({ top: hidden, behavior: calm ? 'auto' : 'smooth' });
+  }, [res, sheetH, calm]);
+  const face = done ? 'cheering' : !res ? 'idle' : res.ok ? 'happy' : 'oops';
+  const says = !it || done ? '' : res ? beaconLine(res.ok ? 'right' : 'wrong', `${it.id}-${run.index}`) : beaconLine(it.kind === 'learn' ? 'learn' : 'ask', `${it.id}-${run.index}`);
   return (
-    <div ref={root} style={{ maxWidth: 440, margin: '0 auto', padding: 20, textAlign: 'center' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-        <button data-testid="quit" onClick={onQuit} aria-label="Leave the lesson" aria-keyshortcuts="Escape" title="Leave the lesson (Esc)" style={{ width: 44, height: 44, display: 'grid', placeItems: 'center', border: 0, borderRadius: '50%', background: 'none', color: c.textMuted, cursor: 'pointer', flexShrink: 0 }}><Icon name="close" /></button>
-        <div style={{ flex: 1, height: 10, background: c.track, borderRadius: 5, overflow: 'hidden' }}>
-          <motion.div style={{ height: '100%', background: c.signal }} initial={false} animate={{ width: `${(Math.min(run.index, run.queue.length) / run.queue.length) * 100}%` }} />
+    <div ref={root} style={{ maxWidth: 440, margin: '0 auto', padding: `20px 20px ${20 + sheetH}px`, boxSizing: 'border-box', textAlign: 'left' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <IconButton icon="close" label="Leave the lesson (Esc)" data-testid="quit" onClick={onQuit} aria-keyshortcuts="Escape" style={{ marginLeft: -10 }} />
+        <div style={{ flex: 1 }}><ProgressBar testId="lesson-progress" label="Lesson progress" height={12} value={Math.min(run.index, run.queue.length) / run.queue.length} /></div>
+        <span data-testid="lesson-count" aria-label={`Question ${counter(run.index, run.queue.length).replace(' / ', ' of ')}`}
+          style={{ ...mono, fontSize: 13, color: c.textMuted, fontVariantNumeric: 'tabular-nums', minWidth: 44, textAlign: 'right' }}>{counter(run.index, run.queue.length)}</span>
+      </div>
+      {/* Beacon's spot (R09): at the left, with what it says beside it. It waits, is happy or a little worried within 0.1 s
+          of an answer (R17), and cheers, bigger and centred, when the lesson is done (R12 reworks that screen). */}
+      {!done ? (
+        <div data-testid="beacon-spot" style={{ display: 'flex', alignItems: 'flex-end', gap: 10, marginTop: 6, minHeight: 79 }}>
+          <Beacon face={face} size={BEACON_SIZE.question} />
+          {says && <SpeechBubble key={says} data-testid="beacon-says" style={{ marginBottom: 8 }}>{says}</SpeechBubble>}
         </div>
-      </div>
-      {/* Beacon (R17): waits, is happy or a little worried after an answer (within 0.1 s), and cheers when the lesson is done.
-          R09 gives it its own spot with a speech bubble; R18 gives it its lines. */}
-      <div style={{ display: 'flex', justifyContent: 'center', marginTop: 8 }}>
-        <Beacon face={done ? 'cheering' : !res ? 'idle' : res.ok ? 'happy' : 'oops'} size={done ? BEACON_SIZE.complete : BEACON_SIZE.question} />
-      </div>
+      ) : (
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: 8 }}><Beacon face={face} size={BEACON_SIZE.complete} /></div>
+      )}
       {/* initial={false}: the first question is already in place while the whole lesson rises (R04); later ones slide in. */}
       <AnimatePresence mode="wait" initial={false}>
         {!done && it ? (
-          <motion.div key={`${run.index}-${it.id}`} initial={{ x: 60, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: -60, opacity: 0 }}>
+          <motion.div ref={body} key={`${run.index}-${it.id}`} initial={{ x: 60, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: -60, opacity: 0 }}>
             {it.kind === 'learn' ? (
-              <div data-testid="learn-card" style={{ textAlign: 'left' }}>
+              <div data-testid="learn-card">
                 <h2 data-testid="prompt" style={{ textAlign: 'center' }}>{it.title ?? 'Learn this'}</h2>
                 <p style={{ fontSize: 18, lineHeight: 1.4 }}>{it.text}</p>
                 {it.bars && <SpectrumBar ranges={rangesFor(it.bars)} />}
@@ -204,17 +228,17 @@ export function LessonPlayer({ lesson, onFinish, onQuit }: { lesson: Lesson; onF
               </div>
             ) : (
               <>
-                <h2 data-testid="prompt">{it.prompt}</h2>
-                <Question key={it.id + run.index} q={it} locked={!!res} picked={res?.a} onSubmit={submit} />
-                {res && <>
-                  <Feedback q={it} ok={res.ok} a={res.a} />
-                  <motion.button data-testid="next" data-primary aria-keyshortcuts="Enter" initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} {...continuePress} onClick={() => next(res.ok)}
-                    style={{ ...btn(c.onAir), marginTop: 10 }}>Continue</motion.button></>}
+                <SectionLabel data-testid="kind-label" tone="signal" style={{ margin: '14px 0 0' }}>{KIND_LABEL[it.kind]}</SectionLabel>
+                <h2 data-testid="prompt" style={{ fontSize: 23, lineHeight: 1.25, fontWeight: 700, margin: '6px 0 12px' }}>{it.prompt}</h2>
+                {/* The other question types keep their old layout (centred) until R10 redraws them. */}
+                <div style={{ textAlign: it.kind === 'choice' || it.kind === 'photo-choice' ? 'left' : 'center' }}>
+                  <Question key={it.id + run.index} q={it} locked={!!res} picked={res?.a} onSubmit={submit} />
+                </div>
               </>
             )}
           </motion.div>
         ) : (
-          <motion.div key="end" initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={SPRING.bouncy}>
+          <motion.div key="end" initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={SPRING.bouncy} style={{ textAlign: 'center' }}>
             <h2 data-testid="done">Lesson complete!</h2>
             <div data-testid="stars" data-count={stars(right, total)} aria-label={`${stars(right, total)} of 3 stars`} style={{ display: 'flex', justifyContent: 'center', gap: 8, color: c.streak, minHeight: 44 }}>
               {[0, 1, 2].map(k => <Icon key={k} name="star" size={44} solid={k < stars(right, total)} style={{ opacity: k < stars(right, total) ? 1 : 0.35 }} />)}</div>
@@ -226,6 +250,13 @@ export function LessonPlayer({ lesson, onFinish, onQuit }: { lesson: Lesson; onF
           </motion.div>
         )}
       </AnimatePresence>
+      {/* The bottom sheet (R03's block; design review 1: Continue in the sheet's colour, red after "Not quite", as in look A).
+          It slides away with the lesson when you leave (present), and keeps its words while it goes. */}
+      <BottomSheet open={!!res && present} tone={shown?.ok ? 'right' : 'wrong'} testId="feedback" onHeight={setSheetH}
+        title={<span data-testid="verdict">{shown?.ok ? 'Right!' : 'Not quite'}</span>}
+        action={<Button full big kind={shown?.ok ? 'onAir' : 'miss'} data-testid="next" data-primary aria-keyshortcuts="Enter" onClick={() => res && next(res.ok)}>Continue</Button>}>
+        {shown && <Feedback q={shown.q} ok={shown.ok} a={shown.a} />}
+      </BottomSheet>
     </div>
   );
 }
