@@ -1,14 +1,14 @@
 {
- "asOf": "2026-11-03",
- "robot": {
-  "on": true,
-  "next": "right away (it starts its next job by itself), and every hour",
-  "last": "final review of the whole app done (T37); fixed shuffled answers, typed commas and the Windows build"
- },
- "light": "green",
- "working": "Nothing in progress. Next for Claude: the daily review screen (T53). For you: paste one message into the robot launcher chat, then type /clear (T51). Optional: T48 questions, frame-rate number (T46).",
- "limit": {
-  "state": "warning",
-  "resets": "Wed Nov 4, 5:00 AM Eastern. The robot keeps working until it runs out"
- }
+  "asOf": "2026-11-04",
+  "robot": {
+    "on": true,
+    "next": "right away (it starts its next job by itself), and every hour",
+    "last": "the Windows installer now goes on the project's Releases page (T56); the Windows build works again"
+  },
+  "light": "green",
+  "working": "Nothing in progress. Next for Claude: the daily review screen (T53). For you: download the newest build from the project's Releases page and tell Claude the frame-rate number and whether you see confetti (T46).",
+  "limit": {
+    "state": "warning",
+    "resets": "Wed Nov 4, 5:00 AM Eastern. The robot keeps working until it runs out"
+  }
 }

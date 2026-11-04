@@ -17,6 +17,8 @@ All the levels are explained in [ROADMAP.md](ROADMAP.md).
 
 **Progress panel:** a clean page that shows how far Claude has got, in plain words. **Open it here:** https://claude.ai/artifact/UFEWWa8kh5cWFcyQVJU5bc (private: only you can open it; pin it). It's a snapshot that Claude refreshes, so it shows an "as of" time.
 
+**Get the app (Windows):** open https://github.com/Lukasmajukas/cellular-learning-app/releases/tag/latest-build and download the file ending in `Setup.exe`. It's always the newest build. (Windows may warn that it isn't signed: click "More info", then "Run anyway".)
+
 **What are T13, T20 and so on?** Just labels so chats don't mix up tasks. You can ignore them.
 
 ---
