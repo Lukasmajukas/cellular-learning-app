@@ -92,9 +92,12 @@ export const waveDelay = (k: number, count: number) =>
 // The top bar (redesign R07, DESIGN.md section 7, moment 5). It plays only when a number really went up while the app
 // was open (a lesson or review finished, a streak repaired), never at start-up. Its own moment takes 1.6 s at most.
 // When it starts (`barAt`): `wait` (0.3 s) lets the frame fade in first; after a lesson's FIRST finish it waits
-// `afterPath` (1.4 s) instead, so the path's "coming on air" plays first and the top bar then adds it up: one
+// `afterPath` (1.6 s) instead, so the path's "coming on air" plays first and the top bar then adds it up: one
 // celebration at a time (idea I29). Found in R07: both at once dropped the Windows build under 50 fps, and two
 // celebrations at once are also harder to follow.
+// Design review 1 (R08): 1.4 s still overlapped the end of the new current circle's bounce (`ON_AIR.arrive`, a spring
+// counted as 0.7 s), and "coming on air" fell to 47.9-49.8 fps on GitHub's Windows machines. At 1.6 s, with the CPU slowed 6x in
+// the cloud, it measured 52.0-55.1 fps (45.3-56.1 at 1.4 s).
 // - XP counts up like a meter, and a small "+30" rises off it and fades;
 // - the flame flickers once (a little bigger, a wiggle) while its glow brightens and dims, and the new number pops;
 // - the goal bar springs from the old amount to the new one; reaching the goal flashes the bar and pops its check on;
@@ -105,7 +108,7 @@ export const waveDelay = (k: number, count: number) =>
 const FLAME = { scale: [1, 1.32, 0.94, 1.12, 1], rotate: [0, -9, 7, -3, 0] };   // the flicker: size and turn (degrees)
 const POP = [1, 1.28, 1];
 export const TOP_BAR = {
-  wait: 0.3, afterPath: 1.4,
+  wait: 0.3, afterPath: 1.6,
   flame: FLAME, popScale: POP,                                                       // the numbers behind the keyframes below
   count: { duration: 0.8, delay: 0, ease: EASE.out },                          // XP counting up
   float: { duration: 0.9, delay: 0, ease: EASE.out },                          // the "+30" rising and fading ...

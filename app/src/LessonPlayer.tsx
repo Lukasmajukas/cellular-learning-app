@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { motion, AnimatePresence, useIsPresent } from 'motion/react';
 import rawConfetti from 'canvas-confetti';
 import { prefs } from './prefs';
@@ -146,6 +146,11 @@ export function LessonPlayer({ lesson, onFinish, onQuit }: { lesson: Lesson; onF
   const [run, setRun] = useState(() => startRun(lesson.questions));
   const [res, setRes] = useState<{ ok: boolean; a: Answer } | null>(null);
   const [retriesRight, setRetriesRight] = useState(0);
+  // Leaving the lesson clears its confetti (and a burst still waiting to start), so it doesn't keep falling over the path
+  // while "coming on air" plays: two celebrations at once (idea I23), and on a computer without a graphics chip the
+  // confetti and the path's moment fight for the same processor (design review 1: 47.9-49.8 fps on GitHub's Windows machines).
+  const burst = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => { clearTimeout(burst.current); rawConfetti.reset(); }, []);
   const done = finished(run), it: Item | undefined = current(run);
   const total = scoredCount(run), right = run.firstRight.length;
   const submit = (a: Answer) => {
@@ -156,7 +161,7 @@ export function LessonPlayer({ lesson, onFinish, onQuit }: { lesson: Lesson; onF
   };
   const next = (ok: boolean) => {
     const r = advance(run, ok); setRun(r); setRes(null);
-    if (finished(r)) setTimeout(() => confetti({ particleCount: 200, spread: 120 }), TIME.burstWait * 1000);
+    if (finished(r)) burst.current = setTimeout(() => confetti({ particleCount: 200, spread: 120 }), TIME.burstWait * 1000);
   };
   const perfect = right === total;
   const xp = xpFor(right, retriesRight, perfect);

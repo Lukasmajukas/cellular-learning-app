@@ -128,6 +128,9 @@ describe('the top bar (redesign R07)', () => {
     for (const k of ['turn', 'burst', 'line', 'lockOff', 'banner', 'barDraw'] as const)
       expect(TOP_BAR.afterPath, k).toBeGreaterThanOrEqual(ON_AIR[k].delay + ON_AIR[k].duration);
     expect(TOP_BAR.afterPath).toBeGreaterThanOrEqual(ON_AIR.burst.delay + ON_AIR.burstGap + ON_AIR.burst.duration); // the second ring
+    // ... and the springs too (design review 1): the new current circle's bounce, the check badge, the unit banner's "done".
+    for (const k of ['arrive', 'check', 'bannerCheck'] as const) expect(TOP_BAR.afterPath, k).toBeGreaterThanOrEqual(end(ON_AIR[k]) - 1e-9);
+    expect(TOP_BAR.afterPath).toBeGreaterThanOrEqual(ON_AIR.wave.delay + ON_AIR.waveSpread + ON_AIR.wave.duration - 1e-9); // the unit's last wave ring
   });
   it('only whole transforms (move, size, turn) and see-through-ness move, so the browser runs them off the main thread; nothing loops', () => {
     for (const k of ['flickerKeys', 'glowKeys', 'popKeys', 'floatKeys', 'flashKeys', 'checkKeys'] as const)
