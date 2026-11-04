@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Three looks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@500;700&family=Fredoka:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#e9ecef;font-family:system-ui,sans-serif;padding:20px}
+.board{width:1180px;margin:0 auto 30px;border-radius:28px;padding:26px 28px 28px;overflow:hidden;position:relative}
+.bh{display:flex;align-items:baseline;gap:14px;margin-bottom:18px}
+.bh .tag{font:700 14px/1 system-ui;padding:7px 12px;border-radius:999px}
+.bh h1{font-size:34px}
+.bh p{font-size:17px;opacity:.8}
+.row{display:flex;gap:26px;align-items:flex-start}
+.phone{width:390px;height:780px;border-radius:34px;overflow:hidden;position:relative;flex:none}
+.side{flex:1;display:flex;flex-direction:column;gap:16px}
+.scr{position:absolute;inset:0;display:flex;flex-direction:column}
+.topbar{display:flex;align-items:center;gap:14px;padding:22px 20px 10px}
+.stat{display:flex;align-items:center;gap:6px;font-size:18px}
+.stat svg{width:22px;height:22px}
+.goal{margin-left:auto;display:flex;align-items:center;gap:8px}
+.goalbar{display:block;width:76px;height:10px;border-radius:6px;overflow:hidden}
+.goalbar i{display:block;height:100%}
+.review{margin:6px 20px 0;padding:14px 16px;display:flex;align-items:center;gap:10px;font-size:17px}
+.review svg{width:24px;height:24px}
+.review .due{margin-left:auto;font-size:14px;padding:4px 10px;border-radius:999px}
+.unit{margin:14px 20px 0;padding:12px 16px}
+.unit small{display:block;font-size:12px;letter-spacing:.12em;opacity:.8}
+.unit b{font-size:20px}
+.nodes{position:relative;height:486px;margin-top:6px}
+.nodes svg.link{position:absolute;inset:0}
+.node{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center}
+.lblbox{position:absolute;transform:translateY(-50%);font-size:14px;line-height:1.25;max-width:150px}.lblbox .stars{font-size:12px;letter-spacing:1px;margin-top:3px}
+.node .stars{font-size:11px;letter-spacing:1px;margin-top:2px}
+.tabbar{margin-top:auto;display:flex;justify-content:space-around;padding:12px 10px 18px}
+.tab{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;opacity:.6}
+.tab.on{opacity:1}
+.tab svg{width:24px;height:24px}
+.qtop{display:flex;align-items:center;gap:12px;padding:24px 20px 8px}
+.qtop .x{font-size:22px;opacity:.7}
+.qbar{flex:1;height:12px;border-radius:7px;overflow:hidden}
+.qbar i{display:block;height:100%;width:42%}
+.qcount{font-size:13px}
+.qhead{display:flex;align-items:flex-end;gap:10px;padding:6px 20px 0}
+.qhead .bubble{padding:10px 14px;font-size:15px;max-width:230px;position:relative}
+.qlabel{padding:14px 20px 0;font-size:12px;letter-spacing:.12em}
+.q h2{padding:6px 20px 12px;font-size:23px;line-height:1.25}
+.choice{margin:7px 20px;padding:15px 16px;font-size:18px;display:flex;align-items:center;gap:12px}
+.choice .k{width:26px;height:26px;display:grid;place-items:center;font-size:13px;flex:none}
+.sheet{margin-top:auto;padding:18px 20px 22px}
+.sheet .verdict{display:flex;align-items:center;gap:10px;font-size:21px;margin-bottom:6px}
+.sheet .verdict svg{width:28px;height:28px}
+.sheet p{font-size:15px;line-height:1.4;margin-top:4px}
+.sheet .btn{margin-top:14px;padding:14px;text-align:center;font-size:18px}
+.card{padding:16px 18px}
+.card h3{font-size:13px;letter-spacing:.12em;margin-bottom:10px;opacity:.75}
+.sw{display:flex;gap:8px;flex-wrap:wrap}
+.sw div{width:58px;font-size:11px;text-align:center;line-height:1.2}
+.sw span{display:block;height:40px;border-radius:10px;margin-bottom:5px}
+.fontsample{font-size:30px;line-height:1.2}
+.motion li{margin:0 0 6px 18px;font-size:14.5px;line-height:1.35}
+.mascot-wrap{display:flex;align-items:center;gap:16px}
+.mascot-wrap{justify-content:center;gap:26px}.face{display:flex;flex-direction:column;align-items:center;font-size:12px;opacity:.9}.mname{font-size:14.5px;line-height:1.35;margin-top:8px}
+
+/* ---------- A: Night Signal ---------- */
+.a{background:#08101d;color:#e6eef9}
+.a .tag{background:#3fd8f2;color:#08101d}
+.a h1,.a .phone{font-family:'Space Grotesk',sans-serif}
+.a .phone{background:radial-gradient(circle at 50% 46%,#16304f 0,#0e1c31 45%,#0a1424 100%);box-shadow:0 0 0 1px #1d3555,0 20px 50px #0008}
+.a .side{font-family:'Space Grotesk',sans-serif}
+.a .card{background:#0f1d33;border:1px solid #1f3a5c;border-radius:18px}
+.a .stat b{font-family:'JetBrains Mono',monospace}
+.a .streak{color:#ffbf47}.a .xp{color:#3fd8f2}
+.a .goalbar{background:#1d3352}.a .goalbar i{width:50%;background:linear-gradient(90deg,#3fd8f2,#4be3a1);box-shadow:0 0 8px #3fd8f2}
+.a .goal small{color:#8ea3bf;font-family:'JetBrains Mono',monospace}
+.a .review{background:#132a46;border:1px solid #2a4c75;border-radius:16px;color:#cfe3ff}
+.a .review .due{background:#9b8cff;color:#0b1424;font-weight:700}
+.a .unit{background:transparent;border-left:3px solid #3fd8f2;padding:4px 12px;color:#e6eef9}
+.a .unit small{color:#3fd8f2}
+.a .lbl{color:#c4d3e6}.a .stars{color:#ffbf47}
+.a .tabbar{background:#0b1627;border-top:1px solid #1d3352}
+.a .tab.on{color:#3fd8f2}
+.a .qbar{background:#1d3352}.a .qbar i{background:linear-gradient(90deg,#3fd8f2,#4be3a1);box-shadow:0 0 10px #3fd8f2}
+.a .qcount{font-family:'JetBrains Mono',monospace;color:#8ea3bf}
+.a .bubble{background:#13253f;border:1px solid #2a4c75;border-radius:14px 14px 14px 4px;color:#cfe3ff}
+.a .qlabel{color:#3fd8f2;font-family:'JetBrains Mono',monospace}
+.a .choice{background:#112138;border:1.5px solid #27456b;border-radius:14px}
+.a .choice .k{border:1.5px solid #3a5f8c;border-radius:7px;color:#8ea3bf;font-family:'JetBrains Mono',monospace}
+.a .choice.wrong{border-color:#ff6b6b;background:#2a1520;color:#ffc9c9}
+.a .choice.right{border-color:#4be3a1;background:#0f2e2a;color:#c3f7e0;box-shadow:0 0 14px #4be3a155}
+.a .sheet{background:#2a1520;border-top:2px solid #ff6b6b;color:#ffe1e1}
+.a .sheet .verdict{color:#ff8f8f}
+.a .sheet .btn{background:#ff6b6b;color:#1a0a0e;border-radius:14px;font-weight:700}
+
+/* ---------- B: Sunny Field ---------- */
+.b{background:#fff3df;color:#3a2c1f}
+.b .tag{background:#ff7a45;color:#fff}
+.b h1,.b .phone,.b .side{font-family:'Fredoka',sans-serif}
+.b h1{font-weight:600}
+.b .phone{background:linear-gradient(#cfeaff 0,#e9f6ff 38%,#fff8ec 60%);box-shadow:0 0 0 3px #fff,0 18px 40px #b4875533}
+.b .card{background:#fff;border-radius:22px;box-shadow:0 6px 18px #c99a6a22}
+.b .stat{font-weight:600}
+.b .streak{color:#ff7a45}.b .xp{color:#8e6cef}
+.b .goalbar{background:#ffe2c7;height:12px}.b .goalbar i{width:50%;background:#ffc93c}
+.b .goal small{color:#7a6552}
+.b .review{background:#fff;border-radius:20px;box-shadow:0 4px 0 #ffd9b8,0 8px 20px #c99a6a22;font-weight:500}
+.b .review svg{color:#4aa8ff}
+.b .review .due{background:#4aa8ff;color:#fff;font-weight:600}
+.b .unit{background:#ff7a45;color:#fff;border-radius:18px}
+.b .unit small{opacity:.9}
+.b .lbl{color:#4b3a2a;font-weight:500;background:#fffd;padding:3px 9px;border-radius:10px}.b .stars{color:#ffb000}
+.b .tabbar{background:#fff;border-radius:22px 22px 0 0;box-shadow:0 -4px 16px #c99a6a22}
+.b .tab.on{color:#ff7a45}
+.b .qbar{background:#ffe2c7;height:16px}.b .qbar i{background:#ffc93c}
+.b .qcount{color:#7a6552;font-weight:600}
+.b .bubble{background:#fff;border-radius:18px 18px 18px 4px;box-shadow:0 4px 14px #c99a6a22}
+.b .qlabel{color:#ff7a45;font-weight:600}
+.b .q h2{font-weight:600}
+.b .choice{background:#fff;border:2.5px solid #f1dcc6;border-radius:20px;font-weight:500}
+.b .choice .k{background:#fff3df;border-radius:50%;color:#a08060}
+.b .choice.wrong{border-color:#ff6f61;background:#fff0ee}
+.b .choice.right{border-color:#2bb673;background:#eafaf1}
+.b .sheet{background:#fff0ee;border-radius:26px 26px 0 0;color:#5a2620}
+.b .sheet .verdict{color:#e2493b;font-weight:600}
+.b .sheet .btn{background:#ff6f61;color:#fff;border-radius:18px;font-weight:600}
+
+/* ---------- C: Blueprint ---------- */
+.c{background:#f4f7fb;color:#13284a}
+.c .tag{background:#13284a;color:#fff}
+.c h1,.c .phone,.c .side{font-family:'IBM Plex Sans',sans-serif}
+.c h1{font-weight:600}
+.c .phone{background-color:#f7fafd;background-image:linear-gradient(#dfe9f5 1px,transparent 1px),linear-gradient(90deg,#dfe9f5 1px,transparent 1px);background-size:20px 20px;box-shadow:0 0 0 1.5px #13284a,0 16px 36px #13284a22;border-radius:26px}
+.c .card{background:#fff;border:1.5px solid #c9d7ea;border-radius:10px}
+.c .card h3{font-family:'IBM Plex Mono',monospace}
+.c .stat{font-weight:600}
+.c .stat b{font-family:'IBM Plex Mono',monospace}
+.c .streak{color:#ff6a13}.c .xp{color:#2f6fb2}
+.c .goalbar{background:#dbe5f1;border-radius:2px}.c .goalbar i{width:50%;background:#13284a}
+.c .goal small{font-family:'IBM Plex Mono',monospace;color:#5a6f8f}
+.c .review{background:#fff;border:1.5px solid #13284a;border-radius:8px;font-weight:500}
+.c .review .due{background:#ff6a13;color:#fff;border-radius:3px;font-family:'IBM Plex Mono',monospace;font-weight:600}
+.c .unit{background:#13284a;color:#fff;border-radius:6px}
+.c .unit small{font-family:'IBM Plex Mono',monospace;color:#9fc3ff}
+.c .lbl{color:#13284a;font-weight:500;background:#f7fafdee;padding:2px 5px}.c .stars{color:#ff6a13;font-family:'IBM Plex Mono',monospace}
+.c .tabbar{background:#fff;border-top:1.5px solid #13284a}
+.c .tab.on{color:#ff6a13}
+.c .qbar{background:#dbe5f1;border-radius:2px;height:8px}.c .qbar i{background:#ff6a13}
+.c .qcount{font-family:'IBM Plex Mono',monospace;color:#5a6f8f}
+.c .bubble{background:#fff;border:1.5px solid #13284a;border-radius:8px 8px 8px 0}
+.c .qlabel{color:#ff6a13;font-family:'IBM Plex Mono',monospace;font-weight:600}
+.c .q h2{font-weight:600}
+.c .choice{background:#fff;border:1.5px solid #9fb3cf;border-radius:8px}
+.c .choice .k{border:1.5px solid #9fb3cf;border-radius:3px;font-family:'IBM Plex Mono',monospace;color:#5a6f8f}
+.c .choice.wrong{border-color:#d64545;background:#fdf0f0}
+.c .choice.right{border-color:#1f9d6b;background:#ecf8f2;border-width:2px}
+.c .sheet{background:#fff;border-top:3px solid #d64545;color:#13284a}
+.c .sheet .verdict{color:#d64545;font-weight:600}
+.c .sheet .btn{background:#13284a;color:#fff;border-radius:6px;font-weight:600}
+</style></head><body>
+<div id="out"></div>
+<script>
+const I = {
+ flame:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c.6 3.4 4.8 5.3 4.8 10.4A4.8 4.8 0 0 1 7.2 12.6c0-2.3 1.3-3.6 2-5.2.6 1.4 1.3 2.4 2.4 3.1.5-2.6.2-5.6.4-8.5z"/></svg>',
+ bolt:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 2 4.5 13.5h6.2L9.8 22l9.7-12.2h-6.4z"/></svg>',
+ waves:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="2.2" fill="currentColor"/><path d="M7.8 7.8a6 6 0 0 0 0 8.4M16.2 7.8a6 6 0 0 1 0 8.4M4.9 4.9a10 10 0 0 0 0 14.2M19.1 4.9a10 10 0 0 1 0 14.2"/></svg>',
+ check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>',
+ lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg>',
+ tower:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 7.5 21M12 6l4.5 15M9.4 14h5.2M8.5 17.5h7"/><circle cx="12" cy="5" r="1.6" fill="currentColor"/><path d="M8.6 2.8a5 5 0 0 0 0 4.4M15.4 2.8a5 5 0 0 1 0 4.4"/></svg>',
+ xmark:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><path d="m8.8 8.8 6.4 6.4m0-6.4-6.4 6.4"/></svg>',
+ map:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6-5.6-6-10.5a6 6 0 0 1 12 0C18 15.4 12 21 12 21z"/><circle cx="12" cy="10.5" r="2.2"/></svg>',
+ repeat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a7 7 0 0 1 12.5-4.3L19 9M20 13a7 7 0 0 1-12.5 4.3L5 15"/><path d="M19 4v5h-5M5 20v-5h5"/></svg>',
+ grid:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></svg>',
+ gear:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.8v2.6M12 18.6v2.6M2.8 12h2.6M18.6 12h2.6M5.5 5.5l1.9 1.9M16.6 16.6l1.9 1.9M5.5 18.5l1.9-1.9M16.6 7.4l1.9-1.9"/></svg>'
+};
+const POS=[[112,62],[262,150],[112,246],[262,346],[112,436]];
+const LESSONS=[['What is a band?','done',3],['Low, mid and high','done',2],['Two lanes or taking turns','current',0],['The upside-down bands','locked',0],['Checkpoint','locked',0]];
+const tabs=on=>`<nav class="tabbar">${[['map','Path'],['repeat','Review'],['grid','Heatmap'],['gear','Settings']].map(([i,t],k)=>`<div class="tab ${k==on?'on':''}">${I[i]}${t}</div>`).join('')}</nav>`;
+function linkPath(){return 'M'+POS.map(p=>p.join(' ')).join(' L')}
+function curvy(){let d=`M${POS[0][0]} ${POS[0][1]}`;for(let i=1;i<POS.length;i++){const [x0,y0]=POS[i-1],[x1,y1]=POS[i];d+=` C${x0} ${(y0+y1)/2} ${x1} ${(y0+y1)/2} ${x1} ${y1}`}return d}
+
+/* Node drawings per look */
+const NODE={
+ a:(s)=>{ if(s==='done')return `<svg width="76" height="76" viewBox="0 0 76 76"><circle cx="38" cy="38" r="36" fill="none" stroke="#4be3a1" stroke-opacity=".25"/><circle cx="38" cy="38" r="29" fill="#0f2e2a" stroke="#4be3a1" stroke-width="2.5"/><g transform="translate(24 24) scale(1.17)" color="#4be3a1">${I.tower.replace('<svg','<svg width="24" height="24"')}</g></svg>`;
+  if(s==='current')return `<svg width="120" height="120" viewBox="0 0 120 120"><circle cx="60" cy="60" r="57" fill="none" stroke="#3fd8f2" stroke-opacity=".18" stroke-width="2"/><circle cx="60" cy="60" r="47" fill="none" stroke="#3fd8f2" stroke-opacity=".38" stroke-width="2"/><circle cx="60" cy="60" r="36" fill="#3fd8f2"/><circle cx="60" cy="60" r="36" fill="none" stroke="#bff4ff" stroke-width="2"/><g transform="translate(43 43) scale(1.42)" color="#08101d">${I.tower.replace('<svg','<svg width="24" height="24"')}</g></svg>`;
+  return `<svg width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" fill="#0f1d33" stroke="#2a4466" stroke-width="2" stroke-dasharray="4 4"/><g transform="translate(22 22) scale(.85)" color="#4d6688">${I.lock.replace('<svg','<svg width="24" height="24"')}</g></svg>`},
+ b:(s)=>{ const col={done:'#2bb673',current:'#ff7a45',locked:'#e9dccd'}[s], sh={done:'#1e8a57',current:'#d95a2a',locked:'#d5c4b1'}[s];
+  const icon = s==='locked'?I.lock:s==='done'?I.check:I.tower; const ic = s==='locked'?'#b8a48e':'#fff'; const sz = s==='current'?86:70;
+  return `<svg width="${sz+10}" height="${sz+14}" viewBox="0 0 ${sz+10} ${sz+14}"><rect x="5" y="10" width="${sz}" height="${sz}" rx="${sz*0.32}" fill="${sh}"/><rect x="5" y="4" width="${sz}" height="${sz}" rx="${sz*0.32}" fill="${col}"/><g transform="translate(${5+sz/2-15} ${4+sz/2-15}) scale(1.25)" color="${ic}">${icon.replace('<svg','<svg width="24" height="24"')}</g>${s==='current'?`<rect x="1" y="0" width="${sz+8}" height="${sz+8}" rx="${sz*0.36}" fill="none" stroke="#ff7a45" stroke-opacity=".35" stroke-width="3"/>`:''}</svg>`},
+ c:(s)=>{ const hex=(r,cx,cy)=>Array.from({length:6},(_,k)=>{const a=Math.PI/180*(60*k-90);return `${(cx+r*Math.cos(a)).toFixed(1)},${(cy+r*Math.sin(a)).toFixed(1)}`}).join(' ');
+  if(s==='done')return `<svg width="76" height="80" viewBox="0 0 76 80"><polygon points="${hex(35,38,40)}" fill="#13284a"/><g transform="translate(24 26) scale(1.17)" color="#fff">${I.check.replace('<svg','<svg width="24" height="24"')}</g></svg>`;
+  if(s==='current')return `<svg width="104" height="110" viewBox="0 0 104 110"><polygon points="${hex(50,52,55)}" fill="none" stroke="#ff6a13" stroke-width="1.5" stroke-dasharray="5 4"/><polygon points="${hex(40,52,55)}" fill="#ff6a13"/><g transform="translate(37 40) scale(1.25)" color="#fff">${I.tower.replace('<svg','<svg width="24" height="24"')}</g></svg>`;
+  return `<svg width="70" height="74" viewBox="0 0 70 74"><polygon points="${hex(31,35,37)}" fill="#fff" stroke="#9fb3cf" stroke-width="1.5"/><g transform="translate(25 27) scale(.85)" color="#9fb3cf">${I.lock.replace('<svg','<svg width="24" height="24"')}</g></svg>`}
+};
+const LINK={
+ a:()=>`<svg class="link" width="390" height="486"><path d="${curvy()}" fill="none" stroke="#3fd8f2" stroke-opacity=".45" stroke-width="2.5" stroke-dasharray="2 8" stroke-linecap="round"/></svg>`,
+ b:()=>`<svg class="link" width="390" height="486"><path d="M0 360 Q100 310 200 350 T390 330 V486 H0z" fill="#bfe6a8"/><path d="M0 410 Q120 370 230 405 T390 390 V486 H0z" fill="#a4d98a"/><path d="${curvy()}" fill="none" stroke="#f3dfc6" stroke-width="30" stroke-linecap="round"/><path d="${curvy()}" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="10 10"/></svg>`,
+ c:()=>`<svg class="link" width="390" height="486"><path d="${linkPath()}" fill="none" stroke="#13284a" stroke-width="1.5"/>${POS.slice(0,-1).map((p,i)=>{const q=POS[i+1];const mx=(p[0]+q[0])/2,my=(p[1]+q[1])/2;return `<circle cx="${mx}" cy="${my}" r="3" fill="#13284a"/>`}).join('')}</svg>`
+};
+const MASCOT={
+ a:(w=110,m='happy')=>{const face=m==='happy'?`<path d="M42.5 25q2.5-3 5 0M52.5 25q2.5-3 5 0" stroke="#08101d" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M44 31q6 5 12 0" stroke="#08101d" stroke-width="2.4" fill="none" stroke-linecap="round"/>`:`<circle cx="45" cy="25" r="2.6" fill="#08101d"/><circle cx="55" cy="25" r="2.6" fill="#08101d"/><path d="M45 33q2.5-2.5 5 0t5 0" stroke="#08101d" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M66 14q3 5 0 7q-3-2 0-7z" fill="#3fd8f2"/>`;
+  const glow=m==='happy'?'#4be3a1':'#3fd8f2';
+  return `<svg width="${w}" height="${w*1.25}" viewBox="0 0 100 125"><circle cx="50" cy="27" r="30" fill="none" stroke="${glow}" stroke-opacity=".18" stroke-width="2.5"/><circle cx="50" cy="27" r="22" fill="none" stroke="${glow}" stroke-opacity=".4" stroke-width="2.5"/><path d="M50 40 27 120M50 40 73 120M37 82h26M32 102h36M42 62h16" stroke="#86b2e0" stroke-width="5" stroke-linecap="round" fill="none"/><path d="M42 62 58 82M58 62 42 82M37 82l31 20M63 82 32 102" stroke="#3b5f88" stroke-width="2.5" fill="none"/><circle cx="50" cy="27" r="15" fill="${glow}"/>${face}</svg>`},
+ b:(w=110,m='happy')=>{const face=m==='happy'?`<circle cx="43.5" cy="51" r="4" fill="#3a2c1f"/><circle cx="56.5" cy="51" r="4" fill="#3a2c1f"/><circle cx="44.6" cy="49.6" r="1.3" fill="#fff"/><circle cx="57.6" cy="49.6" r="1.3" fill="#fff"/><path d="M43 58q7 7 14 0" stroke="#3a2c1f" stroke-width="2.6" fill="#ff8f7a" stroke-linecap="round"/>`:`<circle cx="43.5" cy="52" r="3.6" fill="#3a2c1f"/><circle cx="56.5" cy="52" r="3.6" fill="#3a2c1f"/><path d="M39 45.5l8-2.5M61 45.5l-8-2.5" stroke="#3a2c1f" stroke-width="2.4" stroke-linecap="round"/><ellipse cx="50" cy="61" rx="3.2" ry="3.8" fill="#3a2c1f"/>`;
+  return `<svg width="${w}" height="${w*1.25}" viewBox="0 0 100 125"><path d="M50 8v10" stroke="#5a4636" stroke-width="4" stroke-linecap="round"/><circle cx="50" cy="8" r="6" fill="#ffc93c"/><path d="M34 6q-6 7 0 14M66 6q6 7 0 14" stroke="#4aa8ff" stroke-width="3.5" fill="none" stroke-linecap="round"/><path d="M50 18c-14 0-22 30-27 98h54C72 48 64 18 50 18z" fill="#ff7a45"/><path d="M28 86h44M25 104h50" stroke="#d95a2a" stroke-width="5" stroke-linecap="round"/><ellipse cx="50" cy="52" rx="17" ry="15" fill="#fff"/>${face}<circle cx="35.5" cy="58" r="3.5" fill="#ffb3a1"/><circle cx="64.5" cy="58" r="3.5" fill="#ffb3a1"/><rect x="20" y="114" width="60" height="7" rx="3.5" fill="#d95a2a"/></svg>`},
+ c:(w=110,m='happy')=>{const face=m==='happy'?`<path d="M37 47q4.5-6 9 0M54 47q4.5-6 9 0" stroke="#7fe0ff" stroke-width="2.8" fill="none" stroke-linecap="round"/>`:`<rect x="39" y="40" width="6" height="7" rx="2" fill="#7fe0ff"/><rect x="55" y="40" width="6" height="7" rx="2" fill="#7fe0ff"/><path d="M41 52q2.25-2 4.5 0t4.5 0t4.5 0t4.5 0" stroke="#ffb27d" stroke-width="2" fill="none" stroke-linecap="round"/>`;
+  const led=m==='happy'?'#1f9d6b':'#d64545';
+  return `<svg width="${w}" height="${w*1.25}" viewBox="0 0 100 125"><path d="M50 22V8" stroke="#13284a" stroke-width="3"/><circle cx="50" cy="7" r="4.5" fill="#ff6a13"/><path d="M40 4a12 12 0 0 0 0 10M60 4a12 12 0 0 1 0 10" stroke="#ff6a13" stroke-width="2" fill="none" stroke-linecap="round"/><rect x="22" y="22" width="56" height="82" rx="9" fill="#fff" stroke="#13284a" stroke-width="3"/><rect x="30" y="32" width="40" height="24" rx="5" fill="#13284a"/>${face}<path d="M30 66h40M30 74h40M30 82h40" stroke="#c9d7ea" stroke-width="3" stroke-linecap="round"/><circle cx="36" cy="112" r="5" fill="#13284a"/><circle cx="50" cy="112" r="5" fill="#13284a"/><circle cx="64" cy="112" r="5" fill="#13284a"/><circle cx="70" cy="94" r="3.2" fill="${led}"/></svg>`}
+};
+const LOOKS=[
+ {k:'a',name:'Look A: Night Signal',line:'Dark, calm and glowing, like a radio engineer\'s screen at night.',
+  sw:[['#08101d','Night'],['#3fd8f2','Signal'],['#4be3a1','On air'],['#ffbf47','Streak'],['#9b8cff','Review'],['#ff6b6b','Miss']],
+  font:'Space Grotesk + a "code" font for numbers', sample:'n71 · <span style="font-family:JetBrains Mono">600 MHz</span>',
+  mascotName:'"Beacon": a thin lattice tower whose glowing head sends out rings.',
+  motion:['Finished lessons light up with radio rings, like a tower coming on air.','Screens glide; numbers tick up like a meter.','A dotted signal line flows along the path.']},
+ {k:'b',name:'Look B: Sunny Field',line:'Bright, warm and playful, like a picture book about towers on a sunny road trip.',
+  sw:[['#fff3df','Paper'],['#ff7a45','Tower'],['#4aa8ff','Sky'],['#ffc93c','Sun'],['#8e6cef','XP'],['#2bb673','Right']],
+  font:'Fredoka (round and friendly)', sample:'n71 · 600 MHz',
+  mascotName:'"Toto": your current tower mascot, grown up: chunky, rosy cheeks, wave "ears".',
+  motion:['Lesson stones pop up and bounce; the road draws itself as you go.','The mascot jumps when you are right and sways when you miss.','Clouds drift slowly; the hills sit still.']},
+ {k:'c',name:'Look C: Blueprint',line:'Clean and exact, like an engineer\'s plan on graph paper. Lessons are hexagon "cells".',
+  sw:[['#13284a','Ink'],['#ff6a13','Safety orange'],['#2f6fb2','Steel'],['#f4f7fb','Paper'],['#1f9d6b','Right'],['#d64545','Miss']],
+  font:'IBM Plex Sans + Plex Mono for numbers', sample:'n71 · <span style="font-family:IBM Plex Mono">600 MHz</span>',
+  mascotName:'"Rad": a little radio box with screen eyes and an antenna.',
+  motion:['Hex cells snap into place one by one, like a network being built.','Lines draw themselves like a pen on paper.','Crisp, short movements; no wobble.']}
+];
+function pathScreen(k){return `<div class="scr">
+ <div class="topbar"><div class="stat streak">${I.flame}<b>4</b></div><div class="stat xp">${I.bolt}<b>120</b></div><div class="goal"><span class="goalbar"><i></i></span><small>1 of 2</small></div></div>
+ <div class="review">${I.waves}<span>Daily review</span><span class="due">6 due</span></div>
+ <div class="unit"><small>UNIT 1</small><b>The spectrum ruler</b></div>
+ <div class="nodes">${LINK[k]()}${LESSONS.map(([t,s,st],i)=>{const [x,y]=POS[i],half=s==='current'?56:38,right=x<195;const pos=right?`left:${x+half+6}px;text-align:left`:`right:${390-x+half+6}px;text-align:right`;return `<div class="node" style="left:${x}px;top:${y}px">${NODE[k](s)}</div><div class="lblbox lbl" style="top:${y}px;${pos}">${t}${st?`<div class="stars">${'★'.repeat(st)}${'☆'.repeat(3-st)}</div>`:''}</div>`}).join('')}</div>
+ ${tabs(0)}</div>`}
+function qScreen(k){return `<div class="scr q">
+ <div class="qtop"><span class="x">✕</span><span class="qbar"><i></i></span><span class="qcount">5 / 12</span></div>
+ <div class="qhead">${MASCOT[k](58,'oops')}<div class="bubble">Hmm, look at the units!</div></div>
+ <div class="qlabel">PICK ONE</div>
+ <h2>Which is the higher frequency, 2000 MHz or 2 GHz?</h2>
+ <div class="choice wrong"><span class="k">1</span>2000 MHz</div>
+ <div class="choice"><span class="k">2</span>2 GHz</div>
+ <div class="choice right"><span class="k">3</span>They are the same</div>
+ <div class="sheet"><div class="verdict">${I.xmark}<b>Not quite</b></div><p><b>Right answer:</b> They are the same</p><p>1 GHz is 1000 MHz, so 2 GHz is 2000 MHz. Same thing, different units.</p><div class="btn">Continue</div></div></div>`}
+document.getElementById('out').innerHTML=LOOKS.map(L=>`<section class="board ${L.k}" id="${L.k}">
+ <div class="bh"><span class="tag">${L.k.toUpperCase()}</span><h1>${L.name.split(': ')[1]}</h1><p>${L.line}</p></div>
+ <div class="row"><div class="phone">${pathScreen(L.k)}</div><div class="phone">${qScreen(L.k)}</div>
+ <aside class="side">
+  <div class="card"><h3>MASCOT</h3><div class="mascot-wrap"><div class="face">${MASCOT[L.k](84,'happy')}<small>Right!</small></div><div class="face">${MASCOT[L.k](84,'oops')}<small>Oops</small></div></div><p class="mname">${L.mascotName}</p></div>
+  <div class="card"><h3>COLOURS</h3><div class="sw">${L.sw.map(([c,n])=>`<div><span style="background:${c};box-shadow:inset 0 0 0 1px #0002"></span>${n}</div>`).join('')}</div></div>
+  <div class="card"><h3>LETTERS</h3><div class="fontsample">${L.sample}</div><p style="font-size:13px;opacity:.75;margin-top:6px">${L.font}</p></div>
+  <div class="card"><h3>HOW IT MOVES</h3><ul class="motion">${L.motion.map(m=>`<li>${m}</li>`).join('')}</ul></div>
+ </aside></div></section>`).join('');
+</script></body></html>

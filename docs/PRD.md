@@ -5,6 +5,7 @@
 
 <!-- When the owner types "I sign off the plan", a chat adds the line below and merges it. That line unlocks app building. -->
 Signed off by owner: 2026-10-31 ("I sign off the plan"). All suggested answers in section 9 stand.
+**Section 12 (the redesign) was added on 2026-11-04 and is a DRAFT until the owner signs it off.**
 
 ---
 
@@ -256,3 +257,23 @@ You can answer these in any chat, in any order. My suggested answer is in **bold
 | SQLite database | **One JSON save file** with daily backups | Simpler for one learner; fewer breakable parts |
 | Signed builds with automatic updates | **Unsigned, manual updates** for now | Costs $0; the repository is private |
 | 115–220 hours for a TypeScript developer | **Counted in chats** | Claude writes the code; your time goes into testing |
+
+## 12. The redesign (Level 5), added 2026-11-04 (T58)
+**Status:** DRAFT, waiting for the owner's sign-off. <!-- When the owner types "I sign off the redesign plan", a chat writes the date here and in docs/redesign/PLAN.md. -->
+
+**In simple words:** the owner asked (Nov 4) for "a full made app": movement on every screen, a real look, built carefully over many sessions. The owner picked the **Night Signal** look and the **Beacon** mascot, and chose to let the robot build it on its own, nonstop, and then keep improving it. The details are in `docs/redesign/PLAN.md` (the 24 sessions and the checklist) and `docs/redesign/DESIGN.md` (the style guide). The Level 5 "Polish" row of the roadmap becomes this program.
+
+**What this changes in the plan above** (nothing is silently overwritten; the older text stays where it is, and this table wins where they differ):
+| Section | The plan said | The redesign says | Why |
+|---|---|---|---|
+| 4d Sounds | Short sounds made by code, no sound files | Real sound effects from a free CC0 library, credited in a sounds credits file; code-made sounds only as a fallback | Owner's choice, 2026-11-04 |
+| 4d Mascot | A little tower drawn by Claude | **Beacon**: a glowing lattice tower with six faces that reacts to answers (`DESIGN.md` section 8). Still drawn by Claude in SVG with Motion | Owner's choice, 2026-11-04 |
+| 4e The look | Original radio theme, our own colours | **Night Signal** (`DESIGN.md`): dark default plus a Day look, bundled fonts (Space Grotesk, JetBrains Mono), our own icons instead of emoji. The Duolingo colours still in the app today are removed first (session R01) | Owner's choice; the app had been using Duolingo's exact colours, which broke the 2026-10-31 decision |
+| 4e Keyboard | Keys 1–4 and Enter | Same, finally built (session R04), plus Esc | It was promised but never built |
+| 4f Settings | Light or dark look | "Look: Night / Day", and a "play a sample" button for sounds | Follows the new look |
+| 7 Limits | Building happens mostly on Sonnet | The redesign sessions run on Opus, High effort (owner's wish: "20+ Opus sessions") | Owner's words, 2026-11-04 |
+| 8 Each step | "Nothing moves on until you've said so" | For the redesign only: the robot doesn't wait for the owner. Each session must pass the automatic tests, the Windows build and Claude's own picture check; design reviews come at R08, R16, R24 and then every 8th chat. The owner tries builds whenever they like, and their words go to the top of the ideas board | Owner's choice ("never wait for me", "robot decides alone"), 2026-11-04 |
+| 8 Building plan | v1.0 "polish" | A new step after v1.0: **v2.0 Night Signal** (24 sessions), then "keep improving" from `docs/redesign/IDEAS.md` until the owner types `Pause the redesign` | Owner: "I want it to just keep improving and make more designs" |
+| 10 Risks | "It doesn't feel smooth", "Looks too much like Duolingo" | Plus: usage limit used up early in the week, changes going faster than the owner can look, design drift, graphics-chip problems only the owner's PC shows (`PLAN.md`, "Risks") | Nonstop robot work |
+
+**Still true:** facts only from the data files; no AI photos for identification; reduce motion is the app's own switch; animations move only position, size, turning and see-through-ness (glows fade as their own layer); Windows first, nothing Windows-only; everything free (OFL fonts, CC0 sounds).
