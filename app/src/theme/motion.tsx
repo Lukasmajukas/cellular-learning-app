@@ -101,7 +101,7 @@ export const TOP_BAR = {
   wait: BAR_WAIT,
   count: { duration: 0.8, delay: BAR_WAIT, ease: EASE.out },                          // XP counting up
   float: { duration: 0.9, delay: BAR_WAIT, ease: EASE.out },                          // the "+30" rising and fading
-  floatKeys: { y: [4, -12], opacity: [0, 1, 0] },
+  floatKeys: { y: [8, -6], opacity: [0, 1, 0] },                                   // rises off the number, staying inside the bar
   flicker: { duration: 0.6, delay: BAR_WAIT + 0.05, ease: 'easeInOut' as const },    // the flame
   flickerKeys: { scale: [1, 1.32, 0.94, 1.12, 1], rotate: [0, -9, 7, -3, 0] },
   glowKeys: { opacity: [0.25, 0.9, 0.25] },                                         // the flame's glow layer (still: 0.25)

@@ -90,7 +90,7 @@ export function TopBar({ streak, xp, xpToday, freezes, done, goal }:
         </span>
         <span data-testid="xp-today" title="XP earned today" style={{ ...mono, fontSize: 13, color: c.textMuted }}>+<Count m={t} /><span style={hidden}> XP today</span></span>
         {grew(x) && !calm && <span key={x.n} ref={float} data-testid="xp-float" aria-hidden
-          style={{ position: 'absolute', left: 26, top: -10, fontSize: 13, fontWeight: 700, ...mono, color: c.signal, opacity: 0, pointerEvents: 'none' }}>+{x.to - x.from}</span>}
+          style={{ position: 'absolute', left: 26, top: -6, fontSize: 13, fontWeight: 700, ...mono, color: c.signal, opacity: 0, pointerEvents: 'none' }}>+{x.to - x.from}</span>}
       </span>
       {/* Streak freezes: a small pill, only when you have one. */}
       {freezes > 0 && <span ref={pill} data-testid="freezes" title="Streak freezes: a missed day that won't break your streak"

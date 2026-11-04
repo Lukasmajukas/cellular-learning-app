@@ -3,7 +3,7 @@
 // Options:        node tools/gallery.mjs --out <folder>   (default ../docs/redesign/gallery/latest)
 //                 node tools/gallery.mjs --icons-only     (just the icon sheet, 00-icons.webp; no build needed)
 // It starts the real Electron app with a made-up save file (3 lessons done, a 4-day streak, some reviews due),
-// shows the building blocks page (#blocks, from R03), the Review tab (13, from R04),
+// shows the building blocks page (#blocks, from R03), the Review tab (13, from R04), the top bar mid-moment and the repair card (14, 15, from R07),
 // draws a sheet of all our icons (00-icons), visits each screen at the owner's window size (620 x 960) and a wide one (1280 x 800), and saves small WebP files.
 // In the cloud (Linux with no screen) it restarts itself inside xvfb-run, a pretend screen.
 import { _electron as electron } from 'playwright';
@@ -27,7 +27,7 @@ const today = (d = new Date()) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-$
 
 // A made-up save: unit 1 lessons 1-3 done, so lesson 4 is "current"; review cards of different ages so the
 // heatmap shows several colours and the daily review has questions due.
-function seedSave(dir) {
+function seedSave(dir, game = {}) {
   const now = Date.now();
   const ids = ['u1-4g5g-01', 'u1-4g5g-02', 'u1-higher-01', 'u1-twin-01', 'u1-higher-02', 'u1-tier-01', 'u1-tier-02', 'u1-fr-01',
     'u1-duplex-01', 'u1-duplex-02', 'u1-duplex-03', 'u1-gap-01'];
@@ -40,15 +40,15 @@ function seedSave(dir) {
     progress: { 'unit01-l1': 3, 'unit01-l2': 3, 'unit01-l3': 2 },
     settings: { sounds: false, reduceMotion: false, showFps: false, dailyGoal: 2, look: 'night' },
     reviews,
-    game: { streak: 4, lastDay: today(), xp: 120, xpToday: 30, xpDay: today(), doneToday: 1, doneDay: today(), freezes: 1, lost: 0, lostDay: '' },
+    game: { streak: 4, lastDay: today(), xp: 120, xpToday: 30, xpDay: today(), doneToday: 1, doneDay: today(), freezes: 1, lost: 0, lostDay: '', ...game },
     seenChanges: [],
   };
   writeFileSync(join(dir, 'save.json'), JSON.stringify(save));
 }
 
-async function launch(env) {
+async function launch(env, game) {
   const dir = mkdtempSync(join(tmpdir(), 'cell-gallery-'));
-  seedSave(dir);
+  seedSave(dir, game);
   const app = await electron.launch({ cwd: APP, args: ['.', '--no-sandbox'], env: { ...process.env, CELL_SAMPLE_PATH: '', CELL_DATA_DIR: dir, ...env } });
   const w = await app.firstWindow();
   await w.waitForLoadState('domcontentloaded');
@@ -136,6 +136,20 @@ async function completeScreen(s) {
   }
   await w.waitForTimeout(1200); // after the confetti burst
   await shot(w, '06-lesson-complete', s);
+  // Back to the path (R07): caught mid-moment, as the XP counts up, the "+N" rises and the goal bar fills (1 of 2 -> 2 of 2).
+  await w.getByTestId('finish').click();
+  await shot(w, '14-top-bar-moment', s, 750);
+  await app.close();
+}
+
+// The streak repair card (R07): a 5-day streak whose last lesson was two days ago (yesterday was missed).
+async function repairScreen(s) {
+  const ago = today(new Date(Date.now() - 2 * DAY));
+  const { app, w } = await launch({}, { streak: 5, lastDay: ago, xpToday: 0, xpDay: ago, doneToday: 0, doneDay: ago, freezes: 0 });
+  await resize(app, s);
+  await w.getByTestId('repair-card').waitFor();
+  await w.evaluate(() => window.scrollTo(0, 0));
+  await shot(w, '15-repair-card', s, 600);
   await app.close();
 }
 
@@ -179,5 +193,5 @@ mkdirSync(OUT, { recursive: true });
 console.log(`Gallery -> ${OUT}`);
 await iconSheet();
 if (process.argv.includes('--icons-only')) process.exit(0);
-for (const s of SIZES) { await realScreens(s); await completeScreen(s); await blocksScreens(s); }
+for (const s of SIZES) { await realScreens(s); await completeScreen(s); await repairScreen(s); await blocksScreens(s); }
 console.log('Done.');

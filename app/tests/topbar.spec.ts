@@ -60,6 +60,7 @@ test('finishing a lesson: XP counts up with a "+N" rising off it, the flame flic
   const fl = seen(S.float), shownFl = fl.filter(x => x.op > 0.5);
   expect(Math.max(...fl.map(x => x.op))).toBeGreaterThan(0.8); expect(fl.at(-1)!.op).toBeLessThan(0.05);
   expect(fl.at(-1)!.y).toBeLessThan(shownFl[0].y - 6);
+  expect(Math.min(...shownFl.map(x => x.y))).toBeGreaterThanOrEqual(0); // it stays inside the window (R07: it was cut off at the top edge)
   // The flame flickers once (grows about a third, wiggles, settles) while its glow brightens and dims back to its still look.
   const fs = seen(S.flame).map(x => x.sx), gs = seen(S.glow).map(x => x.op);
   console.log(`flame scale max ${Math.max(...fs)} -> ${fs.at(-1)}; glow ${gs[0]} -> max ${Math.max(...gs)} -> ${gs.at(-1)}`);
