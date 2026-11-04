@@ -28,10 +28,17 @@ Lessons move now. After Check, the right answer pops a little and glows green, a
   - `tests/smooth.spec.ts`: the two confetti tests now play the lesson to the end (the burst is only there now).
 
 ## Test results
-RESULTS_PLACEHOLDER
+- Unit tests: 176 pass (171 + 5). TypeScript OK. Content checker OK (253 facts, 27 photos, 635 questions; `content/` untouched).
+- Click tests: full run 60 of 60 passed (55 before + 5 new; 8.4 min), first try.
+- Frame rates (cloud): shake + pop + glow while the sheet slides up 60.0 fps (wrong tile moved 27.2 to 38.4 px and back; right tile up to 1.035; glow 0 to 0.95 to 0.75); question glide + bar spring 60.0 fps (new question from x 66 to 32.5; the bar's tip went 6.7 px past its new place, then settled; spark up to 0.92); order chip glide 60.0 fps (16 frames from the pool into slot 1, and back); the match number box grew from 0.6 to 1.2 to 1. The older ones still pass: sheet 60, top bar 59.5, coming on air 60.
+- With Reduce motion: the wrong tile didn't move (under 0.5 px), the right one didn't grow, the question didn't slide (one x position seen), and the bar jumped in one step.
+- Windows build: see the pull request.
 
 ## What I looked at (by eye)
-LOOKED_PLACEHOLDER
+- Before and after gallery pictures (620 x 960 and 1280 x 800). `05-feedback-right`: the confetti that covered the screen is gone; the green tile with its glow, Beacon's green face and the sheet say "right" on their own. `04-feedback-wrong`, `23-order-wrong`, `25-scenario-wrong`: everything settles back exactly in place after the shake (same tile positions as R10's pictures, plus 3 px lower: the label row now has a fixed height so a Comeback pill never moves the question).
+- New `28-comeback`: the quiet "Comeback" pill (repeat icon) beside PICK ONE, the counter at "3 / 3".
+- Frame by frame (test screenshots): mid-shake, the red tile sits about 5 px right of the green one, which is popped a little wider with its glow on; mid-glide, B71's tile is caught arriving in slot 1 while B5, B12 and B2 have closed the gap in the pool.
+- **Still looks weak:** the shake and the sheet start at the same moment, so the eye goes to the sheet; the shake is easy to miss (on purpose, it's gentle). The "Comeback" pill is very quiet; Beacon doesn't say anything about it yet (idea I43, R18). With Reduce motion the glow still fades in over 150 ms (allowed: a quick fade).
 
 ## What's next
 - Next task: T59, session R12 (lesson complete). Large (Opus), High effort. The robot picks it up by itself.
