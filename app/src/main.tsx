@@ -11,10 +11,11 @@ import { SettingsScreen } from './SettingsScreen';
 import { loadState, saveState, EMPTY_STATE, type SaveState } from './storage';
 import { FpsMeter } from './FpsMeter';
 import { prefs } from './prefs';
-import { MotionKit, screenGlide } from './theme/motion';
+import { MotionKit, screenGlide, TOP_BAR } from './theme/motion';
 import { useKeys } from './keys';
 import { AppShell, TABS, type TabId } from './ui/AppShell';
-import { Button, StatChip, ProgressBar } from './ui';
+import { Button } from './ui';
+import { TopBar, RepairCard } from './ui/TopBar';
 import { ReviewScreen } from './ReviewScreen';
 import { REAL_PATH } from './units';
 import { HeatMap } from './HeatMapScreen';
@@ -25,7 +26,7 @@ import rawLessons from '../../content/lessons.json';
 import { DATA } from './sampleLessons';
 import './theme/fonts';
 import './theme/theme.css';
-import { c, applyLook, mono, COLUMN } from './theme';
+import { c, applyLook, COLUMN } from './theme';
 import { Icon } from './Icon';
 import { BlocksSheet } from './BlocksSheet';
 
@@ -35,7 +36,6 @@ applyLook('night'); // before the first paint, so the window never flashes anoth
 const CHANGES = (rawChanges as { changes: Change[] }).changes;
 const PATH = (window as unknown as { cellApi?: { useSamplePath?: boolean } }).cellApi?.useSamplePath ? SAMPLE_PATH : REAL_PATH;
 const order = (t: TabId) => TABS.findIndex(x => x.id === t);
-const hidden = { position: 'absolute', width: 1, height: 1, overflow: 'hidden', clip: 'rect(0 0 0 0)', whiteSpace: 'nowrap' } as const;
 
 function App() {
   const [state, setState] = useState<SaveState | null>(null);
@@ -43,6 +43,8 @@ function App() {
   const [tab, setTab] = useState<TabId>('path');
   const [dir, setDir] = useState(1); // which way the screens glide: 1 = the new tab is to the right
   const [notice, setNotice] = useState('');
+  // True right after a lesson's first finish: the path plays "coming on air" then, so the top bar waits for it (R07).
+  const [handOver, setHandOver] = useState(false);
   const loaded = useRef(false);
 
   useEffect(() => { loadState().then(({ state, recovered }) => {
@@ -66,24 +68,9 @@ function App() {
   const due = dueCount(PATH, s.reviews, Date.now());
   const now = new Date(), done = doneToday(s.game, now), goal = s.settings.dailyGoal, repair = repairable(s.game, now);
 
-  // The top bar: streak, XP (and today's XP), streak freezes, and the daily goal as a small bar. R07 gives it its full look.
-  const top = <>
-    <div data-testid="hud" style={{ display: 'flex', alignItems: 'center', gap: 14, whiteSpace: 'nowrap' }}>
-      <StatChip data-testid="streak" icon="flame" tone="streak" title="Streak (days in a row)">{liveStreak(s.game, now)}</StatChip>
-      <span style={{ display: 'inline-flex', alignItems: 'baseline', gap: 6 }}>
-        <StatChip data-testid="xp-total" icon="bolt" tone="signal" title="XP in total">{s.game.xp}<span style={hidden}> XP</span></StatChip>
-        <span data-testid="xp-today" title="XP earned today" style={{ ...mono, fontSize: 13, color: c.textMuted }}>+{s.game.xpToday && s.game.xpDay === dayKey(now) ? s.game.xpToday : 0}<span style={hidden}> XP today</span></span>
-      </span>
-      {s.game.freezes > 0 && <StatChip data-testid="freezes" icon="freeze" tone="review" iconLabel="Streak freezes:" title="Streak freezes" style={{ fontSize: 16 }}>{s.game.freezes}</StatChip>}
-    </div>
-    <div data-testid="goal" style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 8 }}>
-      <div style={{ width: 64 }}><ProgressBar testId="goal-bar" label="Daily goal" value={done / goal} height={8} tone="onAir" /></div>
-      <span data-testid="goal-text" style={{ ...mono, fontSize: 13, color: c.textMuted, display: 'inline-flex', alignItems: 'center', gap: 4, whiteSpace: 'nowrap' }}>
-        <span style={hidden}>Daily goal: </span>{Math.min(done, goal)} of {goal}
-        {done >= goal && <Icon name="check" size={16} label="reached" style={{ color: c.onAir }} />}
-      </span>
-    </div>
-  </>;
+  // The top bar: streak, XP (and today's XP), streak freezes and the daily goal (redesign R07, src/ui/TopBar.tsx).
+  const top = <TopBar streak={liveStreak(s.game, now)} xp={s.game.xp} xpToday={s.game.xpDay === dayKey(now) ? s.game.xpToday : 0}
+    freezes={s.game.freezes} done={done} goal={goal} wait={handOver ? TOP_BAR.afterPath : TOP_BAR.wait} />;
 
   const screen = tab === 'review' ? <ReviewScreen due={due} onStart={() => setPlaying(REVIEW_ID)} />
     : tab === 'heatmap' ? <HeatMap cells={buildHeatmap(DATA.bands as unknown as BandRow[],
@@ -91,8 +78,7 @@ function App() {
     : tab === 'settings' ? <SettingsScreen settings={s.settings} onChange={settings => setState(p => p && { ...p, settings })} />
     : <>
         {repair > 0 && <div style={{ maxWidth: COLUMN, margin: '0 auto', padding: '12px 20px 0', boxSizing: 'border-box' }}>
-          <Button full kind="quiet" icon="repair" data-testid="repair" style={{ color: c.streak }}
-            onClick={() => setState(p => p && { ...p, game: repairStreak(p.game, new Date()) })}>Repair your streak ({repair} days)</Button></div>}
+          <RepairCard days={repair} onRepair={() => { setHandOver(false); setState(p => p && { ...p, game: repairStreak(p.game, new Date()) }); }} /></div>}
         <PathMap units={PATH} progress={s.progress} onStart={setPlaying} due={due} onReview={() => setPlaying(REVIEW_ID)} />
       </>;
 
@@ -108,7 +94,8 @@ function App() {
         {lesson ? (
           <motion.div key={`lesson-${lesson.id}`} data-testid="lesson-screen" {...screenGlide('lesson', calm)}>
             <LessonPlayer key={lesson.id} lesson={lesson} onQuit={() => setPlaying(null)}
-              onFinish={r => { setState(p => p && (lesson.id === REVIEW_ID ? finishReview(p, r) : finishLesson(p, lesson.id, r))); setPlaying(null); }} />
+              onFinish={r => { setHandOver(lesson.id !== REVIEW_ID && !s.progress[lesson.id]);
+                setState(p => p && (lesson.id === REVIEW_ID ? finishReview(p, r) : finishLesson(p, lesson.id, r))); setPlaying(null); }} />
           </motion.div>
         ) : (
           <motion.div key="frame" {...screenGlide('frame', calm)}>

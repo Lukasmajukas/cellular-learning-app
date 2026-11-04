@@ -16,14 +16,14 @@ const pairs = (): [string, TokenKey, TokenKey][] => [
   ...Object.entries(TILE).flatMap(([k, t]) => [[`tile ${k}`, t.fg, t.bg], [`tile ${k} number`, t.key, t.bg]] as [string, TokenKey, TokenKey][]),
   ...Object.entries(SHEET).flatMap(([k, t]) => [[`sheet ${k}`, t.fg, t.bg], [`sheet ${k} headline`, t.border, t.bg]] as [string, TokenKey, TokenKey][]),
   ['switch knob (on)', 'onBright', 'signal'], ['switch knob (off)', 'textMuted', 'track'],
-  ['speech bubble', 'text', 'surface2'], ['card label', 'textMuted', 'surface'], ['raised card label', 'textMuted', 'surface2'],
+  ['speech bubble', 'text', 'surface2'], ['freeze pill', 'review', 'surface2'], ['repair card', 'textMuted', 'surface'], ['card label', 'textMuted', 'surface'], ['raised card label', 'textMuted', 'surface2'],
 ];
 const bad = (p: Palette, min = 4.5) => pairs().filter(([, f, b]) => contrast(p[f], p[b]) < (f === 'textMuted' && b === 'track' ? 3 : min))
   .map(([what, f, b]) => `${what}: ${f} on ${b} = ${contrast(p[f], p[b]).toFixed(2)}`);
 
 describe('building blocks: readable colours', () => {
-  it('lists every tone (4 buttons, 5 pills, 5 tile states, 2 sheets)', () => {
-    expect(Object.keys(BUTTON)).toEqual(['signal', 'onAir', 'miss', 'quiet']);
+  it('lists every tone (5 buttons, 5 pills, 5 tile states, 2 sheets)', () => {
+    expect(Object.keys(BUTTON)).toEqual(['signal', 'onAir', 'miss', 'quiet', 'streak']);
     expect(Object.keys(TILE)).toEqual(['idle', 'selected', 'right', 'wrong', 'dim']);
     expect(Object.keys(SHEET)).toEqual(['right', 'wrong']);
     expect(Object.keys(PILL)).toHaveLength(5);
@@ -48,8 +48,8 @@ describe('building blocks: springs (DESIGN.md section 7)', () => {
 
 describe('building blocks: used, and used properly', () => {
   const ui = readdirSync(join(SRC, 'ui')).filter(f => f.endsWith('.tsx'));
-  it('has a file for each block DESIGN.md section 6 asks of R03 and R04 (R04 added the app frame, AppShell; R05 the unit banner and the lesson node)', () => {
-    expect(ui.sort()).toEqual(['AnswerTile.tsx', 'AppShell.tsx', 'BottomSheet.tsx', 'Button.tsx', 'Card.tsx', 'LessonNode.tsx', 'Pill.tsx', 'ProgressBar.tsx', 'SpeechBubble.tsx', 'Switch.tsx', 'UnitBanner.tsx']);
+  it('has a file for each block DESIGN.md section 6 asks of R03 and R04 (R04 added the app frame, AppShell; R05 the unit banner and the lesson node; R07 the top bar)', () => {
+    expect(ui.sort()).toEqual(['AnswerTile.tsx', 'AppShell.tsx', 'BottomSheet.tsx', 'Button.tsx', 'Card.tsx', 'LessonNode.tsx', 'Pill.tsx', 'ProgressBar.tsx', 'SpeechBubble.tsx', 'Switch.tsx', 'TopBar.tsx', 'UnitBanner.tsx']);
   });
   it('every clickable block gets its springs from usePress (so "Reduce motion" turns them all off in one place)', () => {
     for (const f of ui) {
