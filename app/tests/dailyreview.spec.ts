@@ -21,6 +21,7 @@ test('the daily review button plays the due questions, then they are no longer d
   await expect(w.getByTestId('daily-review')).toContainText('nothing due');
   await expect(w.getByTestId('path-count')).toHaveText('0 of 7 lessons done');
   await expect(w.getByTestId('streak')).toContainText('1');
+  await expect(w.getByTestId('goal-text')).toContainText('Daily goal: 1 of 1');
   await app.close();
   const saved = JSON.parse(readFileSync(join(dir, 'save.json'), 'utf8'));
   expect(saved.reviews['demo-1'].reps).toBe(2);

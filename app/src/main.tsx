@@ -6,7 +6,7 @@ import { PathMap } from './PathMap';
 import { LessonPlayer, type LessonResult } from './LessonPlayer';
 import { finishLesson, finishReview } from './finish';
 import { buildReview, dueCount, REVIEW_ID } from './dailyReview';
-import { liveStreak, dayKey } from './gamify';
+import { liveStreak, dayKey, doneToday, repairable, repairStreak } from './gamify';
 import { SettingsScreen } from './SettingsScreen';
 import { loadState, saveState, EMPTY_STATE, type SaveState } from './storage';
 import { FpsMeter } from './FpsMeter';
@@ -67,6 +67,19 @@ function App() {
             <div data-testid="hud" style={{ display: 'flex', justifyContent: 'center', gap: 18, fontSize: 18 }}>
               <span data-testid="streak">🔥 {liveStreak(s.game, new Date())}</span><span data-testid="xp-total">⚡ {s.game.xp} XP</span>
               <span data-testid="xp-today">today {s.game.xpToday && s.game.xpDay === dayKey(new Date()) ? s.game.xpToday : 0}</span>
+            </div>
+            <div data-testid="goal" style={{ maxWidth: 420, margin: '10px auto 0', padding: '0 20px' }}>
+              <div style={{ fontSize: 14, marginBottom: 4 }} data-testid="goal-text">
+                Daily goal: {Math.min(doneToday(s.game, new Date()), s.settings.dailyGoal)} of {s.settings.dailyGoal}{doneToday(s.game, new Date()) >= s.settings.dailyGoal ? ' ✅' : ''}
+                {s.game.freezes > 0 && <span data-testid="freezes" style={{ float: 'right' }}>🧊 {s.game.freezes}</span>}
+              </div>
+              <div style={{ height: 10, borderRadius: 5, background: dark ? '#33414f' : '#dde6ee', overflow: 'hidden' }}>
+                <div data-testid="goal-bar" style={{ height: '100%', width: `${Math.min(100, (100 * doneToday(s.game, new Date())) / s.settings.dailyGoal)}%`, background: '#58cc02', transition: s.settings.reduceMotion ? 'none' : 'width .4s' }} />
+              </div>
+              {repairable(s.game, new Date()) > 0 && (
+                <button data-testid="repair" onClick={() => setState(p => p && { ...p, game: repairStreak(p.game, new Date()) })}
+                  style={{ marginTop: 10, width: '100%', padding: 10, border: 0, borderRadius: 12, background: '#ce82ff', color: '#fff', fontSize: 16, cursor: 'pointer' }}>
+                  🛠 Repair your streak ({repairable(s.game, new Date())} days)</button>)}
             </div>
             <PathMap units={PATH} progress={s.progress} onStart={setPlaying} due={dueCount(PATH, s.reviews, Date.now())} onReview={() => setPlaying(REVIEW_ID)} />
           </>
