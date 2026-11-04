@@ -7,7 +7,7 @@ test('photo-choice and tap-the-clue questions work, with credit, outline and tap
   test.setTimeout(120_000);
   const dir = mkdtempSync(join(tmpdir(), 'cell-e2e-'));
   const progress = Object.fromEntries(['u1-l1', 'u1-l2', 'u1-l3', 'u2-l1', 'u2-l2', 'u2-l3'].map(id => [id, 3]));
-  writeFileSync(join(dir, 'save.json'), JSON.stringify({ version: 1, progress, settings: { sounds: false, reduceMotion: false, showFps: false, dailyGoal: 1, theme: 'light' }, reviews: {}, game: {} }));
+  writeFileSync(join(dir, 'save.json'), JSON.stringify({ version: 1, progress, settings: { sounds: false, reduceMotion: false, showFps: false, dailyGoal: 1, look: 'night' }, reviews: {}, game: {} }));
   const app = await electron.launch({ args: ['.', '--no-sandbox'], env: { ...process.env, CELL_SAMPLE_PATH: '1', CELL_DATA_DIR: dir } });
   const w = await app.firstWindow();
   await w.getByTestId('lesson-u2-l4').click();

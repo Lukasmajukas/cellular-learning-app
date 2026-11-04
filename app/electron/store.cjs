@@ -10,7 +10,7 @@ const DEFAULTS = () => ({
   reviews: {},
   seenChanges: null,
   game: { streak: 0, lastDay: '', xp: 0, xpToday: 0, xpDay: '', doneToday: 0, doneDay: '', freezes: 0, lost: 0, lostDay: '' },
-  settings: { sounds: true, reduceMotion: false, showFps: false, dailyGoal: 1, theme: 'light' },
+  settings: { sounds: true, reduceMotion: false, showFps: false, dailyGoal: 1, look: 'night' },
 });
 
 // Fills in anything missing, so an older or damaged file never crashes the app.
@@ -27,7 +27,9 @@ function normalize(raw) {
     reduceMotion: typeof s.reduceMotion === 'boolean' ? s.reduceMotion : d.settings.reduceMotion,
     showFps: typeof s.showFps === 'boolean' ? s.showFps : d.settings.showFps,
     dailyGoal: Number.isInteger(s.dailyGoal) && s.dailyGoal >= 1 && s.dailyGoal <= 10 ? s.dailyGoal : d.settings.dailyGoal,
-    theme: s.theme === 'dark' ? 'dark' : 'light',
+    // Night is the default look (redesign R01, 2026-11-04). The old light/dark 'theme' setting is dropped on purpose,
+    // so everyone starts on Night; 'day' is the early Day look that R20 finishes.
+    look: s.look === 'day' ? 'day' : 'night',
   };
   // Review schedule (one card per question ID) and streak/XP: keep only well-formed numbers.
   const num = v => typeof v === 'number' && Number.isFinite(v);

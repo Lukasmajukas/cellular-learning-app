@@ -1,0 +1,22 @@
+/* Page-wide basics for the Night Signal look. All colours are CSS variables set from tokens.ts (applyLook). */
+html, body { margin: 0; min-height: 100%; }
+html { scrollbar-color: var(--border-strong) transparent; }
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--text);
+  background-color: var(--bg);
+  /* The soft night glow behind the content column (still: glows never animate). */
+  background-image: radial-gradient(ellipse 620px 560px at 50% 38%, var(--glow-1) 0%, var(--glow-2) 50%, var(--glow-3) 78%, var(--bg) 100%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3 { line-height: 1.25; font-weight: 700; }
+h1 { font-size: 28px; }
+h2 { font-size: 23px; }
+button, input, select { font: inherit; color: inherit; }
+select, input[type='text'], input:not([type]) { background: var(--surface); border: 1px solid var(--border-strong); border-radius: 10px; }
+select { padding: 6px 10px; }
+input[type='checkbox'] { width: 20px; height: 20px; accent-color: var(--signal); }
+:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }

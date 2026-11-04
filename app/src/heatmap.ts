@@ -1,3 +1,4 @@
+import { c } from './theme';
 // The spectrum heatmap: for each band we teach, how well do you remember it right now?
 // A band's score = the average "chance you still remember" (FSRS retrievability) over the questions
 // that are tagged with that band in the lesson files. A band with no answered question yet is "new" (grey).
@@ -35,12 +36,14 @@ export function buildHeatmap(bands: BandRow[], lessons: RawLesson[], reviews: Re
   }).sort((a, b) => a.low - b.low);
 }
 
-// Colour for a score: grey = new, red = fading, yellow = shaky, green = strong.
+// Colour for a score, from the theme tokens: dim = new, miss red = fading, streak gold = shaky, on-air green = strong.
+// 50% or less is fully red; 50%→75% blends red into gold; 75%→100% blends gold into green.
 export function heatColor(score: number | null): string {
-  if (score === null) return '#cfd8e0';
+  if (score === null) return c.surface;
   const s = Math.min(1, Math.max(0, score));
-  const hue = Math.round(((s - 0.5) / 0.5) * 120); // 50% or less = red (0), 100% = green (120)
-  return `hsl(${Math.max(0, hue)}, 65%, 52%)`;
+  if (s <= 0.5) return c.miss;
+  const mix = (a: string, b: string, t: number) => `color-mix(in oklab, ${b} ${Math.round(t * 100)}%, ${a})`;
+  return s <= 0.75 ? mix(c.miss, c.streak, (s - 0.5) / 0.25) : mix(c.streak, c.onAir, (s - 0.75) / 0.25);
 }
 export const heatLabel = (score: number | null): string =>
   score === null ? 'new' : score >= 0.9 ? 'strong' : score >= 0.7 ? 'okay' : 'fading';

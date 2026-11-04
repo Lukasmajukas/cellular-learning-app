@@ -4,9 +4,9 @@ import type { Progress } from './path';
 import type { Reviews } from './fsrs';
 import { EMPTY_GAME, type Game } from './gamify';
 
-export type Settings = { sounds: boolean; reduceMotion: boolean; showFps: boolean; dailyGoal: number; theme: 'light' | 'dark' };
+export type Settings = { sounds: boolean; reduceMotion: boolean; showFps: boolean; dailyGoal: number; look: 'night' | 'day' };
 export type SaveState = { version: 1; progress: Progress; settings: Settings; reviews: Reviews; game: Game; seenChanges: string[] | null };
-export const DEFAULT_SETTINGS: Settings = { sounds: true, reduceMotion: false, showFps: false, dailyGoal: 1, theme: 'light' };
+export const DEFAULT_SETTINGS: Settings = { sounds: true, reduceMotion: false, showFps: false, dailyGoal: 1, look: 'night' };
 export const EMPTY_STATE: SaveState = { version: 1, progress: {}, settings: DEFAULT_SETTINGS, reviews: {}, game: EMPTY_GAME, seenChanges: null };
 
 type Api = {

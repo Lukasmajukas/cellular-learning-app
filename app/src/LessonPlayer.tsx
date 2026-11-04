@@ -2,8 +2,11 @@ import { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import rawConfetti from 'canvas-confetti';
 import { prefs } from './prefs';
+import { c, mono } from './theme';
+// Confetti draws on a canvas, so it needs real colour codes: read the current look's token values.
+const burstColors = () => ['--signal', '--on-air', '--streak', '--review'].map(v => getComputedStyle(document.documentElement).getPropertyValue(v).trim()).filter(Boolean);
 // Only the in-app switch turns confetti off (not Windows' setting). window.__confettiBursts lets the click test prove bursts fire.
-const confetti = (o: Parameters<typeof rawConfetti>[0]) => { if (prefs.reduceMotion) return; (window as unknown as { __confettiBursts?: number }).__confettiBursts = ((window as unknown as { __confettiBursts?: number }).__confettiBursts ?? 0) + 1; rawConfetti({ disableForReducedMotion: false, ...o }); };
+const confetti = (o: Parameters<typeof rawConfetti>[0]) => { if (prefs.reduceMotion) return; (window as unknown as { __confettiBursts?: number }).__confettiBursts = ((window as unknown as { __confettiBursts?: number }).__confettiBursts ?? 0) + 1; rawConfetti({ disableForReducedMotion: false, colors: burstColors(), ...o }); };
 import { stars } from './lesson';
 import type { Lesson } from './path';
 import { beep } from './sound';
@@ -23,24 +26,28 @@ function shuffled<T>(arr: T[], seed: string): T[] {
   if (a.every(([, i], k) => i === k)) a.push(a.shift()!);
   return a.map(([v]) => v);
 }
-const btn = (bg: string): React.CSSProperties => ({ padding: '12px 32px', fontSize: 18, border: 0, borderRadius: 14, background: bg, color: '#fff', cursor: 'pointer' });
-const tile = (bg: string, border = '#cfd8e0'): React.CSSProperties => ({ display: 'block', width: '100%', margin: '8px 0', padding: 12, fontSize: 18, borderRadius: 14, cursor: 'pointer', border: `2px solid ${border}`, background: bg, color: '#222' });
+// Bright buttons (signal / on-air) always carry dark text (DESIGN.md: "Text on signal, on-air, miss buttons").
+const btn = (bg: string): React.CSSProperties => ({ padding: '12px 32px', fontSize: 18, fontWeight: 700, border: 0, borderRadius: 14, background: bg, color: c.onBright, cursor: 'pointer' });
+const tile = (bg: string, border: string = c.border): React.CSSProperties => ({ display: 'block', width: '100%', margin: '8px 0', padding: 12, fontSize: 18, borderRadius: 14, cursor: 'pointer', border: `1.5px solid ${border}`, background: bg, color: c.text });
+// An answer tile's look: plain while answering; after checking, the right one is "on air" green and a wrong pick is "miss" red.
+const answerLook = (locked: boolean, right: boolean, picked: boolean): [string, string] =>
+  !locked ? [c.surface, c.border] : right ? [c.onAirBg, c.onAir] : picked ? [c.missBg, c.miss] : [c.surface, c.border];
 
 // A picture with its credit line. `outline` draws a box on it; `tap` makes it tappable (gives x, y as fractions); `dot` shows where the player tapped.
 function PhotoView({ photo, outline, tap, dot, locked }: { photo: Photo; outline?: Rect; tap?: (x: number, y: number) => void; dot?: [number, number] | null; locked?: boolean }) {
   const [broken, setBroken] = useState(false);
-  const box = (r: Rect): React.CSSProperties => ({ position: 'absolute', left: `${r.x * 100}%`, top: `${r.y * 100}%`, width: `${r.w * 100}%`, height: `${r.h * 100}%`, border: '3px solid #ff9600', borderRadius: 8, boxSizing: 'border-box', pointerEvents: 'none' });
+  const box = (r: Rect): React.CSSProperties => ({ position: 'absolute', left: `${r.x * 100}%`, top: `${r.y * 100}%`, width: `${r.w * 100}%`, height: `${r.h * 100}%`, border: `3px solid ${c.streak}`, borderRadius: 8, boxSizing: 'border-box', pointerEvents: 'none' });
   return (
     <figure style={{ margin: '8px 0' }}>
       <div data-testid="photo" role={tap ? 'button' : 'img'} aria-label={photo.alt}
         onClick={e => { if (!tap || locked) return; const b = e.currentTarget.getBoundingClientRect(); tap((e.clientX - b.left) / b.width, (e.clientY - b.top) / b.height); }}
-        style={{ position: 'relative', lineHeight: 0, cursor: tap && !locked ? 'crosshair' : 'default', borderRadius: 14, overflow: 'hidden', background: '#dde6ee', minHeight: 120 }}>
-        {broken ? <div style={{ lineHeight: 1.3, padding: 40, color: '#555' }}>🖼️ Picture not downloaded yet: {photo.alt}</div>
+        style={{ position: 'relative', lineHeight: 0, cursor: tap && !locked ? 'crosshair' : 'default', borderRadius: 14, overflow: 'hidden', background: c.surface2, minHeight: 120 }}>
+        {broken ? <div style={{ lineHeight: 1.3, padding: 40, color: c.textMuted }}>🖼️ Picture not downloaded yet: {photo.alt}</div>
           : <img src={photo.src} alt={photo.alt} draggable={false} onError={() => setBroken(true)} style={{ width: '100%', display: 'block' }} />}
         {outline && <div data-testid="outline" style={box(outline)} />}
-        {dot && <div data-testid="tap-dot" style={{ position: 'absolute', left: `${dot[0] * 100}%`, top: `${dot[1] * 100}%`, width: 16, height: 16, margin: -8, borderRadius: 8, background: '#e53935', border: '2px solid #fff', pointerEvents: 'none' }} />}
+        {dot && <div data-testid="tap-dot" style={{ position: 'absolute', left: `${dot[0] * 100}%`, top: `${dot[1] * 100}%`, width: 16, height: 16, margin: -8, borderRadius: 8, background: c.miss, border: `2px solid ${c.text}`, pointerEvents: 'none' }} />}
       </div>
-      <figcaption data-testid="photo-credit" style={{ fontSize: 12, color: '#666', marginTop: 4 }}>{photo.credit}</figcaption>
+      <figcaption data-testid="photo-credit" style={{ fontSize: 12, color: c.textMuted, marginTop: 4 }}>{photo.credit}</figcaption>
     </figure>);
 }
 
@@ -55,23 +62,23 @@ function Question({ q, locked, picked, onSubmit }: { q: Scored; locked: boolean;
   // Answer buttons come in a new random order each time a question is shown (the lesson files mostly list the right one first).
   // Buttons keep their written number in data-testid and in what they submit, so marking doesn't change.
   const choiceOrder = useMemo(() => (q.kind === 'choice' || q.kind === 'photo-choice' ? shuffleOrder(q.choices.length) : []), [q]);
-  const clueOrders = useMemo(() => (q.kind === 'scenario' ? q.clues.map(c => shuffleOrder(c.choices.length)) : []), [q]);
+  const clueOrders = useMemo(() => (q.kind === 'scenario' ? q.clues.map(clue => shuffleOrder(clue.choices.length)) : []), [q]);
   if (q.kind === 'choice') return <>{choiceOrder.map(i => (
     <motion.button key={q.choices[i]} data-testid={`choice-${i}`} disabled={locked} whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.92 }} transition={{ type: 'spring', stiffness: 500, damping: 12 }}
-      onClick={() => onSubmit(i)} style={tile(!locked ? '#fff' : i === q.answer ? '#d7ffb8' : i === picked ? '#ffdfe0' : '#fff')}>{q.choices[i]}</motion.button>))}</>;
+      onClick={() => onSubmit(i)} style={tile(...answerLook(locked, i === q.answer, i === picked))}>{q.choices[i]}</motion.button>))}</>;
   if (q.kind === 'photo-choice') return <>
     <PhotoView photo={q.photo} outline={locked ? q.outline : undefined} />
     {choiceOrder.map(i => [q.choices[i], i] as const).map(([c, i]) => (
       <motion.button key={c} data-testid={`choice-${i}`} disabled={locked} whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.92 }} transition={{ type: 'spring', stiffness: 500, damping: 12 }}
-        onClick={() => onSubmit(i)} style={tile(!locked ? '#fff' : i === q.answer ? '#d7ffb8' : i === picked ? '#ffdfe0' : '#fff')}>{c}</motion.button>))}</>;
+        onClick={() => onSubmit(i)} style={tile(...answerLook(locked, i === q.answer, i === picked))}>{c}</motion.button>))}</>;
   if (q.kind === 'tap-clue') return <>
     <PhotoView photo={q.photo} outline={locked ? q.target : undefined} dot={tapped} locked={locked} tap={(x, y) => { setTapped([x, y]); onSubmit([x, y]); }} />
-    <div style={{ fontSize: 14, color: '#666' }}>Tap the picture where you see it.</div></>;
+    <div style={{ fontSize: 14, color: c.textMuted }}>Tap the picture where you see it.</div></>;
   if (q.kind === 'number') return (
     <form onSubmit={e => { e.preventDefault(); if (!locked && text.trim()) onSubmit(text); }}>
       <input data-testid="number-input" autoFocus inputMode="decimal" value={text} disabled={locked} onChange={e => setText(e.target.value)} aria-label="Your answer"
-        style={{ fontSize: 28, width: 160, textAlign: 'center', padding: 8, borderRadius: 12, border: '2px solid #cfd8e0' }} /> {q.unit}
-      <div><button data-testid="check" type="submit" disabled={locked || !text.trim()} style={{ ...btn('#4a90d9'), marginTop: 12, opacity: text.trim() ? 1 : 0.5 }}>Check</button></div>
+        style={{ fontSize: 28, width: 160, textAlign: 'center', padding: 8, borderRadius: 12, border: `1.5px solid ${c.borderStrong}`, background: c.surface, color: c.text, ...mono }} /> {q.unit}
+      <div><button data-testid="check" type="submit" disabled={locked || !text.trim()} style={{ ...btn(c.signal), marginTop: 12, opacity: text.trim() ? 1 : 0.5 }}>Check</button></div>
     </form>);
   if (q.kind === 'match') {
     const used = new Set(paired.filter(p => p !== null));
@@ -81,45 +88,45 @@ function Question({ q, locked, picked, onSubmit }: { q: Scored; locked: boolean;
       <div style={{ display: 'flex', gap: 12 }}>
         <div style={{ flex: 1 }}>{q.pairs.map((p, i) => (
           <button key={p[0]} data-testid={`match-left-${i}`} disabled={locked} onClick={() => setLeft(i)}
-            style={tile(left === i ? '#dbeafe' : paired[i] !== null ? '#eef6e8' : '#fff', left === i ? '#4a90d9' : '#cfd8e0')}>{p[0]}{paired[i] !== null && <small> → {q.pairs[paired[i]!][1]}</small>}</button>))}</div>
+            style={tile(left === i || paired[i] !== null ? c.surface2 : c.surface, left === i ? c.signal : paired[i] !== null ? c.borderStrong : c.border)}>{p[0]}{paired[i] !== null && <small> → {q.pairs[paired[i]!][1]}</small>}</button>))}</div>
         <div style={{ flex: 1 }}>{rightOrder.map(j => (
-          <button key={q.pairs[j][1]} data-testid={`match-right-${j}`} disabled={locked} onClick={() => tap(j)} style={tile(used.has(j) ? '#eef6e8' : '#fff')}>{q.pairs[j][1]}</button>))}</div>
+          <button key={q.pairs[j][1]} data-testid={`match-right-${j}`} disabled={locked} onClick={() => tap(j)} style={tile(used.has(j) ? c.surface2 : c.surface, used.has(j) ? c.borderStrong : c.border)}>{q.pairs[j][1]}</button>))}</div>
       </div>
-      <button data-testid="check" disabled={locked || !all} onClick={() => onSubmit(paired as number[])} style={{ ...btn('#4a90d9'), marginTop: 12, opacity: all ? 1 : 0.5 }}>Check</button></>;
+      <button data-testid="check" disabled={locked || !all} onClick={() => onSubmit(paired as number[])} style={{ ...btn(c.signal), marginTop: 12, opacity: all ? 1 : 0.5 }}>Check</button></>;
   }
   if (q.kind === 'scenario') {
     const all = picks.every(p => p !== null);
     return <>
-      {q.clues.map((c, ci) => (
-        <div key={c.text} data-testid={`clue-${ci}`} style={{ textAlign: 'left', margin: '10px 0' }}>
-          <div style={{ fontSize: 17, marginBottom: 4 }}>🔎 {c.text}</div>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>{clueOrders[ci].map(i => [c.choices[i], i] as const).map(([ch, i]) => (
+      {q.clues.map((clue, ci) => (
+        <div key={clue.text} data-testid={`clue-${ci}`} style={{ textAlign: 'left', margin: '10px 0' }}>
+          <div style={{ fontSize: 17, marginBottom: 4 }}>🔎 {clue.text}</div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>{clueOrders[ci].map(i => [clue.choices[i], i] as const).map(([ch, i]) => (
             <button key={ch} data-testid={`clue-${ci}-choice-${i}`} disabled={locked} onClick={() => setPicks(p => p.map((v, k) => (k === ci ? i : v)))}
-              style={{ ...tile(!locked ? (picks[ci] === i ? '#dbeafe' : '#fff') : i === c.answer ? '#d7ffb8' : picks[ci] === i ? '#ffdfe0' : '#fff', picks[ci] === i && !locked ? '#4a90d9' : '#cfd8e0'), width: 'auto', margin: 0, fontSize: 16 }}>{ch}</button>))}</div>
+              style={{ ...tile(...(!locked && picks[ci] === i ? [c.surface2, c.signal] as [string, string] : answerLook(locked, i === clue.answer, picks[ci] === i))), width: 'auto', margin: 0, fontSize: 16 }}>{ch}</button>))}</div>
         </div>))}
-      <button data-testid="check" disabled={locked || !all} onClick={() => onSubmit(picks as number[])} style={{ ...btn('#4a90d9'), marginTop: 12, opacity: all ? 1 : 0.5 }}>Check</button></>;
+      <button data-testid="check" disabled={locked || !all} onClick={() => onSubmit(picks as number[])} style={{ ...btn(c.signal), marginTop: 12, opacity: all ? 1 : 0.5 }}>Check</button></>;
   }
   const rest = orderPool.filter(l => !placed.includes(l));
   return <>
-    <div data-testid="order-placed" style={{ minHeight: 56, display: 'flex', flexWrap: 'wrap', gap: 6, justifyContent: 'center', padding: 8, border: '2px dashed #cfd8e0', borderRadius: 14 }}>
-      {placed.map((l, i) => <button key={l} data-testid={`order-placed-${i}`} disabled={locked} onClick={() => setPlaced(p => p.filter(x => x !== l))} style={{ ...tile('#dbeafe', '#4a90d9'), width: 'auto', margin: 0 }}>{i + 1}. {l}</button>)}
+    <div data-testid="order-placed" style={{ minHeight: 56, display: 'flex', flexWrap: 'wrap', gap: 6, justifyContent: 'center', padding: 8, border: `2px dashed ${c.borderStrong}`, borderRadius: 14 }}>
+      {placed.map((l, i) => <button key={l} data-testid={`order-placed-${i}`} disabled={locked} onClick={() => setPlaced(p => p.filter(x => x !== l))} style={{ ...tile(c.surface2, c.signal), width: 'auto', margin: 0 }}>{i + 1}. {l}</button>)}
     </div>
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, justifyContent: 'center', marginTop: 10 }}>
-      {rest.map(l => <button key={l} data-testid={`order-item-${l}`} disabled={locked} onClick={() => setPlaced(p => [...p, l])} style={{ ...tile('#fff'), width: 'auto', margin: 0 }}>{l}</button>)}
+      {rest.map(l => <button key={l} data-testid={`order-item-${l}`} disabled={locked} onClick={() => setPlaced(p => [...p, l])} style={{ ...tile(c.surface), width: 'auto', margin: 0 }}>{l}</button>)}
     </div>
-    <button data-testid="check" disabled={locked || rest.length > 0} onClick={() => onSubmit(placed)} style={{ ...btn('#4a90d9'), marginTop: 12, opacity: rest.length ? 0.5 : 1 }}>Check</button></>;
+    <button data-testid="check" disabled={locked || rest.length > 0} onClick={() => onSubmit(placed)} style={{ ...btn(c.signal), marginTop: 12, opacity: rest.length ? 0.5 : 1 }}>Check</button></>;
 }
 
 function Feedback({ q, ok, a }: { q: Scored; ok: boolean; a: Answer }) {
   return (
-    <motion.div data-testid="feedback" initial={{ y: 16, opacity: 0 }} animate={{ y: 0, opacity: 1 }} style={{ marginTop: 14, padding: 12, borderRadius: 14, textAlign: 'left', background: ok ? '#d7ffb8' : '#ffdfe0', color: '#222' }}>
-      <strong data-testid="verdict">{ok ? 'Right!' : 'Not quite.'}</strong>
+    <motion.div data-testid="feedback" initial={{ y: 16, opacity: 0 }} animate={{ y: 0, opacity: 1 }} style={{ marginTop: 14, padding: 12, borderRadius: 14, textAlign: 'left', background: ok ? c.onAirBg : c.missBg, border: `1px solid ${ok ? c.onAir : c.miss}`, color: c.text }}>
+      <strong data-testid="verdict" style={{ color: ok ? c.onAir : c.miss, fontSize: 18 }}>{ok ? 'Right!' : 'Not quite.'}</strong>
       {!ok && <div data-testid="right-answer">Right answer: {rightAnswerText(q)}</div>}
       {!ok && q.kind === 'choice' && typeof a === 'number' && <div>You picked: {q.choices[a]}</div>}
       {!ok && q.kind === 'number' && <div>You typed: {String(a)}</div>}
-      {q.kind === 'scenario' && Array.isArray(a) && q.clues.map((c, i) => <div key={c.text} data-testid={`clue-why-${i}`} style={{ marginTop: 4 }}>{(a as number[])[i] === c.answer ? '✅' : '❌'} {c.text}: {c.choices[c.answer]}{c.why ? `. ${c.why}` : ''}</div>)}
+      {q.kind === 'scenario' && Array.isArray(a) && q.clues.map((clue, i) => <div key={clue.text} data-testid={`clue-why-${i}`} style={{ marginTop: 4 }}>{(a as number[])[i] === clue.answer ? '✅' : '❌'} {clue.text}: {clue.choices[clue.answer]}{clue.why ? `. ${clue.why}` : ''}</div>)}
       {q.why && <div data-testid="why" style={{ marginTop: 6 }}>{q.why}</div>}
-      {q.badge && <div data-testid="badge" style={{ marginTop: 6, fontSize: 13 }}>{q.badge.status} · as of {q.badge.asOf}</div>}
+      {q.badge && <div data-testid="badge" style={{ marginTop: 6, fontSize: 13, color: c.textMuted, ...mono }}>{q.badge.status} · as of {q.badge.asOf}</div>}
       {q.kind === 'order' && <SpectrumBar testId="order-bar" ranges={correctOrder(q).map(l => q.items.find(i => i.label === l)!).map(i => ({ label: i.label, low: i.low, high: i.high }))} />}
     </motion.div>);
 }
@@ -148,9 +155,9 @@ export function LessonPlayer({ lesson, onFinish, onQuit }: { lesson: Lesson; onF
   return (
     <div style={{ maxWidth: 440, margin: '0 auto', padding: 20, textAlign: 'center' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-        <button data-testid="quit" onClick={onQuit} aria-label="Leave the lesson" style={{ border: 0, background: 'none', fontSize: 22, cursor: 'pointer' }}>✕</button>
-        <div style={{ flex: 1, height: 10, background: '#dde6ee', borderRadius: 5, overflow: 'hidden' }}>
-          <motion.div style={{ height: '100%', background: '#58cc02' }} animate={{ width: `${(Math.min(run.index, run.queue.length) / run.queue.length) * 100}%` }} />
+        <button data-testid="quit" onClick={onQuit} aria-label="Leave the lesson" style={{ border: 0, background: 'none', color: c.textMuted, fontSize: 22, cursor: 'pointer' }}>✕</button>
+        <div style={{ flex: 1, height: 10, background: c.track, borderRadius: 5, overflow: 'hidden' }}>
+          <motion.div style={{ height: '100%', background: c.signal }} animate={{ width: `${(Math.min(run.index, run.queue.length) / run.queue.length) * 100}%` }} />
         </div>
       </div>
       <Mascot happy={!res || res.ok} />
@@ -162,8 +169,8 @@ export function LessonPlayer({ lesson, onFinish, onQuit }: { lesson: Lesson; onF
                 <h2 data-testid="prompt" style={{ textAlign: 'center' }}>{it.title ?? 'Learn this'}</h2>
                 <p style={{ fontSize: 18, lineHeight: 1.4 }}>{it.text}</p>
                 {it.bars && <SpectrumBar ranges={rangesFor(it.bars)} />}
-                {it.badge && <div data-testid="badge" style={{ fontSize: 13 }}>{it.badge.status} · as of {it.badge.asOf}</div>}
-                <div style={{ textAlign: 'center' }}><button data-testid="learn-ok" onClick={() => next(true)} style={{ ...btn('#58cc02'), marginTop: 12 }}>Got it</button></div>
+                {it.badge && <div data-testid="badge" style={{ fontSize: 13, color: c.textMuted, ...mono }}>{it.badge.status} · as of {it.badge.asOf}</div>}
+                <div style={{ textAlign: 'center' }}><button data-testid="learn-ok" onClick={() => next(true)} style={{ ...btn(c.onAir), marginTop: 12 }}>Got it</button></div>
               </div>
             ) : (
               <>
@@ -172,19 +179,19 @@ export function LessonPlayer({ lesson, onFinish, onQuit }: { lesson: Lesson; onF
                 {res && <>
                   <Feedback q={it} ok={res.ok} a={res.a} />
                   <motion.button data-testid="next" initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} whileTap={{ scale: 0.92 }} onClick={() => next(res.ok)}
-                    style={{ ...btn('#58cc02'), marginTop: 10 }}>Continue</motion.button></>}
+                    style={{ ...btn(c.onAir), marginTop: 10 }}>Continue</motion.button></>}
               </>
             )}
           </motion.div>
         ) : (
           <motion.div key="end" initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: 'spring', bounce: 0.5 }}>
             <h2 data-testid="done">Lesson complete!</h2>
-            <div style={{ fontSize: 40 }} data-testid="stars">{'⭐'.repeat(stars(right, total))}</div>
+            <div style={{ fontSize: 40, color: c.streak }} data-testid="stars">{'⭐'.repeat(stars(right, total))}</div>
             <p>{right} of {total} right the first time</p>
-            <p data-testid="xp">+{xp} XP</p>
-            <p data-testid="bars" aria-label={`${signalBars(right, total)} of 5 signal bars`} style={{ fontSize: 28, margin: 0, letterSpacing: 2 }}>{'▮'.repeat(signalBars(right, total))}{'▯'.repeat(5 - signalBars(right, total))}</p>
-            <button onClick={restart} style={{ ...btn('#4a90d9'), marginRight: 8 }}>Again</button>
-            <button data-testid="finish" onClick={() => onFinish(result())} style={btn('#58cc02')}>Back to the path</button>
+            <p data-testid="xp" style={{ ...mono, fontSize: 28, color: c.signal, margin: '8px 0' }}>+{xp} XP</p>
+            <p data-testid="bars" aria-label={`${signalBars(right, total)} of 5 signal bars`} style={{ fontSize: 28, margin: '0 0 16px', letterSpacing: 2, color: c.onAir }}>{'▮'.repeat(signalBars(right, total))}{'▯'.repeat(5 - signalBars(right, total))}</p>
+            <button onClick={restart} style={{ ...btn(c.signal), marginRight: 8 }}>Again</button>
+            <button data-testid="finish" onClick={() => onFinish(result())} style={btn(c.onAir)}>Back to the path</button>
           </motion.div>
         )}
       </AnimatePresence>
