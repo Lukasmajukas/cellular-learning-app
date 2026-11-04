@@ -176,3 +176,7 @@ Claude adds new words here whenever they come up.
 | **Daily review (drive test)** | The orange 🚗 button on the path map. It replays the questions the memory schedule says are due today, so you see them just before you'd forget. |
 | **Streak freeze (🧊)** | A spare day off. You earn one every 7 days in a row. If you miss one day, it is used up and your streak keeps going. |
 | **"This changed" card** | A blue card that appears once when a carrier fact changes (for example, a sale closes). Pressing "Got it" makes the related questions come back for review as if new. |
+| **Building blocks (components)** | The app's ready-made parts, like LEGO bricks: a button, a card, a switch, an answer tile. Every screen is put together from the same bricks, so it all looks and moves alike. They live in `app/src/ui/`. |
+| **Switch (toggle)** | An on/off slider, like a light switch. On = it glows blue and the knob slides right. |
+| **Spring (animation)** | A way of moving that feels like a real spring: it speeds up, slows down and settles, maybe with a tiny bounce. Used when buttons squish under your click. |
+| **Bottom sheet** | A panel that slides up from the bottom of the window, like the "Right!" / "Not quite" panel after an answer. |

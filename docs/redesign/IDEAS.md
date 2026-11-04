@@ -17,9 +17,12 @@
 | I05 | Unit banners with a small line drawing of that unit's idea (a spectrum ruler, a fake tree, a radio box). | T58 plan | ⬜ |
 | I06 | The heatmap tiles "flicker on" like a lit-up panel the first time each day you open it. | T58 plan | ⬜ |
 | I07 | Personal-best moments (a perfect lesson, a 7-day streak) get their own short Beacon animation. | T58 plan | ⬜ |
-| I08 | The settings checkboxes are the plain grey Windows boxes: swap them for the glowing switch from R03 (on = signal colour, a little spring). | R01 | ⬜ |
+| I08 | The settings checkboxes are the plain grey Windows boxes: swap them for the glowing switch from R03 (on = signal colour, a little spring). | R01 | ✅ 2026-11-04, #126 (done in R03) |
 | I09 | The heatmap text still says "Grey = not quizzed yet", but new tiles are now dim outlines; reword it and add a small colour legend (fading → shaky → strong) in R14. | R01 | ⬜ |
 | I11 | Each settings row gets its own small icon (motion, frame rate, goal, look, backup), like Sounds already has, so the list is quicker to scan. Do it with R15. | R02 | ⬜ |
 | I12 | Icons for "on air" things (the current lesson's tower, the streak flame when it grows) get a soft still glow layer behind them (its see-through-ness may pulse, never a blur animation). | R02 | ⬜ |
 | I13 | The gallery's icon sheet (`00-icons`) could also show each icon in the Day look and at 16 px, to catch thin lines that break up when small. | R02 | ⬜ |
+| I14 | The answer tiles' number keys (1-5) are only drawn so far: R04 makes keys 1-4 pick them. Then the number box could light up for a moment when its key is pressed, so you see the keyboard worked. | R03 | ⬜ |
+| I15 | A switch flipping on could send one soft signal ring out from the knob (a see-through ring that grows and fades), like a tower coming on air. | R03 | ⬜ |
+| I16 | The "Your progress" card could show when the last backup was made ("Last backup: today, 09:12"), so you don't have to press the button to know. Needs the save code to report the newest backup file. | R03 | ⬜ |
 | I10 | The gallery could also take a short burst of pictures of each animation (a "flip book" strip), so reviews can see movement without installing the app. | R01 | ⬜ |

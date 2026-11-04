@@ -3,6 +3,7 @@
 // Options:        node tools/gallery.mjs --out <folder>   (default ../docs/redesign/gallery/latest)
 //                 node tools/gallery.mjs --icons-only     (just the icon sheet, 00-icons.webp; no build needed)
 // It starts the real Electron app with a made-up save file (3 lessons done, a 4-day streak, some reviews due),
+// shows the building blocks page (#blocks, from R03),
 // draws a sheet of all our icons (00-icons), visits each screen at the owner's window size (620 x 960) and a wide one (1280 x 800), and saves small WebP files.
 // In the cloud (Linux with no screen) it restarts itself inside xvfb-run, a pretend screen.
 import { _electron as electron } from 'playwright';
@@ -135,6 +136,23 @@ async function completeScreen(s) {
   await app.close();
 }
 
+// The building blocks page (R03, #blocks in the app): the top (buttons, pills, switches), the answer tiles and Beacon's bubble,
+// and the "Not quite" bottom sheet slid up.
+async function blocksScreens(s) {
+  const { app, w } = await launch({});
+  await resize(app, s);
+  await w.getByTestId('path-count').waitFor();
+  await w.evaluate(() => { location.hash = '#blocks'; location.reload(); });
+  await w.getByTestId('blocks').waitFor();
+  await shot(w, '10-blocks', s);
+  await w.getByTestId('block-tile-idle').evaluate(el => el.scrollIntoView({ block: 'start' }));
+  await w.getByTestId('block-bubble-again').click();
+  await shot(w, '11-blocks-tiles', s);
+  await w.getByTestId('block-sheet-wrong').click();
+  await shot(w, '12-blocks-sheet', s);
+  await app.close();
+}
+
 // The icon sheet (R02): every icon from src/theme/icons.ts at 24 px and 48 px, in the Night colours, plus the filled star.
 // Node reads the .ts files directly (Node 22.18 or newer strips the types; ignore its "Reparsing as ES module" warning).
 async function iconSheet() {
@@ -158,5 +176,5 @@ mkdirSync(OUT, { recursive: true });
 console.log(`Gallery -> ${OUT}`);
 await iconSheet();
 if (process.argv.includes('--icons-only')) process.exit(0);
-for (const s of SIZES) { await realScreens(s); await completeScreen(s); }
+for (const s of SIZES) { await realScreens(s); await completeScreen(s); await blocksScreens(s); }
 console.log('Done.');
