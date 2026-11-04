@@ -90,8 +90,11 @@ export const waveDelay = (k: number, count: number) =>
   ON_AIR.wave.delay + k * Math.min(TIME.stagger, ON_AIR.waveSpread / Math.max(1, count));
 
 // The top bar (redesign R07, DESIGN.md section 7, moment 5). It plays only when a number really went up while the app
-// was open (a lesson or review finished, a streak repaired), never at start-up. Times count from when the top bar
-// appears again: `wait` lets the frame fade in first (after a lesson it comes back with the path). All in 1.6 s at most.
+// was open (a lesson or review finished, a streak repaired), never at start-up. Its own moment takes 1.6 s at most.
+// When it starts (`barAt`): `wait` (0.3 s) lets the frame fade in first; after a lesson's FIRST finish it waits
+// `afterPath` (1.4 s) instead, so the path's "coming on air" plays first and the top bar then adds it up: one
+// celebration at a time (idea I29). Found in R07: both at once dropped the Windows build under 50 fps, and two
+// celebrations at once are also harder to follow.
 // - XP counts up like a meter, and a small "+30" rises off it and fades;
 // - the flame flickers once (a little bigger, a wiggle) while its glow brightens and dims, and the new number pops;
 // - the goal bar springs from the old amount to the new one; reaching the goal flashes the bar and pops its check on;
@@ -99,26 +102,27 @@ export const waveDelay = (k: number, count: number) =>
 // Each moving piece animates a whole `transform` (and opacity), never separate x / scale / rotate values: the browser
 // then runs it on its own graphics side, not in the app's JavaScript each frame. Found in R07: with the separate values,
 // the top bar playing together with the path's "coming on air" dropped the Windows build under 50 fps.
-const BAR_WAIT = 0.3;
 const FLAME = { scale: [1, 1.32, 0.94, 1.12, 1], rotate: [0, -9, 7, -3, 0] };   // the flicker: size and turn (degrees)
 const POP = [1, 1.28, 1];
 export const TOP_BAR = {
-  wait: BAR_WAIT,
+  wait: 0.3, afterPath: 1.4,
   flame: FLAME, popScale: POP,                                                       // the numbers behind the keyframes below
-  count: { duration: 0.8, delay: BAR_WAIT, ease: EASE.out },                          // XP counting up
-  float: { duration: 0.9, delay: BAR_WAIT, ease: EASE.out },                          // the "+30" rising and fading ...
+  count: { duration: 0.8, delay: 0, ease: EASE.out },                          // XP counting up
+  float: { duration: 0.9, delay: 0, ease: EASE.out },                          // the "+30" rising and fading ...
   floatKeys: { transform: ['translateY(8px)', 'translateY(-6px)'], opacity: [0, 1, 0] }, // ... off the number, inside the bar
-  flicker: { duration: 0.6, delay: BAR_WAIT + 0.05, ease: 'easeInOut' as const },    // the flame
+  flicker: { duration: 0.6, delay: 0.05, ease: 'easeInOut' as const },    // the flame
   flickerKeys: { transform: FLAME.scale.map((sc, i) => `scale(${sc}) rotate(${FLAME.rotate[i]}deg)`) },
   glowKeys: { opacity: [0.25, 0.9, 0.25] },                                         // the flame's glow layer (still: 0.25)
-  pop: { duration: 0.4, delay: BAR_WAIT + 0.15, ease: 'easeOut' as const },          // a number that changed (streak, freezes)
+  pop: { duration: 0.4, delay: 0.15, ease: 'easeOut' as const },          // a number that changed (streak, freezes)
   popKeys: { transform: POP.map(sc => `scale(${sc})`) },
-  fill: { ...SPRING.fill, delay: BAR_WAIT },                                         // the goal bar
-  flash: { duration: 0.6, delay: BAR_WAIT + 0.5, ease: EASE.out },                   // goal reached: the bar flashes ...
+  fill: { ...SPRING.fill, delay: 0 },                                         // the goal bar
+  flash: { duration: 0.6, delay: 0.5, ease: EASE.out },                   // goal reached: the bar flashes ...
   flashKeys: { opacity: [0, 0.85, 0] },
-  check: { ...SPRING.bouncy, delay: BAR_WAIT + 0.55 },                              // ... and its check pops on
+  check: { ...SPRING.bouncy, delay: 0.55 },                              // ... and its check pops on
   checkKeys: { transform: ['scale(0)', 'scale(1)'] },
 }; // not "as const": Motion wants plain (changeable) keyframe lists
+// A top bar timing, started `wait` seconds after the top bar appears (TOP_BAR.wait or TOP_BAR.afterPath).
+export const barAt = <T extends { delay: number }>(t: T, wait: number): T => ({ ...t, delay: t.delay + wait });
 
 // True from the second render on. Things that move the moment they appear need it: the app's screens sit inside an
 // AnimatePresence with initial={false} (so nothing animates in when the app starts), and Motion then skips EVERY first

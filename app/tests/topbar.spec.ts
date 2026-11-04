@@ -6,7 +6,8 @@ import { playSampleLesson, film, snap } from './helpers';
 
 // Redesign R07, tried in the real app: the top bar. When a lesson finishes, XP counts up with a "+N" rising off it,
 // the flame flickers, the goal bar springs forward (and flashes, with its check popping on, when the goal is reached),
-// and a newly earned streak freeze pops in. At start-up, after quitting a lesson, or with Reduce motion, nothing moves.
+// and a newly earned streak freeze pops in, after the path's "coming on air" (one celebration at a time). At start-up,
+// after quitting a lesson, or with Reduce motion, nothing moves.
 // The broken-streak repair is a card now, and repairing makes the flame flicker too. Frame rate measured.
 const DAY = 86_400_000;
 const pad = (n: number) => String(n).padStart(2, '0');
@@ -42,8 +43,8 @@ test('finishing a lesson: XP counts up with a "+N" rising off it, the flame flic
   const shots: Buffer[] = [];
   const f = await film(w, Object.values(S), async () => {
     await w.getByTestId('finish').click();
-    for (const t of [350, 250, 250, 250, 300]) { await w.waitForTimeout(t); shots.push(await snap(w)); } // a flip book, looked at by eye
-  }, 2600, S.xp);
+    for (const t of [1250, 450, 300, 300, 450]) { await w.waitForTimeout(t); shots.push(await snap(w)); } // a flip book, looked at by eye
+  }, 4000, S.xp);
   shots.forEach((b, i) => writeFileSync(`test-results/topbar-${i}.png`, b));
   const seen = (s: string) => f.of(s).filter(x => x !== null) as { op: number; sx: number; sy: number; x: number; y: number; tx: string }[];
   const target = Number(await w.getByTestId('xp-total').getAttribute('data-to'));
@@ -55,6 +56,11 @@ test('finishing a lesson: XP counts up with a "+N" rising off it, the flame flic
   expect(xs[0]).toBe(100); expect(xs.at(-1)).toBe(target);
   expect(distinct(xs)).toBeGreaterThan(8);
   expect(xs.every((v, i) => i === 0 || v >= xs[i - 1])).toBe(true);
+  // One celebration at a time (I29): this was the lesson's first finish, so the path's "coming on air" plays first and
+  // the XP only starts counting after it (TOP_BAR.afterPath, 1.4 s after the top bar appears).
+  const firstSeen = f.of(S.xp).findIndex(x => x !== null), firstUp = f.of(S.xp).findIndex(x => x !== null && num(x.tx) > 100);
+  console.log(`XP starts counting ${(f.ts[firstUp] - f.ts[firstSeen]).toFixed(0)} ms after the top bar appears`);
+  expect(f.ts[firstUp] - f.ts[firstSeen]).toBeGreaterThan(1300);
   // The "+N" says how much was added, rises and fades away.
   await expect(w.getByTestId('xp-float')).toHaveText(`+${target - 100}`);
   const fl = seen(S.float), shownFl = fl.filter(x => x.op > 0.5);

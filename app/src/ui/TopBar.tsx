@@ -4,7 +4,7 @@ import { c, mono, RADIUS } from '../theme';
 import { Icon } from '../Icon';
 import { ProgressBar } from './ProgressBar';
 import { Button } from './Button';
-import { TOP_BAR, useCalm } from '../theme/motion';
+import { TOP_BAR, barAt, useCalm } from '../theme/motion';
 
 // The top bar (redesign R07, DESIGN.md section 6 "stat chip" and section 7 moment 5): streak, XP, streak freezes and
 // the daily goal. Its numbers move only when they really went up while the app was open (a lesson or review finished,
@@ -39,22 +39,23 @@ function useMoment(ref: RefObject<Element | null>, m: Change, play: boolean, key
 }
 
 // A number that counts up from the old value to the new one, like a meter (the measured exception in DESIGN.md section 7).
-function Count({ m }: { m: Change }) {
+function Count({ m, wait }: { m: Change; wait: number }) {
   const calm = useCalm();
   const mv = useMotionValue(grew(m) && !calm ? m.from : m.to);
   const text = useTransform(mv, v => String(Math.round(v)));
   useEffect(() => {
     if (calm || !grew(m)) { mv.set(m.to); return; }
     mv.set(m.from);
-    const a = animate(mv, m.to, TOP_BAR.count);
+    const a = animate(mv, m.to, barAt(TOP_BAR.count, wait));
     return () => a.stop();
   }, [m, calm]); // eslint-disable-line react-hooks/exhaustive-deps
   // A fixed width (in digits) and its own layout box, so each tick doesn't move or re-measure the rest of the bar (R07).
   return <motion.span style={{ display: 'inline-block', minWidth: `${String(Math.max(m.from, m.to)).length}ch`, contain: 'layout paint' }}>{text}</motion.span>;
 }
 
-export function TopBar({ streak, xp, xpToday, freezes, done, goal }:
-  { streak: number; xp: number; xpToday: number; freezes: number; done: number; goal: number }) {
+// `wait`: when the moments start (TOP_BAR.wait, or TOP_BAR.afterPath while the path plays "coming on air").
+export function TopBar({ streak, xp, xpToday, freezes, done, goal, wait = TOP_BAR.wait }:
+  { streak: number; xp: number; xpToday: number; freezes: number; done: number; goal: number; wait?: number }) {
   const calm = useCalm();
   const s = useChange('streak', streak), x = useChange('xp', xp);
   const f = useChange('freezes', freezes), d = useChange('done', done);
@@ -62,13 +63,13 @@ export function TopBar({ streak, xp, xpToday, freezes, done, goal }:
 
   const flame = useRef<HTMLSpanElement>(null), glow = useRef<HTMLSpanElement>(null), num = useRef<HTMLSpanElement>(null);
   const float = useRef<HTMLSpanElement>(null), pill = useRef<HTMLSpanElement>(null), flash = useRef<HTMLSpanElement>(null), check = useRef<HTMLSpanElement>(null);
-  useMoment(flame, s, grew(s), TOP_BAR.flickerKeys, TOP_BAR.flicker);
-  useMoment(glow, s, grew(s), TOP_BAR.glowKeys, TOP_BAR.flicker);
-  useMoment(num, s, grew(s), TOP_BAR.popKeys, TOP_BAR.pop);
-  useMoment(float, x, grew(x), TOP_BAR.floatKeys, TOP_BAR.float);
-  useMoment(pill, f, grew(f), TOP_BAR.popKeys, TOP_BAR.pop);
-  useMoment(flash, d, justReached, TOP_BAR.flashKeys, TOP_BAR.flash);
-  useMoment(check, d, justReached, TOP_BAR.checkKeys, TOP_BAR.check);
+  useMoment(flame, s, grew(s), TOP_BAR.flickerKeys, barAt(TOP_BAR.flicker, wait));
+  useMoment(glow, s, grew(s), TOP_BAR.glowKeys, barAt(TOP_BAR.flicker, wait));
+  useMoment(num, s, grew(s), TOP_BAR.popKeys, barAt(TOP_BAR.pop, wait));
+  useMoment(float, x, grew(x), TOP_BAR.floatKeys, barAt(TOP_BAR.float, wait));
+  useMoment(pill, f, grew(f), TOP_BAR.popKeys, barAt(TOP_BAR.pop, wait));
+  useMoment(flash, d, justReached, TOP_BAR.flashKeys, barAt(TOP_BAR.flash, wait));
+  useMoment(check, d, justReached, TOP_BAR.checkKeys, barAt(TOP_BAR.check, wait));
   const waiting = !calm; // things that only appear during a moment start invisible (their moment shows them)
 
   return <>
@@ -87,7 +88,7 @@ export function TopBar({ streak, xp, xpToday, freezes, done, goal }:
       <span style={{ position: 'relative', display: 'inline-flex', alignItems: 'baseline', gap: 6 }}>
         <span data-testid="xp-total" title="XP in total" data-to={xp}
           style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 18, fontWeight: 700, ...mono, color: c.signal, alignSelf: 'center' }}>
-          <Icon name="bolt" size={20} /><Count m={x} /><span style={hidden}> XP</span>
+          <Icon name="bolt" size={20} /><Count m={x} wait={wait} /><span style={hidden}> XP</span>
         </span>
         <span data-testid="xp-today" title="XP earned today" style={{ ...mono, fontSize: 13, color: c.textMuted }}>+{xpToday}<span style={hidden}> XP today</span></span>
         {grew(x) && !calm && <span key={x.n} ref={float} data-testid="xp-float" aria-hidden
@@ -104,7 +105,7 @@ export function TopBar({ streak, xp, xpToday, freezes, done, goal }:
     <div data-testid="goal" style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 8 }}>
       <span style={{ position: 'relative', display: 'block', width: 76 }}>
         <ProgressBar testId="goal-bar" label="Daily goal" value={done / goal} height={10} tone={reached ? 'onAir' : 'glow'}
-          from={grew(d) ? d.from / goal : undefined} transition={grew(d) ? TOP_BAR.fill : undefined} />
+          from={grew(d) ? d.from / goal : undefined} transition={grew(d) ? barAt(TOP_BAR.fill, wait) : undefined} />
         {justReached && !calm && <span key={d.n} ref={flash} data-testid="goal-flash" aria-hidden
           style={{ position: 'absolute', inset: -2, borderRadius: 7, background: c.onAir, opacity: 0 }} />}
       </span>

@@ -113,7 +113,14 @@ test('with the app\'s Reduce motion switch on, screens and the tab marker only f
   const { app, w } = await launch();
   await w.getByTestId('tab-settings').click();
   await w.getByTestId('set-motion').check();
-  const colX = (await w.getByTestId('screen-settings').boundingBox())!.x;
+  // The Settings screen's resting place. Wait until it stops moving: the click above may land while it's still gliding in
+  // (found in R07: read at once, it was caught at x = -21 now and then).
+  let colX = NaN;
+  for (let i = 0; i < 20; i++) {
+    const x = (await w.getByTestId('screen-settings').boundingBox())!.x;
+    if (Math.abs(x - colX) < 0.5) break;
+    colX = x; await w.waitForTimeout(100);
+  }
   const toHeat = await film(w, '[data-testid=screen-heatmap]', () => w.getByTestId('tab-heatmap').click(), 500);
   expect(toHeat.xs.every(x => Math.abs(x - colX) < 1), `heatmap x: ${toHeat.xs}`).toBe(true);
   const marker = await film(w, '[data-testid=tab-marker]', () => w.getByTestId('tab-path').click(), 500);

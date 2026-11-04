@@ -11,7 +11,7 @@ import { SettingsScreen } from './SettingsScreen';
 import { loadState, saveState, EMPTY_STATE, type SaveState } from './storage';
 import { FpsMeter } from './FpsMeter';
 import { prefs } from './prefs';
-import { MotionKit, screenGlide } from './theme/motion';
+import { MotionKit, screenGlide, TOP_BAR } from './theme/motion';
 import { useKeys } from './keys';
 import { AppShell, TABS, type TabId } from './ui/AppShell';
 import { Button } from './ui';
@@ -43,6 +43,8 @@ function App() {
   const [tab, setTab] = useState<TabId>('path');
   const [dir, setDir] = useState(1); // which way the screens glide: 1 = the new tab is to the right
   const [notice, setNotice] = useState('');
+  // True right after a lesson's first finish: the path plays "coming on air" then, so the top bar waits for it (R07).
+  const [handOver, setHandOver] = useState(false);
   const loaded = useRef(false);
 
   useEffect(() => { loadState().then(({ state, recovered }) => {
@@ -68,7 +70,7 @@ function App() {
 
   // The top bar: streak, XP (and today's XP), streak freezes and the daily goal (redesign R07, src/ui/TopBar.tsx).
   const top = <TopBar streak={liveStreak(s.game, now)} xp={s.game.xp} xpToday={s.game.xpDay === dayKey(now) ? s.game.xpToday : 0}
-    freezes={s.game.freezes} done={done} goal={goal} />;
+    freezes={s.game.freezes} done={done} goal={goal} wait={handOver ? TOP_BAR.afterPath : TOP_BAR.wait} />;
 
   const screen = tab === 'review' ? <ReviewScreen due={due} onStart={() => setPlaying(REVIEW_ID)} />
     : tab === 'heatmap' ? <HeatMap cells={buildHeatmap(DATA.bands as unknown as BandRow[],
@@ -76,7 +78,7 @@ function App() {
     : tab === 'settings' ? <SettingsScreen settings={s.settings} onChange={settings => setState(p => p && { ...p, settings })} />
     : <>
         {repair > 0 && <div style={{ maxWidth: COLUMN, margin: '0 auto', padding: '12px 20px 0', boxSizing: 'border-box' }}>
-          <RepairCard days={repair} onRepair={() => setState(p => p && { ...p, game: repairStreak(p.game, new Date()) })} /></div>}
+          <RepairCard days={repair} onRepair={() => { setHandOver(false); setState(p => p && { ...p, game: repairStreak(p.game, new Date()) }); }} /></div>}
         <PathMap units={PATH} progress={s.progress} onStart={setPlaying} due={due} onReview={() => setPlaying(REVIEW_ID)} />
       </>;
 
@@ -92,7 +94,8 @@ function App() {
         {lesson ? (
           <motion.div key={`lesson-${lesson.id}`} data-testid="lesson-screen" {...screenGlide('lesson', calm)}>
             <LessonPlayer key={lesson.id} lesson={lesson} onQuit={() => setPlaying(null)}
-              onFinish={r => { setState(p => p && (lesson.id === REVIEW_ID ? finishReview(p, r) : finishLesson(p, lesson.id, r))); setPlaying(null); }} />
+              onFinish={r => { setHandOver(lesson.id !== REVIEW_ID && !s.progress[lesson.id]);
+                setState(p => p && (lesson.id === REVIEW_ID ? finishReview(p, r) : finishLesson(p, lesson.id, r))); setPlaying(null); }} />
           </motion.div>
         ) : (
           <motion.div key="frame" {...screenGlide('frame', calm)}>

@@ -3,7 +3,7 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
-import { SPRING, TIME, PRESS, PRESS_BIG, PRESS_ROUND, PRESS_PILL, QUICK_FADE, INSTANT, LOOP, popInDelay, screenGlide, ON_AIR, BREATHE, waveDelay, popInQueue, TOP_BAR } from './theme/motion';
+import { SPRING, TIME, PRESS, PRESS_BIG, PRESS_ROUND, PRESS_PILL, QUICK_FADE, INSTANT, LOOP, popInDelay, screenGlide, ON_AIR, BREATHE, waveDelay, popInQueue, TOP_BAR, barAt } from './theme/motion';
 import { grew } from './ui/TopBar';
 
 const SRC = __dirname;
@@ -117,11 +117,17 @@ describe('the path map movement (redesign R06)', () => {
 
 describe('the top bar (redesign R07)', () => {
   const end = (t: { delay: number; duration?: number }) => t.delay + (t.duration ?? 0.7); // springs counted as 0.7 s (R06)
-  it('every moment waits for the frame to fade in, and all of it ends within a celebration (1.6 s)', () => {
+  it('its own moment ends within a celebration (1.6 s); it waits for the frame to fade in, and after a first finish for the path', () => {
     for (const k of ['count', 'float', 'flicker', 'pop', 'fill', 'flash', 'check'] as const) {
-      expect(TOP_BAR[k].delay, k).toBeGreaterThanOrEqual(TOP_BAR.wait);
+      expect(TOP_BAR[k].delay, k).toBeGreaterThanOrEqual(0);
       expect(end(TOP_BAR[k]), k).toBeLessThanOrEqual(TIME.celebration);
+      expect(barAt(TOP_BAR[k], TOP_BAR.afterPath).delay, k).toBeCloseTo(TOP_BAR[k].delay + TOP_BAR.afterPath);
     }
+    expect(TOP_BAR.wait).toBeGreaterThanOrEqual(TIME.screenIn);
+    // One celebration at a time (I29): the top bar starts once the path's busiest part is over (the line drawn, the lock gone).
+    for (const k of ['turn', 'burst', 'line', 'lockOff', 'banner', 'barDraw'] as const)
+      expect(TOP_BAR.afterPath, k).toBeGreaterThanOrEqual(ON_AIR[k].delay + ON_AIR[k].duration);
+    expect(TOP_BAR.afterPath).toBeGreaterThanOrEqual(ON_AIR.burst.delay + ON_AIR.burstGap + ON_AIR.burst.duration); // the second ring
   });
   it('only whole transforms (move, size, turn) and see-through-ness move, so the browser runs them off the main thread; nothing loops', () => {
     for (const k of ['flickerKeys', 'glowKeys', 'popKeys', 'floatKeys', 'flashKeys', 'checkKeys'] as const)

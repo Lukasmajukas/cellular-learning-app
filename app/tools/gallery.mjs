@@ -137,8 +137,9 @@ async function completeScreen(s) {
   await w.waitForTimeout(1200); // after the confetti burst
   await shot(w, '06-lesson-complete', s);
   // Back to the path (R07): caught mid-moment, as the XP counts up, the "+N" rises and the goal bar fills (1 of 2 -> 2 of 2).
+  // That was the lesson's first finish, so the top bar waits for the path's "coming on air" (1.4 s) before it starts.
   await w.getByTestId('finish').click();
-  await shot(w, '14-top-bar-moment', s, 750);
+  await shot(w, '14-top-bar-moment', s, 1950);
   await app.close();
 }
 
