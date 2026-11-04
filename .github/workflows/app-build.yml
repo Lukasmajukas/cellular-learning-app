@@ -39,12 +39,11 @@ jobs:
             exit 1
           fi
           exe="${files[0]}"
-          name="$(basename "$exe")"
           short="${GITHUB_SHA::7}"
           when="$(date -u '+%Y-%m-%d %H:%M UTC')"
           notes="Built from ${GITHUB_REF_NAME} at commit ${short}, ${when}.
 
-          How to install: download ${name} below and double-click it. Windows may show a blue box saying \"Windows protected your PC\" because the installer is not signed: click \"More info\", then \"Run anyway\".
+          How to install: download the file ending in Setup.exe below and double-click it. Windows may show a blue box saying \"Windows protected your PC\" because the installer is not signed: click \"More info\", then \"Run anyway\".
 
           This page keeps only the newest build; every new build replaces it.
           Build log: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
