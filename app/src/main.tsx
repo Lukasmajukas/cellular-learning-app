@@ -22,6 +22,7 @@ import './theme/fonts';
 import './theme/theme.css';
 import { c, applyLook, mono, COLUMN } from './theme';
 import { Icon } from './Icon';
+import { BlocksSheet } from './BlocksSheet';
 
 applyLook('night'); // before the first paint, so the window never flashes another look
 
@@ -109,4 +110,5 @@ function App() {
     </MotionConfig>
   );
 }
-createRoot(document.getElementById('root')!).render(<App />);
+// #blocks shows every building block on one page (for the gallery and click tests), instead of the app.
+createRoot(document.getElementById('root')!).render(location.hash === '#blocks' ? <BlocksSheet /> : <App />);

@@ -20,3 +20,5 @@ select, input[type='text'], input:not([type]) { background: var(--surface); bord
 select { padding: 6px 10px; }
 input[type='checkbox'] { width: 20px; height: 20px; accent-color: var(--signal); }
 :focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
+/* The switch's real checkbox is see-through (src/ui/Switch.tsx), so its keyboard focus ring goes on the drawn track. */
+.ui-switch:has(input:focus-visible) .ui-switch-track { outline: 2px solid var(--signal); outline-offset: 3px; }
