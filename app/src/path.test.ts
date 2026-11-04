@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { SAMPLE_PATH, allLessons, lessonStatus, recordResult, doneCount, sideOf, focusLessonId, unitStatus } from './path';
+import { SAMPLE_PATH, allLessons, lessonStatus, recordResult, doneCount, sideOf, focusLessonId, unitStatus, onAirMoment } from './path';
 describe('path', () => {
   it('has unique lesson ids and questions in every lesson', () => {
     const ids = allLessons(SAMPLE_PATH).map(l => l.id);
@@ -47,5 +47,25 @@ describe('path map layout (redesign R05)', () => {
     expect(unitStatus(SAMPLE_PATH, p, 'u1')).toBe('done');
     expect(unitStatus(SAMPLE_PATH, p, 'u2')).toBe('open');
     expect(() => unitStatus(SAMPLE_PATH, {}, 'nope')).toThrow();
+  });
+});
+
+describe('path map movement (redesign R06): what just came on air', () => {
+  it('one newly finished lesson: it comes on air and unlocks the next one in its unit', () => {
+    expect(onAirMoment(SAMPLE_PATH, { 'u1-l1': 3 }, { 'u1-l1': 3, 'u1-l2': 2 }))
+      .toEqual({ lesson: 'u1-l2', next: 'u1-l3', unitDone: undefined, unitOpened: undefined });
+  });
+  it('finishing the last lesson of a unit: the unit is done and the next unit opens', () => {
+    expect(onAirMoment(SAMPLE_PATH, { 'u1-l1': 3, 'u1-l2': 2 }, { 'u1-l1': 3, 'u1-l2': 2, 'u1-l3': 1 }))
+      .toEqual({ lesson: 'u1-l3', next: 'u2-l1', unitDone: 'u1', unitOpened: 'u2' });
+  });
+  it('the very last lesson: the unit is done, nothing left to unlock', () => {
+    const before = { 'u1-l1': 3, 'u1-l2': 3, 'u1-l3': 3, 'u2-l1': 3, 'u2-l2': 3, 'u2-l3': 3 };
+    expect(onAirMoment(SAMPLE_PATH, before, { ...before, 'u2-l4': 2 })).toEqual({ lesson: 'u2-l4', next: undefined, unitDone: 'u2', unitOpened: undefined });
+  });
+  it('no moment for a replay (better stars only), for nothing new, or for a big jump like a restored backup', () => {
+    expect(onAirMoment(SAMPLE_PATH, { 'u1-l1': 1 }, { 'u1-l1': 3 })).toBeNull();
+    expect(onAirMoment(SAMPLE_PATH, {}, {})).toBeNull();
+    expect(onAirMoment(SAMPLE_PATH, {}, { 'u1-l1': 3, 'u1-l2': 3 })).toBeNull();
   });
 });

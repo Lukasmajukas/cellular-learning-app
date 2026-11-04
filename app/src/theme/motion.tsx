@@ -1,7 +1,7 @@
 // The ONE speed file (redesign R04, DESIGN.md section 7): every spring, every timing, and the "Reduce motion" rules.
 // Screens and building blocks never type a speed themselves: they take one from here (a unit test, src/motion.test.ts,
 // checks that), so changing how the app moves means changing this file only.
-import type { ReactNode } from 'react';
+import { useEffect, useState, useSyncExternalStore, type ReactNode } from 'react';
 import { MotionConfig, useReducedMotionConfig, type Transition } from 'motion/react';
 import { prefs } from '../prefs';
 
@@ -29,7 +29,7 @@ export const TIME = {
 } as const;
 
 // Ease curves: "out" starts fast and lands softly (for things arriving), "in" starts softly and leaves fast.
-export const EASE = { out: [0.22, 1, 0.36, 1], in: [0.4, 0, 1, 1] } as const;
+export const EASE = { out: [0.22, 1, 0.36, 1], in: [0.4, 0, 1, 1], inOut: [0.45, 0, 0.55, 1] } as const;
 
 // How much things grow on hover and shrink when pressed. Big tiles move less than small buttons.
 export const PRESS = { hover: 1.03, tap: 0.95 };
@@ -46,6 +46,62 @@ export const popInDelay = (i: number, count = 1) => i * Math.min(TIME.stagger, T
 
 // A background loop (like the old mascot's antenna): one round every TIME.ambient seconds, forever.
 export const LOOP = { repeat: Infinity, duration: TIME.ambient } as const;
+
+// Pop-ins as you scroll (redesign R06): things that come into view at about the same moment (within 0.1 s) pop in one
+// after another, 60 ms apart and all started within 400 ms; something that scrolls in on its own pops in at once.
+let batch = { at: -Infinity, n: 0 };
+export function popInQueue(now = performance.now()) {
+  if (now - batch.at > 100) batch = { at: now, n: 0 };
+  return Math.min(batch.n++ * TIME.stagger, TIME.popInMax);
+}
+
+// The current lesson's rings "breathe" (DESIGN.md section 7, background loop): a little bigger and fainter, then back,
+// once every TIME.ambient seconds. The rings and their glow move as ONE layer, so the path has only one loop running.
+export const BREATHE = {
+  on: { scale: [1, 1.07, 1], opacity: [1, 0.5, 1] },
+  off: { scale: 1, opacity: 1 },
+  transition: { ...LOOP, ease: 'easeInOut' as const },
+};
+
+// "Coming on air" (DESIGN.md section 7, moment 1), after you finish a lesson for the first time and the path comes back.
+// All in 1.6 s at most (TIME.celebration), and it never stops you tapping. In order:
+// 1. the finished circle turns from blue to green (the blue disc fades and shrinks away), and its check badge pops on;
+// 2. two green rings spread out from it and fade (the "ring burst");
+// 3. the dotted line to the next lesson draws itself;
+// 4. the next lesson's lock flies off, and its circle pops up as the new current lesson.
+// If that finished the whole unit, every circle of the unit sends out a ring, from the one you just did up to the first
+// (a wave), the unit's banner flashes and its "done" check pops on, and the next unit's banner bar draws itself down.
+export const ON_AIR = {
+  turn: { duration: 0.35, delay: 0.35, ease: EASE.out },          // 1 (0.35 s: the path has glided in by then)
+  check: { ...SPRING.bouncy, delay: 0.55 },                         // 1, the check badge
+  burst: { duration: 0.8, delay: 0.45, ease: EASE.out },           // 2, first ring ...
+  burstGap: 0.15,                                                  // ... and the second one this much later
+  line: { duration: 0.5, delay: 0.55, ease: EASE.inOut },           // 3
+  lockOff: { duration: 0.35, delay: 0.85, ease: EASE.in },         // 4, the lock ...
+  arrive: { ...SPRING.bouncy, delay: 0.9 },                        // 4, ... and the new current circle
+  wave: { duration: 0.7, delay: 0.5, ease: EASE.out },             // the unit's wave: first ring ...
+  waveSpread: 0.4,                                                 // ... and the last one starts at most this much later
+  banner: { duration: 0.6, delay: 0.8, ease: EASE.out },           // the finished unit's banner flash and sweep
+  bannerCheck: { ...SPRING.bouncy, delay: 0.85 },                   // its "done" check
+  barDraw: { duration: 0.45, delay: 0.9, ease: EASE.out },         // the next unit's banner bar
+} as const;
+// The k-th circle up the unit (0 = the one just above the lesson you finished) in a wave of `count` circles.
+export const waveDelay = (k: number, count: number) =>
+  ON_AIR.wave.delay + k * Math.min(TIME.stagger, ON_AIR.waveSpread / Math.max(1, count));
+
+// True from the second render on. Things that move the moment they appear need it: the app's screens sit inside an
+// AnimatePresence with initial={false} (so nothing animates in when the app starts), and Motion then skips EVERY first
+// animation inside them, jumping straight to the end (found in R06). So such a piece starts at its "from" look and
+// switches to its "to" look one render later, which Motion does animate: animate={on ? to : from}.
+export function useEntrance() {
+  const [on, setOn] = useState(false);
+  useEffect(() => setOn(true), []);
+  return on;
+}
+
+// False while the app's window is hidden (minimised or covered), so background loops can pause (DESIGN.md section 7).
+const onVisibility = (cb: () => void) => { document.addEventListener('visibilitychange', cb); return () => document.removeEventListener('visibilitychange', cb); };
+export const useAwake = () => useSyncExternalStore(onVisibility, () => document.visibilityState !== 'hidden', () => true);
 
 // Screens gliding into each other (DESIGN.md: "screens glide; nothing jumps").
 // Tabs: the new screen slides in from the side of the tab you picked (dir 1 = from the right, -1 = from the left);

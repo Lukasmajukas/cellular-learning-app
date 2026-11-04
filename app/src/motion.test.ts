@@ -3,7 +3,7 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
-import { SPRING, TIME, PRESS, PRESS_BIG, PRESS_ROUND, PRESS_PILL, QUICK_FADE, INSTANT, LOOP, popInDelay, screenGlide } from './theme/motion';
+import { SPRING, TIME, PRESS, PRESS_BIG, PRESS_ROUND, PRESS_PILL, QUICK_FADE, INSTANT, LOOP, popInDelay, screenGlide, ON_AIR, BREATHE, waveDelay, popInQueue } from './theme/motion';
 
 const SRC = __dirname;
 const files = (dir: string): string[] => readdirSync(dir).flatMap(f => {
@@ -86,5 +86,30 @@ describe('one place for every speed, and for Reduce motion', () => {
   });
   it('the app and the blocks page both switch Reduce motion through <MotionKit>', () => {
     for (const f of ['main.tsx', 'BlocksSheet.tsx']) expect(readFileSync(join(SRC, f), 'utf8'), f).toContain('<MotionKit calm=');
+  });
+});
+
+describe('the path map movement (redesign R06)', () => {
+  it('coming on air fits in a celebration (1.6 s), springs counted as 0.7 s to settle (the bouncy one, measured in R06)', () => {
+    for (const [k, t] of Object.entries(ON_AIR)) {
+      if (typeof t === 'number') continue;
+      const end = t.delay + ('duration' in t ? t.duration : 0.7);
+      expect(end, k).toBeLessThanOrEqual(TIME.celebration);
+    }
+    expect(ON_AIR.burst.delay + ON_AIR.burstGap + ON_AIR.burst.duration).toBeLessThanOrEqual(TIME.celebration);
+    for (const n of [1, 3, 5, 7, 12]) expect(waveDelay(n - 1, n) + ON_AIR.wave.duration, `${n} circles`).toBeLessThanOrEqual(TIME.celebration);
+  });
+  it('the breathing rings: one background loop, 2-4 s a round, only size and see-through-ness', () => {
+    expect(BREATHE.transition.duration).toBeGreaterThanOrEqual(2); expect(BREATHE.transition.duration).toBeLessThanOrEqual(4);
+    expect(BREATHE.transition.repeat).toBe(Infinity);
+    expect(Object.keys(BREATHE.on).sort()).toEqual(['opacity', 'scale']);
+    expect(Math.max(...BREATHE.on.scale)).toBeLessThanOrEqual(1.1); // soft
+  });
+  it('pop-ins as you scroll: things that appear together go 60 ms apart (all within 400 ms); one on its own pops at once', () => {
+    const t = 1_000_000;
+    const ds = Array.from({ length: 12 }, () => popInQueue(t));
+    expect(ds.slice(0, 3)).toEqual([0, TIME.stagger, 2 * TIME.stagger]);
+    expect(Math.max(...ds)).toBeLessThanOrEqual(TIME.popInMax);
+    expect(popInQueue(t + 500)).toBe(0);
   });
 });
