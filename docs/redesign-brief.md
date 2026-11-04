@@ -1,6 +1,6 @@
 # Redesign brief (starting point for the planning chat, task T58)
 
-**Status: DRAFT.** Written 2026-11-04 from the owner's words in chat. Nothing here is signed off. The planning chat should revise it with the owner first.
+**Status: DONE, replaced.** Written 2026-11-04 from the owner's words in chat. The planning chat (T58) asked every open question below; the answers and the signed-off plan are in `docs/redesign/PLAN.md` and `docs/redesign/DESIGN.md`. Kept for the record.
 
 ## In simple words
 The app works, but the owner wants it to *feel* finished: motion everywhere, a real look, a "fully made app". The owner wants this done slowly and well, over weeks, in 20 or more careful Opus sessions, and does not want it rushed.

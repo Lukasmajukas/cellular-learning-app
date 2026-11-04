@@ -5,7 +5,7 @@
 
 <!-- When the owner types "I sign off the plan", a chat adds the line below and merges it. That line unlocks app building. -->
 Signed off by owner: 2026-10-31 ("I sign off the plan"). All suggested answers in section 9 stand.
-**Section 12 (the redesign) was added on 2026-11-04 and is a DRAFT until the owner signs it off.**
+**Section 12 (the redesign) was added and signed off by the owner on 2026-11-04 ("I sign off the redesign plan").**
 
 ---
 
@@ -259,7 +259,7 @@ You can answer these in any chat, in any order. My suggested answer is in **bold
 | 115–220 hours for a TypeScript developer | **Counted in chats** | Claude writes the code; your time goes into testing |
 
 ## 12. The redesign (Level 5), added 2026-11-04 (T58)
-**Status:** DRAFT, waiting for the owner's sign-off. <!-- When the owner types "I sign off the redesign plan", a chat writes the date here and in docs/redesign/PLAN.md. -->
+**Status:** SIGNED OFF by the owner on 2026-11-04 ("I sign off the redesign plan", typed in the T58 chat).
 
 **In simple words:** the owner asked (Nov 4) for "a full made app": movement on every screen, a real look, built carefully over many sessions. The owner picked the **Night Signal** look and the **Beacon** mascot, and chose to let the robot build it on its own, nonstop, and then keep improving it. The details are in `docs/redesign/PLAN.md` (the 24 sessions and the checklist) and `docs/redesign/DESIGN.md` (the style guide). The Level 5 "Polish" row of the roadmap becomes this program.
 

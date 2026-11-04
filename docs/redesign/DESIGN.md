@@ -1,6 +1,6 @@
 # 🎨 Style guide: the "Night Signal" look
 
-**Status:** DRAFT, waiting for the owner's sign-off (with `docs/redesign/PLAN.md`). Written 2026-11-04 in T58 (session 119).
+**Status:** SIGNED OFF by the owner on 2026-11-04 (with `docs/redesign/PLAN.md`). Written 2026-11-04 in T58 (session 119).
 **Picked by the owner on 2026-11-04:** look A "Night Signal", mascot "Beacon". The picture everyone copies from: `looks/look-a-night-signal.webp` (its source: `looks/looks.html`). Looks B and C were not picked; they stay in `looks/` for the record.
 
 ## In simple words (for the owner)

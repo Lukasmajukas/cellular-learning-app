@@ -1,7 +1,8 @@
 # 🛠️ The redesign plan: "Night Signal"
 
-**Status:** DRAFT, waiting for the owner's sign-off. Written 2026-11-04 in T58 (session 119, Opus, High effort).
+**Status:** SIGNED OFF by the owner on 2026-11-04. Written 2026-11-04 in T58 (session 119, Opus, High effort).
 <!-- When the owner types "I sign off the redesign plan", a chat adds the line below and merges it. That line lets the robot start session R01. -->
+Signed off by owner: 2026-11-04 ("I sign off the redesign plan", typed in the T58 chat).
 **Redesign switch:** ON <!-- The owner's "Pause the redesign" sets this to PAUSED; "Resume the redesign" sets it back to ON. The robot does redesign sessions only while it says ON. -->
 
 ## In simple words (for the owner)
