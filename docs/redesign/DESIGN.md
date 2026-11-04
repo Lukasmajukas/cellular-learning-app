@@ -61,7 +61,7 @@ Built once (R03, R04) and used everywhere: app shell (top bar + content + bottom
 ## 7. Movement (motion rules)
 **What may move:** only position, size, turning and see-through-ness (transform and opacity), because those stay smooth on any computer (PRD 4e). Measured exceptions: drawing the path's line (`pathLength` or `stroke-dashoffset`) and counting numbers up. **Glows never animate a blur or shadow:** a glow is its own layer, and only its see-through-ness changes.
 
-**Speeds (one file, from R04):**
+**Speeds (one file, from R04: `app/src/theme/motion.tsx`; a test fails if another file types its own):**
 | Kind | Time | Example |
 |---|---|---|
 | Tap / hover | 120–180 ms, spring "snappy" (stiffness 500, damping 30) | A button squishes when pressed |

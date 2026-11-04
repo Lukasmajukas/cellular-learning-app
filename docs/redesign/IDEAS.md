@@ -25,4 +25,7 @@
 | I14 | The answer tiles' number keys (1-5) are only drawn so far: R04 makes keys 1-4 pick them. Then the number box could light up for a moment when its key is pressed, so you see the keyboard worked. | R03 | ⬜ |
 | I15 | A switch flipping on could send one soft signal ring out from the knob (a see-through ring that grows and fades), like a tower coming on air. | R03 | ⬜ |
 | I16 | The "Your progress" card could show when the last backup was made ("Last backup: today, 09:12"), so you don't have to press the button to know. Needs the save code to report the newest backup file. | R03 | ⬜ |
+| I17 | The lesson circles pop in again, with a slow bounce (about a second), every time you come back to the Path tab. Pop them in only on the first visit after the app starts, or only the ones that changed, and keep the bounce short. Do it with R06. | R04 | ⬜ |
+| I18 | Show the keys once: a small, quiet "Keys: 1-4 pick · Enter go on · Esc leave" line in the first lesson (or a row in Settings), so the keyboard is easy to discover. | R04 | ⬜ |
+| I19 | Each tab remembers where you scrolled: coming back to the Path from Settings now starts at the top. Keep each tab's place (and open the path at your current lesson the first time, as R05 plans). | R04 | ⬜ |
 | I10 | The gallery could also take a short burst of pictures of each animation (a "flip book" strip), so reviews can see movement without installing the app. | R01 | ⬜ |
