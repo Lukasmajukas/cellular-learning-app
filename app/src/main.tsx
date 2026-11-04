@@ -98,10 +98,13 @@ function App() {
 
   // A lesson fills the window and rises from below; leaving it, it sinks and the frame fades back in.
   // Switching tabs, the screen glides sideways (towards the tab you picked). See screenGlide in the speed file.
+  // A new screen starts at the top, except the path: it opens at your current lesson by itself (R05). Motion calls this
+  // after the new screen has appeared, so resetting here too would undo the path's own scroll.
+  const toTop = () => { if (lesson || tab !== 'path') window.scrollTo(0, 0); };
   return (
     <MotionKit calm={calm}>
       {s.settings.showFps && <FpsMeter />}
-      <AnimatePresence mode="wait" initial={false} onExitComplete={() => window.scrollTo(0, 0)}>
+      <AnimatePresence mode="wait" initial={false} onExitComplete={toTop}>
         {lesson ? (
           <motion.div key={`lesson-${lesson.id}`} data-testid="lesson-screen" {...screenGlide('lesson', calm)}>
             <LessonPlayer key={lesson.id} lesson={lesson} onQuit={() => setPlaying(null)}
@@ -118,7 +121,7 @@ function App() {
                   <div style={{ fontSize: 12, color: c.textMuted }}>{card.date} · {card.source}{card.questions?.length ? ` · ${card.questions.length} question(s) will come back for review` : ''}</div>
                   <Button full data-testid="change-ok" style={{ marginTop: 10 }} onClick={() => setState(p => p && acknowledge(p, card))}>Got it</Button>
                 </div>)}
-              <AnimatePresence mode="wait" initial={false} custom={dir} onExitComplete={() => window.scrollTo(0, 0)}>
+              <AnimatePresence mode="wait" initial={false} custom={dir} onExitComplete={toTop}>
                 <motion.div key={tab} data-testid={`screen-${tab}`} custom={dir} {...screenGlide('tab', calm)}>{screen}</motion.div>
               </AnimatePresence>
             </AppShell>

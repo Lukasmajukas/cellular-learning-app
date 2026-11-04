@@ -43,3 +43,23 @@ export function recordResult(progress: Progress, lessonId: string, starsEarned: 
 // How many lessons are finished, out of all of them.
 export const doneCount = (units: Unit[], progress: Progress) =>
   allLessons(units).filter(l => progress[l.id] !== undefined).length;
+
+// --- The path map's layout (redesign R05) ---
+// The lesson circles zig-zag: left, right, left... and each lesson's name sits beside its circle, on the open side.
+export type Side = 'left' | 'right';
+export const sideOf = (i: number): Side => (i % 2 ? 'right' : 'left');
+
+// The lesson the map opens at: the current one (the next to do). If every lesson is done, the last one.
+export function focusLessonId(units: Unit[], progress: Progress): string | undefined {
+  const list = allLessons(units);
+  return list.find(l => lessonStatus(units, progress, l.id) === 'current')?.id ?? list[list.length - 1]?.id;
+}
+
+// A unit is "done" when all its lessons are, "open" when one of them can be played, otherwise "locked".
+export type UnitStatus = 'done' | 'open' | 'locked';
+export function unitStatus(units: Unit[], progress: Progress, unitId: string): UnitStatus {
+  const u = units.find(x => x.id === unitId);
+  if (!u) throw new Error(`Unknown unit: ${unitId}`);
+  const s = u.lessons.map(l => lessonStatus(units, progress, l.id));
+  return s.every(x => x === 'done') ? 'done' : s.some(x => x !== 'locked') ? 'open' : 'locked';
+}

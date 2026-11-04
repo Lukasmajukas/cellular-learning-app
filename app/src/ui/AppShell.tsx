@@ -22,8 +22,8 @@ export function AppShell({ tab, onTab, top, badges = {}, children }:
   { tab: TabId; onTab: (t: TabId) => void; top: ReactNode; badges?: Partial<Record<TabId, number>>; children: ReactNode }) {
   return (
     <div data-testid="app-frame">
-      <header data-testid="top-bar" style={{ position: 'sticky', top: 0, zIndex: 10, borderBottom: `1px solid ${c.border}`,
-        background: `color-mix(in srgb, ${c.bg} 90%, transparent)` }}>
+      {/* Solid, not see-through (R05): the path opens scrolled to your lesson, so words always sit behind the bar and showed through. */}
+      <header data-testid="top-bar" style={{ position: 'sticky', top: 0, zIndex: 10, borderBottom: `1px solid ${c.border}`, background: c.bg }}>
         <div style={{ maxWidth: COLUMN, minHeight: 56, margin: '0 auto', padding: '6px 20px', boxSizing: 'border-box', display: 'flex', alignItems: 'center', gap: 14 }}>{top}</div>
       </header>
       {/* overflowX clip: a screen gliding in from the side must not flash a sideways scrollbar (seen in R04's flip book). */}
