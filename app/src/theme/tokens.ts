@@ -8,7 +8,7 @@ export const TOKEN_KEYS = [
   'surface', 'surface2', 'border', 'borderStrong', 'track',
   'text', 'textMuted',
   'signal', 'onAir', 'onAirBg', 'miss', 'missBg', 'missText', 'streak', 'review',
-  'locked', 'lockedIcon', 'onBright', 'notice', 'noticeBg',
+  'locked', 'lockedIcon', 'onBright', 'notice', 'noticeBg', 'beacon', 'beaconBrace',
   'chart1', 'chart2', 'chart3', 'chart4', 'chart5', 'chart6',
 ] as const;
 export type TokenKey = (typeof TOKEN_KEYS)[number];
@@ -22,6 +22,8 @@ export const NIGHT: Palette = {
   signal: '#3FD8F2', onAir: '#4BE3A1', onAirBg: '#0F2E2A', miss: '#FF6B6B', missBg: '#2A1520', missText: '#FFC9C9',
   streak: '#FFBF47', review: '#9B8CFF',
   locked: '#2A4466', lockedIcon: '#4D6688', onBright: '#08101D', notice: '#FFE2A8', noticeBg: '#2B2410',
+  // Beacon's lattice tower (R17, from the look A picture): the legs and bars, and the thin cross braces behind them.
+  beacon: '#86B2E0', beaconBrace: '#3B5F88',
   // Six band colours for the spectrum ruler drawings (not right/wrong colours).
   chart1: '#3FD8F2', chart2: '#FFBF47', chart3: '#9B8CFF', chart4: '#4BE3A1', chart5: '#F28DD0', chart6: '#7FB2FF',
 };
@@ -35,6 +37,7 @@ export const DAY: Palette = {
   signal: '#066E89', onAir: '#0A7A4E', onAirBg: '#E3F6EE', miss: '#C0343B', missBg: '#FCEBEC', missText: '#8A1F25',
   streak: '#8C5C00', review: '#5646CF',
   locked: '#C9D6E6', lockedIcon: '#6C82A0', onBright: '#FFFFFF', notice: '#5C4300', noticeBg: '#FFF1CC',
+  beacon: '#4A6E98', beaconBrace: '#A9BED8',
   chart1: '#066E89', chart2: '#8C5C00', chart3: '#5646CF', chart4: '#0A7A4E', chart5: '#B83C8C', chart6: '#2F6FD6',
 };
 

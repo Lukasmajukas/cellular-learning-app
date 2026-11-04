@@ -3,7 +3,7 @@
 // Options:        node tools/gallery.mjs --out <folder>   (default ../docs/redesign/gallery/latest)
 //                 node tools/gallery.mjs --icons-only     (just the icon sheet, 00-icons.webp; no build needed)
 // It starts the real Electron app with a made-up save file (3 lessons done, a 4-day streak, some reviews due),
-// shows the building blocks page (#blocks, from R03), the Review tab (13, from R04), the top bar mid-moment and the repair card (14, 15, from R07),
+// shows the building blocks page (#blocks, from R03; Beacon's faces 16, 17 from R17), the Review tab (13, from R04), the top bar mid-moment and the repair card (14, 15, from R07),
 // draws a sheet of all our icons (00-icons), visits each screen at the owner's window size (620 x 960) and a wide one (1280 x 800), and saves small WebP files.
 // In the cloud (Linux with no screen) it restarts itself inside xvfb-run, a pretend screen.
 import { _electron as electron } from 'playwright';
@@ -137,7 +137,7 @@ async function completeScreen(s) {
   await w.waitForTimeout(1200); // after the confetti burst
   await shot(w, '06-lesson-complete', s);
   // Back to the path (R07): caught mid-moment, as the XP counts up, the "+N" rises and the goal bar fills (1 of 2 -> 2 of 2).
-  // That was the lesson's first finish, so the top bar waits for the path's "coming on air" (1.4 s) before it starts.
+  // That was the lesson's first finish, so the top bar waits for the path's "coming on air" (1.6 s, design review 1) before it starts.
   await w.getByTestId('finish').click();
   await shot(w, '14-top-bar-moment', s, 1950);
   await app.close();
@@ -155,7 +155,7 @@ async function repairScreen(s) {
 }
 
 // The building blocks page (R03, #blocks in the app): the top (buttons, pills, switches), the answer tiles and Beacon's bubble,
-// and the "Not quite" bottom sheet slid up.
+// the "Not quite" bottom sheet slid up, and Beacon's faces (R17).
 async function blocksScreens(s) {
   const { app, w } = await launch({});
   await resize(app, s);
@@ -168,6 +168,12 @@ async function blocksScreens(s) {
   await shot(w, '11-blocks-tiles', s);
   await w.getByTestId('block-sheet-wrong').click();
   await shot(w, '12-blocks-sheet', s);
+  // Beacon (R17): its six faces, and the big one caught mid-cheer (a hop up, the burst rings spreading out).
+  await w.getByTestId('block-sheet-close').click();
+  await w.getByTestId('block-beacon-card').evaluate(el => el.scrollIntoView({ block: 'start' }));
+  await shot(w, '16-beacon', s, 700);
+  await w.getByTestId('block-beacon-set-cheering').click();
+  await shot(w, '17-beacon-cheering', s, 280);
   await app.close();
 }
 

@@ -124,6 +124,28 @@ export const TOP_BAR = {
   check: { ...SPRING.bouncy, delay: 0.55 },                              // ... and its check pops on
   checkKeys: { transform: ['scale(0)', 'scale(1)'] },
 }; // not "as const": Motion wants plain (changeable) keyframe lists
+// Beacon, the mascot (redesign R17, DESIGN.md section 8). Its two background loops are the rings breathing (BREATHE, the
+// same breath as the current lesson's rings) and the blink, so a screen with Beacon on it has no room for another loop
+// (at most 2, DESIGN.md section 7). Its one-off moves start the moment its face changes (it reacts within 0.1 s):
+// - blink (idle, thinking, oops): the eyes squeeze shut and open again, every 4-7 s (a new random gap each time);
+// - happy: one ring pulses out of the head and fades;
+// - cheering: the head hops three times, each hop smaller (on a little mast, so it stays joined to the tower), while two
+//   rings burst out of it, one after the other. All within a celebration (1.6 s); nothing loops.
+// Only transforms and see-through-ness move. With Reduce motion nothing moves: the face just changes.
+export const BEACON = {
+  blinkGap: [4, 7] as [number, number],                                    // seconds between blinks (random in between)
+  blinkShut: { duration: 0.08, ease: EASE.in },                            // the eyes close ...
+  blinkOpen: { duration: 0.1, ease: EASE.out },                            // ... and open again
+  blinkScale: 0.1,                                                         // how shut: 10% of their height
+  pulse: { duration: 0.6, delay: 0, ease: EASE.out },                      // happy: one ring out of the head
+  pulseKeys: { scale: [1, 1.45], opacity: [0.9, 0] },
+  hop: { duration: 1.2, delay: 0, ease: 'easeInOut' as const },            // cheering: three hops ...
+  hopKeys: { y: [0, -6, 0, -3.5, 0, -1.5, 0] },                           // ... in viewBox units (the drawing is 100 wide)
+  burst: { duration: 0.9, delay: 0.05, ease: EASE.out },                   // ... and two rings bursting out
+  burstGap: 0.3,                                                           // the second ring this much later
+  burstKeys: { scale: [0.7, 2.3], opacity: [0.85, 0] },
+  dim: 0.45,                                                               // the rings' see-through-ness when oops or sleepy
+}; // not "as const": Motion wants plain (changeable) keyframe lists
 // A top bar timing, started `wait` seconds after the top bar appears (TOP_BAR.wait or TOP_BAR.afterPath).
 export const barAt = <T extends { delay: number }>(t: T, wait: number): T => ({ ...t, delay: t.delay + wait });
 
