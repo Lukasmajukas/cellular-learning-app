@@ -9,6 +9,9 @@ on:
 jobs:
   windows:
     runs-on: windows-latest
+    # "write" only so the last step can publish the installer on the Releases page. Pull requests skip that step.
+    permissions:
+      contents: write
     defaults: { run: { working-directory: app } }
     steps:
       - uses: actions/checkout@v4
@@ -18,11 +21,35 @@ jobs:
       - run: npm test
       - run: npm run e2e
       - run: npm run make
-      # Keep only the one file you run (Setup.exe, not the zip and update files), only for main or a manual run, for 14 days.
-      # Saving all four files from every pull request for 30 days filled the repository's storage (about 12.6 GB by Nov 3).
-      - uses: actions/upload-artifact@v4
+      # The installer goes on the repository's Releases page, in ONE slot called "latest-build" that each new build
+      # replaces (T56). Not saved as a workflow "artifact": those count against GitHub's build-file storage, which
+      # filled up on Nov 3 (27 old installers, about 12.6 GB) and made every upload fail. Release files don't.
+      # Only for main or a manual run, never for pull requests.
+      - name: Publish the installer on the Releases page
         if: github.event_name != 'pull_request'
-        with: { name: windows-installer, path: 'app/out/make/squirrel.windows/x64/*.exe', retention-days: 14, if-no-files-found: error }
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          files=(out/make/squirrel.windows/x64/*.exe)
+          if [ "${#files[@]}" -ne 1 ] || [ ! -f "${files[0]}" ]; then
+            echo "Expected exactly one Setup .exe in out/make/squirrel.windows/x64, found: ${files[*]}"
+            exit 1
+          fi
+          exe="${files[0]}"
+          name="$(basename "$exe")"
+          short="${GITHUB_SHA::7}"
+          when="$(date -u '+%Y-%m-%d %H:%M UTC')"
+          notes="Built from ${GITHUB_REF_NAME} at commit ${short}, ${when}.
+
+          How to install: download ${name} below and double-click it. Windows may show a blue box saying \"Windows protected your PC\" because the installer is not signed: click \"More info\", then \"Run anyway\".
+
+          This page keeps only the newest build; every new build replaces it.
+          Build log: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          gh release delete latest-build --cleanup-tag --yes || true
+          gh release create latest-build "$exe" --target "$GITHUB_SHA" --title "Latest build (${when}, ${short})" --notes "$notes"
       # Test pictures only when something failed (that's when they help).
       - uses: actions/upload-artifact@v4
         if: failure()
