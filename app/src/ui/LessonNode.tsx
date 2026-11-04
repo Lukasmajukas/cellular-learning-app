@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { motion } from 'motion/react';
 import { c } from '../theme';
 import { Icon } from '../Icon';
-import { SPRING, PRESS_ROUND, BREATHE, ON_AIR, INSTANT, popInQueue, useCalm, useAwake } from '../theme/motion';
+import { SPRING, PRESS_ROUND, BREATHE, ON_AIR, INSTANT, popInQueue, useCalm, useAwake, useEntrance } from '../theme/motion';
 import { usePress } from './press';
 import { TAB_BAR_HEIGHT } from './AppShell';
 import type { Status } from '../path';
@@ -39,7 +39,7 @@ const seen = new Set<string>();
 
 export function LessonNode({ id, title, status, moment, onClick }: { id: string; title: string; status: Status; moment?: Moment; onClick: () => void }) {
   const open = status !== 'locked', size = NODE_SIZE[status];
-  const calm = useCalm(), awake = useAwake();
+  const calm = useCalm(), awake = useAwake(), on = useEntrance();
   const press = usePress(open, PRESS_ROUND);
   const show = calm ? undefined : moment;
   const box = useRef<HTMLSpanElement>(null);
@@ -60,15 +60,15 @@ export function LessonNode({ id, title, status, moment, onClick }: { id: string;
   }, [pop]); // eslint-disable-line react-hooks/exhaustive-deps
   const hidden = { scale: 0.6, opacity: 0 }, shown = { scale: 1, opacity: 1 };
   const wrapper = show?.kind === 'unlock'
-    ? { initial: { scale: 0, opacity: 0 }, animate: shown, transition: ON_AIR.arrive }
+    ? { initial: { scale: 0, opacity: 0 }, animate: on ? shown : { scale: 0, opacity: 0 }, transition: ON_AIR.arrive }
     : pop === 'still' ? { initial: false as const, animate: shown }
     : { initial: hidden, animate: pop === 'waiting' ? hidden : shown, transition: { ...SPRING.bouncy, delay: pop === 'waiting' ? 0 : pop } };
-  const breathing = status === 'current' && !calm && awake;
+  const breathing = status === 'current' && !calm && awake && on;
   return (
     <span ref={box} style={{ position: 'relative', width: NODE_BOX, height: NODE_BOX, display: 'grid', placeItems: 'center' }}>
       {show?.kind === 'onAir' && <OnAirBurst />}
       {show?.kind === 'wave' && <motion.span aria-hidden data-testid="wave-ring" style={{ ...centred(NODE_SIZE.done), border: `2px solid ${c.onAir}` }}
-        initial={{ scale: 1, opacity: 0.8 }} animate={{ scale: 1.9, opacity: 0 }} transition={{ ...ON_AIR.wave, delay: show.delay }} />}
+        initial={{ scale: 1, opacity: 0.8 }} animate={on ? { scale: 1.9, opacity: 0 } : { scale: 1, opacity: 0.8 }} transition={{ ...ON_AIR.wave, delay: show.delay }} />}
       {show?.kind === 'unlock' && <LockOff />}
       {/* It pops in on this wrapper, so the button's press keeps its own quick spring (and no pop-in delay). */}
       <motion.span data-testid={`pop-${id}`} data-pop={typeof pop === 'number' ? 'in' : pop} {...wrapper}
@@ -89,30 +89,31 @@ export function LessonNode({ id, title, status, moment, onClick }: { id: string;
           <Icon name={status === 'locked' ? 'lock' : 'tower'} size={ICON_SIZE[status]} />
           {status === 'done' && <motion.span data-testid="lesson-check" style={{ position: 'absolute', right: -4, bottom: -4, width: 24, height: 24, borderRadius: '50%',
             display: 'grid', placeItems: 'center', background: c.onAir, color: c.onBright, border: `2px solid ${c.bg}` }}
-            initial={show?.kind === 'onAir' ? { scale: 0 } : false} animate={{ scale: 1 }} transition={ON_AIR.check}><Icon name="check" size={14} /></motion.span>}
+            initial={false} animate={{ scale: show?.kind === 'onAir' && !on ? 0 : 1 }} transition={ON_AIR.check}><Icon name="check" size={14} /></motion.span>}
         </motion.button>
       </motion.span>
       {/* Coming on air: the old blue "current" disc sits on top of the new green one, then fades and shrinks away. */}
       {show?.kind === 'onAir' && <motion.span aria-hidden data-testid="on-air-ghost" style={disc('current')}
-        initial={{ opacity: 1, scale: 1 }} animate={{ opacity: 0, scale: 0.8 }} transition={ON_AIR.turn}><Icon name="tower" size={ICON_SIZE.current} /></motion.span>}
+        initial={{ opacity: 1, scale: 1 }} animate={on ? { opacity: 0, scale: 0.8 } : { opacity: 1, scale: 1 }} transition={ON_AIR.turn}><Icon name="tower" size={ICON_SIZE.current} /></motion.span>}
     </span>
   );
 }
 
 // Two green rings spread out from the circle that just came on air, and fade.
 function OnAirBurst() {
+  const on = useEntrance();
   return <>{[0, 1].map(k => <motion.span key={k} aria-hidden data-testid="on-air-ring" style={{ ...centred(NODE_SIZE.done), border: `2px solid ${c.onAir}` }}
-    initial={{ scale: 1, opacity: 0.9 }} animate={{ scale: 2, opacity: 0 }} transition={{ ...ON_AIR.burst, delay: ON_AIR.burst.delay + k * ON_AIR.burstGap }} />)}</>;
+    initial={{ scale: 1, opacity: 0.9 }} animate={on ? { scale: 2, opacity: 0 } : { scale: 1, opacity: 0.9 }} transition={{ ...ON_AIR.burst, delay: ON_AIR.burst.delay + k * ON_AIR.burstGap }} />)}</>;
 }
 
 // The next lesson was locked a moment ago: its old dashed disc stays for a beat, then the lock flies up and off and the
 // disc fades, while the new current circle pops up in its place.
 function LockOff() {
-  const leave = { ...ON_AIR.lockOff };
+  const on = useEntrance(), leave = ON_AIR.lockOff;
   return <>
     <motion.span aria-hidden data-testid="lock-disc" style={{ ...centred(NODE_SIZE.locked), border: LOOK.locked.border, background: LOOK.locked.background }}
-      initial={{ opacity: 1 }} animate={{ opacity: 0 }} transition={leave} />
+      initial={{ opacity: 1 }} animate={{ opacity: on ? 0 : 1 }} transition={leave} />
     <motion.span aria-hidden data-testid="lock-off" style={{ position: 'absolute', left: '50%', top: '50%', width: 24, height: 24, margin: -12, color: c.lockedIcon, pointerEvents: 'none', zIndex: 1 }}
-      initial={{ y: 0, rotate: 0, opacity: 1 }} animate={{ y: -36, rotate: -25, opacity: 0 }} transition={leave}><Icon name="lock" size={24} /></motion.span>
+      initial={{ y: 0, rotate: 0, opacity: 1 }} animate={on ? { y: -36, rotate: -25, opacity: 0 } : { y: 0, rotate: 0, opacity: 1 }} transition={leave}><Icon name="lock" size={24} /></motion.span>
   </>;
 }

@@ -185,4 +185,6 @@ Claude adds new words here whenever they come up.
 | **Keyboard shortcut** | A key that does what a click would: in a lesson, 1 to 4 pick an answer, Enter goes on, Esc leaves. |
 | **Flip book** | A few pictures taken one right after another while something moves, to check that it really moves smoothly. |
 | **Unit banner** | The heading above each unit on the path map: a small "UNIT 3", the unit's name, and how many of its lessons you've done ("2 / 5"). Its glowing bar is blue for the unit you're in and green when it's all done. |
+| **Coming on air** | The little show on the path map when you finish a lesson for the first time: its circle turns from blue to green with rings spreading out, the dotted line to the next lesson draws itself, and the next lesson's lock flies off. Like a radio tower being switched on. |
+| **Breathing (animation)** | A slow, soft loop that makes something grow a tiny bit and fade a little, then come back, over and over, like breathing. The current lesson's rings do it. |
 | **Zig-zag path** | The path map's layout: lesson circles go left, right, left down the screen, with each name beside its circle, joined by a dotted line. |

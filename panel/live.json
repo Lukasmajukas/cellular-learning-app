@@ -3,10 +3,10 @@
   "robot": {
     "on": true,
     "next": "right away (it starts its next job by itself), and every hour",
-    "last": "redesign session R05: the path map's new layout (unit banners, lesson circles zig-zagging with their names beside them, a dotted signal line, and it opens at your next lesson) (T59). Next: R06 (path map: movement)"
+    "last": "redesign session R06: the path map moves (circles pop in as you scroll, the next lesson's rings breathe, and finishing a lesson makes it \"come on air\": it turns green, the line draws itself, the next lock flies off) (T59). Next: R07 (top bar and daily goal)"
   },
   "light": "green",
-  "working": "Nothing in progress. The robot moves on to redesign session R06 (the path map's movement) at its next run (T59). For you: paste the robot's hourly message into the launcher chat again, and don't /clear it until then (T60); screenshots of the start-up picture when you can (T57).",
+  "working": "Nothing in progress. The robot moves on to redesign session R07 (the top bar and daily goal) at its next run (T59). For you: paste the robot's hourly message into the launcher chat again, and don't /clear it until then (T60); screenshots of the start-up picture when you can (T57).",
   "limit": {
     "state": "fine",
     "resets": "the 5-hour window resets Wed Nov 4, 10:30 AM Eastern. The robot keeps working until it runs out"

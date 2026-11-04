@@ -1,7 +1,7 @@
 // The ONE speed file (redesign R04, DESIGN.md section 7): every spring, every timing, and the "Reduce motion" rules.
 // Screens and building blocks never type a speed themselves: they take one from here (a unit test, src/motion.test.ts,
 // checks that), so changing how the app moves means changing this file only.
-import { useSyncExternalStore, type ReactNode } from 'react';
+import { useEffect, useState, useSyncExternalStore, type ReactNode } from 'react';
 import { MotionConfig, useReducedMotionConfig, type Transition } from 'motion/react';
 import { prefs } from '../prefs';
 
@@ -73,21 +73,31 @@ export const BREATHE = {
 // (a wave), the unit's banner flashes and its "done" check pops on, and the next unit's banner bar draws itself down.
 export const ON_AIR = {
   turn: { duration: 0.35, delay: 0.35, ease: EASE.out },          // 1 (0.35 s: the path has glided in by then)
-  check: { ...SPRING.bouncy, delay: 0.6 },                         // 1, the check badge
+  check: { ...SPRING.bouncy, delay: 0.55 },                         // 1, the check badge
   burst: { duration: 0.8, delay: 0.45, ease: EASE.out },           // 2, first ring ...
   burstGap: 0.15,                                                  // ... and the second one this much later
-  line: { duration: 0.5, delay: 0.6, ease: EASE.inOut },           // 3
-  lockOff: { duration: 0.35, delay: 1.05, ease: EASE.in },         // 4, the lock ...
-  arrive: { ...SPRING.bouncy, delay: 1.1 },                        // 4, ... and the new current circle
+  line: { duration: 0.5, delay: 0.55, ease: EASE.inOut },           // 3
+  lockOff: { duration: 0.35, delay: 0.85, ease: EASE.in },         // 4, the lock ...
+  arrive: { ...SPRING.bouncy, delay: 0.9 },                        // 4, ... and the new current circle
   wave: { duration: 0.7, delay: 0.5, ease: EASE.out },             // the unit's wave: first ring ...
   waveSpread: 0.4,                                                 // ... and the last one starts at most this much later
-  banner: { duration: 0.6, delay: 0.9, ease: EASE.out },           // the finished unit's banner flash and sweep
-  bannerCheck: { ...SPRING.bouncy, delay: 1.0 },                   // its "done" check
-  barDraw: { duration: 0.45, delay: 1.0, ease: EASE.out },         // the next unit's banner bar
+  banner: { duration: 0.6, delay: 0.8, ease: EASE.out },           // the finished unit's banner flash and sweep
+  bannerCheck: { ...SPRING.bouncy, delay: 0.85 },                   // its "done" check
+  barDraw: { duration: 0.45, delay: 0.9, ease: EASE.out },         // the next unit's banner bar
 } as const;
 // The k-th circle up the unit (0 = the one just above the lesson you finished) in a wave of `count` circles.
 export const waveDelay = (k: number, count: number) =>
   ON_AIR.wave.delay + k * Math.min(TIME.stagger, ON_AIR.waveSpread / Math.max(1, count));
+
+// True from the second render on. Things that move the moment they appear need it: the app's screens sit inside an
+// AnimatePresence with initial={false} (so nothing animates in when the app starts), and Motion then skips EVERY first
+// animation inside them, jumping straight to the end (found in R06). So such a piece starts at its "from" look and
+// switches to its "to" look one render later, which Motion does animate: animate={on ? to : from}.
+export function useEntrance() {
+  const [on, setOn] = useState(false);
+  useEffect(() => setOn(true), []);
+  return on;
+}
 
 // False while the app's window is hidden (minimised or covered), so background loops can pause (DESIGN.md section 7).
 const onVisibility = (cb: () => void) => { document.addEventListener('visibilitychange', cb); return () => document.removeEventListener('visibilitychange', cb); };

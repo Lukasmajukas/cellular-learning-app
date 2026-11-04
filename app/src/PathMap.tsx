@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 import { allLessons, lessonStatus, doneCount, sideOf, focusLessonId, unitStatus, onAirMoment, type Unit, type Progress, type Status, type OnAir } from './path';
 import { c, mono, COLUMN } from './theme';
 import { Icon } from './Icon';
-import { PRESS_BIG, ON_AIR, waveDelay, useCalm } from './theme/motion';
+import { PRESS_BIG, ON_AIR, waveDelay, useCalm, useEntrance } from './theme/motion';
 import { usePress, Pill, UnitBanner, LessonNode, NODE_SIZE, NODE_BOX, NODE_RING } from './ui';
 import type { Moment } from './ui/LessonNode';
 import { TAB_BAR_HEIGHT } from './ui/AppShell';
@@ -43,7 +43,12 @@ export function PathMap({ units, progress, onStart, due = 0, onReview }: { units
     let y = y0 + r.top + r.height / 2 - (top + (bottom - top) * 0.45);
     const just = rowOf(moment?.lesson)?.getBoundingClientRect();
     const banner = row.closest('section')?.querySelector('[data-testid^="banner-"]')?.getBoundingClientRect();
-    if (just && just.top < r.top && r.bottom - just.top <= bottom - top) y = y0 + (just.top + r.bottom) / 2 - (top + bottom) / 2;
+    // When that finished a whole unit, the unit's banner too, if everything fits (so you see its "done" pop on).
+    const doneBanner = moment?.unitDone ? root.current?.querySelector(`[data-testid="banner-${moment.unitDone}"]`)?.getBoundingClientRect() : undefined;
+    const fits = (from: number) => r.bottom - from <= bottom - top;
+    const frame = (from: number) => y0 + (from + r.bottom) / 2 - (top + bottom) / 2;
+    if (doneBanner && doneBanner.top < r.top && fits(doneBanner.top - 16)) y = frame(doneBanner.top - 16);
+    else if (just && just.top < r.top && fits(just.top)) y = frame(just.top);
     else if (banner) {
       const withBanner = y0 + banner.top - top - 16;
       if (withBanner < y && y0 + r.bottom - withBanner <= bottom - top) y = withBanner;
@@ -122,13 +127,13 @@ function Lessons({ unit, units, progress, onStart, moment }: { unit: Unit; units
 // When `draw` is on (the lesson it leads to was just unlocked), the bright dots draw themselves along the curve over the
 // dim ones: a mask (a solid line growing along the same curve) uncovers them. When it's done, the mask goes away.
 function LinePiece({ id, d, reached, draw }: { id: string; d: string; reached: boolean; draw: boolean }) {
-  const [drawing, setDrawing] = useState(draw);
+  const [drawing, setDrawing] = useState(draw), on = useEntrance();
   const dots = { d, fill: 'none', strokeWidth: 3.5, strokeLinecap: 'round', strokeDasharray: '0 10' } as const;
   return <>
     {drawing && <>
       <mask id={`draw-${id}`} maskUnits="userSpaceOnUse" x="-50%" y="-50%" width="200%" height="200%">
         <motion.path data-testid={`line-draw-${id}`} d={d} fill="none" stroke="white" strokeWidth={14} strokeLinecap="round"
-          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={ON_AIR.line} onAnimationComplete={() => setDrawing(false)} />
+          initial={{ pathLength: 0 }} animate={{ pathLength: on ? 1 : 0 }} transition={ON_AIR.line} onAnimationComplete={() => on && setDrawing(false)} />
       </mask>
       <path {...dots} stroke={c.locked} />
     </>}

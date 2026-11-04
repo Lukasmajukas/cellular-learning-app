@@ -90,10 +90,10 @@ describe('one place for every speed, and for Reduce motion', () => {
 });
 
 describe('the path map movement (redesign R06)', () => {
-  it('coming on air fits in a celebration (1.6 s), springs counted as about 0.5 s to settle', () => {
+  it('coming on air fits in a celebration (1.6 s), springs counted as 0.7 s to settle (the bouncy one, measured in R06)', () => {
     for (const [k, t] of Object.entries(ON_AIR)) {
       if (typeof t === 'number') continue;
-      const end = t.delay + ('duration' in t ? t.duration : 0.5);
+      const end = t.delay + ('duration' in t ? t.duration : 0.7);
       expect(end, k).toBeLessThanOrEqual(TIME.celebration);
     }
     expect(ON_AIR.burst.delay + ON_AIR.burstGap + ON_AIR.burst.duration).toBeLessThanOrEqual(TIME.celebration);
