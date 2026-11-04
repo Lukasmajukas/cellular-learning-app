@@ -8,6 +8,7 @@ const DEFAULTS = () => ({
   version: 1,
   progress: {},
   reviews: {},
+  seenChanges: null,
   game: { streak: 0, lastDay: '', xp: 0, xpToday: 0, xpDay: '', doneToday: 0, doneDay: '', freezes: 0, lost: 0, lostDay: '' },
   settings: { sounds: true, reduceMotion: false, showFps: false, dailyGoal: 1, theme: 'light' },
 });
@@ -41,7 +42,8 @@ function normalize(raw) {
   const day = v => (typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v) ? v : '');
   const game = { streak: nn(g.streak), lastDay: day(g.lastDay), xp: nn(g.xp), xpToday: nn(g.xpToday), xpDay: day(g.xpDay),
     doneToday: nn(g.doneToday), doneDay: day(g.doneDay), freezes: Math.min(2, nn(g.freezes)), lost: nn(g.lost), lostDay: day(g.lostDay) };
-  return { version: 1, progress, settings, reviews, game };
+  const seenChanges = Array.isArray(raw.seenChanges) ? raw.seenChanges.filter(x => typeof x === 'string') : null;
+  return { version: 1, progress, settings, reviews, game, seenChanges };
 }
 
 const today = (now = new Date()) =>

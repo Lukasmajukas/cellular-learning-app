@@ -5,9 +5,9 @@ import type { Reviews } from './fsrs';
 import { EMPTY_GAME, type Game } from './gamify';
 
 export type Settings = { sounds: boolean; reduceMotion: boolean; showFps: boolean; dailyGoal: number; theme: 'light' | 'dark' };
-export type SaveState = { version: 1; progress: Progress; settings: Settings; reviews: Reviews; game: Game };
+export type SaveState = { version: 1; progress: Progress; settings: Settings; reviews: Reviews; game: Game; seenChanges: string[] | null };
 export const DEFAULT_SETTINGS: Settings = { sounds: true, reduceMotion: false, showFps: false, dailyGoal: 1, theme: 'light' };
-export const EMPTY_STATE: SaveState = { version: 1, progress: {}, settings: DEFAULT_SETTINGS, reviews: {}, game: EMPTY_GAME };
+export const EMPTY_STATE: SaveState = { version: 1, progress: {}, settings: DEFAULT_SETTINGS, reviews: {}, game: EMPTY_GAME, seenChanges: null };
 
 type Api = {
   load(): Promise<{ state: SaveState; recovered: boolean }>;
@@ -23,7 +23,7 @@ export async function loadState(): Promise<{ state: SaveState; recovered: boolea
   if (a) return a.load();
   try {
     const raw = JSON.parse(localStorage.getItem(KEY) ?? 'null');
-    if (raw) return { state: { ...EMPTY_STATE, ...raw, settings: { ...DEFAULT_SETTINGS, ...raw.settings }, reviews: raw.reviews ?? {}, game: { ...EMPTY_GAME, ...raw.game } }, recovered: false };
+    if (raw) return { state: { ...EMPTY_STATE, ...raw, settings: { ...DEFAULT_SETTINGS, ...raw.settings }, reviews: raw.reviews ?? {}, game: { ...EMPTY_GAME, ...raw.game }, seenChanges: Array.isArray(raw.seenChanges) ? raw.seenChanges : null }, recovered: false };
   } catch { /* ignore */ }
   return { state: EMPTY_STATE, recovered: false };
 }

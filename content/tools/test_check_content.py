@@ -27,6 +27,19 @@ def make(tmp, bands=None, credits=None, questions=None, locked=None, sites=None)
     return root
 
 
+class Changes(unittest.TestCase):
+    def test_changes(self):
+        good = {"id": "c1", "date": "2026-11-05", "title": "t", "text": "x", "source": "s", "questions": ["q1"]}
+        for change, bad in ((good, None), ({**good, "source": ""}, "source missing"), ({**good, "date": "soon"}, "not YYYY-MM-DD"),
+                            ({**good, "questions": ["nope"]}, "does not exist")):
+            errors = []
+            cc.check_changes({"changes": [change]}, {"q1"}, errors)
+            self.assertEqual(any(bad in e for e in errors) if bad else errors, True if bad else [])
+        errors = []
+        cc.check_changes({"changes": [good, good]}, {"q1"}, errors)
+        self.assertTrue(any("duplicate" in e for e in errors))
+
+
 class Checker(unittest.TestCase):
     def check(self, **kw):
         with tempfile.TemporaryDirectory() as t:

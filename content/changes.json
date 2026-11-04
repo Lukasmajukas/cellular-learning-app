@@ -1,0 +1,4 @@
+{
+ "_about": "Carrier facts that CHANGED after the app shipped. Add one entry per change; the app shows a card once and restarts the review timers of the listed questions. Leave 'changes' empty until a fact really changes. Checked by tools/check_content.py.",
+ "changes": []
+}
