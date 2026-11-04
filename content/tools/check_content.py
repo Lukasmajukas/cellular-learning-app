@@ -261,6 +261,25 @@ def check_ids(ids, registry_path, update, errors):
         print(f"note: {len(new)} question id(s) are not locked yet; run with --update-ids once the check passes.")
 
 
+def check_changes(data, ids, errors):
+    """'This changed' cards: each needs an id, date, title, text and source, and may only reset questions that exist."""
+    seen = set()
+    for i, c in enumerate(data.get("changes", [])):
+        where = f"changes.json[{i}]"
+        for f in ("id", "date", "title", "text", "source"):
+            if not c.get(f):
+                errors.append(f"{where}: {f} missing")
+        if c.get("id") in seen:
+            errors.append(f"{where}: duplicate id {c.get('id')}")
+        seen.add(c.get("id"))
+        if c.get("date") and not valid_date(c["date"]):
+            errors.append(f"{where}: date {c['date']!r} is not YYYY-MM-DD")
+        for q in c.get("questions", []):
+            if q not in ids:
+                errors.append(f"{where}: question {q} does not exist")
+    return len(seen)
+
+
 def collect_questions(content):
     out = []
     for f in sorted((content / "lessons").glob("unit-*/*.yaml")):
@@ -291,6 +310,9 @@ def run(content, update_ids=False):
     questions = collect_questions(content) if (content / "lessons").exists() else []
     ids = check_questions(questions, facts, photos, errors)
     check_ids(ids, content / "question-ids.json", update_ids, errors)
+    changes_path = content / "changes.json"
+    if changes_path.exists():
+        check_changes(json.loads(changes_path.read_text(encoding="utf-8")), set(ids), errors)
     print(f"Checked {len(facts)} facts, {len(photos)} photos, {len(questions)} questions.")
     return errors
 

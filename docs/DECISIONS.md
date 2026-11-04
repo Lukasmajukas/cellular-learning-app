@@ -4,6 +4,7 @@ Every decision, with the date and why. Newest at the bottom.
 
 | Date | Decision | Why |
 |---|---|---|
+| 2026-11-04 | "This changed" cards come from a hand-written list, `content/changes.json` (id, date, title, text, source, questions to reset). A save file that has never seen the list treats existing entries as old news | A new install or an update should not flood the owner with old cards; Claude adds an entry when a re-check (every 3 months) finds a real change |
 | 2026-11-01 | The app opens on the real lessons; the sample lessons stay only for automatic tests (switch `CELL_SAMPLE_PATH=1`) | So tests keep working while the owner sees real content |
 | 2026-10-31 | Personal hobby app, not for sale | Owner's choice |
 | 2026-10-31 | Cross-platform desktop app (Windows/Mac/Linux) | Owner's choice |

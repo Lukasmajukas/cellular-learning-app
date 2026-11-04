@@ -14,10 +14,13 @@ import { prefs } from './prefs';
 import { REAL_PATH } from './units';
 import { HeatMap } from './HeatMapScreen';
 import { buildHeatmap, type BandRow, type RawLesson } from './heatmap';
+import { startChanges, pendingChanges, acknowledge, type Change } from './changes';
+import rawChanges from '../../content/changes.json';
 import rawLessons from '../../content/lessons.json';
 import { DATA } from './sampleLessons';
 
 // The real lessons, unless an automatic test asks for the samples (see electron/preload.cjs).
+const CHANGES = (rawChanges as { changes: Change[] }).changes;
 const PATH = (window as unknown as { cellApi?: { useSamplePath?: boolean } }).cellApi?.useSamplePath ? SAMPLE_PATH : REAL_PATH;
 
 function App() {
@@ -29,7 +32,7 @@ function App() {
   const loaded = useRef(false);
 
   useEffect(() => { loadState().then(({ state, recovered }) => {
-    loaded.current = true; setState(state);
+    loaded.current = true; setState(startChanges(state, CHANGES));
     if (recovered) setNotice('Your save file was damaged, so I restored your latest backup.');
   }); }, []);
   // Save after every change (never before the first load finished, or we'd overwrite real progress with blanks).
@@ -41,6 +44,7 @@ function App() {
   useEffect(() => { document.body.style.background = dark ? '#1b2530' : '#f4f8fb'; document.body.style.color = dark ? '#e8eef4' : '#222'; }, [dark]);
   if (!state) return null;
 
+  const card = pendingChanges(s, CHANGES)[0];
   const lesson = playing === REVIEW_ID ? buildReview(PATH, s.reviews, Date.now()) ?? undefined : allLessons(PATH).find(l => l.id === playing);
   // 'never' (not 'user'): don't let Windows' own animation-effects switch silently flatten the animations. Only the in-app switch does.
   return (
@@ -48,6 +52,14 @@ function App() {
       {s.settings.showFps && <FpsMeter />}
       <div style={{ fontFamily: 'Segoe UI, sans-serif' }}>
         {notice && <p data-testid="notice" style={{ margin: 0, padding: 8, background: '#fff3c4', color: '#333', textAlign: 'center' }}>{notice}</p>}
+        {card && !lesson && (
+          <div data-testid="change-card" style={{ maxWidth: 420, margin: '16px auto 0', padding: 16, borderRadius: 16, background: dark ? '#2b3a4a' : '#e8f3ff', border: '2px solid #1cb0f6' }}>
+            <div style={{ fontWeight: 700, fontSize: 18 }}>📢 This changed: {card.title}</div>
+            <p style={{ margin: '8px 0' }}>{card.text}</p>
+            <div style={{ fontSize: 12, opacity: 0.7 }}>{card.date} · {card.source}{card.questions?.length ? ` · ${card.questions.length} question(s) will come back for review` : ''}</div>
+            <button data-testid="change-ok" onClick={() => setState(p => p && acknowledge(p, card))}
+              style={{ marginTop: 10, width: '100%', padding: 10, border: 0, borderRadius: 12, background: '#1cb0f6', color: '#fff', fontSize: 16, cursor: 'pointer' }}>Got it</button>
+          </div>)}
         {lesson ? (
           <LessonPlayer key={lesson.id} lesson={lesson} onQuit={() => setPlaying(null)}
             onFinish={r => { setState(p => p && (lesson.id === REVIEW_ID ? finishReview(p, r) : finishLesson(p, lesson.id, r))); setPlaying(null); }} />
