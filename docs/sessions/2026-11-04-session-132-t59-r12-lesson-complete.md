@@ -28,7 +28,9 @@ Finishing a lesson is a real celebration now. Beacon grows smoothly to its big s
 ## Test results
 - Unit tests: 181 pass (176 + 5). TypeScript OK. Content checker OK (253 facts, 27 photos, 635 questions; `content/` untouched).
 - Click tests: full run 64 of 64 passed (60 before + 4 new in `complete.spec.ts`; 8.6 min), first try. Frame rates (cloud): lesson complete 60.0 fps; the older moments still fine (coming on air 58.4, unit done 60.0, sheet 60.0, top bar 59.3, R11's shake, glide and order chips all pass 50+).
-- Windows build (GitHub): RESULTS_WIN
+- Windows build (GitHub):
+  - Run 41932051212 (first code push): **failed**, 63 of 64. `tests/beacon.spec.ts` "cheers (bigger) when the lesson is done" measured the big Beacon at 86.9 px against more than 87: it caught Beacon mid-grow, because R12 made it grow in instead of appearing at full size. My change caused it, so I fixed the test, not the app: it now waits (up to 2 s) for Beacon to finish growing. Run 41932303180 (same app code, docs only) passed, which shows it was timing.
+  - Run 41933691944 (with the fix, final code): **passed**. 181 unit tests, 64 of 64 click tests (10.1 min) and the installer. Windows frame rates: **lesson complete 50.4 fps** (59.8 in the first run; three 31 ms frames: just over the 50 bar, see I26); the older moments fine (coming on air 60.5, unit done 60.4, sheet 64, top bar 59.9, shake/pop/glow 64, question glide 60.1, order chips 64). On Windows the burst's ring reached 0.9 see-through and 2.2x in 65 frames, so **the burst really draws on Windows** (the confetti never could be checked).
 
 ## What I looked at (by eye)
 - Before: `06-lesson-complete` from R11: Beacon at 112 px, plain stars, "+10 XP", small bars, two equally loud buttons, confetti over everything.
