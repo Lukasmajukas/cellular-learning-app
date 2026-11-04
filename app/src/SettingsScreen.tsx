@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { backupNow, showFile, hasFileAccess, type Settings } from './storage';
 import { c, COLUMN } from './theme';
+import { Icon } from './Icon';
 
 // The settings screen: sounds, reduce motion, daily goal, look, backup, and where the save file is.
 export function SettingsScreen({ settings, onChange, onBack }: { settings: Settings; onChange: (s: Settings) => void; onBack: () => void }) {
@@ -10,9 +11,9 @@ export function SettingsScreen({ settings, onChange, onBack }: { settings: Setti
   const files = hasFileAccess();
   return (
     <div style={{ maxWidth: COLUMN, margin: '0 auto', padding: 20, boxSizing: 'border-box' }}>
-      <button data-testid="settings-back" onClick={onBack} style={btn}>← Back</button>
+      <button data-testid="settings-back" onClick={onBack} style={{ ...btn, display: 'inline-flex', alignItems: 'center', gap: 6 }}><Icon name="back" size={18} />Back</button>
       <h1 style={{ margin: '12px 0' }}>Settings</h1>
-      <label style={row}>Sounds
+      <label style={row}><span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}><Icon name={settings.sounds ? 'soundOn' : 'soundOff'} size={20} style={{ color: c.textMuted }} />Sounds</span>
         <input data-testid="set-sounds" type="checkbox" checked={settings.sounds} onChange={e => onChange({ ...settings, sounds: e.target.checked })} /></label>
       <label style={row}>Reduce motion (no confetti, no movement)
         <input data-testid="set-motion" type="checkbox" checked={settings.reduceMotion} onChange={e => onChange({ ...settings, reduceMotion: e.target.checked })} /></label>

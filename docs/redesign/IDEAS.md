@@ -19,4 +19,7 @@
 | I07 | Personal-best moments (a perfect lesson, a 7-day streak) get their own short Beacon animation. | T58 plan | ⬜ |
 | I08 | The settings checkboxes are the plain grey Windows boxes: swap them for the glowing switch from R03 (on = signal colour, a little spring). | R01 | ⬜ |
 | I09 | The heatmap text still says "Grey = not quizzed yet", but new tiles are now dim outlines; reword it and add a small colour legend (fading → shaky → strong) in R14. | R01 | ⬜ |
+| I11 | Each settings row gets its own small icon (motion, frame rate, goal, look, backup), like Sounds already has, so the list is quicker to scan. Do it with R15. | R02 | ⬜ |
+| I12 | Icons for "on air" things (the current lesson's tower, the streak flame when it grows) get a soft still glow layer behind them (its see-through-ness may pulse, never a blur animation). | R02 | ⬜ |
+| I13 | The gallery's icon sheet (`00-icons`) could also show each icon in the Day look and at 16 px, to catch thin lines that break up when small. | R02 | ⬜ |
 | I10 | The gallery could also take a short burst of pictures of each animation (a "flip book" strip), so reviews can see movement without installing the app. | R01 | ⬜ |

@@ -79,6 +79,8 @@ Claude adds new words here whenever they come up.
 | **WebP** | A picture file type that's much smaller than PNG but looks the same. The gallery uses it so the binder stays light. |
 | **Gallery** | A folder of pictures of every screen, made by a tool after each redesign session, so you can see what changed without installing anything. |
 | **Ideas board** | The robot's list of "could be better" ideas for the look (`docs/redesign/IDEAS.md`). Your wishes always go to the top. |
+| **Emoji** | The little pictures you can type, like 🔥 or ⚙️. Each computer draws them its own way (Windows, Mac and iPhone emoji look different), so the app now uses its own drawn icons instead. |
+| **Icon set** | A family of small pictures drawn the same way (same grid, same line thickness, same round ends), so they look like they belong together. Ours is `app/src/theme/icons.ts`. |
 | **Design review** | A chat that only looks: it scores every screen against the style guide and decides what to fix next, like a teacher marking a project halfway through. |
 
 ## Cell phone words

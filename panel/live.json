@@ -3,10 +3,10 @@
   "robot": {
     "on": true,
     "next": "right away (it starts its next job by itself), and every hour",
-    "last": "redesign session R01: the Night Signal colours and letters, a test that keeps Duolingo's colours out, and a picture gallery of every screen (T59). Next: R02 (our own icons)"
+    "last": "redesign session R02: 22 icons drawn in code replace the emoji in buttons and labels, and a test keeps emoji out (T59). Next: R03 (building blocks)"
   },
   "light": "green",
-  "working": "Nothing in progress. The robot moves on to redesign session R02 (our own icons) at its next run (T59). For you: paste the robot's hourly message into the launcher chat again, and don't /clear it until then (T60); screenshots of the start-up picture when you can (T57).",
+  "working": "Nothing in progress. The robot moves on to redesign session R03 (building blocks: buttons, cards, switches) at its next run (T59). For you: paste the robot's hourly message into the launcher chat again, and don't /clear it until then (T60); screenshots of the start-up picture when you can (T57).",
   "limit": {
     "state": "warning",
     "resets": "Wed Nov 4, 5:00 AM Eastern. The robot keeps working until it runs out"

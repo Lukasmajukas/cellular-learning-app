@@ -32,7 +32,7 @@ test('progress and settings survive closing and reopening, and a backup exists',
   w = await app.firstWindow();
   await expect(w.getByTestId('path-count')).toHaveText('1 of 7 lessons done');
   await expect(w.getByTestId('lesson-u1-l2')).toBeEnabled();
-  await expect(w.getByTestId('streak')).toHaveText('🔥 1');
+  await expect(w.getByTestId('streak')).toHaveText('1');
   await w.getByTestId('open-settings').click();
   await expect(w.getByTestId('set-sounds')).not.toBeChecked();
   await expect(w.getByTestId('set-day')).toBeChecked();
