@@ -65,7 +65,8 @@ test('done, current and locked each have their own look (size, icon, outline), n
   await w.waitForTimeout(1500);
   const look = (id: string) => w.getByTestId(`lesson-${id}`).evaluate(el => {
     const s = getComputedStyle(el);
-    return { w: el.getBoundingClientRect().width, icon: el.querySelector('svg')?.getAttribute('data-icon'), border: s.borderTopStyle,
+    // offsetWidth = its real size, without a hover or pop-in scale (on Windows the mouse can sit over a circle as it pops in: R06)
+    return { w: (el as HTMLElement).offsetWidth, icon: el.querySelector('svg')?.getAttribute('data-icon'), border: s.borderTopStyle,
       check: !!el.querySelector('[data-testid=lesson-check]') };
   });
   const done = await look('u1-l1'), cur = await look('u1-l2'), lock = await look('u1-l3');
