@@ -82,9 +82,9 @@ questions:
     kind: choice
     facts: [hardware:use:samsung-verizon]
     prompt: Verizon's filings also list the Samsung RF4440d-13A. What kind of radio is it?
-    choices: [A 700/850 MHz low-band radio, A mmWave radio, A C-band all-in-one]
+    choices: ['A {hardware:use:samsung-verizon.rf4440_bands} low-band radio', A mmWave radio, A C-band all-in-one]
     answer: 0
-    why: The RF4440d-13A is a 700/850 MHz radio. The MT6407-77A is the C-band all-in-one.
+    why: The RF4440d-13A is a {hardware:use:samsung-verizon.rf4440_bands} radio. The MT6407-77A is the C-band all-in-one.
   - id: u8-use-c-all-01
     kind: choice
     facts: [hardware:use:air6449-b77d-attvz, hardware:use:samsung-verizon]

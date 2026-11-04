@@ -59,21 +59,21 @@ questions:
     title: Panel lengths
     facts: [hardware:ports:panel-length]
     text: >
-      In a CommScope panel name, the last letter is the length. A is 1.3 m, B is 2.0 m and C is 2.6 m. The band letters work the same way: N is a low-band letter and H is a mid-band letter.
+      In a CommScope panel name, the last letter is the length. A is {hardware:ports:panel-length.len_a}, B is {hardware:ports:panel-length.len_b} and C is {hardware:ports:panel-length.len_c}. The band letters work the same way: N is a low-band letter and H is a mid-band letter.
   - id: u8-port-len-01
     kind: choice
     facts: [hardware:ports:panel-length]
     prompt: A panel name ends in C. How long is it?
-    choices: [1.3 m, 2.0 m, 2.6 m]
+    choices: ['{hardware:ports:panel-length.len_a}', '{hardware:ports:panel-length.len_b}', '{hardware:ports:panel-length.len_c}']
     answer: 2
-    why: A is 1.3 m, B is 2.0 m and C is 2.6 m.
+    why: A is {hardware:ports:panel-length.len_a}, B is {hardware:ports:panel-length.len_b} and C is {hardware:ports:panel-length.len_c}.
   - id: u8-port-len-02
     kind: choice
     facts: [hardware:ports:panel-length]
     prompt: Which letter means the shortest panel?
     choices: [A, B, C]
     answer: 0
-    why: A is 1.3 m, the shortest of the three.
+    why: A is {hardware:ports:panel-length.len_a}, the shortest of the three.
   - id: u8-port-letter-01
     kind: choice
     facts: [hardware:ports:panel-length]

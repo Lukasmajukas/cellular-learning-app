@@ -88,7 +88,7 @@ questions:
     why: Boost's traffic moved to AT&T's network by Nov 2025.
   - id: u3-cp-coming-01
     kind: choice
-    facts: [change:1]
+    facts: [change:echostar-spacex-b70]
     label: coming
     prompt: Who is expected to get the B70 uplink slice?
     choices:
@@ -96,7 +96,7 @@ questions:
       - "EchoStar keeps it and sells nothing"
       - AT&T
     answer: 0
-    why: The deal is pending ({change:1.date}). EchoStar would sell it to SpaceX.
+    why: The deal is pending ({change:echostar-spacex-b70.date}). EchoStar would sell it to SpaceX.
   - id: u3-cp-tier-01
     kind: choice
     facts: [band:B66]

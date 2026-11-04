@@ -49,25 +49,25 @@ questions:
     why: The icon names come from the CURRENT rows in the bands file.
   - id: u5-cp-sale-01
     kind: choice
-    facts: [change:0]
-    prompt: In {change:0.date}, who took over most of UScellular's network?
+    facts: [change:uscellular-tmobile]
+    prompt: In {change:uscellular-tmobile.date}, who took over most of UScellular's network?
     choices: [AT&T, T-Mobile, Verizon]
     answer: 1
-    why: The deal with {change:0.to} closed {change:0.date}.
+    why: The deal with {change:uscellular-tmobile.to} closed {change:uscellular-tmobile.date}.
   - id: u5-cp-sale-02
     kind: choice
-    facts: [change:6]
-    prompt: On {change:6.date}, AT&T bought n77 and 600 MHz spectrum. From whom?
+    facts: [change:echostar-att]
+    prompt: On {change:echostar-att.date}, AT&T bought n77 and 600 MHz spectrum. From whom?
     choices: [EchoStar, Array, T-Mobile]
     answer: 0
-    why: The seller was {change:6.from}.
+    why: The seller was {change:echostar-att.from}.
   - id: u5-cp-sale-03
     kind: choice
-    facts: [change:7]
-    prompt: Who sold 800 MHz spectrum to Grain Management on {change:7.date}?
+    facts: [change:tmobile-grain]
+    prompt: Who sold 800 MHz spectrum to Grain Management on {change:tmobile-grain.date}?
     choices: [EchoStar, AT&T, T-Mobile]
     answer: 2
-    why: The seller was {change:7.from}.
+    why: The seller was {change:tmobile-grain.from}.
   - id: u5-cp-mix-01
     kind: number
     facts: [band:n41]

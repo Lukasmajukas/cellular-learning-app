@@ -199,6 +199,23 @@ class HardwareAndCellIds(unittest.TestCase):
             e = cc.run(root)
         self.assertTrue(any("taught only" in x for x in e))
 
+    def test_learn_card_may_list_a_taught_only_fact(self):
+        row = dict(id="weight:x", kind="weight", grade="T", text="Roughly 12 kg.", quiz=False, **GOOD)
+        with tempfile.TemporaryDirectory() as t:
+            root = make(t, questions=[dict(id="u1", kind="learn", facts=["hardware:weight:x"])])
+            (root / "hardware.json").write_text(json.dumps({"hardware": [row]}))
+            e = cc.run(root)
+        self.assertFalse(any("taught only" in x for x in e))
+
+    def test_spectrum_change_needs_a_unique_short_name(self):
+        base = dict(date="2026-01", bands="B71", **{"from": "A", "to": "B"}, **GOOD)
+        errs = []
+        cc.fact_index({"spectrum_changes": [dict(base), dict(base, id="Bad Name")]}, errs)
+        self.assertEqual(sum("short name id" in x for x in errs), 2)
+        errs = []
+        cc.fact_index({"spectrum_changes": [dict(base, id="a-b"), dict(base, id="a-b")]}, errs)
+        self.assertTrue(any("used twice" in x for x in errs))
+
     def test_unverified_cell_id_row_blocks_a_question(self):
         row = dict(id="nr:pci", kind="nr", grade="gap", text="PCI is 0 to 1007.", status="UNVERIFIED", as_of="2026-11-01", source="x")
         with tempfile.TemporaryDirectory() as t:

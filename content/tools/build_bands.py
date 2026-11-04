@@ -148,21 +148,21 @@ for u in use:
     assert not u["icon"] or u["status"] == "CURRENT", f"icon on a row that is not CURRENT: {u['band']}/{u['carrier_id']}"
 
 # B5: ownership changes live in their own list. Not "a phone sees this band on this carrier's sites".
-# (date, bands, from, to, status, note, source)  Source texts come from the Q4 timeline in us_bands.md.
+# (id, date, bands, from, to, status, note, source). The id is the short name lessons use ({change:array-verizon.date}); never reuse or reorder by position.  Source texts come from the Q4 timeline in us_bands.md.
 S = "docs/research/notes/us_bands.md, Q4 timeline (web-search summaries; pages not opened): "
 SPECTRUM = [
- ("2025-08","B71/n71, B12, B2/B25, B66, n41","UScellular","T-Mobile","CURRENT","closed; about 30% of UScellular's spectrum",S+"Wikipedia: U.S. Cellular; PhoneArena"),
- ("2025-11","1695-1710 MHz (B70 uplink)","EchoStar","SpaceX","PENDING","unpaired AWS-3, about $2.6B in stock; SpaceX would use it for satellites, not LTE B70",S+"Via Satellite"),
- ("2026-01-13","n77 (3.45 GHz), B12/B17 (700 MHz)","Array (ex-UScellular)","AT&T","CURRENT","closed, $1.018B",S+"PR Newswire; Array 10-Q Q1 2026"),
- ("2026-05-05","B12 (700 MHz)","Array (ex-UScellular)","T-Mobile","CURRENT","closed, $74.8M",S+"Array Q2 2026 8-K"),
- ("2026-05-12","B71 (600 MHz)","Array (ex-UScellular)","T-Mobile","CURRENT","closed, $86.4M",S+"Array Q2 2026 8-K"),
- ("2026-06-01","B2 (PCS), B66 (AWS)","Array (ex-UScellular)","Verizon","CURRENT","closed; sources disagree on the exact bands (AWS-3/AWS-1/PCS vs. AWS/cellular/PCS)",S+"Broadband Breakfast; Verizon 10-Q Q2 2026"),
- ("2026-07-28","n77 (3.45 GHz), B71/n71 (600 MHz)","EchoStar","AT&T","CURRENT","closed",S+"AT&T 8-K"),
- ("2026-08-10","B26 (800 MHz, 817-824/862-869), B71","T-Mobile","Grain Management","CURRENT","800 MHz sold for $2.9B cash plus Grain's 600 MHz licences; the ex-Sprint 800 MHz slice touches both B26 and B27",S+"T-Mobile 10-Q Q3 2026"),
- ("2026-10","B26 (800 MHz)","Grain Management","SpaceX","UNVERIFIED","only a news headline ('reportedly agreed'), FCC status unknown",S+"Google News / Yahoo Finance headline"),
- ("2027-11-30","B70/n70 downlink, B66 2180-2200, B23 (AWS-4 / H-block)","EchoStar (trust)","SpaceX","PENDING","final transfer expected on or about this date",ECHO),
+ ("uscellular-tmobile","2025-08","B71/n71, B12, B2/B25, B66, n41","UScellular","T-Mobile","CURRENT","closed; about 30% of UScellular's spectrum",S+"Wikipedia: U.S. Cellular; PhoneArena"),
+ ("echostar-spacex-b70","2025-11","1695-1710 MHz (B70 uplink)","EchoStar","SpaceX","PENDING","unpaired AWS-3, about $2.6B in stock; SpaceX would use it for satellites, not LTE B70",S+"Via Satellite"),
+ ("array-att-700-n77","2026-01-13","n77 (3.45 GHz), B12/B17 (700 MHz)","Array (ex-UScellular)","AT&T","CURRENT","closed, $1.018B",S+"PR Newswire; Array 10-Q Q1 2026"),
+ ("array-tmobile-700","2026-05-05","B12 (700 MHz)","Array (ex-UScellular)","T-Mobile","CURRENT","closed, $74.8M",S+"Array Q2 2026 8-K"),
+ ("array-tmobile-600","2026-05-12","B71 (600 MHz)","Array (ex-UScellular)","T-Mobile","CURRENT","closed, $86.4M",S+"Array Q2 2026 8-K"),
+ ("array-verizon","2026-06-01","B2 (PCS), B66 (AWS)","Array (ex-UScellular)","Verizon","CURRENT","closed; sources disagree on the exact bands (AWS-3/AWS-1/PCS vs. AWS/cellular/PCS)",S+"Broadband Breakfast; Verizon 10-Q Q2 2026"),
+ ("echostar-att","2026-07-28","n77 (3.45 GHz), B71/n71 (600 MHz)","EchoStar","AT&T","CURRENT","closed",S+"AT&T 8-K"),
+ ("tmobile-grain","2026-08-10","B26 (800 MHz, 817-824/862-869), B71","T-Mobile","Grain Management","CURRENT","800 MHz sold for $2.9B cash plus Grain's 600 MHz licences; the ex-Sprint 800 MHz slice touches both B26 and B27",S+"T-Mobile 10-Q Q3 2026"),
+ ("grain-spacex","2026-10","B26 (800 MHz)","Grain Management","SpaceX","UNVERIFIED","only a news headline ('reportedly agreed'), FCC status unknown",S+"Google News / Yahoo Finance headline"),
+ ("echostar-spacex-final","2027-11-30","B70/n70 downlink, B66 2180-2200, B23 (AWS-4 / H-block)","EchoStar (trust)","SpaceX","PENDING","final transfer expected on or about this date",ECHO),
 ]
-spectrum = [{"date":d,"bands":b,"from":f,"to":t,"status":st,"note":n,"as_of":AS_OF,"source":src} for d,b,f,t,st,n,src in SPECTRUM]
+spectrum = [{"id":i,"date":d,"bands":b,"from":f,"to":t,"status":st,"note":n,"as_of":AS_OF,"source":src} for i,d,b,f,t,st,n,src in SPECTRUM]
 
 # T34: carrier codes (MCC-MNC) parsed from the two tables at the top of content/carrier-codes.md (the "T27 follow-up" table has no
 # status column in the same place and every row is UNVERIFIED, so it is skipped). Every code gets its own row with the row's status.

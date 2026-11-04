@@ -81,11 +81,11 @@ questions:
     why: B5's downlink starts at {band:B5.dl_low_mhz} MHz (low band) and B2's at {band:B2.dl_low_mhz} MHz. Lower frequencies travel farther.
   - id: u3-pcs-sale-01
     kind: choice
-    facts: [change:0, change:2, change:5]
-    prompt: Some of UScellular's spectrum (including PCS and AWS) was sold in a deal that closed in {change:0.date}. Who bought it?
+    facts: [change:uscellular-tmobile, change:array-att-700-n77, change:array-verizon]
+    prompt: Some of UScellular's spectrum (including PCS and AWS) was sold in a deal that closed in {change:uscellular-tmobile.date}. Who bought it?
     choices: [T-Mobile, AT&T, Verizon]
     answer: 0
-    why: T-Mobile's deal closed {change:0.date}. AT&T ({change:2.date}) and Verizon ({change:5.date}) bought from UScellular's successor, Array, later.
+    why: T-Mobile's deal closed {change:uscellular-tmobile.date}. AT&T ({change:array-att-700-n77.date}) and Verizon ({change:array-verizon.date}) bought from UScellular's successor, Array, later.
   - id: u3-pcs-twins-02
     kind: match
     facts: [band:B2, band:n2, band:B25, band:n25]

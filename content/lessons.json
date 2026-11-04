@@ -425,7 +425,12 @@
    "text": "In a CommScope panel name, the last letter is the length: A is 1.3 m, B is 2.0 m and C is 2.6 m. In the band letters, N means 698 to 896 MHz and H means 1710 to 2180 MHz.",
    "status": "CURRENT",
    "as_of": "2026-11-02",
-   "source": "docs/research/notes/vendors_and_cells.md question 3: The Antenna Farm (SBNHH-1D65C, NNHH-65C-R4 listings), Argus/CommScope model-number chart (Scribd); resellers, pages not opened here"
+   "source": "docs/research/notes/vendors_and_cells.md question 3: The Antenna Farm (SBNHH-1D65C, NNHH-65C-R4 listings), Argus/CommScope model-number chart (Scribd); resellers, pages not opened here",
+   "values": {
+    "len_a": "1.3 m",
+    "len_b": "2.0 m",
+    "len_c": "2.6 m"
+   }
   },
   {
    "id": "model:air-64xx",
@@ -497,7 +502,10 @@
    "text": "Verizon's filings list the Samsung MT6407-77A (a 64T64R C-band all-in-one) and the Samsung RF4440d-13A (a 700/850 MHz radio).",
    "status": "CURRENT",
    "as_of": "2026-11-02",
-   "source": "docs/research/notes/vendors_and_cells.md question 2: Montgomery County MC2022051756, CT Griswold filing em-ver-058-211018 (Samsung MT6407-77A, RF4440d-13A); pages not opened here"
+   "source": "docs/research/notes/vendors_and_cells.md question 2: Montgomery County MC2022051756, CT Griswold filing em-ver-058-211018 (Samsung MT6407-77A, RF4440d-13A); pages not opened here",
+   "values": {
+    "rf4440_bands": "700/850 MHz"
+   }
   },
   {
    "id": "use:4480-b71-b85",
@@ -1751,10 +1759,10 @@
        "facts": [
         "carrier_use:n71/tmobile",
         "carrier_use:n71/att",
-        "change:6"
+        "change:echostar-att"
        ],
        "label": "coming",
-       "text": "T-Mobile runs n71 today and calls it \"Extended Range\". AT&T bought 600 MHz from EchoStar (the deal closed {change:6.date}) and plans a slow, multi-year build. Other carriers may use 600 MHz too, but we have not checked that yet, so the app will not quiz you on it.\n",
+       "text": "T-Mobile runs n71 today and calls it \"Extended Range\". AT&T bought 600 MHz from EchoStar (the deal closed {change:echostar-att.date}) and plans a slow, multi-year build. Other carriers may use 600 MHz too, but we have not checked that yet, so the app will not quiz you on it.\n",
        "show": [
         "n71"
        ]
@@ -1834,7 +1842,7 @@
        "kind": "choice",
        "facts": [
         "carrier_use:n71/att",
-        "change:6"
+        "change:echostar-att"
        ],
        "label": "coming",
        "prompt": "AT&T and 600 MHz, what is the situation?",
@@ -1844,7 +1852,7 @@
         "It sold its 600 MHz to EchoStar"
        ],
        "answer": 0,
-       "why": "The deal with EchoStar closed {change:6.date}. The build is planned, not finished."
+       "why": "The deal with EchoStar closed {change:echostar-att.date}. The build is planned, not finished."
       },
       {
        "id": "u2-n71-boost-01",
@@ -2038,12 +2046,12 @@
        "id": "u2-sale700-01",
        "kind": "choice",
        "facts": [
-        "change:2",
-        "change:3"
+        "change:array-att-700-n77",
+        "change:array-tmobile-700"
        ],
        "prompt": "In 2026, Array (the old UScellular) sold 700 MHz licences. Who bought them?",
        "choices": [
-        "AT&T (closed {change:2.date}) and T-Mobile (closed {change:3.date}) each bought some",
+        "AT&T (closed {change:array-att-700-n77.date}) and T-Mobile (closed {change:array-tmobile-700.date}) each bought some",
         "Only AT&T",
         "Only T-Mobile"
        ],
@@ -2324,10 +2332,10 @@
        "title": "History of B26",
        "facts": [
         "carrier_use:B26/tmobile",
-        "change:7"
+        "change:tmobile-grain"
        ],
        "label": "history",
-       "text": "T-Mobile used part of B26 (800 MHz it got from Sprint). It sold those licences to Grain Management; the deal closed {change:7.date}. This is history: T-Mobile no longer holds them.\n",
+       "text": "T-Mobile used part of B26 (800 MHz it got from Sprint). It sold those licences to Grain Management; the deal closed {change:tmobile-grain.date}. This is history: T-Mobile no longer holds them.\n",
        "show": [
         "B26"
        ]
@@ -2386,7 +2394,7 @@
        "kind": "choice",
        "facts": [
         "carrier_use:B26/tmobile",
-        "change:7"
+        "change:tmobile-grain"
        ],
        "label": "history",
        "prompt": "What happened to T-Mobile's B26 (800 MHz) licences?",
@@ -2396,7 +2404,7 @@
         "It still uses them, nothing changed"
        ],
        "answer": 0,
-       "why": "The sale to Grain closed {change:7.date}. T-Mobile no longer holds them."
+       "why": "The sale to Grain closed {change:tmobile-grain.date}. T-Mobile no longer holds them."
       },
       {
        "id": "u2-b5-flip-01",
@@ -2657,7 +2665,7 @@
        "kind": "choice",
        "facts": [
         "carrier_use:n71/att",
-        "change:6"
+        "change:echostar-att"
        ],
        "label": "coming",
        "prompt": "AT&T and 600 MHz, what is the situation?",
@@ -2667,14 +2675,14 @@
         "It sold its 600 MHz to EchoStar"
        ],
        "answer": 0,
-       "why": "The deal with EchoStar closed {change:6.date}. The build is planned, not finished."
+       "why": "The deal with EchoStar closed {change:echostar-att.date}. The build is planned, not finished."
       },
       {
        "id": "u2-cp-history-01",
        "kind": "choice",
        "facts": [
         "carrier_use:B26/tmobile",
-        "change:7"
+        "change:tmobile-grain"
        ],
        "label": "history",
        "prompt": "What happened to T-Mobile's B26 (800 MHz) licences?",
@@ -2684,7 +2692,7 @@
         "It still uses them, nothing changed"
        ],
        "answer": 0,
-       "why": "The sale to Grain closed {change:7.date}. T-Mobile no longer holds them."
+       "why": "The sale to Grain closed {change:tmobile-grain.date}. T-Mobile no longer holds them."
       },
       {
        "id": "u2-cp-mixed-01",
@@ -2880,18 +2888,18 @@
        "id": "u3-pcs-sale-01",
        "kind": "choice",
        "facts": [
-        "change:0",
-        "change:2",
-        "change:5"
+        "change:uscellular-tmobile",
+        "change:array-att-700-n77",
+        "change:array-verizon"
        ],
-       "prompt": "Some of UScellular's spectrum (including PCS and AWS) was sold in a deal that closed in {change:0.date}. Who bought it?",
+       "prompt": "Some of UScellular's spectrum (including PCS and AWS) was sold in a deal that closed in {change:uscellular-tmobile.date}. Who bought it?",
        "choices": [
         "T-Mobile",
         "AT&T",
         "Verizon"
        ],
        "answer": 0,
-       "why": "T-Mobile's deal closed {change:0.date}. AT&T ({change:2.date}) and Verizon ({change:5.date}) bought from UScellular's successor, Array, later."
+       "why": "T-Mobile's deal closed {change:uscellular-tmobile.date}. AT&T ({change:array-att-700-n77.date}) and Verizon ({change:array-verizon.date}) bought from UScellular's successor, Array, later."
       },
       {
        "id": "u3-pcs-twins-02",
@@ -3134,11 +3142,11 @@
        "kind": "learn",
        "title": "Some of these airwaves are changing hands",
        "facts": [
-        "change:1",
-        "change:9"
+        "change:echostar-spacex-b70",
+        "change:echostar-spacex-final"
        ],
        "label": "coming",
-       "text": "A deal is pending in which EchoStar would sell part of this airwaves family to SpaceX. SpaceX is expected to use it for satellites, not for normal phone towers. The B70 uplink slice ({change:1.bands}) was announced in {change:1.date} and is still pending. The final handover of the downlink slices is expected around {change:9.date}.\n",
+       "text": "A deal is pending in which EchoStar would sell part of this airwaves family to SpaceX. SpaceX is expected to use it for satellites, not for normal phone towers. The B70 uplink slice ({change:echostar-spacex-b70.bands}) was announced in {change:echostar-spacex-b70.date} and is still pending. The final handover of the downlink slices is expected around {change:echostar-spacex-final.date}.\n",
        "show": [
         "B70"
        ]
@@ -3192,7 +3200,7 @@
        "id": "u3-b70-spacex-01",
        "kind": "choice",
        "facts": [
-        "change:1"
+        "change:echostar-spacex-b70"
        ],
        "label": "coming",
        "prompt": "Who is expected to get the B70 uplink slice?",
@@ -3202,7 +3210,7 @@
         "AT&T"
        ],
        "answer": 0,
-       "why": "The deal is pending ({change:1.date}). EchoStar would sell it to SpaceX."
+       "why": "The deal is pending ({change:echostar-spacex-b70.date}). EchoStar would sell it to SpaceX."
       },
       {
        "id": "u3-wcs-clue-01",
@@ -3658,7 +3666,7 @@
        "id": "u3-cp-coming-01",
        "kind": "choice",
        "facts": [
-        "change:1"
+        "change:echostar-spacex-b70"
        ],
        "label": "coming",
        "prompt": "Who is expected to get the B70 uplink slice?",
@@ -3668,7 +3676,7 @@
         "AT&T"
        ],
        "answer": 0,
-       "why": "The deal is pending ({change:1.date}). EchoStar would sell it to SpaceX."
+       "why": "The deal is pending ({change:echostar-spacex-b70.date}). EchoStar would sell it to SpaceX."
       },
       {
        "id": "u3-cp-tier-01",
@@ -4051,16 +4059,16 @@
        "id": "u4-cband-sale-01",
        "kind": "choice",
        "facts": [
-        "change:2"
+        "change:array-att-700-n77"
        ],
-       "prompt": "In {change:2.date}, AT&T bought n77 (3.45 GHz) and 700 MHz spectrum. From whom?",
+       "prompt": "In {change:array-att-700-n77.date}, AT&T bought n77 (3.45 GHz) and 700 MHz spectrum. From whom?",
        "choices": [
         "Array (the former UScellular)",
         "EchoStar",
         "Verizon"
        ],
        "answer": 0,
-       "why": "The seller was \"{change:2.from}\". The deal closed {change:2.date}."
+       "why": "The seller was \"{change:array-att-700-n77.from}\". The deal closed {change:array-att-700-n77.date}."
       },
       {
        "id": "u4-cband-tier-01",
@@ -4698,16 +4706,16 @@
        "id": "u4-cp-sale-01",
        "kind": "choice",
        "facts": [
-        "change:2"
+        "change:array-att-700-n77"
        ],
-       "prompt": "In {change:2.date}, who sold AT&T the n77 (3.45 GHz) spectrum?",
+       "prompt": "In {change:array-att-700-n77.date}, who sold AT&T the n77 (3.45 GHz) spectrum?",
        "choices": [
         "Array (the former UScellular)",
         "EchoStar",
         "Verizon"
        ],
        "answer": 0,
-       "why": "The seller was \"{change:2.from}\"."
+       "why": "The seller was \"{change:array-att-700-n77.from}\"."
       },
       {
        "id": "u4-cp-mixed-01",
@@ -5201,137 +5209,137 @@
        "kind": "learn",
        "title": "Spectrum changes hands",
        "facts": [
-        "change:0",
-        "change:2",
-        "change:3",
-        "change:4",
-        "change:5",
-        "change:6",
-        "change:7"
+        "change:uscellular-tmobile",
+        "change:array-att-700-n77",
+        "change:array-tmobile-700",
+        "change:array-tmobile-600",
+        "change:array-verizon",
+        "change:echostar-att",
+        "change:tmobile-grain"
        ],
-       "text": "Carriers sell spectrum to each other. Closed deals so far: UScellular to T-Mobile ({change:0.date}), Array to AT&T ({change:2.date}), Array to T-Mobile ({change:3.date} and {change:4.date}), Array to Verizon ({change:5.date}), EchoStar to AT&T ({change:6.date}) and T-Mobile to Grain Management ({change:7.date}). Array is what UScellular's spectrum company is called now.\n"
+       "text": "Carriers sell spectrum to each other. Closed deals so far: UScellular to T-Mobile ({change:uscellular-tmobile.date}), Array to AT&T ({change:array-att-700-n77.date}), Array to T-Mobile ({change:array-tmobile-700.date} and {change:array-tmobile-600.date}), Array to Verizon ({change:array-verizon.date}), EchoStar to AT&T ({change:echostar-att.date}) and T-Mobile to Grain Management ({change:tmobile-grain.date}). Array is what UScellular's spectrum company is called now.\n"
       },
       {
        "id": "u5-sale-learn-02",
        "kind": "learn",
        "title": "A deal that is still coming",
        "facts": [
-        "change:9"
+        "change:echostar-spacex-final"
        ],
        "label": "coming",
-       "text": "EchoStar's trust is expected to hand spectrum to {change:9.to}. The last transfer is expected on or about {change:9.date}. It has not happened yet, so it stays marked \"coming\".\n"
+       "text": "EchoStar's trust is expected to hand spectrum to {change:echostar-spacex-final.to}. The last transfer is expected on or about {change:echostar-spacex-final.date}. It has not happened yet, so it stays marked \"coming\".\n"
       },
       {
        "id": "u5-sale-us-01",
        "kind": "choice",
        "facts": [
-        "change:0"
+        "change:uscellular-tmobile"
        ],
-       "prompt": "In {change:0.date}, who took over most of UScellular's network?",
+       "prompt": "In {change:uscellular-tmobile.date}, who took over most of UScellular's network?",
        "choices": [
         "T-Mobile",
         "AT&T",
         "Verizon"
        ],
        "answer": 0,
-       "why": "The deal with {change:0.to} closed {change:0.date}."
+       "why": "The deal with {change:uscellular-tmobile.to} closed {change:uscellular-tmobile.date}."
       },
       {
        "id": "u5-sale-att-01",
        "kind": "choice",
        "facts": [
-        "change:2"
+        "change:array-att-700-n77"
        ],
-       "prompt": "On {change:2.date}, who bought n77 and 700 MHz spectrum from Array?",
+       "prompt": "On {change:array-att-700-n77.date}, who bought n77 and 700 MHz spectrum from Array?",
        "choices": [
         "Verizon",
         "AT&T",
         "T-Mobile"
        ],
        "answer": 1,
-       "why": "The buyer was {change:2.to}."
+       "why": "The buyer was {change:array-att-700-n77.to}."
       },
       {
        "id": "u5-sale-700-01",
        "kind": "choice",
        "facts": [
-        "change:3"
+        "change:array-tmobile-700"
        ],
-       "prompt": "On {change:3.date}, Array sold 700 MHz (B12) to which carrier?",
+       "prompt": "On {change:array-tmobile-700.date}, Array sold 700 MHz (B12) to which carrier?",
        "choices": [
         "AT&T",
         "Verizon",
         "T-Mobile"
        ],
        "answer": 2,
-       "why": "The buyer was {change:3.to}."
+       "why": "The buyer was {change:array-tmobile-700.to}."
       },
       {
        "id": "u5-sale-600-01",
        "kind": "choice",
        "facts": [
-        "change:4"
+        "change:array-tmobile-600"
        ],
-       "prompt": "On {change:4.date}, T-Mobile bought which band from Array?",
+       "prompt": "On {change:array-tmobile-600.date}, T-Mobile bought which band from Array?",
        "choices": [
         "B66 (AWS)",
-        "{change:4.bands}",
+        "{change:array-tmobile-600.bands}",
         "B2 (PCS)"
        ],
        "answer": 1,
-       "why": "The deal of {change:4.date} was for {change:4.bands}."
+       "why": "The deal of {change:array-tmobile-600.date} was for {change:array-tmobile-600.bands}."
       },
       {
        "id": "u5-sale-vz-01",
        "kind": "choice",
        "facts": [
-        "change:5"
+        "change:array-verizon"
        ],
-       "prompt": "Who bought spectrum from Array on {change:5.date}?",
+       "prompt": "Who bought spectrum from Array on {change:array-verizon.date}?",
        "choices": [
         "Verizon",
         "AT&T",
         "T-Mobile"
        ],
        "answer": 0,
-       "why": "The buyer was {change:5.to}. Sources disagree on exactly which bands, so the app does not quiz you on that."
+       "why": "The buyer was {change:array-verizon.to}. Sources disagree on exactly which bands, so the app does not quiz you on that."
       },
       {
        "id": "u5-sale-echo-01",
        "kind": "choice",
        "facts": [
-        "change:6"
+        "change:echostar-att"
        ],
-       "prompt": "On {change:6.date}, AT&T bought n77 and 600 MHz spectrum. From whom?",
+       "prompt": "On {change:echostar-att.date}, AT&T bought n77 and 600 MHz spectrum. From whom?",
        "choices": [
         "Array",
         "T-Mobile",
         "EchoStar"
        ],
        "answer": 2,
-       "why": "The seller was {change:6.from}."
+       "why": "The seller was {change:echostar-att.from}."
       },
       {
        "id": "u5-sale-grain-01",
        "kind": "choice",
        "facts": [
-        "change:7"
+        "change:tmobile-grain"
        ],
-       "prompt": "Who sold 800 MHz spectrum to Grain Management on {change:7.date}?",
+       "prompt": "Who sold 800 MHz spectrum to Grain Management on {change:tmobile-grain.date}?",
        "choices": [
         "AT&T",
         "T-Mobile",
         "EchoStar"
        ],
        "answer": 1,
-       "why": "The seller was {change:7.from}."
+       "why": "The seller was {change:tmobile-grain.from}."
       },
       {
        "id": "u5-sale-first-01",
        "kind": "choice",
        "facts": [
-        "change:0",
-        "change:6"
+        "change:uscellular-tmobile",
+        "change:echostar-att"
        ],
        "prompt": "Which came first?",
        "choices": [
@@ -5339,15 +5347,15 @@
         "EchoStar to AT&T"
        ],
        "answer": 0,
-       "why": "UScellular to T-Mobile closed {change:0.date}. EchoStar to AT&T closed {change:6.date}."
+       "why": "UScellular to T-Mobile closed {change:uscellular-tmobile.date}. EchoStar to AT&T closed {change:echostar-att.date}."
       },
       {
        "id": "u5-sale-array-01",
        "kind": "choice",
        "facts": [
-        "change:2",
-        "change:3",
-        "change:5"
+        "change:array-att-700-n77",
+        "change:array-tmobile-700",
+        "change:array-verizon"
        ],
        "prompt": "Array made deals with three carriers. Which closed first?",
        "choices": [
@@ -5356,14 +5364,14 @@
         "AT&T"
        ],
        "answer": 2,
-       "why": "AT&T closed {change:2.date}, T-Mobile {change:3.date}, Verizon {change:5.date}."
+       "why": "AT&T closed {change:array-att-700-n77.date}, T-Mobile {change:array-tmobile-700.date}, Verizon {change:array-verizon.date}."
       },
       {
        "id": "u5-sale-twice-01",
        "kind": "choice",
        "facts": [
-        "change:3",
-        "change:4"
+        "change:array-tmobile-700",
+        "change:array-tmobile-600"
        ],
        "prompt": "Which carrier bought from Array twice in May 2026?",
        "choices": [
@@ -5372,22 +5380,22 @@
         "Verizon"
        ],
        "answer": 1,
-       "why": "T-Mobile closed one deal on {change:3.date} and another on {change:4.date}."
+       "why": "T-Mobile closed one deal on {change:array-tmobile-700.date} and another on {change:array-tmobile-600.date}."
       },
       {
        "id": "u5-sale-coming-01",
        "kind": "choice",
        "facts": [
-        "change:9"
+        "change:echostar-spacex-final"
        ],
        "label": "coming",
-       "prompt": "Is the EchoStar trust's last transfer to {change:9.to} finished?",
+       "prompt": "Is the EchoStar trust's last transfer to {change:echostar-spacex-final.to} finished?",
        "choices": [
         "Not yet, it is expected later",
         "Yes, it is finished"
        ],
        "answer": 0,
-       "why": "It is expected on or about {change:9.date}."
+       "why": "It is expected on or about {change:echostar-spacex-final.date}."
       }
      ]
     },
@@ -5686,46 +5694,46 @@
        "id": "u5-cp-sale-01",
        "kind": "choice",
        "facts": [
-        "change:0"
+        "change:uscellular-tmobile"
        ],
-       "prompt": "In {change:0.date}, who took over most of UScellular's network?",
+       "prompt": "In {change:uscellular-tmobile.date}, who took over most of UScellular's network?",
        "choices": [
         "AT&T",
         "T-Mobile",
         "Verizon"
        ],
        "answer": 1,
-       "why": "The deal with {change:0.to} closed {change:0.date}."
+       "why": "The deal with {change:uscellular-tmobile.to} closed {change:uscellular-tmobile.date}."
       },
       {
        "id": "u5-cp-sale-02",
        "kind": "choice",
        "facts": [
-        "change:6"
+        "change:echostar-att"
        ],
-       "prompt": "On {change:6.date}, AT&T bought n77 and 600 MHz spectrum. From whom?",
+       "prompt": "On {change:echostar-att.date}, AT&T bought n77 and 600 MHz spectrum. From whom?",
        "choices": [
         "EchoStar",
         "Array",
         "T-Mobile"
        ],
        "answer": 0,
-       "why": "The seller was {change:6.from}."
+       "why": "The seller was {change:echostar-att.from}."
       },
       {
        "id": "u5-cp-sale-03",
        "kind": "choice",
        "facts": [
-        "change:7"
+        "change:tmobile-grain"
        ],
-       "prompt": "Who sold 800 MHz spectrum to Grain Management on {change:7.date}?",
+       "prompt": "Who sold 800 MHz spectrum to Grain Management on {change:tmobile-grain.date}?",
        "choices": [
         "EchoStar",
         "AT&T",
         "T-Mobile"
        ],
        "answer": 2,
-       "why": "The seller was {change:7.from}."
+       "why": "The seller was {change:tmobile-grain.from}."
       },
       {
        "id": "u5-cp-mix-01",
@@ -8212,7 +8220,7 @@
        "facts": [
         "hardware:ports:panel-length"
        ],
-       "text": "In a CommScope panel name, the last letter is the length. A is 1.3 m, B is 2.0 m and C is 2.6 m. The band letters work the same way: N is a low-band letter and H is a mid-band letter.\n"
+       "text": "In a CommScope panel name, the last letter is the length. A is {hardware:ports:panel-length.len_a}, B is {hardware:ports:panel-length.len_b} and C is {hardware:ports:panel-length.len_c}. The band letters work the same way: N is a low-band letter and H is a mid-band letter.\n"
       },
       {
        "id": "u8-port-len-01",
@@ -8222,12 +8230,12 @@
        ],
        "prompt": "A panel name ends in C. How long is it?",
        "choices": [
-        "1.3 m",
-        "2.0 m",
-        "2.6 m"
+        "{hardware:ports:panel-length.len_a}",
+        "{hardware:ports:panel-length.len_b}",
+        "{hardware:ports:panel-length.len_c}"
        ],
        "answer": 2,
-       "why": "A is 1.3 m, B is 2.0 m and C is 2.6 m."
+       "why": "A is {hardware:ports:panel-length.len_a}, B is {hardware:ports:panel-length.len_b} and C is {hardware:ports:panel-length.len_c}."
       },
       {
        "id": "u8-port-len-02",
@@ -8242,7 +8250,7 @@
         "C"
        ],
        "answer": 0,
-       "why": "A is 1.3 m, the shortest of the three."
+       "why": "A is {hardware:ports:panel-length.len_a}, the shortest of the three."
       },
       {
        "id": "u8-port-letter-01",
@@ -8646,12 +8654,12 @@
        ],
        "prompt": "Verizon's filings also list the Samsung RF4440d-13A. What kind of radio is it?",
        "choices": [
-        "A 700/850 MHz low-band radio",
+        "A {hardware:use:samsung-verizon.rf4440_bands} low-band radio",
         "A mmWave radio",
         "A C-band all-in-one"
        ],
        "answer": 0,
-       "why": "The RF4440d-13A is a 700/850 MHz radio. The MT6407-77A is the C-band all-in-one."
+       "why": "The RF4440d-13A is a {hardware:use:samsung-verizon.rf4440_bands} radio. The MT6407-77A is the C-band all-in-one."
       },
       {
        "id": "u8-use-c-all-01",
@@ -8793,12 +8801,12 @@
        ],
        "prompt": "A panel name ends in B. How long is it?",
        "choices": [
-        "1.3 m",
-        "2.0 m",
-        "2.6 m"
+        "{hardware:ports:panel-length.len_a}",
+        "{hardware:ports:panel-length.len_b}",
+        "{hardware:ports:panel-length.len_c}"
        ],
        "answer": 1,
-       "why": "A is 1.3 m, B is 2.0 m and C is 2.6 m."
+       "why": "A is {hardware:ports:panel-length.len_a}, B is {hardware:ports:panel-length.len_b} and C is {hardware:ports:panel-length.len_c}."
       },
       {
        "id": "u8-cp-model-01",
@@ -9285,7 +9293,9 @@
        "id": "u9-eci-vendor-01",
        "kind": "learn",
        "title": "Brand guesses",
-       "no_facts_needed": true,
+       "facts": [
+        "cellid:us:vendor-from-id"
+       ],
        "text": "{cellid:us:vendor-from-id.text} Treat it like a rumour, not a fact.\n"
       },
       {
@@ -9343,7 +9353,7 @@
         "B71"
        ],
        "answer": 1,
-       "why": "5200 is inside B13, which runs from 5180 to 5279."
+       "why": "5200 is inside B13, which runs from {cellid:lte:earfcn-b13.n_low} to {cellid:lte:earfcn-b13.n_high}."
       },
       {
        "id": "u9-ear-band-02",
@@ -9359,7 +9369,7 @@
         "B71"
        ],
        "answer": 3,
-       "why": "68700 is inside B71, which runs from 68586 to 68935."
+       "why": "68700 is inside B71, which runs from {cellid:lte:earfcn-b71.n_low} to {cellid:lte:earfcn-b71.n_high}."
       },
       {
        "id": "u9-ear-band-03",
@@ -9375,7 +9385,7 @@
         "B71"
        ],
        "answer": 2,
-       "why": "66800 is inside B66, which runs from 66436 to 67335."
+       "why": "66800 is inside B66, which runs from {cellid:lte:earfcn-b66.n_low} to {cellid:lte:earfcn-b66.n_high}."
       },
       {
        "id": "u9-ear-band-04",
@@ -9391,7 +9401,7 @@
         "B71"
        ],
        "answer": 0,
-       "why": "5100 is inside B12, which runs from 5010 to 5179."
+       "why": "5100 is inside B12, which runs from {cellid:lte:earfcn-b12.n_low} to {cellid:lte:earfcn-b12.n_high}."
       },
       {
        "id": "u9-ear-mhz-01",
@@ -9400,7 +9410,7 @@
         "cellid:lte:earfcn-formula",
         "cellid:lte:earfcn-b66"
        ],
-       "prompt": "B66 channel 66786. B66 starts at channel 66436 and at 2110 MHz, and each channel step is 0.1 MHz. What is the frequency in MHz?",
+       "prompt": "B66 channel 66786. B66 starts at channel {cellid:lte:earfcn-b66.n_low} and at {band:B66.dl_low_mhz} MHz, and each channel step is 0.1 MHz. What is the frequency in MHz?",
        "answer": 2145,
        "calc": {
         "mhz_b66": [
@@ -9408,7 +9418,7 @@
         ]
        },
        "unit": "MHz",
-       "why": "66786 minus 66436 is 350 steps. 350 times 0.1 is 35 MHz. 2110 plus 35 is 2145 MHz."
+       "why": "66786 minus {cellid:lte:earfcn-b66.n_low} is 350 steps. 350 times 0.1 is 35 MHz. {band:B66.dl_low_mhz} plus 35 is 2145 MHz."
       },
       {
        "id": "u9-ear-mhz-02",
@@ -9417,7 +9427,7 @@
         "cellid:lte:earfcn-formula",
         "cellid:lte:earfcn-b66"
        ],
-       "prompt": "B66 channel 66936. It starts 500 steps above 66436. What is the frequency in MHz?",
+       "prompt": "B66 channel 66936. It starts 500 steps above {cellid:lte:earfcn-b66.n_low}. What is the frequency in MHz?",
        "answer": 2160,
        "calc": {
         "mhz_b66": [
@@ -9425,7 +9435,7 @@
         ]
        },
        "unit": "MHz",
-       "why": "500 steps times 0.1 MHz is 50 MHz. 2110 plus 50 is 2160 MHz."
+       "why": "500 steps times 0.1 MHz is 50 MHz. {band:B66.dl_low_mhz} plus 50 is 2160 MHz."
       },
       {
        "id": "u9-ear-b71-01",
@@ -9482,7 +9492,7 @@
         "B12"
        ],
        "answer": 0,
-       "why": "B13 runs from 5180 to 5279, and 5250 is inside it."
+       "why": "B13 runs from {cellid:lte:earfcn-b13.n_low} to {cellid:lte:earfcn-b13.n_high}, and 5250 is inside it."
       }
      ]
     },
@@ -9572,7 +9582,7 @@
           "B71"
          ],
          "answer": 0,
-         "why": "66800 is inside B66 (66436 to 67335)."
+         "why": "66800 is inside B66 ({cellid:lte:earfcn-b66.n_low} to {cellid:lte:earfcn-b66.n_high})."
         },
         {
          "text": "51207 is 200 times 256 plus 7. What is the tower number?",
@@ -9813,7 +9823,7 @@
         "B71"
        ],
        "answer": 1,
-       "why": "B13 runs from 5180 to 5279."
+       "why": "B13 runs from {cellid:lte:earfcn-b13.n_low} to {cellid:lte:earfcn-b13.n_high}."
       },
       {
        "id": "u9-cp-ear-02",
@@ -9829,7 +9839,7 @@
         "B71"
        ],
        "answer": 3,
-       "why": "B71 runs from 68586 to 68935."
+       "why": "B71 runs from {cellid:lte:earfcn-b71.n_low} to {cellid:lte:earfcn-b71.n_high}."
       },
       {
        "id": "u9-cp-ear-03",
@@ -9838,7 +9848,7 @@
         "cellid:lte:earfcn-formula",
         "cellid:lte:earfcn-b66"
        ],
-       "prompt": "B66 channel 66786. B66 starts at channel 66436 and 2110 MHz, and each step is 0.1 MHz. What is the frequency in MHz?",
+       "prompt": "B66 channel 66786. B66 starts at channel {cellid:lte:earfcn-b66.n_low} and {band:B66.dl_low_mhz} MHz, and each step is 0.1 MHz. What is the frequency in MHz?",
        "answer": 2145,
        "calc": {
         "mhz_b66": [
@@ -9846,7 +9856,7 @@
         ]
        },
        "unit": "MHz",
-       "why": "350 steps is 35 MHz. 2110 plus 35 is 2145 MHz."
+       "why": "350 steps is 35 MHz. {band:B66.dl_low_mhz} plus 35 is 2145 MHz."
       },
       {
        "id": "u9-cp-scr-01",
@@ -10787,9 +10797,9 @@
        "id": "u10-full-stale-01",
        "kind": "choice",
        "facts": [
-        "change:0"
+        "change:uscellular-tmobile"
        ],
-       "prompt": "In {change:0.date}, UScellular's spectrum was sold to T-Mobile. Why can a shortcut like \"this band means that carrier\" go out of date?",
+       "prompt": "In {change:uscellular-tmobile.date}, UScellular's spectrum was sold to T-Mobile. Why can a shortcut like \"this band means that carrier\" go out of date?",
        "choices": [
         "Carriers buy and sell spectrum",
         "Radio waves change speed",
@@ -11117,7 +11127,7 @@
        "id": "u10-cp-stale-01",
        "kind": "choice",
        "facts": [
-        "change:0"
+        "change:uscellular-tmobile"
        ],
        "prompt": "Why can \"this band means that carrier\" go out of date?",
        "choices": [

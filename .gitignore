@@ -15,3 +15,7 @@ build/
 out/
 target/
 *.log
+
+# Python leftovers
+__pycache__/
+*.pyc

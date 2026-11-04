@@ -119,7 +119,7 @@ questions:
     why: "{site:evidence:order.text}"
   - id: u10-cp-stale-01
     kind: choice
-    facts: [change:0]
+    facts: [change:uscellular-tmobile]
     prompt: "Why can \"this band means that carrier\" go out of date?"
     choices: ["Carriers buy and sell spectrum", "Bands get renamed", "Phones change them"]
     answer: 0

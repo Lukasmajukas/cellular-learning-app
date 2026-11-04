@@ -87,7 +87,7 @@ questions:
   - id: u9-eci-vendor-01
     kind: learn
     title: Brand guesses
-    no_facts_needed: true
+    facts: [cellid:us:vendor-from-id]
     text: >
       {cellid:us:vendor-from-id.text} Treat it like a rumour, not a fact.
   - id: u9-eci-mix-01

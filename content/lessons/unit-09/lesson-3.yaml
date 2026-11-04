@@ -21,44 +21,44 @@ questions:
     prompt: A phone shows channel number 5200. Which band is that?
     choices: [B12, B13, B66, B71]
     answer: 1
-    why: 5200 is inside B13, which runs from 5180 to 5279.
+    why: 5200 is inside B13, which runs from {cellid:lte:earfcn-b13.n_low} to {cellid:lte:earfcn-b13.n_high}.
   - id: u9-ear-band-02
     kind: choice
     facts: [cellid:lte:earfcn-b71]
     prompt: A phone shows channel number 68700. Which band is that?
     choices: [B12, B13, B66, B71]
     answer: 3
-    why: 68700 is inside B71, which runs from 68586 to 68935.
+    why: 68700 is inside B71, which runs from {cellid:lte:earfcn-b71.n_low} to {cellid:lte:earfcn-b71.n_high}.
   - id: u9-ear-band-03
     kind: choice
     facts: [cellid:lte:earfcn-b66]
     prompt: A phone shows channel number 66800. Which band is that?
     choices: [B12, B13, B66, B71]
     answer: 2
-    why: 66800 is inside B66, which runs from 66436 to 67335.
+    why: 66800 is inside B66, which runs from {cellid:lte:earfcn-b66.n_low} to {cellid:lte:earfcn-b66.n_high}.
   - id: u9-ear-band-04
     kind: choice
     facts: [cellid:lte:earfcn-b12]
     prompt: A phone shows channel number 5100. Which band is that?
     choices: [B12, B13, B66, B71]
     answer: 0
-    why: 5100 is inside B12, which runs from 5010 to 5179.
+    why: 5100 is inside B12, which runs from {cellid:lte:earfcn-b12.n_low} to {cellid:lte:earfcn-b12.n_high}.
   - id: u9-ear-mhz-01
     kind: number
     facts: [cellid:lte:earfcn-formula, cellid:lte:earfcn-b66]
-    prompt: "B66 channel 66786. B66 starts at channel 66436 and at 2110 MHz, and each channel step is 0.1 MHz. What is the frequency in MHz?"
+    prompt: "B66 channel 66786. B66 starts at channel {cellid:lte:earfcn-b66.n_low} and at {band:B66.dl_low_mhz} MHz, and each channel step is 0.1 MHz. What is the frequency in MHz?"
     answer: 2145
     calc: {mhz_b66: [66786]}
     unit: MHz
-    why: 66786 minus 66436 is 350 steps. 350 times 0.1 is 35 MHz. 2110 plus 35 is 2145 MHz.
+    why: 66786 minus {cellid:lte:earfcn-b66.n_low} is 350 steps. 350 times 0.1 is 35 MHz. {band:B66.dl_low_mhz} plus 35 is 2145 MHz.
   - id: u9-ear-mhz-02
     kind: number
     facts: [cellid:lte:earfcn-formula, cellid:lte:earfcn-b66]
-    prompt: "B66 channel 66936. It starts 500 steps above 66436. What is the frequency in MHz?"
+    prompt: "B66 channel 66936. It starts 500 steps above {cellid:lte:earfcn-b66.n_low}. What is the frequency in MHz?"
     answer: 2160
     calc: {mhz_b66: [66936]}
     unit: MHz
-    why: 500 steps times 0.1 MHz is 50 MHz. 2110 plus 50 is 2160 MHz.
+    why: 500 steps times 0.1 MHz is 50 MHz. {band:B66.dl_low_mhz} plus 50 is 2160 MHz.
   - id: u9-ear-b71-01
     kind: number
     facts: [band:B71]
@@ -87,4 +87,4 @@ questions:
     prompt: Channel 5250 falls in B12 or B13?
     choices: [B13, B12]
     answer: 0
-    why: B13 runs from 5180 to 5279, and 5250 is inside it.
+    why: B13 runs from {cellid:lte:earfcn-b13.n_low} to {cellid:lte:earfcn-b13.n_high}, and 5250 is inside it.

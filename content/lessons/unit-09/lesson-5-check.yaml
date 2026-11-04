@@ -65,22 +65,22 @@ questions:
     prompt: Channel 5200 is in which band?
     choices: [B12, B13, B66, B71]
     answer: 1
-    why: B13 runs from 5180 to 5279.
+    why: B13 runs from {cellid:lte:earfcn-b13.n_low} to {cellid:lte:earfcn-b13.n_high}.
   - id: u9-cp-ear-02
     kind: choice
     facts: [cellid:lte:earfcn-b71]
     prompt: Channel 68700 is in which band?
     choices: [B12, B13, B66, B71]
     answer: 3
-    why: B71 runs from 68586 to 68935.
+    why: B71 runs from {cellid:lte:earfcn-b71.n_low} to {cellid:lte:earfcn-b71.n_high}.
   - id: u9-cp-ear-03
     kind: number
     facts: [cellid:lte:earfcn-formula, cellid:lte:earfcn-b66]
-    prompt: B66 channel 66786. B66 starts at channel 66436 and 2110 MHz, and each step is 0.1 MHz. What is the frequency in MHz?
+    prompt: B66 channel 66786. B66 starts at channel {cellid:lte:earfcn-b66.n_low} and {band:B66.dl_low_mhz} MHz, and each step is 0.1 MHz. What is the frequency in MHz?
     answer: 2145
     calc: {mhz_b66: [66786]}
     unit: MHz
-    why: 350 steps is 35 MHz. 2110 plus 35 is 2145 MHz.
+    why: 350 steps is 35 MHz. {band:B66.dl_low_mhz} plus 35 is 2145 MHz.
   - id: u9-cp-scr-01
     kind: tap-clue
     facts: [cellid:lte:earfcn-formula]

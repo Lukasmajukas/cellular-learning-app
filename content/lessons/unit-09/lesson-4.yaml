@@ -44,7 +44,7 @@ questions:
       - text: Which band is channel 66800?
         choices: [B66, B13, B71]
         answer: 0
-        why: 66800 is inside B66 (66436 to 67335).
+        why: 66800 is inside B66 ({cellid:lte:earfcn-b66.n_low} to {cellid:lte:earfcn-b66.n_high}).
       - text: 51207 is 200 times 256 plus 7. What is the tower number?
         choices: ["200", "51207", "7"]
         answer: 0

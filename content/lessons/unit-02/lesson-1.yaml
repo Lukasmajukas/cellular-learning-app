@@ -15,10 +15,10 @@ questions:
   - id: u2-n71-learn-01
     kind: learn
     title: Who uses 600 MHz
-    facts: [carrier_use:n71/tmobile, carrier_use:n71/att, change:6]
+    facts: [carrier_use:n71/tmobile, carrier_use:n71/att, change:echostar-att]
     label: coming
     text: >
-      T-Mobile runs n71 today and calls it "Extended Range". AT&T bought 600 MHz from EchoStar (the deal closed {change:6.date})
+      T-Mobile runs n71 today and calls it "Extended Range". AT&T bought 600 MHz from EchoStar (the deal closed {change:echostar-att.date})
       and plans a slow, multi-year build. Other carriers may use 600 MHz too, but we have not checked that yet,
       so the app will not quiz you on it.
     show: [n71]
@@ -64,7 +64,7 @@ questions:
     why: T-Mobile runs n71 today. AT&T's 600 MHz build is only planned.
   - id: u2-n71-att-01
     kind: choice
-    facts: [carrier_use:n71/att, change:6]
+    facts: [carrier_use:n71/att, change:echostar-att]
     label: coming
     prompt: AT&T and 600 MHz, what is the situation?
     choices:
@@ -72,7 +72,7 @@ questions:
       - "It already runs n71 across the country"
       - "It sold its 600 MHz to EchoStar"
     answer: 0
-    why: The deal with EchoStar closed {change:6.date}. The build is planned, not finished.
+    why: The deal with EchoStar closed {change:echostar-att.date}. The build is planned, not finished.
   - id: u2-n71-boost-01
     kind: choice
     facts: [carrier_use:n71/boost]

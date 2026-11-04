@@ -70,9 +70,15 @@ def fact_index(bands, errors):
         if not re.fullmatch(r"\d{3}-\d{3}", str(c.get("id", ""))):
             errors.append(f"carrier_code {c.get('id')!r}: id must look like 310-260")
         index[f"code:{c.get('id')}"] = c
-    for i, s in enumerate(bands.get("spectrum_changes", [])):
-        check_fact(f"spectrum_change #{i} ({s.get('date')})", s, errors)
-        index[f"change:{i}"] = s
+    for s in bands.get("spectrum_changes", []):
+        cid = str(s.get("id", "")).strip()
+        where = f"spectrum_change {cid or '(no id)'} ({s.get('date')})"
+        check_fact(where, s, errors)
+        if not re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", cid):
+            errors.append(f"{where}: needs a short name id like array-verizon (lowercase words with dashes)")
+        elif f"change:{cid}" in index:
+            errors.append(f"{where}: id {cid!r} is used twice")
+        index[f"change:{cid}"] = s
     for r in bands.get("frequency_ranges", []):
         check_fact(f"frequency_range {r.get('id')}", r, errors)
         index[f"range:{r.get('id')}"] = r
@@ -219,8 +225,8 @@ def check_questions(questions, facts, photos, errors):
             st = row.get("status")
             if st == "UNVERIFIED":
                 errors.append(f"{where}: answer rests on UNVERIFIED fact {ref}")
-            elif row.get("quiz") is False:
-                errors.append(f"{where}: fact {ref} is taught only, never asked (quiz: false)")
+            elif row.get("quiz") is False and q.get("kind") != "learn":
+                errors.append(f"{where}: fact {ref} is taught only, never asked (quiz: false); only a learn card may list it")
             elif st in ALLOWED_FOR_ANSWER and ALLOWED_FOR_ANSWER[st] and label != ALLOWED_FOR_ANSWER[st]:
                 errors.append(f"{where}: fact {ref} is {st}; the question needs label: {ALLOWED_FOR_ANSWER[st]}")
         if q.get("kind") == "number" and not q.get("answer_from"):

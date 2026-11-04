@@ -3110,6 +3110,7 @@
  ],
  "spectrum_changes": [
   {
+   "id": "uscellular-tmobile",
    "date": "2025-08",
    "bands": "B71/n71, B12, B2/B25, B66, n41",
    "from": "UScellular",
@@ -3120,6 +3121,7 @@
    "source": "docs/research/notes/us_bands.md, Q4 timeline (web-search summaries; pages not opened): Wikipedia: U.S. Cellular; PhoneArena"
   },
   {
+   "id": "echostar-spacex-b70",
    "date": "2025-11",
    "bands": "1695-1710 MHz (B70 uplink)",
    "from": "EchoStar",
@@ -3130,6 +3132,7 @@
    "source": "docs/research/notes/us_bands.md, Q4 timeline (web-search summaries; pages not opened): Via Satellite"
   },
   {
+   "id": "array-att-700-n77",
    "date": "2026-01-13",
    "bands": "n77 (3.45 GHz), B12/B17 (700 MHz)",
    "from": "Array (ex-UScellular)",
@@ -3140,6 +3143,7 @@
    "source": "docs/research/notes/us_bands.md, Q4 timeline (web-search summaries; pages not opened): PR Newswire; Array 10-Q Q1 2026"
   },
   {
+   "id": "array-tmobile-700",
    "date": "2026-05-05",
    "bands": "B12 (700 MHz)",
    "from": "Array (ex-UScellular)",
@@ -3150,6 +3154,7 @@
    "source": "docs/research/notes/us_bands.md, Q4 timeline (web-search summaries; pages not opened): Array Q2 2026 8-K"
   },
   {
+   "id": "array-tmobile-600",
    "date": "2026-05-12",
    "bands": "B71 (600 MHz)",
    "from": "Array (ex-UScellular)",
@@ -3160,6 +3165,7 @@
    "source": "docs/research/notes/us_bands.md, Q4 timeline (web-search summaries; pages not opened): Array Q2 2026 8-K"
   },
   {
+   "id": "array-verizon",
    "date": "2026-06-01",
    "bands": "B2 (PCS), B66 (AWS)",
    "from": "Array (ex-UScellular)",
@@ -3170,6 +3176,7 @@
    "source": "docs/research/notes/us_bands.md, Q4 timeline (web-search summaries; pages not opened): Broadband Breakfast; Verizon 10-Q Q2 2026"
   },
   {
+   "id": "echostar-att",
    "date": "2026-07-28",
    "bands": "n77 (3.45 GHz), B71/n71 (600 MHz)",
    "from": "EchoStar",
@@ -3180,6 +3187,7 @@
    "source": "docs/research/notes/us_bands.md, Q4 timeline (web-search summaries; pages not opened): AT&T 8-K"
   },
   {
+   "id": "tmobile-grain",
    "date": "2026-08-10",
    "bands": "B26 (800 MHz, 817-824/862-869), B71",
    "from": "T-Mobile",
@@ -3190,6 +3198,7 @@
    "source": "docs/research/notes/us_bands.md, Q4 timeline (web-search summaries; pages not opened): T-Mobile 10-Q Q3 2026"
   },
   {
+   "id": "grain-spacex",
    "date": "2026-10",
    "bands": "B26 (800 MHz)",
    "from": "Grain Management",
@@ -3200,6 +3209,7 @@
    "source": "docs/research/notes/us_bands.md, Q4 timeline (web-search summaries; pages not opened): Google News / Yahoo Finance headline"
   },
   {
+   "id": "echostar-spacex-final",
    "date": "2027-11-30",
    "bands": "B70/n70 downlink, B66 2180-2200, B23 (AWS-4 / H-block)",
    "from": "EchoStar (trust)",
