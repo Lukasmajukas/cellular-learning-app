@@ -33,7 +33,7 @@ One file holds every colour, size and speed (`app/src/theme/` from session R01).
 | `locked` | `#2A4466` (icon `#4D6688`) | Locked lessons (dashed outline) |
 | Text on `signal`, `on-air`, `miss` buttons | `#08101D` | Dark text on bright buttons |
 
-**Day (light, built in session R20):** the same tokens, lighter. Starting values to test: `bg #F3F7FC`, `surface #FFFFFF`, `border #D5E1EF`, `text #0E1C31`, `text-muted #4F6582`, `signal #087A97`, `on-air #13A36B`, `miss #D9434A`, `streak #B87A00`, `review #6A5AE0`. The ⚙️ "Dark look" switch becomes "Look: Night / Day".
+**Day (light, built in session R20):** the same tokens, lighter. Starting values to test: `bg #F3F7FC`, `surface #FFFFFF`, `border #D5E1EF`, `text #0E1C31`, `text-muted #4F6582`, `signal #087A97`, `on-air #13A36B`, `miss #D9434A`, `streak #B87A00`, `review #6A5AE0`. *(R01, 2026-11-04: five of these failed the contrast test, so the token file uses slightly darker ones: `signal #066E89`, `on-air #0A7A4E`, `miss #C0343B`, `streak #8C5C00`, `review #5646CF`. The token file `app/src/theme/tokens.ts` is the source of truth.)* The ⚙️ "Dark look" switch becomes "Look: Night / Day".
 
 **Rules:**
 - Every text colour passes a contrast test: 4.5:1 for normal text, 3:1 for big text and icons (an automatic test from R01).

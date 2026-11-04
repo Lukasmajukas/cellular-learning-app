@@ -17,3 +17,6 @@
 | I05 | Unit banners with a small line drawing of that unit's idea (a spectrum ruler, a fake tree, a radio box). | T58 plan | ⬜ |
 | I06 | The heatmap tiles "flicker on" like a lit-up panel the first time each day you open it. | T58 plan | ⬜ |
 | I07 | Personal-best moments (a perfect lesson, a 7-day streak) get their own short Beacon animation. | T58 plan | ⬜ |
+| I08 | The settings checkboxes are the plain grey Windows boxes: swap them for the glowing switch from R03 (on = signal colour, a little spring). | R01 | ⬜ |
+| I09 | The heatmap text still says "Grey = not quizzed yet", but new tiles are now dim outlines; reword it and add a small colour legend (fading → shaky → strong) in R14. | R01 | ⬜ |
+| I10 | The gallery could also take a short burst of pictures of each animation (a "flip book" strip), so reviews can see movement without installing the app. | R01 | ⬜ |

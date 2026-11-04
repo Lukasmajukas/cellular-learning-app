@@ -34,9 +34,9 @@ describe('heatmap', () => {
     expect(buildHeatmap(bands, lessons, reviews, NOW).find(c => c.id === 'n260')!.score).toBeNull();
   });
   it('colours and labels', () => {
-    expect(heatColor(null)).toBe('#cfd8e0');
-    expect(heatColor(1)).toBe('hsl(120, 65%, 52%)');
-    expect(heatColor(0.2)).toBe('hsl(0, 65%, 52%)');
+    expect(heatColor(null)).toBe('var(--surface)');
+    expect(heatColor(1)).toBe('color-mix(in oklab, var(--on-air) 100%, var(--streak))');
+    expect(heatColor(0.2)).toBe('var(--miss)');
     expect([heatLabel(null), heatLabel(0.95), heatLabel(0.8), heatLabel(0.5)]).toEqual(['new', 'strong', 'okay', 'fading']);
   });
 });

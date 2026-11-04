@@ -6,7 +6,7 @@ const { createStore } = require('./store.cjs');
 const store = createStore(process.env.CELL_DATA_DIR || path.join(app.getPath('userData'), 'data'));
 
 function create() {
-  const win = new BrowserWindow({ width: 480, height: 760, backgroundColor: '#f4f8fb',
+  const win = new BrowserWindow({ width: 480, height: 760, backgroundColor: '#08101D' /* Night 'bg' token (src/theme/tokens.ts), so the window never flashes white */,
     webPreferences: { contextIsolation: true, nodeIntegration: false, preload: path.join(__dirname, 'preload.cjs') } });
   win.setMenuBarVisibility(false);
   win.loadFile(path.join(__dirname, '..', 'dist', 'index.html'));
