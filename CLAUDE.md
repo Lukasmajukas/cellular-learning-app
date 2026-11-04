@@ -42,7 +42,7 @@ How chats share work without overlapping is in `docs/WORKFLOW.md`. Follow its "R
 - Never leave a pull request waiting for the owner. Owner approvals (sign-offs, "it works") happen in chat.
 - Confirm before anything destructive.
 - No app code until the owner signs off on `docs/PRD.md`. The progress panel and the robot aren't app code; the owner OK'd building them now.
-- The robot (chats that start by themselves, 24/7) follows `docs/WORKFLOW.md` section G. The owner controls it with `Stop the robot`, `Start the robot` and `Robot status`.
+- The robot (chats that start by themselves, 24/7) follows `docs/WORKFLOW.md` section G. The owner controls it with `Stop the robot`, `Start the robot` and `Robot status`, and the redesign with `Pause the redesign` and `Resume the redesign`.
 
 **End (always, in this order):**
 1. Finish the handoff note you started in `docs/sessions/` when you claimed the task. Set its Status to DONE.
@@ -61,7 +61,7 @@ The owner typed this in chat on 2026-11-01 (task T44), word for word:
 |---|---|---|---|
 | Small | Haiku 5.5 | Low | Chores: typos, renames, formatting |
 | Medium (default) | Sonnet 5.5 | Medium | Features, lessons from checked data, normal bugs |
-| Large | Opus 5.5 | High | Planning (PRD), curriculum design, reviews, bugs Sonnet failed twice |
+| Large | Opus 5.5 | High | Planning (PRD), curriculum design, reviews, the redesign sessions (T59), bugs Sonnet failed twice |
 | Extra large | Fable 5.1 | High | Only when Opus is stuck |
 
 - Whenever you name a model for the owner, name the effort with it, like "Opus, High effort". Use the table. Go one step higher (Extra high) only after a failed try; Max only if Extra high failed too.
@@ -81,6 +81,7 @@ The owner typed this in chat on 2026-11-01 (task T44), word for word:
 - **For the owner:** `README.md` (their start page), `ROADMAP.md`, `TASKS.md`, `CHEATSHEET.md`, `GLOSSARY.md`
 - **How chats share work:** `docs/WORKFLOW.md`
 - **Logs:** `docs/PROGRESS-LOG.md`, `docs/DECISIONS.md`, `docs/sessions/`
+- **Redesign:** `docs/redesign/` (the plan, the style guide `DESIGN.md`, the ideas board, the gallery)
 - **Research:** `docs/research/`, the report and notes. `band_verification.md` overrides `us_bands.md`.
 - **Later:** `content/` (facts and lessons), `app/` (code)
 - **Owner's other GitHub repos to check for reuse (task T03):** CellAtlas, bandmon, SpectrumScope, TowerScope, NetScopeiOS, NetScopeMac.

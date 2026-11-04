@@ -51,6 +51,7 @@ The robot works day and night in the cloud, so your PC can be off. (Switched on 
 - You get a phone notification when a robot chat did a job or got stuck.
 - A small chat called "Robot launcher (do not archive)" is the robot's alarm bell. Leave it alone.
 - **Your switch:** type `Stop the robot`, `Start the robot` or `Robot status` in any chat, even from your phone.
+- **The redesign (T59, since Nov 4):** the robot also rebuilds the app's look, one Opus chat at a time, nonstop, then keeps improving it (`docs/redesign/PLAN.md`). To stop only that part, type `Pause the redesign`; to restart it, `Resume the redesign`.
 - Your own chats share the same limit. Stop the robot when you want the limit for yourself.
 
 Also, if any chat hits your usage limit, it waits for the limit to reset and carries on by itself.
@@ -175,6 +176,7 @@ Find it with `list_sessions` and run `unarchive_session` on it. Tell the owner i
      - isn't app code, unless `docs/PRD.md` has a line `Signed off by owner: YYYY-MM-DD`;
      - hasn't failed twice (two handoff notes for it say BLOCKED);
      - doesn't need the owner to be there.
+   - **T59, the redesign** (owner's choice in T58, 2026-11-04: the robot runs it nonstop, doesn't wait for the owner, and makes the design decisions itself): it also needs the line `Signed off by owner:` in `docs/redesign/PLAN.md` and `**Redesign switch:** ON` there. The job is the first session in PLAN.md that isn't ✅ or ⛔ (R01 to R04 strictly in order); after R24, the top unticked idea in `docs/redesign/IDEAS.md`, with every 8th of those chats a design review. Follow PLAN.md's checklist. "Failed twice" counts per session (R05, R06...), not for T59 as a whole. Name the chat `Robot: Redesign, <session name>`, and in step 5's prompt write "do task T59, session R__".
    - Nothing fits: claim nothing, do the tidy step (A4), and stop with "Nothing for me to do."
 4. **Claim it** (section A3). Then **name yourself**, so the owner can tell robot chats apart: `set_session_title` on your own session ID with `Robot: <the task in a few plain words>`, for example "Robot: Photo sources list". No task numbers.
 5. **Right brain:** read the task's size in `TASKS.md`.
@@ -193,6 +195,7 @@ Find it with `list_sessions` and run `unarchive_session` on it. Tell the owner i
 - `Start the robot`: `update_trigger` with `enabled: true` on "Robot", then `fire_trigger` once.
 - `Robot status`: whether "Robot" is on, the next heartbeat and how the last one went (`list_triggers`: `next_run_at` and `last_run`; a FAILED last run means the launcher is missing or the limit was used up); whether the launcher's last start went through (`get_session` on the launcher chat: a refusal shows in `post_turn_summary`; a SUCCEEDED `last_run` only means the message arrived); what's being worked on (open `[in progress]` pull requests); and the top 3 diary lines.
 - `I sign off the plan`: add `Signed off by owner: YYYY-MM-DD` to `docs/PRD.md` and merge it. That unlocks app building for the robot.
+- `Pause the redesign` / `Resume the redesign`: set the `**Redesign switch:**` line in `docs/redesign/PLAN.md` to PAUSED / ON. This one does change a file, so claim it as a tiny task ("Pause the redesign"), even while a redesign chat is busy (like `Do task T__ at the same time`), and merge at once. Say: "The redesign is paused. A session that's already running finishes; no new one starts. The robot's other tasks carry on." (or "The redesign is back on; the robot picks it up at its next run.").
 
 **How the robot is built** (set up in T13 on 2026-10-31, rebuilt in T44 on 2026-11-01; use this to rebuild it):
 1. **The launcher chat:** `create_session` with title "Robot launcher (do not archive)", model `claude-sonnet-5-5`, `permission_mode: auto`, and `source_url` `https://github.com/Lukasmajukas/cellular-learning-app` (so `CLAUDE.md` loads, with the owner's approval). Its first message is the launcher prompt below. It does a self-check and waits.

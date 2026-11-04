@@ -3,10 +3,10 @@
   "robot": {
     "on": true,
     "next": "right away (it starts its next job by itself), and every hour",
-    "last": "built the daily review, streak and goal extras, \"this changed\" cards and content tidy-ups (T53 to T55)"
+    "last": "built the daily review, streak and goal extras, \"this changed\" cards and content tidy-ups (T53 to T55). Next: the redesign, session R01 (new colours and letters)"
   },
   "light": "green",
-  "working": "Nothing in progress. For you: send 3 or 4 screenshots of the green picture at start-up (T57), and start the Opus chat that plans the redesign (T58). Waiting for your OK: should the robot stop changing how the app looks until that plan is signed off?",
+  "working": "Nothing in progress. The redesign plan is signed off: the robot starts Night Signal session R01 at its next run (T59). For you: paste the robot's hourly message into the launcher chat again, and don't /clear it until then (T60); screenshots of the start-up picture when you can (T57).",
   "limit": {
     "state": "warning",
     "resets": "Wed Nov 4, 5:00 AM Eastern. The robot keeps working until it runs out"

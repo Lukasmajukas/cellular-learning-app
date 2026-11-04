@@ -69,6 +69,15 @@ Claude adds new words here whenever they come up.
 | **Build file (artifact)** | A file GitHub's build robot saves after a build, like an installer. Each project gets only so much space for them, and old ones stay for weeks. |
 | **Storage quota** | How much space GitHub lets a project use for build files. When it is full, new files can't be saved until old ones expire or are deleted. |
 | **Case-insensitive file names** | Windows treats `HeatMap` and `heatmap` as the same name (it ignores capital letters); Linux treats them as two different names. Two such files work in the cloud but break on Windows. |
+| **Style guide** | The app's rulebook for looks: which colours, letters, icons and movements to use, so every screen feels like the same app. Ours is `docs/redesign/DESIGN.md`. |
+| **Design tokens** | The named colours, sizes and speeds the style guide picks (like "signal = bright cyan"), kept in one file. Change a token once and every screen follows, like changing a team's kit colour. |
+| **Mockup** | A drawing of a screen before it's built, like an architect's sketch. The three looks in T58 were mockups: pictures, not the working app. |
+| **Font licence (OFL)** | The "SIL Open Font License": free letters you may put inside your app and share, as long as you keep the licence note with them. |
+| **Spring (animation)** | A way of moving that overshoots a little and settles, like a ball on a spring, instead of stopping dead. It makes buttons feel bouncy. |
+| **Contrast** | How much words stand out from what's behind them. Too little and they're hard to read; a test checks every colour pair. |
+| **Gallery** | A folder of pictures of every screen, made by a tool after each redesign session, so you can see what changed without installing anything. |
+| **Ideas board** | The robot's list of "could be better" ideas for the look (`docs/redesign/IDEAS.md`). Your wishes always go to the top. |
+| **Design review** | A chat that only looks: it scores every screen against the style guide and decides what to fix next, like a teacher marking a project halfway through. |
 
 ## Cell phone words
 | Word | What it means |
