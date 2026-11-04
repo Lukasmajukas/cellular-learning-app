@@ -175,6 +175,8 @@ test('in a lesson Beacon reacts within 0.1 s of an answer, and cheers (bigger) w
     await choice.click(); await w.getByTestId('next').click();
   }
   await expect(b).toHaveAttribute('data-face', 'cheering');
-  expect((await b.boundingBox())!.width).toBeGreaterThan(small * 1.5);
+  // Since R12 (idea I34) the big Beacon grows in from the question size with a spring, so wait for it to finish growing
+  // (the Windows build once caught it mid-grow, at 86.9 px).
+  await expect.poll(async () => (await b.boundingBox())!.width, { timeout: 2000 }).toBeGreaterThan(small * 1.5);
   await app.close();
 });

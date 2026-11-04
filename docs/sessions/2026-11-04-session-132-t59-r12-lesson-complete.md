@@ -27,14 +27,14 @@ Finishing a lesson is a real celebration now. Beacon grows smoothly to its big s
 
 ## Test results
 - Unit tests: 181 pass (176 + 5). TypeScript OK. Content checker OK (253 facts, 27 photos, 635 questions; `content/` untouched).
-- Click tests: RESULTS_E2E
+- Click tests: full run 64 of 64 passed (60 before + 4 new in `complete.spec.ts`; 8.6 min), first try. Frame rates (cloud): lesson complete 60.0 fps; the older moments still fine (coming on air 58.4, unit done 60.0, sheet 60.0, top bar 59.3, R11's shake, glide and order chips all pass 50+).
 - Windows build (GitHub): RESULTS_WIN
 
 ## What I looked at (by eye)
 - Before: `06-lesson-complete` from R11: Beacon at 112 px, plain stars, "+10 XP", small bars, two equally loud buttons, confetti over everything.
 - After (test screenshots at 480 x 760, then the gallery): mid-celebration, the rings and the coloured wave arcs sit around Beacon's head, one star has landed and the next is falling, XP reads "+9 XP" and the bars are still empty outlines; at the end, three gold stars, "+50 XP" in the card, five full bars, the green main button and the quiet "Again". With a miss: two stars and a dim third, "1 fixed" beside the line, "+25 XP", three of five bars.
 - First version: the top wave arcs reached the lesson's top row and "+0 XP" stood still for half a second before counting. Fixed: the arcs go 84 px (was 104), the rings 2.2x (was 2.4), and XP starts counting at 0.4 s (was 0.55).
-- GALLERY_NOTES
+- Gallery (620 x 960 and 1280 x 800): `06-lesson-complete` (the sample lesson with 1 of 3 right: one gold star, "+10 XP", 2 of 5 bars) and the new `29-lesson-complete-burst` (0.38 s in: the rings and arcs round Beacon's head, inside the space between the top row and the title; the first star landing; "+4 XP" counting; the bars still empty). Both sizes keep the 440 px column. Nothing overlaps; the burst no longer reaches the top row. `14-top-bar-moment` (after "Back to the path") is unchanged in look.
 - **Still looks weak:** the lesson's top row (close button, full bar, "3 / 3") stays on the finished screen (idea I46); the stars land without a sound or ring of their own (I47; sound is R19); empty space under "Again" on tall windows (I48).
 
 ## What's next
