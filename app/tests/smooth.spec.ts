@@ -2,6 +2,7 @@ import { _electron as electron, test, expect } from '@playwright/test';
 import { mkdtempSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { playSampleLesson } from './helpers';
 
 const launch = () => electron.launch({ args: ['.', '--no-sandbox'], env: { ...process.env, CELL_SAMPLE_PATH: '1', CELL_DATA_DIR: mkdtempSync(join(tmpdir(), 'cell-e2e-')) } });
 
@@ -65,5 +66,16 @@ test('animations move when Windows says "reduce motion" (this passes on the old 
   expect(xs.some(x => Math.abs(x - final) > 5)).toBe(true);
   await expect(w.getByTestId('fps')).toHaveText(/\d+ fps/);
   console.log('badge:', await w.getByTestId('fps').textContent());
+  await app.close();
+});
+
+test('leaving the lesson clears its confetti, so it doesn\'t fall over the path while "coming on air" plays (design review 1)', async () => {
+  const app = await launch(); const w = await app.firstWindow();
+  await w.getByTestId('lesson-u1-l1').click();
+  await playSampleLesson(w);
+  await expect.poll(() => canvasBox(w), { timeout: 3000 }).not.toBeNull(); // the lesson-complete burst is falling
+  await w.getByTestId('finish').click();
+  await w.getByTestId('screen-path').waitFor();
+  await expect.poll(() => canvasBox(w), { timeout: 1000 }).toBeNull();     // gone well before it would have ended (about 3 s)
   await app.close();
 });

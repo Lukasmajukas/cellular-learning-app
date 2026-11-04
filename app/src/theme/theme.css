@@ -1,6 +1,8 @@
 /* Page-wide basics for the Night Signal look. All colours are CSS variables set from tokens.ts (applyLook). */
 html, body { margin: 0; min-height: 100%; }
-html { scrollbar-color: var(--border-strong) transparent; }
+/* scrollbar-gutter (design review 1, R08): always keep the scrollbar's strip, so the whole frame doesn't jump sideways
+   by its width when you switch from a tab that scrolls (Path) to one that doesn't (Heatmap, Settings). */
+html { scrollbar-color: var(--border-strong) transparent; scrollbar-gutter: stable; }
 body {
   font-family: var(--font-body);
   font-size: 16px;

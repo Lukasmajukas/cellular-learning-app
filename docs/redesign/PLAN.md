@@ -26,7 +26,7 @@ You chose to let the robot run this on its own (Nov 4): it doesn't wait for you,
 | New designs | **The robot decides alone**, following `DESIGN.md` |
 
 ## The 24 sessions
-Each row is one chat: Large (Opus), High effort. R01 to R04 must go in order (everything stands on them). After that, a blocked session may be skipped and the next one done. Status: ⬜ to do · ✅ done (date, pull request) · ⛔ failed twice, needs the owner.
+Each row is one chat: Large (Opus), High effort. R01 to R04 must go in order (everything stands on them). After that, a blocked session may be skipped and the next one done. Status: ⬜ to do · ✅ done (date, pull request) · ⛔ failed twice, needs the owner. Rows are done top to bottom, so a design review re-orders them by moving rows (R17 moved up in review 1); a row keeps its number.
 
 ### Part 1: the foundations
 | # | Session | What changes on screen | Status |
@@ -42,11 +42,12 @@ Each row is one chat: Large (Opus), High effort. R01 to R04 must go in order (ev
 | R05 | **Path map: layout** | Unit banners, lesson circles zig-zagging with their names beside them, the dotted signal line, done/current/locked looks; opens scrolled to your current lesson. | ✅ 2026-11-04, #128 |
 | R06 | **Path map: movement** | Circles pop in as you scroll; the current one's rings breathe; "coming on air" when you finish a lesson; the line draws itself; a moment when a whole unit is done. | ✅ 2026-11-04, #129 |
 | R07 | **Top bar and daily goal** | Streak, XP and goal redrawn; XP counts up; the flame flickers when your streak grows; goal bar fills with a spring; streak freeze and repair restyled. | ✅ 2026-11-04, #130 |
-| R08 | **Design review 1** | A full review of R01–R07 against `DESIGN.md` and the look A picture: score every screen, fix small things, re-order the rest of this plan if needed. | ⬜ |
-| R09 | **Question screen** | Progress bar, Beacon's spot with a speech bubble, the "PICK ONE" label, numbered answer tiles, the bottom "Right!" / "Not quite" sheet. | ⬜ |
+| R08 | **Design review 1** | A full review of R01–R07 against `DESIGN.md` and the look A picture: score every screen, fix small things, re-order the rest of this plan if needed. | ✅ 2026-11-04, #131 (`docs/reviews/2026-11-04-design-review-1.md`) |
+| R17 | **Beacon is drawn** | The new mascot with six faces (idle, happy, oops, thinking, cheering, sleepy), breathing rings and blinks. Replaces the old tower. *(Moved up by design review 1: R09–R12 all place Beacon, so it's drawn first and they're built around the real one, not the old triangle.)* | ⬜ |
+| R09 | **Question screen** | Progress bar, Beacon's spot with a speech bubble, the "PICK ONE" label, numbered answer tiles, the bottom "Right!" / "Not quite" sheet. *(Review 1: use the R03 bottom sheet; Continue matches the answer, red after "Not quite", as in look A.)* | ⬜ |
 | R10 | **The other question types** | Match pairs, type the number, put bands in order, scenario clues, photo questions, tap-the-clue, learn cards and the spectrum bar, all in the new look. | ⬜ |
-| R11 | **Lesson movement** | Questions glide in and out; right answers glow, wrong ones shake gently; the progress bar springs forward. | ⬜ |
-| R12 | **Lesson complete** | Stars drop in one by one, XP counts up like a meter, signal bars fill, a short "signal burst" instead of plain confetti. Checks that the burst shows on Windows (the confetti you never saw, T46/T57). | ⬜ |
+| R11 | **Lesson movement** | Questions glide in and out; right answers glow, wrong ones shake gently; the progress bar springs forward. *(Review 1: no confetti after each right answer; the tile glow does that job (I31).)* | ⬜ |
+| R12 | **Lesson complete** | Stars drop in one by one, XP counts up like a meter, signal bars fill, a short "signal burst" instead of plain confetti. Checks that the burst shows on Windows (the confetti you never saw, T46/T57). *(Review 1: one main button, "Back to the path"; "Again" becomes quiet (I32).)* | ⬜ |
 | R13 | **Daily review and notices** | The review screen ("drive test"), the "This changed" card, the save-restored notice. | ⬜ |
 | R14 | **Heatmap** | Band tiles glow brighter the better you remember them; legend; tap a tile to see its lessons; tiles fill in one by one. | ⬜ |
 | R15 | **Settings** | The whole settings screen in the new look, with a sound "play a sample" button and the look switch made ready for Day. | ⬜ |
@@ -55,7 +56,6 @@ Each row is one chat: Large (Opus), High effort. R01 to R04 must go in order (ev
 ### Part 3: Beacon and sound
 | # | Session | What changes on screen | Status |
 |---|---|---|---|
-| R17 | **Beacon is drawn** | The new mascot with six faces (idle, happy, oops, thinking, cheering, sleepy), breathing rings and blinks. Replaces the old tower. | ⬜ |
 | R18 | **Beacon reacts** | Beacon joins the questions, the lesson-complete screen and the path map ("you are here"), with short kind lines from a data file. | ⬜ |
 | R19 | **Sound** | Free CC0 sound effects, credited, about 7 sounds; volume and sample button. If no free source can be reached, nicer code-made sounds, and a "You" row asking you to download a pack. | ⬜ |
 

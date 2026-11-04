@@ -90,7 +90,8 @@ export function TopBar({ streak, xp, xpToday, freezes, done, goal, wait = TOP_BA
           style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 18, fontWeight: 700, ...mono, color: c.signal, alignSelf: 'center' }}>
           <Icon name="bolt" size={20} /><Count m={x} wait={wait} /><span style={hidden}> XP</span>
         </span>
-        <span data-testid="xp-today" title="XP earned today" style={{ ...mono, fontSize: 13, color: c.textMuted }}>+{xpToday}<span style={hidden}> XP today</span></span>
+        {/* Only once you've earned some today: a "+0" at the start of a day was just noise (design review 1, R08). */}
+        {xpToday > 0 && <span data-testid="xp-today" title="XP earned today" style={{ ...mono, fontSize: 13, color: c.textMuted }}>+{xpToday}<span style={hidden}> XP today</span></span>}
         {grew(x) && !calm && <span key={x.n} ref={float} data-testid="xp-float" aria-hidden
           style={{ position: 'absolute', left: 26, top: -6, fontSize: 13, fontWeight: 700, ...mono, color: c.signal, opacity: 0, pointerEvents: 'none' }}>+{x.to - x.from}</span>}
       </span>

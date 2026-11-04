@@ -57,10 +57,10 @@ test('finishing a lesson: XP counts up with a "+N" rising off it, the flame flic
   expect(distinct(xs)).toBeGreaterThan(8);
   expect(xs.every((v, i) => i === 0 || v >= xs[i - 1])).toBe(true);
   // One celebration at a time (I29): this was the lesson's first finish, so the path's "coming on air" plays first and
-  // the XP only starts counting after it (TOP_BAR.afterPath, 1.4 s after the top bar appears).
+  // the XP only starts counting after it (TOP_BAR.afterPath, 1.6 s after the top bar appears).
   const firstSeen = f.of(S.xp).findIndex(x => x !== null), firstUp = f.of(S.xp).findIndex(x => x !== null && num(x.tx) > 100);
   console.log(`XP starts counting ${(f.ts[firstUp] - f.ts[firstSeen]).toFixed(0)} ms after the top bar appears`);
-  expect(f.ts[firstUp] - f.ts[firstSeen]).toBeGreaterThan(1300);
+  expect(f.ts[firstUp] - f.ts[firstSeen]).toBeGreaterThan(1500);
   // The "+N" says how much was added, rises and fades away.
   await expect(w.getByTestId('xp-float')).toHaveText(`+${target - 100}`);
   const fl = seen(S.float), shownFl = fl.filter(x => x.op > 0.5);
@@ -135,6 +135,8 @@ test('a broken streak shows the repair card; repairing gives the streak back and
   await expect(w.getByTestId('streak')).toHaveText('0');
   await expect(w.getByTestId('repair-card')).toContainText('Save your 5-day streak');
   await expect(w.getByTestId('repair')).toHaveAccessibleName('Repair your 5-day streak');
+  // No XP yet today: no "+0" beside the total (design review 1).
+  await expect(w.getByTestId('xp-today')).toHaveCount(0);
   await w.getByTestId('repair-card').screenshot({ path: 'test-results/repair-card.png' });
   const f = await film(w, [S.flame, S.glow], () => w.getByTestId('repair').click(), 1600);
   await expect(w.getByTestId('streak')).toHaveText('5');
