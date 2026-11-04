@@ -20,13 +20,16 @@ const launch = async (progress: Record<string, number> = {}, opts: { sample?: bo
 const resize = (app: ElectronApplication, s: { w: number; h: number }) =>
   app.evaluate(({ BrowserWindow }, s) => BrowserWindow.getAllWindows()[0].setContentSize(s.w, s.h), s);
 
-type Frame = Record<string, { op: number; vis: number; sx: number; sy: number; y: number } | null>;
-// Records, every frame for `ms`, each selector's own see-through-ness (op), how visible it really is with its parents' (vis),
-// its scale (x and y, from its transform) and its top edge.
-// Elements are looked up again each frame, because some only appear during the movement.
-async function film(w: Page, sels: string[], act: () => Promise<void>, ms = 1900) {
+type Frame = Record<string, { op: number; sx: number; sy: number; y: number } | null>;
+// Records, every frame for `ms`, each selector's own see-through-ness (op), its scale (x and y, from its transform) and
+// its top edge. Elements are looked up again each frame, because some only appear during the movement.
+// The frame rate (fps) counts only the frames of the movement itself: from the first frame where `from` is on the page
+// (when given), leaving out the gap that frame closes (building the new screen is a one-time cost, not the animation)
+// and any gap during a test screenshot taken with snap() (the test pausing the page, not the app being slow; found on
+// the Windows build in R06). The slowest gaps are printed, so a slow run shows where the time went.
+async function film(w: Page, sels: string[], act: () => Promise<void>, ms = 1900, from?: string) {
   await w.evaluate(([sels, ms]) => {
-    const out = { frames: [] as Frame[], gaps: [] as number[] };
+    const out = { frames: [] as Frame[], gaps: [] as number[], ts: [] as number[], pauses: [] as [number, number][] };
     (window as unknown as { __film: typeof out }).__film = out;
     const t0 = performance.now(); let last = t0;
     const f = (t: number) => {
@@ -35,21 +38,29 @@ async function film(w: Page, sels: string[], act: () => Promise<void>, ms = 1900
         const el = document.querySelector(s) as HTMLElement | null;
         if (!el) { fr[s] = null; continue; }
         const cs = getComputedStyle(el), m = cs.transform === 'none' ? new DOMMatrix() : new DOMMatrix(cs.transform);
-        // see-through-ness multiplies down the tree (a pop-in wrapper fades its children)
-        let vis = 1; for (let e: HTMLElement | null = el; e; e = e.parentElement) vis *= Number(getComputedStyle(e).opacity);
-        fr[s] = { op: Math.round(Number(cs.opacity) * 1000) / 1000, vis: Math.round(vis * 1000) / 1000, sx: Math.round(Math.hypot(m.a, m.b) * 1000) / 1000, sy: Math.round(Math.hypot(m.c, m.d) * 1000) / 1000, y: Math.round(el.getBoundingClientRect().y * 10) / 10 };
+        fr[s] = { op: Math.round(Number(cs.opacity) * 1000) / 1000, sx: Math.round(Math.hypot(m.a, m.b) * 1000) / 1000, sy: Math.round(Math.hypot(m.c, m.d) * 1000) / 1000, y: Math.round(el.getBoundingClientRect().y * 10) / 10 };
       }
-      out.frames.push(fr); out.gaps.push(t - last); last = t;
+      out.frames.push(fr); out.gaps.push(t - last); out.ts.push(t); last = t;
       if (t - t0 < (ms as number)) requestAnimationFrame(f);
     };
     requestAnimationFrame(f);
   }, [sels, ms] as const);
   await act();
   await w.waitForTimeout(ms + 150);
-  const r = await w.evaluate(() => (window as unknown as { __film: { frames: Frame[]; gaps: number[] } }).__film);
-  const gaps = r.gaps.slice(1);
+  const r = await w.evaluate(() => (window as unknown as { __film: { frames: Frame[]; gaps: number[]; ts: number[]; pauses: [number, number][] } }).__film);
+  const start = from ? Math.max(1, r.frames.findIndex(f => f[from])) : 0;
+  const gaps = r.gaps.map((g, i) => ({ g, i })).filter(({ g, i }) => i > start &&
+    !r.pauses.some(([a, b]) => r.ts[i] - g < b && r.ts[i] > a)).map(x => x.g);
   const of = (s: string) => r.frames.map(f => f[s]);
+  console.log(`  slowest frames (ms): ${[...gaps].sort((a, b) => b - a).slice(0, 3).map(g => g.toFixed(0)).join(', ')}; ${r.pauses.length} screenshot pause(s) left out`);
   return { ...r, of, fps: 1000 / (gaps.reduce((a, b) => a + b, 0) / gaps.length) };
+}
+// A screenshot during a film: the page is paused while it's taken, so film() leaves that time out of the frame rate.
+async function snap(w: Page, path?: string) {
+  const a = await w.evaluate(() => performance.now());
+  const png = await w.screenshot(path ? { path } : {});
+  await w.evaluate(a => { const b = performance.now(); (window as unknown as { __film: { pauses: [number, number][] } }).__film.pauses.push([a, b]); }, a);
+  return png;
 }
 const distinct = (xs: (number | undefined)[]) => new Set(xs.filter(x => x !== undefined)).size;
 
@@ -117,8 +128,8 @@ test('coming on air: the finished circle turns green with a ring burst, the line
   const shots: Buffer[] = [];
   const f = await film(w, Object.values(S), async () => {
     await w.getByTestId('finish').click();
-    for (const t of [250, 300, 300, 300, 300]) { await w.waitForTimeout(t); shots.push(await w.screenshot()); } // a flip book, looked at by eye
-  }, 2600);
+    for (const t of [250, 300, 300, 300, 300]) { await w.waitForTimeout(t); shots.push(await snap(w)); } // a flip book, looked at by eye
+  }, 2600, S.ghost);
   shots.forEach((b, i) => writeFileSync(`test-results/on-air-${i}.png`, b));
   const seen = (s: string) => f.of(s).filter(x => x !== null) as { op: number; sx: number; sy: number; y: number }[];
   // 1. The blue "current" disc fades and shrinks away over the new green one; the check badge pops on.
@@ -160,8 +171,8 @@ test('finishing a whole unit: a wave of rings up the unit, the banner\'s "done" 
     done: '[data-testid=banner-u1] [data-testid=banner-done]', sweep: '[data-testid=banner-sweep]', bar: '[data-testid=banner-u2] [data-testid=banner-bar]' };
   const f = await film(w, Object.values(S), async () => {
     await w.getByTestId('finish').click();
-    await w.waitForTimeout(1100); await w.screenshot({ path: 'test-results/unit-done.png' });
-  }, 2600);
+    await w.waitForTimeout(1100); await snap(w, 'test-results/unit-done.png');
+  }, 2600, S.bar);
 
   const seen = (s: string) => f.of(s).filter(x => x !== null) as { op: number; sx: number; sy: number; y: number }[];
   await expect(w.getByTestId('banner-u1')).toHaveAttribute('data-moment', 'done');
