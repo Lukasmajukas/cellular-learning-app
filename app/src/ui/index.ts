@@ -8,6 +8,8 @@ export { Switch } from './Switch';
 export { ProgressBar } from './ProgressBar';
 export { BottomSheet } from './BottomSheet';
 export { SpeechBubble } from './SpeechBubble';
+export { UnitBanner } from './UnitBanner';
+export { LessonNode, NODE_SIZE, NODE_BOX, NODE_RING } from './LessonNode';
 export { usePress } from './press';
 export { SPRING, PRESS, PRESS_BIG, PRESS_ROUND, PRESS_PILL, QUICK_FADE, INSTANT, useCalm, MotionKit } from '../theme/motion';
 export { BUTTON, PILL, TILE, SHEET, type ButtonKind, type PillTone, type TileState, type SheetTone } from './tones';

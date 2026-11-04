@@ -48,8 +48,8 @@ describe('building blocks: springs (DESIGN.md section 7)', () => {
 
 describe('building blocks: used, and used properly', () => {
   const ui = readdirSync(join(SRC, 'ui')).filter(f => f.endsWith('.tsx'));
-  it('has a file for each block DESIGN.md section 6 asks of R03 and R04 (R04 added the app frame, AppShell)', () => {
-    expect(ui.sort()).toEqual(['AnswerTile.tsx', 'AppShell.tsx', 'BottomSheet.tsx', 'Button.tsx', 'Card.tsx', 'Pill.tsx', 'ProgressBar.tsx', 'SpeechBubble.tsx', 'Switch.tsx']);
+  it('has a file for each block DESIGN.md section 6 asks of R03 and R04 (R04 added the app frame, AppShell; R05 the unit banner and the lesson node)', () => {
+    expect(ui.sort()).toEqual(['AnswerTile.tsx', 'AppShell.tsx', 'BottomSheet.tsx', 'Button.tsx', 'Card.tsx', 'LessonNode.tsx', 'Pill.tsx', 'ProgressBar.tsx', 'SpeechBubble.tsx', 'Switch.tsx', 'UnitBanner.tsx']);
   });
   it('every clickable block gets its springs from usePress (so "Reduce motion" turns them all off in one place)', () => {
     for (const f of ui) {
