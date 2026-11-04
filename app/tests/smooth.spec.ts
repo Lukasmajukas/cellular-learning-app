@@ -28,9 +28,9 @@ test('confetti really shows, even when Windows says "reduce motion"', async () =
 
 test('the in-app "reduce motion" switch still turns confetti off', async () => {
   const app = await launch(); const w = await app.firstWindow();
-  await w.getByTestId('open-settings').click();
+  await w.getByTestId('tab-settings').click();
   await w.getByTestId('set-motion').check();
-  await w.getByTestId('settings-back').click();
+  await w.getByTestId('tab-path').click();
   await w.getByTestId('lesson-u1-l1').click();
   await w.getByTestId('choice-0').click();
   await w.waitForTimeout(800);
@@ -43,9 +43,9 @@ test('animations move when Windows says "reduce motion" (this passes on the old 
   const app = await launch(); const w = await app.firstWindow();
   await w.emulateMedia({ reducedMotion: 'reduce' }); await w.reload(); // what Windows "animation effects: off" tells the app (read when the page loads)
   await expect(w.getByTestId('fps')).toHaveCount(0);
-  await w.getByTestId('open-settings').click();
+  await w.getByTestId('tab-settings').click();
   await w.getByTestId('set-fps').check();
-  await w.getByTestId('settings-back').click();
+  await w.getByTestId('tab-path').click();
   await expect(w.getByTestId('fps')).toBeVisible();
   await w.getByTestId('lesson-u1-l1').click();
   await w.getByTestId('choice-0').click();

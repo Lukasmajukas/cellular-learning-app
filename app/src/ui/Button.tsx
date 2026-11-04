@@ -4,6 +4,7 @@ import { c, RADIUS } from '../theme';
 import { Icon, type IconName } from '../Icon';
 import { BUTTON, type ButtonKind } from './tones';
 import { usePress } from './press';
+import { PRESS_ROUND } from '../theme/motion';
 
 type ButtonProps = Omit<HTMLMotionProps<'button'>, 'style' | 'children'> & {
   kind?: ButtonKind; icon?: IconName; full?: boolean; big?: boolean; style?: CSSProperties; children?: React.ReactNode;
@@ -30,7 +31,7 @@ export function Button({ kind = 'signal', icon, full, big, disabled, style, chil
 
 // A round 44 x 44 button with only an icon. `label` is required: it's what a screen reader says and the hover tip shows.
 export function IconButton({ icon, label, disabled, style, ...rest }: Omit<HTMLMotionProps<'button'>, 'style' | 'children'> & { icon: IconName; label: string; style?: CSSProperties }) {
-  const press = usePress(!disabled, { hover: 1.08, tap: 0.9 });
+  const press = usePress(!disabled, PRESS_ROUND);
   return (
     <motion.button type="button" aria-label={label} title={label} disabled={disabled} {...press} {...rest}
       style={{ width: 44, height: 44, display: 'grid', placeItems: 'center', flexShrink: 0, padding: 0, border: 0, borderRadius: '50%',

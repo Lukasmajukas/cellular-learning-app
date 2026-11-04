@@ -5,7 +5,8 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { NIGHT, DAY, type Palette, type TokenKey } from './theme/tokens';
 import { contrast } from './theme/contrast';
-import { BUTTON, PILL, TILE, SHEET, SPRING, PRESS, PRESS_BIG, QUICK_FADE, type Tone } from './ui/tones';
+import { BUTTON, PILL, TILE, SHEET, type Tone } from './ui/tones';
+import { SPRING, PRESS, PRESS_BIG, QUICK_FADE } from './theme/motion';
 
 const SRC = __dirname;
 // [what, words, background]; all need 4.5:1 (they're words, some only 13-14 px).
@@ -47,8 +48,8 @@ describe('building blocks: springs (DESIGN.md section 7)', () => {
 
 describe('building blocks: used, and used properly', () => {
   const ui = readdirSync(join(SRC, 'ui')).filter(f => f.endsWith('.tsx'));
-  it('has a file for each block DESIGN.md section 6 asks of R03', () => {
-    expect(ui.sort()).toEqual(['AnswerTile.tsx', 'BottomSheet.tsx', 'Button.tsx', 'Card.tsx', 'Pill.tsx', 'ProgressBar.tsx', 'SpeechBubble.tsx', 'Switch.tsx']);
+  it('has a file for each block DESIGN.md section 6 asks of R03 and R04 (R04 added the app frame, AppShell)', () => {
+    expect(ui.sort()).toEqual(['AnswerTile.tsx', 'AppShell.tsx', 'BottomSheet.tsx', 'Button.tsx', 'Card.tsx', 'Pill.tsx', 'ProgressBar.tsx', 'SpeechBubble.tsx', 'Switch.tsx']);
   });
   it('every clickable block gets its springs from usePress (so "Reduce motion" turns them all off in one place)', () => {
     for (const f of ui) {
@@ -67,13 +68,14 @@ describe('building blocks: used, and used properly', () => {
     const code = readFileSync(join(SRC, 'SettingsScreen.tsx'), 'utf8');
     expect(code).toMatch(/from '\.\/ui'/);
     expect(code).not.toMatch(/type="checkbox"|<select|<button/);
-    for (const block of ['<Switch', '<Card', '<PillChoice', '<Button', '<IconButton']) expect(code).toContain(block);
+    // (R04: no <IconButton> any more: Settings became a tab, so its back button went; the Path tab and Esc go back.)
+    for (const block of ['<Switch', '<Card', '<PillChoice', '<Button']) expect(code).toContain(block);
   });
 });
 
 describe('building blocks: Reduce motion is read live', () => {
   it('every block that moves by itself checks useCalm() (Motion alone only reads the setting when a block first appears)', () => {
-    for (const f of ['Switch.tsx', 'ProgressBar.tsx', 'BottomSheet.tsx', 'SpeechBubble.tsx'])
+    for (const f of ['Switch.tsx', 'ProgressBar.tsx', 'BottomSheet.tsx', 'SpeechBubble.tsx', 'AppShell.tsx'])
       expect(readFileSync(join(SRC, 'ui', f), 'utf8'), f).toContain('useCalm()');
   });
 });

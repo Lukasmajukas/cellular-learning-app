@@ -2,7 +2,8 @@ import type { CSSProperties, ReactNode } from 'react';
 import { motion, type HTMLMotionProps } from 'motion/react';
 import { c, RADIUS, mono } from '../theme';
 import { Icon } from '../Icon';
-import { TILE, PRESS_BIG, QUICK_FADE, type TileState } from './tones';
+import { TILE, type TileState } from './tones';
+import { PRESS_BIG, QUICK_FADE } from '../theme/motion';
 import { usePress } from './press';
 
 // One answer you can pick, with its number key on the left (keys 1-4 start working in R04).

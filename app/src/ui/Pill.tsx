@@ -5,6 +5,7 @@ import type { TokenKey } from '../theme/tokens';
 import { Icon, type IconName } from '../Icon';
 import { PILL, type PillTone } from './tones';
 import { usePress } from './press';
+import { PRESS_PILL } from '../theme/motion';
 
 // A small rounded label, like "6 due". Not clickable (for a clickable one, see PillChoice).
 export function Pill({ tone = 'quiet', icon, children, style, ...rest }: { tone?: PillTone; icon?: IconName; children: ReactNode; style?: CSSProperties; 'data-testid'?: string }) {
@@ -48,7 +49,7 @@ export function PillChoice<T extends string | number>({ label, options, value, o
 
 function PillButton({ on, testId, children, onClick, onKeyDown }: { on: boolean; testId?: string; children: ReactNode; onClick: () => void; onKeyDown: (e: KeyboardEvent) => void }) {
   const t: { bg: TokenKey; fg: TokenKey; border?: TokenKey } = on ? PILL.signal : PILL.quiet;
-  const press = usePress(true, { hover: 1.06, tap: 0.92 });
+  const press = usePress(true, PRESS_PILL);
   return (
     <motion.button type="button" role="radio" aria-checked={on} tabIndex={on ? 0 : -1} data-testid={testId} onClick={onClick} onKeyDown={onKeyDown} {...press}
       style={{ minWidth: 44, height: 44, padding: '0 16px', borderRadius: RADIUS.pill, fontSize: 16, fontWeight: 700, ...mono, cursor: 'pointer',
