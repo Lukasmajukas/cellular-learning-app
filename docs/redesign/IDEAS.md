@@ -34,4 +34,5 @@
 | I23 | The lesson-complete confetti keeps falling over the path while "coming on air" plays, so the two celebrations overlap. Let the burst end before you leave the lesson-complete screen (or fade it out as the path glides in). Do it with R12. | R06 | ⬜ |
 | I24 | The reached dotted line could have a slow "signal" dot travelling along it to the current lesson (one ambient loop instead of the breathing rings when the current lesson is off screen). | R06 | ⬜ |
 | I25 | When a whole unit is done, the path could also show a short "Unit 1 complete" line under the last lesson for a moment (for long units whose banner is too far up to see the "done" pop on). | R06 | ⬜ |
+| I26 | Make the "whole unit done" moment cheaper: it measured 50.3 fps on the Windows build (bar 50; 60 in the cloud), with a few 47 ms frames. Try fewer wave rings at once, or the banner sweep only after the rings. Do it with R23 (speed check), or sooner if that test ever fails. | R06 | ⬜ |
 | I10 | The gallery could also take a short burst of pictures of each animation (a "flip book" strip), so reviews can see movement without installing the app. | R01 | ⬜ |
