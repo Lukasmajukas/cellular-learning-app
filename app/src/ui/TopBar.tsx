@@ -49,13 +49,14 @@ function Count({ m }: { m: Change }) {
     const a = animate(mv, m.to, TOP_BAR.count);
     return () => a.stop();
   }, [m, calm]); // eslint-disable-line react-hooks/exhaustive-deps
-  return <motion.span>{text}</motion.span>;
+  // A fixed width (in digits) and its own layout box, so each tick doesn't move or re-measure the rest of the bar (R07).
+  return <motion.span style={{ display: 'inline-block', minWidth: `${String(Math.max(m.from, m.to)).length}ch`, contain: 'layout paint' }}>{text}</motion.span>;
 }
 
 export function TopBar({ streak, xp, xpToday, freezes, done, goal }:
   { streak: number; xp: number; xpToday: number; freezes: number; done: number; goal: number }) {
   const calm = useCalm();
-  const s = useChange('streak', streak), x = useChange('xp', xp), t = useChange('xpToday', xpToday);
+  const s = useChange('streak', streak), x = useChange('xp', xp);
   const f = useChange('freezes', freezes), d = useChange('done', done);
   const reached = done >= goal, justReached = grew(d) && reached && d.from < goal;
 
@@ -67,7 +68,7 @@ export function TopBar({ streak, xp, xpToday, freezes, done, goal }:
   useMoment(float, x, grew(x), TOP_BAR.floatKeys, TOP_BAR.float);
   useMoment(pill, f, grew(f), TOP_BAR.popKeys, TOP_BAR.pop);
   useMoment(flash, d, justReached, TOP_BAR.flashKeys, TOP_BAR.flash);
-  useMoment(check, d, justReached, { scale: [0, 1] }, TOP_BAR.check);
+  useMoment(check, d, justReached, TOP_BAR.checkKeys, TOP_BAR.check);
   const waiting = !calm; // things that only appear during a moment start invisible (their moment shows them)
 
   return <>
@@ -88,7 +89,7 @@ export function TopBar({ streak, xp, xpToday, freezes, done, goal }:
           style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 18, fontWeight: 700, ...mono, color: c.signal, alignSelf: 'center' }}>
           <Icon name="bolt" size={20} /><Count m={x} /><span style={hidden}> XP</span>
         </span>
-        <span data-testid="xp-today" title="XP earned today" style={{ ...mono, fontSize: 13, color: c.textMuted }}>+<Count m={t} /><span style={hidden}> XP today</span></span>
+        <span data-testid="xp-today" title="XP earned today" style={{ ...mono, fontSize: 13, color: c.textMuted }}>+{xpToday}<span style={hidden}> XP today</span></span>
         {grew(x) && !calm && <span key={x.n} ref={float} data-testid="xp-float" aria-hidden
           style={{ position: 'absolute', left: 26, top: -6, fontSize: 13, fontWeight: 700, ...mono, color: c.signal, opacity: 0, pointerEvents: 'none' }}>+{x.to - x.from}</span>}
       </span>
