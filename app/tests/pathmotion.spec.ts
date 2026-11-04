@@ -2,7 +2,7 @@ import { _electron as electron, test, expect, type Page, type ElectronApplicatio
 import { mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { playSampleLesson } from './helpers';
+import { playSampleLesson, film, snap } from './helpers';
 
 // Redesign R06, tried in the real app: the path map moves. Circles pop in as they scroll into view (once per app start),
 // the current lesson's rings breathe, and finishing a lesson plays "coming on air" (turns green with a ring burst, the
@@ -20,48 +20,6 @@ const launch = async (progress: Record<string, number> = {}, opts: { sample?: bo
 const resize = (app: ElectronApplication, s: { w: number; h: number }) =>
   app.evaluate(({ BrowserWindow }, s) => BrowserWindow.getAllWindows()[0].setContentSize(s.w, s.h), s);
 
-type Frame = Record<string, { op: number; sx: number; sy: number; y: number } | null>;
-// Records, every frame for `ms`, each selector's own see-through-ness (op), its scale (x and y, from its transform) and
-// its top edge. Elements are looked up again each frame, because some only appear during the movement.
-// The frame rate (fps) counts only the frames of the movement itself: from the first frame where `from` is on the page
-// (when given), leaving out the gap that frame closes (building the new screen is a one-time cost, not the animation)
-// and any gap during a test screenshot taken with snap() (the test pausing the page, not the app being slow; found on
-// the Windows build in R06). The slowest gaps are printed, so a slow run shows where the time went.
-async function film(w: Page, sels: string[], act: () => Promise<void>, ms = 1900, from?: string) {
-  await w.evaluate(([sels, ms]) => {
-    const out = { frames: [] as Frame[], gaps: [] as number[], ts: [] as number[], pauses: [] as [number, number][] };
-    (window as unknown as { __film: typeof out }).__film = out;
-    const t0 = performance.now(); let last = t0;
-    const f = (t: number) => {
-      const fr: Frame = {};
-      for (const s of sels as string[]) {
-        const el = document.querySelector(s) as HTMLElement | null;
-        if (!el) { fr[s] = null; continue; }
-        const cs = getComputedStyle(el), m = cs.transform === 'none' ? new DOMMatrix() : new DOMMatrix(cs.transform);
-        fr[s] = { op: Math.round(Number(cs.opacity) * 1000) / 1000, sx: Math.round(Math.hypot(m.a, m.b) * 1000) / 1000, sy: Math.round(Math.hypot(m.c, m.d) * 1000) / 1000, y: Math.round(el.getBoundingClientRect().y * 10) / 10 };
-      }
-      out.frames.push(fr); out.gaps.push(t - last); out.ts.push(t); last = t;
-      if (t - t0 < (ms as number)) requestAnimationFrame(f);
-    };
-    requestAnimationFrame(f);
-  }, [sels, ms] as const);
-  await act();
-  await w.waitForTimeout(ms + 150);
-  const r = await w.evaluate(() => (window as unknown as { __film: { frames: Frame[]; gaps: number[]; ts: number[]; pauses: [number, number][] } }).__film);
-  const start = from ? Math.max(1, r.frames.findIndex(f => f[from])) : 0;
-  const gaps = r.gaps.map((g, i) => ({ g, i })).filter(({ g, i }) => i > start &&
-    !r.pauses.some(([a, b]) => r.ts[i] - g < b && r.ts[i] > a)).map(x => x.g);
-  const of = (s: string) => r.frames.map(f => f[s]);
-  console.log(`  slowest frames (ms): ${[...gaps].sort((a, b) => b - a).slice(0, 3).map(g => g.toFixed(0)).join(', ')}; ${r.pauses.length} screenshot pause(s) left out`);
-  return { ...r, of, fps: 1000 / (gaps.reduce((a, b) => a + b, 0) / gaps.length) };
-}
-// A screenshot during a film: the page is paused while it's taken, so film() leaves that time out of the frame rate.
-async function snap(w: Page, path?: string) {
-  const a = await w.evaluate(() => performance.now());
-  const png = await w.screenshot(path ? { path } : {});
-  await w.evaluate(a => { const b = performance.now(); (window as unknown as { __film: { pauses: [number, number][] } }).__film.pauses.push([a, b]); }, a);
-  return png;
-}
 const distinct = (xs: (number | undefined)[]) => new Set(xs.filter(x => x !== undefined)).size;
 
 // Finishes the sample lesson that's open, then presses "Continue" back to the path.

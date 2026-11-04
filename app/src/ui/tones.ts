@@ -6,11 +6,13 @@ import type { TokenKey } from '../theme/tokens';
 export type Tone = { bg: TokenKey; fg: TokenKey; border?: TokenKey; key?: TokenKey };
 
 // Buttons: bright ones carry dark words (onBright); "quiet" is a dark button with signal-coloured words.
+// "streak" (amber, R07) is kept for the streak repair, so it reads as part of the flame, not as the main action.
 export const BUTTON = {
   signal: { bg: 'signal', fg: 'onBright' },
   onAir: { bg: 'onAir', fg: 'onBright' },
   miss: { bg: 'miss', fg: 'onBright' },
   quiet: { bg: 'surface', fg: 'signal', border: 'borderStrong' },
+  streak: { bg: 'streak', fg: 'onBright' },   // only for saving your streak (the repair card, R07)
 } as const satisfies Record<string, Tone>;
 export type ButtonKind = keyof typeof BUTTON;
 

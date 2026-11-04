@@ -89,6 +89,30 @@ export const ON_AIR = {
 export const waveDelay = (k: number, count: number) =>
   ON_AIR.wave.delay + k * Math.min(TIME.stagger, ON_AIR.waveSpread / Math.max(1, count));
 
+// The top bar (redesign R07, DESIGN.md section 7, moment 5). It plays only when a number really went up while the app
+// was open (a lesson or review finished, a streak repaired), never at start-up. Times count from when the top bar
+// appears again: `wait` lets the frame fade in first (after a lesson it comes back with the path). All in 1.6 s at most.
+// - XP counts up like a meter, and a small "+30" rises off it and fades;
+// - the flame flickers once (a little bigger, a wiggle) while its glow brightens and dims, and the new number pops;
+// - the goal bar springs from the old amount to the new one; reaching the goal flashes the bar and pops its check on;
+// - a newly earned streak freeze pops in.
+const BAR_WAIT = 0.3;
+export const TOP_BAR = {
+  wait: BAR_WAIT,
+  count: { duration: 0.8, delay: BAR_WAIT, ease: EASE.out },                          // XP counting up
+  float: { duration: 0.9, delay: BAR_WAIT, ease: EASE.out },                          // the "+30" rising and fading
+  floatKeys: { y: [4, -12], opacity: [0, 1, 0] },
+  flicker: { duration: 0.6, delay: BAR_WAIT + 0.05, ease: 'easeInOut' as const },    // the flame
+  flickerKeys: { scale: [1, 1.32, 0.94, 1.12, 1], rotate: [0, -9, 7, -3, 0] },
+  glowKeys: { opacity: [0.25, 0.9, 0.25] },                                         // the flame's glow layer (still: 0.25)
+  pop: { duration: 0.4, delay: BAR_WAIT + 0.15, ease: 'easeOut' as const },          // a number that changed (streak, freezes)
+  popKeys: { scale: [1, 1.28, 1] },
+  fill: { ...SPRING.fill, delay: BAR_WAIT },                                         // the goal bar
+  flash: { duration: 0.6, delay: BAR_WAIT + 0.5, ease: EASE.out },                   // goal reached: the bar flashes ...
+  flashKeys: { opacity: [0, 0.85, 0] },
+  check: { ...SPRING.bouncy, delay: BAR_WAIT + 0.55 },                              // ... and its check pops on
+}; // not "as const": Motion wants plain (changeable) keyframe lists
+
 // True from the second render on. Things that move the moment they appear need it: the app's screens sit inside an
 // AnimatePresence with initial={false} (so nothing animates in when the app starts), and Motion then skips EVERY first
 // animation inside them, jumping straight to the end (found in R06). So such a piece starts at its "from" look and

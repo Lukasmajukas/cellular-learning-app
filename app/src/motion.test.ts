@@ -3,7 +3,8 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
-import { SPRING, TIME, PRESS, PRESS_BIG, PRESS_ROUND, PRESS_PILL, QUICK_FADE, INSTANT, LOOP, popInDelay, screenGlide, ON_AIR, BREATHE, waveDelay, popInQueue } from './theme/motion';
+import { SPRING, TIME, PRESS, PRESS_BIG, PRESS_ROUND, PRESS_PILL, QUICK_FADE, INSTANT, LOOP, popInDelay, screenGlide, ON_AIR, BREATHE, waveDelay, popInQueue, TOP_BAR } from './theme/motion';
+import { grew } from './ui/TopBar';
 
 const SRC = __dirname;
 const files = (dir: string): string[] => readdirSync(dir).flatMap(f => {
@@ -111,5 +112,32 @@ describe('the path map movement (redesign R06)', () => {
     expect(ds.slice(0, 3)).toEqual([0, TIME.stagger, 2 * TIME.stagger]);
     expect(Math.max(...ds)).toBeLessThanOrEqual(TIME.popInMax);
     expect(popInQueue(t + 500)).toBe(0);
+  });
+});
+
+describe('the top bar (redesign R07)', () => {
+  const end = (t: { delay: number; duration?: number }) => t.delay + (t.duration ?? 0.7); // springs counted as 0.7 s (R06)
+  it('every moment waits for the frame to fade in, and all of it ends within a celebration (1.6 s)', () => {
+    for (const k of ['count', 'float', 'flicker', 'pop', 'fill', 'flash', 'check'] as const) {
+      expect(TOP_BAR[k].delay, k).toBeGreaterThanOrEqual(TOP_BAR.wait);
+      expect(end(TOP_BAR[k]), k).toBeLessThanOrEqual(TIME.celebration);
+    }
+  });
+  it('only size, turning, position and see-through-ness move (the count-up is the measured exception), and nothing loops', () => {
+    for (const k of ['flickerKeys', 'glowKeys', 'popKeys', 'floatKeys', 'flashKeys'] as const)
+      for (const p of Object.keys(TOP_BAR[k])) expect(['scale', 'rotate', 'x', 'y', 'opacity'], `${k}.${p}`).toContain(p);
+    for (const k of ['count', 'float', 'flicker', 'pop', 'flash'] as const) expect('repeat' in TOP_BAR[k], k).toBe(false);
+  });
+  it('the flame flickers once and comes back to rest: small (at most a third bigger), starts and ends at its normal size', () => {
+    const sc = TOP_BAR.flickerKeys.scale, rot = TOP_BAR.flickerKeys.rotate;
+    expect([sc[0], sc.at(-1), rot[0], rot.at(-1)]).toEqual([1, 1, 0, 0]);
+    expect(Math.max(...sc)).toBeLessThanOrEqual(1.34);
+    expect(Math.max(...rot.map(Math.abs))).toBeLessThanOrEqual(12);
+    expect(TOP_BAR.glowKeys.opacity.at(-1)).toBe(TOP_BAR.glowKeys.opacity[0]); // the glow ends at its still look
+  });
+  it('a moment plays only when a number went up (a new day resetting today\'s XP or the goal plays nothing)', () => {
+    expect(grew({ from: 120, to: 150, n: 1 })).toBe(true);
+    expect(grew({ from: 30, to: 0, n: 1 })).toBe(false);
+    expect(grew({ from: 4, to: 4, n: 0 })).toBe(false);
   });
 });
