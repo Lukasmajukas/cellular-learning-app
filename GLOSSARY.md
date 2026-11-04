@@ -184,3 +184,5 @@ Claude adds new words here whenever they come up.
 | **Speed file** | The one file that holds every speed in the app (how fast things slide, bounce and fade): `app/src/theme/motion.tsx`. Change it there, and the whole app moves differently. |
 | **Keyboard shortcut** | A key that does what a click would: in a lesson, 1 to 4 pick an answer, Enter goes on, Esc leaves. |
 | **Flip book** | A few pictures taken one right after another while something moves, to check that it really moves smoothly. |
+| **Unit banner** | The heading above each unit on the path map: a small "UNIT 3", the unit's name, and how many of its lessons you've done ("2 / 5"). Its glowing bar is blue for the unit you're in and green when it's all done. |
+| **Zig-zag path** | The path map's layout: lesson circles go left, right, left down the screen, with each name beside its circle, joined by a dotted line. |

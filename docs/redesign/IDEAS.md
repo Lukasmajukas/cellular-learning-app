@@ -27,5 +27,8 @@
 | I16 | The "Your progress" card could show when the last backup was made ("Last backup: today, 09:12"), so you don't have to press the button to know. Needs the save code to report the newest backup file. | R03 | ⬜ |
 | I17 | The lesson circles pop in again, with a slow bounce (about a second), every time you come back to the Path tab. Pop them in only on the first visit after the app starts, or only the ones that changed, and keep the bounce short. Do it with R06. | R04 | ⬜ |
 | I18 | Show the keys once: a small, quiet "Keys: 1-4 pick · Enter go on · Esc leave" line in the first lesson (or a row in Settings), so the keyboard is easy to discover. | R04 | ⬜ |
-| I19 | Each tab remembers where you scrolled: coming back to the Path from Settings now starts at the top. Keep each tab's place (and open the path at your current lesson the first time, as R05 plans). | R04 | ⬜ |
+| I19 | Each tab remembers where you scrolled: coming back to the Path from Settings now starts at the top. Keep each tab's place (and open the path at your current lesson the first time, as R05 plans). *(R05: the path now opens at your current lesson every time it appears; the other tabs still start at the top. Remembering your exact place is still open.)* | R04 | ⬜ |
+| I20 | Tap a lesson's name as well as its circle: the name is a bigger, easier target (keep one button per lesson for the keyboard and screen readers). | R05 | ⬜ |
+| I21 | Checkpoint lessons get their own shape (a wider tower with a small flag, or a hexagon), so the end of each unit stands out on the map. | R05 | ⬜ |
+| I22 | Let the dotted line carry on between units (through the gap, past the next unit's banner), so the whole path feels like one journey instead of ten separate pieces. | R05 | ⬜ |
 | I10 | The gallery could also take a short burst of pictures of each animation (a "flip book" strip), so reviews can see movement without installing the app. | R01 | ⬜ |

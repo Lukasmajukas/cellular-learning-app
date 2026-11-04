@@ -39,7 +39,7 @@ Each row is one chat: Large (Opus), High effort. R01 to R04 must go in order (ev
 ### Part 2: the screens
 | # | Session | What changes on screen | Status |
 |---|---|---|---|
-| R05 | **Path map: layout** | Unit banners, lesson circles zig-zagging with their names beside them, the dotted signal line, done/current/locked looks; opens scrolled to your current lesson. | ⬜ |
+| R05 | **Path map: layout** | Unit banners, lesson circles zig-zagging with their names beside them, the dotted signal line, done/current/locked looks; opens scrolled to your current lesson. | ✅ 2026-11-04, #128 |
 | R06 | **Path map: movement** | Circles pop in as you scroll; the current one's rings breathe; "coming on air" when you finish a lesson; the line draws itself; a moment when a whole unit is done. | ⬜ |
 | R07 | **Top bar and daily goal** | Streak, XP and goal redrawn; XP counts up; the flame flickers when your streak grows; goal bar fills with a spring; streak freeze and repair restyled. | ⬜ |
 | R08 | **Design review 1** | A full review of R01–R07 against `DESIGN.md` and the look A picture: score every screen, fix small things, re-order the rest of this plan if needed. | ⬜ |
