@@ -68,10 +68,12 @@ function App() {
 
   // The top bar: streak, XP (and today's XP), streak freezes, and the daily goal as a small bar. R07 gives it its full look.
   const top = <>
-    <div data-testid="hud" style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+    <div data-testid="hud" style={{ display: 'flex', alignItems: 'center', gap: 14, whiteSpace: 'nowrap' }}>
       <StatChip data-testid="streak" icon="flame" tone="streak" title="Streak (days in a row)">{liveStreak(s.game, now)}</StatChip>
-      <StatChip data-testid="xp-total" icon="bolt" tone="signal" title="XP in total">{s.game.xp} XP</StatChip>
-      <span data-testid="xp-today" title="XP earned today" style={{ ...mono, fontSize: 13, color: c.textMuted }}>+{s.game.xpToday && s.game.xpDay === dayKey(now) ? s.game.xpToday : 0} today</span>
+      <span style={{ display: 'inline-flex', alignItems: 'baseline', gap: 6 }}>
+        <StatChip data-testid="xp-total" icon="bolt" tone="signal" title="XP in total">{s.game.xp}<span style={hidden}> XP</span></StatChip>
+        <span data-testid="xp-today" title="XP earned today" style={{ ...mono, fontSize: 13, color: c.textMuted }}>+{s.game.xpToday && s.game.xpDay === dayKey(now) ? s.game.xpToday : 0}<span style={hidden}> XP today</span></span>
+      </span>
       {s.game.freezes > 0 && <StatChip data-testid="freezes" icon="freeze" tone="review" iconLabel="Streak freezes:" title="Streak freezes" style={{ fontSize: 16 }}>{s.game.freezes}</StatChip>}
     </div>
     <div data-testid="goal" style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 8 }}>

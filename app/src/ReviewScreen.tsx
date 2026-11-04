@@ -6,7 +6,7 @@ import { Card, Button, Pill } from './ui';
 // R13 gives this screen its full "drive test" look; for now it's built from the building blocks.
 export function ReviewScreen({ due, onStart }: { due: number; onStart: () => void }) {
   return (
-    <div data-testid="review-screen" style={{ maxWidth: COLUMN, margin: '0 auto', padding: '8px 20px 32px', boxSizing: 'border-box' }}>
+    <div data-testid="review-screen" style={{ maxWidth: COLUMN, margin: '0 auto', padding: '16px 20px 32px', boxSizing: 'border-box' }}>
       <h1 style={{ margin: '0 0 12px' }}>Daily review</h1>
       <Card raised style={{ marginBottom: 16 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>

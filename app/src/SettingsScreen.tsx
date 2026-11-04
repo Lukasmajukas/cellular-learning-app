@@ -28,7 +28,7 @@ export function SettingsScreen({ settings, onChange }: { settings: Settings; onC
   const files = hasFileAccess();
   const set = (patch: Partial<Settings>) => onChange({ ...settings, ...patch });
   return (
-    <div data-testid="settings" style={{ maxWidth: COLUMN, margin: '0 auto', padding: '8px 20px 32px', boxSizing: 'border-box' }}>
+    <div data-testid="settings" style={{ maxWidth: COLUMN, margin: '0 auto', padding: '16px 20px 32px', boxSizing: 'border-box' }}>
       <h1 style={{ margin: '0 0 12px' }}>Settings</h1>
 
       <Card title="Sound and movement" style={{ marginBottom: 16, paddingBottom: 6 }}>

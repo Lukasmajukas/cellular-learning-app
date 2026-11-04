@@ -10,7 +10,7 @@ const TITLES: Record<Group, string> = { low: 'Low bands (below 1 GHz)', mid: 'Mi
 // R04: it's a tab now, so it has no back button (the Path tab, or Esc, goes back).
 export function HeatMap({ cells }: { cells: Cell[] }) {
   return (
-    <div data-testid="heatmap" style={{ maxWidth: COLUMN, margin: '0 auto', padding: '8px 20px 20px', boxSizing: 'border-box' }}>
+    <div data-testid="heatmap" style={{ maxWidth: COLUMN, margin: '0 auto', padding: '16px 20px 20px', boxSizing: 'border-box' }}>
       <h1 style={{ margin: '0 0 4px' }}>Band memory</h1>
       <p style={{ margin: '0 0 12px', color: c.textMuted }}>Green = you know it. Red = it is fading, so review it. Grey = you have not been quizzed on it yet.</p>
       {(['low', 'mid', 'high'] as Group[]).map(g => {

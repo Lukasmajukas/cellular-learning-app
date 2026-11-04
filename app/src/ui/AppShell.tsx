@@ -26,7 +26,8 @@ export function AppShell({ tab, onTab, top, badges = {}, children }:
         background: `color-mix(in srgb, ${c.bg} 90%, transparent)` }}>
         <div style={{ maxWidth: COLUMN, minHeight: 56, margin: '0 auto', padding: '6px 20px', boxSizing: 'border-box', display: 'flex', alignItems: 'center', gap: 14 }}>{top}</div>
       </header>
-      <main style={{ paddingBottom: TAB_BAR_HEIGHT + 16 }}>{children}</main>
+      {/* overflowX clip: a screen gliding in from the side must not flash a sideways scrollbar (seen in R04's flip book). */}
+      <main style={{ paddingBottom: TAB_BAR_HEIGHT + 16, overflowX: 'clip' }}>{children}</main>
       <nav aria-label="Main" data-testid="tab-bar" style={{ position: 'fixed', left: 0, right: 0, bottom: 0, zIndex: 10, height: TAB_BAR_HEIGHT,
         background: c.surface, borderTop: `1px solid ${c.border}` }}>
         <div style={{ maxWidth: COLUMN, height: '100%', margin: '0 auto', padding: '0 8px', boxSizing: 'border-box', display: 'flex' }}>

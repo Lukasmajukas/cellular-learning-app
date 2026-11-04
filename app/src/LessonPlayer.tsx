@@ -174,11 +174,12 @@ export function LessonPlayer({ lesson, onFinish, onQuit }: { lesson: Lesson; onF
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
         <button data-testid="quit" onClick={onQuit} aria-label="Leave the lesson" aria-keyshortcuts="Escape" title="Leave the lesson (Esc)" style={{ width: 44, height: 44, display: 'grid', placeItems: 'center', border: 0, borderRadius: '50%', background: 'none', color: c.textMuted, cursor: 'pointer', flexShrink: 0 }}><Icon name="close" /></button>
         <div style={{ flex: 1, height: 10, background: c.track, borderRadius: 5, overflow: 'hidden' }}>
-          <motion.div style={{ height: '100%', background: c.signal }} animate={{ width: `${(Math.min(run.index, run.queue.length) / run.queue.length) * 100}%` }} />
+          <motion.div style={{ height: '100%', background: c.signal }} initial={false} animate={{ width: `${(Math.min(run.index, run.queue.length) / run.queue.length) * 100}%` }} />
         </div>
       </div>
       <Mascot happy={!res || res.ok} />
-      <AnimatePresence mode="wait">
+      {/* initial={false}: the first question is already in place while the whole lesson rises (R04); later ones slide in. */}
+      <AnimatePresence mode="wait" initial={false}>
         {!done && it ? (
           <motion.div key={`${run.index}-${it.id}`} initial={{ x: 60, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: -60, opacity: 0 }}>
             {it.kind === 'learn' ? (

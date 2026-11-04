@@ -21,7 +21,7 @@ export function Pill({ tone = 'quiet', icon, children, style, ...rest }: { tone?
 // A number with its icon, like the streak flame or XP bolt in the top bar. Numbers use the "code" font.
 export function StatChip({ icon, tone, iconLabel, children, style, ...rest }: { icon: IconName; tone: TokenKey; iconLabel?: string; children: ReactNode; style?: CSSProperties; 'data-testid'?: string; title?: string }) {
   return (
-    <span {...rest} style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 18, ...mono, color: c[tone], ...style }}>
+    <span {...rest} style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 18, ...mono, whiteSpace: 'nowrap', color: c[tone], ...style }}>
       <Icon name={icon} size={20} label={iconLabel} />{children}
     </span>
   );
