@@ -55,9 +55,9 @@ questions:
     kind: choice
     facts: [hardware:ports:panel-length]
     prompt: A panel name ends in B. How long is it?
-    choices: [1.3 m, 2.0 m, 2.6 m]
+    choices: ['{hardware:ports:panel-length.len_a}', '{hardware:ports:panel-length.len_b}', '{hardware:ports:panel-length.len_c}']
     answer: 1
-    why: A is 1.3 m, B is 2.0 m and C is 2.6 m.
+    why: A is {hardware:ports:panel-length.len_a}, B is {hardware:ports:panel-length.len_b} and C is {hardware:ports:panel-length.len_c}.
   - id: u8-cp-model-01
     kind: choice
     facts: [hardware:model:air-suffix]

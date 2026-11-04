@@ -23,11 +23,11 @@ questions:
   - id: u3-b70-learn-02
     kind: learn
     title: Some of these airwaves are changing hands
-    facts: [change:1, change:9]
+    facts: [change:echostar-spacex-b70, change:echostar-spacex-final]
     label: coming
     text: >
       A deal is pending in which EchoStar would sell part of this airwaves family to SpaceX. SpaceX is expected to use it for satellites, not for normal phone towers.
-      The B70 uplink slice ({change:1.bands}) was announced in {change:1.date} and is still pending. The final handover of the downlink slices is expected around {change:9.date}.
+      The B70 uplink slice ({change:echostar-spacex-b70.bands}) was announced in {change:echostar-spacex-b70.date} and is still pending. The final handover of the downlink slices is expected around {change:echostar-spacex-final.date}.
     show: [B70]
   - id: u3-wcs-name-01
     kind: choice
@@ -57,7 +57,7 @@ questions:
     why: Boost's traffic moved to AT&T's network by Nov 2025. That is history now.
   - id: u3-b70-spacex-01
     kind: choice
-    facts: [change:1]
+    facts: [change:echostar-spacex-b70]
     label: coming
     prompt: Who is expected to get the B70 uplink slice?
     choices:
@@ -65,7 +65,7 @@ questions:
       - "EchoStar keeps it and sells nothing"
       - AT&T
     answer: 0
-    why: The deal is pending ({change:1.date}). EchoStar would sell it to SpaceX.
+    why: The deal is pending ({change:echostar-spacex-b70.date}). EchoStar would sell it to SpaceX.
   - id: u3-wcs-clue-01
     kind: choice
     facts: [band:B30, band:B66, band:B25]

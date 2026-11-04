@@ -65,10 +65,10 @@ questions:
     why: B12's uplink ({band:B12.ul_low_mhz} MHz) is below its downlink ({band:B12.dl_low_mhz} MHz).
   - id: u2-sale700-01
     kind: choice
-    facts: [change:2, change:3]
+    facts: [change:array-att-700-n77, change:array-tmobile-700]
     prompt: In 2026, Array (the old UScellular) sold 700 MHz licences. Who bought them?
     choices:
-      - "AT&T (closed {change:2.date}) and T-Mobile (closed {change:3.date}) each bought some"
+      - "AT&T (closed {change:array-att-700-n77.date}) and T-Mobile (closed {change:array-tmobile-700.date}) each bought some"
       - "Only AT&T"
       - "Only T-Mobile"
     answer: 0

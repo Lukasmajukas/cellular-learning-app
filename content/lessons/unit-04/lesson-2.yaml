@@ -66,11 +66,11 @@ questions:
     why: AT&T runs n77. The checked n41 row belongs to T-Mobile.
   - id: u4-cband-sale-01
     kind: choice
-    facts: [change:2]
-    prompt: In {change:2.date}, AT&T bought n77 (3.45 GHz) and 700 MHz spectrum. From whom?
+    facts: [change:array-att-700-n77]
+    prompt: In {change:array-att-700-n77.date}, AT&T bought n77 (3.45 GHz) and 700 MHz spectrum. From whom?
     choices: [Array (the former UScellular), EchoStar, Verizon]
     answer: 0
-    why: The seller was "{change:2.from}". The deal closed {change:2.date}.
+    why: The seller was "{change:array-att-700-n77.from}". The deal closed {change:array-att-700-n77.date}.
   - id: u4-cband-tier-01
     kind: choice
     facts: [band:n77]

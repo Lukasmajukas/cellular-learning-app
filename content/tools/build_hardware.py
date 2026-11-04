@@ -37,7 +37,7 @@ ROWS = [
  ("ports:hexport", "ports", "W", "A hexport panel (like the SBNHH) has 6 connectors. We have not checked how they split between low and mid band.", S_PANEL, {}),
  ("ports:nnhh", "ports", "W", "An NNHH panel has 8 connectors: 4 for low band and 4 for mid band.", S_PANEL, {}),
  ("ports:ntnr", "ports", "inference", "A band that works as 4T4R needs 4 antenna ports, so counting a band's ports usually tells you its T and R number. This is a good guess from how the panels are built, not a law.", f"{NOTE} question 3 (inference from the panel and radio listings above)", {}),
- ("ports:panel-length", "ports", "W", "In a CommScope panel name, the last letter is the length: A is 1.3 m, B is 2.0 m and C is 2.6 m. In the band letters, N means 698 to 896 MHz and H means 1710 to 2180 MHz.", S_PANEL, {}),
+ ("ports:panel-length", "ports", "W", "In a CommScope panel name, the last letter is the length: A is 1.3 m, B is 2.0 m and C is 2.6 m. In the band letters, N means 698 to 896 MHz and H means 1710 to 2180 MHz.", S_PANEL, {"values": {"len_a": "1.3 m", "len_b": "2.0 m", "len_c": "2.6 m"}}),
  ("model:air-64xx", "model", "inference", "Ericsson's AIR means Antenna Integrated Radio. The first two digits of the model number usually match the radio paths: AIR 6449 has 64 (64T64R) and AIR 3268 has 32. This is a pattern in the examples we found, not a law.", f"{S_AAU}; the 'first two digits' rule is our reading of the AIR 6449, AIR 6419 and AIR 3268 examples", {}),
  ("model:air-suffix", "model", "P", "The ending of an Ericsson AIR name shows the band: B41 is 2.5 GHz (2496 to 2690 MHz), B77D is C-band (3700 to 3980 MHz) and B48 is CBRS.", S_AIR, {}),
  ("model:radio-dual", "model", "P", "A dual-band Ericsson radio lists both bands in its name, such as Radio 4449 B5/B13 or Radio 4480 B71+B85.", S_RADIO, {}),
@@ -45,7 +45,7 @@ ROWS = [
  ("model:samsung-suffix", "model", "inference", "Samsung names may end in the band: -77A for n77 and -13A for band 13. This is only our guess from two examples.", S_SAMS_HYP, {"status": "UNVERIFIED"}),
  ("use:air6449-b41-tmobile", "use", "P", "T-Mobile's filings list the Ericsson AIR 6449 B41, so it is a T-Mobile n41 (2.5 GHz) radio.", S_TMO, {}),
  ("use:air6449-b77d-attvz", "use", "P", "The Ericsson AIR 6449 B77D is a C-band radio. AT&T is named in its filings. Verizon's C-band uses Samsung boxes in the filings we found.", S_AIR, {}),
- ("use:samsung-verizon", "use", "P", "Verizon's filings list the Samsung MT6407-77A (a 64T64R C-band all-in-one) and the Samsung RF4440d-13A (a 700/850 MHz radio).", S_SAMSUNG, {}),
+ ("use:samsung-verizon", "use", "P", "Verizon's filings list the Samsung MT6407-77A (a 64T64R C-band all-in-one) and the Samsung RF4440d-13A (a 700/850 MHz radio).", S_SAMSUNG, {"values": {"rf4440_bands": "700/850 MHz"}}),
  ("use:4480-b71-b85", "use", "P", "A T-Mobile tower-share notice lists the Ericsson Radio 4480 B71+B85, a dual-band radio that includes the 600 MHz band 71.", S_CT4480, {}),
  ("weight:massive-mimo", "weight", "T", "Massive MIMO boxes have got lighter with each generation. Very roughly, a big one is about 25 to 40 kg and a small one about 12 kg. Sources disagree on exact weights.", S_WEIGHT, {"quiz": False}),
  ("evidence:brand-weakest", "rule", "inference", "A radio's model name usually tells you what the box is, but not always who runs it. The carrier's own sticker counts most and the equipment brand counts least.", S_ORDER, {}),
@@ -59,6 +59,8 @@ def main():
                "status": extra.get("status", "CURRENT"), "as_of": AS_OF, "source": source}
         if extra.get("quiz") is False:
             row["quiz"] = False
+        if extra.get("values"):
+            row["values"] = extra["values"]  # fill-ins for lessons, like {hardware:ports:panel-length.len_a}
         rows.append(row)
     with open("content/hardware.json", "w", encoding="utf-8") as f:
         json.dump({"as_of": AS_OF, "hardware": rows}, f, indent=1, ensure_ascii=False)

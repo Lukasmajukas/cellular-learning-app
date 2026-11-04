@@ -14,11 +14,11 @@ questions:
   - id: u2-b26-learn-01
     kind: learn
     title: History of B26
-    facts: [carrier_use:B26/tmobile, change:7]
+    facts: [carrier_use:B26/tmobile, change:tmobile-grain]
     label: history
     text: >
       T-Mobile used part of B26 (800 MHz it got from Sprint). It sold those licences to Grain Management;
-      the deal closed {change:7.date}. This is history: T-Mobile no longer holds them.
+      the deal closed {change:tmobile-grain.date}. This is history: T-Mobile no longer holds them.
     show: [B26]
   - id: u2-b5b26-big-01
     kind: choice
@@ -43,7 +43,7 @@ questions:
     why: B5 is "{band:B5.name}".
   - id: u2-b26-history-01
     kind: choice
-    facts: [carrier_use:B26/tmobile, change:7]
+    facts: [carrier_use:B26/tmobile, change:tmobile-grain]
     label: history
     prompt: What happened to T-Mobile's B26 (800 MHz) licences?
     choices:
@@ -51,7 +51,7 @@ questions:
       - "It bought them from Grain Management"
       - "It still uses them, nothing changed"
     answer: 0
-    why: The sale to Grain closed {change:7.date}. T-Mobile no longer holds them.
+    why: The sale to Grain closed {change:tmobile-grain.date}. T-Mobile no longer holds them.
   - id: u2-b5-flip-01
     kind: choice
     facts: [band:B5]

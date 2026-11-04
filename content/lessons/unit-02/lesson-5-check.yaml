@@ -89,7 +89,7 @@ questions:
     why: T-Mobile runs n71 today. AT&T's 600 MHz build is only planned.
   - id: u2-cp-carrier-02
     kind: choice
-    facts: [carrier_use:n71/att, change:6]
+    facts: [carrier_use:n71/att, change:echostar-att]
     label: coming
     prompt: AT&T and 600 MHz, what is the situation?
     choices:
@@ -97,10 +97,10 @@ questions:
       - "It already runs n71 across the country"
       - "It sold its 600 MHz to EchoStar"
     answer: 0
-    why: The deal with EchoStar closed {change:6.date}. The build is planned, not finished.
+    why: The deal with EchoStar closed {change:echostar-att.date}. The build is planned, not finished.
   - id: u2-cp-history-01
     kind: choice
-    facts: [carrier_use:B26/tmobile, change:7]
+    facts: [carrier_use:B26/tmobile, change:tmobile-grain]
     label: history
     prompt: What happened to T-Mobile's B26 (800 MHz) licences?
     choices:
@@ -108,7 +108,7 @@ questions:
       - "It bought them from Grain Management"
       - "It still uses them, nothing changed"
     answer: 0
-    why: The sale to Grain closed {change:7.date}. T-Mobile no longer holds them.
+    why: The sale to Grain closed {change:tmobile-grain.date}. T-Mobile no longer holds them.
   - id: u2-cp-mixed-01
     kind: choice
     facts: [band:B71]

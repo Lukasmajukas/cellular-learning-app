@@ -99,8 +99,8 @@ questions:
     why: "{site:evidence:order.text}"
   - id: u10-full-stale-01
     kind: choice
-    facts: [change:0]
-    prompt: "In {change:0.date}, UScellular's spectrum was sold to T-Mobile. Why can a shortcut like \"this band means that carrier\" go out of date?"
+    facts: [change:uscellular-tmobile]
+    prompt: "In {change:uscellular-tmobile.date}, UScellular's spectrum was sold to T-Mobile. Why can a shortcut like \"this band means that carrier\" go out of date?"
     choices: ["Carriers buy and sell spectrum", "Radio waves change speed", "Bands get renamed every week"]
     answer: 0
     why: Spectrum changes hands. Always look at the date on a fact.

@@ -174,6 +174,16 @@ describe('unit 7 content (reading a site)', () => {
   });
 });
 
+describe('T55 fill-ins follow the data files', () => {
+  const text = JSON.stringify(allLessons(REAL_PATH).flatMap(l => l.questions));
+  it('panel lengths, radio bands and B66 channel numbers are filled in, never left as braces', () => {
+    expect(text).not.toMatch(/\{(hardware|cellid|change):/);
+    expect(text).toContain('2.6 m');
+    expect(text).toContain('700/850 MHz');
+    expect(text).toContain('66436');
+  });
+});
+
 describe('unit 8 content (hardware)', () => {
   const u8 = allLessons(REAL_PATH).filter(l => l.id.startsWith('unit08-'));
   it('has 4 lessons and a checkpoint, all resolved', () => {

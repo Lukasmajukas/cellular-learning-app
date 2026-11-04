@@ -91,11 +91,11 @@ questions:
     why: Verizon runs n260. The checked T-Mobile row is n41.
   - id: u4-cp-sale-01
     kind: choice
-    facts: [change:2]
-    prompt: In {change:2.date}, who sold AT&T the n77 (3.45 GHz) spectrum?
+    facts: [change:array-att-700-n77]
+    prompt: In {change:array-att-700-n77.date}, who sold AT&T the n77 (3.45 GHz) spectrum?
     choices: [Array (the former UScellular), EchoStar, Verizon]
     answer: 0
-    why: The seller was "{change:2.from}".
+    why: The seller was "{change:array-att-700-n77.from}".
   - id: u4-cp-mixed-01
     kind: choice
     facts: [band:B71, band:B41]

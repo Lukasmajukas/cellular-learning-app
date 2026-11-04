@@ -71,7 +71,12 @@
    "text": "In a CommScope panel name, the last letter is the length: A is 1.3 m, B is 2.0 m and C is 2.6 m. In the band letters, N means 698 to 896 MHz and H means 1710 to 2180 MHz.",
    "status": "CURRENT",
    "as_of": "2026-11-02",
-   "source": "docs/research/notes/vendors_and_cells.md question 3: The Antenna Farm (SBNHH-1D65C, NNHH-65C-R4 listings), Argus/CommScope model-number chart (Scribd); resellers, pages not opened here"
+   "source": "docs/research/notes/vendors_and_cells.md question 3: The Antenna Farm (SBNHH-1D65C, NNHH-65C-R4 listings), Argus/CommScope model-number chart (Scribd); resellers, pages not opened here",
+   "values": {
+    "len_a": "1.3 m",
+    "len_b": "2.0 m",
+    "len_c": "2.6 m"
+   }
   },
   {
    "id": "model:air-64xx",
@@ -143,7 +148,10 @@
    "text": "Verizon's filings list the Samsung MT6407-77A (a 64T64R C-band all-in-one) and the Samsung RF4440d-13A (a 700/850 MHz radio).",
    "status": "CURRENT",
    "as_of": "2026-11-02",
-   "source": "docs/research/notes/vendors_and_cells.md question 2: Montgomery County MC2022051756, CT Griswold filing em-ver-058-211018 (Samsung MT6407-77A, RF4440d-13A); pages not opened here"
+   "source": "docs/research/notes/vendors_and_cells.md question 2: Montgomery County MC2022051756, CT Griswold filing em-ver-058-211018 (Samsung MT6407-77A, RF4440d-13A); pages not opened here",
+   "values": {
+    "rf4440_bands": "700/850 MHz"
+   }
   },
   {
    "id": "use:4480-b71-b85",

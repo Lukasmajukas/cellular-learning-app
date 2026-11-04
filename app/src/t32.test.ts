@@ -32,8 +32,11 @@ describe('templates', () => {
   it('fills band, carrier and change facts', () => {
     expect(fill('{band:B71.dl_low_mhz}–{band:B71.dl_high_mhz}', DATA)).toBe('617–652');
     expect(lookup('carrier_use:n71/tmobile.status', DATA)).toBe('CURRENT');
-    expect(lookup('change:0.status', DATA)).toBeTruthy();
+    expect(lookup('change:array-verizon.status', DATA)).toBeTruthy();
     expect(fill('{code:310-260.shows_as}', DATA)).toBe('T-Mobile');
+    // A row's extra numbers live in `values`; the fill-in looks there when the row itself has no such field.
+    const extra = { ...DATA, cell_ids: [{ id: 'lte:earfcn-b66', values: { n_low: 66436 } }], hardware: [{ id: 'ports:panel-length', values: { len_a: '1.3 m' } }] };
+    expect(fill('{cellid:lte:earfcn-b66.n_low} {hardware:ports:panel-length.len_a}', extra)).toBe('66436 1.3 m');
     expect(() => fill('{code:999-999.shows_as}', DATA)).toThrow(/No such fact/);
   });
   it('fails loudly on a missing band, field or bad reference', () => {
