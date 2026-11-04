@@ -35,7 +35,7 @@ export function SettingsScreen({ settings, onChange }: { settings: Settings; onC
         <Row name="Sounds" hint="A soft sound for right and wrong answers."
           icon={<Icon name={settings.sounds ? 'soundOn' : 'soundOff'} size={20} style={{ color: c.textMuted }} />}
           control={<Switch testId="set-sounds" checked={settings.sounds} onChange={sounds => set({ sounds })} />} />
-        <Row name="Reduce motion" hint="No confetti, no sliding or bouncing."
+        <Row name="Reduce motion" hint="No bursts, no sliding or bouncing."
           control={<Switch testId="set-motion" checked={settings.reduceMotion} onChange={reduceMotion => set({ reduceMotion })} />} />
         <Row name="Show frame rate" hint="Pictures per second, in the corner." last
           control={<Switch testId="set-fps" checked={settings.showFps} onChange={showFps => set({ showFps })} />} />

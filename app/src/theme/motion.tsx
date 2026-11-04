@@ -28,7 +28,6 @@ export const TIME = {
   celebration: 1.6,   // the longest a celebration may take (it never blocks a tap)
   ambient: 2.4,       // one round of a background loop (2-4 s)
   calmFade: 0.15,     // with Reduce motion: things appear with a quick fade of at most 150 ms
-  burstWait: 0.2,     // the lesson-complete burst waits this long, so the last question has left first
 } as const;
 
 // Ease curves: "out" starts fast and lands softly (for things arriving), "in" starts softly and leaves fast.
@@ -174,6 +173,43 @@ export const FEEDBACK = {
   sparkKeys: { opacity: [0, 1, 0] },                                       // ... lights up and fades as it steps forward
 }; // not "as const": Motion wants plain (changeable) keyframe lists
 
+// Lesson complete (redesign R12, DESIGN.md section 7, moment 3). It starts the moment the end screen appears (the last
+// question has glided out first) and is all over within a celebration (1.6 s). It never stops you tapping: "Back to the
+// path" works from the first moment. In order:
+// - Beacon grows from its question size to its big size with a spring (idea I34: it used to jump from 58 to 112 px), and
+//   cheers (its own hop and two rings, BEACON above);
+// - the "signal burst" (instead of confetti): three rings spread out from Beacon's head and fade, while 12 small wave
+//   pieces fly outward and fade. Drawn in the page (not on a canvas), so it shows on every computer (T46/T57);
+// - the stars you earned drop into their places one by one (the empty places are there from the start, dim);
+// - XP counts up like a meter from 0;
+// - the signal bars you earned fill one by one, from the bottom.
+// Every piece moves a whole `transform` (and opacity), so the browser runs it on its graphics side (the R07 lesson).
+// With Reduce motion nothing moves and no burst plays: the screen simply shows the result.
+const GROW_FROM = 58 / 112;                                                // BEACON_SIZE.question / BEACON_SIZE.complete
+export const COMPLETE = {
+  grow: { ...SPRING.bouncy, delay: 0 },                                    // Beacon growing (I34) ...
+  growKeys: { transform: [`scale(${GROW_FROM.toFixed(3)})`, 'scale(1)'] },   // ... from its question size
+  ring: { duration: 0.9, delay: 0.1, ease: EASE.out },                     // the burst's rings ...
+  ringGap: 0.15,                                                           // ... three of them, this far apart
+  rings: 3,
+  ringKeys: { transform: ['scale(0.35)', 'scale(2.2)'], opacity: [0.9, 0] },
+  piece: { duration: 0.8, delay: 0.15, ease: EASE.out },                   // the wave pieces flying out ...
+  pieces: 12,
+  pieceFrom: 28, pieceTo: 84,                                              // ... from this far from the head to this far (px):
+                                                                           // short of the lesson's top row (R12, seen in the pictures)
+  pieceFade: [0, 1, 1, 0],
+  star: { ...SPRING.bouncy, delay: 0.3 },                                  // the stars drop in ...
+  starGap: 0.2,                                                            // ... one after another
+  starKeys: { transform: ['translateY(-28px) scale(0.4)', 'translateY(0px) scale(1)'] },
+  starFade: { duration: 0.15, ease: EASE.out },
+  count: { duration: 0.8, delay: 0.4, ease: EASE.out },                    // XP counting up from 0 (soon: a still "+0" looked odd)
+  bar: { duration: 0.25, delay: 0.6, ease: EASE.out },                     // the signal bars fill ...
+  barGap: 0.1,                                                             // ... one by one
+  barKeys: { transform: ['scaleY(0)', 'scaleY(1)'] },
+}; // not "as const": Motion wants plain (changeable) keyframe lists
+// When the k-th of a row (stars, bars, rings) starts.
+export const nth = <T extends { delay: number }>(t: T, k: number, gap: number): T => ({ ...t, delay: t.delay + k * gap });
+
 // A question gliding in and out (R11): in from the right, out to the left, like a page turning; together within a
 // screen change (320-420 ms). With Reduce motion: only a quick fade in, and the old one goes at once.
 const STEP = 40;
@@ -225,7 +261,7 @@ export function screenGlide(kind: 'tab' | 'lesson' | 'frame', calm: boolean) {
 export const useCalm = () => !!useReducedMotionConfig();
 
 // Reduce motion, in one place: wrap the app (or a test page) in this. It tells Motion, and it tells the code outside
-// React (the confetti) through prefs. Only the app's own switch counts, never Windows' setting (T46).
+// React (the sound code) through prefs. Only the app's own switch counts, never Windows' setting (T46).
 export function MotionKit({ calm, children }: { calm: boolean; children: ReactNode }) {
   prefs.reduceMotion = calm;
   return <MotionConfig reducedMotion={calm ? 'always' : 'never'}>{children}</MotionConfig>;

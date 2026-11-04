@@ -6,29 +6,35 @@ import { playSampleLesson } from './helpers';
 
 const launch = () => electron.launch({ args: ['.', '--no-sandbox'], env: { ...process.env, CELL_SAMPLE_PATH: '1', CELL_DATA_DIR: mkdtempSync(join(tmpdir(), 'cell-e2e-')) } });
 
-// Confetti is drawn by a background worker, so its pixels can't be read back. We count the bursts the app fired
-// and check that a visible full-window canvas exists; the screenshot is looked at by eye.
-const bursts = (w: import('@playwright/test').Page) => w.evaluate(() => (window as unknown as { __confettiBursts?: number }).__confettiBursts ?? 0);
-const canvasBox = (w: import('@playwright/test').Page) => w.evaluate(() => {
-  const c = document.querySelector('canvas'); if (!c) return null;
-  const r = c.getBoundingClientRect(); return { w: r.width, h: r.height, z: getComputedStyle(c).zIndex, vis: getComputedStyle(c).visibility };
-});
+// The lesson-complete "signal burst" (R12) replaced the confetti, which was drawn on a canvas by a background worker and
+// never showed on the owner's Windows PC (T46, T57). The burst is drawn in the page, so its pieces can be measured.
+const bursts = (w: import('@playwright/test').Page) => w.evaluate(() => (window as unknown as { __signalBursts?: number }).__signalBursts ?? 0);
+// The burst's first ring, every frame for a second: how see-through it is and how big it has grown.
+const ringFrames = (w: import('@playwright/test').Page) => w.evaluate(() => new Promise<{ op: number; sx: number }[]>(res => {
+  const out: { op: number; sx: number }[] = []; const t0 = performance.now();
+  const f = () => {
+    const el = document.querySelector('[data-ring="0"]');
+    if (el) { const cs = getComputedStyle(el), m = cs.transform === 'none' ? new DOMMatrix() : new DOMMatrix(cs.transform); out.push({ op: Number(cs.opacity), sx: Math.hypot(m.a, m.b) }); }
+    if (performance.now() - t0 < 1000) requestAnimationFrame(f); else res(out);
+  };
+  requestAnimationFrame(f);
+}));
 
-// R11 (idea I31): confetti only falls at the end of a lesson now, not after each right answer, so these play the lesson to the end.
-test('confetti really shows, even when Windows says "reduce motion"', async () => {
+test('the signal burst really shows, even when Windows says "reduce motion"', async () => {
   const app = await launch(); const w = await app.firstWindow();
   await w.emulateMedia({ reducedMotion: 'reduce' }); await w.reload(); // what Windows "animation effects: off" tells the app (read when the page loads)
   await w.getByTestId('lesson-u1-l1').click();
   await playSampleLesson(w);
+  const ring = await ringFrames(w);
   await expect.poll(() => bursts(w), { timeout: 3000 }).toBe(1);
-  await w.waitForTimeout(250);
-  const box = await canvasBox(w);
-  expect(box && box.w > 300 && box.h > 300 && box.vis === 'visible').toBeTruthy();
-  await w.screenshot({ path: 'test-results/confetti.png' });
+  console.log(`  ring frames ${ring.length}; up to op ${Math.max(...ring.map(f => f.op)).toFixed(2)}, scale ${Math.max(...ring.map(f => f.sx)).toFixed(2)}`);
+  expect(Math.max(...ring.map(f => f.op)), 'the ring is seen').toBeGreaterThan(0.5);
+  expect(Math.max(...ring.map(f => f.sx)), 'and it spreads out').toBeGreaterThan(1.5);
+  await w.screenshot({ path: 'test-results/burst-after.png' });
   await app.close();
 });
 
-test('the in-app "reduce motion" switch still turns confetti off', async () => {
+test('the in-app "reduce motion" switch still turns the burst off', async () => {
   const app = await launch(); const w = await app.firstWindow();
   await w.getByTestId('tab-settings').click();
   await w.getByTestId('set-motion').check();
@@ -37,7 +43,8 @@ test('the in-app "reduce motion" switch still turns confetti off', async () => {
   await playSampleLesson(w);
   await w.waitForTimeout(800);
   expect(await bursts(w)).toBe(0);
-  expect(await canvasBox(w)).toBeNull();
+  await expect(w.locator('[data-testid=signal-burst]')).toHaveCount(0);
+  await expect(w.locator('canvas')).toHaveCount(0);
   await app.close();
 });
 
@@ -70,13 +77,13 @@ test('animations move when Windows says "reduce motion" (this passes on the old 
   await app.close();
 });
 
-test('leaving the lesson clears its confetti, so it doesn\'t fall over the path while "coming on air" plays (design review 1)', async () => {
+test('leaving the lesson clears its burst, so it doesn\'t play over the path while "coming on air" plays (design review 1)', async () => {
   const app = await launch(); const w = await app.firstWindow();
   await w.getByTestId('lesson-u1-l1').click();
   await playSampleLesson(w);
-  await expect.poll(() => canvasBox(w), { timeout: 3000 }).not.toBeNull(); // the lesson-complete burst is falling
+  await expect(w.locator('[data-testid=signal-burst]')).toHaveCount(1);        // the lesson-complete burst is playing
   await w.getByTestId('finish').click();
   await w.getByTestId('screen-path').waitFor();
-  await expect.poll(() => canvasBox(w), { timeout: 1000 }).toBeNull();     // gone well before it would have ended (about 3 s)
+  await expect.poll(() => w.locator('[data-testid=signal-burst]').count(), { timeout: 1000 }).toBe(0);
   await app.close();
 });

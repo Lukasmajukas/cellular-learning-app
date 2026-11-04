@@ -193,5 +193,6 @@ Claude adds new words here whenever they come up.
 | **Chip** | A small rounded button as wide as its words, like "Low band". Several fit in a row, so the app uses them for short answers (the scenario clues) and for the items you put in order. |
 | **Keyframes** | A list of the steps a movement goes through, like a flip book: "6 px left, 6 px right, 4 px left ... back to the middle" is a gentle shake. The app plays them smoothly one after another. |
 | **Comeback question** | A question you missed that comes back once, a few questions later, for another try. Since R11 it has a small "Comeback" label, and it doesn't make the "3 / 12" counter grow. |
+| **Signal burst** | The app's own celebration when you finish a lesson (since R12): rings spread out from Beacon's head and little bits of radio wave fly outward, then everything fades. It replaced confetti, which never showed on your Windows PC. |
 | **Scrollbar gutter** | The strip at the side of the window where the scrollbar sits. Keeping it there even when a page is too short to scroll stops everything jumping sideways when you switch screens. |
 | **Zig-zag path** | The path map's layout: lesson circles go left, right, left down the screen, with each name beside its circle, joined by a dotted line. |
