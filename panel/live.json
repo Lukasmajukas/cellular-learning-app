@@ -3,10 +3,10 @@
   "robot": {
     "on": true,
     "next": "right away (it starts its next job by itself), and every hour",
-    "last": "\"this changed\" cards (T54)"
+    "last": "built the daily review, streak and goal extras, \"this changed\" cards and content tidy-ups (T53 to T55)"
   },
   "light": "green",
-  "working": "Nothing in progress. Streak freeze, repair button and goal bar are built (T54); \"this changed\" cards are built too (final-exam badge still needs your yes). For you: download the newest build from the project's Releases page and tell Claude the frame-rate number and whether you see confetti (T46).",
+  "working": "Nothing in progress. For you: send 3 or 4 screenshots of the green picture at start-up (T57), and start the Opus chat that plans the redesign (T58). Waiting for your OK: should the robot stop changing how the app looks until that plan is signed off?",
   "limit": {
     "state": "warning",
     "resets": "Wed Nov 4, 5:00 AM Eastern. The robot keeps working until it runs out"

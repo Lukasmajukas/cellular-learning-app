@@ -64,6 +64,7 @@ Claude adds new words here whenever they come up.
 | **Rate limit** | A cap on how often you can ask a website for something, like "5 cookies per hour". |
 | **Frame rate (fps)** | How many pictures per second the screen draws, like the pages of a flip-book. Around 60 looks smooth; much lower looks choppy. |
 | **Shuffle** | Mixing up the order of the answer buttons each time, like shuffling cards, so you have to read them instead of remembering "it's the top one". |
+| **Graphics chip (GPU) / hardware acceleration** | The part of your computer that draws pictures and movement. Apps can ask it to do the drawing, which is usually faster. Now and then a graphics chip or its driver draws wrong things on the screen, and switching it off for one app is a quick test. |
 | **Release (GitHub)** | A shelf on GitHub's Releases page where a finished download is kept, like a shop shelf. Files on it don't use the build-file storage. Ours has one slot, "Latest build", that each new build replaces. |
 | **Build file (artifact)** | A file GitHub's build robot saves after a build, like an installer. Each project gets only so much space for them, and old ones stay for weeks. |
 | **Storage quota** | How much space GitHub lets a project use for build files. When it is full, new files can't be saved until old ones expire or are deleted. |
