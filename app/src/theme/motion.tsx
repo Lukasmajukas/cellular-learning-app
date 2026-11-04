@@ -12,6 +12,9 @@ export const SPRING = {
   sheet: { type: 'spring', stiffness: 380, damping: 36 },    // the bottom sheet sliding up (about 0.35 s, no wobble)
   fill: { type: 'spring', stiffness: 170, damping: 26 },     // a progress bar filling
   tab: { type: 'spring', stiffness: 420, damping: 36 },      // the bottom tabs' marker gliding to the tab you picked
+  // The lesson's progress bar stepping forward (R11): it springs a touch past its new place (about 7% of one step,
+  // 2-3 px) and settles, so each answer feels like a step forward. The only spring here allowed a little overshoot.
+  step: { type: 'spring', stiffness: 260, damping: 21 },
 } as const satisfies Record<string, Transition>;
 
 // Timings in seconds (DESIGN.md section 7, "Speeds").
@@ -146,6 +149,41 @@ export const BEACON = {
   burstKeys: { scale: [0.7, 2.3], opacity: [0.85, 0] },
   dim: 0.45,                                                               // the rings' see-through-ness when oops or sleepy
 }; // not "as const": Motion wants plain (changeable) keyframe lists
+// Lesson movement (redesign R11, DESIGN.md section 7, moment 2 "Right / not quite"). Small feedback, 200-300 ms each:
+// - the right tile (or chip, number box, tap dot) pops a little bigger and back, while its glow layer flashes on and
+//   settles (see-through-ness only: the glow itself is a still shadow, never animated);
+// - a wrong one shakes gently: 3 times side to side, smaller each time (6, 4, 2 px);
+// - in "match the pairs", a right-column tile's number box pops when it takes its partner's number;
+// - in "put them in order", a chip glides from the pool into its slot (and back when you take it out), and the others
+//   glide to close the gap (FLY, a whole transform, so the browser runs it on its graphics side).
+// Questions glide in from the right and out to the left (questionGlide). The progress bar springs forward (SPRING.step)
+// with a soft spark at its tip. With Reduce motion none of these move: the colours and icons just change, and a new
+// question fades in (150 ms at most).
+export const FEEDBACK = {
+  shake: { duration: 0.3, ease: 'easeInOut' as const },                    // a wrong pick ...
+  shakeKeys: { x: [0, -6, 6, -4, 4, -2, 2, 0] },                           // ... 3 times, in px
+  pop: { duration: 0.28, ease: EASE.out },                                 // the right one ...
+  popKeys: { scale: [1, 1.035, 1] },                                       // ... 3.5% bigger and back
+  dotKeys: { scale: [0, 1.25, 1] },                                        // the tap dot lands (from nothing)
+  glow: { duration: 0.3, ease: EASE.out },                                 // the right one's glow flashes on ...
+  glowKeys: { opacity: [0, 1, 0.75] },                                     // ... and settles a little softer
+  keyPop: { duration: 0.25, ease: EASE.out },                              // a match tile's number box ...
+  keyPopKeys: { scale: [0.5, 1.2, 1] },                                    // ... grows in with a tiny overshoot
+  fly: { duration: 0.28, ease: EASE.out },                                 // an order chip gliding into its slot (and back)
+  spark: { duration: 0.5, ease: EASE.out },                                // the progress bar's tip ...
+  sparkKeys: { opacity: [0, 1, 0] },                                       // ... lights up and fades as it steps forward
+}; // not "as const": Motion wants plain (changeable) keyframe lists
+
+// A question gliding in and out (R11): in from the right, out to the left, like a page turning; together within a
+// screen change (320-420 ms). With Reduce motion: only a quick fade in, and the old one goes at once.
+const STEP = 40;
+export function questionGlide(calm: boolean) {
+  return calm
+    ? { initial: { opacity: 0 }, animate: { opacity: 1, transition: QUICK_FADE }, exit: { opacity: 0, transition: INSTANT } }
+    : { initial: { x: STEP, opacity: 0 }, animate: { x: 0, opacity: 1, transition: { duration: TIME.screenIn, ease: EASE.out } },
+        exit: { x: -STEP, opacity: 0, transition: { duration: TIME.screenOut, ease: EASE.in } } };
+}
+
 // A top bar timing, started `wait` seconds after the top bar appears (TOP_BAR.wait or TOP_BAR.afterPath).
 export const barAt = <T extends { delay: number }>(t: T, wait: number): T => ({ ...t, delay: t.delay + wait });
 

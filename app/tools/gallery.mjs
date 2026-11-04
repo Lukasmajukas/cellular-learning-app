@@ -4,7 +4,7 @@
 //                 node tools/gallery.mjs --icons-only     (just the icon sheet, 00-icons.webp; no build needed)
 //                 node tools/gallery.mjs --types-only     (just the other question types, 18-27; build first; keeps the rest)
 // It starts the real Electron app with a made-up save file (3 lessons done, a 4-day streak, some reviews due),
-// the other question types (18-27, from R10), shows the building blocks page (#blocks, from R03; Beacon's faces 16, 17 from R17), the Review tab (13, from R04), the top bar mid-moment and the repair card (14, 15, from R07),
+// the other question types (18-27, from R10), a comeback question (28, from R11), shows the building blocks page (#blocks, from R03; Beacon's faces 16, 17 from R17), the Review tab (13, from R04), the top bar mid-moment and the repair card (14, 15, from R07),
 // draws a sheet of all our icons (00-icons), visits each screen at the owner's window size (620 x 960) and a wide one (1280 x 800), and saves small WebP files.
 // In the cloud (Linux with no screen) it restarts itself inside xvfb-run, a pretend screen.
 import { _electron as electron } from 'playwright';
@@ -144,6 +144,23 @@ async function completeScreen(s) {
   await app.close();
 }
 
+// A missed question coming back (R11, idea I37): the quiet "Comeback" pill beside the label, the counter not grown.
+// The sample lesson lists the right answer first, so choice 1 misses the first question; the rest are answered right.
+async function comebackScreen(s) {
+  const { app, w } = await launch({ CELL_SAMPLE_PATH: '1' });
+  await resize(app, s);
+  await w.getByTestId('lesson-u1-l1').click();
+  for (let i = 0; i < 8; i++) {
+    const c = w.locator(`[data-testid=choice-${i ? 0 : 1}]:not([disabled])`);
+    await w.getByTestId('done').or(c).first().waitFor();
+    if (await w.getByTestId('done').isVisible()) { console.log('  (no comeback seen: 28-comeback skipped)'); break; }
+    if (await w.getByTestId('comeback').isVisible()) { await shot(w, '28-comeback', s, 900); break; }
+    await c.click(); await w.getByTestId('next').click();
+    await w.getByTestId('verdict').waitFor({ state: 'detached' });
+  }
+  await app.close();
+}
+
 // The other question types (R10), from the two demo lessons of the sample path: the learn card with its spectrum bar,
 // type the number, match the pairs (half done), put them in order (half done, then a wrong order with "Why?" open),
 // the scenario clues (one picked, then checked with one clue missed), the photo question and a missed tap on the picture.
@@ -247,5 +264,5 @@ console.log(`Gallery -> ${OUT}`);
 if (typesOnly) { for (const s of SIZES) await typeScreens(s); console.log('Done.'); process.exit(0); }
 await iconSheet();
 if (process.argv.includes('--icons-only')) process.exit(0);
-for (const s of SIZES) { await realScreens(s); await completeScreen(s); await repairScreen(s); await blocksScreens(s); await typeScreens(s); }
+for (const s of SIZES) { await realScreens(s); await completeScreen(s); await comebackScreen(s); await repairScreen(s); await blocksScreens(s); await typeScreens(s); }
 console.log('Done.');

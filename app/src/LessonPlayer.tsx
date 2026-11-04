@@ -17,9 +17,9 @@ import { mark, isScored, type Answer, type Item, type Scored } from './questions
 import { Question, Feedback, KindHint, FactBadge } from './QuestionTypes';
 import { startRun, advance, current, finished, scoredCount } from './session';
 import { xpFor, signalBars } from './gamify';
-import { Button, IconButton, ProgressBar, BottomSheet, SpeechBubble, SectionLabel, Card } from './ui';
-import { SPRING, TIME, useCalm } from './theme/motion';
-import { KIND_LABEL, counter, beaconLine } from './questionScreen';
+import { Button, IconButton, ProgressBar, BottomSheet, SpeechBubble, SectionLabel, Card, Pill } from './ui';
+import { SPRING, TIME, useCalm, questionGlide } from './theme/motion';
+import { KIND_LABEL, questionCount, beaconLine } from './questionScreen';
 import { useKeys, pressFor } from './keys';
 
 export type LessonResult = { stars: number; xp: number; results: { id: string; ok: boolean }[] };
@@ -50,10 +50,11 @@ export function LessonPlayer({ lesson, onFinish, onQuit }: { lesson: Lesson; onF
     if (res || !it || !isScored(it)) return;
     const ok = mark(it, a); setRes({ ok, a }); setShown(s => ({ q: it, ok, a, n: (s?.n ?? 0) + 1 }));
     if (ok && run.seen.includes(it.id)) setRetriesRight(n => n + 1);
-    // The sound and the confetti start on the next frame, after the answer and Beacon's new face are drawn (R17: Beacon
-    // must react within 0.1 s). Inside the click, the first answer's sound set-up alone held the face back ~55 ms.
-    // R11 drops this confetti (idea I31); R19 brings the new sounds.
-    requestAnimationFrame(() => { beep(ok); if (ok) confetti({ particleCount: 60, spread: 70, origin: { y: 0.7 } }); });
+    // The sound starts on the next frame, after the answer and Beacon's new face are drawn (R17: Beacon must react
+    // within 0.1 s). Inside the click, the first answer's sound set-up alone held the face back ~55 ms. R19 brings the new sounds.
+    // No confetti after a right answer any more (R11, idea I31: it fell over the words and the Continue button): the right
+    // tile's pop and glow and Beacon's ring pulse say it. The burst is kept for the end of the lesson only.
+    requestAnimationFrame(() => beep(ok));
   };
   const next = (ok: boolean) => {
     const r = advance(run, ok); setRun(r); setRes(null);
@@ -80,15 +81,20 @@ export function LessonPlayer({ lesson, onFinish, onQuit }: { lesson: Lesson; onF
     const hidden = el.getBoundingClientRect().bottom - (window.innerHeight - sheetH) + 12;
     if (hidden > 0) window.scrollBy({ top: hidden, behavior: calm ? 'auto' : 'smooth' });
   }, [res, sheetH, calm]);
+  // The counter (R11, idea I37): only first-time questions count, so a miss doesn't make the total grow. A missed
+  // question coming back shows a quiet "Comeback" pill instead, and the counter stays where it was.
+  const count = questionCount(run.queue.map(q => q.id), run.index);
   const face = done ? 'cheering' : !res ? 'idle' : res.ok ? 'happy' : 'oops';
   const says = !it || done ? '' : res ? beaconLine(res.ok ? 'right' : 'wrong', `${it.id}-${run.index}`) : beaconLine(it.kind === 'learn' ? 'learn' : 'ask', `${it.id}-${run.index}`);
   return (
     <div ref={root} style={{ maxWidth: 440, margin: '0 auto', padding: `20px 20px ${20 + sheetH}px`, boxSizing: 'border-box', textAlign: 'left' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
         <IconButton icon="close" label="Leave the lesson (Esc)" data-testid="quit" onClick={onQuit} aria-keyshortcuts="Escape" style={{ marginLeft: -10 }} />
-        <div style={{ flex: 1 }}><ProgressBar testId="lesson-progress" label="Lesson progress" height={12} value={Math.min(run.index, run.queue.length) / run.queue.length} /></div>
-        <span data-testid="lesson-count" aria-label={`Question ${counter(run.index, run.queue.length).replace(' / ', ' of ')}`}
-          style={{ ...mono, fontSize: 13, color: c.textMuted, fontVariantNumeric: 'tabular-nums', minWidth: 44, textAlign: 'right' }}>{counter(run.index, run.queue.length)}</span>
+        {/* The bar springs forward a touch past its new place and settles, with a spark at its tip (R11). */}
+        <div style={{ flex: 1 }}><ProgressBar testId="lesson-progress" label="Lesson progress" height={12} spark transition={SPRING.step}
+          value={Math.min(run.index, run.queue.length) / run.queue.length} /></div>
+        <span data-testid="lesson-count" aria-label={`Question ${count.n} of ${count.total}${count.comeback ? ', a comeback' : ''}`}
+          style={{ ...mono, fontSize: 13, color: c.textMuted, fontVariantNumeric: 'tabular-nums', minWidth: 44, textAlign: 'right' }}>{count.text}</span>
       </div>
       {/* Beacon's spot (R09): at the left, with what it says beside it. It waits, is happy or a little worried within 0.1 s
           of an answer (R17), and cheers, bigger and centred, when the lesson is done (R12 reworks that screen). */}
@@ -100,10 +106,11 @@ export function LessonPlayer({ lesson, onFinish, onQuit }: { lesson: Lesson; onF
       ) : (
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: 8 }}><Beacon face={face} size={BEACON_SIZE.complete} /></div>
       )}
-      {/* initial={false}: the first question is already in place while the whole lesson rises (R04); later ones slide in. */}
+      {/* initial={false}: the first question is already in place while the whole lesson rises (R04); later ones glide in
+          from the right as the old one glides out to the left (R11, questionGlide). With Reduce motion: a quick fade only. */}
       <AnimatePresence mode="wait" initial={false}>
         {!done && it ? (
-          <motion.div ref={body} key={`${run.index}-${it.id}`} initial={{ x: 60, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: -60, opacity: 0 }}>
+          <motion.div ref={body} key={`${run.index}-${it.id}`} data-testid="question-body" {...questionGlide(calm)}>
             {it.kind === 'learn' ? (
               // A learn card (R10): the same left edge as a question, with "SOMETHING NEW" above its title, the band on the
               // radio ruler in a raised card, the as-of badge, and a full-width "Got it".
@@ -117,7 +124,10 @@ export function LessonPlayer({ lesson, onFinish, onQuit }: { lesson: Lesson; onF
               </div>
             ) : (
               <>
-                <SectionLabel data-testid="kind-label" tone="signal" style={{ margin: '14px 0 0' }}>{KIND_LABEL[it.kind]}</SectionLabel>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, margin: '14px 0 0', minHeight: 22 }}>
+                  <SectionLabel data-testid="kind-label" tone="signal" style={{ margin: 0 }}>{KIND_LABEL[it.kind]}</SectionLabel>
+                  {count.comeback && <Pill data-testid="comeback" icon="repeat" style={{ fontSize: 12, fontWeight: 500, padding: '0 8px' }}>Comeback</Pill>}
+                </div>
                 <h2 data-testid="prompt" style={{ fontSize: 23, lineHeight: 1.25, fontWeight: 700, margin: '6px 0 12px' }}>{it.prompt}</h2>
                 <KindHint kind={it.kind} />
                 {/* Every type in the look A layout (R10): on the same left edge, built from the R03 blocks (src/QuestionTypes.tsx). */}

@@ -3,7 +3,7 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
-import { SPRING, TIME, PRESS, PRESS_BIG, PRESS_ROUND, PRESS_PILL, QUICK_FADE, INSTANT, LOOP, popInDelay, screenGlide, ON_AIR, BREATHE, waveDelay, popInQueue, TOP_BAR, barAt } from './theme/motion';
+import { SPRING, TIME, PRESS, PRESS_BIG, PRESS_ROUND, PRESS_PILL, QUICK_FADE, INSTANT, LOOP, popInDelay, screenGlide, ON_AIR, BREATHE, waveDelay, popInQueue, TOP_BAR, barAt, FEEDBACK, questionGlide } from './theme/motion';
 import { grew } from './ui/TopBar';
 
 const SRC = __dirname;
@@ -152,5 +152,47 @@ describe('the top bar (redesign R07)', () => {
     expect(grew({ from: 120, to: 150, n: 1 })).toBe(true);
     expect(grew({ from: 30, to: 0, n: 1 })).toBe(false);
     expect(grew({ from: 4, to: 4, n: 0 })).toBe(false);
+  });
+});
+
+describe('lesson movement (redesign R11)', () => {
+  it('right, wrong, the number box pop and the order glide are small feedback: 200-300 ms each, nothing loops', () => {
+    for (const k of ['shake', 'pop', 'glow', 'keyPop', 'fly'] as const) {
+      expect(FEEDBACK[k].duration, k).toBeGreaterThanOrEqual(0.2); expect(FEEDBACK[k].duration, k).toBeLessThanOrEqual(0.3);
+      expect('repeat' in FEEDBACK[k], k).toBe(false);
+    }
+    expect(FEEDBACK.spark.duration).toBeLessThanOrEqual(0.6); // the bar's spark: a short flash while the bar springs
+  });
+  it('a wrong answer shakes gently: 3 times side to side, at most 6 px, smaller each time, ending where it started', () => {
+    const x = FEEDBACK.shakeKeys.x;
+    expect([x[0], x.at(-1)]).toEqual([0, 0]);
+    const swings = x.slice(1, -1);
+    expect(swings.length).toBe(6); // 3 times: left-right, left-right, left-right
+    expect(Math.max(...swings.map(Math.abs))).toBeLessThanOrEqual(6);
+    for (let i = 2; i < swings.length; i += 2) expect(Math.abs(swings[i])).toBeLessThanOrEqual(Math.abs(swings[i - 2]));
+    for (let i = 1; i < swings.length; i++) expect(Math.sign(swings[i])).toBe(-Math.sign(swings[i - 1])); // turns each time
+  });
+  it('the right one pops only a little (at most 5% bigger) and comes back to its size; its glow flashes and settles, see-through-ness only', () => {
+    const sc = FEEDBACK.popKeys.scale;
+    expect([sc[0], sc.at(-1)]).toEqual([1, 1]); expect(Math.max(...sc)).toBeLessThanOrEqual(1.05);
+    expect(Object.keys(FEEDBACK.glowKeys)).toEqual(['opacity']);
+    expect(FEEDBACK.glowKeys.opacity[0]).toBe(0); expect(Math.max(...FEEDBACK.glowKeys.opacity)).toBe(1);
+    expect(FEEDBACK.glowKeys.opacity.at(-1)).toBeGreaterThan(0.5);
+    expect(Object.keys(FEEDBACK.sparkKeys)).toEqual(['opacity']);
+    for (const k of ['popKeys', 'dotKeys', 'keyPopKeys'] as const) expect(Object.keys(FEEDBACK[k]), k).toEqual(['scale']);
+    expect(FEEDBACK.dotKeys.scale.at(-1)).toBe(1); expect(FEEDBACK.keyPopKeys.scale.at(-1)).toBe(1);
+  });
+  it('the progress bar springs forward: a touch past its new place (under 10% of one step), no long wobble', () => {
+    const { stiffness, damping } = SPRING.step, zeta = damping / (2 * Math.sqrt(stiffness));
+    const overshoot = Math.exp(-zeta * Math.PI / Math.sqrt(1 - zeta * zeta));
+    expect(overshoot).toBeGreaterThan(0.02); expect(overshoot).toBeLessThan(0.1);
+  });
+  it('a question glides in from the right and out to the left within a screen change; with Reduce motion it only fades', () => {
+    const g = questionGlide(false);
+    expect(g.initial.x).toBeGreaterThan(0); expect(g.exit.x).toBeLessThan(0);
+    expect(g.animate.transition.duration + g.exit.transition.duration).toBeLessThanOrEqual(0.42);
+    const calm = questionGlide(true) as unknown as Record<string, Record<string, unknown>>;
+    for (const k of ['initial', 'animate', 'exit']) expect(Object.keys(calm[k]).filter(p => p !== 'transition'), k).toEqual(['opacity']);
+    expect((calm.animate.transition as { duration: number }).duration).toBeLessThanOrEqual(0.15);
   });
 });

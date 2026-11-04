@@ -33,9 +33,15 @@ export const FOLD_LABEL: Partial<Record<Item['kind'], string>> = {
   scenario: 'Clue by clue',
 };
 
-// "Question 5 of 12": the one on screen now (counting from 1), and how many there are in this run.
-// A missed question comes back once later on, so the total can grow by one after a miss.
-export const counter = (index: number, length: number) => `${Math.min(index + 1, length)} / ${length}`;
+// "Question 5 of 12" (R11, idea I37): `ids` is the lesson's queue (a missed question is in it twice: it comes back
+// once later on), `index` the one on screen now. Only first-time questions count, so the total never grows after a
+// miss (that felt like a penalty). When a missed one comes back, `comeback` is true and the number stays where it was.
+export function questionCount(ids: string[], index: number) {
+  const total = new Set(ids).size;
+  const n = Math.min(new Set(ids.slice(0, index + 1)).size, total);
+  const comeback = index < ids.length && ids.indexOf(ids[index]) < index;
+  return { n, total, comeback, text: `${n} / ${total}` };
+}
 
 // Beacon's lines. 8 words or fewer, plain and kind, never guilt (DESIGN.md section 8, PRD 4d).
 // No facts here: the facts live in the lesson files. Change the words here, nowhere else.

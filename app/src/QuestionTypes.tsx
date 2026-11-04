@@ -8,12 +8,16 @@
 //   read the clues:     one card per clue, its answers as chips
 //   tap the picture:    the photo; after a tap, a dot (green or red) where you tapped
 // After Check, every tile and chip shows right (green + tick) or wrong (red + cross), so colour is never the only clue.
-import { useMemo, useState } from 'react';
+// R11: and it moves a little: the right one pops and glows, a wrong one shakes gently (src/ui/feedback.tsx); order
+// chips glide into their slots and back (Fly). With Reduce motion only the looks change.
+import { useMemo, useRef, useState } from 'react';
+import { motion } from 'motion/react';
 import { c, mono, RADIUS } from './theme';
 import { Icon } from './Icon';
 import { SpectrumBar } from './SpectrumBar';
 import { mark, rightAnswerText, correctOrder, shuffleOrder, type Answer, type Scored, type Photo, type Rect, type Badge } from './questions';
-import { AnswerTile, Button, Card, Chip, type TileState } from './ui';
+import { AnswerTile, Button, Card, Chip, Fly, Glow, useFeedback, type Places, type TileState } from './ui';
+import { FEEDBACK, useCalm, useEntrance } from './theme/motion';
 import { KIND_HINT, FOLD_LABEL } from './questionScreen';
 
 // Same shuffle every time for the same question (so a re-render never reshuffles), and never already in the right order.
@@ -62,7 +66,6 @@ function Choices({ q, order, locked, picked, onSubmit }: { q: { choices: string[
 export function PhotoView({ photo, outline, tap, dot, dotOk, locked }: { photo: Photo; outline?: Rect; tap?: (x: number, y: number) => void; dot?: [number, number] | null; dotOk?: boolean; locked?: boolean }) {
   const [broken, setBroken] = useState(false);
   const box = (r: Rect): React.CSSProperties => ({ position: 'absolute', left: `${r.x * 100}%`, top: `${r.y * 100}%`, width: `${r.w * 100}%`, height: `${r.h * 100}%`, border: `3px solid ${c.streak}`, borderRadius: 8, boxSizing: 'border-box', pointerEvents: 'none' });
-  const dotColor = dotOk ? c.onAir : c.miss;
   return (
     <figure style={{ margin: '0 0 12px' }}>
       <div data-testid="photo" role={tap ? 'button' : 'img'} aria-label={photo.alt}
@@ -72,11 +75,21 @@ export function PhotoView({ photo, outline, tap, dot, dotOk, locked }: { photo: 
         {broken ? <div style={{ lineHeight: 1.3, padding: 40, color: c.textMuted, textAlign: 'center' }}><Icon name="image" size={32} style={{ display: 'block', margin: '0 auto 8px' }} />Picture not downloaded yet: {photo.alt}</div>
           : <img src={photo.src} alt={photo.alt} draggable={false} onError={() => setBroken(true)} style={{ width: '100%', display: 'block' }} />}
         {outline && <div data-testid="outline" style={box(outline)} />}
-        {dot && <div data-testid="tap-dot" data-ok={!!dotOk} style={{ position: 'absolute', left: `${dot[0] * 100}%`, top: `${dot[1] * 100}%`, width: 18, height: 18, margin: -9,
-          borderRadius: '50%', background: dotColor, border: `2px solid ${c.bg}`, boxShadow: `0 0 0 2px ${dotColor}`, pointerEvents: 'none' }} />}
+        {dot && <TapDot at={dot} ok={!!dotOk} />}
       </div>
       <figcaption data-testid="photo-credit" style={{ fontSize: 12, color: c.textMuted, marginTop: 6 }}>{photo.credit}</figcaption>
     </figure>);
+}
+
+// Where the player tapped: green if that was right and red if not. It lands with a pop if right, or shakes if not
+// (R11). It appears already marked, so it starts from its "from" look and moves one render later (useEntrance), which
+// Motion does animate (a first animation alone would be skipped inside the app's screens).
+function TapDot({ at, ok }: { at: [number, number]; ok: boolean }) {
+  const on = useEntrance(), calm = useCalm(), color = ok ? c.onAir : c.miss;
+  const land = calm || !on ? undefined : ok ? { ...FEEDBACK.dotKeys, transition: FEEDBACK.pop } : { ...FEEDBACK.shakeKeys, transition: FEEDBACK.shake };
+  return <motion.div data-testid="tap-dot" data-ok={ok} initial={ok && !calm ? { scale: 0 } : false} animate={land}
+    style={{ position: 'absolute', left: `${at[0] * 100}%`, top: `${at[1] * 100}%`, width: 18, height: 18, margin: -9,
+      borderRadius: '50%', background: color, border: `2px solid ${c.bg}`, boxShadow: `0 0 0 2px ${color}`, pointerEvents: 'none' }} />;
 }
 
 // Type the number: one big box in the code font, the unit inside it on the right. After Check the box turns green with a
@@ -86,9 +99,10 @@ function NumberBox({ q, locked, ok, onSubmit }: { q: Extract<Scored, { kind: 'nu
   const state: TileState = !locked ? (focus ? 'selected' : 'idle') : ok ? 'right' : 'wrong';
   const border = state === 'right' ? c.onAir : state === 'wrong' ? c.miss : focus ? c.signal : c.borderStrong;
   const bg = state === 'right' ? c.onAirBg : state === 'wrong' ? c.missBg : c.surface;
+  const move = useFeedback(state);
   return (
     <form onSubmit={e => { e.preventDefault(); if (!locked && text.trim()) onSubmit(text); }}>
-      <label data-testid="number-box" data-state={state} style={{ display: 'flex', alignItems: 'center', gap: 12, minHeight: 64, padding: '0 16px', boxSizing: 'border-box',
+      <motion.label data-testid="number-box" data-state={state} {...move} style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: 12, minHeight: 64, padding: '0 16px', boxSizing: 'border-box',
         borderRadius: RADIUS.tile, border: `1.5px solid ${border}`, background: bg, cursor: 'text' }}>
         <input data-testid="number-input" autoFocus inputMode="decimal" autoComplete="off" spellCheck={false} placeholder="Your answer" value={text} disabled={locked}
           onChange={e => setText(e.target.value)} onFocus={() => setFocus(true)} onBlur={() => setFocus(false)} aria-label={`Your answer${q.unit ? ` in ${q.unit}` : ''}`}
@@ -96,7 +110,8 @@ function NumberBox({ q, locked, ok, onSubmit }: { q: Extract<Scored, { kind: 'nu
         {q.unit && <span data-testid="number-unit" style={{ ...mono, fontSize: 18, color: c.textMuted }}>{q.unit}</span>}
         {state === 'right' && <Icon name="check" size={22} label="right answer" style={{ color: c.onAir }} />}
         {state === 'wrong' && <Icon name="cross" size={22} label="not right" style={{ color: c.miss }} />}
-      </label>
+        <Glow on={state === 'right'} radius={RADIUS.tile} />
+      </motion.label>
       <CheckButton ready={!!text.trim()} locked={locked} submit />
     </form>);
 }
@@ -146,13 +161,15 @@ function OrderSlots({ q, locked, onSubmit }: { q: Extract<Scored, { kind: 'order
   const [placed, setPlaced] = useState<string[]>([]);
   const right = useMemo(() => correctOrder(q), [q]);
   const rest = pool.filter(l => !placed.includes(l));
-  return <>
+  // Where each item last sat, so a chip glides into its slot and back, and the others glide to close the gap (R11, I40).
+  const places = useRef<Places>(new Map()).current;
+  return <div data-fly-group>
     <div data-testid="order-placed" style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
       {q.items.map((_, i) => {
         const l = placed[i];
-        if (l) return <AnswerTile key={l} n={i + 1} data-testid={`order-placed-${i}`} disabled={locked} aria-label={`Place ${i + 1}: ${l}. Tap to take it back.`}
+        if (l) return <Fly key={l} name={l} places={places}><AnswerTile n={i + 1} data-testid={`order-placed-${i}`} disabled={locked} aria-label={`Place ${i + 1}: ${l}. Tap to take it back.`}
           state={locked ? (right[i] === l ? 'right' : 'wrong') : 'paired'} onClick={() => setPlaced(p => p.filter(x => x !== l))}
-          style={{ margin: 0, minHeight: 48, padding: '8px 14px' }}>{l}</AnswerTile>;
+          style={{ margin: 0, minHeight: 48, padding: '8px 14px' }}>{l}</AnswerTile></Fly>;
         const next = i === placed.length && !locked;
         return <div key={`slot-${i}`} data-testid={`order-slot-${i}`} data-next={next} aria-hidden style={{ display: 'flex', alignItems: 'center', gap: 12, minHeight: 48,
           padding: '8px 14px', boxSizing: 'border-box', borderRadius: RADIUS.tile, border: `1.5px dashed ${next ? c.signal : c.border}` }}>
@@ -162,11 +179,12 @@ function OrderSlots({ q, locked, onSubmit }: { q: Extract<Scored, { kind: 'order
       })}
     </div>
     <div data-testid="order-pool" style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 14, minHeight: 44, alignItems: 'center' }}>
-      {rest.map(l => <Chip key={l} data-testid={`order-item-${l}`} disabled={locked} onClick={() => setPlaced(p => [...p, l])}>{l}</Chip>)}
+      {rest.map(l => <Fly key={l} name={l} places={places} style={{ display: 'flex' }}>
+        <Chip data-testid={`order-item-${l}`} disabled={locked} onClick={() => setPlaced(p => [...p, l])}>{l}</Chip></Fly>)}
       {!rest.length && !locked && <span style={{ fontSize: 14, color: c.textMuted }}>All placed. Tap one above to take it back.</span>}
     </div>
     <CheckButton ready={!rest.length} locked={locked} onClick={() => onSubmit(placed)} />
-  </>;
+  </div>;
 }
 
 // Read the clues: one card per clue, with a small "CLUE 1" label, the clue, and its answers as chips. After Check the
