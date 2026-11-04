@@ -4,7 +4,8 @@ import { MotionConfig } from 'motion/react';
 import { SAMPLE_PATH, allLessons, recordResult } from './path';
 import { PathMap } from './PathMap';
 import { LessonPlayer, type LessonResult } from './LessonPlayer';
-import { finishLesson } from './finish';
+import { finishLesson, finishReview } from './finish';
+import { buildReview, dueCount, REVIEW_ID } from './dailyReview';
 import { liveStreak, dayKey } from './gamify';
 import { SettingsScreen } from './SettingsScreen';
 import { loadState, saveState, EMPTY_STATE, type SaveState } from './storage';
@@ -40,7 +41,7 @@ function App() {
   useEffect(() => { document.body.style.background = dark ? '#1b2530' : '#f4f8fb'; document.body.style.color = dark ? '#e8eef4' : '#222'; }, [dark]);
   if (!state) return null;
 
-  const lesson = allLessons(PATH).find(l => l.id === playing);
+  const lesson = playing === REVIEW_ID ? buildReview(PATH, s.reviews, Date.now()) ?? undefined : allLessons(PATH).find(l => l.id === playing);
   // 'never' (not 'user'): don't let Windows' own animation-effects switch silently flatten the animations. Only the in-app switch does.
   return (
     <MotionConfig reducedMotion={s.settings.reduceMotion ? 'always' : 'never'}>
@@ -49,7 +50,7 @@ function App() {
         {notice && <p data-testid="notice" style={{ margin: 0, padding: 8, background: '#fff3c4', color: '#333', textAlign: 'center' }}>{notice}</p>}
         {lesson ? (
           <LessonPlayer key={lesson.id} lesson={lesson} onQuit={() => setPlaying(null)}
-            onFinish={r => { setState(p => p && finishLesson(p, lesson.id, r)); setPlaying(null); }} />
+            onFinish={r => { setState(p => p && (lesson.id === REVIEW_ID ? finishReview(p, r) : finishLesson(p, lesson.id, r))); setPlaying(null); }} />
         ) : showHeat ? (
           <HeatMap onBack={() => setShowHeat(false)} cells={buildHeatmap(DATA.bands as unknown as BandRow[],
             (rawLessons as unknown as { units: { lessons: RawLesson[] }[] }).units.flatMap(u => u.lessons), s.reviews, Date.now())} />
@@ -67,7 +68,7 @@ function App() {
               <span data-testid="streak">🔥 {liveStreak(s.game, new Date())}</span><span data-testid="xp-total">⚡ {s.game.xp} XP</span>
               <span data-testid="xp-today">today {s.game.xpToday && s.game.xpDay === dayKey(new Date()) ? s.game.xpToday : 0}</span>
             </div>
-            <PathMap units={PATH} progress={s.progress} onStart={setPlaying} />
+            <PathMap units={PATH} progress={s.progress} onStart={setPlaying} due={dueCount(PATH, s.reviews, Date.now())} onReview={() => setPlaying(REVIEW_ID)} />
           </>
         )}
       </div>

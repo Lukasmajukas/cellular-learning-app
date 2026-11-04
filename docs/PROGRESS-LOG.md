@@ -1,4 +1,5 @@
 # 📓 Progress log: the project diary
+- 2026-11-04 (T53, session 114, robot): built the daily review. A new orange 🚗 button at the top of the path map plays the questions that are due today (oldest first, at most 20, about 10 minutes). It keeps your streak going and gives XP, but doesn't add lesson stars. Tests pass, including a real-app click test.
 - 2026-11-04 (T56, session 113): found why you couldn't download the app (GitHub's storage for build files was full, so the installer could not be saved) and, at your choice, the build now puts it on the project's Releases page in one "Latest build" slot. Your answers on T51, T02 and T48 are recorded.
 - 2026-11-03 (T37, session 112): final review of the whole app. Fixed three real problems: the right answer was nearly always the top button (now shuffled), typing "1,710" was marked wrong, and the Windows build had been broken since Nov 2 (a file-name clash). Next: the daily review screen (T53).
 - 2026-11-03 (T52, session 111): the robot's launcher chat can now have its memory wiped with /clear; you paste one message into it first (T51).
