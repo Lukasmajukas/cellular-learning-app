@@ -75,6 +75,8 @@ Claude adds new words here whenever they come up.
 | **Font licence (OFL)** | The "SIL Open Font License": free letters you may put inside your app and share, as long as you keep the licence note with them. |
 | **Spring (animation)** | A way of moving that overshoots a little and settles, like a ball on a spring, instead of stopping dead. It makes buttons feel bouncy. |
 | **Contrast** | How much words stand out from what's behind them. Too little and they're hard to read; a test checks every colour pair. |
+| **CSS variable** | A named slot for a colour, like `--signal`. The token file fills the slots; every screen reads them. Swap what's in the slots and the whole app changes look at once. |
+| **WebP** | A picture file type that's much smaller than PNG but looks the same. The gallery uses it so the binder stays light. |
 | **Gallery** | A folder of pictures of every screen, made by a tool after each redesign session, so you can see what changed without installing anything. |
 | **Ideas board** | The robot's list of "could be better" ideas for the look (`docs/redesign/IDEAS.md`). Your wishes always go to the top. |
 | **Design review** | A chat that only looks: it scores every screen against the style guide and decides what to fix next, like a teacher marking a project halfway through. |

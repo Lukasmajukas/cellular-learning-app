@@ -4,6 +4,9 @@ Every decision, with the date and why. Newest at the bottom.
 
 | Date | Decision | Why |
 |---|---|---|
+| 2026-11-04 | Redesign R01: the save file's light/dark `theme` setting is replaced by `look` (night or day); every save starts on Night, and the ⚙️ switch becomes "Day look (early test)" | Night is the look the owner picked; the old light look used the banned Duolingo colours, so keeping it would bring them back |
+| 2026-11-04 | Five of DESIGN.md's Day starting colours were made a little darker (signal, on-air, miss, streak, review) | They failed the text contrast test (4.5:1); the test is never switched off, so the colours changed instead |
+| 2026-11-04 | Colours live as CSS variables set from one token file (`app/src/theme/tokens.ts`); screens use `c.signal` etc., and a test fails if a screen file types a colour code | One place to change; Night/Day swaps values without touching screens |
 | 2026-11-04 | "This changed" cards come from a hand-written list, `content/changes.json` (id, date, title, text, source, questions to reset). A save file that has never seen the list treats existing entries as old news | A new install or an update should not flood the owner with old cards; Claude adds an entry when a re-check (every 3 months) finds a real change |
 | 2026-11-01 | The app opens on the real lessons; the sample lessons stay only for automatic tests (switch `CELL_SAMPLE_PATH=1`) | So tests keep working while the owner sees real content |
 | 2026-10-31 | Personal hobby app, not for sale | Owner's choice |
