@@ -1,7 +1,6 @@
 import { motion } from 'motion/react';
 import { c, RADIUS } from '../theme';
-import { SPRING, QUICK_FADE } from './tones';
-import { useCalm, INSTANT } from './press';
+import { SPRING, QUICK_FADE, useCalm, INSTANT } from '../theme/motion';
 
 // An on/off switch. Inside is a real (see-through) checkbox, so clicking the row's words, the Space key and
 // screen readers all work, and it reports itself as a "switch". On = the track fills with signal blue

@@ -10,6 +10,13 @@ const launch = async () => {
   const w = await app.firstWindow(); await w.getByTestId('path-count').waitFor();
   return { app, w };
 };
+// R04: Settings is a tab that glides in from the side. Sizes and positions are measured only after the glide ends.
+const openSettings = async (w: Page) => {
+  await w.getByTestId('tab-settings').click();
+  await w.getByTestId('settings').waitFor();
+  await w.waitForFunction(() => { const s = document.querySelector('[data-testid=screen-settings]');
+    return !!s && getComputedStyle(s).transform === 'none' && getComputedStyle(s).opacity === '1'; });
+};
 const openBlocks = async (w: Page) => { await w.evaluate(() => { location.hash = '#blocks'; location.reload(); }); await w.getByTestId('blocks').waitFor(); };
 
 // Watches an element every frame for `ms` while `act` runs. Returns its x positions and the gaps between frames.
@@ -36,11 +43,11 @@ const scaleOf = (w: Page, testId: string) => w.getByTestId(testId).evaluate(el =
 
 test('Settings is built from the blocks: four switches, a goal choice, big enough to click, and it all still saves', async () => {
   const { app, w } = await launch();
-  await w.getByTestId('open-settings').click();
+  await openSettings(w);
   await expect(w.getByRole('switch')).toHaveCount(4);
   await expect(w.locator('[data-testid=settings] input[type=checkbox]:not([role=switch]), [data-testid=settings] select')).toHaveCount(0);
   // Everything you click is at least 44 x 44 (DESIGN.md section 4).
-  for (const id of ['settings-back', 'set-sounds', 'set-motion', 'set-fps', 'set-day', 'set-goal-1', 'set-goal-5', 'backup-now', 'show-file']) {
+  for (const id of ['tab-path', 'tab-review', 'tab-heatmap', 'tab-settings', 'set-sounds', 'set-motion', 'set-fps', 'set-day', 'set-goal-1', 'set-goal-5', 'backup-now', 'show-file']) {
     const b = (await w.getByTestId(id).boundingBox())!;
     expect(b.width, id).toBeGreaterThanOrEqual(44); expect(b.height, id).toBeGreaterThanOrEqual(44);
   }
@@ -56,7 +63,7 @@ test('Settings is built from the blocks: four switches, a goal choice, big enoug
   await w.keyboard.press('ArrowRight');
   await expect(w.getByTestId('set-goal-5')).toHaveAttribute('aria-checked', 'true');
   await expect(w.getByTestId('set-goal-5')).toBeFocused();
-  await w.getByTestId('settings-back').click();
+  await w.getByTestId('tab-path').click();
   await expect(w.getByTestId('goal-text')).toContainText('of 5');
   await w.screenshot({ path: 'test-results/r03-settings.png' });
   await app.close();
@@ -64,7 +71,7 @@ test('Settings is built from the blocks: four switches, a goal choice, big enoug
 
 test('the switch knob slides smoothly (50+ frames a second), buttons squish when pressed, and Reduce motion stops both', async () => {
   const { app, w } = await launch();
-  await w.getByTestId('open-settings').click();
+  await openSettings(w); // measure only after the glide (on Windows the first try measured mid-glide, so the start was off)
   const knob = 'set-sounds-knob';
   const from = (await w.getByTestId(knob).boundingBox())!.x;
   const seen = await watch(w, knob, () => w.getByTestId('set-sounds').click());
@@ -75,15 +82,17 @@ test('the switch knob slides smoothly (50+ frames a second), buttons squish when
   expect(Math.abs(to - from)).toBeGreaterThan(15);
   expect(between.length).toBeGreaterThanOrEqual(3);      // it really moved through the middle, not jumped
   expect(fps).toBeGreaterThanOrEqual(50);
-  // A press squishes the back button (scale below 1 while the mouse is down), and it springs back after.
+  // A press squishes the Path tab (scale below 1 while the mouse is down), and it springs back after.
+  // (R04: Settings is a tab now, so its old back button is gone; the Path tab is the button that goes back.)
   await expect(w.getByTestId('settings')).toBeVisible();
-  const back = (await w.getByTestId('settings-back').boundingBox())!;
-  await w.mouse.move(back.x + 22, back.y + 22); await w.mouse.down(); await w.waitForTimeout(250);
-  const pressed = await scaleOf(w, 'settings-back');
-  await w.mouse.move(5, 500); await w.mouse.up(); await w.waitForTimeout(500); // slide off before letting go, so it's not a click
-  console.log('back button scale while pressed:', pressed);
+  const back = (await w.getByTestId('tab-path').boundingBox())!;
+  const mid = { x: back.x + back.width / 2, y: back.y + back.height / 2 };
+  await w.mouse.move(mid.x, mid.y); await w.mouse.down(); await w.waitForTimeout(250);
+  const pressed = await scaleOf(w, 'tab-path');
+  await w.mouse.move(5, 300); await w.mouse.up(); await w.waitForTimeout(500); // slide off before letting go, so it's not a click
+  console.log('Path tab scale while pressed:', pressed);
   expect(pressed).toBeLessThan(0.97);
-  expect(await scaleOf(w, 'settings-back')).toBeCloseTo(1, 2);
+  expect(await scaleOf(w, 'tab-path')).toBeCloseTo(1, 2);
 
   // Now with the app's own Reduce motion switch on: the knob jumps (no in-between frames) and nothing squishes.
   await w.getByTestId('set-motion').check();
@@ -91,9 +100,9 @@ test('the switch knob slides smoothly (50+ frames a second), buttons squish when
   const a = still.xs[0], b = still.xs[still.xs.length - 1];
   expect(Math.abs(b - a)).toBeGreaterThan(15);
   expect(still.xs.filter(x => x < Math.max(a, b) - 1 && x > Math.min(a, b) + 1)).toEqual([]);
-  await w.mouse.move(back.x + 22, back.y + 22); await w.mouse.down(); await w.waitForTimeout(250);
-  expect(await scaleOf(w, 'settings-back')).toBe(1);
-  await w.mouse.move(5, 500); await w.mouse.up();
+  await w.mouse.move(mid.x, mid.y); await w.mouse.down(); await w.waitForTimeout(250);
+  expect(await scaleOf(w, 'tab-path')).toBe(1);
+  await w.mouse.move(5, 300); await w.mouse.up();
   await app.close();
 });
 

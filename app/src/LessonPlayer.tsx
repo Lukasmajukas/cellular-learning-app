@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { useMemo, useRef, useState } from 'react';
+import { motion, AnimatePresence, useIsPresent } from 'motion/react';
 import rawConfetti from 'canvas-confetti';
 import { prefs } from './prefs';
 import { c, mono } from './theme';
@@ -16,6 +16,9 @@ import { SpectrumBar, rangesFor } from './SpectrumBar';
 import { mark, rightAnswerText, isScored, correctOrder, shuffleOrder, type Answer, type Item, type Scored, type Photo, type Rect } from './questions';
 import { startRun, advance, current, finished, scoredCount } from './session';
 import { xpFor, signalBars } from './gamify';
+import { AnswerTile, usePress, type TileState } from './ui';
+import { SPRING, PRESS_PILL, TIME } from './theme/motion';
+import { useKeys, pressFor } from './keys';
 
 export type LessonResult = { stars: number; xp: number; results: { id: string; ok: boolean }[] };
 
@@ -33,6 +36,14 @@ const tile = (bg: string, border: string = c.border): React.CSSProperties => ({ 
 // An answer tile's look: plain while answering; after checking, the right one is "on air" green and a wrong pick is "miss" red.
 const answerLook = (locked: boolean, right: boolean, picked: boolean): [string, string] =>
   !locked ? [c.surface, c.border] : right ? [c.onAirBg, c.onAir] : picked ? [c.missBg, c.miss] : [c.surface, c.border];
+// The same idea for the numbered answer tiles (src/ui/AnswerTile.tsx): idle, then right / wrong (your pick) / dim (the rest).
+const tileState = (locked: boolean, right: boolean, picked: boolean): TileState => !locked ? 'idle' : right ? 'right' : picked ? 'wrong' : 'dim';
+// The answer tiles of a pick-one question, numbered 1, 2, 3... in the order they're shown. Keys 1-9 press them (data-pick).
+function Choices({ q, order, locked, picked, onSubmit }: { q: { choices: string[]; answer: number }; order: number[]; locked: boolean; picked?: Answer; onSubmit: (a: Answer) => void }) {
+  return <>{order.map((i, k) => (
+    <AnswerTile key={q.choices[i]} n={k + 1} data-pick={k + 1} aria-keyshortcuts={String(k + 1)} data-testid={`choice-${i}`} disabled={locked}
+      state={tileState(locked, i === q.answer, i === picked)} onClick={() => onSubmit(i)}>{q.choices[i]}</AnswerTile>))}</>;
+}
 
 // A picture with its credit line. `outline` draws a box on it; `tap` makes it tappable (gives x, y as fractions); `dot` shows where the player tapped.
 function PhotoView({ photo, outline, tap, dot, locked }: { photo: Photo; outline?: Rect; tap?: (x: number, y: number) => void; dot?: [number, number] | null; locked?: boolean }) {
@@ -64,14 +75,10 @@ function Question({ q, locked, picked, onSubmit }: { q: Scored; locked: boolean;
   // Buttons keep their written number in data-testid and in what they submit, so marking doesn't change.
   const choiceOrder = useMemo(() => (q.kind === 'choice' || q.kind === 'photo-choice' ? shuffleOrder(q.choices.length) : []), [q]);
   const clueOrders = useMemo(() => (q.kind === 'scenario' ? q.clues.map(clue => shuffleOrder(clue.choices.length)) : []), [q]);
-  if (q.kind === 'choice') return <>{choiceOrder.map(i => (
-    <motion.button key={q.choices[i]} data-testid={`choice-${i}`} disabled={locked} whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.92 }} transition={{ type: 'spring', stiffness: 500, damping: 12 }}
-      onClick={() => onSubmit(i)} style={tile(...answerLook(locked, i === q.answer, i === picked))}>{q.choices[i]}</motion.button>))}</>;
+  if (q.kind === 'choice') return <Choices q={q} order={choiceOrder} locked={locked} picked={picked} onSubmit={onSubmit} />;
   if (q.kind === 'photo-choice') return <>
     <PhotoView photo={q.photo} outline={locked ? q.outline : undefined} />
-    {choiceOrder.map(i => [q.choices[i], i] as const).map(([c, i]) => (
-      <motion.button key={c} data-testid={`choice-${i}`} disabled={locked} whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.92 }} transition={{ type: 'spring', stiffness: 500, damping: 12 }}
-        onClick={() => onSubmit(i)} style={tile(...answerLook(locked, i === q.answer, i === picked))}>{c}</motion.button>))}</>;
+    <Choices q={q} order={choiceOrder} locked={locked} picked={picked} onSubmit={onSubmit} /></>;
   if (q.kind === 'tap-clue') return <>
     <PhotoView photo={q.photo} outline={locked ? q.target : undefined} dot={tapped} locked={locked} tap={(x, y) => { setTapped([x, y]); onSubmit([x, y]); }} />
     <div style={{ fontSize: 14, color: c.textMuted }}>Tap the picture where you see it.</div></>;
@@ -79,7 +86,7 @@ function Question({ q, locked, picked, onSubmit }: { q: Scored; locked: boolean;
     <form onSubmit={e => { e.preventDefault(); if (!locked && text.trim()) onSubmit(text); }}>
       <input data-testid="number-input" autoFocus inputMode="decimal" value={text} disabled={locked} onChange={e => setText(e.target.value)} aria-label="Your answer"
         style={{ fontSize: 28, width: 160, textAlign: 'center', padding: 8, borderRadius: 12, border: `1.5px solid ${c.borderStrong}`, background: c.surface, color: c.text, ...mono }} /> {q.unit}
-      <div><button data-testid="check" type="submit" disabled={locked || !text.trim()} style={{ ...btn(c.signal), marginTop: 12, opacity: text.trim() ? 1 : 0.5 }}>Check</button></div>
+      <div><button data-testid="check" data-primary aria-keyshortcuts="Enter" type="submit" disabled={locked || !text.trim()} style={{ ...btn(c.signal), marginTop: 12, opacity: text.trim() ? 1 : 0.5 }}>Check</button></div>
     </form>);
   if (q.kind === 'match') {
     const used = new Set(paired.filter(p => p !== null));
@@ -93,7 +100,7 @@ function Question({ q, locked, picked, onSubmit }: { q: Scored; locked: boolean;
         <div style={{ flex: 1 }}>{rightOrder.map(j => (
           <button key={q.pairs[j][1]} data-testid={`match-right-${j}`} disabled={locked} onClick={() => tap(j)} style={tile(used.has(j) ? c.surface2 : c.surface, used.has(j) ? c.borderStrong : c.border)}>{q.pairs[j][1]}</button>))}</div>
       </div>
-      <button data-testid="check" disabled={locked || !all} onClick={() => onSubmit(paired as number[])} style={{ ...btn(c.signal), marginTop: 12, opacity: all ? 1 : 0.5 }}>Check</button></>;
+      <button data-testid="check" data-primary aria-keyshortcuts="Enter" disabled={locked || !all} onClick={() => onSubmit(paired as number[])} style={{ ...btn(c.signal), marginTop: 12, opacity: all ? 1 : 0.5 }}>Check</button></>;
   }
   if (q.kind === 'scenario') {
     const all = picks.every(p => p !== null);
@@ -105,7 +112,7 @@ function Question({ q, locked, picked, onSubmit }: { q: Scored; locked: boolean;
             <button key={ch} data-testid={`clue-${ci}-choice-${i}`} disabled={locked} onClick={() => setPicks(p => p.map((v, k) => (k === ci ? i : v)))}
               style={{ ...tile(...(!locked && picks[ci] === i ? [c.surface2, c.signal] as [string, string] : answerLook(locked, i === clue.answer, picks[ci] === i))), width: 'auto', margin: 0, fontSize: 16 }}>{ch}</button>))}</div>
         </div>))}
-      <button data-testid="check" disabled={locked || !all} onClick={() => onSubmit(picks as number[])} style={{ ...btn(c.signal), marginTop: 12, opacity: all ? 1 : 0.5 }}>Check</button></>;
+      <button data-testid="check" data-primary aria-keyshortcuts="Enter" disabled={locked || !all} onClick={() => onSubmit(picks as number[])} style={{ ...btn(c.signal), marginTop: 12, opacity: all ? 1 : 0.5 }}>Check</button></>;
   }
   const rest = orderPool.filter(l => !placed.includes(l));
   return <>
@@ -115,7 +122,7 @@ function Question({ q, locked, picked, onSubmit }: { q: Scored; locked: boolean;
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, justifyContent: 'center', marginTop: 10 }}>
       {rest.map(l => <button key={l} data-testid={`order-item-${l}`} disabled={locked} onClick={() => setPlaced(p => [...p, l])} style={{ ...tile(c.surface), width: 'auto', margin: 0 }}>{l}</button>)}
     </div>
-    <button data-testid="check" disabled={locked || rest.length > 0} onClick={() => onSubmit(placed)} style={{ ...btn(c.signal), marginTop: 12, opacity: rest.length ? 0.5 : 1 }}>Check</button></>;
+    <button data-testid="check" data-primary aria-keyshortcuts="Enter" disabled={locked || rest.length > 0} onClick={() => onSubmit(placed)} style={{ ...btn(c.signal), marginTop: 12, opacity: rest.length ? 0.5 : 1 }}>Check</button></>;
 }
 
 function Feedback({ q, ok, a }: { q: Scored; ok: boolean; a: Answer }) {
@@ -149,22 +156,30 @@ export function LessonPlayer({ lesson, onFinish, onQuit }: { lesson: Lesson; onF
   };
   const next = (ok: boolean) => {
     const r = advance(run, ok); setRun(r); setRes(null);
-    if (finished(r)) setTimeout(() => confetti({ particleCount: 200, spread: 120 }), 200);
+    if (finished(r)) setTimeout(() => confetti({ particleCount: 200, spread: 120 }), TIME.burstWait * 1000);
   };
   const perfect = right === total;
   const xp = xpFor(right, retriesRight, perfect);
   const result = (): LessonResult => ({ stars: stars(right, total), xp, results: [...run.firstRight.map(id => ({ id, ok: true })), ...run.firstMissed.map(id => ({ id, ok: false }))] });
   const restart = () => { setRun(startRun(lesson.questions)); setRes(null); setRetriesRight(0); };
+  // Send the result only once, even if "Back to the path" is pressed twice while the lesson glides away.
+  const sent = useRef(false);
+  const finish = () => { if (sent.current) return; sent.current = true; onFinish(result()); };
+  // Keys (src/keys.ts): 1-9 pick an answer tile, Enter presses the main button, Esc leaves. Off while the lesson glides away.
+  const root = useRef<HTMLDivElement>(null);
+  const continuePress = usePress(true, PRESS_PILL);
+  useKeys(k => (k === 'back' ? (onQuit(), true) : pressFor(root.current, k)), useIsPresent());
   return (
-    <div style={{ maxWidth: 440, margin: '0 auto', padding: 20, textAlign: 'center' }}>
+    <div ref={root} style={{ maxWidth: 440, margin: '0 auto', padding: 20, textAlign: 'center' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-        <button data-testid="quit" onClick={onQuit} aria-label="Leave the lesson" title="Leave the lesson" style={{ width: 44, height: 44, display: 'grid', placeItems: 'center', border: 0, borderRadius: '50%', background: 'none', color: c.textMuted, cursor: 'pointer', flexShrink: 0 }}><Icon name="close" /></button>
+        <button data-testid="quit" onClick={onQuit} aria-label="Leave the lesson" aria-keyshortcuts="Escape" title="Leave the lesson (Esc)" style={{ width: 44, height: 44, display: 'grid', placeItems: 'center', border: 0, borderRadius: '50%', background: 'none', color: c.textMuted, cursor: 'pointer', flexShrink: 0 }}><Icon name="close" /></button>
         <div style={{ flex: 1, height: 10, background: c.track, borderRadius: 5, overflow: 'hidden' }}>
-          <motion.div style={{ height: '100%', background: c.signal }} animate={{ width: `${(Math.min(run.index, run.queue.length) / run.queue.length) * 100}%` }} />
+          <motion.div style={{ height: '100%', background: c.signal }} initial={false} animate={{ width: `${(Math.min(run.index, run.queue.length) / run.queue.length) * 100}%` }} />
         </div>
       </div>
       <Mascot happy={!res || res.ok} />
-      <AnimatePresence mode="wait">
+      {/* initial={false}: the first question is already in place while the whole lesson rises (R04); later ones slide in. */}
+      <AnimatePresence mode="wait" initial={false}>
         {!done && it ? (
           <motion.div key={`${run.index}-${it.id}`} initial={{ x: 60, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: -60, opacity: 0 }}>
             {it.kind === 'learn' ? (
@@ -173,7 +188,7 @@ export function LessonPlayer({ lesson, onFinish, onQuit }: { lesson: Lesson; onF
                 <p style={{ fontSize: 18, lineHeight: 1.4 }}>{it.text}</p>
                 {it.bars && <SpectrumBar ranges={rangesFor(it.bars)} />}
                 {it.badge && <div data-testid="badge" style={{ fontSize: 13, color: c.textMuted, ...mono }}>{it.badge.status} · as of {it.badge.asOf}</div>}
-                <div style={{ textAlign: 'center' }}><button data-testid="learn-ok" onClick={() => next(true)} style={{ ...btn(c.onAir), marginTop: 12 }}>Got it</button></div>
+                <div style={{ textAlign: 'center' }}><button data-testid="learn-ok" data-primary aria-keyshortcuts="Enter" onClick={() => next(true)} style={{ ...btn(c.onAir), marginTop: 12 }}>Got it</button></div>
               </div>
             ) : (
               <>
@@ -181,13 +196,13 @@ export function LessonPlayer({ lesson, onFinish, onQuit }: { lesson: Lesson; onF
                 <Question key={it.id + run.index} q={it} locked={!!res} picked={res?.a} onSubmit={submit} />
                 {res && <>
                   <Feedback q={it} ok={res.ok} a={res.a} />
-                  <motion.button data-testid="next" initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} whileTap={{ scale: 0.92 }} onClick={() => next(res.ok)}
+                  <motion.button data-testid="next" data-primary aria-keyshortcuts="Enter" initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} {...continuePress} onClick={() => next(res.ok)}
                     style={{ ...btn(c.onAir), marginTop: 10 }}>Continue</motion.button></>}
               </>
             )}
           </motion.div>
         ) : (
-          <motion.div key="end" initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: 'spring', bounce: 0.5 }}>
+          <motion.div key="end" initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={SPRING.bouncy}>
             <h2 data-testid="done">Lesson complete!</h2>
             <div data-testid="stars" data-count={stars(right, total)} aria-label={`${stars(right, total)} of 3 stars`} style={{ display: 'flex', justifyContent: 'center', gap: 8, color: c.streak, minHeight: 44 }}>
               {[0, 1, 2].map(k => <Icon key={k} name="star" size={44} solid={k < stars(right, total)} style={{ opacity: k < stars(right, total) ? 1 : 0.35 }} />)}</div>
@@ -195,7 +210,7 @@ export function LessonPlayer({ lesson, onFinish, onQuit }: { lesson: Lesson; onF
             <p data-testid="xp" style={{ ...mono, fontSize: 28, color: c.signal, margin: '8px 0' }}>+{xp} XP</p>
             <p data-testid="bars" data-count={signalBars(right, total)} aria-label={`${signalBars(right, total)} of 5 signal bars`} style={{ margin: '0 0 16px', color: c.onAir }}><SignalBars on={signalBars(right, total)} size={40} /></p>
             <button onClick={restart} style={{ ...btn(c.signal), marginRight: 8 }}>Again</button>
-            <button data-testid="finish" onClick={() => onFinish(result())} style={btn(c.onAir)}>Back to the path</button>
+            <button data-testid="finish" data-primary aria-keyshortcuts="Enter" onClick={finish} style={btn(c.onAir)}>Back to the path</button>
           </motion.div>
         )}
       </AnimatePresence>

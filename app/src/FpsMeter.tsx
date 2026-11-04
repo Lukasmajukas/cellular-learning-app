@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { c, mono } from './theme';
 
 // A small corner badge that shows how many pictures per second the screen draws (about 60 = smooth).
-// It counts animation frames and updates twice a second. Only mounted when the "Show frame rate" setting is on.
+// Top left, so it never covers the bottom tabs. It counts animation frames and updates twice a second. Only mounted when the "Show frame rate" setting is on.
 export function FpsMeter() {
   const [fps, setFps] = useState(0);
   useEffect(() => {
@@ -15,6 +15,6 @@ export function FpsMeter() {
     id = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(id);
   }, []);
-  return <div data-testid="fps" style={{ position: 'fixed', left: 8, bottom: 8, zIndex: 1000, padding: '2px 8px', borderRadius: 8,
+  return <div data-testid="fps" style={{ position: 'fixed', left: 8, top: 8, zIndex: 1000, padding: '2px 8px', borderRadius: 8,
     background: c.surface2, border: `1px solid ${c.border}`, color: c.text, fontSize: 12, ...mono, pointerEvents: 'none' }}>{fps} fps</div>;
 }

@@ -1,8 +1,7 @@
 import { motion } from 'motion/react';
 import { c } from '../theme';
 import type { TokenKey } from '../theme/tokens';
-import { SPRING } from './tones';
-import { useCalm, INSTANT } from './press';
+import { SPRING, useCalm, INSTANT } from '../theme/motion';
 
 // A progress bar. `value` is 0 to 1. The fill slides in from the left with a spring (it moves, it never changes width,
 // so it stays smooth: DESIGN.md section 7). `glow` = the signal-to-on-air colour fade from look A.

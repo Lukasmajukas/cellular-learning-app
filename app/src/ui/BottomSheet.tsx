@@ -3,8 +3,8 @@ import { motion, AnimatePresence } from 'motion/react';
 import { c, COLUMN } from '../theme';
 import type { TokenKey } from '../theme/tokens';
 import { Icon } from '../Icon';
-import { SHEET, SPRING, QUICK_FADE, type SheetTone } from './tones';
-import { useCalm, INSTANT } from './press';
+import { SHEET, type SheetTone } from './tones';
+import { SPRING, QUICK_FADE, useCalm, INSTANT } from '../theme/motion';
 
 // The panel that slides up from the bottom of the window after an answer: "Right!" (on-air green) or "Not quite" (miss, soft red).
 // It always has an icon and words, never colour alone. `children` = the explanation; `action` = its button (like Continue).

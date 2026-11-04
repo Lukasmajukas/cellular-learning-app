@@ -42,15 +42,4 @@ export const SHEET = {
 } as const satisfies Record<string, Tone>;
 export type SheetTone = keyof typeof SHEET;
 
-// Springs from DESIGN.md section 7. Session R04 moves these into the one speed file (with the screen-change timings).
-export const SPRING = {
-  snappy: { type: 'spring', stiffness: 500, damping: 30 },   // tap and hover: a press squishes and springs back
-  bouncy: { type: 'spring', stiffness: 300, damping: 14 },   // pop-ins (the speech bubble)
-  sheet: { type: 'spring', stiffness: 380, damping: 36 },    // the bottom sheet sliding up (about 0.35 s, no wobble)
-  fill: { type: 'spring', stiffness: 170, damping: 26 },     // a progress bar filling
-} as const;
-// How much things grow on hover and shrink when pressed. Big tiles move less than small buttons.
-export const PRESS = { hover: 1.03, tap: 0.95 };
-export const PRESS_BIG = { hover: 1.015, tap: 0.97 };
-// A reduce-motion fade (DESIGN.md: "a quick fade, 150 ms at most").
-export const QUICK_FADE = { duration: 0.15 };
+// The springs and press sizes that used to live here moved to the one speed file, src/theme/motion.tsx (R04).

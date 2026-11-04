@@ -3,7 +3,7 @@
 // Options:        node tools/gallery.mjs --out <folder>   (default ../docs/redesign/gallery/latest)
 //                 node tools/gallery.mjs --icons-only     (just the icon sheet, 00-icons.webp; no build needed)
 // It starts the real Electron app with a made-up save file (3 lessons done, a 4-day streak, some reviews due),
-// shows the building blocks page (#blocks, from R03),
+// shows the building blocks page (#blocks, from R03), the Review tab (13, from R04),
 // draws a sheet of all our icons (00-icons), visits each screen at the owner's window size (620 x 960) and a wide one (1280 x 800), and saves small WebP files.
 // In the cloud (Linux with no screen) it restarts itself inside xvfb-run, a pretend screen.
 import { _electron as electron } from 'playwright';
@@ -108,14 +108,17 @@ async function realScreens(s) {
     await w.getByTestId('verdict').waitFor({ state: 'detached' });
   }
   await w.getByTestId('quit').click();
-  await w.getByTestId('open-heatmap').click();
+  await w.getByTestId('tab-heatmap').click();
   await w.getByTestId('heatmap').waitFor();
   await shot(w, '07-heatmap', s);
-  await w.getByTestId('heatmap-back').click();
-  await w.getByTestId('open-settings').click();
+  await w.getByTestId('tab-settings').click();
   await shot(w, '08-settings', s);
+  await w.getByTestId('tab-review').click();
+  await w.getByTestId('review-screen').waitFor();
+  await shot(w, '13-review', s);
+  await w.getByTestId('tab-settings').click();
   await w.getByTestId('set-day').check();
-  await w.getByTestId('settings-back').click();
+  await w.getByTestId('tab-path').click();
   await shot(w, '09-path-map-day', s);
   await app.close();
 }

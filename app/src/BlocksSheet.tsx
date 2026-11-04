@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { MotionConfig } from 'motion/react';
 import { c, COLUMN } from './theme';
-import { Button, IconButton, Card, SectionLabel, AnswerTile, Pill, StatChip, PillChoice, Switch, ProgressBar, BottomSheet, SpeechBubble, type TileState } from './ui';
+import { MotionKit, Button, IconButton, Card, SectionLabel, AnswerTile, Pill, StatChip, PillChoice, Switch, ProgressBar, BottomSheet, SpeechBubble, type TileState } from './ui';
 
 // Every building block on one page (redesign R03), for the gallery pictures and the click tests. Not part of the normal app:
 // open it by adding #blocks to the address (the gallery and tests/blocks.spec.ts do that). It has its own "Reduce motion" switch.
@@ -15,7 +14,7 @@ export function BlocksSheet() {
   const lines = ['Hmm, look at the units!', 'Nice, that one is on air.'];
   const tiles: TileState[] = ['idle', 'selected', 'right', 'wrong', 'dim'];
   return (
-    <MotionConfig reducedMotion={reduce ? 'always' : 'never'}>
+    <MotionKit calm={reduce}>
       <div data-testid="blocks" style={{ maxWidth: COLUMN, margin: '0 auto', padding: '16px 20px 260px', boxSizing: 'border-box', display: 'grid', gap: 16 }}>
         <h1 style={{ margin: 0 }}>Building blocks</h1>
         <Card title="Buttons">
@@ -63,6 +62,6 @@ export function BlocksSheet() {
         action={<Button full big kind={sheet === 'wrong' ? 'miss' : 'onAir'} data-testid="block-sheet-close" onClick={() => setSheet(null)}>Continue</Button>}>
         {sheet === 'wrong' ? <><strong>Right answer:</strong> They are the same. 1 GHz is 1000 MHz, so 2 GHz is 2000 MHz.</> : '1 GHz is 1000 MHz, so they are the same.'}
       </BottomSheet>
-    </MotionConfig>
+    </MotionKit>
   );
 }

@@ -1,8 +1,7 @@
 import type { CSSProperties, ReactNode } from 'react';
 import { motion } from 'motion/react';
 import { c } from '../theme';
-import { SPRING, QUICK_FADE } from './tones';
-import { useCalm } from './press';
+import { SPRING, QUICK_FADE, useCalm } from '../theme/motion';
 
 // What Beacon says, in a bubble whose pointy corner (bottom left) points back at Beacon. It pops in with a little bounce.
 // Beacon's lines are 8 words or fewer, plain and kind (DESIGN.md section 8); they'll live in one data file (R18).
