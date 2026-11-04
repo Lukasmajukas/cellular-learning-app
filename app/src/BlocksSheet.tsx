@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { c, COLUMN } from './theme';
-import { MotionKit, Button, IconButton, Card, SectionLabel, AnswerTile, Pill, StatChip, PillChoice, Switch, ProgressBar, BottomSheet, SpeechBubble, type TileState } from './ui';
+import { MotionKit, Button, IconButton, Card, SectionLabel, AnswerTile, Pill, StatChip, PillChoice, Switch, ProgressBar, BottomSheet, SpeechBubble, Beacon, BEACON_FACES, BEACON_SIZE, type TileState, type BeaconFace } from './ui';
 
 // Every building block on one page (redesign R03), for the gallery pictures and the click tests. Not part of the normal app:
 // open it by adding #blocks to the address (the gallery and tests/blocks.spec.ts do that). It has its own "Reduce motion" switch.
@@ -11,6 +11,8 @@ export function BlocksSheet() {
   const [fill, setFill] = useState(0.42);
   const [sheet, setSheet] = useState<'right' | 'wrong' | null>(null);
   const [said, setSaid] = useState(0);
+  const [face, setFace] = useState<BeaconFace>('idle');
+  const reactions: [BeaconFace, string][] = [['idle', 'Wait'], ['happy', 'Right'], ['oops', 'Not quite'], ['cheering', 'Cheer']];
   const lines = ['Hmm, look at the units!', 'Nice, that one is on air.'];
   const tiles: TileState[] = ['idle', 'selected', 'right', 'wrong', 'dim'];
   return (
@@ -48,8 +50,24 @@ export function BlocksSheet() {
         </div>
         <Card title="Beacon says" raised>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <Beacon data-testid="block-bubble-beacon" />
             <SpeechBubble key={said} data-testid="block-bubble">{lines[said % lines.length]}</SpeechBubble>
             <Button kind="quiet" data-testid="block-bubble-again" onClick={() => setSaid(n => n + 1)}>Again</Button>
+          </div>
+        </Card>
+        {/* Beacon (R17): the six faces standing still, then one you can make react (with its loops: breathing and blinking). */}
+        <Card title="Beacon" raised data-testid="block-beacon-card">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, justifyItems: 'center' }}>
+            {BEACON_FACES.map(f => (
+              <div key={f} style={{ display: 'grid', justifyItems: 'center', gap: 4, fontSize: 13, color: c.textMuted }}>
+                <Beacon face={f} still data-testid={`block-beacon-${f}`} /><span>{f}</span>
+              </div>))}
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginTop: 16 }}>
+            <Beacon face={face} size={BEACON_SIZE.complete} data-testid="block-beacon-demo" />
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+              {reactions.map(([f, text]) => <Button key={f} kind="quiet" data-testid={`block-beacon-set-${f}`} onClick={() => setFace(f)}>{text}</Button>)}
+            </div>
           </div>
         </Card>
         <div style={{ display: 'flex', gap: 10 }}>

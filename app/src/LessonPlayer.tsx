@@ -10,7 +10,7 @@ const confetti = (o: Parameters<typeof rawConfetti>[0]) => { if (prefs.reduceMot
 import { stars } from './lesson';
 import type { Lesson } from './path';
 import { beep } from './sound';
-import { Mascot } from './Mascot';
+import { Beacon, BEACON_SIZE } from './ui/Beacon';
 import { Icon, SignalBars } from './Icon';
 import { SpectrumBar, rangesFor } from './SpectrumBar';
 import { mark, rightAnswerText, isScored, correctOrder, shuffleOrder, type Answer, type Item, type Scored, type Photo, type Rect } from './questions';
@@ -155,9 +155,12 @@ export function LessonPlayer({ lesson, onFinish, onQuit }: { lesson: Lesson; onF
   const total = scoredCount(run), right = run.firstRight.length;
   const submit = (a: Answer) => {
     if (res || !it || !isScored(it)) return;
-    const ok = mark(it, a); beep(ok); setRes({ ok, a });
+    const ok = mark(it, a); setRes({ ok, a });
     if (ok && run.seen.includes(it.id)) setRetriesRight(n => n + 1);
-    if (ok) confetti({ particleCount: 60, spread: 70, origin: { y: 0.7 } });
+    // The sound and the confetti start on the next frame, after the answer and Beacon's new face are drawn (R17: Beacon
+    // must react within 0.1 s). Inside the click, the first answer's sound set-up alone held the face back ~55 ms.
+    // R11 drops this confetti (idea I31); R19 brings the new sounds.
+    requestAnimationFrame(() => { beep(ok); if (ok) confetti({ particleCount: 60, spread: 70, origin: { y: 0.7 } }); });
   };
   const next = (ok: boolean) => {
     const r = advance(run, ok); setRun(r); setRes(null);
@@ -182,7 +185,11 @@ export function LessonPlayer({ lesson, onFinish, onQuit }: { lesson: Lesson; onF
           <motion.div style={{ height: '100%', background: c.signal }} initial={false} animate={{ width: `${(Math.min(run.index, run.queue.length) / run.queue.length) * 100}%` }} />
         </div>
       </div>
-      <Mascot happy={!res || res.ok} />
+      {/* Beacon (R17): waits, is happy or a little worried after an answer (within 0.1 s), and cheers when the lesson is done.
+          R09 gives it its own spot with a speech bubble; R18 gives it its lines. */}
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: 8 }}>
+        <Beacon face={done ? 'cheering' : !res ? 'idle' : res.ok ? 'happy' : 'oops'} size={done ? BEACON_SIZE.complete : BEACON_SIZE.question} />
+      </div>
       {/* initial={false}: the first question is already in place while the whole lesson rises (R04); later ones slide in. */}
       <AnimatePresence mode="wait" initial={false}>
         {!done && it ? (

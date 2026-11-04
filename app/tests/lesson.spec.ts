@@ -10,7 +10,7 @@ test('path map opens a lesson, finishing it unlocks the next one', async () => {
   await expect(w.getByTestId('lesson-u1-l2')).toBeDisabled();
   await w.screenshot({ path: 'test-results/path-start.png' });
   await w.getByTestId('lesson-u1-l1').click();
-  await expect(w.getByTestId('mascot')).toBeVisible();
+  await expect(w.getByTestId('beacon')).toBeVisible();
   await w.getByTestId('choice-0').click();
   await w.screenshot({ path: 'test-results/q1.png' });
   await w.getByTestId('next').click();

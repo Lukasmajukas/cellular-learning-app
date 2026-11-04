@@ -8,6 +8,7 @@ export { Switch } from './Switch';
 export { ProgressBar } from './ProgressBar';
 export { BottomSheet } from './BottomSheet';
 export { SpeechBubble } from './SpeechBubble';
+export { Beacon, BEACON_FACES, BEACON_SIZE, type BeaconFace } from './Beacon';
 export { UnitBanner } from './UnitBanner';
 export { LessonNode, NODE_SIZE, NODE_BOX, NODE_RING } from './LessonNode';
 export { usePress } from './press';

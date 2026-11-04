@@ -51,6 +51,7 @@ describe('text contrast', () => {
     ['miss', 'missBg', 4.5], ['missText', 'missBg', 4.5], ['text', 'missBg', 4.5],
     ['notice', 'noticeBg', 4.5],
     ['lockedIcon', 'bg', 3], ['textMuted', 'track', 3],
+    ...(['bg', 'surface', 'surface2'] as TokenKey[]).map(b => ['beacon', b, 3] as [TokenKey, TokenKey, number]), // Beacon's tower is a drawing (R17)
     ...(['chart1', 'chart2', 'chart3', 'chart4', 'chart5', 'chart6'] as TokenKey[]).map(k => [k, 'surface', 3] as [TokenKey, TokenKey, number]),
   ];
   const check = (p: Palette) => PAIRS.filter(([f, b, min]) => contrast(p[f], p[b]) < min)
