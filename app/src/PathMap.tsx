@@ -4,12 +4,17 @@ import { allLessons, lessonStatus, doneCount, type Unit, type Progress } from '.
 const COLORS = { done: '#58cc02', current: '#4a90d9', locked: '#cfd8e0' };
 
 // The path map: towers "come on air" (light up) as lessons get finished.
-export function PathMap({ units, progress, onStart }: { units: Unit[]; progress: Progress; onStart: (lessonId: string) => void }) {
+export function PathMap({ units, progress, onStart, due = 0, onReview }: { units: Unit[]; progress: Progress; onStart: (lessonId: string) => void; due?: number; onReview?: () => void }) {
   const total = allLessons(units).length;
   return (
     <div style={{ maxWidth: 420, margin: '0 auto', padding: 20, textAlign: 'center' }}>
       <h1 style={{ margin: '0 0 4px' }}>Your path</h1>
       <p data-testid="path-count" style={{ margin: '0 0 16px', color: '#667' }}>{doneCount(units, progress)} of {total} lessons done</p>
+      {onReview && (
+        <motion.button data-testid="daily-review" disabled={due === 0} onClick={onReview} whileHover={due ? { scale: 1.04 } : undefined} whileTap={due ? { scale: 0.94 } : undefined}
+          style={{ width: '100%', padding: 14, fontSize: 18, border: 0, borderRadius: 14, color: '#fff', cursor: due ? 'pointer' : 'default', background: due ? '#ff9600' : '#cfd8e0' }}>
+          {due ? `🚗 Daily review: ${due} due` : '🚗 Daily review: nothing due today'}
+        </motion.button>)}
       {units.map(u => (
         <section key={u.id} data-testid={`unit-${u.id}`}>
           <h3 style={{ margin: '24px 0 8px' }}>{u.title}</h3>
