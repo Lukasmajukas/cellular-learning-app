@@ -11,9 +11,9 @@ export async function playSampleLesson(w: Page) {
 }
 
 // Frame-by-frame recording for animations (from R06's pathmotion.spec.ts; shared since R07).
-export type Frame = Record<string, { op: number; sx: number; sy: number; x: number; y: number; tx: string } | null>;
+export type Frame = Record<string, { op: number; sx: number; sy: number; x: number; y: number; tx: string; hid: boolean } | null>;
 // Records, every frame for `ms`, each selector's own see-through-ness (op), its scale (x and y, from its transform),
-// its left and top edges and its text (tx, for count-ups: R07). Elements are looked up again each frame, because some only appear during the movement.
+// its left and top edges, its text (tx, for count-ups: R07) and whether it's hidden (hid: visibility hidden, I30). Elements are looked up again each frame, because some only appear during the movement.
 // The frame rate (fps) counts only the frames of the movement itself: from the first frame where `from` is on the page
 // (when given), leaving out the gap that frame closes (building the new screen is a one-time cost, not the animation)
 // and any gap during a test screenshot taken with snap() (the test pausing the page, not the app being slow; found on
@@ -29,7 +29,7 @@ export async function film(w: Page, sels: string[], act: () => Promise<void>, ms
         const el = document.querySelector(s) as HTMLElement | null;
         if (!el) { fr[s] = null; continue; }
         const cs = getComputedStyle(el), m = cs.transform === 'none' ? new DOMMatrix() : new DOMMatrix(cs.transform);
-        fr[s] = { op: Math.round(Number(cs.opacity) * 1000) / 1000, sx: Math.round(Math.hypot(m.a, m.b) * 1000) / 1000, sy: Math.round(Math.hypot(m.c, m.d) * 1000) / 1000, x: Math.round(el.getBoundingClientRect().x * 10) / 10, y: Math.round(el.getBoundingClientRect().y * 10) / 10, tx: el.textContent ?? '' };
+        fr[s] = { op: Math.round(Number(cs.opacity) * 1000) / 1000, sx: Math.round(Math.hypot(m.a, m.b) * 1000) / 1000, sy: Math.round(Math.hypot(m.c, m.d) * 1000) / 1000, x: Math.round(el.getBoundingClientRect().x * 10) / 10, y: Math.round(el.getBoundingClientRect().y * 10) / 10, tx: el.textContent ?? '', hid: cs.visibility === 'hidden' };
       }
       out.frames.push(fr); out.gaps.push(t - last); out.ts.push(t); last = t;
       if (t - t0 < (ms as number)) requestAnimationFrame(f);

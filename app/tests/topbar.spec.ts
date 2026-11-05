@@ -2,7 +2,7 @@ import { _electron as electron, test, expect, type ElectronApplication } from '@
 import { mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { playSampleLesson, film, snap } from './helpers';
+import { playSampleLesson, film, snap, type Frame } from './helpers';
 
 // Redesign R07, tried in the real app: the top bar. When a lesson finishes, XP counts up with a "+N" rising off it,
 // the flame flickers, the goal bar springs forward (and flashes, with its check popping on, when the goal is reached),
@@ -30,6 +30,8 @@ const resize = (app: ElectronApplication, s: { w: number; h: number }) =>
 const SIX_DAYS = { streak: 6, lastDay: yesterday, xp: 100, xpToday: 0, xpDay: yesterday, doneToday: 0, doneDay: yesterday, freezes: 0 };
 const S = { xp: '[data-testid=xp-total]', float: '[data-testid=xp-float]', flame: '[data-testid=streak-flame]', glow: '[data-testid=streak-glow]',
   fill: '[data-testid=goal-bar] [data-fill]', flash: '[data-testid=goal-flash]', check: '[data-testid=goal-check]', pill: '[data-testid=freezes]' };
+// I30: the numbers that wait for the top bar's moment (they're filmed in the first test only).
+const H = { streak: '[data-testid=streak]', today: '[data-testid=xp-today]', goal: '[data-testid=goal-text]' };
 const num = (t: string | undefined) => Number((t ?? '').replace(/[^0-9]/g, ''));
 const distinct = (xs: (number | undefined)[]) => new Set(xs.filter(x => x !== undefined)).size;
 
@@ -41,7 +43,7 @@ test('finishing a lesson: XP counts up with a "+N" rising off it, the flame flic
   await w.getByTestId('lesson-u1-l1').click();
   await playSampleLesson(w);
   const shots: Buffer[] = [];
-  const f = await film(w, Object.values(S), async () => {
+  const f = await film(w, [...Object.values(S), ...Object.values(H)], async () => {
     await w.getByTestId('finish').click();
     for (const t of [1250, 450, 300, 300, 450]) { await w.waitForTimeout(t); shots.push(await snap(w)); } // a flip book, looked at by eye
   }, 4000, S.xp);
@@ -86,6 +88,26 @@ test('finishing a lesson: XP counts up with a "+N" rising off it, the flame flic
   const pill = seen(S.pill).map(x => x.sx);
   expect(Math.max(...pill)).toBeGreaterThan(1.15); expect(pill.at(-1)).toBeCloseTo(1, 2);
   await expect(w.getByTestId('freezes')).toHaveText('1');
+  // I30: while the path plays first, the top bar still shows the old numbers: the streak says 6, there's no "+N XP
+  // today" yet, the goal says 0 of 1 and the new freeze's pill is there but unseen. Each switches when its move starts.
+  const sinceBar = (i: number) => f.ts[i] - f.ts[firstSeen];
+  const firstAt = (sel: string, ok: (x: NonNullable<Frame[string]>) => boolean) => f.of(sel).findIndex(x => x !== null && ok(x));
+  const early = f.of(H.streak).map((x, i) => ({ x, i })).filter(({ x, i }) => x !== null && i >= firstSeen && sinceBar(i) < 1500);
+  expect(early.length).toBeGreaterThan(10);
+  for (const { i } of early) {
+    expect(num(f.of(H.streak)[i]!.tx), `streak at ${sinceBar(i).toFixed(0)} ms`).toBe(6);
+    expect(f.of(H.today)[i], `today's XP at ${sinceBar(i).toFixed(0)} ms`).toBeNull();
+    expect(f.of(H.goal)[i]!.tx).toContain('0 of 1');
+    expect(f.of(S.pill)[i]!.hid).toBe(true);
+  }
+  const at = { streak: firstAt(H.streak, x => num(x.tx) === 7), today: firstAt(H.today, () => true),
+    goal: firstAt(H.goal, x => x.tx.includes('1 of 1')), pill: firstAt(S.pill, x => !x.hid) };
+  console.log(`new numbers show after the top bar appears: ${Object.entries(at).map(([k, i]) => `${k} ${sinceBar(i).toFixed(0)} ms`).join(', ')}`);
+  for (const i of Object.values(at)) { expect(i).toBeGreaterThan(0); expect(sinceBar(i)).toBeGreaterThan(1500); }
+  expect(sinceBar(at.today)).toBeLessThan(sinceBar(firstUp) + 100); // today's XP shows as the total starts counting
+  // The streak switches as its number pops, and the pill shows before its pop has grown it (so the pop is seen).
+  expect(f.of(S.pill)[at.pill]!.sx).toBeLessThan(1.1);
+  await expect(w.getByTestId('xp-today')).toHaveText(`+${target - 100} XP today`);
   console.log(`top bar moment: ${f.fps.toFixed(1)} fps`);
   expect(f.fps).toBeGreaterThanOrEqual(50);
   await app.close();
@@ -116,7 +138,12 @@ test('with Reduce motion the numbers just change: no counting, no flicker, no "+
   const { app, w } = await launch(SIX_DAYS, { calm: true });
   await w.getByTestId('lesson-u1-l1').click();
   await playSampleLesson(w);
-  const f = await film(w, Object.values(S), () => w.getByTestId('finish').click(), 2000, S.xp);
+  const f = await film(w, [...Object.values(S), ...Object.values(H)], () => w.getByTestId('finish').click(), 2000, S.xp);
+  // Nothing waits either (I30): the new numbers are there from the top bar's first frame.
+  const first = f.of(S.xp).findIndex(x => x !== null);
+  expect(num(f.of(H.streak)[first]!.tx)).toBe(7);
+  expect(f.of(H.today)[first]).not.toBeNull(); expect(f.of(H.goal)[first]!.tx).toContain('1 of 1');
+  expect(f.of(S.pill)[first]!.hid).toBe(false);
   const xs = f.of(S.xp).filter(Boolean).map(x => num(x!.tx));
   expect(distinct(xs)).toBe(1);
   expect(xs[0]).toBe(Number(await w.getByTestId('xp-total').getAttribute('data-to')));

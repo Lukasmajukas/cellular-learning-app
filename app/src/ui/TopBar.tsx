@@ -11,6 +11,8 @@ import { play } from '../sound';
 // the daily goal. Its numbers move only when they really went up while the app was open (a lesson or review finished,
 // a streak repaired): XP counts up with a "+30" rising off it, the flame flickers once, the goal bar springs forward
 // and flashes when the goal is reached, a new freeze pops in. At start-up it simply shows the numbers.
+// Until its move starts, each number that went up still shows its old value (idea I30, `useHeld`): after a lesson's
+// first finish the path plays first, and the top bar then adds it all up in one go.
 // Reduce motion: the numbers just change. Every speed comes from TOP_BAR in the speed file.
 
 const hidden = { position: 'absolute', width: 1, height: 1, overflow: 'hidden', clip: 'rect(0 0 0 0)', whiteSpace: 'nowrap' } as const;
@@ -39,6 +41,21 @@ function useMoment(ref: RefObject<Element | null>, m: Change, play: boolean, key
   }, [m]); // eslint-disable-line react-hooks/exhaustive-deps -- once per change
 }
 
+// Idea I30: the number to SHOW for a change. A number that went up keeps its old value until `at` seconds (the start of
+// its own move in the top bar's moment), so nothing shows the new value while the path still plays "coming on air".
+// With Reduce motion, or when nothing went up, it's simply the new value.
+export function useHeld(m: Change, at: number): number {
+  const calm = useCalm();
+  const hold = grew(m) && !calm;
+  const [over, setOver] = useState(-1); // the change (`n`) whose wait is over
+  useEffect(() => {
+    if (!hold) return;
+    const t = setTimeout(() => setOver(m.n), at * 1000);
+    return () => clearTimeout(t);
+  }, [m, hold, at]);
+  return hold && over !== m.n ? m.from : m.to;
+}
+
 // A number that counts up from the old value to the new one, like a meter (the measured exception in DESIGN.md section 7).
 function Count({ m, wait }: { m: Change; wait: number }) {
   const calm = useCalm();
@@ -59,7 +76,12 @@ export function TopBar({ streak, xp, xpToday, freezes, done, goal, wait = TOP_BA
   { streak: number; xp: number; xpToday: number; freezes: number; done: number; goal: number; wait?: number }) {
   const calm = useCalm();
   const s = useChange('streak', streak), x = useChange('xp', xp);
-  const f = useChange('freezes', freezes), d = useChange('done', done);
+  const f = useChange('freezes', freezes), d = useChange('done', done), t = useChange('xpToday', xpToday);
+  // I30: what the numbers show until their move starts (the streak and freezes with their pop, today's XP with the
+  // count, the goal's "1 of 1" with its bar, its colour with the flash).
+  const showStreak = useHeld(s, wait + TOP_BAR.pop.delay), showFreezes = useHeld(f, wait + TOP_BAR.pop.delay);
+  const showToday = useHeld(t, wait + TOP_BAR.count.delay), showDone = useHeld(d, wait + TOP_BAR.fill.delay);
+  const showReached = useHeld(d, wait + TOP_BAR.flash.delay) >= goal;
   const reached = done >= goal, justReached = grew(d) && reached && d.from < goal;
 
   const flame = useRef<HTMLSpanElement>(null), glow = useRef<HTMLSpanElement>(null), num = useRef<HTMLSpanElement>(null);
@@ -84,10 +106,10 @@ export function TopBar({ streak, xp, xpToday, freezes, done, goal, wait = TOP_BA
         style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 18, fontWeight: 700, ...mono, color: c.streak }}>
         <span ref={flame} data-testid="streak-flame" style={{ position: 'relative', display: 'grid', placeItems: 'center', width: 22, height: 22 }}>
           <span ref={glow} data-testid="streak-glow" aria-hidden style={{ position: 'absolute', inset: -9, borderRadius: '50%',
-            background: `radial-gradient(circle, ${c.streak} 0%, transparent 65%)`, opacity: streak > 0 ? 0.25 : 0 }} />
+            background: `radial-gradient(circle, ${c.streak} 0%, transparent 65%)`, opacity: showStreak > 0 ? 0.25 : 0 }} />
           <Icon name="flame" size={22} style={{ position: 'relative' }} />
         </span>
-        <span ref={num} style={{ display: 'inline-block' }}>{streak}</span>
+        <span ref={num} style={{ display: 'inline-block' }}>{showStreak}</span>
       </span>
       {/* XP: the total counts up; today's XP sits beside it, smaller. */}
       <span style={{ position: 'relative', display: 'inline-flex', alignItems: 'baseline', gap: 6 }}>
@@ -96,27 +118,28 @@ export function TopBar({ streak, xp, xpToday, freezes, done, goal, wait = TOP_BA
           <Icon name="bolt" size={20} /><Count m={x} wait={wait} /><span style={hidden}> XP</span>
         </span>
         {/* Only once you've earned some today: a "+0" at the start of a day was just noise (design review 1, R08). */}
-        {xpToday > 0 && <span data-testid="xp-today" className="hud-wide-only" title="XP earned today" style={{ ...mono, fontSize: 13, color: c.textMuted }}>+{xpToday}<span style={hidden}> XP today</span></span>}
+        {showToday > 0 && <span data-testid="xp-today" className="hud-wide-only" title="XP earned today" style={{ ...mono, fontSize: 13, color: c.textMuted }}>+{showToday}<span style={hidden}> XP today</span></span>}
         {grew(x) && !calm && <span key={x.n} ref={float} data-testid="xp-float" aria-hidden
           style={{ position: 'absolute', left: 26, top: -6, fontSize: 13, fontWeight: 700, ...mono, color: c.signal, opacity: 0, pointerEvents: 'none' }}>+{x.to - x.from}</span>}
       </span>
-      {/* Streak freezes: a small pill, only when you have one. */}
+      {/* Streak freezes: a small pill, only when you have one. A first freeze's pill keeps its place but stays unseen
+          until its pop (I30), so the pop has something to move and nothing beside it jumps. */}
       {freezes > 0 && <span ref={pill} data-testid="freezes" title="Streak freezes: a missed day that won't break your streak"
-        style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: '2px 9px 2px 6px', borderRadius: RADIUS.pill, fontSize: 15, fontWeight: 700, ...mono,
+        style={{ visibility: showFreezes > 0 ? undefined : 'hidden', display: 'inline-flex', alignItems: 'center', gap: 4, padding: '2px 9px 2px 6px', borderRadius: RADIUS.pill, fontSize: 15, fontWeight: 700, ...mono,
           color: c.review, background: c.surface2, border: `1px solid ${c.borderStrong}` }}>
-        <Icon name="freeze" size={16} label="Streak freezes:" />{freezes}
+        <Icon name="freeze" size={16} label="Streak freezes:" />{showFreezes}
       </span>}
     </div>
     {/* The daily goal: look A's bar (signal fading to on-air); solid on-air with a check once you reach it. */}
     <div data-testid="goal" style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 8 }}>
       <span style={{ position: 'relative', display: 'block', width: 'clamp(40px, 12.5vw, 76px)' }}>
-        <ProgressBar testId="goal-bar" label="Daily goal" value={done / goal} height={10} tone={reached ? 'onAir' : 'glow'}
+        <ProgressBar testId="goal-bar" label="Daily goal" value={done / goal} height={10} tone={showReached ? 'onAir' : 'glow'}
           from={grew(d) ? d.from / goal : undefined} transition={grew(d) ? barAt(TOP_BAR.fill, wait) : undefined} />
         {justReached && !calm && <span key={d.n} ref={flash} data-testid="goal-flash" aria-hidden
           style={{ position: 'absolute', inset: -2, borderRadius: 7, background: c.onAir, opacity: 0 }} />}
       </span>
-      <span data-testid="goal-text" style={{ ...mono, fontSize: 13, color: reached ? c.onAir : c.textMuted, display: 'inline-flex', alignItems: 'center', gap: 4, whiteSpace: 'nowrap' }}>
-        <span style={hidden}>Daily goal: </span>{Math.min(done, goal)} of {goal}
+      <span data-testid="goal-text" style={{ ...mono, fontSize: 13, color: showReached ? c.onAir : c.textMuted, display: 'inline-flex', alignItems: 'center', gap: 4, whiteSpace: 'nowrap' }}>
+        <span style={hidden}>Daily goal: </span>{Math.min(showDone, goal)} of {goal}
         {reached && <span key={d.n} ref={check} data-testid="goal-check" style={{ display: 'inline-grid', transform: justReached && waiting ? 'scale(0)' : undefined }}>
           <Icon name="check" size={16} label="reached" /></span>}
       </span>
