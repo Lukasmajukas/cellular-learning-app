@@ -76,7 +76,8 @@ test('the rings breathe around the head (never off to one side) and Beacon blink
   const r = await film(w, [part('eyes')], async () => {}, 7400);
   const sy = r.of(part('eyes')).map(f => f?.sy ?? 1);
   expect(Math.min(...sy)).toBeLessThan(0.5);
-  expect(sy.at(-1)).toBeGreaterThan(0.9); // and opens again
+  // ... and opens again after it. (Not "open in the last frame": a second blink can start just as the 7.4 s end, I10.)
+  expect(Math.max(...sy.slice(sy.findIndex(v => v < 0.5)))).toBeGreaterThan(0.9);
   console.log(`  blink: eyes down to ${Math.min(...sy).toFixed(2)} of their height; ${r.fps.toFixed(1)} fps while breathing`);
   expect(r.fps).toBeGreaterThanOrEqual(50);
   await app.close();
