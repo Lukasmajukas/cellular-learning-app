@@ -26,10 +26,11 @@ export const SOUNDS = {
 export type SoundName = keyof typeof SOUNDS;
 const NAMES = Object.keys(SOUNDS) as SoundName[];
 
-// What played, for the click tests (they can't listen): the sound, how long after the call it was set to start, and
-// how loud. Also how many files were ready to play, and each one's length and loudest point (so a test can tell a
+// What played, for the click tests (they can't listen): the sound, how long after the call it was set to start, when
+// that is on the page's own clock (`at`, ms, like performance.now(), so a test can line it up with filmed frames: I64),
+// and how loud. Also how many files were ready to play, and each one's length and loudest point (so a test can tell a
 // real sound from silence).
-type Played = { name: SoundName; delay: number; gain: number; real: boolean };
+type Played = { name: SoundName; delay: number; at: number; gain: number; real: boolean };
 const log = { played: [] as Played[], ready: 0, failed: 0, files: {} as Partial<Record<SoundName, { seconds: number; peak: number }>> };
 if (typeof window !== 'undefined') (window as unknown as { __sounds: typeof log }).__sounds = log;
 
@@ -86,7 +87,7 @@ export function play(name: SoundName, at = 0, force = false): () => void {
     if (stopped) return;
     const lag = a.currentTime - asked, when = startAt = a.currentTime + Math.max(0, at - lag);
     const buf = buffers.get(name);
-    log.played.push({ name, delay: at, gain, real: !!buf });
+    log.played.push({ name, delay: at, at: performance.now() + (when - a.currentTime) * 1000, gain, real: !!buf });
     try {
       if (buf) {
         const s = a.createBufferSource(), g = a.createGain();
