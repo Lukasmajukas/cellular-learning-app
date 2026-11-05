@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { animate, motion, useMotionValue, useTransform } from 'motion/react';
 import { c, mono } from './theme';
 import { Icon } from './Icon';
@@ -25,10 +25,27 @@ const SAYS_GAP = 40;  // from the head's centre to the bubble's pointy corner: j
 // R22: the bubble starts SAYS_GAP right of the window's middle, so on a phone-narrow window it gets narrower (and taller)
 // instead of running past the edge: at most half the window, less that gap and the 20 px side margin.
 const SAYS_MAX = `min(168px, calc(50vw - ${SAYS_GAP + 20}px))`;
+// Idea I61: on a window of 400 px or less, that spot beside the head is only about 100 px wide, so a line breaks into 3 or 4
+// short rows. There the bubble sits under the "Lesson complete!" title instead, in the middle, with its pointy corner up
+// at Beacon: as wide as the column allows (one line, usually). Same width rule as the top bar's "+30" (theme.css).
+const NARROW = '(max-width: 400px)';
+const watchNarrow = (on: () => void) => { const m = matchMedia(NARROW); m.addEventListener('change', on); return () => m.removeEventListener('change', on); };
+const useNarrow = () => useSyncExternalStore(watchNarrow, () => matchMedia(NARROW).matches);
 
 export function LessonComplete({ stars, right, total, fixed, xp, bars, seed = '', onFinish, onAgain }:
   { stars: number; right: number; total: number; fixed: number; xp: number; bars: number; seed?: string; onFinish: () => void; onAgain: () => void }) {
   const calm = useCalm();
+  const narrow = useNarrow();
+  // The bubble pops in at COMPLETE.says when the screen appears. If the window crosses 400 px later, it moves (a new spot is a
+  // new bubble) and pops in at once, without waiting again.
+  // (React's "remember the last value" pattern: once the window has crossed 400 px, every later bubble pops in at once.)
+  const [was, setWas] = useState(narrow), [moved, setMoved] = useState(false);
+  if (narrow !== was) { setWas(narrow); setMoved(true); }
+  const saysDelay = calm || moved ? 0 : COMPLETE.says;
+  const says = beaconLine(completeMoment(stars, fixed), seed);
+  // The bubble under the title adds about 55 px, so on a narrow window the gaps around it shrink by about 32 px: the whole
+  // screen still fits a 360 x 640 window without scrolling (I61). Wider windows keep the gaps they had.
+  const gap = narrow ? { top: 0, title: 8, first: 6, cards: '12px 0 14px' } : { top: 8, title: 10, first: 10, cards: '18px 0 20px' };
   const root = useRef<HTMLDivElement>(null);
   const count = useMotionValue(calm ? xp : 0);
   const shownXp = useTransform(count, v => `+${Math.round(v)} XP`);
@@ -54,16 +71,19 @@ export function LessonComplete({ stars, right, total, fixed, xp, bars, seed = ''
   const from = (k: keyof typeof COMPLETE & ('growKeys' | 'starKeys' | 'barKeys')) => (calm ? {} : { transform: COMPLETE[k].transform[0] });
   return (
     <div ref={root} data-testid="complete" style={{ textAlign: 'center', position: 'relative' }}>
-      <div style={{ position: 'relative', width: BIG, margin: '8px auto 0' }}>
+      <div style={{ position: 'relative', width: BIG, margin: `${gap.top}px auto 0` }}>
         <SignalBurst x={HEAD.x} y={HEAD.y} />
         <div data-grow style={{ position: 'relative', zIndex: 1, transformOrigin: '50% 60%', ...from('growKeys') }}>
           <Beacon face="cheering" size={BIG} />
         </div>
-        <SpeechBubble data-testid="beacon-says" delay={calm ? 0 : COMPLETE.says}
+        {!narrow && <SpeechBubble data-testid="beacon-says" delay={saysDelay}
           style={{ position: 'absolute', left: HEAD.x + SAYS_GAP, bottom: BEACON_HEIGHT(BIG) - HEAD.y - 16, zIndex: 2, width: 'max-content', maxWidth: SAYS_MAX, boxSizing: 'border-box', fontSize: 14, textWrap: 'balance' }}>
-          {beaconLine(completeMoment(stars, fixed), seed)}</SpeechBubble>
+          {says}</SpeechBubble>}
       </div>
-      <h2 data-testid="done" style={{ fontSize: 28, lineHeight: 1.25, fontWeight: 700, margin: '4px 0 10px', position: 'relative', zIndex: 1 }}>Lesson complete!</h2>
+      <h2 data-testid="done" style={{ fontSize: 28, lineHeight: 1.25, fontWeight: 700, margin: `4px 0 ${gap.title}px`, position: 'relative', zIndex: 1 }}>Lesson complete!</h2>
+      {narrow && <SpeechBubble data-testid="beacon-says" point="up" delay={saysDelay}
+        style={{ margin: '2px 0 10px', zIndex: 1, maxWidth: '100%', boxSizing: 'border-box', fontSize: 14, textWrap: 'balance' }}>
+        {says}</SpeechBubble>}
       {/* The stars: three places, dim; the ones you earned drop in, filled, one by one. */}
       <div data-testid="stars" data-count={stars} role="img" aria-label={`${stars} of 3 stars`}
         style={{ display: 'flex', justifyContent: 'center', gap: 10, color: c.streak, minHeight: 44, position: 'relative', zIndex: 1 }}>
@@ -75,13 +95,13 @@ export function LessonComplete({ stars, right, total, fixed, xp, bars, seed = ''
           </span>
         ))}
       </div>
-      <p data-testid="first-time" style={{ margin: '10px 0 0', color: c.textMuted, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+      <p data-testid="first-time" style={{ margin: `${gap.first}px 0 0`, color: c.textMuted, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
         <span>{right} of {total} right the first time</span>
         {fixed > 0 && <span title={`${fixed} missed ${fixed === 1 ? 'question' : 'questions'} right on the comeback`}>
           <Pill data-testid="fixed" icon="check" style={{ fontSize: 13, fontWeight: 500, padding: '0 8px' }}>{fixed} fixed</Pill></span>}
       </p>
       {/* The two numbers side by side: XP counting up like a meter, and the signal bars filling from the bottom. */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, margin: '18px 0 20px', textAlign: 'left' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, margin: gap.cards, textAlign: 'left' }}>
         <Card title="XP earned" style={{ padding: '12px 16px 14px' }}>
           <motion.div data-testid="xp" aria-label={`+${xp} XP`} style={{ ...mono, fontSize: 'clamp(28px, 8vw, 40px)', lineHeight: 1.1, whiteSpace: 'nowrap', color: c.signal, fontVariantNumeric: 'tabular-nums' }}>{shownXp}</motion.div>
         </Card>

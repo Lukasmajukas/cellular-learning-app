@@ -101,13 +101,16 @@ test('phone-narrow 360 x 560: every question type and lesson complete fit', asyn
     if (!(await answer(w))) break;
   }
   expect([...kinds]).toEqual(expect.arrayContaining(['something new', 'pick one', 'type the number', 'match the pairs', 'put them in order', 'read the clues']));
-  // Lesson complete: Beacon's bubble stays inside the window; "+N XP" stays on one line.
+  // Lesson complete: Beacon's bubble stays inside the window (under the title: I61); "+N XP" stays on one line.
   await expect(w.getByTestId('done')).toBeVisible();
   await w.waitForTimeout(400);
   expect(await sideways(w)).toBe(0);
   const vw = await w.evaluate(() => document.documentElement.clientWidth);
   const says = (await w.getByTestId('beacon-says').boundingBox())!;
   expect(says.x + says.width).toBeLessThanOrEqual(vw);
+  // I61: under the title here, pointing up at Beacon, not squeezed beside its head.
+  await expect(w.getByTestId('beacon-says')).toHaveAttribute('data-point', 'up');
+  expect(says.y).toBeGreaterThan((await w.getByTestId('done').boundingBox())!.y);
   expect((await w.getByTestId('xp').boundingBox())!.height).toBeLessThan(50);
   await w.screenshot({ path: 'test-results/r22-360-complete.png' });
   await app.close();
