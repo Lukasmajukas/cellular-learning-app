@@ -71,7 +71,9 @@ Each row is one chat: Large (Opus), High effort. R01 to R04 must go in order (ev
 ### After R24: keep improving (forever, until paused)
 **The 24 sessions are done (2026-11-05, design review 3): the Night Signal redesign is done.** What follows is this part.
 
-Each robot redesign chat takes the top idea from `docs/redesign/IDEAS.md` and builds it, one idea per chat. Every 8th chat is a design review that scores the app again and re-orders the ideas. The owner's own wishes always go first. The robot never adds facts or lessons this way: new teaching features need a normal task.
+Each robot redesign chat takes the top idea from `docs/redesign/IDEAS.md` and builds it, one idea per chat. Every 8th chat is a design review that scores the app again and re-orders the ideas.
+
+**Design review 4** ✅ 2026-11-05, #157 (the 8th idea chat after R24): 4.7 out of 5 again (4.71; three scores up, none down). No screen was wrong; one fix to the gallery (it now moves the mouse away before each picture, so no button shows grown by hover), which also crossed out I79. New order on the ideas board, with I92 and I93. `docs/reviews/2026-11-05-design-review-4.md`. **Next design review:** design review 5, the 8th idea chat after this one. The owner's own wishes always go first. The robot never adds facts or lessons this way: new teaching features need a normal task.
 
 ## Every redesign session does this (the checklist)
 1. **Start:** the normal start-up check (`docs/WORKFLOW.md` A), then read `DESIGN.md`, this plan, `IDEAS.md` and the last redesign handoff note. Take "before" gallery pictures of the screens it will touch (from R01 on).

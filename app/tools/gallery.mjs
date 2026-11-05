@@ -67,6 +67,10 @@ const resize = (app, s) => app.evaluate(({ BrowserWindow }, s) => BrowserWindow.
 
 // Screenshot -> WebP, using the app's own Chromium (no extra tools needed).
 async function shot(w, name, s, wait = 1300) {
+  // Design review 4: park the mouse in the window's top-left corner (never a button there), so no picture shows a
+  // button grown by hover. Before, "Show 'Not quite'" left the mouse where the sheet's Continue slides in, and
+  // `12-blocks-sheet` showed it 3% bigger than in a lesson (idea I79 was that, not a real difference).
+  await w.mouse.move(0, 0);
   await w.waitForTimeout(wait); // let pop-ins and slides finish
   const png = await w.screenshot();
   const webp = await w.evaluate(async b64 => {
