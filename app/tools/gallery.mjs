@@ -332,7 +332,7 @@ async function iconSheet() {
     <style>.g{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}.c{background:${NIGHT.surface};border:1px solid ${NIGHT.border};border-radius:14px;padding:12px;display:flex;flex-direction:column;align-items:center;gap:8px}</style>
     <div class="g">${ICON_NAMES.map(n => cell(n, false)).join('')}${cell('star', true)}</div></body></html>`;
   const { app, w } = await launch({}); // the app's own window, just as a page to draw on (needs no extra browser)
-  await resize(app, { w: 760, h: 800 }); // R20: tall enough for all five rows (at 640 the first row was cut off)
+  await resize(app, { w: 760, h: 900 }); // R20: tall enough for every row (at 640 the first row was cut off)
   await w.setContent(html);
   await w.evaluate(() => window.scrollTo(0, 0));
   await shot(w, '00-icons', { suffix: '' }, 300);

@@ -3,7 +3,7 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
-import { SPRING, TIME, PRESS, PRESS_BIG, PRESS_ROUND, PRESS_PILL, QUICK_FADE, INSTANT, LOOP, popInDelay, screenGlide, ON_AIR, BREATHE, waveDelay, popInQueue, TOP_BAR, barAt, FEEDBACK, questionGlide, COMPLETE, nth, SCOPE, NOTICE, noticeMotion, noticeShift, HEAT, SCRIM, SAMPLE } from './theme/motion';
+import { SPRING, TIME, PRESS, PRESS_BIG, PRESS_ROUND, PRESS_PILL, QUICK_FADE, INSTANT, LOOP, popInDelay, screenGlide, ON_AIR, BREATHE, waveDelay, popInQueue, TOP_BAR, barAt, FEEDBACK, questionGlide, COMPLETE, nth, SCOPE, NOTICE, noticeMotion, noticeShift, HEAT, SCRIM, SAMPLE, LOOK_FADE, lookFade } from './theme/motion';
 import { SAMPLE_GAP, SAMPLE_LENGTH, SAMPLE_SET } from './sound';
 import { BEACON_SIZE } from './ui/Beacon';
 import { grew } from './ui/TopBar';
@@ -291,5 +291,12 @@ describe('Settings: the sound sample (R15)', () => {
     expect(SAMPLE.gap).toBe(SAMPLE_GAP);
     expect((SAMPLE_SET.length - 1) * SAMPLE.gap + SAMPLE.ring.duration).toBeLessThanOrEqual(TIME.celebration);
     expect(SAMPLE_LENGTH).toBeGreaterThan(SAMPLE_GAP); expect(SAMPLE_LENGTH).toBeLessThanOrEqual(TIME.celebration);
+  });
+  // R20 (idea I56): the look change is one fade, about as long as a screen change, and the quick fade with Reduce motion.
+  it('the look change fades in 0.3 s (a screen change at most), and only quickly with Reduce motion', () => {
+    expect(LOOK_FADE.duration).toBe(TIME.screenIn);
+    expect(LOOK_FADE.duration).toBeLessThanOrEqual(TIME.screenIn + TIME.screenOut);
+    expect(lookFade(false)).toBe(LOOK_FADE); expect(lookFade(true)).toBe(QUICK_FADE);
+    expect(LOOK_FADE).not.toHaveProperty('repeat');
   });
 });
