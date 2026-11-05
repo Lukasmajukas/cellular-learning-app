@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useRef } from 'react';
 import { animate, type AnimationPlaybackControls } from 'motion/react';
 import { c, COLUMN, mono } from './theme';
 import { Icon, type IconName } from './Icon';
-import { Card, Button, SectionLabel } from './ui';
+import { Card, Button, TabHead } from './ui';
 import { SCOPE, popInDelay, useCalm, useAwake } from './theme/motion';
 import { whenNext, type Outlook } from './dailyReview';
 
@@ -23,8 +23,7 @@ export function ReviewScreen({ outlook: o, onStart, onPath }: { outlook: Outlook
   const look = o.due ? 'due' : o.known ? 'clear' : 'empty';
   return (
     <div data-testid="review-screen" data-look={look} style={{ maxWidth: COLUMN, margin: '0 auto', padding: '16px 20px 32px', boxSizing: 'border-box' }}>
-      <SectionLabel tone="review" data-testid="tab-label" style={{ margin: 0 }}>Drive test</SectionLabel>
-      <h1 style={{ margin: '2px 0 12px', fontSize: 28, lineHeight: 1.25 }}>Daily review</h1>
+      <TabHead label="Drive test" tone="review" title="Daily review" />
       <Card raised accent={o.due ? 'review' : undefined} style={{ marginBottom: 16, textAlign: 'center' }}>
         <Scope late={o.late} due={o.due} />
         <div data-testid="review-count" style={{ fontSize: 20, fontWeight: 700, margin: '12px 0 4px' }}>

@@ -3,10 +3,10 @@
   "robot": {
     "on": true,
     "next": "right away (it starts its next job by itself), and every hour",
-    "last": "redesign idea I59: \"Again\" on the lesson-complete screen has its own restart arrow, so the two-arrow picture only means review (T59)"
+    "last": "redesign idea I58: the top of all four tabs is now one shared building block, so their headings can't drift apart (T59)"
   },
   "light": "green",
-  "working": "Nothing in progress. The 24 redesign sessions are done; the robot now improves the app one idea at a time from the ideas board, next: one shared heading for the four tabs (T59, idea I58). For you: the Windows build on GitHub still doesn't run, most likely because your free GitHub Actions minutes are used up; please check GitHub, Settings, Billing (T62). Also: when a new build is out, say if the green picture at start-up is gone (T57); paste the robot's hourly message into the launcher chat again, and don't /clear it until then (T60).",
+  "working": "Nothing in progress. The 24 redesign sessions are done; the robot now improves the app one idea at a time from the ideas board, next: the welcome's goal keys match their numbers (T59, idea I78). For you: the Windows build on GitHub still doesn't run, most likely because your free GitHub Actions minutes are used up; please check GitHub, Settings, Billing (T62). Also: when a new build is out, say if the green picture at start-up is gone (T57); paste the robot's hourly message into the launcher chat again, and don't /clear it until then (T60).",
   "limit": {
     "state": "warning",
     "resets": "the weekly limit is nearly used up (it resets Wed Nov 11). The robot keeps working until it runs out"

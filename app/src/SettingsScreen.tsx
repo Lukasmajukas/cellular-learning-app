@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 import { backupNow, showFile, hasFileAccess, type Settings } from './storage';
 import { c, COLUMN, mono } from './theme';
 import { Icon, type IconName } from './Icon';
-import { Button, Card, Switch, Slider, PillChoice, SectionLabel, BottomSheet, useCalm, QUICK_FADE } from './ui';
+import { Button, Card, Switch, Slider, PillChoice, TabHead, BottomSheet, useCalm, QUICK_FADE } from './ui';
 import { SAMPLE } from './theme/motion';
 import { prefs } from './prefs';
 import { play, playSample, SAMPLE_SET } from './sound';
@@ -95,9 +95,7 @@ export function SettingsScreen({ settings, onChange }: { settings: Settings; onC
   const card = { marginBottom: 16, paddingBottom: 8 };
   return (
     <div data-testid="settings" style={{ maxWidth: COLUMN, margin: '0 auto', padding: '16px 20px 32px', boxSizing: 'border-box' }}>
-      <SectionLabel tone="signal" data-testid="tab-label" style={{ margin: 0 }}>Your app</SectionLabel>
-      <h1 style={{ margin: '2px 0 4px', fontSize: 28, lineHeight: 1.25 }}>Settings</h1>
-      <p style={{ margin: '0 0 16px', fontSize: 15, lineHeight: 1.4, color: c.textMuted }}>Changes are saved on this computer straight away.</p>
+      <TabHead label="Your app" title="Settings" help="Changes are saved on this computer straight away." />
 
       <Card title="Sound" style={card} data-testid="set-card-sound">
         <Row name="Sounds" hint="Soft sounds for answers, finished lessons and your streak." icon={<RowIcon name={settings.sounds ? 'soundOn' : 'soundOff'} />}

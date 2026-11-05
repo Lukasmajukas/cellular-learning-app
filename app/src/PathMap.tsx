@@ -5,7 +5,7 @@ import { c, mono, COLUMN } from './theme';
 import { Icon } from './Icon';
 import { PRESS_BIG, ON_AIR, waveDelay, useCalm, useEntrance } from './theme/motion';
 import { play } from './sound';
-import { usePress, Pill, SectionLabel, UnitBanner, LessonNode, NODE_SIZE, NODE_BOX, NODE_RING } from './ui';
+import { usePress, Pill, TabHead, UnitBanner, LessonNode, NODE_SIZE, NODE_BOX, NODE_RING } from './ui';
 import type { Moment } from './ui/LessonNode';
 import { TAB_BAR_HEIGHT } from './ui/AppShell';
 
@@ -65,12 +65,9 @@ export function PathMap({ units, progress, onStart, due = 0, onReview }: { units
   }, []); // only when the path opens, never while you scroll around it
   return (
     <div ref={root} data-testid="path-map" style={{ maxWidth: COLUMN, margin: '0 auto', padding: '16px 20px 8px', boxSizing: 'border-box' }}>
-      {/* Design review 2: the same head as the other three tabs (a small label, then the 28 px title), at the same height. */}
-      <SectionLabel tone="signal" data-testid="tab-label" style={{ margin: 0 }}>Signal path</SectionLabel>
-      <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 12, margin: '2px 0 16px' }}>
-        <h1 style={{ margin: 0, fontSize: 28, lineHeight: 1.25 }}>Your path</h1>
-        <span data-testid="path-count" style={{ color: c.textMuted, ...mono, fontSize: 14, whiteSpace: 'nowrap' }}>{doneCount(units, progress)} of {total} lessons done</span>
-      </div>
+      {/* I58: the same head block as the other three tabs. */}
+      <TabHead label="Signal path" title="Your path"
+        aside={<span data-testid="path-count" style={{ color: c.textMuted, ...mono, fontSize: 14, whiteSpace: 'nowrap' }}>{doneCount(units, progress)} of {total} lessons done</span>} />
       {onReview && <ReviewCard due={due} onClick={onReview} />}
       {units.map((u, n) => (
         <section key={u.id} data-testid={`unit-${u.id}`} style={{ marginTop: 32 }}>

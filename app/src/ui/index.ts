@@ -2,6 +2,7 @@
 // every button by hand, so the whole app looks and moves the same. See `#blocks` (src/BlocksSheet.tsx) for all of them on one page.
 export { Button, IconButton } from './Button';
 export { Card, SectionLabel } from './Card';
+export { TabHead, TAB_HEAD_GAP, TAB_HELP_SIZE } from './TabHead';
 export { AnswerTile } from './AnswerTile';
 export { Chip } from './Chip';
 export { Pill, StatChip, PillChoice } from './Pill';

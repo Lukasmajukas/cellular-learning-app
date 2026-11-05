@@ -88,7 +88,13 @@ export async function tabTo(w: Page, testId: string | null, max = 40) {
   const stops: string[] = [];
   for (let i = 0; i < max; i++) {
     await w.keyboard.press('Tab');
-    const r = await focusRing(w);
+    let r = await focusRing(w);
+    // I58 (a test that failed once in a full run): when Tab goes past the last button, the page gives the focus to
+    // Electron's window, which hands it straight back to the page's first button: a round trip between two programs.
+    // On a busy machine the check could read the focus mid-trip and find nothing (stop 13 of the Review tab's walk,
+    // exactly at a wrap; 5 of 5 alone, 80 of 80 wraps with the CPU brake). So "nothing" gets up to 1 s to arrive.
+    // A real lost focus stays on nothing and still fails.
+    for (let t = 0; r.id === 'BODY' && t < 20; t++) { await w.waitForTimeout(50); r = await focusRing(w); }
     if (!r.ok) throw new Error(`Tab stop ${i + 1} (${r.id}): ${r.why}. Stops so far: ${stops.join(', ')}`);
     stops.push(r.id);
     if (testId && r.id === testId) return stops;
