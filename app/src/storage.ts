@@ -38,6 +38,19 @@ export async function saveState(s: SaveState): Promise<void> {
   if (a) { await a.save(s); return; }
   localStorage.setItem(KEY, JSON.stringify(s));
 }
+// Idea I69: saves the progress and says whether it worked: report(null) when it did, report(the error's words) when it
+// didn't (main.tsx then shows "Couldn't save your last change"). Each save holds the whole progress, so only the newest
+// save's answer counts: an older one finishing late can't hide a newer failure, or show one a newer save already fixed.
+export function createSaver(report: (fail: string | null) => void, send: (s: SaveState) => Promise<void> = saveState) {
+  let newest = 0;
+  return (s: SaveState) => {
+    const n = ++newest;
+    return send(s).then(() => { if (n === newest) report(null); }, (e: unknown) => {
+      console.error('Saving the progress file failed:', e);
+      if (n === newest) report(e instanceof Error ? e.message : String(e));
+    });
+  };
+}
 export const backupNow = async () => api()?.backupNow() ?? null;
 export const showFile = async () => api()?.showFile() ?? null;
 export const hasFileAccess = () => !!api();

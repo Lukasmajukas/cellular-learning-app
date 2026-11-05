@@ -8,7 +8,7 @@ import { finishLesson, finishReview } from './finish';
 import { buildReview, dueCount, reviewOutlook, REVIEW_ID } from './dailyReview';
 import { liveStreak, dayKey, doneToday, repairable, repairStreak } from './gamify';
 import { SettingsScreen } from './SettingsScreen';
-import { loadState, saveState, backupWhen, volumeOf, EMPTY_STATE, type SaveState } from './storage';
+import { loadState, createSaver, backupWhen, volumeOf, EMPTY_STATE, type SaveState } from './storage';
 import { play, prepareSounds } from './sound';
 import { FpsMeter } from './FpsMeter';
 import { prefs } from './prefs';
@@ -27,7 +27,7 @@ import { DATA } from './sampleLessons';
 import './theme/fonts';
 import './theme/theme.css';
 import { applyLook, COLUMN, type Look } from './theme';
-import { Notices } from './Notices';
+import { Notices, type SaveFail } from './Notices';
 import { BlocksSheet } from './BlocksSheet';
 import { LookFade } from './ui/LookFade';
 import { Welcome } from './Welcome';
@@ -77,7 +77,10 @@ function App() {
     return () => clearTimeout(t);
   }, [settled, up]);
   // Save after every change (never before the first load finished, or we'd overwrite real progress with blanks).
-  useEffect(() => { if (state && loaded.current) saveState(state); }, [state]);
+  // Idea I69: a save that fails shows "Couldn't save your last change" (Notices.tsx) until one works (createSaver).
+  const [saveFail, setSaveFail] = useState<SaveFail | null>(null);
+  const [save] = useState(() => createSaver(fail => setSaveFail(f => fail === null ? null : { detail: fail, tries: (f?.tries ?? 0) + 1 })));
+  useEffect(() => { if (state && loaded.current) save(state); }, [state]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const s = state ?? EMPTY_STATE;
   prefs.sounds = s.settings.sounds; prefs.volume = volumeOf(s.settings);
@@ -147,7 +150,7 @@ function App() {
         ) : (
           <motion.div key="frame" {...screenGlide('frame', calm)}>
             <AppShell tab={tab} onTab={go} top={top} badges={{ review: due }}>
-              <Notices restored={restored} onCloseRestored={() => setRestored(null)} change={card} changeOf={pending.length}
+              <Notices saveFail={saveFail} onRetrySave={() => state && save(state)} restored={restored} onCloseRestored={() => setRestored(null)} change={card} changeOf={pending.length}
                 onChangeOk={() => card && setState(p => p && acknowledge(p, card))} />
               {/* When a notice closes, the page glides up into its space instead of jumping (R13, NOTICE.shift). */}
               <motion.div layout="position" transition={noticeShift(calm)}>

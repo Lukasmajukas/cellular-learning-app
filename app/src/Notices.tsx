@@ -4,21 +4,30 @@ import { Icon } from './Icon';
 import { Button, IconButton, Pill, SectionLabel } from './ui';
 import { noticeMotion, useCalm } from './theme/motion';
 import type { Change } from './changes';
+import { WhatHappened } from './Trouble';
 
-// Notices at the top of the frame (redesign R13): "your save was restored" and the "This changed" card.
+// Notices at the top of the frame (redesign R13): "your save was restored" and the "This changed" card; idea I69 added
+// "Couldn't save your last change", always the top one, because it's the one that can cost you something.
 // Each one slides down a little and fades in; closing it fades it out, and the page under it glides up into the space
 // (main.tsx wraps the page in a layout move, NOTICE.shift). A second "This changed" card takes the first one's place.
 // Speeds: NOTICE in src/theme/motion.tsx.
 const wrap = { maxWidth: COLUMN, margin: '0 auto', padding: '12px 20px 0', boxSizing: 'border-box' } as const;
 
-export function Notices({ restored, onCloseRestored, change, changeOf, onChangeOk }:
-  { restored: string | null; onCloseRestored: () => void; change?: Change; changeOf: number; onChangeOk: () => void }) {
+// saveFail: the last save didn't work (null = it did); see SaveFailedNotice.
+export type SaveFail = { detail: string; tries: number };
+export function Notices({ saveFail, onRetrySave, restored, onCloseRestored, change, changeOf, onChangeOk }:
+  { saveFail?: SaveFail | null; onRetrySave?: () => void; restored: string | null; onCloseRestored: () => void; change?: Change; changeOf: number; onChangeOk: () => void }) {
   const calm = useCalm();
   return (
     // popLayout: a closing notice steps out of the page's flow at once (it fades out on top), so the page under it can
     // glide up in the same moment (main.tsx). Without it, the page only noticed the space once the notice was gone,
     // and then jumped (found in R13's click test).
     <AnimatePresence initial={false} mode="popLayout">
+      {saveFail && (
+        <motion.div key="savefail" data-notice style={wrap} {...noticeMotion(calm)}>
+          <SaveFailedNotice fail={saveFail} onRetry={() => onRetrySave?.()} />
+        </motion.div>
+      )}
       {restored !== null && (
         <motion.div key="restored" data-notice style={wrap} {...noticeMotion(calm)}>
           <RestoredNotice when={restored} onClose={onCloseRestored} />
@@ -47,6 +56,32 @@ export function RestoredNotice({ when, onClose }: { when: string; onClose: () =>
         </p>
       </div>
       <IconButton icon="close" label="Close this notice" data-testid="notice-close" onClick={onClose} style={{ color: c.notice, marginTop: -8 }} />
+    </section>
+  );
+}
+
+// Idea I69: "Couldn't save your last change". Saving can fail (a full disk, the file locked by another program); before,
+// that was only written to the log, so a finished lesson could be lost without you knowing. Same warm notice look as
+// "Your progress is safe" (not red: nothing you did wrong), with the backup icon. There's no close button on purpose:
+// hiding it would hide a change that isn't saved. It goes by itself as soon as a save works: Try again saves at once,
+// and every later change (the whole progress is saved each time) tries again too.
+export const SAVE_FAIL = {
+  title: "Couldn't save your last change",
+  text: "It's still here while the app stays open, but it isn't in your progress file yet. Keep the app open and try again.",
+  tries: (n: number) => `Tried ${n} times. A full disk, or another program using the progress file, can cause this.`,
+} as const;
+export function SaveFailedNotice({ fail, onRetry }: { fail: SaveFail; onRetry: () => void }) {
+  return (
+    <section data-testid="savefail" role="alert" style={{ display: 'flex', gap: 12, alignItems: 'flex-start', padding: '12px 16px',
+      borderRadius: RADIUS.card, background: c.noticeBg, border: `1px solid ${c.notice}`, color: c.notice }}>
+      <Icon name="backup" size={22} style={{ marginTop: 2 }} />
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ fontWeight: 700, fontSize: 16 }}>{SAVE_FAIL.title}</div>
+        <p data-testid="savefail-text" style={{ margin: '2px 0 0', fontSize: 15, lineHeight: 1.4 }}>{SAVE_FAIL.text}</p>
+        {fail.tries > 1 && <p data-testid="savefail-tries" style={{ margin: '6px 0 0', fontSize: 15, lineHeight: 1.4 }}>{SAVE_FAIL.tries(fail.tries)}</p>}
+        <Button data-testid="savefail-retry" onClick={onRetry} style={{ marginTop: 12 }}>Try again</Button>
+        <WhatHappened id="savefail" detail={fail.detail} color={c.notice} style={{ marginTop: 4 }} />
+      </div>
     </section>
   );
 }

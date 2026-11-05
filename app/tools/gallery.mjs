@@ -6,6 +6,7 @@
 //                 node tools/gallery.mjs --look day       (R20: every picture in the Day look, into ../docs/redesign/gallery/latest/day)
 // R21: the start screen, its fade, the welcome, the empty heatmap and the error screens (40-46).
 // R22: a phone-narrow window (360 x 640) and the keyboard: 47-54 (see r22Screens).
+// Idea I69: "Couldn't save your last change" (55, in firstStartScreens).
 // It starts the real Electron app with a made-up save file (3 lessons done, a 4-day streak, some reviews due),
 // the other question types (18-27, from R10), a comeback question (28, from R11), the Review tab's looks and the notices (30-33, from R13), the heatmap filling in and its lessons sheet (34, 35, from R14), Settings mid-sample, its bottom and in Day (36-38, from R15), shows the building blocks page (#blocks, from R03; Beacon's faces 16, 17 from R17), the Review tab (13, from R04), the top bar mid-moment and the repair card (14, 15, from R07),
 // draws a sheet of all our icons (00-icons), visits each screen at the owner's window size (620 x 960) and a wide one (1280 x 800), and saves small WebP files.
@@ -377,6 +378,15 @@ async function firstStartScreens(s) {
     await shot(w, `4${kind === 'load' ? 5 : 6}-trouble-${kind}`, s, 900);
     await app.close();
   }
+  // Idea I69: "Couldn't save your last change" (CELL_TEST_SAVE_FAIL: the first saves fail), after one Try again (so it
+  // shows its count), on the path.
+  ({ app, w } = await launch({ CELL_TEST_SAVE_FAIL: '3' }));
+  await resize(app, s);
+  await w.getByTestId('savefail').waitFor();
+  await w.getByTestId('savefail-retry').click(); await w.getByTestId('savefail-tries').waitFor();
+  await w.evaluate(() => { document.activeElement?.blur(); window.scrollTo(0, 0); });
+  await shot(w, '55-savefail', s, 900);
+  await app.close();
 }
 
 // R22: window sizes and the keyboard. A phone-narrow window (360 x 640: the path, Settings, a match question, lesson
