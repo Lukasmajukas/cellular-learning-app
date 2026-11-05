@@ -7,6 +7,7 @@ Since the last check, the robot did 7 small improvements: "Again" got its own ar
 
 - **They fit.** Every screen still uses the same colours, letters, icons, cards, buttons and movements. The score stays at **4.7 out of 5** (a hair higher inside: the top bar, the right-answer moment and the notices each went up a point somewhere).
 - **No screen was wrong this time.** The one thing that looked wrong was the camera, not the app: in one gallery picture a button looked 3% bigger than the same button in a lesson. It was only because the mouse was resting on it (buttons grow a little under the mouse). I fixed the picture-taker: it now moves the mouse out of the way before every picture, so pictures always show buttons at their real size. That also crossed one idea off the board (I79), because the difference it described was never real.
+- **One speed test cried wolf.** It slows the computer to a quarter speed and checks every animation stays above 30 pictures a second. It failed now and then, on the tab glides. I ran the app from two days ago (R23) on the same computer, in turns with today's: it scored the same. So the app didn't get slower; the cloud computer is slower today. A new task (T65) makes that test fair, like T64 did for another one.
 - **The ideas board has a new order** (below). Next up: the narrow lesson-complete line (I61), then a "flip book" of each animation in the gallery (I10), so the next review can see movement, not only still pictures.
 
 ## Scores (1 = poor, 5 = great)
@@ -36,7 +37,7 @@ Since the last check, the robot did 7 small improvements: "Again" got its own ar
 
 **Overall: 4.7 out of 5 (review 3: 4.7; review 2: 4.4; review 1: 3.4).** The average of every score above (4.71). The 7 idea chats polished moments without breaking anything: three scores went up, none went down.
 
-Movement scores come from the click tests' frame-rate measurements (the whole set ran in this review, see "Checks") and the idea chats' own flip books (I30: 58-60 fps; I44: 60 fps; I64: 60 fps; I69: 60 fps). This review takes still pictures; I10 (a flip book in the gallery) moved up so the next one can see movement.
+Movement scores come from the click tests' frame-rate measurements (the whole set ran in this review, see "Checks": at full speed every move's own test passed its 50 fps bar) and the idea chats' own flip books (I30: 58-60 fps; I44: 60 fps; I64: 60 fps; I69: 60 fps). This review takes still pictures; I10 (a flip book in the gallery) moved up so the next one can see movement.
 
 ## What matches look A, and what doesn't yet
 - **Matches:** everything look A shows, as in review 3.
@@ -66,7 +67,8 @@ New order (the owner's own wishes still go first):
 
 New ideas from this review: **I92** (the lesson's top row stays put when the page scrolls to keep the marked tiles above a tall "Not quite" panel), **I93** (the gallery shows the same answer order every time, so Night and Day pictures and the reviews compare like with like: today `05-feedback-right` has "Normal" first in Night and "Upside-down" first in Day).
 
-## For a normal task (not the redesign: it's lesson words)
+## For a normal task (not the redesign)
+- **T65 (new):** make the quarter-speed animation test fair on a slower cloud computer (see "Checks").
 - Still open: T63 ("(type the number)" in prompts, `19`/`20`) and T61 ("UL" and "DL" in the "Right!" panel, `05`). Both are already rows in `TASKS.md`.
 
 ## DESIGN.md changes
@@ -74,8 +76,9 @@ New ideas from this review: **I92** (the lesson's top row stays put when the pag
 
 ## Checks
 - Unit tests: 269 of 269 pass.
-- Click tests: see the handoff note (`docs/sessions/2026-11-05-session-152-t59-design-review-4.md`) for the full run.
-- The gallery, taken again after fix 1 in Night and Day.
+- Click tests (cloud): **128 of 129 pass** (16.9 min). The one failure: "every animation, with the computer slowed to a quarter speed" (`tests/speed.spec.ts`, floor 30 fps): the tab glide to the Heatmap and back to the path measured 31.2 and 30.0 fps. Run alone 3 more times: 2 failed (heatmap 28.8 to 36.9 fps).
+- **It's the computer, not the app.** I built R23's app (#147) next to today's and ran the same test on both, taking turns, in the same hour: R23's app scored 29-38 fps on the heatmap glide, today's 27-35. Four more rounds of R23 against R24 gave 29-34 against 27-38. So the 7 idea chats didn't make anything slower: the cloud computer is slower now than when R23 measured 41 and 48, and a fixed 30 fps floor is too tight for it. That's the same problem T64 fixed for the path-scroll test, so it's a new task, **T65** (⭐ next for the robot), not part of this review. This review changed no app code.
+- The gallery, taken again after fix 1 in Night and Day: the blocks page's Continue now measures 397 px, the same as `04-feedback-wrong` (Day: 399 and 399); before, 410.
 
 ## What I didn't check
 - Movement only through the click tests' measurements and the idea chats' flip books (I10 will fix this).

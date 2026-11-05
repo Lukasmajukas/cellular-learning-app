@@ -16,17 +16,19 @@ The one thing that looked wrong was a photo, not the app: in one gallery picture
 - **Fix 1 (gallery):** `app/tools/gallery.mjs` `shot()` moves the mouse to (0, 0) before every picture. Found with a one-off probe in the app: on the blocks page the "Not quite" Continue is 400 px wide at x 103, the same as in a lesson; the gallery's `12-blocks-sheet` showed it 410 px wide because the sheet slid up under the mouse that had just clicked "Show 'Not quite'" (buttons scale to 1.03 on hover, `src/ui/press.ts`). That's what idea I79 described, so I79 is crossed out with the reason.
 - **Gallery retaken** after fix 1, Night and Day.
 - **Ideas board** re-ordered (I61, I10, I89, I85, I47, the path, the keyboard, speed, the idea chats' own ideas, I92, I93, I80, then the rest); new **I92** (the lesson's top row moves up 16 px when a tall "Not quite" panel makes the page scroll, `23-order-wrong`) and **I93** (a fixed answer order for the gallery, so Night and Day pictures compare like with like).
+- **New task T65** (⭐, above T59): the quarter-speed animation test's fixed 30 fps floor fails on today's slower cloud computer (see Checks).
 - **Docs:** `PLAN.md` (design review 4 ✅ under "After R24"), `IDEAS.md`, `TASKS.md` (T59 row), `DECISIONS.md`, `PROGRESS-LOG.md`, `GLOSSARY.md` (hover), the panel.
 - **No app code changed.** `DESIGN.md` unchanged (no new rule needed).
 
 ## Checks
 - Unit tests (`npx vitest run`): 269 of 269 pass.
-- Click tests (`xvfb-run -a npx playwright test`): CLICK_RESULT
+- Click tests (`xvfb-run -a npx playwright test`): **128 of 129 pass** (16.9 min). The one failure, "every animation, with the computer slowed to a quarter speed" (floor 30 fps), failed on the tab glides to the Heatmap (31.2) and back to the path (30.0); alone, it failed 2 of 3 more runs. Not from this change (no app code changed) and not a slowdown from the idea chats: R23's app (#147), built in a second folder and run in turns with today's on the same machine, scored the same (R23 29-38 fps on the heatmap glide, today 27-35; R23 against R24 four more rounds: 29-34 against 27-38). The cloud computer is just slower than when R23 measured 41 and 48. New task **T65** (⭐, above T59) makes the test fair the way T64 did.
+- Gallery after fix 1: `12-blocks-sheet`'s Continue measures 397 px, the same as `04-feedback-wrong` (Day 399 and 399); before 410.
 - The content checker isn't needed: nothing in `content/` changed.
 - Windows build on GitHub: not running since 2026-11-05 09:17 UTC (T62), as for every chat since; nothing here touches the app's code.
 
 ## What's next
-- Next task: T59, idea I61 (idea chat 1 of 8 after review 4), model: Large (Opus), effort: High. The robot picks it up by itself.
+- Next task: **T65** (make the quarter-speed animation test fair), model: Medium (Sonnet), effort: Medium. Then T59, idea I61 (idea chat 1 of 8 after review 4), Large (Opus), High effort. The robot picks both up by itself.
 
 ## Decisions made (also added to docs/DECISIONS.md)
 - The gallery parks the mouse in the top-left corner before every picture; I79 crossed out (it was the picture, not the app).
@@ -41,4 +43,5 @@ The one thing that looked wrong was a photo, not the app: in one gallery picture
 - Contact sheets make a review cheap: a small Pillow script that pastes 4-8 gallery pictures (resized to 400 px wide, with their names) into one image, so one Read shows 8 screens.
 - Electron click tests and probes need a pretend screen in the cloud: `xvfb-run -a npx playwright test ...` (the gallery restarts itself inside xvfb-run on its own).
 - The gallery's answer order is random per run (I93), so compare Night and Day pictures of a question by tile look, not by position.
+- Comparing an older app on the same machine: `git worktree add <scratch>/old <commit>`, symlink `app/node_modules`, `npm run build` there, and run the same test in both folders in turns. Take 3+ rounds: one quarter-speed run swings by 10+ fps.
 - Approvals: nothing asked for approval or was blocked during this chat. Panel not republished (robot run).
