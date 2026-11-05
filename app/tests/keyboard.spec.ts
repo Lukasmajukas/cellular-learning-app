@@ -141,7 +141,8 @@ test('Tab through every tab, the Keys sheet and the Day look: a ring you can see
   await expect(w.getByTestId('keys-sheet')).toBeVisible();
   await expect(w.getByTestId('keys-sheet').locator('kbd')).toHaveText(['1-9', 'A-I', 'Enter', 'Esc', 'Arrows', 'Tab']);
   await expect(w.getByTestId('keys-sheet-close')).toBeFocused();
-  expect((await focusRing(w)).ok).toBe(true);
+  // The sheet slides up (about 0.3 s): once it has settled, its Close button's ring is on screen and whole.
+  await expect.poll(async () => { const r = await focusRing(w); return r.ok || r.why; }, { timeout: 3000 }).toBe(true);
   await w.screenshot({ path: 'test-results/r22-keys-sheet.png' });
   await w.keyboard.press('Escape');
   await expect(w.getByTestId('keys-sheet')).toHaveCount(0);
