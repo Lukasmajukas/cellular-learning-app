@@ -127,6 +127,34 @@ test('"signal locked" (I44): a right answer\'s tile pop and glow, Beacon\'s ring
   await app.close();
 });
 
+test('an empty lesson bar keeps a small lit stub at its start, so the first right answer\'s spark sits whole inside the bar (I89)', async () => {
+  const { app, w } = await launch();
+  // The daily goal's bar has no stub: at 0 its cover starts right at the bar's left edge.
+  const goal = (await w.getByTestId('goal-bar').boundingBox())!, goalFill = (await w.locator('[data-testid=goal-bar] [data-fill]').boundingBox())!;
+  expect(Math.abs(goalFill.x - goal.x), 'no stub on the goal bar').toBeLessThan(0.5);
+  await w.getByTestId('lesson-u1-l1').click();
+  const { right } = await key(w);
+  await w.mouse.move(2, 2); await w.waitForTimeout(600); // the lesson finishes rising
+  await expect(w.getByTestId('lesson-progress')).toHaveAttribute('data-value', '0'); // still 0 for screen readers
+  await expect(w.getByTestId('lesson-progress')).toHaveAttribute('aria-valuenow', '0');
+  const bar = (await w.getByTestId('lesson-progress').boundingBox())!, fill = (await w.locator(FILL).boundingBox())!;
+  const lit = fill.x - bar.x;
+  console.log(`  bar ${bar.width} x ${bar.height} px; lit stub ${lit} px`);
+  expect(lit, 'a lit stub as long as the bar is tall').toBeCloseTo(bar.height, 0);
+  // The stub shows the bar's start colour (signal blue): a pixel in its middle isn't the track's colour.
+  const png = await w.screenshot({ clip: { x: bar.x + lit / 2, y: bar.y + bar.height / 2, width: 1, height: 1 } });
+  const track = await w.screenshot({ clip: { x: bar.x + bar.width / 2, y: bar.y + bar.height / 2, width: 1, height: 1 } });
+  expect(png.equals(track), 'the stub is lit, not track-coloured').toBe(false);
+  // The first right answer: the spark's bright middle sits on the stub's tip, a whole bar-height inside the round end.
+  const r = await film(w, [SPARK], () => w.locator(`[data-testid=choice-${right}]`).click(), 600);
+  const s = (await w.locator(SPARK).boundingBox())!, mid = s.x + s.width / 2;
+  console.log(`  spark middle ${(mid - bar.x).toFixed(1)} px from the bar's left edge; up to ${Math.max(...r.of(SPARK).map(f => f?.op ?? 0))}`);
+  expect(mid - bar.x, 'the spark is a whole light, not half of one').toBeGreaterThanOrEqual(bar.height - 0.5);
+  expect(Math.max(...r.of(SPARK).map(f => f?.op ?? 0)), 'and it lights up').toBeGreaterThan(0.5);
+  await w.screenshot({ path: 'test-results/i89-first-spark.png', clip: { x: bar.x - 20, y: bar.y - 20, width: 160, height: bar.height + 40 } });
+  await app.close();
+});
+
 test('the counter counts first-time questions only: a miss never makes the total grow, and a comeback gets a quiet pill (I37)', async () => {
   const { app, w } = await launch();
   await w.getByTestId('lesson-u1-l1').click();
