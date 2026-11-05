@@ -4,6 +4,7 @@ import { describe, it, expect } from 'vitest';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { SPRING, TIME, PRESS, PRESS_BIG, PRESS_ROUND, PRESS_PILL, QUICK_FADE, INSTANT, LOOP, popInDelay, screenGlide, ON_AIR, BREATHE, waveDelay, popInQueue, TOP_BAR, barAt, FEEDBACK, LOCK, BEACON, questionGlide, COMPLETE, nth, SCOPE, NOTICE, noticeMotion, noticeShift, HEAT, SCRIM, SAMPLE, LOOK_FADE, lookFade } from './theme/motion';
+import { SOUNDS } from './sound';
 import { SAMPLE_GAP, SAMPLE_LENGTH, SAMPLE_SET } from './sound';
 import { BEACON_SIZE } from './ui/Beacon';
 import { grew } from './ui/TopBar';
@@ -101,6 +102,14 @@ describe('the path map movement (redesign R06)', () => {
     }
     expect(ON_AIR.burst.delay + ON_AIR.burstGap + ON_AIR.burst.duration).toBeLessThanOrEqual(TIME.celebration);
     for (const n of [1, 3, 5, 7, 12]) expect(waveDelay(n - 1, n) + ON_AIR.wave.duration, `${n} circles`).toBeLessThanOrEqual(TIME.celebration);
+  });
+  it('the "on air" beat (I64): the unlock sound starts with Beacon\'s happy pulse, once Beacon is there, while the lock flies', () => {
+    expect(ON_AIR.unlockSound).toBe(ON_AIR.beaconHappy);
+    expect(ON_AIR.unlockSound).toBeGreaterThan(ON_AIR.arrive.delay);           // Beacon pops in with the new circle first
+    expect(ON_AIR.unlockSound).toBeGreaterThanOrEqual(ON_AIR.lockOff.delay);  // ... and the lock is on its way off
+    expect(ON_AIR.unlockSound).toBeLessThan(ON_AIR.lockOff.delay + ON_AIR.lockOff.duration / 2);
+    expect(ON_AIR.unlockSound + SOUNDS.unlock.length).toBeLessThanOrEqual(TOP_BAR.afterPath); // over before the top bar's turn
+    expect(readFileSync(join(SRC, 'PathMap.tsx'), 'utf8')).toContain("play('unlock', calm ? 0 : ON_AIR.unlockSound)");
   });
   it('the breathing rings: one background loop, 2-4 s a round, only size and see-through-ness', () => {
     expect(BREATHE.transition.duration).toBeGreaterThanOrEqual(2); expect(BREATHE.transition.duration).toBeLessThanOrEqual(4);

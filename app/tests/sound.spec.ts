@@ -2,14 +2,14 @@ import { _electron as electron, test, expect, type Page } from '@playwright/test
 import { mkdtempSync, writeFileSync, readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { playSampleLesson } from './helpers';
+import { playSampleLesson, film } from './helpers';
 import { REAL_PATH } from '../src/units';
 import { isScored } from '../src/questions';
 
 // Redesign R19: the real sounds, tried in the real app. A test can't listen, so the app writes down every sound it
 // starts (window.__sounds: which one, how long after the moment it was set to start, how loud, and whether it was the
 // real file), and how each file decoded (its length and loudest point, so silence would fail).
-type Played = { name: string; delay: number; gain: number; real: boolean };
+type Played = { name: string; delay: number; at: number; gain: number; real: boolean };
 type Log = { played: Played[]; ready: number; failed: number; files: Record<string, { seconds: number; peak: number }> };
 const launch = async (o: { settings?: object; progress?: object; reviews?: object; real?: boolean } = {}) => {
   const dir = mkdtempSync(join(tmpdir(), 'cell-e2e-'));
@@ -50,11 +50,34 @@ test('a lesson: each answer gives right or not quite (no tap on pick-one), then 
   expect(done.gain).toBeCloseTo(0.6 * 0.6, 5);                // its level at the quiet default volume (60%)
   await w.getByTestId('finish').click();
   await w.getByTestId('path-map').waitFor();
-  // Back on the path: the next lesson's lock pops off (0.85 s), then the top bar adds it up and the streak grows (1.65 s).
+  // Back on the path: the next lesson comes on air with Beacon's pulse (0.95 s, I64), then the top bar adds it up and the streak grows (1.65 s).
   await expect.poll(() => names(w)).toContain('streak');
   const after = (await log(w)).played.slice(answers.length).sort((a, b) => a.delay - b.delay);   // both are set up as the path opens
   expect(after.map(p => p.name)).toEqual(['unlock', 'streak']);
-  expect(after[0].delay).toBeCloseTo(0.85, 5); expect(after[1].delay).toBeCloseTo(1.65, 5);
+  expect(after[0].delay).toBeCloseTo(0.95, 5); expect(after[1].delay).toBeCloseTo(1.65, 5);
+  await app.close();
+});
+
+test('"on air" (I64): the unlock sound starts in the same moment as Beacon\'s happy ring pulse on the path; 50+ fps', async () => {
+  const { app, w } = await launch();
+  await w.getByTestId('lesson-u1-l1').click();
+  await ready(w);
+  await playSampleLesson(w);
+  await w.waitForTimeout(1700);                               // the lesson-complete celebration is over
+  const before = (await names(w)).length;
+  const P = '[data-testid=path-beacon-spot] [data-part=pulse]';
+  const r = await film(w, [P], () => w.getByTestId('finish').click(), 1900, '[data-testid=path-beacon-spot]');
+  const unlock = (await log(w)).played.slice(before).find(p => p.name === 'unlock')!;
+  expect(unlock).toMatchObject({ real: true });
+  const i = r.frames.findIndex(f => (f[P]?.op ?? 0) > 0.05);  // the pulse's first frame
+  expect(i, 'Beacon pulses').toBeGreaterThan(0);
+  const peak = Math.max(...r.of(P).map(f => f?.op ?? 0)), gap = r.ts[i] - unlock.at;
+  console.log(`  pulse ${gap >= 0 ? gap.toFixed(0) + ' ms after' : (-gap).toFixed(0) + ' ms before'} the sound starts; pulse peak ${peak}; ${r.fps.toFixed(1)} fps`);
+  // One frame is about 17 ms, and the pulse waits for a timer and a repaint: 40 ms (2-3 frames) either way is "together".
+  // Before I64 the sound started 100 ms before the pulse.
+  expect(Math.abs(gap)).toBeLessThanOrEqual(40);
+  expect(peak).toBeGreaterThan(0.5);
+  expect(r.fps).toBeGreaterThanOrEqual(50);
   await app.close();
 });
 

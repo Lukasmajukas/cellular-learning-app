@@ -73,6 +73,12 @@ export const BREATHE = {
 // 4. the next lesson's lock flies off, and its circle pops up as the new current lesson.
 // If that finished the whole unit, every circle of the unit sends out a ring, from the one you just did up to the first
 // (a wave), the unit's banner flashes and its "done" check pops on, and the next unit's banner bar draws itself down.
+// The "on air" beat (idea I64): Beacon's happy ring pulse and the unlock sound start in the same instant, so seeing and
+// hearing land as one moment. Before, the sound started with the lock (0.85 s), 0.1 s before the pulse. The pulse
+// can't come earlier: Beacon pops in inside the new circle (`arrive`, from 0.9 s), so at 0.85 s it isn't there yet.
+// So the sound waits for the pulse instead. At 0.95 s the lock has only just begun to fly (it eases in: 12% of its
+// way), and the sound's loudest part (60-80 ms in) lands as the new circle first reaches full size (about 1.02 s).
+const ON_AIR_BEAT = 0.95;
 export const ON_AIR = {
   turn: { duration: 0.35, delay: 0.35, ease: EASE.out },          // 1 (0.35 s: the path has glided in by then)
   check: { ...SPRING.bouncy, delay: 0.55 },                         // 1, the check badge
@@ -89,8 +95,9 @@ export const ON_AIR = {
   // Beacon (R18) stands beside the current lesson, so it pops up with the new current circle (inside it), then gives
   // one happy ring pulse as the circle lands, and goes back to waiting. Its pulse (0.6 s) ends before the top bar's
   // moment starts (TOP_BAR.afterPath, 1.6 s): one celebration at a time.
-  beaconHappy: 0.95,                                               // seconds after the path appears: Beacon is happy ...
+  beaconHappy: ON_AIR_BEAT,                                        // seconds after the path appears: Beacon is happy ...
   beaconRest: 2.6,                                                 // ... and back to its waiting face
+  unlockSound: ON_AIR_BEAT,                                        // the unlock sound starts with Beacon's pulse (I64)
 } as const;
 // The k-th circle up the unit (0 = the one just above the lesson you finished) in a wave of `count` circles.
 export const waveDelay = (k: number, count: number) =>
