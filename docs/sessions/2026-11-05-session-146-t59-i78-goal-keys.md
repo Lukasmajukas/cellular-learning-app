@@ -1,7 +1,7 @@
 # Handoff note: 2026-11-05, T59 idea I78 (welcome goal keys)
 <!-- File name: docs/sessions/YYYY-MM-DD-session-N-short-name.md (N = the highest session number so far + 1) -->
 
-**Status:** IN PROGRESS
+**Status:** DONE
 **Model used:** Large (Opus), High effort (a robot run handed it to this chat) · **Branch / pull request:** `claude/robot-t59-i78`, #151
 
 ## In simple words (for the owner)
@@ -22,7 +22,9 @@ On the welcome's second page you pick how many lessons a day: 1, 2, 3 or 5. Each
 - Windows build on GitHub: **could not run**, the same as every run since 09:17 UTC (T62): no check run started for this branch.
 
 ## What I looked at (by eye)
-LOOKED
+- `43-welcome-goal` in Night (620 × 960) and Day (1280 × 800), next to the old picture: the four key boxes now say 1, 2, 3 and 5, each beside its own count; the picked tile (2 lessons) still has its filled-in box. Nothing else on the page moved.
+- **Gallery:** 4 pictures replaced (`43-welcome-goal` and `43-welcome-goal-wide`, in `gallery/latest/` and `gallery/latest/day/`). The gallery was run into the scratchpad and only these copied in.
+- **Still weak:** nothing new. The key number now repeats the bold count right beside it ("5 · 5 lessons"); it reads fine and matches how the answer tiles look, so no new idea.
 
 ## What's next
 - T59 carries on with the top unticked idea in `docs/redesign/IDEAS.md`: I69 (a notice if a save fails). Large (Opus), High effort. This was idea chat 3 of 8 after R24; the 8th is design review 4.
