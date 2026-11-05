@@ -24,7 +24,7 @@ The gallery is a folder of pictures of every screen of the app, so the robot can
 - Unit tests: 269 of 269 pass. TypeScript and the build: OK.
 - Content checker: OK (253 facts, 27 photos, 635 questions). Nothing in `content/` changed.
 - Click tests (cloud, `xvfb-run -a npx playwright test`): **128 of 130 passed** (18.0 min). The 2 that failed are timing checks: the blink race above (fixed), and `notices.spec.ts` "This changed ... the page glides up", one step of 60.6 px against a 60 px limit while I was taking flip books at the same time (CPU shared). Both passed 3 times out of 3 when run alone; the Beacon file passed 10 of 10 after the fix. No app code changed in this chat.
-- Windows build on GitHub: see the pull request; it has failed in seconds for every run since 09:17 UTC (T62), not caused by this change.
+- Windows build on GitHub: runs 42122578598 and 42124173571 **failed in 3-4 seconds with no log**: the job never got a computer, the same as every run since 09:17 UTC (T62). Not caused by this change.
 - No frame-rate test needed: nothing new moves in the app.
 - Panel not republished (robot run).
 
