@@ -21,6 +21,9 @@ export const BEACON_SIZE = { path: 48, question: 58, complete: 112 } as const;
 const W = 100, H = 136, HX = 50, HY = 40, HEAD = 15;
 export const BEACON_HEIGHT = (width: number) => (width * H) / W;   // how tall Beacon is at a width
 const RINGS = [{ r: 22, o: 0.4 }, { r: 30, o: 0.18 }];
+// Half the side of the rings' own square layer (R23): the outer ring and its line (30 + 1.25), with room to breathe
+// (x 1.07 = 33.4), so nothing is cut off. 50 - 34 = 16 and 40 - 34 = 6 keep the square inside the drawing.
+const RING_BOX = 34;
 
 const SAYS: Record<BeaconFace, string> = {
   idle: 'waiting', happy: 'happy', oops: 'a little worried', thinking: 'thinking', cheering: 'cheering', sleepy: 'sleepy',
@@ -53,44 +56,66 @@ export function Beacon({ face = 'idle', size = BEACON_SIZE.question, still = fal
   }, [blinks]);
 
   const pulsing = moving && face === 'happy', cheering = moving && face === 'cheering';
+  // R23 (speed check): Beacon is three layers stacked in one box, in the same order the parts were always painted:
+  // 1. at the back, a drawing with the tower and the head's glow;
+  // 2. the rings, on a plain page layer of their own (not inside a drawing), so the graphics chip runs their endless
+  //    breath by itself. Inside a drawing (SVG), Chromium can't do that, so the breath was redrawn by code every frame
+  //    (60 style passes a second, measured in R23) for as long as Beacon was on screen;
+  // 3. at the front, a drawing with the head: the pulse, the burst rings, the disc and the face.
+  // The head's parts hop together when Beacon cheers (the rings' layer hops the same distance, in pixels).
+  const u = size / W, hop = cheering ? BEACON.hopKeys : { y: 0 }, hopPx = cheering ? { y: BEACON.hopKeys.y.map(y => y * u) } : { y: 0 };
+  const hopT = cheering ? BEACON.hop : INSTANT;
+  const layer = { position: 'absolute', inset: 0, display: 'block', overflow: 'visible' } as const;
   return (
-    <svg width={size} height={(size * H) / W} viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`Beacon, ${SAYS[face]}`}
-      data-testid={testId} data-face={face} data-looping={looping} data-breathing={breathing} style={{ display: 'block', overflow: 'hidden', flexShrink: 0 }}>
-      <defs>
-        <radialGradient id={grad}>
-          <stop offset="0.45" style={{ stopColor: glow, stopOpacity: 0.4 }} />
-          <stop offset="1" style={{ stopColor: glow, stopOpacity: 0 }} />
-        </radialGradient>
-      </defs>
-      {/* The tower: thin braces behind, then the legs and bars, then the little mast the head sits on. It never moves. */}
-      <g data-part="tower">
-        <path d="M44.3 74 61.65 94M55.7 74 38.35 94M38.35 94 67.6 114M61.65 94 32.4 114" stroke={c.beaconBrace} strokeWidth="2.5" {...line} />
-        <path d="M50 55 27 132M50 55 73 132M44.3 74h11.4M38.35 94h23.3M32.4 114h35.2" stroke={c.beacon} strokeWidth="5" {...line} />
-        <path d={`M${HX} ${HY + 4}V58`} stroke={c.beacon} strokeWidth="4" {...line} />
-      </g>
-      {/* The head and everything around it: this part hops when Beacon cheers. */}
-      <motion.g data-part="head" initial={false} animate={cheering ? BEACON.hopKeys : { y: 0 }} transition={cheering ? BEACON.hop : INSTANT}>
+    <span role="img" aria-label={`Beacon, ${SAYS[face]}`} data-testid={testId} data-face={face} data-looping={looping} data-breathing={breathing}
+      style={{ display: 'block', position: 'relative', width: size, height: (size * H) / W, overflow: 'hidden', flexShrink: 0 }}>
+      <svg width={size} height={(size * H) / W} viewBox={`0 0 ${W} ${H}`} aria-hidden data-part="back" style={layer}>
+        <defs>
+          <radialGradient id={grad}>
+            <stop offset="0.45" style={{ stopColor: glow, stopOpacity: 0.4 }} />
+            <stop offset="1" style={{ stopColor: glow, stopOpacity: 0 }} />
+          </radialGradient>
+        </defs>
+        {/* The tower: thin braces behind, then the legs and bars, then the little mast the head sits on. It never moves. */}
+        <g data-part="tower">
+          <path d="M44.3 74 61.65 94M55.7 74 38.35 94M38.35 94 67.6 114M61.65 94 32.4 114" stroke={c.beaconBrace} strokeWidth="2.5" {...line} />
+          <path d="M50 55 27 132M50 55 73 132M44.3 74h11.4M38.35 94h23.3M32.4 114h35.2" stroke={c.beacon} strokeWidth="5" {...line} />
+          <path d={`M${HX} ${HY + 4}V58`} stroke={c.beacon} strokeWidth="4" {...line} />
+        </g>
         {/* The glow: its own still layer (never an animated blur). */}
-        <circle cx={HX} cy={HY} r={HEAD + 9} fill={`url(#${grad})`} />
-        {/* The rings breathe together, as one layer (one background loop), like the current lesson's rings. */}
-        <motion.g data-part="rings" style={{ originX: 0.5, originY: 0.5 }} initial={false}
-          animate={breathing ? BREATHE.on : BREATHE.off} transition={breathing ? BREATHE.transition : INSTANT}>
-          {/* Dimmed on an inner layer: the breath animates the outer layer's see-through-ness. */}
-          <g data-part="ring-dim" opacity={dim}>
-            {RINGS.map(({ r, o }) => <circle key={r} cx={HX} cy={HY} r={r} stroke={glow} strokeOpacity={o} strokeWidth="2.5" fill="none" />)}
-          </g>
+        <motion.g data-part="glow" initial={false} animate={hop} transition={hopT}>
+          <circle cx={HX} cy={HY} r={HEAD + 9} fill={`url(#${grad})`} />
         </motion.g>
-        <motion.circle data-part="pulse" cx={HX} cy={HY} r={RINGS[0].r} stroke={glow} strokeWidth="2.5" fill="none" style={{ originX: 0.5, originY: 0.5 }}
-          initial={false} animate={pulsing ? BEACON.pulseKeys : { scale: 1, opacity: 0 }} transition={pulsing ? BEACON.pulse : INSTANT} />
-        {[0, 1].map(k => (
-          <motion.circle key={k} data-part="burst" cx={HX} cy={HY} r={HEAD} stroke={c.onAir} strokeWidth="2" fill="none" style={{ originX: 0.5, originY: 0.5 }}
-            initial={false} animate={cheering ? BEACON.burstKeys : { scale: 1, opacity: 0 }}
-            transition={cheering ? { ...BEACON.burst, delay: BEACON.burst.delay + k * BEACON.burstGap } : INSTANT} />
-        ))}
-        <circle data-part="face-disc" cx={HX} cy={HY} r={HEAD} fill={glow} />
-        <Face face={face} ink={ink} shut={shut} />
-      </motion.g>
-    </svg>
+      </svg>
+      {/* The rings breathe together, as one layer (one background loop), like the current lesson's rings. The layer is a
+          square around the head, so it grows and shrinks about the head's centre. */}
+      <motion.span aria-hidden data-part="ring-hop" initial={false} animate={hopPx} transition={hopT}
+        style={{ position: 'absolute', left: (HX - RING_BOX) * u, top: (HY - RING_BOX) * u, width: 2 * RING_BOX * u, height: 2 * RING_BOX * u }}>
+        <motion.span data-part="rings" initial={false} animate={breathing ? BREATHE.on : BREATHE.off} transition={breathing ? BREATHE.transition : INSTANT}
+          style={{ display: 'block', width: '100%', height: '100%' }}>
+          <svg width="100%" height="100%" viewBox={`${HX - RING_BOX} ${HY - RING_BOX} ${2 * RING_BOX} ${2 * RING_BOX}`} style={{ display: 'block', overflow: 'visible' }}>
+            {/* Dimmed on an inner layer: the breath animates the outer layer's see-through-ness. */}
+            <g data-part="ring-dim" opacity={dim}>
+              {RINGS.map(({ r, o }) => <circle key={r} cx={HX} cy={HY} r={r} stroke={glow} strokeOpacity={o} strokeWidth="2.5" fill="none" />)}
+            </g>
+          </svg>
+        </motion.span>
+      </motion.span>
+      <svg width={size} height={(size * H) / W} viewBox={`0 0 ${W} ${H}`} aria-hidden data-part="front" style={layer}>
+        {/* The head and everything on it: this part hops when Beacon cheers. */}
+        <motion.g data-part="head" initial={false} animate={hop} transition={hopT}>
+          <motion.circle data-part="pulse" cx={HX} cy={HY} r={RINGS[0].r} stroke={glow} strokeWidth="2.5" fill="none" style={{ originX: 0.5, originY: 0.5 }}
+            initial={false} animate={pulsing ? BEACON.pulseKeys : { scale: 1, opacity: 0 }} transition={pulsing ? BEACON.pulse : INSTANT} />
+          {[0, 1].map(k => (
+            <motion.circle key={k} data-part="burst" cx={HX} cy={HY} r={HEAD} stroke={c.onAir} strokeWidth="2" fill="none" style={{ originX: 0.5, originY: 0.5 }}
+              initial={false} animate={cheering ? BEACON.burstKeys : { scale: 1, opacity: 0 }}
+              transition={cheering ? { ...BEACON.burst, delay: BEACON.burst.delay + k * BEACON.burstGap } : INSTANT} />
+          ))}
+          <circle data-part="face-disc" cx={HX} cy={HY} r={HEAD} fill={glow} />
+          <Face face={face} ink={ink} shut={shut} />
+        </motion.g>
+      </svg>
+    </span>
   );
 }
 

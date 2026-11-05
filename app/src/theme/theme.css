@@ -9,10 +9,15 @@ body {
   line-height: 1.4;
   color: var(--text);
   background-color: var(--bg);
-  /* The soft night glow behind the content column (still: glows never animate). */
-  background-image: radial-gradient(ellipse 620px 560px at 50% 38%, var(--glow-1) 0%, var(--glow-2) 50%, var(--glow-3) 78%, var(--bg) 100%);
-  background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
+}
+/* The soft night glow behind the content column (still: glows never animate). It stays put while the page scrolls.
+   R23 (speed check): it's its own fixed layer behind everything, not a "background-attachment: fixed" on the page: with
+   that, Chromium repaints the whole window at every step of a scroll; a fixed layer is painted once and just stays.
+   Scrolling the 49-lesson path took about a quarter less work, with fewer hitches (tests/speed.spec.ts). */
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background-image: radial-gradient(ellipse 620px 560px at 50% 38%, var(--glow-1) 0%, var(--glow-2) 50%, var(--glow-3) 78%, var(--bg) 100%);
 }
 h1, h2, h3 { line-height: 1.25; font-weight: 700; }
 h1 { font-size: 28px; }
