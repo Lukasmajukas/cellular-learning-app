@@ -3,10 +3,10 @@
   "robot": {
     "on": true,
     "next": "right away (it starts its next job by itself), and every hour",
-    "last": "redesign session R13: the Review tab is a radar \"drive test\" with one dot per question waiting, and the \"This changed\" card and \"your progress is safe\" notice have the new look (T59)"
+    "last": "redesign session R14: the heatmap's band tiles glow brighter the better you remember them, fill in one by one, and open a list of their lessons when you tap them (T59)"
   },
   "light": "green",
-  "working": "Nothing in progress. The robot moves on to redesign session R14 (the heatmap) at its next run (T59). For you: paste the robot's hourly message into the launcher chat again, and don't /clear it until then (T60); screenshots of the start-up picture when you can (T57).",
+  "working": "Nothing in progress. The robot moves on to redesign session R15 (Settings) at its next run (T59). For you: paste the robot's hourly message into the launcher chat again, and don't /clear it until then (T60); screenshots of the start-up picture when you can (T57).",
   "limit": {
     "state": "warning",
     "resets": "the weekly limit is nearly used up (it resets Wed Nov 11). The robot keeps working until it runs out"
