@@ -22,10 +22,10 @@ const bad = (p: Palette, min = 4.5) => pairs().filter(([, f, b]) => contrast(p[f
   .map(([what, f, b]) => `${what}: ${f} on ${b} = ${contrast(p[f], p[b]).toFixed(2)}`);
 
 describe('building blocks: readable colours', () => {
-  it('lists every tone (5 buttons, 5 pills, 5 tile states, 2 sheets)', () => {
+  it('lists every tone (5 buttons, 5 pills, 6 tile states, 3 sheets)', () => {
     expect(Object.keys(BUTTON)).toEqual(['signal', 'onAir', 'miss', 'quiet', 'streak']);
     expect(Object.keys(TILE)).toEqual(['idle', 'selected', 'paired', 'right', 'wrong', 'dim']);
-    expect(Object.keys(SHEET)).toEqual(['right', 'wrong']);
+    expect(Object.keys(SHEET)).toEqual(['right', 'wrong', 'info']);
     expect(Object.keys(PILL)).toHaveLength(5);
   });
   it('Night: every pair passes', () => expect(bad(NIGHT)).toEqual([]));
@@ -90,5 +90,18 @@ describe('the Review tab and the notices (R13)', () => {
   });
   it('the notice colours are readable: the restored notice\'s words on its background, Night and Day', () => {
     for (const p of [NIGHT, DAY]) expect(contrast(p.notice, p.noticeBg)).toBeGreaterThanOrEqual(4.5);
+  });
+});
+
+describe('the Heatmap tab (R14)', () => {
+  it('is built from the blocks (sheet, labels, press springs), reads Reduce motion live, and has no plain buttons', () => {
+    const code = readFileSync(join(SRC, 'HeatMapScreen.tsx'), 'utf8');
+    expect(code).toMatch(/from '\.\/ui'/); expect(code).toContain('useCalm()'); expect(code).toContain('<BottomSheet');
+    expect(code).toContain('usePress('); expect(code).not.toMatch(/<button/);
+  });
+  it('the sheet you can close: Esc is caught before the app\'s own Esc, and it has a close button and a scrim', () => {
+    const code = readFileSync(join(SRC, 'ui', 'BottomSheet.tsx'), 'utf8');
+    expect(code).toMatch(/addEventListener\('keydown', esc, true\)/); expect(code).toContain('stopImmediatePropagation');
+    expect(code).toContain('label="Close"'); expect(code).toContain('SCRIM');
   });
 });
