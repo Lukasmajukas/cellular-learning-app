@@ -30,7 +30,7 @@ When you get an answer right, three little lights go off: the right answer glows
 
 ## What I looked at (by eye)
 - **Flip book** (620 × 960, real speed, pictures at about 45, 160, 270 and 470 ms after the click): at 45 ms Beacon's face is already happy and nothing else has started; at 160 ms the spark at the bar's start, Beacon's ring and the tile's green glow are all lit together; at 270 ms the spark fades and the ring grows; at 470 ms everything has settled.
-- **Gallery:** see "Gallery check" below.
+- **Gallery check:** the whole gallery (Night, 101 pictures) was taken again into the scratchpad and compared pixel by pixel with `docs/redesign/gallery/latest/`. The gallery takes each picture 1.3 s after the action, when the moment is long over, so nothing should change, and nothing did: `05-feedback-right` differs only in a 5 × 5 px speck. The few larger differences aren't from this change: `10-blocks-wide` was scrolled to a different spot, and `04-feedback-wrong` got its answers in a different (shuffled) order. So `latest/` was left as it is; the flip book above shows the moment itself.
 - **Still weak (new ideas):** I87: the "right" sound plays one frame after the answer, 0.08 s before the lights; it may already land together on a PC (sound has its own delay) but nobody has measured it on Windows. I88: a right tap dot now waits 0.08 s while a wrong one shows at once; it may read as lag. I89: on the first question the bar is empty, so the spark is only half a light at the bar's left end.
 
 ## What's next
