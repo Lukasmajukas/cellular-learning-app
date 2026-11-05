@@ -3,10 +3,10 @@
   "robot": {
     "on": true,
     "next": "right away (it starts its next job by itself), and every hour",
-    "last": "idea I61: on a narrow window, Beacon's line on lesson complete now sits under the title, wide and on one row, pointing up at Beacon (T59)"
+    "last": "idea I10: the gallery now has flip books, a sheet of pictures taken a split second apart for each animation, so design reviews can see movement (T59)"
   },
   "light": "green",
-  "working": "Nothing in progress. The 24 redesign sessions are done; the robot now improves the app one idea at a time from the ideas board, idea I61 (the squeezed line on a narrow lesson-complete screen) is done; next: idea I10 (a flip book of each animation in the gallery). For you: the Windows build on GitHub still doesn't run, most likely because your free GitHub Actions minutes are used up; please check GitHub, Settings, Billing (T62). Also: when a new build is out, say if the green picture at start-up is gone (T57); paste the robot's hourly message into the launcher chat again, and don't /clear it until then (T60).",
+  "working": "Nothing in progress. The 24 redesign sessions are done; the robot now improves the app one idea at a time from the ideas board, idea I10 (flip books of each animation in the gallery) is done; next: idea I89 (a small lit stub at the start of an empty progress bar). For you: the Windows build on GitHub still doesn't run, most likely because your free GitHub Actions minutes are used up; please check GitHub, Settings, Billing (T62). Also: when a new build is out, say if the green picture at start-up is gone (T57); paste the robot's hourly message into the launcher chat again, and don't /clear it until then (T60).",
   "limit": {
     "state": "warning",
     "resets": "the weekly limit is nearly used up (it resets Wed Nov 11). The robot keeps working until it runs out"

@@ -4,9 +4,11 @@
 //                 node tools/gallery.mjs --icons-only     (just the icon sheet, 00-icons.webp; no build needed)
 //                 node tools/gallery.mjs --types-only     (just the other question types, 18-27; build first; keeps the rest)
 //                 node tools/gallery.mjs --look day       (R20: every picture in the Day look, into ../docs/redesign/gallery/latest/day)
+//                 node tools/gallery.mjs --flip-only      (idea I10: just the flip books, into flip/; build first; keeps the rest)
 // R21: the start screen, its fade, the welcome, the empty heatmap and the error screens (40-46).
 // R22: a phone-narrow window (360 x 640) and the keyboard: 47-54 (see r22Screens).
 // Idea I69: "Couldn't save your last change" (55, in firstStartScreens).
+// Idea I10: flip books, a sheet of pictures in a row for each animation (flip/f01-f13, see flipBooks).
 // It starts the real Electron app with a made-up save file (3 lessons done, a 4-day streak, some reviews due),
 // the other question types (18-27, from R10), a comeback question (28, from R11), the Review tab's looks and the notices (30-33, from R13), the heatmap filling in and its lessons sheet (34, 35, from R14), Settings mid-sample, its bottom and in Day (36-38, from R15), shows the building blocks page (#blocks, from R03; Beacon's faces 16, 17 from R17), the Review tab (13, from R04), the top bar mid-moment and the repair card (14, 15, from R07),
 // draws a sheet of all our icons (00-icons), visits each screen at the owner's window size (620 x 960) and a wide one (1280 x 800), and saves small WebP files.
@@ -453,13 +455,158 @@ async function r22Screens() {
   await app.close();
 }
 
+// Idea I10: flip books. A still picture can't show movement, so for each animation the gallery also takes a short burst
+// of pictures (one every `every` ms, `n` of them) and lays them out on one sheet, in rows, each labelled with the real time
+// on screen (time since the click that started it). They go to `flip/` (latest/flip/, or latest/day/flip/ in Day), at the
+// owner's window size (620 x 960) plus the narrow lesson complete (360 x 640, for idea I94).
+// How: Chromium's own frame stream (the DevTools "screencast") sends a picture each time the screen changes, with the
+// exact time it was drawn. For each planned moment (0, every, 2 x every ...) the sheet shows the last picture drawn by
+// then, which is what was on screen at that moment. (Ordinary screenshots took 120-150 ms each, too slow for a 0.3 s move.)
+const FLIP = join(OUT, 'flip');
+async function flip(w, name, s, title, go, { n = 8, every = 80, cols = n > 8 ? 6 : 4 } = {}) {
+  await w.mouse.move(0, 0); // as in shot(): no button grown by hover
+  const cdp = await w.context().newCDPSession(w);
+  const seen = [];
+  cdp.on('Page.screencastFrame', f => { seen.push({ t: f.metadata.timestamp * 1000, png: f.data }); cdp.send('Page.screencastFrameAck', { sessionId: f.sessionId }).catch(() => {}); });
+  await cdp.send('Page.startScreencast', { format: 'png', everyNthFrame: 1 });
+  await w.waitForTimeout(250); // the stream's first picture: the screen before the click
+  await go(); // a click (it returns as soon as the click has been handled) or a wait for something to start
+  const t0 = Date.now();
+  await w.waitForTimeout((n - 1) * every + 120);
+  await cdp.send('Page.stopScreencast');
+  await cdp.detach();
+  if (!seen.length) throw new Error(`${name}: the frame stream sent no pictures`);
+  const frames = Array.from({ length: n }, (_, i) => {
+    const at = t0 + i * every, f = seen.filter(x => x.t <= at).at(-1) ?? seen[0];
+    return { t: i * every, png: f.png };
+  });
+  const { PALETTES } = await import('../src/theme/tokens.ts');
+  const c = PALETTES[LOOK];
+  const webp = await w.evaluate(async ({ frames, cols, title, c, thumb }) => {
+    const bmps = await Promise.all(frames.map(async f => createImageBitmap(await (await fetch(`data:image/png;base64,${f.png}`)).blob())));
+    const k = thumb / bmps[0].width, tw = thumb, th = Math.round(bmps[0].height * k);
+    const gap = 10, label = 22, head = 34, rows = Math.ceil(bmps.length / cols);
+    const cv = new OffscreenCanvas(gap + cols * (tw + gap), head + rows * (th + label + gap));
+    const g = cv.getContext('2d');
+    g.fillStyle = c.bg; g.fillRect(0, 0, cv.width, cv.height);
+    g.fillStyle = c.text; g.font = '600 15px sans-serif'; g.textBaseline = 'middle';
+    g.fillText(title, gap, head / 2);
+    bmps.forEach((b, i) => {
+      const x = gap + (i % cols) * (tw + gap), y = head + Math.floor(i / cols) * (th + label + gap);
+      g.drawImage(b, x, y, tw, th);
+      g.strokeStyle = c.border; g.lineWidth = 1; g.strokeRect(x + 0.5, y + 0.5, tw - 1, th - 1);
+      g.fillStyle = c.textMuted; g.font = '12px monospace';
+      g.fillText(`${i + 1}`, x, y + th + label / 2);
+      g.fillStyle = c.signal; g.textAlign = 'right';
+      g.fillText(`${(frames[i].t / 1000).toFixed(2)} s`, x + tw, y + th + label / 2);
+      g.textAlign = 'left';
+    });
+    const out = await cv.convertToBlob({ type: 'image/webp', quality: 0.8 });
+    const bytes = new Uint8Array(await out.arrayBuffer());
+    let bin = ''; for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+    return btoa(bin);
+  }, { frames, cols, title, c, thumb: s.w <= 400 ? 180 : 200 });
+  const file = join(FLIP, `${name}${s.suffix}.webp`);
+  writeFileSync(file, Buffer.from(webp, 'base64'));
+  console.log(`  ${file.replace(APP + '/', '')}  (${n} of ${seen.length} streamed pictures)`);
+}
+// A click that doesn't move the mouse (so nothing in the pictures is grown by hover).
+const press = (w, id) => () => w.getByTestId(id).evaluate(el => el.click());
+// The sample lesson's answer buttons are shuffled, but each keeps its own test id (choice-<number in the list>), so the
+// right one is found from the question's words.
+async function choiceId(w, ok) {
+  const { SAMPLE } = await import('../src/lesson.ts');
+  await w.locator('[data-testid^=choice-]:not([disabled])').first().waitFor();
+  const prompt = await w.getByTestId('prompt').textContent(), q = SAMPLE.find(x => x.prompt === prompt);
+  return `choice-${ok ? q.answer : q.choices.findIndex((_, k) => k !== q.answer)}`;
+}
+// Answers right until the lesson's last answer is showing, so the next Continue opens lesson complete.
+async function toLastAnswer(w) {
+  for (let i = 0; i < 14; i++) {
+    await press(w, await choiceId(w, true))();
+    await w.getByTestId('next').waitFor(); await w.waitForTimeout(500);
+    const [, n, total] = (await w.getByTestId('lesson-count').getAttribute('aria-label')).match(/Question (\d+) of (\d+)/);
+    if (n === total) return; // (only in a lesson with no misses: a miss comes back at the end, adding one on Continue)
+    await press(w, 'next')(); await w.getByTestId('verdict').waitFor({ state: 'detached' });
+  }
+  throw new Error('the lesson never reached its last answer');
+}
+
+async function flipBooks() {
+  const s = SIZES[0];
+  // The start screen fading away as the path pops in under it (held up by a made-up slow start).
+  let { app, w } = await launch({ CELL_TEST_LOAD_DELAY: '1500' });
+  await resize(app, s);
+  await w.getByTestId('start-screen').waitFor();
+  await flip(w, 'f01-start-fade', s, 'Start screen fades, the path pops in under it', () =>
+    w.waitForFunction(() => { const b = document.getElementById('boot'); return !b || Number(getComputedStyle(b).opacity) < 0.98; }, null, { polling: 'raf', timeout: 10_000 }));
+  await app.close();
+  // A lesson from start to end (the sample path): opening it, a right answer
+  // ("signal locked"), the next question gliding in, a wrong answer, lesson complete, and back to the path.
+  ({ app, w } = await launch({ CELL_SAMPLE_PATH: '1' }));
+  await resize(app, s);
+  await w.getByTestId('path-count').waitFor(); await w.waitForTimeout(1800);
+  await flip(w, 'f02-lesson-opens', s, 'Opening a lesson (click on its circle)', press(w, 'lesson-u1-l1'), { every: 60 });
+  await w.waitForTimeout(800);
+  await flip(w, 'f03-answer-right', s, 'A right answer: "signal locked"', press(w, await choiceId(w, true)), { every: 60 });
+  await flip(w, 'f04-next-question', s, 'Continue: the next question glides in', press(w, 'next'), { every: 60 });
+  await w.waitForTimeout(500);
+  await flip(w, 'f05-answer-wrong', s, 'A wrong answer: a gentle shake, the sheet slides up', press(w, await choiceId(w, false)), { every: 60 });
+  await app.close();
+  // Lesson complete and back to the path, from a lesson answered all right (a miss would come back at the end).
+  ({ app, w } = await launch({ CELL_SAMPLE_PATH: '1' }));
+  await resize(app, s);
+  await w.getByTestId('lesson-u1-l1').click();
+  await toLastAnswer(w);
+  await flip(w, 'f06-lesson-complete', s, 'Lesson complete: Beacon grows and cheers, burst, stars, XP, bars, its line', press(w, 'next'), { n: 12, every: 150 });
+  await w.waitForTimeout(600);
+  await flip(w, 'f07-back-to-path', s, 'Back to the path: coming on air, Beacon arrives, then the top bar', press(w, 'finish'), { n: 12, every: 250 });
+  await app.close();
+  // The tabs: the review scope's blips, the heatmap filling in and a band's sheet, Settings' sample, the look changing.
+  ({ app, w } = await launch({}));
+  await resize(app, s);
+  await w.getByTestId('path-count').waitFor(); await w.waitForTimeout(1800);
+  await flip(w, 'f08-review-blips', s, 'Review tab: the blips pop in', press(w, 'tab-review'));
+  await w.waitForTimeout(800);
+  await flip(w, 'f09-heatmap-fill', s, 'Heatmap tab: the tiles fill in', press(w, 'tab-heatmap'));
+  await w.waitForTimeout(1200);
+  await flip(w, 'f10-heat-sheet', s, 'A band\'s lessons sheet slides up', press(w, 'heat-B71'), { every: 60 });
+  await w.keyboard.press('Escape'); await w.waitForTimeout(600);
+  await w.getByTestId('tab-settings').evaluate(el => el.click()); await w.getByTestId('settings').waitFor(); await w.waitForTimeout(900);
+  await flip(w, 'f11-settings-sample', s, 'Settings, Play a sample: a ring for each of the four sounds', press(w, 'sound-sample'), { every: 200 });
+  await w.waitForTimeout(600);
+  await flip(w, 'f12-look-change', s, `Switching the look (${LOOK === 'day' ? 'Day to Night' : 'Night to Day'}): the old background fades away`, press(w, `set-look-${LOOK === 'day' ? 'night' : 'day'}`), { every: 50 });
+  await app.close();
+  // Beacon cheering, on the building blocks page.
+  ({ app, w } = await launch({}));
+  await resize(app, s);
+  await w.getByTestId('path-count').waitFor();
+  await w.evaluate(() => { location.hash = '#blocks'; location.reload(); });
+  await w.getByTestId('blocks').waitFor();
+  await w.getByTestId('block-beacon-card').evaluate(el => el.scrollIntoView({ block: 'start' }));
+  await w.waitForTimeout(900);
+  await flip(w, 'f13-beacon-cheers', s, 'Beacon cheers: a hop up, the burst rings spread out', press(w, 'block-beacon-set-cheering'), { every: 100 });
+  await app.close();
+  // Lesson complete on a narrow window (idea I94: the bubble's kept room under the title until it pops in at 0.9 s).
+  ({ app, w } = await launch({ CELL_SAMPLE_PATH: '1' }));
+  await resize(app, NARROW);
+  await w.getByTestId('lesson-u1-l1').click();
+  await toLastAnswer(w);
+  await flip(w, 'f06-lesson-complete', NARROW, 'Lesson complete, narrow window (360 x 640)', press(w, 'next'), { n: 12, every: 150 });
+  await app.close();
+}
+
 const typesOnly = process.argv.includes('--types-only');
-if (existsSync(OUT) && !process.argv.includes('--icons-only') && !typesOnly) for (const f of readdirSync(OUT)) if (f.endsWith('.webp')) rmSync(join(OUT, f));
+const flipOnly = process.argv.includes('--flip-only');
+if (existsSync(OUT) && !process.argv.includes('--icons-only') && !typesOnly && !flipOnly) for (const f of readdirSync(OUT)) if (f.endsWith('.webp')) rmSync(join(OUT, f));
 mkdirSync(OUT, { recursive: true });
+if (!process.argv.includes('--icons-only') && !typesOnly) { rmSync(FLIP, { recursive: true, force: true }); mkdirSync(FLIP, { recursive: true }); }
 console.log(`Gallery -> ${OUT}`);
 if (typesOnly) { for (const s of SIZES) await typeScreens(s); console.log('Done.'); process.exit(0); }
+if (flipOnly) { await flipBooks(); console.log('Done.'); process.exit(0); }
 await iconSheet();
 if (process.argv.includes('--icons-only')) process.exit(0);
 for (const s of SIZES) { await firstStartScreens(s); await realScreens(s); await completeScreen(s); await comebackScreen(s); await repairScreen(s); await reviewAndNotices(s); await heatScreens(s); await settingsScreens(s); await blocksScreens(s); await typeScreens(s); }
 await r22Screens();
+await flipBooks();
 console.log('Done.');
