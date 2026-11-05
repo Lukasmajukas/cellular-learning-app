@@ -80,21 +80,14 @@ test('sitting still costs almost nothing on every screen (no loop is drawn by co
 });
 
 test('scrolling the whole real path (49 lessons) is smooth with the computer slowed to a quarter speed', async () => {
-  test.setTimeout(180_000);
-  // One try: a fresh app, scrolled from the top to the bottom with the CPU brake on.
-  const scrollOnce = async () => {
-    const { app, w, cdp } = await launch(false);
-    await w.getByTestId('path-count').waitFor(); await w.waitForTimeout(1500);
-    const circles = await w.locator('[data-testid^=lesson-unit]').count();
-    expect(circles).toBe(REAL_PATH.flatMap(u => u.lessons).length);
-    expect(circles).toBeGreaterThanOrEqual(49);
-    await w.evaluate(() => window.scrollTo(0, 0)); await w.waitForTimeout(600);
+  test.setTimeout(300_000);
+  // Scroll 24 px every frame from the top to the bottom (about 1,400 px a second: a quick flick), timing every frame, with
+  // the CPU brake on. The first time down, every circle pops in as it arrives, so this is the path's busiest moment too.
+  const scrollDown = async (w: Page, cdp: CDPSession) => {
     await cdp.send('Performance.enable');
     const work = async () => (await cdp.send('Performance.getMetrics')).metrics.find(m => m.name === 'TaskDuration')!.value;
     await brake(cdp, 4);
     const w0 = await work(), t0 = Date.now();
-    // Scroll 24 px every frame from the top to the bottom (about 1,400 px a second: a quick flick), timing every frame.
-    // The first time down, every circle pops in as it arrives, so this is the path's busiest moment too.
     const r = await w.evaluate(() => new Promise<{ gaps: number[]; px: number }>(res => {
       const H = document.documentElement.scrollHeight - innerHeight, gaps: number[] = []; let last = performance.now(), y = 0;
       const f = (t: number) => { gaps.push(t - last); last = t; y += 24; window.scrollTo(0, y); if (y < H) requestAnimationFrame(f); else res({ gaps: gaps.slice(2), px: H }); };
@@ -102,22 +95,57 @@ test('scrolling the whole real path (49 lessons) is smooth with the computer slo
     }));
     const busy = (await work() - w0) / ((Date.now() - t0) / 1000);
     await brake(cdp, 1);
-    await app.close();
     const fps = 1000 / (r.gaps.reduce((a, b) => a + b, 0) / r.gaps.length), slow = r.gaps.filter(g => g > 25).length;
-    console.log(`  path ${r.px} px tall, ${circles} lessons: ${r.gaps.length} frames, ${fps.toFixed(1)} fps at a quarter speed, main thread busy ${(busy * 100).toFixed(0)}% of the time; ${slow} frame(s) over 25 ms; slowest ${[...r.gaps].sort((a, b) => b - a).slice(0, 3).map(g => g.toFixed(0)).join(', ')} ms`);
-    return { fps, busy, slow, ok: fps >= 50 && busy < 0.85 && slow <= 12 };
+    return { fps, busy, slow, px: r.px, frames: r.gaps.length, worst: [...r.gaps].sort((a, b) => b - a).slice(0, 3).map(g => g.toFixed(0)).join(', ') };
   };
-  // Measured in R23 (cloud, 4 runs each): with the night glow as a "fixed background" the main thread was busy 67-72% of
-  // the scroll; as its own fixed layer, 54-58%. Hitches varied from run to run (0-13 before, 0-7 after), so these bars
-  // only catch a big step back; the cause itself is guarded in src/r23.test.ts.
-  // I59 (2026-11-05): once, late in a full click-test run, the cloud machine itself was busy (main thread 83%, 25 hitches;
-  // the same test alone, 4 times: 36-39%, 0 hitches). The 4x brake magnifies that. So, like the start-up test below,
-  // a try that misses a bar gets one more try in a fresh app, and the better try counts. A real step back fails both.
-  let m = await scrollOnce();
-  if (!m.ok) { console.log('  first try missed a bar (a busy moment on the machine?); one more try in a fresh app'); const m2 = await scrollOnce(); if (m2.ok || m2.slow < m.slow) m = m2; }
-  expect(m.fps).toBeGreaterThanOrEqual(50);
-  expect(m.busy, 'share of the time the main thread was busy').toBeLessThan(0.85);
-  expect(m.slow, 'frames that took over 25 ms (a visible hitch)').toBeLessThanOrEqual(12);
+  // The yardstick: a short fixed job (make 2,000 small boxes, style and measure them, a few rounds; the same kind of work
+  // as scrolling: style, layout, a little script) timed in the very same window, right before and right after the scroll.
+  // Whatever the machine does to it (a busy cloud computer, a slow laptop), it does to the path too, so the path's cost is
+  // judged against the yardstick's time, not against fixed numbers. Best of 25 rounds each time, in ms.
+  const yardstick = (w: Page) => w.evaluate(() => {
+    let best = Infinity;
+    for (let r = 0; r < 25; r++) {
+      const t = performance.now(), host = document.createElement('div'); host.style.cssText = 'position:fixed;left:-9999px;width:300px';
+      for (let i = 0; i < 2000; i++) { const d = document.createElement('div'); d.style.cssText = `padding:${i % 7}px;border:1px solid #000;width:${100 + (i % 50)}px`; d.textContent = 'x' + i; host.appendChild(d); }
+      document.body.appendChild(host); let h = 0; host.querySelectorAll('div').forEach(d => { h += (d as HTMLElement).offsetHeight; }); host.remove();
+      best = Math.min(best, performance.now() - t);
+    }
+    return best;
+  });
+  // The glow done the old way (R23's mistake): a "fixed background" on the page, which Chromium repaints at every scroll step.
+  const OLD_GLOW = `body::before{display:none!important} body{background-image:radial-gradient(ellipse 620px 560px at 50% 38%,var(--glow-1) 0%,var(--glow-2) 50%,var(--glow-3) 78%,var(--bg) 100%)!important;background-attachment:fixed!important}`;
+  const scrollOnce = async (oldGlow = false) => {
+    const { app, w, cdp } = await launch(false);
+    if (oldGlow) await w.addStyleTag({ content: OLD_GLOW });
+    await w.getByTestId('path-count').waitFor(); await w.waitForTimeout(1500);
+    const circles = await w.locator('[data-testid^=lesson-unit]').count();
+    expect(circles).toBe(REAL_PATH.flatMap(u => u.lessons).length);
+    expect(circles).toBeGreaterThanOrEqual(49);
+    await w.evaluate(() => window.scrollTo(0, 0)); await w.waitForTimeout(600);
+    const y0 = await yardstick(w);
+    const r = await scrollDown(w, cdp);
+    const y1 = await yardstick(w), y = Math.min(y0, y1); // the quieter reading: the machine's true speed
+    await app.close();
+    // The path's cost in main-thread work (ms) per ms of yardstick: a quiet machine and a slow one give about the same.
+    const work = r.busy * r.frames * (1000 / r.fps), cost = work / y;
+    console.log(`  path ${r.px} px tall, ${circles} lessons: ${r.frames} frames, ${r.fps.toFixed(1)} fps at a quarter speed, main thread busy ${(r.busy * 100).toFixed(0)}% of the time; ${r.slow} frame(s) over 25 ms; slowest ${r.worst} ms`);
+    console.log(`  yardstick ${y0.toFixed(1)} ms before, ${y1.toFixed(1)} ms after; path work ${work.toFixed(0)} ms = ${cost.toFixed(1)} yardsticks`);
+    return { fps: r.fps, busy: r.busy, slow: r.slow, work, cost };
+  };
+  // The path and the same path with the old glow, one after the other, three times over; the cheaper try of each counts (a busy
+  // moment on the machine only ever makes a try dearer). Both are timed on the same machine in the same minute, so the
+  // comparison is fair on a fast laptop and a crowded cloud computer alike.
+  const now: Awaited<ReturnType<typeof scrollOnce>>[] = [], old: typeof now = [];
+  for (let i = 0; i < 3; i++) { now.push(await scrollOnce()); old.push(await scrollOnce(true)); }
+  const best = (xs: typeof now) => xs.reduce((a, b) => (b.work < a.work ? b : a));
+  const m = best(now), o = best(old);
+  console.log(`  path work ${m.work.toFixed(0)} ms (${m.cost.toFixed(0)} yardsticks) against ${o.work.toFixed(0)} ms (${o.cost.toFixed(0)}) with the old glow: ${(m.work / o.work * 100).toFixed(0)}%; fps ${m.fps.toFixed(1)} (old glow ${o.fps.toFixed(1)}); hitches ${m.slow} (old glow ${o.slow})`);
+  // Measured in R23 and T64 (cloud): the path costs 82-84% of the old glow's work (a sixth less); with the old glow really back in the CSS it is 94-100%, and
+  // 150-220 yardsticks; the old glow 205-240. Run on the old glow, the first bar fails; the second catches any other
+  // step back (a path twice as dear). Frame pacing (fps, hitches) is printed, not judged: it follows how busy the machine is.
+  expect(m.work / o.work, 'the path costs less than the old fixed-background glow would (R23 fix still in)').toBeLessThan(0.9);
+  expect(m.cost, 'main-thread work for the scroll, in yardsticks (the machine\'s own speed)').toBeLessThan(330);
+  expect(m.fps, 'frames a second at a quarter speed (a floor, far below what the machine manages)').toBeGreaterThanOrEqual(30);
 });
 
 test('start-up: the window shows quickly, the save is read quickly, and the start screen stays only its half second', async () => {
