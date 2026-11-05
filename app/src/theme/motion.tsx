@@ -282,6 +282,16 @@ export const SAMPLE = {
 export const LOOK_FADE = { duration: TIME.screenIn, ease: EASE.inOut }; // 0.3 s
 export const lookFade = (calm: boolean) => (calm ? QUICK_FADE : LOOK_FADE);
 
+// The start screen (R21, index.html): it's there from the window's very first picture. Once the app is ready it stays
+// until at least `hold` seconds after the page began (so a quick start doesn't flash it for a blink), then fades away
+// (see-through-ness only) while the path pops in under it. With Reduce motion: the quick fade.
+export const START = { hold: 0.5, fade: { duration: TIME.screenIn, ease: EASE.out } };
+export const startFade = (calm: boolean) => (calm ? QUICK_FADE : START.fade);
+
+// The first-start welcome (R21, src/Welcome.tsx): its two pages glide like questions (questionGlide), and Beacon says
+// hello with a bubble that pops in once the page has arrived.
+export const WELCOME = { says: 0.35 };
+
 // When the k-th of a row (stars, bars, rings) starts.
 export const nth = <T extends { delay: number }>(t: T, k: number, gap: number): T => ({ ...t, delay: t.delay + k * gap });
 
@@ -293,6 +303,16 @@ export function questionGlide(calm: boolean) {
     ? { initial: { opacity: 0 }, animate: { opacity: 1, transition: QUICK_FADE }, exit: { opacity: 0, transition: INSTANT } }
     : { initial: { x: STEP, opacity: 0 }, animate: { x: 0, opacity: 1, transition: { duration: TIME.screenIn, ease: EASE.out } },
         exit: { x: -STEP, opacity: 0, transition: { duration: TIME.screenOut, ease: EASE.in } } };
+}
+
+// A page of the first-start welcome (R21): glides like a question, but going back it comes in from the left
+// (custom = dir: 1 going on, -1 going back). With Reduce motion: the quick fade, as for a question.
+export function pageGlide(calm: boolean) {
+  const variants = calm
+    ? { enter: { opacity: 0 }, center: { opacity: 1, transition: QUICK_FADE }, leave: { opacity: 0, transition: INSTANT } }
+    : { enter: (dir: number) => ({ x: dir * STEP, opacity: 0 }), center: { x: 0, opacity: 1, transition: { duration: TIME.screenIn, ease: EASE.out } },
+        leave: (dir: number) => ({ x: -dir * STEP, opacity: 0, transition: { duration: TIME.screenOut, ease: EASE.in } }) };
+  return { variants, initial: 'enter', animate: 'center', exit: 'leave' } as const;
 }
 
 // A top bar timing, started `wait` seconds after the top bar appears (TOP_BAR.wait or TOP_BAR.afterPath).

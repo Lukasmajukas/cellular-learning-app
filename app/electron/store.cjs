@@ -9,6 +9,7 @@ const DEFAULTS = () => ({
   progress: {},
   reviews: {},
   seenChanges: null,
+  welcomed: false, // R21: has the first-start welcome been shown (and the daily goal picked)?
   game: { streak: 0, lastDay: '', xp: 0, xpToday: 0, xpDay: '', doneToday: 0, doneDay: '', freezes: 0, lost: 0, lostDay: '' },
   settings: { sounds: true, volume: 60, reduceMotion: false, showFps: false, dailyGoal: 1, look: 'night' },
 });
@@ -47,7 +48,10 @@ function normalize(raw) {
   const game = { streak: nn(g.streak), lastDay: day(g.lastDay), xp: nn(g.xp), xpToday: nn(g.xpToday), xpDay: day(g.xpDay),
     doneToday: nn(g.doneToday), doneDay: day(g.doneDay), freezes: Math.min(2, nn(g.freezes)), lost: nn(g.lost), lostDay: day(g.lostDay) };
   const seenChanges = Array.isArray(raw.seenChanges) ? raw.seenChanges.filter(x => typeof x === 'string') : null;
-  return { version: 1, progress, settings, reviews, game, seenChanges };
+  // R21: a save from before the welcome existed counts as welcomed if anything was ever played (so the owner never sees it).
+  const welcomed = typeof raw.welcomed === 'boolean' ? raw.welcomed
+    : Object.keys(progress).length > 0 || Object.keys(reviews).length > 0 || game.xp > 0;
+  return { version: 1, progress, settings, reviews, game, seenChanges, welcomed };
 }
 
 const today = (now = new Date()) =>
@@ -101,7 +105,9 @@ function createStore(dir, clock = () => new Date()) {
 
   // R20: which look the save file asks for, read before the window opens (no backups, no writing), so the window and
   // the first paint already have the right background and a Day user never sees a dark flash at start-up.
-  const look = () => normalize(readJson(file)).settings.look;
+  // R21: also Reduce motion, so the start screen's fade-out follows it before the save has loaded.
+  const startup = () => { const { look, reduceMotion } = normalize(readJson(file)).settings; return { look, reduceMotion }; };
+  const look = () => startup().look;
 
   function save(state) {
     const clean = normalize(state);
@@ -110,7 +116,7 @@ function createStore(dir, clock = () => new Date()) {
     return clean;
   }
 
-  return { file, backupDir, load, save, backup, listBackups, normalize, look };
+  return { file, backupDir, load, save, backup, listBackups, normalize, look, startup };
 }
 
 // R20: each look's far background ('bg' in src/theme/tokens.ts; a unit test keeps them the same), for the window itself.

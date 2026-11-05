@@ -5,11 +5,12 @@ import type { Reviews } from './fsrs';
 import { EMPTY_GAME, type Game } from './gamify';
 
 export type Settings = { sounds: boolean; volume: number; reduceMotion: boolean; showFps: boolean; dailyGoal: number; look: 'night' | 'day' };
-export type SaveState = { version: 1; progress: Progress; settings: Settings; reviews: Reviews; game: Game; seenChanges: string[] | null };
+// welcomed (R21): the first-start welcome has been shown and the daily goal picked (src/Welcome.tsx).
+export type SaveState = { version: 1; progress: Progress; settings: Settings; reviews: Reviews; game: Game; seenChanges: string[] | null; welcomed: boolean };
 export const DEFAULT_SETTINGS: Settings = { sounds: true, volume: 60, reduceMotion: false, showFps: false, dailyGoal: 1, look: 'night' };
 // The volume as the sound code wants it (0 to 1). An old save file has none: then the quiet default.
 export const volumeOf = (s: Partial<Settings>) => (typeof s.volume === 'number' ? s.volume : DEFAULT_SETTINGS.volume) / 100;
-export const EMPTY_STATE: SaveState = { version: 1, progress: {}, settings: DEFAULT_SETTINGS, reviews: {}, game: EMPTY_GAME, seenChanges: null };
+export const EMPTY_STATE: SaveState = { version: 1, progress: {}, settings: DEFAULT_SETTINGS, reviews: {}, game: EMPTY_GAME, seenChanges: null, welcomed: false };
 
 type Api = {
   load(): Promise<Loaded>;
@@ -27,7 +28,8 @@ export async function loadState(): Promise<Loaded> {
   if (a) return a.load();
   try {
     const raw = JSON.parse(localStorage.getItem(KEY) ?? 'null');
-    if (raw) return { state: { ...EMPTY_STATE, ...raw, settings: { ...DEFAULT_SETTINGS, ...raw.settings }, reviews: raw.reviews ?? {}, game: { ...EMPTY_GAME, ...raw.game }, seenChanges: Array.isArray(raw.seenChanges) ? raw.seenChanges : null }, recovered: false };
+    if (raw) return { state: { ...EMPTY_STATE, ...raw, settings: { ...DEFAULT_SETTINGS, ...raw.settings }, reviews: raw.reviews ?? {}, game: { ...EMPTY_GAME, ...raw.game }, seenChanges: Array.isArray(raw.seenChanges) ? raw.seenChanges : null,
+      welcomed: typeof raw.welcomed === 'boolean' ? raw.welcomed : Object.keys(raw.progress ?? {}).length > 0 }, recovered: false };
   } catch { /* ignore */ }
   return { state: EMPTY_STATE, recovered: false };
 }

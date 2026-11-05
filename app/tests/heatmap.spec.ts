@@ -119,7 +119,9 @@ test('a fresh save: every taught band is "new", and the words say how they light
   const all = await labels(w);
   expect(all.every(([, l]) => l === 'new')).toBe(true);
   await expect(w.getByTestId('heat-legend-new')).toContainText(String(all.length));
-  await expect(w.getByTestId('heat-hint')).toContainText('lights up here');
+  // R21: how a band lights up is said in the empty look's card ("Nothing lit up yet"); the help line says what a tap does.
+  await expect(w.getByTestId('heat-empty')).toContainText('lights up once a lesson asks about it');
+  await expect(w.getByTestId('heat-hint')).toContainText('Tap a band');
   await w.getByTestId('heat-n260').click();
   await expect(w.getByTestId('heat-detail-level')).toHaveText('Not asked yet');
   await w.getByTestId('heat-sheet-close').click();

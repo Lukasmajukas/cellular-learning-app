@@ -5,7 +5,7 @@ import { heatLabel, heatGlow, heatBars, heatCounts, HEAT_TONE, LEVELS, LEVEL_WOR
 import type { Status } from './path';
 import { c, COLUMN, RADIUS, mono } from './theme';
 import { Icon } from './Icon';
-import { BottomSheet, SectionLabel, usePress } from './ui';
+import { BottomSheet, Beacon, BEACON_SIZE, Button, Card, SectionLabel, usePress } from './ui';
 import { HEAT, popInDelay, useCalm, PRESS_BIG } from './theme/motion';
 
 // The Heatmap tab, "band memory" (redesign R14). Every band the lessons teach is a tile on a dark panel, grouped low /
@@ -26,8 +26,9 @@ const seen = new Map<string, Level>();
 
 export type LessonLink = BandLesson & { status: Status | 'missing' };
 
-export function HeatMap({ cells, lessonsOf, onStart }:
-  { cells: Cell[]; lessonsOf: (band: string) => LessonLink[]; onStart: (lessonId: string) => void }) {
+// onPath (R21): the empty look's "Go to your first lesson" button.
+export function HeatMap({ cells, lessonsOf, onStart, onPath }:
+  { cells: Cell[]; lessonsOf: (band: string) => LessonLink[]; onStart: (lessonId: string) => void; onPath?: () => void }) {
   const calm = useCalm();
   const root = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState<string | null>(null);
@@ -61,9 +62,21 @@ export function HeatMap({ cells, lessonsOf, onStart }:
       <h1 style={{ margin: '2px 0 4px', fontSize: 28, lineHeight: 1.25 }}>Heatmap</h1>
       <p data-testid="heat-hint" style={{ margin: '0 0 12px', fontSize: 15, lineHeight: 1.4, color: c.textMuted }}>
         {counts.new === cells.length
-          ? 'Every band you learn lights up here once a lesson asks about it. Tap one to see its lessons.'
+          ? 'Tap a band to see which lessons teach it.'
           : 'A band glows brighter the better you remember it. Tap one to see its lessons.'}
       </p>
+      {/* R21: the empty look, before any lesson has asked about a band. The dim tiles below show what's coming. */}
+      {counts.new === cells.length && onPath && (
+        <Card raised data-testid="heat-empty" style={{ marginBottom: 16, display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+          <Beacon face="idle" size={BEACON_SIZE.path} breathe={false} data-testid="heat-empty-beacon" />
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontSize: 18, fontWeight: 700, marginBottom: 2 }}>Nothing lit up yet</div>
+            <div style={{ fontSize: 15, color: c.textMuted, lineHeight: 1.4, marginBottom: 12 }}>
+              Each band lights up once a lesson asks about it, brighter the better you remember it.</div>
+            <Button full icon="tower" data-testid="heat-empty-path" onClick={onPath}>Go to your first lesson</Button>
+          </div>
+        </Card>
+      )}
       <Legend counts={counts} />
       {GROUPS.map(g => {
         const row = cells.filter(x => x.group === g.id);

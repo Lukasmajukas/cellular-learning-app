@@ -7,6 +7,7 @@ import { Button, Card, Switch, Slider, PillChoice, SectionLabel, useCalm, QUICK_
 import { SAMPLE } from './theme/motion';
 import { prefs } from './prefs';
 import { play, playSample, SAMPLE_SET } from './sound';
+import { GOALS } from './Welcome';
 
 // The small square each row starts with (redesign R15, idea I11): its own icon in signal blue, so the list is quick to scan.
 // `children` = layers drawn behind the icon (the sample's rings and glow).
@@ -115,7 +116,7 @@ export function SettingsScreen({ settings, onChange }: { settings: Settings; onC
         <Row asLabel={false} last name="Lessons a day" hint="The bar at the top fills as you finish them." icon={<RowIcon name="target" />} />
         <div style={{ paddingLeft: 48, marginTop: 4 }}>
           <PillChoice testId="set-goal" label="Daily goal, lessons a day" value={settings.dailyGoal}
-            options={[1, 2, 3, 5].map(n => ({ value: n, text: String(n) }))} onChange={dailyGoal => set({ dailyGoal })} />
+            options={GOALS.map(({ n }) => ({ value: n, text: String(n) }))} onChange={dailyGoal => set({ dailyGoal })} />
         </div>
       </Card>
 

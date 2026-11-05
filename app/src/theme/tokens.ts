@@ -57,3 +57,11 @@ export const SIZE = { label: 12, small: 14, body: 16, tile: 18, question: 23, ti
 export const RADIUS = { tile: 14, card: 16, sheet: 18, pill: 999 };
 export const SPACE = [4, 8, 12, 16, 20, 24, 32, 40] as const;
 export const COLUMN = 440; // the one content column, at most this wide
+
+// The same values as CSS, one block per look (R21): written into index.html at build time (vite.config.ts), so the start
+// screen and the page have their colours and letters from the window's very first picture, before any app code runs.
+// The page's first script picks the block by setting <html data-look>; applyLook() later sets the same values itself.
+export function lookCss(): string {
+  const fonts = `--font-body:${FONT.body};--font-mono:${FONT.mono}`;
+  return (Object.keys(PALETTES) as Look[]).map(look => `html[data-look=${look}]{${TOKEN_KEYS.map(k => `${cssVar(k)}:${PALETTES[look][k]}`).join(';')};${fonts};color-scheme:${look === 'night' ? 'dark' : 'light'}}`).join('\n');
+}
