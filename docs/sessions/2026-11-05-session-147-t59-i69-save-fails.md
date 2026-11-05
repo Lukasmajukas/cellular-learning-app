@@ -22,7 +22,7 @@ The app saves your progress after every change. If that ever stopped working (a 
 ## Test results
 - Unit tests: 267 pass (262 before + 5 new). TypeScript and the build OK.
 - Content checker: OK (253 facts, 27 photos, 635 questions). Nothing in `content/` changed.
-- Click tests (cloud, `xvfb-run -a npx playwright test`): RESULT
+- Click tests (cloud, `xvfb-run -a npx playwright test`): 127 pass (123 before + 4 new), 16 minutes. The new ones close the notice at 60 fps; Reduce motion moves the page in one step.
 - Windows build on GitHub: **could not run**, the same as every run since 09:17 UTC (T62): no check run started for this branch.
 
 ## What I looked at (by eye)
