@@ -6,9 +6,10 @@ import { film, snap } from './helpers';
 import { SAMPLE } from '../src/lesson';
 
 // Redesign R11: lesson movement, tried in the real app. Right answers pop and glow, a wrong pick shakes gently, questions
-// glide in from the right and out to the left, the progress bar springs forward with a spark at its tip, and no confetti
+// glide in from the right and out to the left, the progress bar springs forward on Continue, and no confetti
 // falls after a right answer any more (idea I31). The counter counts first-time questions only, with a "Comeback" pill
 // when a missed one comes back (I37). Order chips glide into their slots and back, and a match tile's number pops (I40).
+// "Signal locked" (I44): a right answer's tile pop and glow, Beacon's ring pulse and the bar's spark start together.
 // Everything that moves runs at 50+ fps; with Reduce motion nothing moves.
 const launch = async ({ progress = {}, reduceMotion = false }: { progress?: Record<string, number>; reduceMotion?: boolean } = {}) => {
   const dir = mkdtempSync(join(tmpdir(), 'cell-e2e-'));
@@ -65,7 +66,7 @@ test('a wrong pick shakes gently, the right tile pops and its glow flashes on, a
   await app.close();
 });
 
-test('the next question glides in from the right as the old one glides out, and the bar springs forward with a spark; 50+ fps', async () => {
+test('the next question glides in from the right as the old one glides out, and the bar springs forward (its spark stays dark); 50+ fps', async () => {
   const { app, w } = await launch();
   await w.getByTestId('lesson-u1-l1').click();
   const { right } = await key(w);
@@ -86,9 +87,43 @@ test('the next question glides in from the right as the old one glides out, and 
   expect(step).toBeGreaterThan(30);                                   // the bar moved one step on
   expect(Math.max(...fill) - end, 'it springs a touch past its new place ...').toBeGreaterThan(0.5);
   expect(Math.max(...fill) - end, '... but only a touch (under 10% of the step)').toBeLessThan(step * 0.1);
-  expect(Math.max(...spark), 'the spark at its tip lights up').toBeGreaterThan(0.5);
-  expect(spark.at(-1)).toBeLessThan(0.05);
+  expect(Math.max(...spark), 'the spark belongs to the right answer, not to Continue (I44)').toBeLessThan(0.05);
   expect(r.fps).toBeGreaterThanOrEqual(50);
+  await app.close();
+});
+
+test('"signal locked" (I44): a right answer\'s tile pop and glow, Beacon\'s ring pulse and the bar\'s spark start together; a wrong one sparks nothing; 50+ fps', async () => {
+  const { app, w } = await launch();
+  await w.getByTestId('lesson-u1-l1').click();
+  const { right, wrong } = await key(w);
+  await w.mouse.move(2, 2); await w.waitForTimeout(600); // the lesson finishes rising
+  const R = `[data-testid=choice-${right}]`, G = `${R} [data-glow-layer]`, P = '[data-testid=beacon-spot] [data-part=pulse]', V = '[data-testid=verdict]';
+  const r = await film(w, [R, G, P, SPARK, V], () => w.locator(R).click(), 900, V);
+  const t0 = r.frames.findIndex(f => f[V]);                  // the frame the answer shows (the sheet's verdict is there)
+  const starts = (sel: string, moved: (f: { op: number; sx: number }) => boolean) => {
+    const i = r.frames.findIndex((f, k) => k >= t0 && f[sel] && moved(f[sel]!));
+    return i < 0 ? NaN : r.ts[i] - r.ts[t0];
+  };
+  const at = { pop: starts(R, f => f.sx > 1.002), glow: starts(G, f => f.op > 0.05), pulse: starts(P, f => f.op > 0.05), spark: starts(SPARK, f => f.op > 0.05) };
+  const peak = { glow: Math.max(...r.of(G).map(f => f?.op ?? 0)), pulse: Math.max(...r.of(P).map(f => f?.op ?? 0)), spark: Math.max(...r.of(SPARK).map(f => f?.op ?? 0)) };
+  const all = Object.values(at), spread = Math.max(...all) - Math.min(...all);
+  console.log(`  after the answer (ms): pop ${at.pop.toFixed(0)}, glow ${at.glow.toFixed(0)}, ring ${at.pulse.toFixed(0)}, spark ${at.spark.toFixed(0)}; spread ${spread.toFixed(0)} ms; peaks glow ${peak.glow}, ring ${peak.pulse}, spark ${peak.spark}; ${r.fps.toFixed(1)} fps`);
+  for (const [k, t] of Object.entries(at)) {
+    expect(t, `${k} starts`).not.toBeNaN();
+    expect(t, `${k} waits for the shared moment (LOCK, 80 ms) ...`).toBeGreaterThanOrEqual(30);
+    expect(t, `... and starts within about 0.15 s of the answer`).toBeLessThanOrEqual(150);
+  }
+  expect(spread, 'the four start together (within two frames)').toBeLessThanOrEqual(40);
+  expect(peak.spark, 'the spark lights up').toBeGreaterThan(0.5);
+  expect(peak.pulse).toBeGreaterThan(0.5); expect(peak.glow).toBeGreaterThan(0.9);
+  expect(r.of(SPARK).at(-1)!.op, 'and fades again').toBeLessThan(0.05);
+  expect(r.fps).toBeGreaterThanOrEqual(50);
+
+  // A wrong pick: the tile shakes and the bar's spark stays dark.
+  await w.getByTestId('next').click(); await w.getByTestId('verdict').waitFor({ state: 'detached' });
+  const k2 = await key(w); await w.waitForTimeout(500);
+  const r2 = await film(w, [SPARK], () => w.getByTestId(`choice-${k2.wrong}`).click(), 700);
+  expect(Math.max(...r2.of(SPARK).map(f => f?.op ?? 0)), 'no spark after "Not quite"').toBeLessThan(0.05);
   await app.close();
 });
 

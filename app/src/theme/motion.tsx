@@ -161,21 +161,31 @@ export const BEACON = {
 // - in "put them in order", a chip glides from the pool into its slot (and back when you take it out), and the others
 //   glide to close the gap (FLY, a whole transform, so the browser runs it on its graphics side).
 // Questions glide in from the right and out to the left (questionGlide). The progress bar springs forward (SPRING.step)
-// with a soft spark at its tip. With Reduce motion none of these move: the colours and icons just change, and a new
+// when you press Continue. With Reduce motion none of these move: the colours and icons just change, and a new
 // question fades in (150 ms at most).
+// "Signal locked" (idea I44): after a right answer, the right tile's pop and glow, Beacon's ring pulse and a soft spark
+// at the progress bar's tip all start together, LOCK seconds after the answer, so they read as one moment instead of
+// three. Before, the pop, glow and pulse started at once but the spark only came with Continue. The tile's colour and
+// Beacon's face still change at once (Beacon reacts within 0.1 s, R17); LOCK stays under 0.1 s with a frame to spare.
+export const LOCK = 0.08;
 export const FEEDBACK = {
   shake: { duration: 0.3, ease: 'easeInOut' as const },                    // a wrong pick ...
-  shakeKeys: { x: [0, -6, 6, -4, 4, -2, 2, 0] },                           // ... 3 times, in px
-  pop: { duration: 0.28, ease: EASE.out },                                 // the right one ...
+  shakeKeys: { x: [0, -6, 6, -4, 4, -2, 2, 0] },                           // ... 3 times, in px (at once: no LOCK)
+  pop: { duration: 0.28, delay: LOCK, ease: EASE.out },                    // the right one ...
   popKeys: { scale: [1, 1.035, 1] },                                       // ... 3.5% bigger and back
   dotKeys: { scale: [0, 1.25, 1] },                                        // the tap dot lands (from nothing)
-  glow: { duration: 0.3, ease: EASE.out },                                 // the right one's glow flashes on ...
+  glow: { duration: 0.3, delay: LOCK, ease: EASE.out },                    // the right one's glow flashes on ...
   glowKeys: { opacity: [0, 1, 0.75] },                                     // ... and settles a little softer
   keyPop: { duration: 0.25, ease: EASE.out },                              // a match tile's number box ...
   keyPopKeys: { scale: [0.5, 1.2, 1] },                                    // ... grows in with a tiny overshoot
   fly: { duration: 0.28, ease: EASE.out },                                 // an order chip gliding into its slot (and back)
-  spark: { duration: 0.5, ease: EASE.out },                                // the progress bar's tip ...
-  sparkKeys: { opacity: [0, 1, 0] },                                       // ... lights up and fades as it steps forward
+  spark: { duration: 0.5, delay: LOCK, ease: EASE.out },                   // the progress bar's tip ...
+  sparkKeys: { opacity: [0, 1, 0] },                                       // ... lights up and fades on a right answer
+  // Beacon's happy ring in a lesson (the path's starts at once). Motion paints an animation's first keyframe straight
+  // away, even while it waits for its delay, so this ring starts from its resting look (see-through) and jumps to
+  // BEACON's 0.9 in the first 2% (12 ms): otherwise it would show 80 ms before the rest of the moment.
+  pulse: { ...BEACON.pulse, delay: LOCK, times: [0, 0.02, 1] },
+  pulseKeys: { scale: [1, ...BEACON.pulseKeys.scale], opacity: [0, ...BEACON.pulseKeys.opacity] },
 }; // not "as const": Motion wants plain (changeable) keyframe lists
 
 // Lesson complete (redesign R12, DESIGN.md section 7, moment 3). It starts the moment the end screen appears (the last

@@ -9,19 +9,22 @@ import { SPRING, FEEDBACK, useCalm, useEntrance, INSTANT } from '../theme/motion
 // `testId` goes on the bar; it carries data-value (0-100) and the usual progressbar role for screen readers.
 // `from` (0 to 1): show this amount first and spring to `value` (the top bar's goal after a lesson, R07), with
 // `transition` instead of the plain fill spring if given. It uses useEntrance, so it moves even where Motion skips first animations.
-// `spark` (the lesson's bar, R11): each time the bar steps forward, a soft light at its tip flashes on and fades
-// (see-through-ness only; off with Reduce motion).
-export function ProgressBar({ value, label, testId, height = 10, tone = 'glow', animateIn = false, from, transition, spark = false }:
-  { value: number; label: string; testId?: string; height?: number; tone?: 'glow' | TokenKey; animateIn?: boolean; from?: number; transition?: Transition; spark?: boolean }) {
+// `spark` (the lesson's bar, R11): a count of right answers. Each time it grows, a soft light at the fill's tip flashes on
+// and fades, together with the right tile's glow and Beacon's ring pulse (idea I44, FEEDBACK.spark starts at LOCK). It
+// used to flash when the bar stepped forward on Continue, after the rest of the moment was over. See-through-ness only;
+// off with Reduce motion.
+export function ProgressBar({ value, label, testId, height = 10, tone = 'glow', animateIn = false, from, transition, spark }:
+  { value: number; label: string; testId?: string; height?: number; tone?: 'glow' | TokenKey; animateIn?: boolean; from?: number; transition?: Transition; spark?: number }) {
   const calm = useCalm(), on = useEntrance();
   const clamp = (x: number) => Math.max(0, Math.min(1, Number.isFinite(x) ? x : 0));
   const v = clamp(value), pct = Math.round(v * 100);
   const shown = from !== undefined && !on && !calm ? clamp(from) : v;
-  const tip = useRef<HTMLDivElement>(null), last = useRef(v);
+  const tip = useRef<HTMLDivElement>(null), last = useRef(spark ?? 0);
   useEffect(() => {
-    if (spark && !calm && v > last.current && tip.current) animate(tip.current, FEEDBACK.sparkKeys, FEEDBACK.spark);
-    last.current = v;
-  }, [v, spark, calm]);
+    if (spark === undefined) return;
+    if (!calm && spark > last.current && tip.current) animate(tip.current, FEEDBACK.sparkKeys, FEEDBACK.spark);
+    last.current = spark;
+  }, [spark, calm]);
   return (
     <div role="progressbar" aria-label={label} aria-valuemin={0} aria-valuemax={100} aria-valuenow={pct} data-testid={testId} data-value={pct}
       style={{ position: 'relative', height, borderRadius: height / 2, background: c.track, overflow: 'hidden' }}>
@@ -34,7 +37,7 @@ export function ProgressBar({ value, label, testId, height = 10, tone = 'glow', 
         transition={calm ? INSTANT : transition ?? SPRING.fill}
         style={{ position: 'absolute', inset: 0, borderRadius: `${height / 2}px 0 0 ${height / 2}px`, background: c.track }}>
         {/* The spark rides on the cover's left edge, which is the fill's tip. A still soft light; only its see-through-ness moves. */}
-        {spark && <div ref={tip} aria-hidden data-spark style={{ position: 'absolute', top: 0, bottom: 0, left: -height * 1.5, width: height * 3, opacity: 0,
+        {spark !== undefined && <div ref={tip} aria-hidden data-spark style={{ position: 'absolute', top: 0, bottom: 0, left: -height * 1.5, width: height * 3, opacity: 0,
           background: `radial-gradient(closest-side, ${c.text}, color-mix(in srgb, ${c.onAir} 60%, transparent) 55%, transparent)` }} />}
       </motion.div>
     </div>
