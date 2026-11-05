@@ -28,8 +28,11 @@ export const ICONS = {
     dots: [[12, 12, 1.9]],
   },
   mapPin: { lines: ['M12 21.5s-6.5-5.8-6.5-11.5a6.5 6.5 0 0 1 13 0c0 5.7-6.5 11.5-6.5 11.5z', circle(12, 10, 2.3)] },
-  // Two arrows chasing each other round: the daily review (go round again).
+  // Two arrows chasing each other round: review, and only review (the Review tab, the daily review, "Comeback"). "Again" uses `restart`.
   repeat: { lines: ['M4.5 11.5V9.5a3 3 0 0 1 3-3h12', 'M16.5 3.5l3 3-3 3', 'M19.5 12.5v2a3 3 0 0 1-3 3h-12', 'M7.5 20.5l-3-3 3-3'] },
+  // One arrow going back round to the start (idea I59): "Again", play this lesson from the beginning.
+  // Its own shape, so the two-arrow "repeat" only ever means review.
+  restart: { lines: ['M5 13a7 7 0 1 0 7-7', 'M14.8 3.2 12 6l2.8 2.8'] },
   // Four tiles: the band memory heatmap.
   grid: { lines: [box(4, 4, 6.5, 6.5, 1.5), box(13.5, 4, 6.5, 6.5, 1.5), box(4, 13.5, 6.5, 6.5, 1.5), box(13.5, 13.5, 6.5, 6.5, 1.5)] },
   gear: {

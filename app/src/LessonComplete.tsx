@@ -98,7 +98,7 @@ export function LessonComplete({ stars, right, total, fixed, xp, bars, seed = ''
         </Card>
       </div>
       <Button full big kind="onAir" data-testid="finish" data-primary aria-keyshortcuts="Enter" onClick={onFinish}>Back to the path</Button>
-      <Button full kind="quiet" icon="repeat" data-testid="again" onClick={onAgain} style={{ marginTop: 10 }}>Again</Button>
+      <Button full kind="quiet" icon="restart" data-testid="again" onClick={onAgain} style={{ marginTop: 10 }}>Again</Button>
     </div>
   );
 }
