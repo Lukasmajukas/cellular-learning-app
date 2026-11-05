@@ -70,11 +70,27 @@ I timed how hard the app makes your computer work, with the computer slowed down
   | Coming on air | 55.6 |
 
   Before: the same within run-to-run noise (45–58). The fixes don't target these one-off moves.
-- Click tests (cloud): RESULT_PLACEHOLDER
+- Click tests (cloud): the full run was 120 of 121 (4 new in `speed.spec.ts`).
+  - The one failure: `theme.spec.ts` read the night glow from the page's own background, where it no longer is. It now reads `body::before`.
+  - After that fix, `theme`, `daylook` and `lookcontrast` (8 tests) passed 3 runs in a row.
+  - Every Beacon test passed on the new three layers: its parts stay inside its box, the rings breathe about the head's centre, the cheer hop and burst, the faces.
+  - Lowest frame rate at full speed: 57.2 fps (bar 50; R22's lowest was 55.7).
+  - In the full run's speed check: sitting still under 5 ms a second on every screen (the question 0.7 ms, lesson complete 0.7 ms). Scrolling the path: 60 fps at a quarter speed, main thread busy 51%, no hitches. Start-up: window 0.22–0.24 s, save read 0.17–0.18 s, start screen gone 1.07–1.11 s.
+  - The quarter-speed table ranged from 37.6 fps (the tab glide back to the path, which builds all 49 circles: idea I75) to 58.9 fps.
 - **Windows build (GitHub): could not run.** Run 174 (this branch) stopped after 3 seconds, with no computer and no steps, like every run since 09:17 UTC (T62).
 
 ## What I looked at (by eye)
-LOOK_PLACEHOLDER
+- I retook the whole Night gallery (99 pictures, `npm run gallery` into a scratch folder) and compared every picture with `gallery/latest/`, pixel by pixel.
+  - 97 of 99 differ by under 1.5% of their pixels: things caught at a slightly different moment of their movement (rings mid-breath, blips, a fade).
+  - `10-blocks`: the page is scrolled to a different spot.
+  - `04-feedback-wrong`: the answers came out in a different order (the app shuffles them).
+  - Neither of those comes from this change.
+- Zoomed in 2–3 times on Beacon on lesson complete and the question screen, old against new: the tower, glow, rings, disc and face sit in the same places. The only difference is the rings' breath. The night glow behind the column looks the same.
+- **So `gallery/latest/` was not replaced:** nothing you can see changed, and new copies of the same pictures would only make the repository heavier (PLAN.md's risk list). No frame-by-frame check either, because no animation was added: the breath moves exactly as before, as `beacon.spec.ts`'s breathing test measured.
+- **Still weak:**
+  - Opening the Path tab builds 49 circles at once. That's 37.6–48 fps at a quarter speed, and fine at full speed (I75).
+  - The heatmap's fill-in starts every tile in one frame (I76).
+  - Nobody has seen the speed table from a real Windows PC yet (I77, after T62).
 
 ## What's next
 - Next task: T59, session R24 (design review 3, the last of the 24). Large (Opus), High effort. The robot picks it up by itself.
