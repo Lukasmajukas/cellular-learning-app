@@ -1,5 +1,5 @@
 import { useEffect, useId, useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, type Transition } from 'motion/react';
 import { c } from '../theme';
 import { BEACON, BREATHE, INSTANT, useCalm, useAwake, useEntrance } from '../theme/motion';
 
@@ -33,8 +33,9 @@ const BLINKS: BeaconFace[] = ['idle', 'thinking', 'oops'];  // faces with open, 
 const line = { fill: 'none', strokeLinecap: 'round', strokeLinejoin: 'round' } as const;
 const randomGap = () => BEACON.blinkGap[0] + Math.random() * (BEACON.blinkGap[1] - BEACON.blinkGap[0]);
 
-export function Beacon({ face = 'idle', size = BEACON_SIZE.question, still = false, breathe = true, 'data-testid': testId = 'beacon' }:
-  { face?: BeaconFace; size?: number; still?: boolean; breathe?: boolean; 'data-testid'?: string }) {
+// `pulse`: the happy ring pulse's keyframes and timing (a lesson passes FEEDBACK's, so it starts with the right tile's glow, I44).
+export function Beacon({ face = 'idle', size = BEACON_SIZE.question, still = false, breathe = true, pulse = { keys: BEACON.pulseKeys, transition: BEACON.pulse }, 'data-testid': testId = 'beacon' }:
+  { face?: BeaconFace; size?: number; still?: boolean; breathe?: boolean; pulse?: { keys: { scale: number[]; opacity: number[] }; transition: Transition }; 'data-testid'?: string }) {
   const calm = useCalm(), awake = useAwake(), on = useEntrance();
   const moving = on && !calm && !still;                    // one-off moves (pulse, hop, burst)
   const looping = moving && awake;                         // background loops pause while the window is hidden
@@ -105,7 +106,7 @@ export function Beacon({ face = 'idle', size = BEACON_SIZE.question, still = fal
         {/* The head and everything on it: this part hops when Beacon cheers. */}
         <motion.g data-part="head" initial={false} animate={hop} transition={hopT}>
           <motion.circle data-part="pulse" cx={HX} cy={HY} r={RINGS[0].r} stroke={glow} strokeWidth="2.5" fill="none" style={{ originX: 0.5, originY: 0.5 }}
-            initial={false} animate={pulsing ? BEACON.pulseKeys : { scale: 1, opacity: 0 }} transition={pulsing ? BEACON.pulse : INSTANT} />
+            initial={false} animate={pulsing ? pulse.keys : { scale: 1, opacity: 0 }} transition={pulsing ? pulse.transition : INSTANT} />
           {[0, 1].map(k => (
             <motion.circle key={k} data-part="burst" cx={HX} cy={HY} r={HEAD} stroke={c.onAir} strokeWidth="2" fill="none" style={{ originX: 0.5, originY: 0.5 }}
               initial={false} animate={cheering ? BEACON.burstKeys : { scale: 1, opacity: 0 }}

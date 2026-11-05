@@ -3,7 +3,7 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
-import { SPRING, TIME, PRESS, PRESS_BIG, PRESS_ROUND, PRESS_PILL, QUICK_FADE, INSTANT, LOOP, popInDelay, screenGlide, ON_AIR, BREATHE, waveDelay, popInQueue, TOP_BAR, barAt, FEEDBACK, questionGlide, COMPLETE, nth, SCOPE, NOTICE, noticeMotion, noticeShift, HEAT, SCRIM, SAMPLE, LOOK_FADE, lookFade } from './theme/motion';
+import { SPRING, TIME, PRESS, PRESS_BIG, PRESS_ROUND, PRESS_PILL, QUICK_FADE, INSTANT, LOOP, popInDelay, screenGlide, ON_AIR, BREATHE, waveDelay, popInQueue, TOP_BAR, barAt, FEEDBACK, LOCK, BEACON, questionGlide, COMPLETE, nth, SCOPE, NOTICE, noticeMotion, noticeShift, HEAT, SCRIM, SAMPLE, LOOK_FADE, lookFade } from './theme/motion';
 import { SAMPLE_GAP, SAMPLE_LENGTH, SAMPLE_SET } from './sound';
 import { BEACON_SIZE } from './ui/Beacon';
 import { grew } from './ui/TopBar';
@@ -164,6 +164,19 @@ describe('lesson movement (redesign R11)', () => {
       expect('repeat' in FEEDBACK[k], k).toBe(false);
     }
     expect(FEEDBACK.spark.duration).toBeLessThanOrEqual(0.6); // the bar's spark: a short flash while the bar springs
+  });
+  it('"signal locked" (I44): the right tile\'s pop and glow, Beacon\'s ring pulse and the bar\'s spark start together, within 0.1 s', () => {
+    const together = [FEEDBACK.pop, FEEDBACK.glow, FEEDBACK.spark, FEEDBACK.pulse].map(t => t.delay);
+    expect(new Set(together)).toEqual(new Set([LOCK]));
+    expect(LOCK).toBeGreaterThan(0); expect(LOCK).toBeLessThanOrEqual(0.1 - 1 / 60); // Beacon reacts within 0.1 s (R17), a frame to spare
+    expect(FEEDBACK.pulse.duration).toBe(BEACON.pulse.duration);                      // the same ring as on the path ...
+    expect(BEACON.pulse.delay).toBe(0);                                               // ... which still starts at once (I64 times that one)
+    const k = FEEDBACK.pulseKeys, times = FEEDBACK.pulse.times;                       // it waits unseen (Motion shows a first keyframe at once) ...
+    expect([k.scale[0], k.opacity[0]]).toEqual([1, 0]);
+    expect(k.scale.slice(1)).toEqual(BEACON.pulseKeys.scale); expect(k.opacity.slice(1)).toEqual(BEACON.pulseKeys.opacity); // ... then is the same ring
+    expect(times).toHaveLength(k.opacity.length); expect(times[1] * FEEDBACK.pulse.duration).toBeLessThanOrEqual(1 / 60);
+    expect('delay' in FEEDBACK.shake).toBe(false);                                   // a wrong pick shakes at once
+    expect(LOCK + Math.max(FEEDBACK.pop.duration, FEEDBACK.glow.duration, FEEDBACK.spark.duration, FEEDBACK.pulse.duration)).toBeLessThanOrEqual(0.7);
   });
   it('a wrong answer shakes gently: 3 times side to side, at most 6 px, smaller each time, ending where it started', () => {
     const x = FEEDBACK.shakeKeys.x;
