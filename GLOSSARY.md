@@ -202,3 +202,6 @@ Claude adds new words here whenever they come up.
 | **Zig-zag path** | The path map's layout: lesson circles go left, right, left down the screen, with each name beside its circle, joined by a dotted line. |
 | **Scrim** | A see-through dark layer laid over a screen behind a panel, so the panel stands out and the screen behind is clearly "paused". Clicking it closes the panel (since R14, behind the heatmap's lessons sheet). |
 | **Glow layer** | A soft halo drawn as its own layer behind a tile or circle. To make something glow more or less, only that layer's see-through-ness changes; the blur itself never moves, because a moving blur is slow on some computers (DESIGN.md section 7). |
+| **WCAG** | The web's rulebook for making screens easy to read and use for everyone. Its contrast rule says words need to stand out from their background at least 4.5 to 1 (big words 3 to 1). The app's contrast tests use it. |
+| **First paint** | The very first picture a window shows when it opens, before anything has loaded. If it's the wrong colour, you see a flash. |
+| **Main process** | The part of the app that runs behind the window: it opens the window and reads and writes your save file. The window itself only draws the screens. |

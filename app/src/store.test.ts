@@ -3,7 +3,8 @@ import { mkdtempSync, writeFileSync, readFileSync, readdirSync, existsSync } fro
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { createRequire } from 'node:module';
-const { createStore, normalize } = createRequire(import.meta.url)('../electron/store.cjs');
+const { createStore, normalize, WINDOW_BG } = createRequire(import.meta.url)('../electron/store.cjs');
+import { NIGHT, DAY } from './theme/tokens';
 
 let dir: string;
 let day = new Date(2026, 10, 1);
@@ -60,5 +61,19 @@ describe('save file', () => {
     const n = normalize({ progress: { a: 9, b: 'x', c: 2 }, settings: { sounds: 'yes', volume: 75, dailyGoal: 500, look: 'neon', theme: 'light' } });
     expect(n.progress).toEqual({ c: 2 }); expect(n.settings).toEqual({ sounds: true, volume: 60, reduceMotion: false, showFps: false, dailyGoal: 1, look: 'night' });
     expect(existsSync(dir)).toBe(true);
+  });
+  // R20: the window opens in the saved look's colour, read before the app starts (no backup taken, nothing written).
+  it('reads the saved look before the window opens, without writing anything', () => {
+    const st = createStore(dir, clock);
+    expect(st.look()).toBe('night');                    // no save file yet
+    expect(existsSync(join(dir, 'backups'))).toBe(false);
+    writeFileSync(st.file, JSON.stringify({ settings: { look: 'day' } }));
+    expect(st.look()).toBe('day');
+    writeFileSync(st.file, '{ damaged');
+    expect(st.look()).toBe('night');                    // a damaged file: Night until load() restores the backup
+    expect(existsSync(join(dir, 'backups'))).toBe(false);
+  });
+  it("the window's colours are the two looks' far background (bg) tokens", () => {
+    expect(WINDOW_BG).toEqual({ night: NIGHT.bg, day: DAY.bg });
   });
 });

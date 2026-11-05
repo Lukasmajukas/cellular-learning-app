@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import { animate, motion } from 'motion/react';
 import type { BandLesson, Cell, Group, Level } from './heatmap';
-import { heatLabel, heatGlow, heatBars, heatCounts, HEAT_TONE, LEVELS, LEVEL_WORD, HEAT_TINT } from './heatmap';
+import { heatLabel, heatGlow, heatBars, heatCounts, HEAT_TONE, LEVELS, LEVEL_WORD, HEAT_FILL } from './heatmap';
 import type { Status } from './path';
 import { c, COLUMN, RADIUS, mono } from './theme';
 import { Icon } from './Icon';
@@ -19,7 +19,7 @@ const GROUPS: { id: Group; label: string }[] = [
   { id: 'high', label: 'mmWave · 24 GHz and up' },
 ];
 const tone = (l: Level) => c[HEAT_TONE[l]];
-const tint = (l: Level) => `color-mix(in srgb, ${tone(l)} ${HEAT_TINT}%, ${c.surface})`;
+const tint = (l: Level) => (l === 'new' ? 'transparent' : c[HEAT_FILL[l]]);
 
 // What each band's level was the last time you looked (since the app started). Only tiles that changed fill in again.
 const seen = new Map<string, Level>();

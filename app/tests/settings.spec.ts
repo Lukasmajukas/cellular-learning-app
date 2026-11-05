@@ -37,7 +37,7 @@ test('settings: every row has its icon, the look is Night or Day, and the keys a
   await w.getByTestId('set-look-day').click();
   await expect(w.locator('html')).toHaveAttribute('data-look', 'day');
   await expect(w.getByTestId('set-card-look').locator('[data-row-icon]')).toHaveAttribute('data-row-icon', 'sun');
-  await expect(w.getByTestId('set-card-look')).toContainText('Light colours');
+  await expect(w.getByTestId('set-card-look')).toContainText('Light and clear');
   await w.screenshot({ path: 'test-results/r15-settings-day.png', fullPage: true });
   // Arrow keys move back to Night, keeping the keyboard on the choice.
   await w.getByTestId('set-look-day').focus(); await w.keyboard.press('ArrowLeft');

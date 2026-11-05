@@ -30,7 +30,7 @@ function normalize(raw) {
     showFps: typeof s.showFps === 'boolean' ? s.showFps : d.settings.showFps,
     dailyGoal: Number.isInteger(s.dailyGoal) && s.dailyGoal >= 1 && s.dailyGoal <= 10 ? s.dailyGoal : d.settings.dailyGoal,
     // Night is the default look (redesign R01, 2026-11-04). The old light/dark 'theme' setting is dropped on purpose,
-    // so everyone starts on Night; 'day' is the early Day look that R20 finishes.
+    // so everyone starts on Night; 'day' is the light look (finished in R20).
     look: s.look === 'day' ? 'day' : 'night',
   };
   // Review schedule (one card per question ID) and streak/XP: keep only well-formed numbers.
@@ -99,6 +99,10 @@ function createStore(dir, clock = () => new Date()) {
     return { state, recovered, backupDay };
   }
 
+  // R20: which look the save file asks for, read before the window opens (no backups, no writing), so the window and
+  // the first paint already have the right background and a Day user never sees a dark flash at start-up.
+  const look = () => normalize(readJson(file)).settings.look;
+
   function save(state) {
     const clean = normalize(state);
     writeAtomic(file, JSON.stringify(clean, null, 2));
@@ -106,7 +110,10 @@ function createStore(dir, clock = () => new Date()) {
     return clean;
   }
 
-  return { file, backupDir, load, save, backup, listBackups, normalize };
+  return { file, backupDir, load, save, backup, listBackups, normalize, look };
 }
 
-module.exports = { createStore, normalize, DEFAULTS, KEEP_BACKUPS };
+// R20: each look's far background ('bg' in src/theme/tokens.ts; a unit test keeps them the same), for the window itself.
+const WINDOW_BG = { night: '#08101D', day: '#F3F7FC' };
+
+module.exports = { createStore, normalize, DEFAULTS, KEEP_BACKUPS, WINDOW_BG };

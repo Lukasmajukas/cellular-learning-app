@@ -276,6 +276,12 @@ export const SAMPLE = {
   from: { scale: 1, opacity: 0.8 }, to: { scale: 1.9, opacity: 0 },
 };
 
+// The look changing between Night and Day (R20, idea I56): a cover painted like the old page's background lies over the
+// whole window and fades away (see-through-ness only), so the new look comes up like dawn or dusk instead of every
+// colour snapping at once. With Reduce motion it's the quick fade (nothing moves either way).
+export const LOOK_FADE = { duration: 0.3, ease: EASE.inOut };
+export const lookFade = (calm: boolean) => (calm ? QUICK_FADE : LOOK_FADE);
+
 // When the k-th of a row (stars, bars, rings) starts.
 export const nth = <T extends { delay: number }>(t: T, k: number, gap: number): T => ({ ...t, delay: t.delay + k * gap });
 

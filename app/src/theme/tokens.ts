@@ -7,7 +7,7 @@ export const TOKEN_KEYS = [
   'bg', 'glow1', 'glow2', 'glow3',
   'surface', 'surface2', 'border', 'borderStrong', 'track',
   'text', 'textMuted',
-  'signal', 'onAir', 'onAirBg', 'miss', 'missBg', 'missText', 'streak', 'review',
+  'signal', 'onAir', 'onAirBg', 'miss', 'missBg', 'missText', 'streak', 'streakBg', 'review',
   'locked', 'lockedIcon', 'onBright', 'notice', 'noticeBg', 'beacon', 'beaconBrace',
   'chart1', 'chart2', 'chart3', 'chart4', 'chart5', 'chart6',
 ] as const;
@@ -20,7 +20,8 @@ export const NIGHT: Palette = {
   surface: '#0F1D33', surface2: '#132A46', border: '#1F3A5C', borderStrong: '#2A4C75', track: '#1A2F4B',
   text: '#E6EEF9', textMuted: '#8EA3BF',
   signal: '#3FD8F2', onAir: '#4BE3A1', onAirBg: '#0F2E2A', miss: '#FF6B6B', missBg: '#2A1520', missText: '#FFC9C9',
-  streak: '#FFBF47', review: '#9B8CFF',
+  // streakBg (R20, idea I52): a warm dark for gold fills, like onAirBg and missBg (the heatmap's "okay" tiles).
+  streak: '#FFBF47', streakBg: '#2C2413', review: '#9B8CFF',
   locked: '#2A4466', lockedIcon: '#4D6688', onBright: '#08101D', notice: '#FFE2A8', noticeBg: '#2B2410',
   // Beacon's lattice tower (R17, from the look A picture): the legs and bars, and the thin cross braces behind them.
   beacon: '#86B2E0', beaconBrace: '#3B5F88',
@@ -28,14 +29,15 @@ export const NIGHT: Palette = {
   chart1: '#3FD8F2', chart2: '#FFBF47', chart3: '#9B8CFF', chart4: '#4BE3A1', chart5: '#F28DD0', chart6: '#7FB2FF',
 };
 
-// Day: starting values from DESIGN.md. Session R20 finishes and tests this look; until then it's an early test.
+// Day: the light look (DESIGN.md section 2). Started in R01, finished in R20: every screen checked by eye and by the
+// contrast click test (tests/lookcontrast.spec.ts), in both looks.
 export const DAY: Palette = {
   bg: '#F3F7FC', glow1: '#FFFFFF', glow2: '#F7FAFE', glow3: '#F3F7FC',
   surface: '#FFFFFF', surface2: '#EAF1F9', border: '#D5E1EF', borderStrong: '#AFC3DA', track: '#DCE6F2',
   text: '#0E1C31', textMuted: '#4F6582',
   // R01: the DESIGN.md starting values for signal, on-air, streak, review and miss failed the contrast test, so they're a little darker.
   signal: '#066E89', onAir: '#0A7A4E', onAirBg: '#E3F6EE', miss: '#C0343B', missBg: '#FCEBEC', missText: '#8A1F25',
-  streak: '#8C5C00', review: '#5646CF',
+  streak: '#8C5C00', streakBg: '#FBF0D9', review: '#5646CF',
   locked: '#C9D6E6', lockedIcon: '#6C82A0', onBright: '#FFFFFF', notice: '#5C4300', noticeBg: '#FFF1CC',
   beacon: '#4A6E98', beaconBrace: '#A9BED8',
   chart1: '#066E89', chart2: '#8C5C00', chart3: '#5646CF', chart4: '#0A7A4E', chart5: '#B83C8C', chart6: '#2F6FD6',

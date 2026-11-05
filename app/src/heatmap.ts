@@ -46,8 +46,9 @@ export const heatLabel = (score: number | null): Level =>
   score === null ? 'new' : pctOf(score) >= 90 ? 'strong' : pctOf(score) >= 70 ? 'okay' : 'fading';
 export const HEAT_TONE = { strong: 'onAir', okay: 'streak', fading: 'miss', new: 'locked' } as const satisfies Record<Level, string>;
 export const LEVEL_WORD: Record<Level, string> = { strong: 'Strong', okay: 'Okay', fading: 'Fading', new: 'New' };
-// How much of the level's colour a quizzed tile is filled with (mixed into `surface`); a unit test checks the words on it stay readable.
-export const HEAT_TINT = 16;
+// A quizzed tile's fill: the level's own soft background token (R20, idea I52: gold mixed into the card colour read as
+// olive-brown, so each level now has a clean warm or cool fill). A unit test checks the words on it stay readable.
+export const HEAT_FILL = { strong: 'onAirBg', okay: 'streakBg', fading: 'missBg' } as const satisfies Record<Exclude<Level, 'new'>, string>;
 
 // How bright the tile's glow layer is (its see-through-ness, 0 to 1): none for a new band, a faint 0.15 at 50% or less,
 // rising evenly to full at 100%. A glow is its own layer; only this number changes (DESIGN.md section 7).

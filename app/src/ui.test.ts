@@ -30,7 +30,7 @@ describe('building blocks: readable colours', () => {
     expect(Object.keys(PILL)).toHaveLength(5);
   });
   it('Night: every pair passes', () => expect(bad(NIGHT)).toEqual([]));
-  it('Day (early values, finished in R20): every pair passes', () => expect(bad(DAY)).toEqual([]));
+  it('Day: every pair passes', () => expect(bad(DAY)).toEqual([]));
   it('a button you can\'t press yet is dark with an outline, never a see-through bright one (design review 2, I42)', () => {
     expect(BUTTON_OFF).toEqual({ bg: 'surface2', fg: 'textMuted', border: 'borderStrong' });
     const button = readFileSync(join(SRC, 'ui', 'Button.tsx'), 'utf8').split('export function IconButton')[0];
@@ -55,8 +55,8 @@ describe('building blocks: springs (DESIGN.md section 7)', () => {
 
 describe('building blocks: used, and used properly', () => {
   const ui = readdirSync(join(SRC, 'ui')).filter(f => f.endsWith('.tsx'));
-  it('has a file for each block DESIGN.md section 6 asks of R03 and R04 (R04 added the app frame, AppShell; R05 the unit banner and the lesson node; R07 the top bar; R17 Beacon; R10 the chip; R11 feedback.tsx, the glow, pop, shake and glide of answers; R12 the signal burst; R19 the slider)', () => {
-    expect(ui.sort()).toEqual(['AnswerTile.tsx', 'AppShell.tsx', 'Beacon.tsx', 'BottomSheet.tsx', 'Button.tsx', 'Card.tsx', 'Chip.tsx', 'LessonNode.tsx', 'Pill.tsx', 'ProgressBar.tsx', 'SignalBurst.tsx', 'Slider.tsx', 'SpeechBubble.tsx', 'Switch.tsx', 'TopBar.tsx', 'UnitBanner.tsx', 'feedback.tsx']);
+  it('has a file for each block DESIGN.md section 6 asks of R03 and R04 (R04 added the app frame, AppShell; R05 the unit banner and the lesson node; R07 the top bar; R17 Beacon; R10 the chip; R11 feedback.tsx, the glow, pop, shake and glide of answers; R12 the signal burst; R19 the slider; R20 the look fade)', () => {
+    expect(ui.sort()).toEqual(['AnswerTile.tsx', 'AppShell.tsx', 'Beacon.tsx', 'BottomSheet.tsx', 'Button.tsx', 'Card.tsx', 'Chip.tsx', 'LessonNode.tsx', 'LookFade.tsx', 'Pill.tsx', 'ProgressBar.tsx', 'SignalBurst.tsx', 'Slider.tsx', 'SpeechBubble.tsx', 'Switch.tsx', 'TopBar.tsx', 'UnitBanner.tsx', 'feedback.tsx']);
   });
   it('every clickable block gets its springs from usePress (so "Reduce motion" turns them all off in one place)', () => {
     for (const f of ui) {
