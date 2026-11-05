@@ -53,3 +53,48 @@ export async function snap(w: Page, path?: string) {
   await w.evaluate(a => { const b = performance.now(); (window as unknown as { __film: { pauses: [number, number][] } }).__film.pauses.push([a, b]); }, a);
   return png;
 }
+
+// R22: what the keyboard's focus is on, and whether you can see it: it has a ring (2 px or more; a see-through switch
+// or slider draws it on its track or knob), the ring isn't cut off by a box around it, and it's on screen and not under
+// the top bar or the bottom tabs. `ok: false` comes with the reason.
+export type Ring = { ok: boolean; id: string; why?: string };
+export const focusRing = (w: Page) => w.evaluate((): Ring => {
+  const el = document.activeElement as HTMLElement | null;
+  if (!el || el === document.body) return { ok: false, id: 'BODY', why: 'nothing has the focus' };
+  const id = el.dataset.testid ?? `${el.tagName}:${(el.getAttribute('aria-label') ?? el.textContent ?? '').slice(0, 24)}`;
+  const part = el.closest('.ui-switch, .ui-slider');
+  const ringEl = (part?.querySelector('.ui-switch-track, [data-part=knob]') as HTMLElement | null) ?? el;
+  const cs = getComputedStyle(ringEl), wide = parseFloat(cs.outlineWidth);
+  if (cs.outlineStyle === 'none' || !(wide >= 2)) return { ok: false, id, why: 'no ring' };
+  const r = ringEl.getBoundingClientRect(), out = (parseFloat(cs.outlineOffset) || 0) + wide;
+  const ring = { l: r.left - out, t: r.top - out, r: r.right + out, b: r.bottom + out };
+  for (let p = ringEl.parentElement; p && p !== document.body; p = p.parentElement) {
+    const s = getComputedStyle(p), q = p.getBoundingClientRect();
+    if (s.overflowX !== 'visible' && (ring.l < q.left - 0.5 || ring.r > q.right + 0.5)) return { ok: false, id, why: `ring cut off by ${p.tagName} ${p.dataset.testid ?? ''}` };
+    if (s.overflowY !== 'visible' && (ring.t < q.top - 0.5 || ring.b > q.bottom + 0.5)) return { ok: false, id, why: `ring cut off by ${p.tagName} ${p.dataset.testid ?? ''}` };
+  }
+  if (r.bottom <= 0 || r.top >= innerHeight || r.right <= 0 || r.left >= document.documentElement.clientWidth) return { ok: false, id, why: 'off screen' };
+  if (!el.closest('[role=dialog], [role=status]')) for (const bar of ['top-bar', 'tab-bar']) {
+    const b = document.querySelector(`[data-testid=${bar}]`);
+    if (!b || b.contains(el)) continue;
+    const q = b.getBoundingClientRect();
+    if (r.top < q.bottom - 0.5 && r.bottom > q.top + 0.5) return { ok: false, id, why: `under the ${bar}` };
+  }
+  return { ok: true, id };
+});
+// Presses Tab until the focus is on `testId` (at most `max` times), checking the ring at every stop on the way.
+// Returns every stop; fails the test at the first one you couldn't see.
+export async function tabTo(w: Page, testId: string | null, max = 40) {
+  const stops: string[] = [];
+  for (let i = 0; i < max; i++) {
+    await w.keyboard.press('Tab');
+    const r = await focusRing(w);
+    if (!r.ok) throw new Error(`Tab stop ${i + 1} (${r.id}): ${r.why}. Stops so far: ${stops.join(', ')}`);
+    stops.push(r.id);
+    if (testId && r.id === testId) return stops;
+  }
+  if (testId) throw new Error(`Tab never reached ${testId}. Stops: ${stops.join(', ')}`);
+  return stops;
+}
+// No screen may scroll sideways: the page is never wider than the window (R22).
+export const sideways = (w: Page) => w.evaluate(() => Math.max(0, document.documentElement.scrollWidth - document.documentElement.clientWidth));

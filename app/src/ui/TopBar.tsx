@@ -76,7 +76,9 @@ export function TopBar({ streak, xp, xpToday, freezes, done, goal, wait = TOP_BA
   const waiting = !calm; // things that only appear during a moment start invisible (their moment shows them)
 
   return <>
-    <div data-testid="hud" style={{ display: 'flex', alignItems: 'center', gap: 16, whiteSpace: 'nowrap' }}>
+    {/* R22: on a narrow window (down to 360 px) the gaps and the goal bar shrink, and today's "+30" steps aside
+        (theme.css), so the bar never runs past the window's edge. */}
+    <div data-testid="hud" style={{ display: 'flex', alignItems: 'center', gap: 'clamp(8px, 2.6vw, 16px)', whiteSpace: 'nowrap' }}>
       {/* Streak: the flame has a soft still glow while your streak is alive ("glow means on air"). */}
       <span data-testid="streak" title="Streak (days in a row)" data-moment={grew(s) ? s.n + 1 : undefined}
         style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 18, fontWeight: 700, ...mono, color: c.streak }}>
@@ -94,7 +96,7 @@ export function TopBar({ streak, xp, xpToday, freezes, done, goal, wait = TOP_BA
           <Icon name="bolt" size={20} /><Count m={x} wait={wait} /><span style={hidden}> XP</span>
         </span>
         {/* Only once you've earned some today: a "+0" at the start of a day was just noise (design review 1, R08). */}
-        {xpToday > 0 && <span data-testid="xp-today" title="XP earned today" style={{ ...mono, fontSize: 13, color: c.textMuted }}>+{xpToday}<span style={hidden}> XP today</span></span>}
+        {xpToday > 0 && <span data-testid="xp-today" className="hud-wide-only" title="XP earned today" style={{ ...mono, fontSize: 13, color: c.textMuted }}>+{xpToday}<span style={hidden}> XP today</span></span>}
         {grew(x) && !calm && <span key={x.n} ref={float} data-testid="xp-float" aria-hidden
           style={{ position: 'absolute', left: 26, top: -6, fontSize: 13, fontWeight: 700, ...mono, color: c.signal, opacity: 0, pointerEvents: 'none' }}>+{x.to - x.from}</span>}
       </span>
@@ -107,7 +109,7 @@ export function TopBar({ streak, xp, xpToday, freezes, done, goal, wait = TOP_BA
     </div>
     {/* The daily goal: look A's bar (signal fading to on-air); solid on-air with a check once you reach it. */}
     <div data-testid="goal" style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 8 }}>
-      <span style={{ position: 'relative', display: 'block', width: 76 }}>
+      <span style={{ position: 'relative', display: 'block', width: 'clamp(40px, 12.5vw, 76px)' }}>
         <ProgressBar testId="goal-bar" label="Daily goal" value={done / goal} height={10} tone={reached ? 'onAir' : 'glow'}
           from={grew(d) ? d.from / goal : undefined} transition={grew(d) ? barAt(TOP_BAR.fill, wait) : undefined} />
         {justReached && !calm && <span key={d.n} ref={flash} data-testid="goal-flash" aria-hidden

@@ -30,6 +30,9 @@ export function shuffled<T>(arr: T[], seed: string): T[] {
 }
 
 // A tile's look: plain while answering; after checking, the right one is "on air" green, a wrong pick "miss" red, the rest dim.
+// The match's right-hand tiles, top to bottom, are pressed with these keys (src/keys.ts reads A to I).
+const LETTERS = 'abcdefghi';
+
 const tileState = (locked: boolean, right: boolean, picked: boolean): TileState => !locked ? 'idle' : right ? 'right' : picked ? 'wrong' : 'dim';
 
 // The "how to answer" line under the question (R10). Quiet, small, one line.
@@ -63,12 +66,27 @@ function Choices({ q, order, locked, picked, onSubmit }: { q: { choices: string[
 
 // A picture with its credit line. `outline` draws a box on it; `tap` makes it tappable (gives x, y as fractions);
 // `dot` shows where the player tapped, green if that was right and red if not (with the sheet saying which).
+// R22: a tappable picture works from the keyboard too: Tab to it, the arrow keys move a small crosshair (AIM_STEP of the
+// picture a press; with Shift a fifth of that), and Enter or Space taps where it is. The crosshair only shows while the
+// picture has the keyboard's focus, so the mouse never sees it.
+const AIM_STEP = 0.05;
 export function PhotoView({ photo, outline, tap, dot, dotOk, locked }: { photo: Photo; outline?: Rect; tap?: (x: number, y: number) => void; dot?: [number, number] | null; dotOk?: boolean; locked?: boolean }) {
   const [broken, setBroken] = useState(false);
+  const [aim, setAim] = useState<[number, number]>([0.5, 0.5]), [aiming, setAiming] = useState(false);
   const box = (r: Rect): React.CSSProperties => ({ position: 'absolute', left: `${r.x * 100}%`, top: `${r.y * 100}%`, width: `${r.w * 100}%`, height: `${r.h * 100}%`, border: `3px solid ${c.streak}`, borderRadius: 8, boxSizing: 'border-box', pointerEvents: 'none' });
+  const tappable = !!tap && !locked;
+  const key = (e: React.KeyboardEvent) => {
+    if (!tappable) return;
+    const step = e.shiftKey ? AIM_STEP / 5 : AIM_STEP, clamp = (v: number) => Math.min(1, Math.max(0, Math.round(v * 1000) / 1000));
+    const move: Record<string, [number, number]> = { ArrowLeft: [-step, 0], ArrowRight: [step, 0], ArrowUp: [0, -step], ArrowDown: [0, step] };
+    if (move[e.key]) { e.preventDefault(); setAim(([x, y]) => [clamp(x + move[e.key][0]), clamp(y + move[e.key][1])]); }
+    else if ((e.key === 'Enter' || e.key === ' ') && !e.repeat) { e.preventDefault(); tap!(aim[0], aim[1]); }
+  };
   return (
     <figure style={{ margin: '0 0 12px' }}>
-      <div data-testid="photo" role={tap ? 'button' : 'img'} aria-label={photo.alt}
+      <div data-testid="photo" role={tap ? 'button' : 'img'} tabIndex={tappable ? 0 : undefined} onKeyDown={key}
+        aria-label={tappable ? `${photo.alt}. Arrow keys move the marker, Enter taps there.` : photo.alt}
+        onFocus={e => setAiming(e.currentTarget.matches(':focus-visible'))} onBlur={() => setAiming(false)}
         onClick={e => { if (!tap || locked) return; const b = e.currentTarget.getBoundingClientRect(); tap((e.clientX - b.left) / b.width, (e.clientY - b.top) / b.height); }}
         style={{ position: 'relative', lineHeight: 0, cursor: tap && !locked ? 'crosshair' : 'default', borderRadius: RADIUS.tile, overflow: 'hidden',
           background: c.surface2, border: `1px solid ${c.border}`, minHeight: 120 }}>
@@ -76,20 +94,33 @@ export function PhotoView({ photo, outline, tap, dot, dotOk, locked }: { photo: 
           : <img src={photo.src} alt={photo.alt} draggable={false} onError={() => setBroken(true)} style={{ width: '100%', display: 'block' }} />}
         {outline && <div data-testid="outline" style={box(outline)} />}
         {dot && <TapDot at={dot} ok={!!dotOk} />}
+        {tappable && aiming && <Aim at={aim} />}
       </div>
       <figcaption data-testid="photo-credit" style={{ fontSize: 12, color: c.textMuted, marginTop: 6 }}>{photo.credit}</figcaption>
     </figure>);
 }
 
-// Where the player tapped: green if that was right and red if not. It lands with a pop if right, or shakes if not
+// The keyboard's crosshair on a tappable picture (R22): a signal-blue ring with a dot, on a dark edge so it shows on any photo.
+function Aim({ at }: { at: [number, number] }) {
+  return <div data-testid="aim" data-at={at.join(',')} aria-hidden style={{ position: 'absolute', left: `${at[0] * 100}%`, top: `${at[1] * 100}%`, width: 28, height: 28,
+    margin: -14, boxSizing: 'border-box', borderRadius: '50%', border: `3px solid ${c.signal}`, boxShadow: `0 0 0 2px ${c.bg}, inset 0 0 0 2px ${c.bg}`,
+    display: 'grid', placeItems: 'center', pointerEvents: 'none' }}>
+    <span style={{ width: 6, height: 6, borderRadius: '50%', background: c.signal, boxShadow: `0 0 0 2px ${c.bg}` }} />
+  </div>;
+}
+
+// Where the player tapped: green with a tick if that was right, red with a cross if not (R22: never colour alone). It lands with a pop if right, or shakes if not
 // (R11). It appears already marked, so it starts from its "from" look and moves one render later (useEntrance), which
 // Motion does animate (a first animation alone would be skipped inside the app's screens).
 function TapDot({ at, ok }: { at: [number, number]; ok: boolean }) {
   const on = useEntrance(), calm = useCalm(), color = ok ? c.onAir : c.miss;
   const land = calm || !on ? undefined : ok ? { ...FEEDBACK.dotKeys, transition: FEEDBACK.pop } : { ...FEEDBACK.shakeKeys, transition: FEEDBACK.shake };
   return <motion.div data-testid="tap-dot" data-ok={ok} initial={ok && !calm ? { scale: 0 } : false} animate={land}
-    style={{ position: 'absolute', left: `${at[0] * 100}%`, top: `${at[1] * 100}%`, width: 18, height: 18, margin: -9,
-      borderRadius: '50%', background: color, border: `2px solid ${c.bg}`, boxShadow: `0 0 0 2px ${color}`, pointerEvents: 'none' }} />;
+    style={{ position: 'absolute', left: `${at[0] * 100}%`, top: `${at[1] * 100}%`, width: 24, height: 24, margin: -12, boxSizing: 'border-box',
+      display: 'grid', placeItems: 'center', color: c.onBright, lineHeight: 0,
+      borderRadius: '50%', background: color, border: `2px solid ${c.bg}`, boxShadow: `0 0 0 2px ${color}`, pointerEvents: 'none' }}>
+    <Icon name={ok ? 'check' : 'cross'} size={14} label={ok ? 'right spot' : 'not the right spot'} style={{ strokeWidth: 3 }} />
+  </motion.div>;
 }
 
 // Type the number: one big box in the code font, the unit inside it on the right. After Check the box turns green with a
@@ -116,8 +147,9 @@ function NumberBox({ q, locked, ok, onSubmit }: { q: Extract<Scored, { kind: 'nu
     </form>);
 }
 
-// Match the pairs: the left column is numbered (keys 1-9 pick a left one too), and the left one you're pairing glows blue.
-// Tap a right one to pair them: it takes on that left one's number. The next unpaired left one lights up by itself, so
+// Match the pairs: the left column is numbered (keys 1-9 pick a left one too), and the left one you're pairing glows blue
+// with its number filled in. The right column is lettered A, B, C... (keys A-I pick one: R22, idea I41), so a whole match
+// can be done from the keyboard. Tap a right one to pair them: its letter gives way to that left one's number. The next unpaired left one lights up by itself, so
 // most of the time you only tap the right column. Tap a paired one again to change it.
 function MatchPairs({ q, locked, picked, onSubmit }: { q: Extract<Scored, { kind: 'match' }>; locked: boolean; picked?: Answer; onSubmit: (a: Answer) => void }) {
   const rightOrder = useMemo(() => shuffled(q.pairs.map((_, i) => i), q.id), [q]);
@@ -143,8 +175,9 @@ function MatchPairs({ q, locked, picked, onSubmit }: { q: Extract<Scored, { kind
         return [
           <AnswerTile key={`l${i}`} n={i + 1} data-pick={i + 1} aria-keyshortcuts={String(i + 1)} data-testid={`match-left-${i}`} disabled={locked}
             aria-pressed={left === i} state={leftState(i)} onClick={() => setLeft(i)} style={cell}>{p[0]}</AnswerTile>,
-          <AnswerTile key={`r${j}`} n={partner >= 0 ? partner + 1 : undefined} keyEmpty data-testid={`match-right-${j}`} disabled={locked}
-            aria-label={`${q.pairs[j][1]}${partner >= 0 ? `, paired with ${q.pairs[partner][0]}` : ''}`}
+          <AnswerTile key={`r${j}`} n={partner >= 0 ? partner + 1 : undefined} keyEmpty letter={LETTERS[i]} data-letter={LETTERS[i]}
+            aria-keyshortcuts={LETTERS[i].toUpperCase()} data-testid={`match-right-${j}`} disabled={locked}
+            aria-label={`${LETTERS[i].toUpperCase()}: ${q.pairs[j][1]}${partner >= 0 ? `, paired with ${q.pairs[partner][0]}` : ''}`}
             state={rightState(j)} onClick={() => tap(j)} style={cell}>{q.pairs[j][1]}</AnswerTile>,
         ];
       })}
@@ -200,7 +233,9 @@ function Clues({ q, locked, onSubmit }: { q: Extract<Scored, { kind: 'scenario' 
         <Card key={clue.text} data-testid={`clue-${ci}`} data-ok={locked ? ok : undefined} accent={locked ? (ok ? 'onAir' : 'miss') : undefined}
           style={{ margin: '0 0 10px', padding: '12px 14px' }}>
           <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', marginBottom: 10 }}>
-            <Icon name="search" size={20} style={{ color: c.signal, marginTop: 1, flexShrink: 0 }} />
+            {/* R22: after Check the magnifier turns into a tick or a cross, so the card's green or red outline isn't the only clue. */}
+            {locked ? <Icon name={ok ? 'check' : 'cross'} size={20} label={ok ? 'Right:' : 'Missed:'} style={{ color: ok ? c.onAir : c.miss, marginTop: 1, flexShrink: 0 }} />
+              : <Icon name="search" size={20} style={{ color: c.signal, marginTop: 1, flexShrink: 0 }} />}
             <div>
               <div style={{ ...mono, fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', color: c.textMuted }}>Clue {ci + 1}</div>
               <div style={{ fontSize: 17, lineHeight: 1.35 }}>{clue.text}</div>

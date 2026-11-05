@@ -22,6 +22,9 @@ const BIG = BEACON_SIZE.complete;
 const HEAD = { x: BIG * 0.5, y: BIG * 0.4 };   // Beacon's head, in its 100-wide drawing at (50, 40)
 const BARS = 5;
 const SAYS_GAP = 40;  // from the head's centre to the bubble's pointy corner: just past the outer ring (34 px at this size)
+// R22: the bubble starts SAYS_GAP right of the window's middle, so on a phone-narrow window it gets narrower (and taller)
+// instead of running past the edge: at most half the window, less that gap and the 20 px side margin.
+const SAYS_MAX = `min(168px, calc(50vw - ${SAYS_GAP + 20}px))`;
 
 export function LessonComplete({ stars, right, total, fixed, xp, bars, seed = '', onFinish, onAgain }:
   { stars: number; right: number; total: number; fixed: number; xp: number; bars: number; seed?: string; onFinish: () => void; onAgain: () => void }) {
@@ -57,7 +60,7 @@ export function LessonComplete({ stars, right, total, fixed, xp, bars, seed = ''
           <Beacon face="cheering" size={BIG} />
         </div>
         <SpeechBubble data-testid="beacon-says" delay={calm ? 0 : COMPLETE.says}
-          style={{ position: 'absolute', left: HEAD.x + SAYS_GAP, bottom: BEACON_HEIGHT(BIG) - HEAD.y - 16, zIndex: 2, width: 'max-content', maxWidth: 168, boxSizing: 'border-box', fontSize: 14, textWrap: 'balance' }}>
+          style={{ position: 'absolute', left: HEAD.x + SAYS_GAP, bottom: BEACON_HEIGHT(BIG) - HEAD.y - 16, zIndex: 2, width: 'max-content', maxWidth: SAYS_MAX, boxSizing: 'border-box', fontSize: 14, textWrap: 'balance' }}>
           {beaconLine(completeMoment(stars, fixed), seed)}</SpeechBubble>
       </div>
       <h2 data-testid="done" style={{ fontSize: 28, lineHeight: 1.25, fontWeight: 700, margin: '4px 0 10px', position: 'relative', zIndex: 1 }}>Lesson complete!</h2>
@@ -80,7 +83,7 @@ export function LessonComplete({ stars, right, total, fixed, xp, bars, seed = ''
       {/* The two numbers side by side: XP counting up like a meter, and the signal bars filling from the bottom. */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, margin: '18px 0 20px', textAlign: 'left' }}>
         <Card title="XP earned" style={{ padding: '12px 16px 14px' }}>
-          <motion.div data-testid="xp" aria-label={`+${xp} XP`} style={{ ...mono, fontSize: 40, lineHeight: 1.1, color: c.signal, fontVariantNumeric: 'tabular-nums' }}>{shownXp}</motion.div>
+          <motion.div data-testid="xp" aria-label={`+${xp} XP`} style={{ ...mono, fontSize: 'clamp(28px, 8vw, 40px)', lineHeight: 1.1, whiteSpace: 'nowrap', color: c.signal, fontVariantNumeric: 'tabular-nums' }}>{shownXp}</motion.div>
         </Card>
         <Card title="Signal" style={{ padding: '12px 16px 14px' }}>
           <div data-testid="bars" data-count={bars} role="img" aria-label={`${bars} of ${BARS} signal bars`}

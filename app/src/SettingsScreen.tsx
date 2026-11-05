@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 import { backupNow, showFile, hasFileAccess, type Settings } from './storage';
 import { c, COLUMN, mono } from './theme';
 import { Icon, type IconName } from './Icon';
-import { Button, Card, Switch, Slider, PillChoice, SectionLabel, useCalm, QUICK_FADE } from './ui';
+import { Button, Card, Switch, Slider, PillChoice, SectionLabel, BottomSheet, useCalm, QUICK_FADE } from './ui';
 import { SAMPLE } from './theme/motion';
 import { prefs } from './prefs';
 import { play, playSample, SAMPLE_SET } from './sound';
@@ -24,18 +24,21 @@ function RowIcon({ name, children }: { name: IconName; children?: ReactNode }) {
 // One settings row: the icon, the words (a name, and a quieter line saying what it does), the control on the right.
 // Rows with a switch are a <label>, so clicking the words flips the switch too. Rows with a button are not
 // (a label would pass a click on its words on to the button).
+// R22: when the words would get narrower than WORDS_MIN (a phone-narrow window, or a wide control like the volume slider),
+// the control moves onto its own line under them, on the right, instead of squeezing the words to one word a line.
+const WORDS_MIN = 100;
 function Row({ name, hint, icon, control, last, asLabel = true, testId }:
   { name: string; hint?: string; icon: ReactNode; control?: ReactNode; last?: boolean; asLabel?: boolean; testId?: string }) {
   const Tag = asLabel ? 'label' : 'div';
   return (
-    <Tag data-testid={testId} style={{ display: 'flex', alignItems: 'center', gap: 12, minHeight: 60, padding: '8px 0', cursor: asLabel ? 'pointer' : 'default',
+    <Tag data-testid={testId} style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', columnGap: 12, rowGap: 8, minHeight: 60, padding: '8px 0', cursor: asLabel ? 'pointer' : 'default',
       borderBottom: last ? 0 : `1px solid ${c.border}` }}>
       {icon}
-      <span style={{ flex: 1, minWidth: 0 }}>
+      <span style={{ flex: `1 1 ${WORDS_MIN}px`, minWidth: 0 }}>
         <span style={{ display: 'block', fontSize: 16, fontWeight: 500, lineHeight: 1.25 }}>{name}</span>
         {hint && <span data-part="hint" style={{ display: 'block', fontSize: 14, lineHeight: 1.4, color: c.textMuted, marginTop: 2 }}>{hint}</span>}
       </span>
-      {control}
+      {control && <span data-part="control" style={{ marginLeft: 'auto', display: 'flex' }}>{control}</span>}
     </Tag>
   );
 }
@@ -75,13 +78,17 @@ function Key({ children }: { children: ReactNode }) {
       lineHeight: 1.4, color: c.text, background: c.surface2, border: `1px solid ${c.borderStrong}`, borderBottomWidth: 2, borderRadius: 7 }}>{children}</kbd>
   );
 }
-const KEYS: [string, string][] = [['1-9', 'Pick an answer by its number'], ['Enter', 'Check, or go on'], ['Esc', 'Leave a lesson, or go back to the path']];
+// Every key the app knows (R22: A-I for the match, Tab), shown in the Keys sheet.
+export const KEYS: [string, string][] = [['1-9', 'Pick an answer by its number'], ['A-I', 'Pick a partner on the right, in "Match the pairs"'],
+  ['Enter', 'Check, or go on'], ['Esc', 'Leave a lesson, close a panel, or go back to the path'],
+  ['Arrows', 'Aim on a picture you tap; then Enter taps there'], ['Tab', 'Move to the next button; a blue ring shows where you are']];
 
 // The settings screen, redesign R15: sound (with a sample), movement, daily goal, the look (Night / Day), your progress,
 // and the keyboard keys. Every row has its own icon. Built only from the blocks in ./ui (R03).
 // R04: it's a tab, so it has no back button (the Path tab, or Esc, goes back).
 export function SettingsScreen({ settings, onChange }: { settings: Settings; onChange: (s: Settings) => void }) {
   const [note, setNote] = useState('');
+  const [keys, setKeys] = useState(false);
   const files = hasFileAccess();
   const set = (patch: Partial<Settings>) => onChange({ ...settings, ...patch });
   const day = settings.look === 'day';
@@ -120,13 +127,12 @@ export function SettingsScreen({ settings, onChange }: { settings: Settings; onC
         </div>
       </Card>
 
-      <Card title="Look" style={{ ...card, paddingBottom: 16 }} data-testid="set-card-look">
+      {/* R22 (idea I57): the Night / Day choice sits on its row's right, like the switches. */}
+      <Card title="Look" style={card} data-testid="set-card-look">
         <Row asLabel={false} last name="Colours" icon={<RowIcon name={day ? 'sun' : 'moon'} />}
-          hint={day ? 'Light and clear, like a radio screen in daylight.' : 'Dark and calm, like a radio screen at night.'} />
-        <div style={{ paddingLeft: 48, marginTop: 4 }}>
-          <PillChoice testId="set-look" label="Look" value={settings.look}
-            options={[{ value: 'night', text: 'Night', icon: 'moon' }, { value: 'day', text: 'Day', icon: 'sun' }]} onChange={look => set({ look })} />
-        </div>
+          hint={day ? 'Light and clear, for daylight.' : 'Dark and calm, for night.'}
+          control={<PillChoice testId="set-look" label="Look" value={settings.look}
+            options={[{ value: 'night', text: 'Night', icon: 'moon' }, { value: 'day', text: 'Day', icon: 'sun' }]} onChange={look => set({ look })} />} />
       </Card>
 
       <Card title="Your progress" style={card} data-testid="set-card-progress">
@@ -139,14 +145,20 @@ export function SettingsScreen({ settings, onChange }: { settings: Settings; onC
         {note && <p data-testid="settings-note" role="status" style={{ margin: '4px 0 8px', fontSize: 14, color: c.textMuted, overflowWrap: 'anywhere' }}>{note}</p>}
       </Card>
 
+      {/* R22 (idea I57): the keys fold into one row; "Show" opens them in a sheet, which gives the keyboard back to "Show" when it closes. */}
       <Card title="Keys" data-testid="set-card-keys" style={{ paddingBottom: 8 }}>
+        <Row asLabel={false} last name="Keyboard keys" hint="Play without the mouse." icon={<RowIcon name="keyboard" />}
+          control={<Button kind="quiet" data-testid="show-keys" aria-haspopup="dialog" onClick={() => setKeys(true)} style={{ padding: '8px 14px' }}>Show</Button>} />
+      </Card>
+      <BottomSheet open={keys} tone="info" icon="keyboard" testId="keys-sheet" title="Keys"
+        onClose={() => { setKeys(false); document.querySelector<HTMLElement>('[data-testid=show-keys]')?.focus({ preventScroll: true }); }}>
         {KEYS.map(([k, what], i) => (
-          <div key={k} style={{ display: 'flex', alignItems: 'center', gap: 12, minHeight: 40, borderBottom: i < KEYS.length - 1 ? `1px solid ${c.border}` : 0 }}>
-            <span style={{ width: 64, flexShrink: 0 }}><Key>{k}</Key></span>
+          <div key={k} style={{ display: 'flex', alignItems: 'center', gap: 12, minHeight: 40, padding: '4px 0', borderBottom: i < KEYS.length - 1 ? `1px solid ${c.border}` : 0 }}>
+            <span style={{ width: 72, flexShrink: 0 }}><Key>{k}</Key></span>
             <span style={{ fontSize: 15, color: c.textMuted }}>{what}</span>
           </div>
         ))}
-      </Card>
+      </BottomSheet>
     </div>
   );
 }

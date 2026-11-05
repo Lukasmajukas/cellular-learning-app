@@ -1,11 +1,12 @@
 // Keyboard keys (PRD 4e, finally built in redesign R04):
 //   1-9    pick answer 1-9 (the number drawn on the answer tile)
+//   A-I    pick the right-hand tile with that letter (match the pairs: R22, idea I41)
 //   Enter  the screen's main button (Check, Continue, Got it, Back to the path)
 //   Esc    leave the lesson, or go back to the path from another tab
 // keyIntent() is plain logic (unit-tested in src/keys.test.ts); useKeys() hooks it up to the window.
 import { useEffect, useRef } from 'react';
 
-export type KeyIntent = { pick: number } | 'enter' | 'back' | null;
+export type KeyIntent = { pick: number } | { letter: string } | 'enter' | 'back' | null;
 // focusByKeyboard: did the focus get to `target` with the keyboard (Tab or arrows), rather than a mouse click? (default: yes)
 type KeyLike = { key: string; repeat?: boolean; ctrlKey?: boolean; altKey?: boolean; metaKey?: boolean; target: EventTarget | null; focusByKeyboard?: boolean };
 type El = { tagName?: string; type?: string; disabled?: boolean; isContentEditable?: boolean; getAttribute?: (n: string) => string | null };
@@ -25,6 +26,7 @@ export function keyIntent(e: KeyLike): KeyIntent {
   const t = e.target as El | null;
   if (typing(t)) return null;
   if (/^[1-9]$/.test(e.key)) return { pick: Number(e.key) };
+  if (/^[a-i]$/i.test(e.key)) return { letter: e.key.toLowerCase() }; // with or without Shift (Caps Lock on)
   if (e.key === 'Enter') return e.focusByKeyboard !== false && ownsEnter(t) ? null : 'enter';
   if (e.key === 'Escape') return 'back';
   return null;
@@ -53,10 +55,11 @@ export function useKeys(act: (k: Exclude<KeyIntent, null>) => boolean, on = true
   }, [on]);
 }
 
-// Presses the button inside `root` that answers a key: [data-pick="n"] for a number, [data-primary] for Enter.
+// Presses the button inside `root` that answers a key: [data-pick="n"] for a number, [data-letter="a"] for a letter
+// (lower case), [data-primary] for Enter.
 // Only buttons that are switched on count. Returns true when it pressed one.
 export function pressFor(root: ParentNode | null, k: Exclude<KeyIntent, null | 'back'>) {
-  const sel = k === 'enter' ? '[data-primary]:not([disabled])' : `[data-pick="${k.pick}"]:not([disabled])`;
+  const sel = k === 'enter' ? '[data-primary]:not([disabled])' : 'letter' in k ? `[data-letter="${k.letter}"]:not([disabled])` : `[data-pick="${k.pick}"]:not([disabled])`;
   const b = root?.querySelector<HTMLElement>(sel);
   if (!b) return false;
   b.click();

@@ -3,10 +3,10 @@
   "robot": {
     "on": true,
     "next": "right away (it starts its next job by itself), and every hour",
-    "last": "redesign session R21: the app's own start screen from the very first moment, a short welcome for a fresh start, a friendly empty Heatmap and calm error screens (T59)"
+    "last": "redesign session R22: the window goes down to phone size and every screen fits; the keyboard reaches everything with a ring you can always see, the match has letter keys, and right and wrong always have a tick or a cross (T59)"
   },
   "light": "green",
-  "working": "Nothing in progress. The robot moves on to redesign session R22 (window sizes, keyboard, easy to read) at its next run (T59). For you: the Windows build on GitHub stopped running today, most likely because your free GitHub Actions minutes are used up; please check GitHub, Settings, Billing (T62). Also: when a new build is out, say if the green picture at start-up is gone (T57); paste the robot's hourly message into the launcher chat again, and don't /clear it until then (T60).",
+  "working": "Nothing in progress. The robot moves on to redesign session R23 (speed check) at its next run (T59). For you: the Windows build on GitHub stopped running today, most likely because your free GitHub Actions minutes are used up; please check GitHub, Settings, Billing (T62). Also: when a new build is out, say if the green picture at start-up is gone (T57); paste the robot's hourly message into the launcher chat again, and don't /clear it until then (T60).",
   "limit": {
     "state": "warning",
     "resets": "the weekly limit is nearly used up (it resets Wed Nov 11). The robot keeps working until it runs out"

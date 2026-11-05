@@ -15,7 +15,7 @@ describe('keys: what each key means', () => {
   it('Enter = the main button; Esc = leave / back', () => {
     expect(press('Enter')).toBe('enter');
     expect(press('Escape')).toBe('back');
-    expect(press('a')).toBeNull();
+    expect(press('z')).toBeNull(); // R22: a to i are the match's letters (src/r22.test.ts); other letters do nothing
     expect(press(' ')).toBeNull(); // Space stays the normal "press the focused button" key
   });
   it('keys belong to a text box while you type in it (Enter sends its own form)', () => {

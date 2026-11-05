@@ -26,3 +26,8 @@ input[type='checkbox'] { width: 20px; height: 20px; accent-color: var(--signal);
 .ui-switch:has(input:focus-visible) .ui-switch-track { outline: 2px solid var(--signal); outline-offset: 3px; }
 /* The slider's real range input is see-through too (src/ui/Slider.tsx, R19): its focus ring goes on the drawn knob. */
 .ui-slider:has(input:focus-visible) [data-part='knob'] { outline: 2px solid var(--signal); outline-offset: 3px; }
+/* R22: things that step aside on a phone-narrow window (under 400 px), because the line they sit in has no room. */
+@media (max-width: 400px) { .hud-wide-only { display: none; } }
+/* R22: when the keyboard moves to something off screen, the page scrolls it into view clear of the top bar (56 px) and
+   the bottom tabs (68 px), with a little room, so a focused button is never hidden under them. Only with the app frame. */
+html:has([data-testid='app-frame']) { scroll-padding: 64px 0 84px; }

@@ -5,6 +5,7 @@
 //                 node tools/gallery.mjs --types-only     (just the other question types, 18-27; build first; keeps the rest)
 //                 node tools/gallery.mjs --look day       (R20: every picture in the Day look, into ../docs/redesign/gallery/latest/day)
 // R21: the start screen, its fade, the welcome, the empty heatmap and the error screens (40-46).
+// R22: a phone-narrow window (360 x 640) and the keyboard: 47-54 (see r22Screens).
 // It starts the real Electron app with a made-up save file (3 lessons done, a 4-day streak, some reviews due),
 // the other question types (18-27, from R10), a comeback question (28, from R11), the Review tab's looks and the notices (30-33, from R13), the heatmap filling in and its lessons sheet (34, 35, from R14), Settings mid-sample, its bottom and in Day (36-38, from R15), shows the building blocks page (#blocks, from R03; Beacon's faces 16, 17 from R17), the Review tab (13, from R04), the top bar mid-moment and the repair card (14, 15, from R07),
 // draws a sheet of all our icons (00-icons), visits each screen at the owner's window size (620 x 960) and a wide one (1280 x 800), and saves small WebP files.
@@ -378,6 +379,66 @@ async function firstStartScreens(s) {
   }
 }
 
+// R22: window sizes and the keyboard. A phone-narrow window (360 x 640: the path, Settings, a match question, lesson
+// complete; 47-50), and at the owner's size the keyboard's ring on the path (51), the Keys sheet (52), a match being
+// paired with the number and letter keys (53) and the crosshair on a tap-the-picture question (54).
+const NARROW = { w: 360, h: 640, suffix: '-narrow' };
+async function r22Screens() {
+  let { app, w } = await launch({});
+  await resize(app, NARROW);
+  await w.getByTestId('path-count').waitFor();
+  await shot(w, '47-path', NARROW);
+  await w.getByTestId('tab-settings').click();
+  await shot(w, '48-settings', NARROW, 900);
+  // The keyboard's ring, at the owner's size: Tab from the tabs onto the current lesson (the page scrolls it clear of the bars).
+  await resize(app, SIZES[0]);
+  await w.getByTestId('tab-path').click(); await w.waitForTimeout(1300);
+  for (let i = 0; i < 12; i++) {
+    await w.keyboard.press('Tab');
+    if (await w.evaluate(() => document.activeElement?.getAttribute('data-testid') === 'lesson-unit01-l4')) break;
+  }
+  await shot(w, '51-focus-ring', SIZES[0], 500);
+  await w.getByTestId('tab-settings').click(); await w.waitForTimeout(900);
+  await w.getByTestId('show-keys').click();
+  await shot(w, '52-keys-sheet', SIZES[0], 900);
+  await app.close();
+  const done = Object.fromEntries(['u1-l1', 'u1-l2', 'u1-l3', 'u2-l1', 'u2-l2', 'u2-l3'].map(id => [id, 3]));
+  ({ app, w } = await launch({ CELL_SAMPLE_PATH: '1' }, {}, done));
+  await resize(app, SIZES[0]);
+  await w.getByTestId('lesson-u2-l3').click();
+  await w.getByTestId('learn-card').waitFor(); await w.keyboard.press('Enter');
+  await w.getByTestId('choice-0').click(); await w.getByTestId('next').click();
+  await w.getByTestId('number-input').fill('617'); await w.keyboard.press('Enter'); await w.getByTestId('next').click();
+  await w.getByTestId('match-grid').waitFor(); await w.waitForTimeout(700);
+  await w.keyboard.press('2'); await w.keyboard.press(await w.getByTestId('match-right-1').getAttribute('data-letter'));
+  await w.keyboard.press('1');
+  await shot(w, '53-match-keys', SIZES[0], 700);
+  await resize(app, NARROW);
+  await shot(w, '49-match', NARROW, 700);
+  await app.close();
+  ({ app, w } = await launch({ CELL_SAMPLE_PATH: '1' }, {}, { ...done, 'u2-l4': 3 }));
+  await resize(app, SIZES[0]);
+  await w.getByTestId('lesson-u2-l4').click();
+  await w.getByTestId('choice-2').click(); await w.getByTestId('next').click();
+  await w.getByTestId('prompt').filter({ hasText: 'Tap the antennas.' }).waitFor();
+  await w.waitForTimeout(700);
+  for (let i = 0; i < 12 && !(await w.evaluate(() => document.activeElement?.getAttribute('data-testid') === 'photo')); i++) await w.keyboard.press('Tab');
+  for (let i = 0; i < 3; i++) await w.keyboard.press('ArrowUp');
+  await shot(w, '54-tap-aim', SIZES[0], 300);
+  await app.close();
+  ({ app, w } = await launch({ CELL_SAMPLE_PATH: '1' }));
+  await resize(app, NARROW);
+  await w.getByTestId('lesson-u1-l1').click();
+  for (let i = 0; i < 12; i++) {
+    const c = w.locator('[data-testid=choice-0]:not([disabled])');
+    await w.getByTestId('done').or(c).first().waitFor();
+    if (await w.getByTestId('done').isVisible()) break;
+    await c.click(); await w.getByTestId('next').click();
+  }
+  await shot(w, '50-lesson-complete', NARROW, 1600);
+  await app.close();
+}
+
 const typesOnly = process.argv.includes('--types-only');
 if (existsSync(OUT) && !process.argv.includes('--icons-only') && !typesOnly) for (const f of readdirSync(OUT)) if (f.endsWith('.webp')) rmSync(join(OUT, f));
 mkdirSync(OUT, { recursive: true });
@@ -386,4 +447,5 @@ if (typesOnly) { for (const s of SIZES) await typeScreens(s); console.log('Done.
 await iconSheet();
 if (process.argv.includes('--icons-only')) process.exit(0);
 for (const s of SIZES) { await firstStartScreens(s); await realScreens(s); await completeScreen(s); await comebackScreen(s); await repairScreen(s); await reviewAndNotices(s); await heatScreens(s); await settingsScreens(s); await blocksScreens(s); await typeScreens(s); }
+await r22Screens();
 console.log('Done.');
