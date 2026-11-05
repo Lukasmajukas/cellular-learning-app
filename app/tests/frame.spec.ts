@@ -66,10 +66,20 @@ test('every tab starts the same way: a small label, then the title, at the same 
   };
   const path = await head('path');
   expect(path.size).toBe('28px');
+  // I58: every tab's head is the one shared block, and the tab's first thing starts 16 px under it (or further, if that
+  // thing keeps its own bigger space above it, like the path's first unit).
+  const below = (tab: string) => w.getByTestId(`screen-${tab}`).getByTestId('tab-head').evaluate(h => {
+    const next = h.nextElementSibling as HTMLElement;
+    return { gap: Math.round(next.getBoundingClientRect().top - h.getBoundingClientRect().bottom),
+      want: Math.max(16, parseFloat(getComputedStyle(next).marginTop)), heads: document.querySelectorAll('[data-testid=tab-head]').length };
+  });
+  const pathBelow = await below('path');
+  expect(pathBelow.gap).toBe(pathBelow.want); expect(pathBelow.heads).toBe(1);
   for (const tab of ['review', 'heatmap', 'settings']) {
     await w.getByTestId(`tab-${tab}`).click(); await w.getByTestId(`screen-${tab}`).waitFor();
     await w.evaluate(() => window.scrollTo(0, 0));
     await expect.poll(() => head(tab), { timeout: 3000 }).toEqual(path); // once its glide has settled
+    await expect.poll(() => below(tab), { timeout: 3000 }).toEqual({ gap: 16, want: 16, heads: 1 });
   }
   await app.close();
 });

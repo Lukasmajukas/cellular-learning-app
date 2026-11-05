@@ -5,7 +5,7 @@ import { heatLabel, heatGlow, heatBars, heatCounts, HEAT_TONE, LEVELS, LEVEL_WOR
 import type { Status } from './path';
 import { c, COLUMN, RADIUS, mono } from './theme';
 import { Icon } from './Icon';
-import { BottomSheet, Beacon, BEACON_SIZE, Button, Card, SectionLabel, usePress } from './ui';
+import { BottomSheet, Beacon, BEACON_SIZE, Button, Card, SectionLabel, TabHead, usePress } from './ui';
 import { HEAT, popInDelay, useCalm, PRESS_BIG } from './theme/motion';
 
 // The Heatmap tab, "band memory" (redesign R14). Every band the lessons teach is a tile on a dark panel, grouped low /
@@ -58,13 +58,10 @@ export function HeatMap({ cells, lessonsOf, onStart, onPath }:
   };
   return (
     <div ref={root} data-testid="heatmap" style={{ maxWidth: COLUMN, margin: '0 auto', padding: '16px 20px 32px', boxSizing: 'border-box' }}>
-      <SectionLabel tone="signal" data-testid="tab-label" style={{ margin: 0 }}>Band memory</SectionLabel>
-      <h1 style={{ margin: '2px 0 4px', fontSize: 28, lineHeight: 1.25 }}>Heatmap</h1>
-      <p data-testid="heat-hint" style={{ margin: '0 0 12px', fontSize: 15, lineHeight: 1.4, color: c.textMuted }}>
-        {counts.new === cells.length
+      <TabHead label="Band memory" title="Heatmap" helpTestId="heat-hint"
+        help={counts.new === cells.length
           ? 'Tap a band to see which lessons teach it.'
-          : 'A band glows brighter the better you remember it. Tap one to see its lessons.'}
-      </p>
+          : 'A band glows brighter the better you remember it. Tap one to see its lessons.'} />
       {/* R21: the empty look, before any lesson has asked about a band. The dim tiles below show what's coming. */}
       {counts.new === cells.length && onPath && (
         <Card raised data-testid="heat-empty" style={{ marginBottom: 16, display: 'flex', gap: 12, alignItems: 'flex-start' }}>

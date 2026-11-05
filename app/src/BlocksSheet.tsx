@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { c, COLUMN } from './theme';
-import { MotionKit, Button, IconButton, Card, SectionLabel, AnswerTile, Pill, StatChip, PillChoice, Switch, Slider, ProgressBar, BottomSheet, SpeechBubble, Beacon, BEACON_FACES, BEACON_SIZE, type TileState, type BeaconFace } from './ui';
+import { MotionKit, Button, IconButton, Card, SectionLabel, TabHead, AnswerTile, Pill, StatChip, PillChoice, Switch, Slider, ProgressBar, BottomSheet, SpeechBubble, Beacon, BEACON_FACES, BEACON_SIZE, type TileState, type BeaconFace } from './ui';
 
 // Every building block on one page (redesign R03), for the gallery pictures and the click tests. Not part of the normal app:
 // open it by adding #blocks to the address (the gallery and tests/blocks.spec.ts do that). It has its own "Reduce motion" switch.
@@ -19,7 +19,8 @@ export function BlocksSheet() {
   return (
     <MotionKit calm={reduce}>
       <div data-testid="blocks" style={{ maxWidth: COLUMN, margin: '0 auto', padding: '16px 20px 260px', boxSizing: 'border-box', display: 'grid', gap: 16 }}>
-        <h1 style={{ margin: 0 }}>Building blocks</h1>
+        {/* I58: the tabs' head block, shown on its own sheet too (no gap below: the sheet's grid gives one). */}
+        <TabHead label="Every block" title="Building blocks" help="The pieces every screen is built from." style={{ margin: 0 }} />
         <Card title="Buttons">
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'center' }}>
             <Button data-testid="block-button-signal">Check</Button>
