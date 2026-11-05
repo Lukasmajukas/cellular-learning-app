@@ -33,6 +33,8 @@ One file holds every colour, size and speed (`app/src/theme/` from session R01).
 | `locked` | `#2A4466` (icon `#4D6688`) | Locked lessons (dashed outline) |
 | Text on `signal`, `on-air`, `miss` buttons | `#08101D` | Dark text on bright buttons |
 
+*(Design review 2, 2026-11-05: a "go on" button that doesn't follow an answer, like "Got it" on a learn card or the "This changed" card, is `signal` blue. `on-air` green buttons only come after a right answer or for finished things ("Back to the path"). Why: the learn card's "Got it" was green and the notice's was blue, for the same job.)*
+
 **Day (light, built in session R20):** the same tokens, lighter. Starting values to test: `bg #F3F7FC`, `surface #FFFFFF`, `border #D5E1EF`, `text #0E1C31`, `text-muted #4F6582`, `signal #087A97`, `on-air #13A36B`, `miss #D9434A`, `streak #B87A00`, `review #6A5AE0`. *(R01, 2026-11-04: five of these failed the contrast test, so the token file uses slightly darker ones: `signal #066E89`, `on-air #0A7A4E`, `miss #C0343B`, `streak #8C5C00`, `review #5646CF`. The token file `app/src/theme/tokens.ts` is the source of truth.)* The ⚙️ "Dark look" switch becomes "Look: Night / Day". *(R15, 2026-11-05: done as a Night / Day pill choice with a moon and a sun; Day is still the early test until R20.)*
 
 **Rules:**
@@ -58,6 +60,10 @@ One file holds every colour, size and speed (`app/src/theme/` from session R01).
 
 ## 6. Building blocks (components)
 Built once (R03, R04) and used everywhere. *(R09: the bottom sheet is drawn straight into the page, outside the moving screens, so it always sits on the window's bottom edge; the progress bar's colour fade stays still and a cover slides off it, so a short fill starts blue as in look A. R10: a **chip** joins the set, a small rounded answer as wide as its words (scenario clues, items to put in order), with the answer tiles' looks; the tiles gain a **paired** look (matched up or placed, not checked yet) and an empty dashed number box; every question type ends with one full-width Check that hides once the sheet's Continue takes over. R14: the bottom sheet gains an `info` tone (shows something instead of judging an answer) that you can close: a close button, Esc first, and a dark scrim.)* app shell (top bar + content + bottom tab bar: Path, Review, Heatmap, Settings), button (signal / on-air / miss / quiet), card, answer tile (with its number key), chip, bottom sheet (the "Right!" / "Not quite" panel), progress bar, pill (like "6 due"), stat chip (streak, XP), switch, unit banner, lesson node (done / current / locked), speech bubble, Beacon, signal burst (R12: the lesson-complete celebration).
+
+*(Design review 2, 2026-11-05:)*
+- **A button you can't press yet** has its own look, whatever its kind: dark (`surface2`), a thin `borderStrong` outline and quiet `textMuted` words, at full strength (`BUTTON_OFF` in `app/src/ui/tones.ts`). It turns into its bright self once you can press it. Never the bright colour at half see-through: on the night background the signal blue became a muddy teal (idea I42).
+- **Every tab starts the same way:** a small label in the tab's colour (12 px capitals: "SIGNAL PATH", "DRIVE TEST", "BAND MEMORY", "YOUR APP"), then the 28 px title, 16 px below the top bar, then an optional one-line help in `textMuted`. A click test checks that all four line up (idea I58 would make it one building block).
 
 ## 7. Movement (motion rules)
 **What may move:** only position, size, turning and see-through-ness (transform and opacity), because those stay smooth on any computer (PRD 4e). Measured exceptions: drawing the path's line (`pathLength` or `stroke-dashoffset`) and counting numbers up. **Glows never animate a blur or shadow:** a glow is its own layer, and only its see-through-ness changes.

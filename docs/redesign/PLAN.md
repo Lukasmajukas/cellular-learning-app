@@ -51,20 +51,20 @@ Each row is one chat: Large (Opus), High effort. R01 to R04 must go in order (ev
 | R13 | **Daily review and notices** | The review screen ("drive test"), the "This changed" card, the save-restored notice. | ✅ 2026-11-05, #137 |
 | R14 | **Heatmap** | Band tiles glow brighter the better you remember them; legend; tap a tile to see its lessons; tiles fill in one by one. | ✅ 2026-11-05, #138 |
 | R15 | **Settings** | The whole settings screen in the new look, with a sound "play a sample" button and the look switch made ready for Day. | ✅ 2026-11-05, #139 |
-| R16 | **Design review 2** | Every screen together: does it feel like one app? Fix small things; re-order what's left. | ⬜ |
+| R16 | **Design review 2** | Every screen together: does it feel like one app? Fix small things; re-order what's left. | ✅ 2026-11-05, #140 (`docs/reviews/2026-11-05-design-review-2.md`) |
 
 ### Part 3: Beacon and sound
 | # | Session | What changes on screen | Status |
 |---|---|---|---|
-| R18 | **Beacon reacts** | Beacon joins the questions, the lesson-complete screen and the path map ("you are here"), with short kind lines from a data file. *(R09 started that file, `app/src/questionScreen.ts`, with the question screen's lines; R18 adds the rest there.)* | ⬜ |
+| R18 | **Beacon reacts** | Beacon joins the questions, the lesson-complete screen and the path map ("you are here"), with short kind lines from a data file. *(R09 started that file, `app/src/questionScreen.ts`, with the question screen's lines; R18 adds the rest there.)* *(Review 2: also I46, lesson complete drops the lesson's top row so it reads as "finished", and I48, centre that screen's block on a tall window.)* | ⬜ |
 | R19 | **Sound** | Free CC0 sound effects, credited, about 7 sounds; volume and sample button. If no free source can be reached, nicer code-made sounds, and a "You" row asking you to download a pack. | ⬜ |
 
 ### Part 4: finishing
 | # | Session | What changes on screen | Status |
 |---|---|---|---|
-| R20 | **Day look** | A light version of every screen; ⚙️ "Look: Night / Day"; contrast tests for both. | ⬜ |
+| R20 | **Day look** | A light version of every screen; ⚙️ "Look: Night / Day"; contrast tests for both. *(Review 2: also I52, a warm dark `streakBg` fill for the heatmap's "okay" tiles.)* | ⬜ |
 | R21 | **First start, empty screens, start-up** | A short welcome the first time (what the app teaches, pick a daily goal); our own start screen from the very first moment (compare with T57's picture); friendly empty and error screens. | ⬜ |
-| R22 | **Window sizes, keyboard, easy to read** | Works from a phone-narrow window to full screen; keyboard everywhere with visible focus; right/wrong never shown by colour alone. | ⬜ |
+| R22 | **Window sizes, keyboard, easy to read** | Works from a phone-narrow window to full screen; keyboard everywhere with visible focus; right/wrong never shown by colour alone. *(Review 2: also I57, a shorter Settings tab at 620 × 960.)* | ⬜ |
 | R23 | **Speed check** | Measures every animation's frame rate, scrolling the 49-lesson path, and start-up time; makes the slow ones cheaper. | ⬜ |
 | R24 | **Design review 3 (final)** | The whole app against `DESIGN.md`; fixes; marks the Night Signal redesign done; fills the ideas board for the next part. | ⬜ |
 
