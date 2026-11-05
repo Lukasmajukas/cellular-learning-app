@@ -24,10 +24,24 @@ The Heatmap tab now looks like a glowing control panel. Every band is a tile, an
   - `app/tests/heatmap.spec.ts` rewritten (4 click tests): fill-in one after another (frame by frame) with its frame rate, glow brighter for better levels, the legend counts, no second fill-in; the sheet (lessons and their status, focus, Esc, Enter, the scrim, a second Esc leaves the tab, playing a lesson and coming back); a fresh save; Reduce motion.
 
 ## Test results
-- (filled in below when the runs finish)
+- Unit tests: 208 pass (196 + 12). TypeScript OK. Content checker OK (253 facts, 27 photos, 635 questions; `content/` untouched).
+- Click tests (cloud): 75 of 75 on the first full run (9.6 min): the 72 before, minus the old heatmap test, plus 4 new. Frame rates: heatmap fill-in 58.3 and 59.2 fps (two runs); every older moment still 58.5-60.
+- Windows build (GitHub):
+  - Run 41955258092 (the first code push, before the new click tests): **passed**.
+  - Run 41955553198 (final app code with the new click tests): WINDOWS_RESULT
 
 ## What I looked at (by eye)
-- (filled in below)
+- Before: `07-heatmap` from R13: flat orange, gold and green blocks with dark words, "Green = you know it. Red = it is fading... Grey = you have not been quizzed on it yet." (wrong since R01: new tiles weren't grey), no legend, nothing to tap.
+- After (620 x 960 checks, then the gallery at 620 x 960 and 1280 x 800):
+  - `07-heatmap`: the label, title and help; the legend (Strong 2, Okay 4, Fading 3, New 24); B71 and n77 glow green and brightest, the gold ones less, the red ones faintly; every quizzed tile has bars and a %; the new tiles are dim dashed outlines. The mmWave row starts just above the tab bar at 960 px and scrolls; the wide picture keeps the 440 px column.
+  - `34-heatmap-fill`: caught 0.33 s in: the first tiles full and glowing, n25 half-filled from the bottom, the later ones (B66, n41, n77) still empty outlines. They really fill one after another.
+  - `35-heatmap-sheet`: B71's sheet over the dark scrim: "Strong · 90% remembered" with 4 green bars, "34 questions ask about it", 15 lessons: two done (green check), the next one (blue outline and tower), then quiet locked lines with their unit.
+- Frame by frame (3 pictures 130 ms apart): the fill starts as the tab glide settles; the first try started during the glide, so it now waits 0.15 s.
+- Fixed from the first look: B71 showed "90%" but was called "Okay" (89.6%); levels now go by the whole % shown. The sheet listed 15 big rows for B71; locked lessons are now short lines, so 15 fit with only a little scrolling.
+- **Still looks weak:**
+  - The gold "okay" fill reads a little olive-brown on the dark blue (idea I52).
+  - A fading tile's sheet only says the daily review brings it back; it can't start a review of just that band yet (I53).
+  - The sheet's done lessons don't show their stars (I54).
 
 ## What's next
 - Next task: T59, session R15 (Settings). Large (Opus), High effort. The robot picks it up by itself.
@@ -42,7 +56,7 @@ The Heatmap tab now looks like a glowing control panel. Every band is a tile, an
 - Scrim, glow layer (and the Heatmap entry updated).
 
 ## Approvals and blocks
-- (filled in below)
+- Nothing asked for approval; nothing was blocked. Panel not republished (robot run): `panel/live.json` updated and `panel/index.html` rebuilt. No old chats to put away (all already archived).
 
 ## Notes for the next Claude
 - A sheet with `onClose` catches Esc in the capture step and stops it; anything else listening for Esc on `window` won't see it while that sheet is open.
