@@ -25,7 +25,7 @@ When you get an answer right, three little lights go off: the right answer glows
 - The new test, 3 runs: pop 83 ms, glow 83 ms, ring 83 ms, spark 83 ms after the answer (all in the same frame); peaks: glow 0.96-0.99, ring 0.86-0.89, spark 0.91-0.94; 60.0 fps.
 - **It bites:** the same test on the old code (`main`'s `src/`) fails: pop 0 ms, glow 0 ms, ring 0 ms, and no spark at all on the answer.
 - First try of the new code also failed it (the ring at 0 ms, see the trap above); fixed, then 3 passes.
-- Windows build on GitHub: still stopped (T62), so not run.
+- Windows build on GitHub (run 42089573259): **failed in 5 seconds with no log**, the job never got a computer, the same as every run since 09:17 UTC (T62). Not caused by this change.
 - Panel not republished (robot run).
 
 ## What I looked at (by eye)
