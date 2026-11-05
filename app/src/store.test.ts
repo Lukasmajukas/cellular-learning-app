@@ -45,8 +45,9 @@ describe('save file', () => {
     const st = createStore(dir, clock);
     st.save({ progress: { a: 2 } });
     writeFileSync(st.file, '{ this is not json');
-    const { state, recovered } = createStore(dir, clock).load();
+    const { state, recovered, backupDay } = createStore(dir, clock).load();
     expect(recovered).toBe(true); expect(state.progress).toEqual({ a: 2 });
+    expect(backupDay).toBe('2026-11-01'); // R13: the notice says which day's backup it was
     expect(readdirSync(dir).some(n => n.startsWith('save.damaged-'))).toBe(true);
     expect(JSON.parse(readFileSync(st.file, 'utf8')).progress).toEqual({ a: 2 });
   });

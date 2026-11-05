@@ -81,20 +81,20 @@ function createStore(dir, clock = () => new Date()) {
   function load() {
     fs.mkdirSync(dir, { recursive: true });
     let data = readJson(file);
-    let recovered = false;
+    let recovered = false, backupDay = null;
     if (data === null && fs.existsSync(file)) {
       // The save file is damaged: keep it aside, then try the newest backup that reads fine.
       fs.renameSync(file, path.join(dir, `save.damaged-${Date.now()}.json`));
       for (const n of listBackups().reverse()) {
         data = readJson(path.join(backupDir, n));
-        if (data !== null) { recovered = true; break; }
+        if (data !== null) { recovered = true; backupDay = n.slice(5, 15); break; } // save-YYYY-MM-DD.json
       }
     }
     const state = normalize(data);
     if (data !== null && recovered) writeAtomic(file, JSON.stringify(state, null, 2));
     // First start of the day: take the daily backup (only if there is something to back up).
     if (fs.existsSync(file) && !fs.existsSync(path.join(backupDir, `save-${today(clock())}.json`))) backup();
-    return { state, recovered };
+    return { state, recovered, backupDay };
   }
 
   function save(state) {

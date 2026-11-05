@@ -4,11 +4,11 @@
 //                 node tools/gallery.mjs --icons-only     (just the icon sheet, 00-icons.webp; no build needed)
 //                 node tools/gallery.mjs --types-only     (just the other question types, 18-27; build first; keeps the rest)
 // It starts the real Electron app with a made-up save file (3 lessons done, a 4-day streak, some reviews due),
-// the other question types (18-27, from R10), a comeback question (28, from R11), shows the building blocks page (#blocks, from R03; Beacon's faces 16, 17 from R17), the Review tab (13, from R04), the top bar mid-moment and the repair card (14, 15, from R07),
+// the other question types (18-27, from R10), a comeback question (28, from R11), the Review tab's looks and the notices (30-33, from R13), shows the building blocks page (#blocks, from R03; Beacon's faces 16, 17 from R17), the Review tab (13, from R04), the top bar mid-moment and the repair card (14, 15, from R07),
 // draws a sheet of all our icons (00-icons), visits each screen at the owner's window size (620 x 960) and a wide one (1280 x 800), and saves small WebP files.
 // In the cloud (Linux with no screen) it restarts itself inside xvfb-run, a pretend screen.
 import { _electron as electron } from 'playwright';
-import { mkdtempSync, writeFileSync, mkdirSync, rmSync, readdirSync, existsSync } from 'node:fs';
+import { mkdtempSync, writeFileSync, mkdirSync, rmSync, readdirSync, existsSync, readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -47,9 +47,10 @@ function seedSave(dir, game = {}, progress = { 'unit01-l1': 3, 'unit01-l2': 3, '
   writeFileSync(join(dir, 'save.json'), JSON.stringify(save));
 }
 
-async function launch(env, game, progress) {
+async function launch(env, game, progress, edit) {
   const dir = mkdtempSync(join(tmpdir(), 'cell-gallery-'));
   seedSave(dir, game, progress);
+  edit?.(dir); // R13: change the save after seeding (all clear, a damaged file)
   const app = await electron.launch({ cwd: APP, args: ['.', '--no-sandbox'], env: { ...process.env, CELL_SAMPLE_PATH: '', CELL_DATA_DIR: dir, ...env } });
   const w = await app.firstWindow();
   await w.waitForLoadState('domcontentloaded');
@@ -217,6 +218,45 @@ async function repairScreen(s) {
   await app.close();
 }
 
+// R13: the Review tab's scope caught mid-pop (the blips popping in one after another), its "all clear" look, the
+// "This changed" card (a made-up change, through the test door CELL_TEST_CHANGES), and "your progress is safe" (a
+// damaged save file, restored from yesterday's backup).
+async function reviewAndNotices(s) {
+  let { app, w } = await launch({});
+  await resize(app, s);
+  await w.getByTestId('path-count').waitFor();
+  await w.getByTestId('tab-review').click();
+  await shot(w, '30-review-blips', s, 260);
+  await app.close();
+  const clear = dir => {
+    const f = join(dir, 'save.json'), save = JSON.parse(readFileSync(f, 'utf8'));
+    Object.values(save.reviews).forEach((r, i) => { r.due = Date.now() + (5 + i * 9) * 3_600_000; });
+    writeFileSync(f, JSON.stringify(save));
+  };
+  ({ app, w } = await launch({}, {}, undefined, clear));
+  await resize(app, s);
+  await w.getByTestId('tab-review').click();
+  await shot(w, '31-review-clear', s);
+  await app.close();
+  const change = { id: 'gallery-1', date: '2026-10-28', title: 'A made-up change (for the gallery)', text: 'When a carrier fact changes, a card like this shows once, and the questions about it come back for review.',
+    source: 'Made up for this picture', questions: ['u1-4g5g-01', 'u1-twin-01'] };
+  ({ app, w } = await launch({ CELL_TEST_CHANGES: JSON.stringify([change, { ...change, id: 'gallery-2' }]) }));
+  await resize(app, s);
+  await w.getByTestId('change-card').waitFor();
+  await shot(w, '32-change-card', s, 600);
+  await app.close();
+  const damage = dir => {
+    mkdirSync(join(dir, 'backups'), { recursive: true });
+    writeFileSync(join(dir, 'backups', `save-${today(new Date(Date.now() - DAY))}.json`), readFileSync(join(dir, 'save.json')));
+    writeFileSync(join(dir, 'save.json'), '{ damaged');
+  };
+  ({ app, w } = await launch({}, {}, undefined, damage));
+  await resize(app, s);
+  await w.getByTestId('notice').waitFor();
+  await shot(w, '33-restored-notice', s, 600);
+  await app.close();
+}
+
 // The building blocks page (R03, #blocks in the app): the top (buttons, pills, switches), the answer tiles and Beacon's bubble,
 // the "Not quite" bottom sheet slid up, and Beacon's faces (R17).
 async function blocksScreens(s) {
@@ -265,5 +305,5 @@ console.log(`Gallery -> ${OUT}`);
 if (typesOnly) { for (const s of SIZES) await typeScreens(s); console.log('Done.'); process.exit(0); }
 await iconSheet();
 if (process.argv.includes('--icons-only')) process.exit(0);
-for (const s of SIZES) { await realScreens(s); await completeScreen(s); await comebackScreen(s); await repairScreen(s); await blocksScreens(s); await typeScreens(s); }
+for (const s of SIZES) { await realScreens(s); await completeScreen(s); await comebackScreen(s); await repairScreen(s); await reviewAndNotices(s); await blocksScreens(s); await typeScreens(s); }
 console.log('Done.');

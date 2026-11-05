@@ -79,3 +79,16 @@ describe('building blocks: Reduce motion is read live', () => {
       expect(readFileSync(join(SRC, 'ui', f), 'utf8'), f).toContain('useCalm()');
   });
 });
+
+describe('the Review tab and the notices (R13)', () => {
+  it('are built from the blocks, read Reduce motion live, and pause the sweep when the window is hidden', () => {
+    const review = readFileSync(join(SRC, 'ReviewScreen.tsx'), 'utf8'), notices = readFileSync(join(SRC, 'Notices.tsx'), 'utf8');
+    for (const [f, code] of [['ReviewScreen.tsx', review], ['Notices.tsx', notices]]) {
+      expect(code, f).toMatch(/from '\.\/ui'/); expect(code, f).toContain('useCalm()'); expect(code, f).not.toMatch(/<button/);
+    }
+    expect(review).toContain('useAwake()');
+  });
+  it('the notice colours are readable: the restored notice\'s words on its background, Night and Day', () => {
+    for (const p of [NIGHT, DAY]) expect(contrast(p.notice, p.noticeBg)).toBeGreaterThanOrEqual(4.5);
+  });
+});

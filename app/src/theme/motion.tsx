@@ -207,6 +207,41 @@ export const COMPLETE = {
   barGap: 0.1,                                                             // ... one by one
   barKeys: { transform: ['scaleY(0)', 'scaleY(1)'] },
 }; // not "as const": Motion wants plain (changeable) keyframe lists
+// The Review tab, "drive test" (redesign R13). A round radar scope with one blip for each question waiting:
+// - the blips pop in one after another (the "bouncy" spring, 60 ms apart, all started within 400 ms), only the first time
+//   you see them after the app starts, or when new questions have come due since (movement explains: "these are new");
+// - while questions are due, a soft sweep turns round the scope: the screen's ONE background loop (DESIGN.md allows 2),
+//   a whole `transform: rotate`, 4 s a turn, paused while the window is hidden (idea I03, on the Review tab).
+// With Reduce motion nothing moves: the blips are simply there and the sweep stands still.
+export const SCOPE = {
+  blip: { ...SPRING.bouncy },                                              // a blip popping in (its delay: popInDelay)
+  blipKeys: { transform: ['scale(0)', 'scale(1)'], opacity: [0, 1] },
+  sweep: { duration: 4, repeat: Infinity, ease: 'linear' as const },       // one turn of the sweep (2-4 s, a background loop)
+  sweepKeys: { transform: ['rotate(0deg)', 'rotate(360deg)'] },
+}; // not "as const": Motion wants plain (changeable) keyframe lists
+
+// Notices at the top of the frame (R13): the "This changed" card and "your save was restored". A notice slides down a
+// little and fades in (small feedback); "Got it" or the close button fades it out and lifts it, THEN the page under it
+// glides up into the space instead of jumping (`shift`, a layout move: Motion does it with a transform). One after the
+// other, because together the page slid up through the fading card and their words overlapped (seen in R13's pictures).
+// A card that takes another one's place waits for it to fade, too.
+// With Reduce motion: a quick fade in, gone at once, and the page moves up at once.
+const NOTICE_OUT = 0.2;
+export const NOTICE = {
+  in: { duration: TIME.feedback, delay: NOTICE_OUT, ease: EASE.out },
+  out: { duration: NOTICE_OUT, ease: EASE.in },
+  from: { opacity: 0, y: -12 },
+  to: { opacity: 1, y: 0 },
+  gone: { opacity: 0, y: -8, scale: 0.98 },
+  shift: { duration: TIME.screenIn, delay: NOTICE_OUT, ease: EASE.out },
+};
+export function noticeMotion(calm: boolean) {
+  return calm
+    ? { initial: { opacity: 0 }, animate: { opacity: 1, transition: QUICK_FADE }, exit: { opacity: 0, transition: INSTANT } }
+    : { initial: NOTICE.from, animate: { ...NOTICE.to, transition: NOTICE.in }, exit: { ...NOTICE.gone, transition: NOTICE.out } };
+}
+export const noticeShift = (calm: boolean) => (calm ? INSTANT : NOTICE.shift);
+
 // When the k-th of a row (stars, bars, rings) starts.
 export const nth = <T extends { delay: number }>(t: T, k: number, gap: number): T => ({ ...t, delay: t.delay + k * gap });
 

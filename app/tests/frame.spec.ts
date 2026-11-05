@@ -39,6 +39,10 @@ const between = (vs: number[], end = vs[vs.length - 1]) => vs.filter(v => Math.a
 
 test('switching tabs doesn\'t shift the frame sideways, even when only one tab needs a scrollbar (design review 1)', async () => {
   const { app, w } = await launch();
+  // The owner's window height (960): the Review tab fits without a scrollbar there, the path doesn't. (R13 made the
+  // Review tab taller than the test window's 760 px, so every tab scrolled at that size and the case was gone.)
+  await app.evaluate(({ BrowserWindow }) => BrowserWindow.getAllWindows()[0].setContentSize(480, 960));
+  await w.waitForTimeout(300);
   const where = async () => ({ top: (await w.getByTestId('hud').boundingBox())!.x, tabs: (await w.getByTestId('tab-path').boundingBox())!.x,
     scrolls: await w.evaluate(() => document.documentElement.scrollHeight > innerHeight) });
   const path = await where();
@@ -76,11 +80,12 @@ test('the app frame: a top bar that stays put, four tabs big enough to tap, and 
   await w.waitForTimeout(100);
   const last = (await w.locator('[data-testid^=lesson-]').last().boundingBox())!;
   expect(last.y + last.height).toBeLessThan(bar.y);
-  // Review tab: nothing due on a fresh save, so the start button is off.
+  // Review tab: nothing to review on a fresh save, so instead of a start button it offers the path (R13).
   await w.getByTestId('tab-review').click();
   await expect(w.getByTestId('review-screen')).toBeVisible();
-  await expect(w.getByTestId('review-count')).toHaveText('Nothing due today');
-  await expect(w.getByTestId('review-start')).toBeDisabled();
+  await expect(w.getByTestId('review-count')).toHaveText('Nothing to review yet');
+  await expect(w.getByTestId('review-start')).toHaveCount(0);
+  await expect(w.getByTestId('review-path')).toBeEnabled();
   await expect(w.getByTestId('tab-review')).toHaveAttribute('aria-current', 'page');
   await expect(w.getByTestId('tab-review-badge')).toHaveCount(0);
   await w.screenshot({ path: 'test-results/r04-review.png' });
