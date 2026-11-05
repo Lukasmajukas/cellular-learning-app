@@ -1,7 +1,7 @@
 # Handoff note: 2026-11-05, T59 redesign R20 (Day look)
 <!-- File name: docs/sessions/YYYY-MM-DD-session-N-short-name.md (N = the highest session number so far + 1) -->
 
-**Status:** IN PROGRESS <!-- change to DONE when the chat finishes -->
+**Status:** DONE (the work); the Windows check is BLOCKED on GitHub, see "Approvals and blocks"
 **Model used:** Large (Opus), High effort (a Sonnet robot run claimed it and handed it to this Opus chat) · **Branch / pull request:** claude/robot-t59-r20, #144
 
 ## In simple words (for the owner)
@@ -17,12 +17,15 @@ The light "Day" look is finished. In ⚙️ Settings, Look: Day turns every scre
 - **Docs:** `DESIGN.md` (a "Day, finished" part, `streakBg` in the token table, the heatmap fill), `PLAN.md` (R20 ✅), `IDEAS.md` (I56 and I52 ticked; I66, I67, I68 added), the gallery's README.
 
 ## Test results
-- (filled in below when the runs finish)
+- Unit tests: 225 pass (+4: the saved look read before the window opens, the window colours equal the `bg` tokens, the look fade's timing, the heatmap fills). TypeScript OK. Content checker OK (253 facts, 27 photos, 635 questions; `content/` untouched).
+- Click tests (cloud): 98 of 98 on the first full run (11.8 min): the 91 before plus 7 new (`lookcontrast.spec.ts` 3, `daylook.spec.ts` 4). Lowest frame rate measured: 55.9 fps (bar 50); the look fade: 60 fps, 300 ms on screen (150 ms with Reduce motion).
+- Contrast on the real screens: Night and Day both pass on all 20 screens (757 pieces of text in each look); the self-check made the quiet words faint and the test caught 81 of 98.
+- **Windows build (GitHub): could not run.** Runs 161, 162 and 163 (all three pushes) stopped after 3 seconds with no computer given to them ("runner 0", no log). The same happened to run 159 (R19's last push) and run 160 (R19 on `main`), from 09:17 UTC, before this session changed anything. So it's GitHub, not the code. See "Approvals and blocks".
 
 ## What I looked at (by eye)
 - "Before": the whole gallery in Day, taken with the old code into a scratch folder (Day was never photographed beyond two screens).
 - After, in Day: `01-path-map` (both sizes), `04-feedback-wrong`, `06-lesson-complete`, `07-heatmap` (the okay tiles are a clean warm cream now), `13-review`, `15-repair-card`, `18-learn-card`, `23-order-wrong`, `26-photo`, `29-lesson-complete-burst`, `32-change-card`, `35-heatmap-sheet`, `38-look-change` (Day fading into Night, caught halfway), `00-icons`, `10-blocks` and `16-beacon` (now in Day; before, these showed Night).
-- After, in Night: (filled in below)
+- After, in Night: `07-heatmap` (the okay tiles are a warm dark amber, no more olive), `08-settings` (unchanged), `38-look-change` (Night fading into Day), `00-icons` (now all six rows; the first row was cut off since R02). The other Night pictures were retaken too; nothing else changed on them.
 - **Still looks weak:** in Day the glows (the burst's rings, the current lesson's halo, the heatmap glows) are faint on white, so they read as soft tints more than light (fine, but less magic than Night); the scrim behind the heatmap sheet washes the page almost white (I66); halfway through the look change the colours mix into a flat grey for a moment (I68).
 
 ## What's next
@@ -36,13 +39,15 @@ The light "Day" look is finished. In ⚙️ Settings, Look: Day turns every scre
 - New token `streakBg`; the heatmap's fills are the three "Bg" tokens (I52).
 
 ## Questions for the owner
-- None needed. Optional: try ⚙️ Settings, Look: Day, and say in any chat if anything is hard to read or looks off.
+- T62: please look at your GitHub Actions minutes (GitHub, Settings, Billing). The Windows build can't run until they're back.
+- Otherwise none needed. Optional: try ⚙️ Settings, Look: Day, and say in any chat if anything is hard to read or looks off.
 
 ## New words (also added to GLOSSARY.md)
 - WCAG, First paint, Main process.
 
 ## Approvals and blocks
-- Nothing asked for approval; nothing was blocked. Panel not republished (robot run): `panel/live.json` updated and `panel/index.html` rebuilt.
+- Nothing asked for approval. Panel not republished (robot run): `panel/live.json` updated and `panel/index.html` rebuilt.
+- **BLOCKED: the Windows build check** (PLAN.md checklist step 3). GitHub Actions gives the build no computer since 09:17 UTC (most likely the account's free monthly Actions minutes are used up; only the owner can see or change billing). Not a failed try: the work passed every check that could run. Following `docs/WORKFLOW.md` G7, it's merged anyway, with a "You" row (T62). When the build works again, the next chat runs it on `main` by hand (`workflow_dispatch`) to check R19 and R20 together.
 
 ## Notes for the next Claude
 - Gallery in Day: `npm run gallery -- --look day` (or `node tools/gallery.mjs --look day` after a build); it writes `docs/redesign/gallery/latest/day/`. The Night run (no option) only clears `.webp` files in `latest/` itself, not in `day/`.
