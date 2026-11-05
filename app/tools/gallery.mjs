@@ -4,7 +4,7 @@
 //                 node tools/gallery.mjs --icons-only     (just the icon sheet, 00-icons.webp; no build needed)
 //                 node tools/gallery.mjs --types-only     (just the other question types, 18-27; build first; keeps the rest)
 // It starts the real Electron app with a made-up save file (3 lessons done, a 4-day streak, some reviews due),
-// the other question types (18-27, from R10), a comeback question (28, from R11), the Review tab's looks and the notices (30-33, from R13), the heatmap filling in and its lessons sheet (34, 35, from R14), shows the building blocks page (#blocks, from R03; Beacon's faces 16, 17 from R17), the Review tab (13, from R04), the top bar mid-moment and the repair card (14, 15, from R07),
+// the other question types (18-27, from R10), a comeback question (28, from R11), the Review tab's looks and the notices (30-33, from R13), the heatmap filling in and its lessons sheet (34, 35, from R14), Settings mid-sample, its bottom and in Day (36-38, from R15), shows the building blocks page (#blocks, from R03; Beacon's faces 16, 17 from R17), the Review tab (13, from R04), the top bar mid-moment and the repair card (14, 15, from R07),
 // draws a sheet of all our icons (00-icons), visits each screen at the owner's window size (620 x 960) and a wide one (1280 x 800), and saves small WebP files.
 // In the cloud (Linux with no screen) it restarts itself inside xvfb-run, a pretend screen.
 import { _electron as electron } from 'playwright';
@@ -119,7 +119,7 @@ async function realScreens(s) {
   await w.getByTestId('review-screen').waitFor();
   await shot(w, '13-review', s);
   await w.getByTestId('tab-settings').click();
-  await w.getByTestId('set-day').check();
+  await w.getByTestId('set-look-day').click();
   await w.getByTestId('tab-path').click();
   await shot(w, '09-path-map-day', s);
   await app.close();
@@ -275,6 +275,26 @@ async function heatScreens(s) {
   await app.close();
 }
 
+// R15: the Settings tab mid-sample (the speaker's glow and its first ring going out), scrolled to the bottom (look,
+// progress, keys), and in the early Day look.
+async function settingsScreens(s) {
+  const { app, w } = await launch({});
+  await resize(app, s);
+  await w.getByTestId('path-count').waitFor();
+  await w.getByTestId('tab-settings').click();
+  await w.getByTestId('settings').waitFor();
+  await w.waitForTimeout(900);
+  await w.getByTestId('sound-sample').click();
+  await shot(w, '36-settings-sample', s, 200);
+  await w.waitForTimeout(900);
+  await w.getByTestId('set-card-keys').scrollIntoViewIfNeeded();
+  await shot(w, '37-settings-bottom', s, 400);
+  await w.getByTestId('set-look-day').click();
+  await w.evaluate(() => window.scrollTo(0, 0));
+  await shot(w, '38-settings-day', s, 500);
+  await app.close();
+}
+
 async function blocksScreens(s) {
   const { app, w } = await launch({});
   await resize(app, s);
@@ -321,5 +341,5 @@ console.log(`Gallery -> ${OUT}`);
 if (typesOnly) { for (const s of SIZES) await typeScreens(s); console.log('Done.'); process.exit(0); }
 await iconSheet();
 if (process.argv.includes('--icons-only')) process.exit(0);
-for (const s of SIZES) { await realScreens(s); await completeScreen(s); await comebackScreen(s); await repairScreen(s); await reviewAndNotices(s); await heatScreens(s); await blocksScreens(s); await typeScreens(s); }
+for (const s of SIZES) { await realScreens(s); await completeScreen(s); await comebackScreen(s); await repairScreen(s); await reviewAndNotices(s); await heatScreens(s); await settingsScreens(s); await blocksScreens(s); await typeScreens(s); }
 console.log('Done.');

@@ -16,7 +16,7 @@ test('progress and settings survive closing and reopening, and a backup exists',
   await expect(w.getByTestId('path-count')).toHaveText('1 of 7 lessons done');
   await w.getByTestId('tab-settings').click();
   await w.getByTestId('set-sounds').uncheck();
-  await w.getByTestId('set-day').check();
+  await w.getByTestId('set-look-day').click();
   await w.getByTestId('backup-now').click();
   await expect(w.getByTestId('settings-note')).toContainText('Backup saved: save-');
   await w.screenshot({ path: 'test-results/settings.png' });
@@ -35,7 +35,7 @@ test('progress and settings survive closing and reopening, and a backup exists',
   await expect(w.getByTestId('streak')).toHaveText('1');
   await w.getByTestId('tab-settings').click();
   await expect(w.getByTestId('set-sounds')).not.toBeChecked();
-  await expect(w.getByTestId('set-day')).toBeChecked();
+  await expect(w.getByTestId('set-look-day')).toHaveAttribute('aria-checked', 'true');
   await expect(w.locator('html')).toHaveAttribute('data-look', 'day');
   await app.close();
 });

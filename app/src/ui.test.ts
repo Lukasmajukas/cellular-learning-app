@@ -71,6 +71,14 @@ describe('building blocks: used, and used properly', () => {
     // (R04: no <IconButton> any more: Settings became a tab, so its back button went; the Path tab and Esc go back.)
     for (const block of ['<Switch', '<Card', '<PillChoice', '<Button']) expect(code).toContain(block);
   });
+  it('R15: every settings row has its own icon (idea I11), the look is a Night / Day choice, and the sample reads Reduce motion live', () => {
+    const code = readFileSync(join(SRC, 'SettingsScreen.tsx'), 'utf8');
+    const rows = code.match(/<Row\s/g)!.length;
+    expect(rows).toBeGreaterThanOrEqual(8);
+    expect(code.match(/<RowIcon\s/g)!.length).toBe(rows); // one icon per row (the Row type also requires one)
+    expect(code).toMatch(/testId="set-look"/); expect(code).toMatch(/value: 'night'/); expect(code).toMatch(/value: 'day'/);
+    expect(code).toContain('useCalm()'); expect(code).toContain('playSample()');
+  });
 });
 
 describe('building blocks: Reduce motion is read live', () => {

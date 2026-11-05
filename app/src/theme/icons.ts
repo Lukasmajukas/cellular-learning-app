@@ -50,6 +50,15 @@ export const ICONS = {
   search: { lines: [circle(10.5, 10.5, 6), 'M15 15l5.5 5.5'] },
   // A picture frame with a hill and a sun: a photo.
   image: { lines: [box(3, 5, 18, 14, 2.5), 'M3.5 17l5-5 4 4 2.5-2.5 5.5 5'], dots: [[15.5, 9.5, 1.6]] },
+  // Settings rows (R15, idea I11): play a sample, reduce motion, frame rate, daily goal, the two looks, backup, the save file's folder.
+  play: { lines: ['M8 5.5v13l10.5-6.5z'] },
+  motion: { lines: [circle(15.5, 12, 5), 'M2.5 8.5h5', 'M2 12h5', 'M2.5 15.5h5'] },
+  gauge: { lines: ['M5.6 18.4a9 9 0 1 1 12.8 0', 'M12 13.5l4-4.5'], dots: [[12, 13.5, 1.6]] },
+  target: { lines: [circle(12, 12, 8.5), circle(12, 12, 4.5)], dots: [[12, 12, 1.5]] },
+  moon: { lines: ['M19.5 14.5A8 8 0 1 1 9.5 4.5a6.2 6.2 0 0 0 10 10z'] },
+  sun: { lines: [circle(12, 12, 4), 'M12 2.5v2', 'M12 19.5v2', 'M2.5 12h2', 'M19.5 12h2', 'M5.3 5.3l1.4 1.4', 'M17.3 17.3l1.4 1.4', 'M5.3 18.7l1.4-1.4', 'M17.3 6.7l1.4-1.4'] },
+  backup: { lines: ['M12 3.5v10', 'M7.5 9.5 12 14l4.5-4.5', 'M4.5 15v3a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-3'] },
+  folder: { lines: ['M3.5 7a2 2 0 0 1 2-2h4l2 2.5h7a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z'] },
 } satisfies Record<string, IconShape>;
 
 export type IconName = keyof typeof ICONS;
