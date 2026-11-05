@@ -104,6 +104,9 @@ test('one main button: "Back to the path" (green, full width, Enter), "Again" qu
   const fin = w.getByTestId('finish'), again = w.getByTestId('again');
   await expect(fin).toHaveAttribute('data-kind', 'onAir');
   await expect(again).toHaveAttribute('data-kind', 'quiet');
+  // I59: "Again" has its own one-arrow restart icon; the two-arrow repeat icon means review only.
+  await expect(again.locator('svg[data-icon=restart]')).toBeVisible();
+  await expect(again.locator('svg[data-icon=repeat]')).toHaveCount(0);
   const f = (await fin.boundingBox())!, a = (await again.boundingBox())!;
   expect(a.y, '"Again" sits under the main button').toBeGreaterThan(f.y + f.height);
   expect(f.height).toBeGreaterThan(a.height);

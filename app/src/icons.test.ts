@@ -52,3 +52,25 @@ describe('the icon set', () => {
     }
   });
 });
+
+// Idea I59 (design review 2): one icon, one meaning. The two-arrow "repeat" means review and nothing else;
+// "Again" on lesson complete (play this lesson from the start) has its own one-arrow "restart".
+describe('repeat means review, restart means again (I59)', () => {
+  const uses = (name: string) => screens.flatMap(f => withoutComments(readFileSync(f, 'utf8')).split('\n')
+    .filter(l => l.includes(`"${name}"`) || l.includes(`'${name}'`)).map(l => `${relative(APP, f)}: ${l.trim()}`));
+  it('restart is its own drawing, not a copy of repeat', () => {
+    expect(ICON_NAMES).toContain('restart');
+    expect(ICONS.restart.lines).not.toEqual(ICONS.repeat.lines);
+  });
+  it('"Again" uses restart', () => {
+    const again = uses('again');
+    expect(again.length).toBeGreaterThan(0);
+    for (const l of again) { expect(l).toContain('icon="restart"'); expect(l).not.toContain('"repeat"'); }
+  });
+  it('every repeat icon sits on a review thing (the tab, the daily review, Start the review, a review row or pill, Comeback)', () => {
+    const rep = uses('repeat').filter(l => /icon[=:]\s*["']repeat|name="repeat"/.test(l));
+    expect(rep.length).toBeGreaterThanOrEqual(6);
+    for (const l of rep) expect(l, l).toMatch(/review|Review|comeback|due/);
+  });
+});
+
