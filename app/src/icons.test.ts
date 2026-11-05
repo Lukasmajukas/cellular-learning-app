@@ -34,6 +34,9 @@ describe('the icon set', () => {
     for (const n of ['flame', 'bolt', 'tower', 'lock', 'check', 'cross', 'waves', 'mapPin', 'repeat', 'grid', 'gear', 'star', 'freeze', 'repair', 'back', 'close', 'soundOn', 'soundOff', 'info', 'chevron'])
       expect(ICON_NAMES).toContain(n);
   });
+  it('has an icon for every settings row (R15, idea I11)', () => {
+    for (const n of ['play', 'motion', 'gauge', 'target', 'moon', 'sun', 'backup', 'folder']) expect(ICON_NAMES).toContain(n);
+  });
   it('every icon has at least one line, and every number stays inside the 24 x 24 grid', () => {
     for (const n of ICON_NAMES) {
       const s = ICONS[n] as { lines: string[]; dots?: [number, number, number][] };

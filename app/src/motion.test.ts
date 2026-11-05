@@ -3,7 +3,8 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
-import { SPRING, TIME, PRESS, PRESS_BIG, PRESS_ROUND, PRESS_PILL, QUICK_FADE, INSTANT, LOOP, popInDelay, screenGlide, ON_AIR, BREATHE, waveDelay, popInQueue, TOP_BAR, barAt, FEEDBACK, questionGlide, COMPLETE, nth, SCOPE, NOTICE, noticeMotion, noticeShift, HEAT, SCRIM } from './theme/motion';
+import { SPRING, TIME, PRESS, PRESS_BIG, PRESS_ROUND, PRESS_PILL, QUICK_FADE, INSTANT, LOOP, popInDelay, screenGlide, ON_AIR, BREATHE, waveDelay, popInQueue, TOP_BAR, barAt, FEEDBACK, questionGlide, COMPLETE, nth, SCOPE, NOTICE, noticeMotion, noticeShift, HEAT, SCRIM, SAMPLE } from './theme/motion';
+import { SAMPLE_GAP, SAMPLE_LENGTH } from './sound';
 import { BEACON_SIZE } from './ui/Beacon';
 import { grew } from './ui/TopBar';
 
@@ -277,5 +278,18 @@ describe('the Heatmap tab (R14)', () => {
   });
   it('the scrim behind a closable sheet fades as small feedback', () => {
     expect(SCRIM.duration).toBeGreaterThanOrEqual(0.2); expect(SCRIM.duration).toBeLessThanOrEqual(0.3);
+  });
+});
+
+describe('Settings: the sound sample (R15)', () => {
+  it('a ring goes out with each tone: transform and see-through-ness only, growing and fading to nothing, no loop', () => {
+    expect(Object.keys(SAMPLE.from).sort()).toEqual(['opacity', 'scale']); expect(Object.keys(SAMPLE.to).sort()).toEqual(['opacity', 'scale']);
+    expect(SAMPLE.to.scale).toBeGreaterThan(SAMPLE.from.scale); expect(SAMPLE.to.opacity).toBe(0);
+    expect(SAMPLE.ring).not.toHaveProperty('repeat');
+  });
+  it('the second ring starts with the second tone, and both rings are gone within a celebration time', () => {
+    expect(SAMPLE.gap).toBe(SAMPLE_GAP);
+    expect(SAMPLE.gap + SAMPLE.ring.duration).toBeLessThanOrEqual(TIME.celebration);
+    expect(SAMPLE_LENGTH).toBeGreaterThan(SAMPLE_GAP); expect(SAMPLE_LENGTH).toBeLessThanOrEqual(1);
   });
 });

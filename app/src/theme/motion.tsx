@@ -258,6 +258,16 @@ export const HEAT = {
 // The dark layer behind a sheet you can close (R14: the heatmap's lessons sheet). Small feedback; with Reduce motion a quick fade.
 export const SCRIM = { duration: TIME.feedback, ease: EASE.out };
 
+// Settings (redesign R15). "Play a sample" shows the sound you hear: two soft rings go out from the speaker icon, one
+// with each tone (the "ding", then the "bup" 0.4 s later), growing to 1.9 times and fading, like a signal leaving a
+// tower. Transform and see-through-ness only; nothing loops. With Reduce motion: no rings, the icon's glow layer fades
+// in for the sample and back out (a quick fade).
+export const SAMPLE = {
+  ring: { duration: 0.6, ease: EASE.out },
+  gap: 0.4,                                                                // the second ring, with the second tone
+  from: { scale: 1, opacity: 0.8 }, to: { scale: 1.9, opacity: 0 },
+};
+
 // When the k-th of a row (stars, bars, rings) starts.
 export const nth = <T extends { delay: number }>(t: T, k: number, gap: number): T => ({ ...t, delay: t.delay + k * gap });
 

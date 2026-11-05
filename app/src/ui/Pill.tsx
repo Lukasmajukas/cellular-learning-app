@@ -28,9 +28,9 @@ export function StatChip({ icon, tone, iconLabel, children, style, ...rest }: { 
 }
 
 // One choice out of a few, as a row of pills (like the daily goal: 1, 2, 3 or 5). Arrow keys move between them.
-// `testId` goes on the group; each pill gets `<testId>-<value>`.
+// `testId` goes on the group; each pill gets `<testId>-<value>`. An option may have an icon before its words (R15: Night / Day).
 export function PillChoice<T extends string | number>({ label, options, value, onChange, testId }:
-  { label: string; options: { value: T; text: string }[]; value: T; onChange: (v: T) => void; testId?: string }) {
+  { label: string; options: { value: T; text: string; icon?: IconName }[]; value: T; onChange: (v: T) => void; testId?: string }) {
   const move = (e: KeyboardEvent, i: number) => {
     const step = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
     if (!step) return;
@@ -41,18 +41,18 @@ export function PillChoice<T extends string | number>({ label, options, value, o
   };
   return (
     <div role="radiogroup" aria-label={label} data-testid={testId} style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-      {options.map((o, i) => <PillButton key={String(o.value)} on={o.value === value} testId={testId && `${testId}-${o.value}`}
-        onClick={() => onChange(o.value)} onKeyDown={e => move(e, i)}>{o.text}</PillButton>)}
+      {options.map((o, i) => <PillButton key={String(o.value)} on={o.value === value} code={typeof o.value === 'number'} testId={testId && `${testId}-${o.value}`}
+        onClick={() => onChange(o.value)} onKeyDown={e => move(e, i)}>{o.icon && <Icon name={o.icon} size={18} />}{o.text}</PillButton>)}
     </div>
   );
 }
 
-function PillButton({ on, testId, children, onClick, onKeyDown }: { on: boolean; testId?: string; children: ReactNode; onClick: () => void; onKeyDown: (e: KeyboardEvent) => void }) {
+function PillButton({ on, code, testId, children, onClick, onKeyDown }: { on: boolean; code: boolean; testId?: string; children: ReactNode; onClick: () => void; onKeyDown: (e: KeyboardEvent) => void }) {
   const t: { bg: TokenKey; fg: TokenKey; border?: TokenKey } = on ? PILL.signal : PILL.quiet;
   const press = usePress(true, PRESS_PILL);
   return (
     <motion.button type="button" role="radio" aria-checked={on} tabIndex={on ? 0 : -1} data-testid={testId} onClick={onClick} onKeyDown={onKeyDown} {...press}
-      style={{ minWidth: 44, height: 44, padding: '0 16px', borderRadius: RADIUS.pill, fontSize: 16, fontWeight: 700, ...mono, cursor: 'pointer',
+      style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 6, minWidth: 44, height: 44, padding: '0 16px', borderRadius: RADIUS.pill, fontSize: 16, fontWeight: 700, ...(code ? mono : {}), cursor: 'pointer',
         background: c[t.bg], color: c[t.fg], border: `1.5px solid ${c[t.border ?? t.bg]}` }}>{children}</motion.button>
   );
 }
