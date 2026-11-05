@@ -1,6 +1,6 @@
 # Handoff note: 2026-11-05, T59 redesign R13 (daily review and notices)
 
-**Status:** IN PROGRESS
+**Status:** DONE
 **Model used:** Large (Opus), High effort (a Sonnet robot run claimed it on 2026-11-04 and handed it to an Opus chat; that chat stopped on the 5-hour limit before starting, so this Opus chat took it over, 🟡) · **Branch / pull request:** claude/t59-r13-review-notices, #137
 
 ## In simple words (for the owner)
@@ -36,7 +36,9 @@ The Review tab is a "drive test" screen now. A round radar shows one purple dot 
 ## Test results
 - Unit tests: 196 pass (181 + 15). TypeScript OK. Content checker OK (253 facts, 27 photos, 635 questions; `content/` untouched).
 - Click tests: full run 71 of 72 on the first try (9.6 min). The one failure was `frame.spec.ts` "switching tabs doesn't shift the frame sideways": it needs a tab short enough not to scroll, and R13 made the Review tab taller than its 760 px window. My change caused it, and the test's point (no sideways shift between a tab with a scrollbar and one without) still holds, so the test now uses the owner's window height (960 px), where Review fits and the path scrolls. After that fix all 6 frame tests passed, so 72 of 72 (64 before + 5 + 3 new). Frame rates (cloud): Review tab blips and sweep 60.0 fps; notice glide-up 60.0 fps (both notices).
-- Windows build (GitHub): WINDOWS_PENDING
+- Windows build (GitHub):
+  - Run 41951092953 (first code push): **failed**, 71 of 72: the same frame test as in the cloud (fixed in the next push). Its test-picture upload also failed: "Artifact storage quota has been hit". That step runs only after a failure, so it can't fail a good build, but failed builds won't keep their pictures until GitHub recounts the storage (every 6-12 hours).
+  - Run 41952417347 (final code): **passed**. 196 unit tests, 72 of 72 click tests (10.4 min), and the installer. Windows frame rates: Review tab blips and sweep **57.2 fps**; notice glide-ups 64.0 fps (both notices); the older moments fine (lesson complete 61.9, coming on air 63.3, unit done 64.0, top bar 64.0, question glide 64.0, sheet 64.0).
 
 ## What I looked at (by eye)
 - Before: `13-review` from R12 (a "8 questions due" card with a blue button and a "How it works" text card; most of the screen empty). The change card and the restored notice had no gallery pictures before (never shown in tests: the changes list is empty).
