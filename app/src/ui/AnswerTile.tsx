@@ -8,6 +8,7 @@ import { animate } from 'motion/react';
 import { PRESS_BIG, FEEDBACK, useCalm } from '../theme/motion';
 import { usePress } from './press';
 import { useFeedback, Glow } from './feedback';
+import { play } from '../sound';
 
 // One answer you can pick, with its number key on the left (keys 1-4 start working in R04).
 // state: idle, selected (picked, not checked yet), paired (matched or placed, R10), right, wrong, dim (the others after checking).
@@ -16,8 +17,10 @@ import { useFeedback, Glow } from './feedback';
 // The right tile glows: the glow is its own layer and only its see-through-ness changes (DESIGN.md section 7).
 // R11: after Check the right tile pops a little while its glow flashes on, and a wrong one shakes gently (src/ui/feedback.tsx).
 // When `n` arrives later (a match tile taking its partner's number), its number box pops in.
-export function AnswerTile({ n, keyEmpty, state = 'idle', disabled, children, style, ...rest }:
-  Omit<HTMLMotionProps<'button'>, 'style' | 'children'> & { n?: number; keyEmpty?: boolean; state?: TileState; style?: CSSProperties; children?: ReactNode }) {
+// R19: a pick gives a very soft tap sound. `quiet`: no tap, for a tile whose click is the answer itself (pick one),
+// because the right or not-quite sound follows straight away.
+export function AnswerTile({ n, keyEmpty, quiet, state = 'idle', disabled, children, style, onClick, ...rest }:
+  Omit<HTMLMotionProps<'button'>, 'style' | 'children'> & { n?: number; keyEmpty?: boolean; quiet?: boolean; state?: TileState; style?: CSSProperties; children?: ReactNode }) {
   const t: { bg: keyof typeof c; fg: keyof typeof c; border: keyof typeof c; key: keyof typeof c } = TILE[state];
   const press = usePress(!disabled, PRESS_BIG), move = useFeedback(state), calm = useCalm();
   const key = useRef<HTMLSpanElement>(null), had = useRef(n);
@@ -27,6 +30,7 @@ export function AnswerTile({ n, keyEmpty, state = 'idle', disabled, children, st
   }, [n, calm]);
   return (
     <motion.button type="button" data-state={state} disabled={disabled} {...press} {...move} {...rest}
+      onClick={e => { if (!quiet) play('tap'); onClick?.(e); }}
       style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: 12, width: '100%', minHeight: 56, margin: '8px 0', padding: '12px 16px',
         boxSizing: 'border-box', textAlign: 'left', fontSize: 18, borderRadius: RADIUS.tile, border: `1.5px solid ${c[t.border]}`,
         background: c[t.bg], color: c[t.fg], cursor: disabled ? 'default' : 'pointer', ...style }}>

@@ -192,6 +192,7 @@ export const FEEDBACK = {
 // With Reduce motion nothing moves and no burst plays: the screen simply shows the result.
 const GROW_FROM = 58 / 112;                                                // BEACON_SIZE.question / BEACON_SIZE.complete
 export const COMPLETE = {
+  sound: 0.1,                                                              // R19: the lesson-complete sound, with the burst's first ring
   grow: { ...SPRING.bouncy, delay: 0 },                                    // Beacon growing (I34) ...
   growKeys: { transform: [`scale(${GROW_FROM.toFixed(3)})`, 'scale(1)'] },   // ... from its question size
   ring: { duration: 0.9, delay: 0.1, ease: EASE.out },                     // the burst's rings ...
@@ -264,13 +265,14 @@ export const HEAT = {
 // The dark layer behind a sheet you can close (R14: the heatmap's lessons sheet). Small feedback; with Reduce motion a quick fade.
 export const SCRIM = { duration: TIME.feedback, ease: EASE.out };
 
-// Settings (redesign R15). "Play a sample" shows the sound you hear: two soft rings go out from the speaker icon, one
-// with each tone (the "ding", then the "bup" 0.4 s later), growing to 1.9 times and fading, like a signal leaving a
-// tower. Transform and see-through-ness only; nothing loops. With Reduce motion: no rings, the icon's glow layer fades
-// in for the sample and back out (a quick fade).
+// Settings (redesign R15). "Play a sample" shows the sound you hear: a soft ring goes out from the play icon with
+// each sound, growing to 1.9 times and fading, like a signal leaving a tower. R19 (idea I55): four real sounds in a
+// row (a pick, right, not quite, lesson done), so four rings, `gap` apart (the same gap as SAMPLE_GAP in src/sound.ts);
+// all gone within a celebration time. Transform and see-through-ness only; nothing loops. With Reduce motion: no
+// rings, the icon's glow layer fades in for the sample and back out (a quick fade).
 export const SAMPLE = {
   ring: { duration: 0.6, ease: EASE.out },
-  gap: 0.4,                                                                // the second ring, with the second tone
+  gap: 0.32,                                                               // the next ring, with the next sound
   from: { scale: 1, opacity: 0.8 }, to: { scale: 1.9, opacity: 0 },
 };
 

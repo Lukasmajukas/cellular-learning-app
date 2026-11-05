@@ -4,6 +4,7 @@ import { allLessons, lessonStatus, doneCount, sideOf, focusLessonId, unitStatus,
 import { c, mono, COLUMN } from './theme';
 import { Icon } from './Icon';
 import { PRESS_BIG, ON_AIR, waveDelay, useCalm, useEntrance } from './theme/motion';
+import { play } from './sound';
 import { usePress, Pill, SectionLabel, UnitBanner, LessonNode, NODE_SIZE, NODE_BOX, NODE_RING } from './ui';
 import type { Moment } from './ui/LessonNode';
 import { TAB_BAR_HEIGHT } from './ui/AppShell';
@@ -27,8 +28,13 @@ export function PathMap({ units, progress, onStart, due = 0, onReview }: { units
   const root = useRef<HTMLDivElement>(null);
   const focus = focusLessonId(units, progress);
   const calm = useCalm();
-  const [moment] = useState<OnAir | null>(() => (lastShown && !calm ? onAirMoment(units, lastShown, progress) : null));
+  // What just came on air (null at start-up). With Reduce motion nothing moves, but you still hear it.
+  const [found] = useState<OnAir | null>(() => (lastShown ? onAirMoment(units, lastShown, progress) : null));
+  const moment = calm ? null : found;
   useEffect(() => { lastShown = progress; }, [progress]);
+  // R19: the unlock sound, as the next lesson's lock pops off (at once with Reduce motion). Not when the lesson you
+  // finished was the last one (nothing new to unlock), and not if you leave the path before it starts.
+  useEffect(() => (found?.next ? play('unlock', calm ? 0 : ON_AIR.lockOff.delay) : undefined), []); // eslint-disable-line react-hooks/exhaustive-deps -- once, when the path opens
   // Opening the path: jump (no slide) to your current lesson. useLayoutEffect = before the first paint, so you never see
   // the top of the path first. The lesson goes a bit above the middle of the window, or lower when that lets its unit's
   // banner show too (so you know where you are). Right after you finished a lesson, it frames that lesson and the one

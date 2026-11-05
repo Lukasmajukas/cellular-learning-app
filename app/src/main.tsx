@@ -8,7 +8,8 @@ import { finishLesson, finishReview } from './finish';
 import { buildReview, dueCount, reviewOutlook, REVIEW_ID } from './dailyReview';
 import { liveStreak, dayKey, doneToday, repairable, repairStreak } from './gamify';
 import { SettingsScreen } from './SettingsScreen';
-import { loadState, saveState, backupWhen, EMPTY_STATE, type SaveState } from './storage';
+import { loadState, saveState, backupWhen, volumeOf, EMPTY_STATE, type SaveState } from './storage';
+import { play, prepareSounds } from './sound';
 import { FpsMeter } from './FpsMeter';
 import { prefs } from './prefs';
 import { MotionKit, screenGlide, noticeShift, TOP_BAR } from './theme/motion';
@@ -60,9 +61,11 @@ function App() {
   useEffect(() => { if (state && loaded.current) saveState(state); }, [state]);
 
   const s = state ?? EMPTY_STATE;
-  prefs.sounds = s.settings.sounds;
+  prefs.sounds = s.settings.sounds; prefs.volume = volumeOf(s.settings);
   const look = s.settings.look, calm = s.settings.reduceMotion;
   useEffect(() => { applyLook(look); }, [look]);
+  // Starting the daily review gives a radar ping (R19), from the Review tab or the path's review card.
+  const startReview = () => { play('review'); setPlaying(REVIEW_ID); };
   const go = (t: TabId) => { if (t === tab) return; setDir(order(t) > order(tab) ? 1 : -1); setTab(t); };
   // Esc on any other tab goes back to the path (in a lesson, the lesson player uses Esc itself).
   useKeys(k => { if (k !== 'back' || tab === 'path') return false; go('path'); return true; }, !!state && !playing);
@@ -77,14 +80,14 @@ function App() {
   const top = <TopBar streak={liveStreak(s.game, now)} xp={s.game.xp} xpToday={s.game.xpDay === dayKey(now) ? s.game.xpToday : 0}
     freezes={s.game.freezes} done={done} goal={goal} wait={handOver ? TOP_BAR.afterPath : TOP_BAR.wait} />;
 
-  const screen = tab === 'review' ? <ReviewScreen outlook={reviewOutlook(PATH, s.reviews, Date.now())} onStart={() => setPlaying(REVIEW_ID)} onPath={() => go('path')} />
+  const screen = tab === 'review' ? <ReviewScreen outlook={reviewOutlook(PATH, s.reviews, Date.now())} onStart={startReview} onPath={() => go('path')} />
     : tab === 'heatmap' ? <HeatMap cells={buildHeatmap(DATA.bands as unknown as BandRow[], RAW_LESSONS, s.reviews, Date.now())} onStart={setPlaying}
         lessonsOf={band => (BAND_LESSONS[band] ?? []).map(l => ({ ...l, status: IN_PATH.has(l.id) ? lessonStatus(PATH, s.progress, l.id) : 'missing' }))} />
     : tab === 'settings' ? <SettingsScreen settings={s.settings} onChange={settings => setState(p => p && { ...p, settings })} />
     : <>
         {repair > 0 && <div style={{ maxWidth: COLUMN, margin: '0 auto', padding: '12px 20px 0', boxSizing: 'border-box' }}>
           <RepairCard days={repair} onRepair={() => { setHandOver(false); setState(p => p && { ...p, game: repairStreak(p.game, new Date()) }); }} /></div>}
-        <PathMap units={PATH} progress={s.progress} onStart={setPlaying} due={due} onReview={() => setPlaying(REVIEW_ID)} />
+        <PathMap units={PATH} progress={s.progress} onStart={setPlaying} due={due} onReview={startReview} />
       </>;
 
   // A lesson fills the window and rises from below; leaving it, it sinks and the frame fades back in.
@@ -121,4 +124,5 @@ function App() {
   );
 }
 // #blocks shows every building block on one page (for the gallery and click tests), instead of the app.
+prepareSounds();
 createRoot(document.getElementById('root')!).render(location.hash === '#blocks' ? <BlocksSheet /> : <App />);

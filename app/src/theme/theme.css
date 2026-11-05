@@ -24,3 +24,5 @@ input[type='checkbox'] { width: 20px; height: 20px; accent-color: var(--signal);
 :focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
 /* The switch's real checkbox is see-through (src/ui/Switch.tsx), so its keyboard focus ring goes on the drawn track. */
 .ui-switch:has(input:focus-visible) .ui-switch-track { outline: 2px solid var(--signal); outline-offset: 3px; }
+/* The slider's real range input is see-through too (src/ui/Slider.tsx, R19): its focus ring goes on the drawn knob. */
+.ui-slider:has(input:focus-visible) [data-part='knob'] { outline: 2px solid var(--signal); outline-offset: 3px; }

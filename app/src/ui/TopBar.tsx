@@ -5,6 +5,7 @@ import { Icon } from '../Icon';
 import { ProgressBar } from './ProgressBar';
 import { Button } from './Button';
 import { TOP_BAR, barAt, useCalm } from '../theme/motion';
+import { play } from '../sound';
 
 // The top bar (redesign R07, DESIGN.md section 6 "stat chip" and section 7 moment 5): streak, XP, streak freezes and
 // the daily goal. Its numbers move only when they really went up while the app was open (a lesson or review finished,
@@ -70,6 +71,8 @@ export function TopBar({ streak, xp, xpToday, freezes, done, goal, wait = TOP_BA
   useMoment(pill, f, grew(f), TOP_BAR.popKeys, barAt(TOP_BAR.pop, wait));
   useMoment(flash, d, justReached, TOP_BAR.flashKeys, barAt(TOP_BAR.flash, wait));
   useMoment(check, d, justReached, TOP_BAR.checkKeys, barAt(TOP_BAR.check, wait));
+  // R19: the streak sound, with the flame's flicker (at the same moment with Reduce motion, though nothing moves).
+  useEffect(() => (grew(s) ? play('streak', barAt(TOP_BAR.flicker, wait).delay) : undefined), [s]); // eslint-disable-line react-hooks/exhaustive-deps -- once per change
   const waiting = !calm; // things that only appear during a moment start invisible (their moment shows them)
 
   return <>

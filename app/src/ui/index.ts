@@ -6,6 +6,7 @@ export { AnswerTile } from './AnswerTile';
 export { Chip } from './Chip';
 export { Pill, StatChip, PillChoice } from './Pill';
 export { Switch } from './Switch';
+export { Slider } from './Slider';
 export { ProgressBar } from './ProgressBar';
 export { BottomSheet } from './BottomSheet';
 export { SpeechBubble } from './SpeechBubble';
