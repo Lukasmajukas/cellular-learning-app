@@ -1,6 +1,6 @@
 # Handoff note: 2026-11-05, T59 redesign R14 (heatmap)
 
-**Status:** IN PROGRESS
+**Status:** DONE
 **Model used:** Large (Opus), High effort (a Sonnet robot run claimed it and handed it to this Opus chat) · **Branch / pull request:** claude/robot-t59-r14, #138
 
 ## In simple words (for the owner)
@@ -28,7 +28,7 @@ The Heatmap tab now looks like a glowing control panel. Every band is a tile, an
 - Click tests (cloud): 75 of 75 on the first full run (9.6 min): the 72 before, minus the old heatmap test, plus 4 new. Frame rates: heatmap fill-in 58.3 and 59.2 fps (two runs); every older moment still 58.5-60.
 - Windows build (GitHub):
   - Run 41955258092 (the first code push, before the new click tests): **passed**.
-  - Run 41955553198 (final app code with the new click tests): WINDOWS_RESULT
+  - Run 41955553198 (final app code with the new click tests): **passed**. 208 unit tests, 75 of 75 click tests (10.2 min) and the installer. Windows frame rates: heatmap fill-in **64.0 fps**; the older moments fine (lesson complete 63.5, coming on air 63.4, unit done 61.4, top bar 63.7, review blips 64.0, sheet 64.0).
 
 ## What I looked at (by eye)
 - Before: `07-heatmap` from R13: flat orange, gold and green blocks with dark words, "Green = you know it. Red = it is fading... Grey = you have not been quizzed on it yet." (wrong since R01: new tiles weren't grey), no legend, nothing to tap.
