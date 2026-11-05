@@ -19,7 +19,7 @@ export const KIND_LABEL: Record<Item['kind'], string> = {
 // A short "how to answer" line under the question (R10), for the types that aren't just "tap an answer".
 // Plain help with the controls only: no facts (those live in the lesson files).
 export const KIND_HINT: Partial<Record<Item['kind'], string>> = {
-  number: 'Type the number. Commas are fine.',
+  number: 'Commas are fine, and so is GHz.', // design review 3: the label above already says "Type the number"
   match: 'Tap one on the left, then its partner.',
   order: 'Tap them in order. Tap one again to undo.',
   scenario: 'Pick one answer for every clue.',
