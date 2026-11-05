@@ -64,7 +64,11 @@ test('after an answer the sheet sits on the window\'s bottom edge, Continue matc
   for (let i = 0; i < 12 && seen.size < 2; i++) {
     const tiles = w.locator('[data-testid^=choice-]:not([disabled])');
     await tiles.first().waitFor();
-    const before = await w.getByTestId('beacon-says').textContent(), counted = await w.getByTestId('lesson-count').textContent();
+    // Beacon speaks before the first question only (R18, idea I39): later questions start with no bubble, unless a missed one is back.
+    const says = w.getByTestId('beacon-says');
+    await w.waitForTimeout(200); // the last answer's bubble has faded out
+    const before = (await says.count()) ? await says.textContent() : '', counted = await w.getByTestId('lesson-count').textContent();
+    if (i === 0) expect(before).not.toBe('');
     // Miss on purpose until "Not quite" has shown, then answer right. The tiles are shuffled at random, so picking by
     // place sometimes got three right in a row and the 3-question lesson ended before a miss (R10: fixed, not skipped).
     const prompt = await w.getByTestId('prompt').textContent(), q = SAMPLE.find(x => x.prompt === prompt)!;
@@ -76,7 +80,7 @@ test('after an answer the sheet sits on the window\'s bottom edge, Continue matc
     await expect(w.getByTestId('verdict')).toHaveText(tone === 'right' ? 'Right!' : 'Not quite');
     await expect(w.getByTestId('next')).toHaveAttribute('data-kind', tone === 'right' ? 'onAir' : 'miss');
     await expect(w.getByTestId('beacon')).toHaveAttribute('data-face', tone === 'right' ? 'happy' : 'oops');
-    await expect(w.getByTestId('beacon-says')).not.toHaveText(before!);       // Beacon says something new
+    await expect(says).not.toHaveText(before!);       // Beacon says something new, every answer
     if (tone === 'wrong') await expect(w.getByTestId('right-answer')).toContainText('Right answer:');
     await w.waitForTimeout(700); // the sheet lands (and the page scrolls, if it has to)
     const s = (await sheet.boundingBox())!, vh = await w.evaluate(() => window.innerHeight);

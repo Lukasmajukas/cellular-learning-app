@@ -2,7 +2,9 @@ import { useLayoutEffect, useRef } from 'react';
 import { animate, motion, useMotionValue, useTransform } from 'motion/react';
 import { c, mono } from './theme';
 import { Icon } from './Icon';
-import { Beacon, BEACON_SIZE } from './ui/Beacon';
+import { Beacon, BEACON_SIZE, BEACON_HEIGHT } from './ui/Beacon';
+import { SpeechBubble } from './ui/SpeechBubble';
+import { beaconLine, completeMoment } from './questionScreen';
 import { Button, Card, Pill } from './ui';
 import { SignalBurst } from './ui/SignalBurst';
 import { COMPLETE, nth, useCalm } from './theme/motion';
@@ -12,13 +14,16 @@ import { COMPLETE, nth, useCalm } from './theme/motion';
 // XP counts up like a meter; your signal bars fill one by one. One main button, "Back to the path"; "Again" is a quiet one
 // under it (design review 1, idea I32). If you fixed missed questions on their comeback, a small "1 fixed" says so (I43).
 // Everything plays once, within 1.6 s, and never blocks a tap. With Reduce motion the screen simply shows the result.
+// R18: Beacon says one line, in a bubble beside its head, once it has grown: it goes with your stars, or says you fixed
+// the tricky ones (src/questionScreen.ts). It pops in after the burst's wave pieces are gone (COMPLETE.says), never over words.
 // Speeds: COMPLETE in src/theme/motion.tsx.
 const BIG = BEACON_SIZE.complete;
 const HEAD = { x: BIG * 0.5, y: BIG * 0.4 };   // Beacon's head, in its 100-wide drawing at (50, 40)
 const BARS = 5;
+const SAYS_GAP = 40;  // from the head's centre to the bubble's pointy corner: just past the outer ring (34 px at this size)
 
-export function LessonComplete({ stars, right, total, fixed, xp, bars, onFinish, onAgain }:
-  { stars: number; right: number; total: number; fixed: number; xp: number; bars: number; onFinish: () => void; onAgain: () => void }) {
+export function LessonComplete({ stars, right, total, fixed, xp, bars, seed = '', onFinish, onAgain }:
+  { stars: number; right: number; total: number; fixed: number; xp: number; bars: number; seed?: string; onFinish: () => void; onAgain: () => void }) {
   const calm = useCalm();
   const root = useRef<HTMLDivElement>(null);
   const count = useMotionValue(calm ? xp : 0);
@@ -47,6 +52,9 @@ export function LessonComplete({ stars, right, total, fixed, xp, bars, onFinish,
         <div data-grow style={{ position: 'relative', zIndex: 1, transformOrigin: '50% 60%', ...from('growKeys') }}>
           <Beacon face="cheering" size={BIG} />
         </div>
+        <SpeechBubble data-testid="beacon-says" delay={calm ? 0 : COMPLETE.says}
+          style={{ position: 'absolute', left: HEAD.x + SAYS_GAP, bottom: BEACON_HEIGHT(BIG) - HEAD.y - 16, zIndex: 2, width: 'max-content', maxWidth: 168, boxSizing: 'border-box', fontSize: 14, textWrap: 'balance' }}>
+          {beaconLine(completeMoment(stars, fixed), seed)}</SpeechBubble>
       </div>
       <h2 data-testid="done" style={{ fontSize: 28, lineHeight: 1.25, fontWeight: 700, margin: '4px 0 10px', position: 'relative', zIndex: 1 }}>Lesson complete!</h2>
       {/* The stars: three places, dim; the ones you earned drop in, filled, one by one. */}

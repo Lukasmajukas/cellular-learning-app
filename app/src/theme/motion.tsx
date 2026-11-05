@@ -86,6 +86,11 @@ export const ON_AIR = {
   banner: { duration: 0.6, delay: 0.8, ease: EASE.out },           // the finished unit's banner flash and sweep
   bannerCheck: { ...SPRING.bouncy, delay: 0.85 },                   // its "done" check
   barDraw: { duration: 0.45, delay: 0.9, ease: EASE.out },         // the next unit's banner bar
+  // Beacon (R18) stands beside the current lesson, so it pops up with the new current circle (inside it), then gives
+  // one happy ring pulse as the circle lands, and goes back to waiting. Its pulse (0.6 s) ends before the top bar's
+  // moment starts (TOP_BAR.afterPath, 1.6 s): one celebration at a time.
+  beaconHappy: 0.95,                                               // seconds after the path appears: Beacon is happy ...
+  beaconRest: 2.6,                                                 // ... and back to its waiting face
 } as const;
 // The k-th circle up the unit (0 = the one just above the lesson you finished) in a wave of `count` circles.
 export const waveDelay = (k: number, count: number) =>
@@ -206,6 +211,7 @@ export const COMPLETE = {
   bar: { duration: 0.25, delay: 0.6, ease: EASE.out },                     // the signal bars fill ...
   barGap: 0.1,                                                             // ... one by one
   barKeys: { transform: ['scaleY(0)', 'scaleY(1)'] },
+  says: 0.9,                                                               // Beacon's speech bubble pops in once the wave pieces are gone (R18)
 }; // not "as const": Motion wants plain (changeable) keyframe lists
 // The Review tab, "drive test" (redesign R13). A round radar scope with one blip for each question waiting:
 // - the blips pop in one after another (the "bouncy" spring, 60 ms apart, all started within 400 ms), only the first time
