@@ -15,6 +15,7 @@ On the lesson-complete screen, the quiet "Again" button used the same two-arrow 
   - `app/src/icons.test.ts`: 3 new unit tests. `restart` exists and isn't a copy of `repeat`; "Again" uses `restart`; every `repeat` in a screen file sits on a review thing.
   - `app/tests/complete.spec.ts`: the click test for the lesson-complete buttons now also checks that "Again" shows the `restart` icon and no `repeat` icon.
   - **The new checks bite:** with `repeat` put back on "Again", 2 of the new unit tests fail.
+- **A wobbly test fixed** (`app/tests/speed.spec.ts`, the path-scrolling speed test from R23): in the first full click-test run it failed (25 hitches, main thread busy 83%), although nothing on the path changed. Alone, 4 runs in a row: 0 hitches, busy 36-39%. So the cloud machine was busy at that moment, and the 4x slow-down made it worse. Fix, like the start-up test beside it: a try that misses a bar gets one more try in a fresh app, and the better try counts; both are printed. Checked: with an impossible bar, the second try runs and the test still fails.
 - **Docs:** `DESIGN.md` section 5 (`restart` in the icon list, plus the rule "one icon, one meaning"), `IDEAS.md` (I59 ✅, new I81), `TASKS.md` (the T59 row), `DECISIONS.md`, `PROGRESS-LOG.md`, the panel.
 
 ## Test results
