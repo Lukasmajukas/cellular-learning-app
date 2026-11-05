@@ -10,7 +10,7 @@ export const DEFAULT_SETTINGS: Settings = { sounds: true, reduceMotion: false, s
 export const EMPTY_STATE: SaveState = { version: 1, progress: {}, settings: DEFAULT_SETTINGS, reviews: {}, game: EMPTY_GAME, seenChanges: null };
 
 type Api = {
-  load(): Promise<{ state: SaveState; recovered: boolean }>;
+  load(): Promise<Loaded>;
   save(s: SaveState): Promise<SaveState>;
   backupNow(): Promise<string | null>;
   showFile(): Promise<string>;
@@ -18,7 +18,9 @@ type Api = {
 const api = (): Api | undefined => (window as unknown as { cellApi?: Api }).cellApi;
 const KEY = 'cell-learning-save';
 
-export async function loadState(): Promise<{ state: SaveState; recovered: boolean }> {
+// recovered: the save file was damaged and a backup was loaded instead; backupDay: that backup's day (YYYY-MM-DD).
+export type Loaded = { state: SaveState; recovered: boolean; backupDay?: string | null };
+export async function loadState(): Promise<Loaded> {
   const a = api();
   if (a) return a.load();
   try {
@@ -35,3 +37,15 @@ export async function saveState(s: SaveState): Promise<void> {
 export const backupNow = async () => api()?.backupNow() ?? null;
 export const showFile = async () => api()?.showFile() ?? null;
 export const hasFileAccess = () => !!api();
+
+// The restored backup's day in words, for the "your progress is safe" notice: "from earlier today", "from yesterday",
+// "from Tuesday, Nov 3". '' when the day isn't known.
+export function backupWhen(day: string | null | undefined, now = new Date()): string {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(day ?? '');
+  if (!m) return '';
+  const d = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+  const days = Math.round((new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime() - d.getTime()) / 86_400_000);
+  if (days <= 0) return 'from earlier today';
+  if (days === 1) return 'from yesterday';
+  return `from ${d.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}`;
+}

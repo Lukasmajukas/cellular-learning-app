@@ -36,7 +36,9 @@ export function PathMap({ units, progress, onStart, due = 0, onReview }: { units
   useLayoutEffect(() => {
     const rowOf = (id?: string) => (id ? root.current?.querySelector(`[data-testid="row-${id}"]`) : null);
     const row = rowOf(focus);
-    if (!row) return;
+    // A notice at the top of the frame (R13: "This changed", "your progress is safe") is read first: the path then opens
+    // at the top, under it, instead of scrolling it out of sight.
+    if (!row || document.querySelector('[data-notice]')) return;
     const top = document.querySelector('[data-testid="top-bar"]')?.getBoundingClientRect().bottom ?? 0;
     const bottom = window.innerHeight - (document.querySelector('[data-testid="tab-bar"]') ? TAB_BAR_HEIGHT : 0);
     const r = row.getBoundingClientRect(), y0 = window.scrollY;

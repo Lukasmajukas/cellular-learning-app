@@ -3,7 +3,7 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
-import { SPRING, TIME, PRESS, PRESS_BIG, PRESS_ROUND, PRESS_PILL, QUICK_FADE, INSTANT, LOOP, popInDelay, screenGlide, ON_AIR, BREATHE, waveDelay, popInQueue, TOP_BAR, barAt, FEEDBACK, questionGlide, COMPLETE, nth } from './theme/motion';
+import { SPRING, TIME, PRESS, PRESS_BIG, PRESS_ROUND, PRESS_PILL, QUICK_FADE, INSTANT, LOOP, popInDelay, screenGlide, ON_AIR, BREATHE, waveDelay, popInQueue, TOP_BAR, barAt, FEEDBACK, questionGlide, COMPLETE, nth, SCOPE, NOTICE, noticeMotion, noticeShift } from './theme/motion';
 import { BEACON_SIZE } from './ui/Beacon';
 import { grew } from './ui/TopBar';
 
@@ -229,5 +229,34 @@ describe('lesson complete (R12, DESIGN.md section 7, moment 3)', () => {
   it('the burst stays near Beacon: a short "signal burst", not a screenful of confetti', () => {
     expect(COMPLETE.rings).toBeLessThanOrEqual(3); expect(COMPLETE.pieces).toBeLessThanOrEqual(16);
     expect(COMPLETE.pieceTo).toBeLessThanOrEqual(90);
+  });
+});
+
+describe('the Review tab and the notices (R13)', () => {
+  it('blips pop in with the "bouncy" spring; transforms and see-through-ness only', () => {
+    expect(SCOPE.blip).toMatchObject({ stiffness: 300, damping: 14 });
+    for (const k of ['blipKeys', 'sweepKeys'] as const) for (const p of Object.keys(SCOPE[k])) expect(['transform', 'opacity'], `${k}.${p}`).toContain(p);
+    expect(SCOPE.blipKeys.transform.at(-1)).toBe('scale(1)');
+  });
+  it('the sweep is one background loop: 2-4 s a turn, one whole turn, steady speed', () => {
+    expect(SCOPE.sweep.duration).toBeGreaterThanOrEqual(2); expect(SCOPE.sweep.duration).toBeLessThanOrEqual(4);
+    expect(SCOPE.sweep.repeat).toBe(Infinity); expect(SCOPE.sweep.ease).toBe('linear');
+    expect(SCOPE.sweepKeys.transform).toEqual(['rotate(0deg)', 'rotate(360deg)']);
+  });
+  it('a notice comes in as small feedback (200-300 ms) and leaves quicker; the page glides up within a screen change', () => {
+    expect(NOTICE.in.duration).toBeGreaterThanOrEqual(0.2); expect(NOTICE.in.duration).toBeLessThanOrEqual(0.3);
+    expect(NOTICE.out.duration).toBeLessThanOrEqual(NOTICE.in.duration);
+    expect(NOTICE.shift.delay).toBeGreaterThanOrEqual(NOTICE.out.duration);  // the card has faded before the page moves ...
+    expect(NOTICE.in.delay).toBeGreaterThanOrEqual(NOTICE.out.duration);     // ... and before a next card comes in
+    expect(NOTICE.shift.delay + NOTICE.shift.duration).toBeLessThanOrEqual(0.6);
+    for (const k of ['from', 'to', 'gone'] as const) for (const p of Object.keys(NOTICE[k])) expect(['opacity', 'x', 'y', 'scale'], `${k}.${p}`).toContain(p);
+    expect(Math.abs(NOTICE.from.y)).toBeLessThanOrEqual(16); // a little slide, not a fly-in
+  });
+  it('with Reduce motion a notice only fades in (150 ms at most), goes at once, and the page moves up at once', () => {
+    const m = noticeMotion(true) as unknown as Record<string, Record<string, unknown>>;
+    for (const k of ['initial', 'animate', 'exit']) expect(Object.keys(m[k]).filter(p => p !== 'transition'), k).toEqual(['opacity']);
+    expect((m.animate.transition as { duration: number }).duration).toBeLessThanOrEqual(0.15);
+    expect((m.exit.transition as { duration: number }).duration).toBe(0);
+    expect(noticeShift(true).duration).toBe(0);
   });
 });

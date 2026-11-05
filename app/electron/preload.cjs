@@ -7,4 +7,6 @@ contextBridge.exposeInMainWorld('cellApi', {
   showFile: () => ipcRenderer.invoke('save:show'),
   // Automatic tests set CELL_SAMPLE_PATH=1 to get the five sample lessons instead of the real ones.
   useSamplePath: process.env.CELL_SAMPLE_PATH === '1',
+  // ... and CELL_TEST_CHANGES (a JSON list) to show "This changed" cards, because the real list stays empty until a fact changes.
+  testChanges: process.env.CELL_TEST_CHANGES ? JSON.parse(process.env.CELL_TEST_CHANGES) : undefined,
 });

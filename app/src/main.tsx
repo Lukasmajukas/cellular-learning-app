@@ -5,16 +5,15 @@ import { SAMPLE_PATH, allLessons, recordResult } from './path';
 import { PathMap } from './PathMap';
 import { LessonPlayer, type LessonResult } from './LessonPlayer';
 import { finishLesson, finishReview } from './finish';
-import { buildReview, dueCount, REVIEW_ID } from './dailyReview';
+import { buildReview, dueCount, reviewOutlook, REVIEW_ID } from './dailyReview';
 import { liveStreak, dayKey, doneToday, repairable, repairStreak } from './gamify';
 import { SettingsScreen } from './SettingsScreen';
-import { loadState, saveState, EMPTY_STATE, type SaveState } from './storage';
+import { loadState, saveState, backupWhen, EMPTY_STATE, type SaveState } from './storage';
 import { FpsMeter } from './FpsMeter';
 import { prefs } from './prefs';
-import { MotionKit, screenGlide, TOP_BAR } from './theme/motion';
+import { MotionKit, screenGlide, noticeShift, TOP_BAR } from './theme/motion';
 import { useKeys } from './keys';
 import { AppShell, TABS, type TabId } from './ui/AppShell';
-import { Button } from './ui';
 import { TopBar, RepairCard } from './ui/TopBar';
 import { ReviewScreen } from './ReviewScreen';
 import { REAL_PATH } from './units';
@@ -26,15 +25,16 @@ import rawLessons from '../../content/lessons.json';
 import { DATA } from './sampleLessons';
 import './theme/fonts';
 import './theme/theme.css';
-import { c, applyLook, COLUMN } from './theme';
-import { Icon } from './Icon';
+import { applyLook, COLUMN } from './theme';
+import { Notices } from './Notices';
 import { BlocksSheet } from './BlocksSheet';
 
 applyLook('night'); // before the first paint, so the window never flashes another look
 
-// The real lessons, unless an automatic test asks for the samples (see electron/preload.cjs).
-const CHANGES = (rawChanges as { changes: Change[] }).changes;
-const PATH = (window as unknown as { cellApi?: { useSamplePath?: boolean } }).cellApi?.useSamplePath ? SAMPLE_PATH : REAL_PATH;
+// The real lessons, unless an automatic test asks for the samples (see electron/preload.cjs); the same for "This changed" cards.
+const TEST = (window as unknown as { cellApi?: { useSamplePath?: boolean; testChanges?: Change[] } }).cellApi;
+const CHANGES = TEST?.testChanges ?? (rawChanges as { changes: Change[] }).changes;
+const PATH = TEST?.useSamplePath ? SAMPLE_PATH : REAL_PATH;
 const order = (t: TabId) => TABS.findIndex(x => x.id === t);
 
 function App() {
@@ -42,14 +42,14 @@ function App() {
   const [playing, setPlaying] = useState<string | null>(null);
   const [tab, setTab] = useState<TabId>('path');
   const [dir, setDir] = useState(1); // which way the screens glide: 1 = the new tab is to the right
-  const [notice, setNotice] = useState('');
+  const [restored, setRestored] = useState<string | null>(null); // the "your progress is safe" notice (null = not shown)
   // True right after a lesson's first finish: the path plays "coming on air" then, so the top bar waits for it (R07).
   const [handOver, setHandOver] = useState(false);
   const loaded = useRef(false);
 
-  useEffect(() => { loadState().then(({ state, recovered }) => {
+  useEffect(() => { loadState().then(({ state, recovered, backupDay }) => {
     loaded.current = true; setState(startChanges(state, CHANGES));
-    if (recovered) setNotice('Your save file was damaged, so I restored your latest backup.');
+    if (recovered) setRestored(backupWhen(backupDay));
   }); }, []);
   // Save after every change (never before the first load finished, or we'd overwrite real progress with blanks).
   useEffect(() => { if (state && loaded.current) saveState(state); }, [state]);
@@ -63,7 +63,7 @@ function App() {
   useKeys(k => { if (k !== 'back' || tab === 'path') return false; go('path'); return true; }, !!state && !playing);
   if (!state) return null;
 
-  const card = pendingChanges(s, CHANGES)[0];
+  const pending = pendingChanges(s, CHANGES), card = pending[0];
   const lesson = playing === REVIEW_ID ? buildReview(PATH, s.reviews, Date.now()) ?? undefined : allLessons(PATH).find(l => l.id === playing);
   const due = dueCount(PATH, s.reviews, Date.now());
   const now = new Date(), done = doneToday(s.game, now), goal = s.settings.dailyGoal, repair = repairable(s.game, now);
@@ -72,7 +72,7 @@ function App() {
   const top = <TopBar streak={liveStreak(s.game, now)} xp={s.game.xp} xpToday={s.game.xpDay === dayKey(now) ? s.game.xpToday : 0}
     freezes={s.game.freezes} done={done} goal={goal} wait={handOver ? TOP_BAR.afterPath : TOP_BAR.wait} />;
 
-  const screen = tab === 'review' ? <ReviewScreen due={due} onStart={() => setPlaying(REVIEW_ID)} />
+  const screen = tab === 'review' ? <ReviewScreen outlook={reviewOutlook(PATH, s.reviews, Date.now())} onStart={() => setPlaying(REVIEW_ID)} onPath={() => go('path')} />
     : tab === 'heatmap' ? <HeatMap cells={buildHeatmap(DATA.bands as unknown as BandRow[],
         (rawLessons as unknown as { units: { lessons: RawLesson[] }[] }).units.flatMap(u => u.lessons), s.reviews, Date.now())} />
     : tab === 'settings' ? <SettingsScreen settings={s.settings} onChange={settings => setState(p => p && { ...p, settings })} />
@@ -100,17 +100,14 @@ function App() {
         ) : (
           <motion.div key="frame" {...screenGlide('frame', calm)}>
             <AppShell tab={tab} onTab={go} top={top} badges={{ review: due }}>
-              {notice && <p data-testid="notice" style={{ margin: 0, padding: 8, background: c.noticeBg, color: c.notice, textAlign: 'center' }}>{notice}</p>}
-              {card && (
-                <div data-testid="change-card" style={{ maxWidth: COLUMN - 40, margin: '16px auto 0', padding: 16, borderRadius: 16, background: c.surface2, border: `1px solid ${c.signal}` }}>
-                  <div style={{ fontWeight: 700, fontSize: 18, display: 'flex', alignItems: 'center', gap: 8 }}><Icon name="waves" size={22} style={{ color: c.signal }} />This changed: {card.title}</div>
-                  <p style={{ margin: '8px 0' }}>{card.text}</p>
-                  <div style={{ fontSize: 12, color: c.textMuted }}>{card.date} · {card.source}{card.questions?.length ? ` · ${card.questions.length} question(s) will come back for review` : ''}</div>
-                  <Button full data-testid="change-ok" style={{ marginTop: 10 }} onClick={() => setState(p => p && acknowledge(p, card))}>Got it</Button>
-                </div>)}
-              <AnimatePresence mode="wait" initial={false} custom={dir} onExitComplete={toTop}>
-                <motion.div key={tab} data-testid={`screen-${tab}`} custom={dir} {...screenGlide('tab', calm)}>{screen}</motion.div>
-              </AnimatePresence>
+              <Notices restored={restored} onCloseRestored={() => setRestored(null)} change={card} changeOf={pending.length}
+                onChangeOk={() => card && setState(p => p && acknowledge(p, card))} />
+              {/* When a notice closes, the page glides up into its space instead of jumping (R13, NOTICE.shift). */}
+              <motion.div layout="position" transition={noticeShift(calm)}>
+                <AnimatePresence mode="wait" initial={false} custom={dir} onExitComplete={toTop}>
+                  <motion.div key={tab} data-testid={`screen-${tab}`} custom={dir} {...screenGlide('tab', calm)}>{screen}</motion.div>
+                </AnimatePresence>
+              </motion.div>
             </AppShell>
           </motion.div>
         )}
