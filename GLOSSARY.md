@@ -127,6 +127,7 @@ Claude adds new words here whenever they come up.
 |---|---|
 | **Licence** | The sticker on a photo that says what you may do with it. |
 | **Public domain / CC0** | Anyone may use it, no credit needed. |
+| **OGG** | A kind of sound file, like MP3 but free of patents. The app's sounds are OGG files. |
 | **Creative Commons (CC BY, CC BY-SA)** | You may use it if you credit the photographer. BY-SA also says a changed copy keeps the same sticker. |
 | **NC / ND** | "Non-commercial" and "no changes". We don't use these, because we crop and add arrows. |
 | **Wikimedia Commons** | The free photo library behind Wikipedia. |
@@ -177,6 +178,7 @@ Claude adds new words here whenever they come up.
 | **Streak freeze (🧊)** | A spare day off. You earn one every 7 days in a row. If you miss one day, it is used up and your streak keeps going. |
 | **"This changed" card** | A blue card that appears once when a carrier fact changes (for example, a sale closes). Pressing "Got it" makes the related questions come back for review as if new. |
 | **Building blocks (components)** | The app's ready-made parts, like LEGO bricks: a button, a card, a switch, an answer tile. Every screen is put together from the same bricks, so it all looks and moves alike. They live in `app/src/ui/`. |
+| **Slider** | A bar with a knob you slide left or right to pick an amount, like the volume knob on a radio but straight. The app's volume is one. |
 | **Switch (toggle)** | An on/off slider, like a light switch. On = it glows blue and the knob slides right. |
 | **Spring (animation)** | A way of moving that feels like a real spring: it speeds up, slows down and settles, maybe with a tiny bounce. Used when buttons squish under your click. |
 | **Bottom sheet** | A panel that slides up from the bottom of the window, like the "Right!" / "Not quite" panel after an answer. |

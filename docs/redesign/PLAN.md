@@ -57,7 +57,7 @@ Each row is one chat: Large (Opus), High effort. R01 to R04 must go in order (ev
 | # | Session | What changes on screen | Status |
 |---|---|---|---|
 | R18 | **Beacon reacts** | Beacon joins the questions, the lesson-complete screen and the path map ("you are here"), with short kind lines from a data file. *(R09 started that file, `app/src/questionScreen.ts`, with the question screen's lines; R18 adds the rest there.)* *(Review 2: also I46, lesson complete drops the lesson's top row so it reads as "finished", and I48, centre that screen's block on a tall window.)* | ✅ 2026-11-05, #141 |
-| R19 | **Sound** | Free CC0 sound effects, credited, about 7 sounds; volume and sample button. If no free source can be reached, nicer code-made sounds, and a "You" row asking you to download a pack. | ⬜ |
+| R19 | **Sound** | Free CC0 sound effects, credited, about 7 sounds; volume and sample button. If no free source can be reached, nicer code-made sounds, and a "You" row asking you to download a pack. *(Done with real sounds: kenney.nl is blocked from the cloud, but the same CC0 pack downloads from OpenGameArt, so no "You" row was needed.)* | ✅ 2026-11-05, #143 |
 
 ### Part 4: finishing
 | # | Session | What changes on screen | Status |

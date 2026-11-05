@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { c, COLUMN } from './theme';
-import { MotionKit, Button, IconButton, Card, SectionLabel, AnswerTile, Pill, StatChip, PillChoice, Switch, ProgressBar, BottomSheet, SpeechBubble, Beacon, BEACON_FACES, BEACON_SIZE, type TileState, type BeaconFace } from './ui';
+import { MotionKit, Button, IconButton, Card, SectionLabel, AnswerTile, Pill, StatChip, PillChoice, Switch, Slider, ProgressBar, BottomSheet, SpeechBubble, Beacon, BEACON_FACES, BEACON_SIZE, type TileState, type BeaconFace } from './ui';
 
 // Every building block on one page (redesign R03), for the gallery pictures and the click tests. Not part of the normal app:
 // open it by adding #blocks to the address (the gallery and tests/blocks.spec.ts do that). It has its own "Reduce motion" switch.
 export function BlocksSheet() {
   const [reduce, setReduce] = useState(false);
   const [on, setOn] = useState(true);
+  const [level, setLevel] = useState(60);
   const [goal, setGoal] = useState(2);
   const [fill, setFill] = useState(0.42);
   const [sheet, setSheet] = useState<'right' | 'wrong' | null>(null);
@@ -39,6 +40,7 @@ export function BlocksSheet() {
         <Card title="Switches and progress">
           <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>Reduce motion (this page)<Switch testId="block-reduce" checked={reduce} onChange={setReduce} /></label>
           <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>A switch<Switch testId="block-switch" checked={on} onChange={setOn} /></label>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>A slider (R19)<Slider testId="block-slider" label="Example slider" value={level} onChange={setLevel} /></div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 8 }}>
             <div style={{ flex: 1 }}><ProgressBar testId="block-progress" label="Example progress" value={fill} /></div>
             <Button kind="quiet" data-testid="block-progress-more" onClick={() => setFill(f => (f >= 1 ? 0.08 : Math.min(1, f + 0.25)))}>More</Button>
