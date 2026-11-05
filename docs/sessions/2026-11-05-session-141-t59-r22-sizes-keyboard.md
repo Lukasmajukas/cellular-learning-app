@@ -1,7 +1,7 @@
 # Handoff note: 2026-11-05, T59 R22 Window sizes, keyboard, easy to read
 <!-- File name: docs/sessions/YYYY-MM-DD-session-N-short-name.md (N = the highest session number so far + 1) -->
 
-**Status:** IN PROGRESS <!-- change to DONE when the chat finishes -->
+**Status:** DONE (the work); the Windows check is BLOCKED on GitHub (T62), see "Approvals and blocks"
 **Model used:** Large (Opus), High effort (a Sonnet robot run claimed it; the first Opus chat stopped on the usage limit before doing any work, so this was the same try) · **Branch / pull request:** claude/robot-t59-r22, #146
 
 ## In simple words (for the owner)
@@ -23,10 +23,17 @@ You can now make the window as small as a phone (360 × 560) or as big as your s
 - **Docs:** `DESIGN.md` (window sizes, the keyboard, never colour alone, in section 4), `PLAN.md` (R22 ✅), `IDEAS.md` (I41, I57 done; I72, I73, I74 new), the gallery's README, `DECISIONS.md`, `GLOSSARY.md`, the T59 row in `TASKS.md`.
 
 ## Test results
-- (filled in below when the runs finish)
+- Unit tests: 245 pass (+9 in `src/r22.test.ts`; `keys.test.ts` now expects "z", not "a", to do nothing). TypeScript OK. Content checker: `content/` untouched.
+- Click tests (cloud): the full run was 115 of 117. The 2 failures were my own tests: `settings.spec.ts` still expected the old Keys card (I updated it while the run was going), and `keyboard.spec.ts` checked the Keys sheet's ring while the sheet was still sliding up (it now waits for it to settle). After the fixes, the four changed files (`keyboard`, `sizes`, `settings`, `lookcontrast`: 15 tests) passed 3 runs in a row. 11 new click tests: 4 in `keyboard.spec.ts` (with the self-check), 7 in `sizes.spec.ts`. The contrast test now also reads the Keys sheet, in Night and Day.
+- Proof the new checks bite: with the scroll padding taken out, the Tab walk failed ("lesson-u1-l1: under the top-bar"); the self-check catches a tile with no ring and one under the tabs.
+- Frame rates: nothing new moves in R22 (the crosshair jumps, the sheet uses the existing slide). Lowest in the full run: 55.7 fps (bar 50).
+- **Windows build (GitHub): could not run.** Runs 169 and 170 (this branch) stopped after 3 seconds with no computer and no steps, like every run since 09:17 UTC (T62).
 
 ## What I looked at (by eye)
-- (filled in below)
+- Before (old code, scratch pictures): at 360 × 640 the top bar's "1 of 2" was cut off with a sideways scrollbar on every tab; Settings had "You / hear it / when / you let / go." beside the volume slider; lesson complete's bubble ran off the right edge and "+20 XP" broke over two lines. At 1920 × 1080 everything sat in the 440 px column in the middle (already fine).
+- After, Night (`latest/47` to `54`): the narrow path (top bar fits, "+30" hidden), narrow Settings (the slider and "Back up now" under their words), the narrow match (two columns still fit), narrow lesson complete (bubble inside, "+10 XP" on one line), the focus ring on the current lesson, the Keys sheet, a match paired by keys (1 picked with its box filled, B and C waiting), the crosshair on the picture. Day (`latest/day/47` to `54`): the same, light and clear; the filled number box reads well in Day.
+- The rest of the gallery was retaken in both looks (99 pictures each). `21-match` now shows the picked left tile with its number box filled in, and the right tiles' letters.
+- **Still looks weak:** at 360 px Beacon's bubble on lesson complete is narrow (four short lines); the keyboard's ring on the current lesson is visible but quiet beside that lesson's own blue rings (a different colour would clash with the token rules; worth a look in R24); Settings is still about 1.6 screens tall at 620 × 960.
 
 ## What's next
 - Next task: T59, session R23 (speed check). Large (Opus), High effort. The robot picks it up by itself.
@@ -46,7 +53,8 @@ You can now make the window as small as a phone (360 × 560) or as big as your s
 - Focus ring, Keyboard shortcut, Minimum window size, Colour alone.
 
 ## Approvals and blocks
-- (filled in below)
+- Nothing asked for approval. Panel not republished (robot run): `panel/live.json` updated and `panel/index.html` rebuilt.
+- **BLOCKED: the Windows build check** (PLAN.md checklist step 3), same as R20 and R21: GitHub gives the build no computer. Not a failed try: every check that could run passed. Merged per `docs/WORKFLOW.md` G7; T62 already asks the owner.
 
 ## Notes for the next Claude
 - `tests/helpers.ts` now has `focusRing(w)` (is the focus visible: a ring, not cut off, on screen, not under a bar), `tabTo(w, testId)` (Tab until there, checking every stop) and `sideways(w)`. Use them for any new screen.
