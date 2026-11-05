@@ -46,10 +46,19 @@ export function questionCount(ids: string[], index: number) {
 // Beacon's lines. 8 words or fewer, plain and kind, never guilt (DESIGN.md section 8, PRD 4d).
 // No facts here: the facts live in the lesson files. Change the words here, nowhere else.
 export const BEACON_LINES = {
+  // Question screen (R09; R18 added comeback, fixed and streak).
   ask: ['Take your time.', 'You can do this one.', 'Read it once more, then pick.', 'Trust your first idea.', 'Let’s tune in to this one.'],
   learn: ['Something new for you.', 'Have a read first.', 'A new piece of the puzzle.'],
   right: ['Nice, that’s it!', 'Spot on!', 'Yes! Signal locked.', 'You got it.', 'Clear signal!'],
   wrong: ['Close! Have a look below.', 'Almost. The answer is below.', 'Tricky one. See below.', 'No worries, this one is tricky.'],
+  comeback: ['This one again. You’ve got it now.', 'Back for another try. Easy does it.', 'You’ve seen this one. Take a look.'],
+  fixed: ['Fixed it! That one’s yours now.', 'Got it this time. Nice!', 'See? You had it.'],
+  streak: ['You’re on a roll!', 'Another one! Keep going.', 'Strong signal. Keep it up!'],
+  // Lesson complete (R18), by how many stars you earned, and when you fixed a missed one on its comeback.
+  perfect: ['Perfect signal! Every one right.', 'Full bars! Brilliant work.', 'Not one missed. Wow!'],
+  strong: ['Strong signal. Nicely done!', 'Great work on that one.', 'Most of them first time. Nice!'],
+  done: ['You finished it. That counts!', 'Every lesson makes the signal stronger.', 'Done! It sticks better each time.'],
+  fixedAll: ['You fixed the tricky ones!', 'Missed, then fixed. That’s learning!', 'You came back and got it!'],
 } as const;
 export type Moment = keyof typeof BEACON_LINES;
 
@@ -59,4 +68,27 @@ export function beaconLine(moment: Moment, seed: string): string {
   let h = 7; for (const ch of seed) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
   const lines = BEACON_LINES[moment];
   return lines[h % lines.length];
+}
+
+// When Beacon speaks on the question screen (R18, idea I39). A line before every question became background noise,
+// so it speaks only: before the first question, right after each answer, and when a missed question comes back.
+// The rest of the time the bubble is gone (Beacon's spot keeps its height, so nothing jumps).
+// - `answered`: what just happened, if you've answered the question on screen (null before you answer);
+// - `inRow`: right answers in a row, counting this one: every 3rd says "on a roll" instead of a plain "right";
+// - `comeback`: the question on screen is a missed one, back for a second try (a right answer then is "fixed").
+export function beaconMoment({ index, kind, answered, inRow, comeback }:
+  { index: number; kind: Item['kind']; answered: boolean | null; inRow: number; comeback: boolean }): Moment | null {
+  if (answered === false) return 'wrong';
+  if (answered === true) return comeback ? 'fixed' : inRow > 0 && inRow % 3 === 0 ? 'streak' : 'right';
+  if (comeback) return 'comeback';
+  if (index === 0) return kind === 'learn' ? 'learn' : 'ask';
+  return null;
+}
+
+// What Beacon says on the lesson-complete screen (R18): fixing a missed one on its comeback is worth a word of its own
+// (unless every one was right the first time); otherwise the line goes with the stars.
+export function completeMoment(stars: number, fixed: number): Moment {
+  if (stars >= 3) return 'perfect';
+  if (fixed > 0) return 'fixedAll';
+  return stars === 2 ? 'strong' : 'done';
 }

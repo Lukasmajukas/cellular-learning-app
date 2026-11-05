@@ -4,6 +4,7 @@ import { c } from '../theme';
 import { Icon } from '../Icon';
 import { SPRING, PRESS_ROUND, BREATHE, ON_AIR, INSTANT, popInQueue, useCalm, useAwake, useEntrance } from '../theme/motion';
 import { usePress } from './press';
+import { Beacon, BEACON_SIZE, BEACON_HEIGHT, type BeaconFace } from './Beacon';
 import { TAB_BAR_HEIGHT } from './AppShell';
 import type { Status } from '../path';
 
@@ -17,6 +18,9 @@ import type { Status } from '../path';
 // - onAir: the lesson you just finished turns from blue to green with a ring burst;
 // - unlock: the next lesson's lock flies off and its circle pops up;
 // - wave: one ring from a circle of a unit you just finished (one after another, up the unit).
+// R18: the current lesson has Beacon standing beside it ("you are here"), on the side away from its name, where the
+// dotted line never runs. It sits inside the circle's pop-in, so it pops in (and arrives after an unlock) with its circle,
+// then gives one happy ring pulse. It blinks, but its rings stay still: the lesson's own rings already breathe (idea I35).
 export const NODE_SIZE: Record<Status, number> = { done: 64, current: 80, locked: 56 };
 export const NODE_BOX = 128; // the square every node is centred in (the current one's outer ring fits inside)
 const RINGS = [100, 122];    // the current lesson's two rings (diameters)
@@ -37,7 +41,8 @@ const disc = (s: Status): CSSProperties => ({ ...centred(NODE_SIZE[s]), ...LOOK[
 // (idea I17). Forgotten when the app closes.
 const seen = new Set<string>();
 
-export function LessonNode({ id, title, status, moment, onClick }: { id: string; title: string; status: Status; moment?: Moment; onClick: () => void }) {
+export function LessonNode({ id, title, status, moment, beacon, onClick }:
+  { id: string; title: string; status: Status; moment?: Moment; beacon?: 'left' | 'right'; onClick: () => void }) {
   const open = status !== 'locked', size = NODE_SIZE[status];
   const calm = useCalm(), awake = useAwake(), on = useEntrance();
   const press = usePress(open, PRESS_ROUND);
@@ -83,7 +88,9 @@ export function LessonNode({ id, title, status, moment, onClick }: { id: string;
             {RINGS.map((d, k) => <span key={d} aria-hidden data-testid="lesson-ring" style={{ ...centred(d), border: `1.5px solid ${c.signal}`, opacity: k ? 0.18 : 0.38 }} />)}
           </motion.span>
         )}
-        <motion.button data-testid={`lesson-${id}`} data-status={status} disabled={!open} onClick={onClick} aria-label={`${title}, ${status}`} {...press}
+        {beacon && status === 'current' && <PathBeacon side={beacon} arriving={show?.kind === 'unlock'} />}
+        <motion.button data-testid={`lesson-${id}`} data-status={status} disabled={!open} onClick={onClick}
+          aria-label={`${title}, ${status}${beacon && status === 'current' ? ', you are here' : ''}`} {...press}
           style={{ position: 'relative', width: size, height: size, borderRadius: '50%', padding: 0, display: 'grid', placeItems: 'center', boxSizing: 'border-box',
             ...LOOK[status], cursor: open ? 'pointer' : 'not-allowed' }}>
           <Icon name={status === 'locked' ? 'lock' : 'tower'} size={ICON_SIZE[status]} />
@@ -116,4 +123,23 @@ function LockOff() {
     <motion.span aria-hidden data-testid="lock-off" style={{ position: 'absolute', left: '50%', top: '50%', width: 24, height: 24, margin: -12, color: c.lockedIcon, pointerEvents: 'none', zIndex: 1 }}
       initial={{ y: 0, rotate: 0, opacity: 1 }} animate={on ? { y: -36, rotate: -25, opacity: 0 } : { y: 0, rotate: 0, opacity: 1 }} transition={leave}><Icon name="lock" size={24} /></motion.span>
   </>;
+}
+
+// Beacon beside the current lesson (R18), standing on the same ground as the circle (its feet level with the circle's
+// bottom), just outside the inner ring. After an unlock it arrives with the circle and is happy for a moment.
+function PathBeacon({ side, arriving }: { side: 'left' | 'right'; arriving: boolean }) {
+  const [face, setFace] = useState<BeaconFace>('idle');
+  useEffect(() => {
+    if (!arriving) return;
+    const a = setTimeout(() => setFace('happy'), ON_AIR.beaconHappy * 1000);
+    const b = setTimeout(() => setFace('idle'), ON_AIR.beaconRest * 1000);
+    return () => { clearTimeout(a); clearTimeout(b); };
+  }, [arriving]);
+  const w = BEACON_SIZE.path, off = NODE_RING / 2 + 2;
+  return (
+    <span aria-hidden data-testid="path-beacon-spot" data-side={side} style={{ position: 'absolute', pointerEvents: 'none', zIndex: 1,
+      top: NODE_BOX / 2 + NODE_SIZE.current / 2 - BEACON_HEIGHT(w), left: side === 'left' ? NODE_BOX / 2 - off - w : NODE_BOX / 2 + off }}>
+      <Beacon face={face} size={w} breathe={false} data-testid="path-beacon" />
+    </span>
+  );
 }

@@ -71,7 +71,7 @@ export function PathMap({ units, progress, onStart, due = 0, onReview }: { units
           <UnitBanner testId={`banner-${u.id}`} number={n + 1} title={u.title} status={unitStatus(units, progress, u.id)}
             done={u.lessons.filter(l => progress[l.id] !== undefined).length} total={u.lessons.length}
             moment={moment?.unitDone === u.id ? 'done' : moment?.unitOpened === u.id ? 'opened' : undefined} />
-          <Lessons unit={u} units={units} progress={progress} onStart={onStart} moment={moment} />
+          <Lessons unit={u} units={units} progress={progress} onStart={onStart} moment={moment} focus={focus} />
         </section>
       ))}
     </div>
@@ -79,7 +79,8 @@ export function PathMap({ units, progress, onStart, due = 0, onReview }: { units
 }
 
 // One unit's lessons: rows of the same height, the circles left and right in turn, and the dotted line behind them.
-function Lessons({ unit, units, progress, onStart, moment }: { unit: Unit; units: Unit[]; progress: Progress; onStart: (id: string) => void; moment: OnAir | null }) {
+function Lessons({ unit, units, progress, onStart, moment, focus }:
+  { unit: Unit; units: Unit[]; progress: Progress; onStart: (id: string) => void; moment: OnAir | null; focus?: string }) {
   const box = useRef<HTMLDivElement>(null);
   const [w, setW] = useState(COLUMN - 40);
   // The line is drawn in pixels, so it needs the column's real width (narrow windows make it narrower).
@@ -115,7 +116,8 @@ function Lessons({ unit, units, progress, onStart, moment }: { unit: Unit; units
         return (
           <div key={l.id} data-testid={`row-${l.id}`} data-side={side} style={{ position: 'absolute', left: 0, right: 0, top: i * ROW, height: ROW }}>
             <div style={{ position: 'absolute', left: `calc(${x * 100}% - ${NODE_BOX / 2}px)`, top: (ROW - NODE_BOX) / 2 }}>
-              <LessonNode id={l.id} title={l.title} status={s} moment={momentOf(l.id, i)} onClick={() => onStart(l.id)} />
+              {/* Beacon stands beside your current lesson (R18), on the side away from its name. */}
+              <LessonNode id={l.id} title={l.title} status={s} moment={momentOf(l.id, i)} beacon={l.id === focus ? side : undefined} onClick={() => onStart(l.id)} />
             </div>
             <LessonName id={l.id} title={l.title} status={s} stars={progress[l.id] ?? 0}
               style={side === 'left' ? { left: `calc(${x * 100}% + ${nameOffset(s)}px)`, right: 0, textAlign: 'left', alignItems: 'flex-start' }

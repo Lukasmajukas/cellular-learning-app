@@ -8,6 +8,8 @@ import { BEACON, BREATHE, INSTANT, useCalm, useAwake, useEntrance } from '../the
 // Six faces. Background loops: the rings breathe, and the eyes blink every 4-7 s (idle, thinking, oops).
 // One-off moves when the face changes: happy sends one ring out; cheering hops three times and bursts two rings.
 // `still` turns the loops off (for a screen that already has a loop of its own, or a row of examples).
+// `breathe={false}` keeps the blink but holds the rings still (R18, idea I35: on the path, where the current lesson's
+// rings already breathe, so the screen keeps to 2 loops: their breath and Beacon's blink).
 // With Reduce motion nothing moves; the face just changes. Speeds: BEACON in src/theme/motion.tsx.
 export const BEACON_FACES = ['idle', 'happy', 'oops', 'thinking', 'cheering', 'sleepy'] as const;
 export type BeaconFace = (typeof BEACON_FACES)[number];
@@ -17,6 +19,7 @@ export const BEACON_SIZE = { path: 48, question: 58, complete: 112 } as const;
 // The drawing's own grid: 100 wide, 136 tall. The head sits at (50, 40) with room above it for the rings, so nothing is
 // cut off when they breathe or the head hops (look A's picture cut the top of the outer ring).
 const W = 100, H = 136, HX = 50, HY = 40, HEAD = 15;
+export const BEACON_HEIGHT = (width: number) => (width * H) / W;   // how tall Beacon is at a width
 const RINGS = [{ r: 22, o: 0.4 }, { r: 30, o: 0.18 }];
 
 const SAYS: Record<BeaconFace, string> = {
@@ -27,11 +30,12 @@ const BLINKS: BeaconFace[] = ['idle', 'thinking', 'oops'];  // faces with open, 
 const line = { fill: 'none', strokeLinecap: 'round', strokeLinejoin: 'round' } as const;
 const randomGap = () => BEACON.blinkGap[0] + Math.random() * (BEACON.blinkGap[1] - BEACON.blinkGap[0]);
 
-export function Beacon({ face = 'idle', size = BEACON_SIZE.question, still = false, 'data-testid': testId = 'beacon' }:
-  { face?: BeaconFace; size?: number; still?: boolean; 'data-testid'?: string }) {
+export function Beacon({ face = 'idle', size = BEACON_SIZE.question, still = false, breathe = true, 'data-testid': testId = 'beacon' }:
+  { face?: BeaconFace; size?: number; still?: boolean; breathe?: boolean; 'data-testid'?: string }) {
   const calm = useCalm(), awake = useAwake(), on = useEntrance();
   const moving = on && !calm && !still;                    // one-off moves (pulse, hop, burst)
   const looping = moving && awake;                         // background loops pause while the window is hidden
+  const breathing = looping && breathe;
   const glow = face === 'happy' || face === 'cheering' ? c.onAir : c.signal;
   const dim = face === 'oops' || face === 'sleepy' ? BEACON.dim : 1;
   const ink = c.onBright;                                  // the face is drawn in the dark "on a bright colour" ink
@@ -51,7 +55,7 @@ export function Beacon({ face = 'idle', size = BEACON_SIZE.question, still = fal
   const pulsing = moving && face === 'happy', cheering = moving && face === 'cheering';
   return (
     <svg width={size} height={(size * H) / W} viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`Beacon, ${SAYS[face]}`}
-      data-testid={testId} data-face={face} data-looping={looping} style={{ display: 'block', overflow: 'hidden', flexShrink: 0 }}>
+      data-testid={testId} data-face={face} data-looping={looping} data-breathing={breathing} style={{ display: 'block', overflow: 'hidden', flexShrink: 0 }}>
       <defs>
         <radialGradient id={grad}>
           <stop offset="0.45" style={{ stopColor: glow, stopOpacity: 0.4 }} />
@@ -70,7 +74,7 @@ export function Beacon({ face = 'idle', size = BEACON_SIZE.question, still = fal
         <circle cx={HX} cy={HY} r={HEAD + 9} fill={`url(#${grad})`} />
         {/* The rings breathe together, as one layer (one background loop), like the current lesson's rings. */}
         <motion.g data-part="rings" style={{ originX: 0.5, originY: 0.5 }} initial={false}
-          animate={looping ? BREATHE.on : BREATHE.off} transition={looping ? BREATHE.transition : INSTANT}>
+          animate={breathing ? BREATHE.on : BREATHE.off} transition={breathing ? BREATHE.transition : INSTANT}>
           {/* Dimmed on an inner layer: the breath animates the outer layer's see-through-ness. */}
           <g data-part="ring-dim" opacity={dim}>
             {RINGS.map(({ r, o }) => <circle key={r} cx={HX} cy={HY} r={r} stroke={glow} strokeOpacity={o} strokeWidth="2.5" fill="none" />)}

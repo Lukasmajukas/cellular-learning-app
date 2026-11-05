@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { KIND_LABEL, KIND_HINT, FOLD_LABEL, questionCount, BEACON_LINES, beaconLine, type Moment } from './questionScreen';
+import { KIND_LABEL, KIND_HINT, FOLD_LABEL, questionCount, BEACON_LINES, beaconLine, beaconMoment, completeMoment, type Moment } from './questionScreen';
 import { startRun, advance } from './session';
 import type { Item } from './questions';
 
@@ -63,5 +63,28 @@ describe('question screen words', () => {
       const seen = new Set(Array.from({ length: 30 }, (_, i) => beaconLine(m, `q${i}-${i}`)));
       expect(seen.size, m).toBeGreaterThan(1);
     }
+  });
+
+  it('R18 (idea I39): Beacon speaks before the first question, after every answer and on a comeback; otherwise it is quiet', () => {
+    const at = (o: Partial<Parameters<typeof beaconMoment>[0]>) => beaconMoment({ index: 3, kind: 'choice', answered: null, inRow: 0, comeback: false, ...o });
+    expect(at({ index: 0 })).toBe('ask');
+    expect(at({ index: 0, kind: 'learn' })).toBe('learn');
+    expect(at({})).toBeNull();                         // the 4th question, nothing has happened yet: quiet
+    expect(at({ kind: 'learn' })).toBeNull();
+    expect(at({ comeback: true })).toBe('comeback');   // a missed one is back (I43)
+    expect(at({ answered: false })).toBe('wrong');
+    expect(at({ answered: false, comeback: true })).toBe('wrong');
+    expect(at({ answered: true, inRow: 1 })).toBe('right');
+    expect(at({ answered: true, inRow: 1, comeback: true })).toBe('fixed');
+    expect([1, 2, 3, 4, 5, 6].map(inRow => at({ answered: true, inRow }))).toEqual(['right', 'right', 'streak', 'right', 'right', 'streak']);
+  });
+
+  it('R18: on lesson complete the line goes with the stars, or says you fixed the tricky ones', () => {
+    expect(completeMoment(3, 0)).toBe('perfect');
+    expect(completeMoment(3, 1)).toBe('perfect');      // can't happen (a fix means a miss), but perfect wins
+    expect(completeMoment(2, 1)).toBe('fixedAll');
+    expect(completeMoment(2, 0)).toBe('strong');
+    expect(completeMoment(1, 0)).toBe('done');
+    for (const m of ['perfect', 'strong', 'done', 'fixedAll', 'comeback', 'fixed', 'streak'] as Moment[]) expect(BEACON_LINES[m].length, m).toBeGreaterThanOrEqual(3);
   });
 });
