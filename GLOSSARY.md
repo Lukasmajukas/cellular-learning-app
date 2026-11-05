@@ -220,3 +220,4 @@ Claude adds new words here whenever they come up.
 | **Speed check** | The click test that measures how much work the app does: sitting still, scrolling the path, every animation (with the CPU brake on) and start-up. `app/tests/speed.spec.ts`. |
 | **Chevron** | A small arrow shaped like a ">" that we turn to point down or up. After the words of a fold-out it means "there's more here: tap to open (or close) it". |
 | **Fold-out** | Words you tap to show more underneath them, and tap again to hide it, like "Clue by clue" or "What happened". (On web pages it's called a disclosure, or `<details>`.) |
+| **Yardstick** | In a test: a small fixed job timed on the same computer at the same moment, so a result can be judged against how fast that computer is right then, like timing a runner against a friend running beside them. |
