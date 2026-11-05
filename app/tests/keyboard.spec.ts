@@ -175,5 +175,9 @@ test('self-check: the ring checker does catch a missing ring and a button hidden
   });
   expect(under).toBeTruthy();
   expect(await focusRing(w)).toMatchObject({ ok: false, why: 'under the tab-bar' });
+  // A Tab that loses the focus for good still fails the walk (tabTo waits up to 1 s for a focus on its way, no longer; I58).
+  await w.getByTestId('tab-heatmap').focus();
+  await w.evaluate(() => document.addEventListener('keyup', e => { if (e.key === 'Tab') (document.activeElement as HTMLElement).blur(); }));
+  await expect(tabTo(w, null, 3)).rejects.toThrow('Tab stop 1 (BODY): nothing has the focus');
   await app.close();
 });

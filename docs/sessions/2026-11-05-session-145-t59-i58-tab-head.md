@@ -17,6 +17,7 @@ Each of the four tabs (Path, Review, Heatmap, Settings) starts with a small colo
   - `app/tests/frame.spec.ts`, "every tab starts the same way": now also checks there's one tab head on each tab and the first thing under it starts 16 px below (or further if it keeps its own bigger space, like the path's first unit at 32 px).
   - `app/src/ui.test.ts`: `TabHead.tsx` added to the list of building blocks.
   - **The checks bite:** with Settings' old hand-drawn head put back, the unit test fails; with all four old heads back, the click test fails.
+- **A wobbly test fixed** (`app/tests/helpers.ts`, `tabTo`, used by the keyboard walk from R22): in the first full click-test run, "Tab through every tab" failed once. On the Review tab, Tab stop 13 found nothing focused, exactly where Tab wraps from the last tab button back to the page's first button (the two wraps before it were fine). Alone it passed 5 of 5, 12 of 12 with 6 copies at once, and 80 of 80 Tab presses with the computer slowed 8 times. Why: at a wrap the page hands the focus to Electron's window, which hands it straight back, a round trip between two programs; on a busy machine the check can read the focus mid-trip. The CPU brake slows only the page, so it can't make that happen. Fix: when a Tab stop finds nothing focused, the helper gives the focus up to 1 s to arrive. A real lost focus never arrives, and the self-check test now proves that (a Tab that drops the focus still fails the walk).
 - **Docs:** `DESIGN.md` section 6 (tab head in the block list and the rule), `IDEAS.md` (I58 ✅, new I82), `TASKS.md` (the T59 row), `DECISIONS.md`, `PROGRESS-LOG.md`, the panel.
 
 ## Test results
@@ -26,7 +27,11 @@ Each of the four tabs (Path, Review, Heatmap, Settings) starts with a small colo
 - Windows build on GitHub: RESULT_WIN
 
 ## What I looked at (by eye)
-LOOKED
+- Before and after pictures, compared pixel by pixel, then by eye: Review (`13-review`, `30-review-blips`, `31-review-clear`) and Heatmap (`07-heatmap`, `34-heatmap-fill`, `35-heatmap-sheet`, `44-heatmap-empty`): the label, title and help line sit exactly where they were; only the cards below moved down 4 px, so the space under the head is now the same 16 px as on Path and Settings. Path (`01`) and Settings (`08`) didn't change at all, as expected: they already had 16 px.
+- The building-blocks page (`10` to `12`, `16`, `17`) now starts with a tab head ("EVERY BLOCK", "Building blocks", one help line), so everything on it sits about 24 px lower.
+- Checked in Night and Day at 620 × 960 and 1280 × 800. The other small differences between before and after are animations caught at a slightly different moment (the question glide, the burst, the start fade), so those pictures were left alone.
+- **Gallery:** 48 pictures replaced in `gallery/latest/` and `gallery/latest/day/` (the 12 screens above, both sizes, both looks).
+- **Still weak:** switching tabs glides the whole screen, the head too, although the head's place never changes (new idea I82).
 
 ## What's next
 - T59 carries on with the top unticked idea in `docs/redesign/IDEAS.md`: I78 (the welcome's goal keys match their numbers). Large (Opus), High effort. This was idea chat 2 of 8 after R24; the 8th is design review 4.
