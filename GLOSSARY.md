@@ -212,3 +212,9 @@ Claude adds new words here whenever they come up.
 | **Keyboard shortcut** | A key that does something straight away, like 1 to pick answer 1 or A to pick partner A in a match. The whole list is in Settings, Keys. |
 | **Minimum window size** | The smallest you can drag the window to. Ours is 360 × 560, about a phone screen; every screen is checked at that size. |
 | **Colour alone** | Showing something only with a colour (like green for right). Some people can't tell colours apart, so the app always adds a shape too: a tick, a cross, a filled box. |
+| **Main thread** | The one worker inside the app that runs its code, works out the styles and lays out the page. If it's busy, everything waits, like a single cashier with a long queue. Smooth apps keep it free. |
+| **Graphics chip (GPU)** | The part of the computer that draws pictures on the screen. It can slide, grow and fade a layer all by itself, without the main thread, which is why the app only animates those. |
+| **Layer** | A piece of the screen drawn once, like a sticker on a clear sheet, that the graphics chip can then move, grow or fade without drawing it again. |
+| **Style pass (style recalculation)** | The main thread working out again how every part of the page should look. Once in a while is fine; 60 times a second while nothing happens is waste. |
+| **CPU brake (CPU throttling)** | A test trick: Chromium slows the computer down on purpose (we use a quarter of its speed) to see how the app would feel on an old, slow PC. |
+| **Speed check** | The click test that measures how much work the app does: sitting still, scrolling the path, every animation (with the CPU brake on) and start-up. `app/tests/speed.spec.ts`. |
