@@ -13,8 +13,12 @@ import { SPRING, FEEDBACK, useCalm, useEntrance, INSTANT } from '../theme/motion
 // and fades, together with the right tile's glow and Beacon's ring pulse (idea I44, FEEDBACK.spark starts at LOCK). It
 // used to flash when the bar stepped forward on Continue, after the rest of the moment was over. See-through-ness only;
 // off with Reduce motion.
-export function ProgressBar({ value, label, testId, height = 10, tone = 'glow', animateIn = false, from, transition, spark }:
-  { value: number; label: string; testId?: string; height?: number; tone?: 'glow' | TokenKey; animateIn?: boolean; from?: number; transition?: Transition; spark?: number }) {
+// `stub` (the lesson's bar, I89): the first `height` px of the track stay lit, even at 0, like a pilot light, so the
+// spark of the first right answer has a tip to sit on (before, it was half a light, cut off by the bar's round end).
+// The cover starts after the stub and its slide covers the rest, so 100% is still full. Only the look: the value read
+// out (aria-valuenow, data-value) stays the real one, 0 at the start.
+export function ProgressBar({ value, label, testId, height = 10, tone = 'glow', animateIn = false, from, transition, spark, stub = false }:
+  { value: number; label: string; testId?: string; height?: number; tone?: 'glow' | TokenKey; animateIn?: boolean; from?: number; transition?: Transition; spark?: number; stub?: boolean }) {
   const calm = useCalm(), on = useEntrance();
   const clamp = (x: number) => Math.max(0, Math.min(1, Number.isFinite(x) ? x : 0));
   const v = clamp(value), pct = Math.round(v * 100);
@@ -31,11 +35,11 @@ export function ProgressBar({ value, label, testId, height = 10, tone = 'glow', 
       {/* The colour stays put across the whole track, and a cover in the track's own colour slides off it to the right
           (R09). So the fill always starts signal-blue at the left and turns on-air green as it nears the end, as in look A;
           before, the whole colour fade slid in with the fill, so a short fill showed only its green end. The cover's
-          rounded left corners give the fill a rounded end. `data-fill` marks the moving edge. */}
+          rounded left corners give the fill a rounded end. `data-fill` marks the moving edge (after the stub, if there is one). */}
       <div aria-hidden style={{ position: 'absolute', inset: 0, background: tone === 'glow' ? `linear-gradient(90deg, ${c.signal}, ${c.onAir})` : c[tone] }} />
       <motion.div data-fill initial={animateIn && !calm ? { transform: 'translateX(0%)' } : false} animate={{ transform: `translateX(${shown * 100}%)` }}
         transition={calm ? INSTANT : transition ?? SPRING.fill}
-        style={{ position: 'absolute', inset: 0, borderRadius: `${height / 2}px 0 0 ${height / 2}px`, background: c.track }}>
+        style={{ position: 'absolute', inset: 0, left: stub ? height : 0, borderRadius: `${height / 2}px 0 0 ${height / 2}px`, background: c.track }}>
         {/* The spark rides on the cover's left edge, which is the fill's tip. A still soft light; only its see-through-ness moves. */}
         {spark !== undefined && <div ref={tip} aria-hidden data-spark style={{ position: 'absolute', top: 0, bottom: 0, left: -height * 1.5, width: height * 3, opacity: 0,
           background: `radial-gradient(closest-side, ${c.text}, color-mix(in srgb, ${c.onAir} 60%, transparent) 55%, transparent)` }} />}

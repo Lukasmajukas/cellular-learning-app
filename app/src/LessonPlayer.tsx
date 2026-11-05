@@ -92,8 +92,8 @@ export function LessonPlayer({ lesson, onFinish, onQuit }: { lesson: Lesson; onF
           <motion.div key="row" data-testid="lesson-row" style={{ display: 'flex', alignItems: 'center', gap: 12, minHeight: ROW_H }} exit={{ opacity: 0, transition: QUICK_FADE }}>
             <IconButton icon="close" label="Leave the lesson (Esc)" data-testid="quit" onClick={onQuit} aria-keyshortcuts="Escape" style={{ marginLeft: -10 }} />
             {/* The bar springs forward a touch past its new place and settles on Continue (R11). Its tip sparks on a right
-                answer, with the tile's glow and Beacon's ring (I44). */}
-            <div style={{ flex: 1 }}><ProgressBar testId="lesson-progress" label="Lesson progress" height={12} spark={locks} transition={SPRING.step}
+                answer, with the tile's glow and Beacon's ring (I44). A small lit stub at its start (I89) gives the first spark a tip. */}
+            <div style={{ flex: 1 }}><ProgressBar testId="lesson-progress" label="Lesson progress" height={12} spark={locks} stub transition={SPRING.step}
               value={Math.min(run.index, run.queue.length) / run.queue.length} /></div>
             <span data-testid="lesson-count" aria-label={`Question ${count.n} of ${count.total}${count.comeback ? ', a comeback' : ''}`}
               style={{ ...mono, fontSize: 13, color: c.textMuted, fontVariantNumeric: 'tabular-nums', minWidth: 44, textAlign: 'right' }}>{count.text}</span>
