@@ -34,6 +34,20 @@ const launch = async (sample: boolean) => {
   const w = await app.firstWindow();
   return { app, w, t0, cdp: await w.context().newCDPSession(w) };
 };
+// The yardstick: a short fixed job (make 2,000 small boxes, style and measure them, a few rounds; the same kind of work
+// as scrolling: style, layout, a little script) timed in the very same window, right before and right after the scroll.
+// Whatever the machine does to it (a busy cloud computer, a slow laptop), it does to the path too, so the path's cost is
+// judged against the yardstick's time, not against fixed numbers. Best of 25 rounds each time, in ms.
+const yardstick = (w: Page, rounds = 25) => w.evaluate(rounds => {
+  let best = Infinity;
+  for (let r = 0; r < rounds; r++) {
+    const t = performance.now(), host = document.createElement('div'); host.style.cssText = 'position:fixed;left:-9999px;width:300px';
+    for (let i = 0; i < 2000; i++) { const d = document.createElement('div'); d.style.cssText = `padding:${i % 7}px;border:1px solid #000;width:${100 + (i % 50)}px`; d.textContent = 'x' + i; host.appendChild(d); }
+    document.body.appendChild(host); let h = 0; host.querySelectorAll('div').forEach(d => { h += (d as HTMLElement).offsetHeight; }); host.remove();
+    best = Math.min(best, performance.now() - t);
+  }
+  return best;
+}, rounds);
 const brake = (cdp: CDPSession, rate: number) => cdp.send('Emulation.setCPUThrottlingRate', { rate });
 
 // How busy the page's main thread is while nothing happens: milliseconds of work per second, and style recalculations
@@ -98,20 +112,6 @@ test('scrolling the whole real path (49 lessons) is smooth with the computer slo
     const fps = 1000 / (r.gaps.reduce((a, b) => a + b, 0) / r.gaps.length), slow = r.gaps.filter(g => g > 25).length;
     return { fps, busy, slow, px: r.px, frames: r.gaps.length, worst: [...r.gaps].sort((a, b) => b - a).slice(0, 3).map(g => g.toFixed(0)).join(', ') };
   };
-  // The yardstick: a short fixed job (make 2,000 small boxes, style and measure them, a few rounds; the same kind of work
-  // as scrolling: style, layout, a little script) timed in the very same window, right before and right after the scroll.
-  // Whatever the machine does to it (a busy cloud computer, a slow laptop), it does to the path too, so the path's cost is
-  // judged against the yardstick's time, not against fixed numbers. Best of 25 rounds each time, in ms.
-  const yardstick = (w: Page) => w.evaluate(() => {
-    let best = Infinity;
-    for (let r = 0; r < 25; r++) {
-      const t = performance.now(), host = document.createElement('div'); host.style.cssText = 'position:fixed;left:-9999px;width:300px';
-      for (let i = 0; i < 2000; i++) { const d = document.createElement('div'); d.style.cssText = `padding:${i % 7}px;border:1px solid #000;width:${100 + (i % 50)}px`; d.textContent = 'x' + i; host.appendChild(d); }
-      document.body.appendChild(host); let h = 0; host.querySelectorAll('div').forEach(d => { h += (d as HTMLElement).offsetHeight; }); host.remove();
-      best = Math.min(best, performance.now() - t);
-    }
-    return best;
-  });
   // The glow done the old way (R23's mistake): a "fixed background" on the page, which Chromium repaints at every scroll step.
   const OLD_GLOW = `body::before{display:none!important} body{background-image:radial-gradient(ellipse 620px 560px at 50% 38%,var(--glow-1) 0%,var(--glow-2) 50%,var(--glow-3) 78%,var(--bg) 100%)!important;background-attachment:fixed!important}`;
   const scrollOnce = async (oldGlow = false) => {
@@ -182,16 +182,24 @@ test('start-up: the window shows quickly, the save is read quickly, and the star
 // (each one's own test checks 50+). At a quarter speed R23 measured 41-59 fps (the lowest: the heatmap's tiles filling
 // in, as the tab glides). The floor, 30 fps, catches a move that would stutter on a slow PC.
 const SLOW_FLOOR = 30;
+// The floor is fair to the machine (T65): SLOW_FLOOR is for a computer as quick as the one it was set on (a yardstick of
+// YARD_FAST ms at a quarter speed; measured 57-91, usually 75, in the cloud). On a slower or busier one the floor drops in step, but never below MIN_FLOOR.
+const YARD_FAST = 75, MIN_FLOOR = 12;
 test('every animation, with the computer slowed to a quarter speed: 30+ fps (the table is printed)', async () => {
   test.setTimeout(180_000);
-  const rows: [string, number][] = [];
+  const rows: [string, number, number, number][] = [];
   const measure = async (name: string, w: Page, cdp: CDPSession, act: () => Promise<void>, sel: string, ms = 1200) => {
     await w.mouse.move(2, 2); await w.waitForTimeout(400);
     await brake(cdp, 4);
+    // The yardstick at the same quarter speed, in the same window, right before and right after the move: the quieter
+    // reading is what this machine can do right now. A slow or crowded computer gets a lower floor (never below MIN_FLOOR).
+    const y0 = await yardstick(w, 8);
     const f = await film(w, [sel], act, ms, sel);
+    const y = Math.min(y0, await yardstick(w, 8));
     await brake(cdp, 1);
-    rows.push([name, f.fps]);
-    expect.soft(f.fps, name).toBeGreaterThanOrEqual(SLOW_FLOOR);
+    const floor = Math.max(MIN_FLOOR, SLOW_FLOOR * Math.min(1, YARD_FAST / y));
+    rows.push([name, f.fps, y, floor]);
+    expect.soft(f.fps, `${name} (floor ${floor.toFixed(1)} fps, yardstick ${y.toFixed(0)} ms)`).toBeGreaterThanOrEqual(floor);
   };
   const real = await launch(false);
   const R = real.w; await R.getByTestId('path-count').waitFor(); await R.waitForTimeout(1500);
@@ -224,5 +232,5 @@ test('every animation, with the computer slowed to a quarter speed: 30+ fps (the
   await measure('lesson complete (burst, stars, XP)', S, s.cdp, () => S.getByTestId('next').click(), '[data-testid=end]', 2000);
   await measure('back to the path (coming on air)', S, s.cdp, () => S.getByTestId('finish').click(), '[data-testid=screen-path]', 2000);
   await s.app.close();
-  console.log(`  every animation at a quarter speed (floor ${SLOW_FLOOR} fps):\n    ${rows.map(([n, f]) => `${n.padEnd(36)} ${f.toFixed(1)} fps`).join('\n    ')}`);
+  console.log(`  every animation at a quarter speed (floor ${SLOW_FLOOR} fps):\n    ${rows.map(([n, f, y, fl]) => `${n.padEnd(36)} ${f.toFixed(1)} fps  (floor ${fl.toFixed(1)}, yardstick ${y.toFixed(0)} ms)`).join('\n    ')}`);
 });
