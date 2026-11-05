@@ -1,4 +1,4 @@
-import { Component, Fragment, useEffect, useRef, useState, type ReactNode } from 'react';
+import { Component, Fragment, useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import { c, COLUMN, RADIUS, mono } from './theme';
 import { Beacon, BEACON_SIZE, Button, SectionLabel, MotionKit } from './ui';
 import { showFile, hasFileAccess } from './storage';
@@ -21,7 +21,6 @@ export function Trouble({ kind, detail, onRetry }: { kind: keyof typeof TROUBLE;
   useEffect(() => endStartScreen(!!BOOT.calm), []); // it may come up before the app was ever ready
   useKeys(k => (k === 'enter' ? pressFor(root.current, k) : false));
   const t = TROUBLE[kind];
-  const [more, setMore] = useState(false);
   return (
     <MotionKit calm={!!BOOT.calm}>
       <div ref={root} data-testid={`trouble-${kind}`} role="alert" style={{ maxWidth: COLUMN, margin: '0 auto', padding: '32px 20px', boxSizing: 'border-box',
@@ -34,17 +33,26 @@ export function Trouble({ kind, detail, onRetry }: { kind: keyof typeof TROUBLE;
         {kind === 'load' && hasFileAccess() && (
           <Button full kind="quiet" icon="folder" data-testid="trouble-file" onClick={() => showFile()} style={{ marginTop: 12 }}>Show the progress file</Button>
         )}
-        {/* Design review 3 (R24): our own chevron after the words, like every other fold in the app ("Clue by clue"),
-            instead of the browser's own grey triangle in front of them. */}
-        <details data-testid="trouble-details" onToggle={e => setMore(e.currentTarget.open)} style={{ marginTop: 20, fontSize: 14, color: c.textMuted }}>
-          <summary style={{ cursor: 'pointer', padding: '10px 0', minHeight: 24, listStyle: 'none', display: 'flex', alignItems: 'center', gap: 4, width: 'fit-content' }}>
-            What happened<Icon name="chevron" size={16} style={{ transform: `rotate(${more ? -90 : 90}deg)` }} /></summary>
-          <p style={{ margin: '4px 0 8px' }}>If this keeps happening, tell Claude what it says here.</p>
-          <pre data-testid="trouble-detail" style={{ ...mono, margin: 0, padding: 12, fontSize: 13, whiteSpace: 'pre-wrap', wordBreak: 'break-word',
-            color: c.text, background: c.surface, border: `1px solid ${c.border}`, borderRadius: RADIUS.tile }}>{detail}</pre>
-        </details>
+        <WhatHappened id="trouble" detail={detail} style={{ marginTop: 20 }} />
       </div>
     </MotionKit>
+  );
+}
+
+// "What happened": the exact error, folded away, to tell Claude if it keeps happening. Used by the error screens and
+// by "Couldn't save your last change" (Notices.tsx). Test ids: `<id>-details` (the fold) and `<id>-detail` (the words).
+// Design review 3 (R24): our own chevron after the words, like every other fold in the app ("Clue by clue"),
+// instead of the browser's own grey triangle in front of them.
+export function WhatHappened({ id, detail, color = c.textMuted, style }: { id: string; detail: string; color?: string; style?: CSSProperties }) {
+  const [more, setMore] = useState(false);
+  return (
+    <details data-testid={`${id}-details`} onToggle={e => setMore(e.currentTarget.open)} style={{ fontSize: 14, color, ...style }}>
+      <summary style={{ cursor: 'pointer', padding: '10px 0', minHeight: 24, listStyle: 'none', display: 'flex', alignItems: 'center', gap: 4, width: 'fit-content' }}>
+        What happened<Icon name="chevron" size={16} style={{ transform: `rotate(${more ? -90 : 90}deg)` }} /></summary>
+      <p style={{ margin: '4px 0 8px' }}>If this keeps happening, tell Claude what it says here.</p>
+      <pre data-testid={`${id}-detail`} style={{ ...mono, margin: 0, padding: 12, fontSize: 13, whiteSpace: 'pre-wrap', wordBreak: 'break-word',
+        color: c.text, background: c.surface, border: `1px solid ${c.border}`, borderRadius: RADIUS.tile }}>{detail}</pre>
+    </details>
   );
 }
 

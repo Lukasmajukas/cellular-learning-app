@@ -8,7 +8,7 @@ import { join } from 'node:path';
 // its colour and the colour behind it (see-through layers mixed in, faded parents counted), and the WCAG contrast
 // between them. Normal text needs 4.5:1, big text (24 px, or 18.66 px bold) 3:1. Buttons you can't press yet are left
 // out, as WCAG allows. Reduce motion is on, so nothing is caught halfway through moving.
-// R21: also the start screen, the first-start welcome, the empty heatmap and the two error screens.
+// R21: also the start screen, the first-start welcome, the empty heatmap and the two error screens. I69: the "Couldn't save" notice.
 type Fail = { text: string; fg: string; bg: string; ratio: number; need: number };
 type Audit = { checked: number; fails: Fail[]; unparsed: string[] };
 
@@ -211,6 +211,13 @@ for (const look of ['night', 'day']) {
     await w.getByTestId('welcome-look').click();
     await w.getByTestId('tab-heatmap').click(); await w.getByTestId('heat-empty').waitFor();
     await check(w, 'heatmap: empty');
+    await app.close();
+    // Idea I69: "Couldn't save your last change" (the first saves fail), with its count and "What happened" open.
+    ({ app, w } = await launch(look, { CELL_TEST_SAVE_FAIL: '3' }));
+    await w.getByTestId('savefail').waitFor();
+    await w.getByTestId('savefail-retry').click(); await w.getByTestId('savefail-tries').waitFor();
+    await w.getByTestId('savefail-details').locator('summary').click();
+    await check(w, 'save failed notice');
     await app.close();
     for (const [kind, env] of [['load', { CELL_TEST_LOAD_FAIL: '1' }], ['crash', { CELL_TEST_CRASH: '1' }]] as const) {
       ({ app, w } = await launch(look, env));

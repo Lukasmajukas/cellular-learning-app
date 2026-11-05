@@ -3,10 +3,10 @@
   "robot": {
     "on": true,
     "next": "right away (it starts its next job by itself), and every hour",
-    "last": "redesign idea I78: on the welcome, each daily-goal choice is picked with its own number key (1, 2, 3 or 5), so 5 means 5 lessons (T59)"
+    "last": "redesign idea I69: if saving your progress ever stops working, a \"Couldn't save your last change\" box says so, with Try again (T59)"
   },
   "light": "green",
-  "working": "Nothing in progress. The 24 redesign sessions are done; the robot now improves the app one idea at a time from the ideas board, next: a notice if your progress ever fails to save (T59, idea I69). For you: the Windows build on GitHub still doesn't run, most likely because your free GitHub Actions minutes are used up; please check GitHub, Settings, Billing (T62). Also: when a new build is out, say if the green picture at start-up is gone (T57); paste the robot's hourly message into the launcher chat again, and don't /clear it until then (T60).",
+  "working": "Nothing in progress. The 24 redesign sessions are done; the robot now improves the app one idea at a time from the ideas board, next: the top bar's new numbers wait for their moment (T59, idea I30). For you: the Windows build on GitHub still doesn't run, most likely because your free GitHub Actions minutes are used up; please check GitHub, Settings, Billing (T62). Also: when a new build is out, say if the green picture at start-up is gone (T57); paste the robot's hourly message into the launcher chat again, and don't /clear it until then (T60).",
   "limit": {
     "state": "warning",
     "resets": "the weekly limit is nearly used up (it resets Wed Nov 11). The robot keeps working until it runs out"

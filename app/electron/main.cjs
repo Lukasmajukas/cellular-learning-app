@@ -31,6 +31,8 @@ function create() {
 // Automatic tests only (R21): CELL_TEST_LOAD_FAIL=n makes the first n loads fail, to show the "couldn't open" screen;
 // CELL_TEST_LOAD_DELAY=ms makes the first load that slow, like a slow computer, so the start screen stays up.
 let failLoads = Number(process.env.CELL_TEST_LOAD_FAIL) || 0;
+// Idea I69: CELL_TEST_SAVE_FAIL=n makes the first n saves fail (like a full disk), to show "Couldn't save your last change".
+let failSaves = Number(process.env.CELL_TEST_SAVE_FAIL) || 0;
 let delay = Number(process.env.CELL_TEST_LOAD_DELAY) || 0;
 ipcMain.handle('save:load', async () => {
   if (delay) { const ms = delay; delay = 0; await new Promise(r => setTimeout(r, ms)); }
@@ -38,6 +40,7 @@ ipcMain.handle('save:load', async () => {
   return store.load();
 });
 ipcMain.handle('save:save', (e, state) => {
+  if (failSaves > 0) { failSaves--; throw new Error('Test: the save file could not be written (CELL_TEST_SAVE_FAIL).'); }
   const clean = store.save(state);
   BrowserWindow.fromWebContents(e.sender)?.setBackgroundColor(WINDOW_BG[clean.settings.look]); // the look may have changed
   return clean;
