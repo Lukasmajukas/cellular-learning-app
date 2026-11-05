@@ -55,6 +55,25 @@ test('switching tabs doesn\'t shift the frame sideways, even when only one tab n
   await app.close();
 });
 
+test('every tab starts the same way: a small label, then the title, at the same height (design review 2)', async () => {
+  const { app, w } = await launch();
+  await w.evaluate(() => window.scrollTo(0, 0));
+  const head = async (tab: string) => {
+    const s = w.getByTestId(`screen-${tab}`);
+    const label = (await s.getByTestId('tab-label').boundingBox())!, title = (await s.locator('h1').first().boundingBox())!;
+    const size = await s.locator('h1').first().evaluate(e => getComputedStyle(e).fontSize);
+    return { label: Math.round(label.y), labelX: Math.round(label.x), title: Math.round(title.y), size };
+  };
+  const path = await head('path');
+  expect(path.size).toBe('28px');
+  for (const tab of ['review', 'heatmap', 'settings']) {
+    await w.getByTestId(`tab-${tab}`).click(); await w.getByTestId(`screen-${tab}`).waitFor();
+    await w.evaluate(() => window.scrollTo(0, 0));
+    await expect.poll(() => head(tab), { timeout: 3000 }).toEqual(path); // once its glide has settled
+  }
+  await app.close();
+});
+
 test('the app frame: a top bar that stays put, four tabs big enough to tap, and the Review tab', async () => {
   const { app, w } = await launch();
   await expect(w.getByTestId('top-bar')).toBeVisible();

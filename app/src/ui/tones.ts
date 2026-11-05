@@ -15,6 +15,9 @@ export const BUTTON = {
   streak: { bg: 'streak', fg: 'onBright' },   // only for saving your streak (the repair card, R07)
 } as const satisfies Record<string, Tone>;
 export type ButtonKind = keyof typeof BUTTON;
+// A button you can't press yet (design review 2, idea I42), whatever its kind: dark, a thin outline, quiet words.
+// It turns into its bright self once you can press it. (Before: the bright colour at half see-through, a muddy teal.)
+export const BUTTON_OFF = { bg: 'surface2', fg: 'textMuted', border: 'borderStrong' } as const satisfies Tone;
 
 // Pills: small rounded labels like "6 due". `quiet` is the unselected look of a pill choice.
 export const PILL = {

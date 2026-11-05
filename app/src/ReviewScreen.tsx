@@ -23,7 +23,7 @@ export function ReviewScreen({ outlook: o, onStart, onPath }: { outlook: Outlook
   const look = o.due ? 'due' : o.known ? 'clear' : 'empty';
   return (
     <div data-testid="review-screen" data-look={look} style={{ maxWidth: COLUMN, margin: '0 auto', padding: '16px 20px 32px', boxSizing: 'border-box' }}>
-      <SectionLabel tone="review" style={{ margin: 0 }}>Drive test</SectionLabel>
+      <SectionLabel tone="review" data-testid="tab-label" style={{ margin: 0 }}>Drive test</SectionLabel>
       <h1 style={{ margin: '2px 0 12px', fontSize: 28, lineHeight: 1.25 }}>Daily review</h1>
       <Card raised accent={o.due ? 'review' : undefined} style={{ marginBottom: 16, textAlign: 'center' }}>
         <Scope late={o.late} due={o.due} />

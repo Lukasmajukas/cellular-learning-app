@@ -38,6 +38,8 @@ test('learn card, type the number and match the pairs line up on the left; the b
   await expect(w.getByTestId('kind-label')).toHaveText(/^something new$/i);
   const text = await lined(w, 'learn-text');
   await expect(w.getByTestId('learn-ruler')).toBeVisible();
+  // Design review 2: "Got it" is the main signal-blue button, like the "This changed" card's (green is for right answers).
+  await expect(w.getByTestId('learn-ok')).toHaveAttribute('data-kind', 'signal');
   const ok = await box(w, 'learn-ok');
   expect(Math.abs(ok.x - text.x)).toBeLessThan(1.5);
   expect(Math.abs(ok.width - text.width)).toBeLessThan(2);
@@ -52,7 +54,12 @@ test('learn card, type the number and match the pairs line up on the left; the b
   expect(unit.x).toBeGreaterThan(nb.x + nb.width / 2);
   expect(Math.abs(check.width - nb.width)).toBeLessThan(2);
   await expect(w.getByTestId('check')).toBeDisabled();
+  // Design review 2 (idea I42): a Check you can't press yet is dark with an outline and quiet words, never a
+  // half see-through bright blue; it turns bright once you can press it.
+  const looks = () => w.getByTestId('check').evaluate(e => { const s = getComputedStyle(e); return [s.backgroundColor, s.color, s.opacity]; });
+  expect(await looks()).toEqual(['rgb(19, 42, 70)', 'rgb(142, 163, 191)', '1']);   // surface2, textMuted, solid
   await w.getByTestId('number-input').fill('700');
+  await expect.poll(looks).toEqual(['rgb(63, 216, 242)', 'rgb(8, 16, 29)', '1']);    // signal, onBright
   await w.getByTestId('check').click();
   await expect(w.getByTestId('verdict')).toHaveText('Not quite');
   await expect(w.getByTestId('number-box')).toHaveAttribute('data-state', 'wrong');
