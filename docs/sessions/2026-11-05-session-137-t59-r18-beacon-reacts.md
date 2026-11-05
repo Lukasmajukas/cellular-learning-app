@@ -1,7 +1,7 @@
 # Handoff note: 2026-11-05, T59 redesign R18 (Beacon reacts)
 <!-- File name: docs/sessions/YYYY-MM-DD-session-N-short-name.md (N = the highest session number so far + 1) -->
 
-**Status:** IN PROGRESS <!-- change to DONE when the chat finishes -->
+**Status:** DONE
 **Model used:** Large (Opus), High effort (a Sonnet robot run claimed it and handed it to this Opus chat) · **Branch / pull request:** claude/robot-t59-r18, #141
 
 ## In simple words (for the owner)
@@ -25,7 +25,7 @@ Beacon, the little glowing tower, now reacts to what you do. On the path it stan
 ## Test results
 - Unit tests: 215 pass (213 + 2). TypeScript OK. Content checker OK (253 facts, 27 photos, 635 questions).
 - Click tests (cloud): 86 of 86 on the first full run (10.0 min): the 79 before plus 7 new. Lowest frame rate measured: 59.2 fps (bar 50). After the last small change (balanced line breaks in the end bubble), the R18 and lesson-complete tests ran again: 11 of 11.
-- Windows build (GitHub): WINDOWS
+- Windows build (GitHub): passed on the last commit (run 153, success).
 
 ## What I looked at (by eye)
 - "Before": the gallery from R16 (taken on the same code as main).
@@ -54,3 +54,6 @@ Beacon, the little glowing tower, now reacts to what you do. On the path it stan
 - The bubble's place is one wrapper (`key="says"`) holding a `SpeechBubble` keyed by its words: a new line swaps in at once; only "going quiet" fades. Two bubbles with the same test ID at once broke the strict click tests.
 - `SpeechBubble` widths: `maxWidth` counts padding only with `boxSizing: 'border-box'`.
 - The path's Beacon has the test ID `path-beacon` (its place: `path-beacon-spot`, with `data-side`); the question screen's stays `beacon`.
+
+## Takeover note
+The Opus chat stopped on its 5-hour limit after saving all the work. A Sonnet robot run (🟡 takeover) only filled in the Windows result, set Status to DONE and merged. Panel not republished (robot run).
