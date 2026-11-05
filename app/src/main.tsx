@@ -26,14 +26,16 @@ import rawLessons from '../../content/lessons.json';
 import { DATA } from './sampleLessons';
 import './theme/fonts';
 import './theme/theme.css';
-import { applyLook, COLUMN } from './theme';
+import { applyLook, COLUMN, type Look } from './theme';
 import { Notices } from './Notices';
 import { BlocksSheet } from './BlocksSheet';
-
-applyLook('night'); // before the first paint, so the window never flashes another look
+import { LookFade } from './ui/LookFade';
 
 // The real lessons, unless an automatic test asks for the samples (see electron/preload.cjs); the same for "This changed" cards.
-const TEST = (window as unknown as { cellApi?: { useSamplePath?: boolean; testChanges?: Change[] } }).cellApi;
+const TEST = (window as unknown as { cellApi?: { useSamplePath?: boolean; testChanges?: Change[]; look?: Look } }).cellApi;
+// The saved look, before the first paint (R20: the main process reads it from the save file before the window opens),
+// so the window never flashes the other look. In a plain browser (no app around it) it's Night.
+applyLook(TEST?.look === 'day' ? 'day' : 'night');
 const CHANGES = TEST?.testChanges ?? (rawChanges as { changes: Change[] }).changes;
 const PATH = TEST?.useSamplePath ? SAMPLE_PATH : REAL_PATH;
 const order = (t: TabId) => TABS.findIndex(x => x.id === t);
@@ -63,7 +65,9 @@ function App() {
   const s = state ?? EMPTY_STATE;
   prefs.sounds = s.settings.sounds; prefs.volume = volumeOf(s.settings);
   const look = s.settings.look, calm = s.settings.reduceMotion;
-  useEffect(() => { applyLook(look); }, [look]);
+  // Only once the save has loaded: before that, `s` is the blank state (Night), and a Day user would see Night flash (R20).
+  const ready = !!state;
+  useEffect(() => { if (ready) applyLook(look); }, [look, ready]);
   // Starting the daily review gives a radar ping (R19), from the Review tab or the path's review card.
   const startReview = () => { play('review'); setPlaying(REVIEW_ID); };
   const go = (t: TabId) => { if (t === tab) return; setDir(order(t) > order(tab) ? 1 : -1); setTab(t); };
@@ -98,6 +102,7 @@ function App() {
   return (
     <MotionKit calm={calm}>
       {s.settings.showFps && <FpsMeter />}
+      <LookFade look={look} calm={calm} />
       <AnimatePresence mode="wait" initial={false} onExitComplete={toTop}>
         {lesson ? (
           <motion.div key={`lesson-${lesson.id}`} data-testid="lesson-screen" {...screenGlide('lesson', calm)}>

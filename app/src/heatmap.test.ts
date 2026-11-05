@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { buildHeatmap, groupOf, heatLabel, heatGlow, heatBars, heatCounts, lessonsByBand, questionsByBand, HEAT_TONE, HEAT_TINT, LEVELS } from './heatmap';
+import { buildHeatmap, groupOf, heatLabel, heatGlow, heatBars, heatCounts, lessonsByBand, questionsByBand, HEAT_TONE, HEAT_FILL, LEVELS } from './heatmap';
 import { NIGHT, DAY, type Palette } from './theme/tokens';
 import { contrast } from './theme/contrast';
 import { review } from './fsrs';
@@ -72,18 +72,17 @@ describe('heatmap', () => {
   });
 });
 
-// The tile's fill is the level's colour mixed into the card colour (HEAT_TINT %). Its words and bars must stay readable.
-const hex = (h: string) => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
-const mix = (a: string, b: string, t: number) => '#' + hex(a).map((x, i) => Math.round(x * t + hex(b)[i] * (1 - t)).toString(16).padStart(2, '0')).join('');
+// The tile's fill is the level's own soft background token (HEAT_FILL, R20). Its words and bars must stay readable.
 describe('heatmap tiles are readable (Night and Day)', () => {
   const check = (p: Palette) => (['strong', 'okay', 'fading'] as const).flatMap(l => {
-    const bg = mix(p[HEAT_TONE[l]], p.surface, HEAT_TINT / 100);
+    const bg = p[HEAT_FILL[l]];
     return [
       ['band name', contrast(p.text, bg), 4.5], ['percent', contrast(p.textMuted, bg), 4.5], ['bars and outline', contrast(p[HEAT_TONE[l]], bg), 3],
     ].filter(([, r, min]) => (r as number) < (min as number)).map(([what, r]) => `${l} ${what}: ${(r as number).toFixed(2)}`);
   });
   it('Night', () => expect(check(NIGHT)).toEqual([]));
-  it('Day (early values, finished in R20)', () => expect(check(DAY)).toEqual([]));
+  it('Day', () => expect(check(DAY)).toEqual([]));
+  it('the fills are the three soft background tokens (idea I52)', () => expect(HEAT_FILL).toEqual({ strong: 'onAirBg', okay: 'streakBg', fading: 'missBg' }));
   it('a new band: its dim words on the card colour', () => {
     for (const p of [NIGHT, DAY]) expect(contrast(p.textMuted, p.surface)).toBeGreaterThanOrEqual(4.5);
   });

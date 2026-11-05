@@ -3,6 +3,7 @@
 // Options:        node tools/gallery.mjs --out <folder>   (default ../docs/redesign/gallery/latest)
 //                 node tools/gallery.mjs --icons-only     (just the icon sheet, 00-icons.webp; no build needed)
 //                 node tools/gallery.mjs --types-only     (just the other question types, 18-27; build first; keeps the rest)
+//                 node tools/gallery.mjs --look day       (R20: every picture in the Day look, into ../docs/redesign/gallery/latest/day)
 // It starts the real Electron app with a made-up save file (3 lessons done, a 4-day streak, some reviews due),
 // the other question types (18-27, from R10), a comeback question (28, from R11), the Review tab's looks and the notices (30-33, from R13), the heatmap filling in and its lessons sheet (34, 35, from R14), Settings mid-sample, its bottom and in Day (36-38, from R15), shows the building blocks page (#blocks, from R03; Beacon's faces 16, 17 from R17), the Review tab (13, from R04), the top bar mid-moment and the repair card (14, 15, from R07),
 // draws a sheet of all our icons (00-icons), visits each screen at the owner's window size (620 x 960) and a wide one (1280 x 800), and saves small WebP files.
@@ -20,7 +21,10 @@ if (process.platform === 'linux' && !process.env.DISPLAY && !process.env.GALLERY
   process.exit(r.status ?? 1);
 }
 const outArg = process.argv.indexOf('--out');
-const OUT = resolve(outArg > 0 ? process.argv[outArg + 1] : join(APP, '..', 'docs', 'redesign', 'gallery', 'latest'));
+const lookArg = process.argv.indexOf('--look');
+const LOOK = lookArg > 0 ? process.argv[lookArg + 1] : 'night'; // R20: the whole gallery in either look
+if (!['night', 'day'].includes(LOOK)) throw new Error(`--look must be night or day, not ${LOOK}`);
+const OUT = resolve(outArg > 0 ? process.argv[outArg + 1] : join(APP, '..', 'docs', 'redesign', 'gallery', 'latest', ...(LOOK === 'day' ? ['day'] : [])));
 const SIZES = [{ w: 620, h: 960, suffix: '' }, { w: 1280, h: 800, suffix: '-wide' }];
 const DAY = 86_400_000;
 const pad = n => String(n).padStart(2, '0');
@@ -39,7 +43,7 @@ function seedSave(dir, game = {}, progress = { 'unit01-l1': 3, 'unit01-l2': 3, '
   const save = {
     version: 1,
     progress,
-    settings: { sounds: false, reduceMotion: false, showFps: false, dailyGoal: 2, look: 'night' },
+    settings: { sounds: false, reduceMotion: false, showFps: false, dailyGoal: 2, look: LOOK },
     reviews,
     game: { streak: 4, lastDay: today(), xp: 120, xpToday: 30, xpDay: today(), doneToday: 1, doneDay: today(), freezes: 1, lost: 0, lostDay: '', ...game },
     seenChanges: [],
@@ -118,10 +122,7 @@ async function realScreens(s) {
   await w.getByTestId('tab-review').click();
   await w.getByTestId('review-screen').waitFor();
   await shot(w, '13-review', s);
-  await w.getByTestId('tab-settings').click();
-  await w.getByTestId('set-look-day').click();
-  await w.getByTestId('tab-path').click();
-  await shot(w, '09-path-map-day', s);
+  // (09-path-map-day and 38-settings-day are gone since R20: the whole gallery is taken in Day too, in latest/day/.)
   await app.close();
 }
 
@@ -278,7 +279,7 @@ async function heatScreens(s) {
 }
 
 // R15: the Settings tab mid-sample (the speaker's glow and its first ring going out), scrolled to the bottom (look,
-// progress, keys), and in the early Day look.
+// progress, keys), and (R20) halfway through switching to the other look.
 async function settingsScreens(s) {
   const { app, w } = await launch({});
   await resize(app, s);
@@ -291,9 +292,9 @@ async function settingsScreens(s) {
   await w.waitForTimeout(900);
   await w.getByTestId('set-card-keys').scrollIntoViewIfNeeded();
   await shot(w, '37-settings-bottom', s, 400);
-  await w.getByTestId('set-look-day').click();
-  await w.evaluate(() => window.scrollTo(0, 0));
-  await shot(w, '38-settings-day', s, 500);
+  // R20: the look changing (idea I56: a cover in the old background fades away), caught halfway.
+  await w.getByTestId(`set-look-${LOOK === 'day' ? 'night' : 'day'}`).click();
+  await shot(w, '38-look-change', s, 140);
   await app.close();
 }
 
@@ -318,11 +319,12 @@ async function blocksScreens(s) {
   await app.close();
 }
 
-// The icon sheet (R02): every icon from src/theme/icons.ts at 24 px and 48 px, in the Night colours, plus the filled star.
+// The icon sheet (R02): every icon from src/theme/icons.ts at 24 px and 48 px, in the look's colours, plus the filled star.
 // Node reads the .ts files directly (Node 22.18 or newer strips the types; ignore its "Reparsing as ES module" warning).
 async function iconSheet() {
   const { ICONS, ICON_NAMES } = await import('../src/theme/icons.ts');
-  const { NIGHT } = await import('../src/theme/tokens.ts');
+  const { PALETTES } = await import('../src/theme/tokens.ts');
+  const NIGHT = PALETTES[LOOK]; // R20: the sheet in the look being photographed
   const svg = (name, size, solid = false) => `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${
     ICONS[name].lines.map(d => `<path d="${d}" fill="${solid ? 'currentColor' : 'none'}"/>`).join('')}${(ICONS[name].dots ?? []).map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="currentColor" stroke="none"/>`).join('')}</svg>`;
   const cell = (name, solid) => `<div class="c"><div style="color:${NIGHT.signal}">${svg(name, 48, solid)}</div><div style="color:${NIGHT.text}">${svg(name, 24, solid)}</div><span>${name}${solid ? ' (solid)' : ''}</span></div>`;
@@ -330,8 +332,9 @@ async function iconSheet() {
     <style>.g{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}.c{background:${NIGHT.surface};border:1px solid ${NIGHT.border};border-radius:14px;padding:12px;display:flex;flex-direction:column;align-items:center;gap:8px}</style>
     <div class="g">${ICON_NAMES.map(n => cell(n, false)).join('')}${cell('star', true)}</div></body></html>`;
   const { app, w } = await launch({}); // the app's own window, just as a page to draw on (needs no extra browser)
-  await resize(app, { w: 760, h: 640 });
+  await resize(app, { w: 760, h: 900 }); // R20: tall enough for every row (at 640 the first row was cut off)
   await w.setContent(html);
+  await w.evaluate(() => window.scrollTo(0, 0));
   await shot(w, '00-icons', { suffix: '' }, 300);
   await app.close();
 }

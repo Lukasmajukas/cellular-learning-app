@@ -5,6 +5,8 @@ contextBridge.exposeInMainWorld('cellApi', {
   save: state => ipcRenderer.invoke('save:save', state),
   backupNow: () => ipcRenderer.invoke('save:backup'),
   showFile: () => ipcRenderer.invoke('save:show'),
+  // R20: the saved look, read by the main process before the window opened, so the first paint is already in that look.
+  look: process.argv.includes('--cell-look=day') ? 'day' : 'night',
   // Automatic tests set CELL_SAMPLE_PATH=1 to get the five sample lessons instead of the real ones.
   useSamplePath: process.env.CELL_SAMPLE_PATH === '1',
   // ... and CELL_TEST_CHANGES (a JSON list) to show "This changed" cards, because the real list stays empty until a fact changes.

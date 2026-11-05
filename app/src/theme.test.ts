@@ -50,6 +50,7 @@ describe('text contrast', () => {
     ['onAir', 'onAirBg', 4.5], ['text', 'onAirBg', 4.5],
     ['miss', 'missBg', 4.5], ['missText', 'missBg', 4.5], ['text', 'missBg', 4.5],
     ['notice', 'noticeBg', 4.5],
+    ['streak', 'streakBg', 4.5], ['text', 'streakBg', 4.5], ['textMuted', 'streakBg', 4.5], ['textMuted', 'onAirBg', 4.5], ['textMuted', 'missBg', 4.5], // the heatmap's fills (R20)
     ['lockedIcon', 'bg', 3], ['textMuted', 'track', 3],
     ...(['bg', 'surface', 'surface2'] as TokenKey[]).map(b => ['beacon', b, 3] as [TokenKey, TokenKey, number]), // Beacon's tower is a drawing (R17)
     ...(['chart1', 'chart2', 'chart3', 'chart4', 'chart5', 'chart6'] as TokenKey[]).map(k => [k, 'surface', 3] as [TokenKey, TokenKey, number]),
@@ -61,7 +62,7 @@ describe('text contrast', () => {
     expect(contrast('#3FD8F2', '#3FD8F2')).toBe(1);
   });
   it('Night: every pair passes', () => expect(check(NIGHT)).toEqual([]));
-  it('Day (early values, finished in R20): every pair passes', () => expect(check(DAY)).toEqual([]));
+  it('Day: every pair passes', () => expect(check(DAY)).toEqual([]));
   it('both looks define every token as a 6-digit colour code', () => {
     for (const p of [NIGHT, DAY]) for (const k of TOKEN_KEYS) expect(p[k]).toMatch(/^#[0-9A-F]{6}$/);
   });

@@ -121,7 +121,7 @@ export function SettingsScreen({ settings, onChange }: { settings: Settings; onC
 
       <Card title="Look" style={{ ...card, paddingBottom: 16 }} data-testid="set-card-look">
         <Row asLabel={false} last name="Colours" icon={<RowIcon name={day ? 'sun' : 'moon'} />}
-          hint={day ? 'Light colours. An early test: it gets finished in a later update.' : 'Dark and calm, like a radio screen at night.'} />
+          hint={day ? 'Light and clear, like a radio screen in daylight.' : 'Dark and calm, like a radio screen at night.'} />
         <div style={{ paddingLeft: 48, marginTop: 4 }}>
           <PillChoice testId="set-look" label="Look" value={settings.look}
             options={[{ value: 'night', text: 'Night', icon: 'moon' }, { value: 'day', text: 'Day', icon: 'sun' }]} onChange={look => set({ look })} />
