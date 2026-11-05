@@ -6,7 +6,7 @@
     "last": "redesign idea I30: after a lesson, the top bar keeps its old numbers until its own moment, so the streak and today's XP no longer change while the path is still playing (T59)"
   },
   "light": "green",
-  "working": "Nothing in progress. The 24 redesign sessions are done; the robot now improves the app one idea at a time from the ideas board, next: the progress bar's spark, the right answer's glow and Beacon's ring start together (T59, idea I44). For you: the Windows build on GitHub still doesn't run, most likely because your free GitHub Actions minutes are used up; please check GitHub, Settings, Billing (T62). Also: when a new build is out, say if the green picture at start-up is gone (T57); paste the robot's hourly message into the launcher chat again, and don't /clear it until then (T60).",
+  "working": "Nothing in progress. The 24 redesign sessions are done; the robot now improves the app one idea at a time from the ideas board, next: fixing a speed test that's unfair on slower cloud computers (T64), then the redesign carries on with idea I44 (the progress bar's spark, the right answer's glow and Beacon's ring start together). For you: the Windows build on GitHub still doesn't run, most likely because your free GitHub Actions minutes are used up; please check GitHub, Settings, Billing (T62). Also: when a new build is out, say if the green picture at start-up is gone (T57); paste the robot's hourly message into the launcher chat again, and don't /clear it until then (T60).",
   "limit": {
     "state": "warning",
     "resets": "the weekly limit is nearly used up (it resets Wed Nov 11). The robot keeps working until it runs out"
