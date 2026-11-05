@@ -109,13 +109,19 @@ test('first start: the welcome by mouse, then the first lesson; the goal is save
   await again.close();
 });
 
-test('the welcome by keyboard: Enter goes on, 1-4 pick a goal, Esc goes back; "Look around first" opens the path', async () => {
+test('the welcome by keyboard: Enter goes on, 1, 2, 3 or 5 pick that many lessons (4 does nothing), Esc goes back; "Look around first" opens the path', async () => {
   const { app, w, saved } = await launch(null);
   await w.getByTestId('welcome-page-0').waitFor();
   await w.waitForTimeout(400);
   await w.keyboard.press('Enter'); await w.getByTestId('welcome-page-1').waitFor();
-  await w.keyboard.press('4');
+  await w.keyboard.press('3');                                                       // each goal's key is its own count (idea I78)
+  await expect(w.getByTestId('welcome-goal-3')).toHaveAttribute('aria-checked', 'true');
+  await w.keyboard.press('4');                                                       // no 4-lesson goal, so 4 changes nothing
+  await w.waitForTimeout(200);
+  await expect(w.getByTestId('welcome-goal-3')).toHaveAttribute('aria-checked', 'true');
+  await w.keyboard.press('5');
   await expect(w.getByTestId('welcome-goal-5')).toHaveAttribute('aria-checked', 'true');
+  await expect(w.getByTestId('welcome-goal-5').locator('[data-key]')).toHaveText('5'); // the key drawn beside "5 lessons"
   await w.keyboard.press('Escape'); await w.getByTestId('welcome-page-0').waitFor();
   await w.keyboard.press('Enter'); await w.getByTestId('welcome-page-1').waitFor();
   await expect(w.getByTestId('welcome-goal-5')).toHaveAttribute('aria-checked', 'true'); // your pick is kept

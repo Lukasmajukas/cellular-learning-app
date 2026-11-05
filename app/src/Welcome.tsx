@@ -9,7 +9,8 @@ import { useKeys, pressFor } from './keys';
 // The first-start welcome (redesign R21): two short pages, shown once, before the path.
 //   1. Hello: Beacon says hi, and three rows say what the app teaches.
 //   2. Daily goal: 1, 2, 3 or 5 lessons a day (the same choices as Settings), then the first lesson, or a look around.
-// Keys: Enter = the page's main button, 1-4 pick a goal, Esc goes back to the first page.
+// Keys: Enter = the page's main button, 1, 2, 3 or 5 pick that many lessons (each goal's key is its own count, idea I78),
+// Esc goes back to the first page.
 // The pages glide like questions (pageGlide, in from the right going on, from the left going back).
 // It describes the app only: no band or carrier facts here (those come from the data files, in the lessons).
 export const GOALS = [
@@ -91,7 +92,8 @@ function Hello({ onNext }: { onNext: () => void }) {
   );
 }
 
-function Goal({ goal, onPick, onDone }: { goal: number; onPick: (n: number) => void; onDone: (play: boolean) => void }) {
+// The goal page (exported for its unit test). Each tile's key is its own lesson count, so 5 picks "5 lessons" (I78).
+export function Goal({ goal, onPick, onDone }: { goal: number; onPick: (n: number) => void; onDone: (play: boolean) => void }) {
   return (
     <>
       <Says face="idle" size={BEACON_SIZE.question}>{WELCOME_SAYS.goal}</Says>
@@ -99,8 +101,8 @@ function Goal({ goal, onPick, onDone }: { goal: number; onPick: (n: number) => v
       <h1 style={{ margin: '2px 0 4px', fontSize: 28 }}>How many lessons a day?</h1>
       <p style={{ margin: '0 0 8px', fontSize: 16, color: c.textMuted }}>The bar at the top fills as you finish them. Change it any time in Settings.</p>
       <div role="radiogroup" aria-label="Daily goal, lessons a day" data-testid="welcome-goals" style={{ marginBottom: 16 }}>
-        {GOALS.map((g, i) => (
-          <AnswerTile key={g.n} n={i + 1} data-pick={i + 1} data-testid={`welcome-goal-${g.n}`} role="radio" aria-checked={g.n === goal}
+        {GOALS.map(g => (
+          <AnswerTile key={g.n} n={g.n} data-pick={g.n} aria-keyshortcuts={String(g.n)} data-testid={`welcome-goal-${g.n}`} role="radio" aria-checked={g.n === goal}
             state={g.n === goal ? 'selected' : 'idle'} onClick={() => onPick(g.n)} style={{ margin: '8px 0', minHeight: 60 }}>
             <span style={{ display: 'block' }}><b>{g.n} {g.n === 1 ? 'lesson' : 'lessons'}</b> <span style={{ color: c.textMuted }}>· {g.name}</span></span>
             <span style={{ display: 'block', fontSize: 14, color: c.textMuted }}>{goalHint(g.minutes)}</span>

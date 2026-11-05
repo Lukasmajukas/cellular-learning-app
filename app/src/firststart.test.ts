@@ -10,7 +10,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { lookCss, PALETTES, TOKEN_KEYS, cssVar, FONT } from './theme/tokens';
 import { START, startFade, pageGlide, TIME, QUICK_FADE } from './theme/motion';
 import { Beacon } from './ui/Beacon';
-import { GOALS, WELCOME_SAYS, goalHint } from './Welcome';
+import { GOALS, WELCOME_SAYS, goalHint, Goal } from './Welcome';
 import { TROUBLE } from './Trouble';
 import { holdLeft } from './startup';
 const { createStore, normalize } = createRequire(import.meta.url)('../electron/store.cjs');
@@ -91,6 +91,18 @@ describe('words', () => {
     expect(GOALS.map(g => g.n)).toEqual([1, 2, 3, 5]);
     for (const g of GOALS) expect(g.minutes).toBe(g.n * 5);              // lessons are 3 to 5 minutes (lesson_timing.py)
     expect(goalHint(10)).toBe('up to 10 minutes a day');
+  });
+  it('each goal\'s key is its own count (1, 2, 3, 5), so the key beside "5 lessons" is 5 (idea I78)', () => {
+    const html = renderToStaticMarkup(createElement(Goal, { goal: 1, onPick: () => {}, onDone: () => {} }));
+    const tiles = [...html.matchAll(/<button[^>]*data-testid="welcome-goal-(\d)"[^>]*>(.*?)<\/button>/g)];
+    expect(tiles.map(t => Number(t[1]))).toEqual([1, 2, 3, 5]);
+    for (const [tile, n, inside] of tiles) {
+      expect(tile).toContain(`data-pick="${n}"`);                        // the key that picks it
+      expect(tile).toContain(`aria-keyshortcuts="${n}"`);                // what a screen reader says
+      expect(inside).toMatch(new RegExp(`aria-hidden="true"[^>]*>${n}</span>`)); // the number drawn in its key box
+      expect(inside).toContain(`<b>${n} ${n === '1' ? 'lesson' : 'lessons'}</b>`);
+    }
+    expect(html).not.toContain('data-pick="4"');                         // no key 4: there's no 4-lesson goal
   });
   it('Beacon says 8 words or fewer (DESIGN.md section 8)', () => {
     for (const line of Object.values(WELCOME_SAYS)) expect(line.split(/\s+/).length, line).toBeLessThanOrEqual(8);
