@@ -23,8 +23,8 @@ Each of the four tabs (Path, Review, Heatmap, Settings) starts with a small colo
 ## Test results
 - Unit tests: 261 pass (253 before + 8 new). TypeScript and the build OK.
 - Content checker: OK (253 facts, 27 photos, 635 questions). Nothing in `content/` changed.
-- Click tests (cloud, `xvfb-run -a npx playwright test`): RESULT_E2E
-- Windows build on GitHub: RESULT_WIN
+- Click tests (cloud, `xvfb-run -a npx playwright test`): first full run 122 of 123 (the keyboard walk, once, at a Tab wrap; see "A wobbly test fixed"); after the fix, **123 of 123 pass** in 15.8 min.
+- Windows build on GitHub: **could not run**, the same as every run since 09:17 UTC (T62): the last ones (183, 184) stopped after 4 seconds, and no run started for this branch.
 
 ## What I looked at (by eye)
 - Before and after pictures, compared pixel by pixel, then by eye: Review (`13-review`, `30-review-blips`, `31-review-clear`) and Heatmap (`07-heatmap`, `34-heatmap-fill`, `35-heatmap-sheet`, `44-heatmap-empty`): the label, title and help line sit exactly where they were; only the cards below moved down 4 px, so the space under the head is now the same 16 px as on Path and Settings. Path (`01`) and Settings (`08`) didn't change at all, as expected: they already had 16 px.
@@ -47,7 +47,7 @@ Each of the four tabs (Path, Review, Heatmap, Settings) starts with a small colo
 
 ## Approvals and blocks
 - Nothing asked for approval. Panel not republished (robot run): `panel/live.json` updated and `panel/index.html` rebuilt.
-- WINBLOCK
+- **BLOCKED: the Windows build check** (PLAN.md checklist step 3), same as R20 to I59: GitHub gives the build no computer. Not a failed try: every check that could run passed. Merged per `docs/WORKFLOW.md` G7; T62 already asks the owner.
 
 ## Notes for the next Claude
 - A new tab (if one is ever added) must use `TabHead`; `tabhead.test.ts` lists the four tabs by file name, so add the new file to its `TABS` list.
