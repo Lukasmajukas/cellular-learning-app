@@ -6,6 +6,7 @@ const { createStore, WINDOW_BG } = require('./store.cjs');
 const store = createStore(process.env.CELL_DATA_DIR || path.join(app.getPath('userData'), 'data'));
 // The longest the window waits for its first picture before it shows anyway (R21; normally it's well under a second).
 const SHOW_AT_LATEST_MS = 3000;
+const MIN_SIZE = { w: 360, h: 560 };
 
 function create() {
   // The saved look (R20), so the window opens in its own background colour (never a white or dark flash) and the
@@ -16,7 +17,9 @@ function create() {
   // R21: the window stays hidden until the page has drawn its first picture (our start screen, index.html), so the very
   // first thing you see is the app's own start screen, never an empty or half-drawn window (on a cold start in the
   // cloud the page took about 4 s to draw anything).
-  const win = new BrowserWindow({ width: 480, height: 760, show: false, backgroundColor: WINDOW_BG[look],
+  // R22: the smallest the window can be made is a phone-narrow 360 x 560 (the page inside it; useContentSize), the
+  // narrowest size every screen is checked at. Smaller, words would have to be cut off.
+  const win = new BrowserWindow({ width: 480, height: 760, minWidth: MIN_SIZE.w, minHeight: MIN_SIZE.h, useContentSize: true, show: false, backgroundColor: WINDOW_BG[look],
     webPreferences: { contextIsolation: true, nodeIntegration: false, preload: path.join(__dirname, 'preload.cjs'), additionalArguments: args } });
   win.setMenuBarVisibility(false);
   let shown = false;

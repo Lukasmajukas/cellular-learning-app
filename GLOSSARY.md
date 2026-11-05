@@ -208,3 +208,7 @@ Claude adds new words here whenever they come up.
 | **Start screen (splash screen)** | The picture an app shows for a moment while it gets ready, like a TV channel's logo before the show. Ours is Beacon, the app's name and "TUNING IN". |
 | **Error boundary** | A safety net around the app's screens: if something inside trips over, it catches the problem and shows a friendly "Something went wrong" screen instead of an empty window. |
 | **Empty screen (empty state)** | What a screen shows before there's anything to show yet, like the Heatmap before your first lesson. A good one says what will appear and how to get there. |
+| **Focus ring** | The glowing outline that shows which button the keyboard is on, like a cursor for buttons. Press Tab to move it, Enter to press. Ours is a thin blue ring. |
+| **Keyboard shortcut** | A key that does something straight away, like 1 to pick answer 1 or A to pick partner A in a match. The whole list is in Settings, Keys. |
+| **Minimum window size** | The smallest you can drag the window to. Ours is 360 × 560, about a phone screen; every screen is checked at that size. |
+| **Colour alone** | Showing something only with a colour (like green for right). Some people can't tell colours apart, so the app always adds a shape too: a tick, a cross, a filled box. |

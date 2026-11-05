@@ -59,6 +59,8 @@ export const ICONS = {
   sun: { lines: [circle(12, 12, 4), 'M12 2.5v2', 'M12 19.5v2', 'M2.5 12h2', 'M19.5 12h2', 'M5.3 5.3l1.4 1.4', 'M17.3 17.3l1.4 1.4', 'M5.3 18.7l1.4-1.4', 'M17.3 6.7l1.4-1.4'] },
   backup: { lines: ['M12 3.5v10', 'M7.5 9.5 12 14l4.5-4.5', 'M4.5 15v3a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-3'] },
   folder: { lines: ['M3.5 7a2 2 0 0 1 2-2h4l2 2.5h7a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z'] },
+  // R22: the Keys row in Settings (a keyboard: its outline, two rows of keys as dots, the space bar).
+  keyboard: { lines: [box(2.5, 6, 19, 12, 2.5), 'M8 14.5h8'], dots: [[6.5, 9.5, 1], [10, 9.5, 1], [13.5, 9.5, 1], [17, 9.5, 1], [6.5, 14.5, 1], [17.5, 14.5, 1]] },
 } satisfies Record<string, IconShape>;
 
 export type IconName = keyof typeof ICONS;
