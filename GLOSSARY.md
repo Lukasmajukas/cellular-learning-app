@@ -218,3 +218,5 @@ Claude adds new words here whenever they come up.
 | **Style pass (style recalculation)** | The main thread working out again how every part of the page should look. Once in a while is fine; 60 times a second while nothing happens is waste. |
 | **CPU brake (CPU throttling)** | A test trick: Chromium slows the computer down on purpose (we use a quarter of its speed) to see how the app would feel on an old, slow PC. |
 | **Speed check** | The click test that measures how much work the app does: sitting still, scrolling the path, every animation (with the CPU brake on) and start-up. `app/tests/speed.spec.ts`. |
+| **Chevron** | A small arrow shaped like a ">" that we turn to point down or up. After the words of a fold-out it means "there's more here: tap to open (or close) it". |
+| **Fold-out** | Words you tap to show more underneath them, and tap again to hide it, like "Clue by clue" or "What happened". (On web pages it's called a disclosure, or `<details>`.) |

@@ -48,7 +48,7 @@ test('learn card, type the number and match the pairs line up on the left; the b
   await w.getByTestId('choice-0').click(); await go(w);
 
   // Type the number: the hint, the unit inside the box, Check as wide as the box; a wrong number turns the box red.
-  await expect(w.getByTestId('kind-hint')).toHaveText('Type the number. Commas are fine.');
+  await expect(w.getByTestId('kind-hint')).toHaveText('Commas are fine, and so is GHz.');
   const nb = await lined(w, 'number-box'), unit = await box(w, 'number-unit'), check = await box(w, 'check');
   expect(unit.x + unit.width).toBeLessThanOrEqual(nb.x + nb.width);
   expect(unit.x).toBeGreaterThan(nb.x + nb.width / 2);

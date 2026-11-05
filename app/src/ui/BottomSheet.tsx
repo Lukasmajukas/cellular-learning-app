@@ -1,4 +1,4 @@
-import { useEffect, useRef, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { c, COLUMN } from '../theme';
@@ -18,6 +18,9 @@ import { SPRING, QUICK_FADE, SCRIM, useCalm, INSTANT } from '../theme/motion';
 // R14: an `info` sheet (tone "info", with its own `icon`) shows something instead of judging an answer, like a band's
 // lessons on the heatmap. Give it `onClose` and it gets a close button, closes with Esc (before Esc does anything else,
 // like leaving the tab), and sits over a dark scrim that closes it when clicked.
+// Design review 3 (R24): a tall sheet's own scrollbar took its width from the right, so "centred" moved the words 7-8 px
+// left of the page's column (gallery `35-heatmap-sheet`). The column now starts where the page's does: half of what's
+// left of the sheet's whole width, scrollbar or not (`left` below).
 export function BottomSheet({ open, tone, title, icon, children, action, testId, onHeight, onClose }:
   { open: boolean; tone: SheetTone; title: ReactNode; icon?: IconName; children?: ReactNode; action?: ReactNode; testId?: string;
     onHeight?: (h: number) => void; onClose?: () => void }) {
@@ -29,10 +32,11 @@ export function BottomSheet({ open, tone, title, icon, children, action, testId,
   const close = useRef(onClose);
   close.current = onClose;
   const closable = !!onClose;
+  const [left, setLeft] = useState<number | null>(null);
   useEffect(() => {
     const el = box.current;
     if (!open || !el) { report.current?.(0); return; }
-    const ro = new ResizeObserver(() => report.current?.(el.offsetHeight));
+    const ro = new ResizeObserver(() => { report.current?.(el.offsetHeight); setLeft(Math.max(0, (el.offsetWidth - COLUMN) / 2)); });
     ro.observe(el);
     return () => ro.disconnect();
   }, [open]);
@@ -61,7 +65,7 @@ export function BottomSheet({ open, tone, title, icon, children, action, testId,
           transition={{ y: calm ? INSTANT : SPRING.sheet, opacity: QUICK_FADE }}
           style={{ position: 'fixed', left: 0, right: 0, bottom: 0, zIndex: 20, maxHeight: '70vh', overflowY: 'auto',
             background: c[t.bg], borderTop: `2px solid ${c[t.border]}`, color: c[t.fg] }}>
-          <div style={{ maxWidth: COLUMN, margin: '0 auto', padding: '18px 20px 22px', boxSizing: 'border-box', textAlign: 'left' }}>
+          <div data-sheet-column style={{ maxWidth: COLUMN, margin: left === null ? '0 auto' : `0 0 0 ${left}px`, padding: '18px 20px 22px', boxSizing: 'border-box', textAlign: 'left' }}>
             <div data-testid={testId && `${testId}-title`} style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 21, fontWeight: 700, color: c[t.border], marginBottom: 6 }}>
               <Icon name={icon ?? (tone === 'right' ? 'check' : tone === 'wrong' ? 'cross' : 'info')} size={28} />
               <span style={{ flex: 1, minWidth: 0 }}>{title}</span>

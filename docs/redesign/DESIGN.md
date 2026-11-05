@@ -1,6 +1,7 @@
 # 🎨 Style guide: the "Night Signal" look
 
 **Status:** SIGNED OFF by the owner on 2026-11-04 (with `docs/redesign/PLAN.md`). Written 2026-11-04 in T58 (session 119).
+**The 24 redesign sessions are done (2026-11-05, design review 3).** This guide stays the rulebook for every idea chat after them (`docs/redesign/IDEAS.md`).
 **Picked by the owner on 2026-11-04:** look A "Night Signal", mascot "Beacon". The picture everyone copies from: `looks/look-a-night-signal.webp` (its source: `looks/looks.html`). Looks B and C were not picked; they stay in `looks/` for the record.
 
 ## In simple words (for the owner)
@@ -86,6 +87,11 @@ Built once (R03, R04) and used everywhere. *(R09: the bottom sheet is drawn stra
 *(Design review 2, 2026-11-05:)*
 - **A button you can't press yet** has its own look, whatever its kind: dark (`surface2`), a thin `borderStrong` outline and quiet `textMuted` words, at full strength (`BUTTON_OFF` in `app/src/ui/tones.ts`). It turns into its bright self once you can press it. Never the bright colour at half see-through: on the night background the signal blue became a muddy teal (idea I42).
 - **Every tab starts the same way:** a small label in the tab's colour (12 px capitals: "SIGNAL PATH", "DRIVE TEST", "BAND MEMORY", "YOUR APP"), then the 28 px title, 16 px below the top bar, then an optional one-line help in `textMuted`. A click test checks that all four line up (idea I58 would make it one building block).
+
+*(Design review 3, 2026-11-05:)*
+- **A sheet's words start on the page's column**, whether the sheet is long enough to scroll or not: the bottom sheet measures its whole width, scrollbar included, and starts its column at half of what's left (`app/src/ui/BottomSheet.tsx`). Before, a scrolling sheet's own scrollbar moved its words 7-8 px left of the page (the heatmap's band sheet). A click test checks four window sizes (`tests/review3.spec.ts`).
+- **Every fold-out ends with our chevron**, after its words: pointing down when closed, up when open ("Show them on the ruler", "Clue by clue", "What happened"). Never the browser's own triangle.
+- **A question's help line never repeats its label:** it says something the label doesn't ("TYPE THE NUMBER", then "Commas are fine, and so is GHz.").
 
 ## 7. Movement (motion rules)
 **What may move:** only position, size, turning and see-through-ness (transform and opacity), because those stay smooth on any computer (PRD 4e). Measured exceptions: drawing the path's line (`pathLength` or `stroke-dashoffset`) and counting numbers up. **Glows never animate a blur or shadow:** a glow is its own layer, and only its see-through-ness changes.
