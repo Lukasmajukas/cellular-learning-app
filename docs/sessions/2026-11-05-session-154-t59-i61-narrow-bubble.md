@@ -24,15 +24,16 @@ When you finish a lesson, Beacon says one short line in a speech bubble beside i
 ## Test results
 - Unit tests: 269 of 269 pass. TypeScript and the build: OK.
 - Content checker: OK (253 facts, 27 photos, 635 questions). Nothing in `content/` changed.
-- Click tests (cloud, `xvfb-run -a npx playwright test`): RESULT_PLACEHOLDER
-- Windows build on GitHub: WINDOWS_PLACEHOLDER
+- Click tests (cloud, `xvfb-run -a npx playwright test`): **130 of 130 pass** (17.2 min), the speed tests included. The new test: the bubble pops from 85% and see-through to full size at 60.0 fps; at 360 px it is 237 px wide (54-291), one row (267-308), between the title (ends 257) and the stars (start 318).
+- Windows build on GitHub: run 42116650110 **failed in 4 seconds with no log**: the job never got a computer, the same as every run since 09:17 UTC (T62). Not caused by this change.
 - Panel not republished (robot run).
 
 ## What I looked at (by eye)
 - **Before** (`50-lesson-complete-narrow`, 360 x 640): the bubble was a thin box squeezed into the top right corner, "You / finished / it. That / counts!" on four rows, its top edge touching the lesson's name row.
 - **After** (same size): "You finished it. That counts!" on one row in a bubble under the title, centred, its tip pointing up at Beacon through the gap; stars, cards and both buttons all on screen, no scrollbar.
 - **The owner's size (620 x 960):** compared pixel by pixel with the old picture: the layout is the same (the bubble beside the head, same place, same two rows); only the glow's noise differs.
-- The gallery's `latest/` was refreshed (all pictures retaken; see below).
+- **Day look, 360 x 640** (`day/50-lesson-complete-narrow`): the same layout, the bubble's light fill and border show clearly against the page, the tip too.
+- The gallery's `latest/` and `latest/day/` were retaken in full (most other pictures differ only by the shuffled answers and glow noise, I93).
 - **Still weak (new ideas):** I94: until the bubble pops in at 0.9 s there's an empty 50 px gap between the title and the stars (the bubble's kept room); a flip book (I10) would show whether that reads as a gap or as suspense. I95: the smallest window (360 x 560) scrolls a little more on lesson complete than before (about 77 px; it was about 30); a smaller Beacon on short windows would fix it. I96: the question screen's bubble could use the same "under Beacon" idea on a narrow window if its words ever wrap past two rows.
 
 ## What's next
