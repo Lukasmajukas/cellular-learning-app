@@ -10,7 +10,7 @@ const DEFAULTS = () => ({
   reviews: {},
   seenChanges: null,
   game: { streak: 0, lastDay: '', xp: 0, xpToday: 0, xpDay: '', doneToday: 0, doneDay: '', freezes: 0, lost: 0, lostDay: '' },
-  settings: { sounds: true, reduceMotion: false, showFps: false, dailyGoal: 1, look: 'night' },
+  settings: { sounds: true, volume: 60, reduceMotion: false, showFps: false, dailyGoal: 1, look: 'night' },
 });
 
 // Fills in anything missing, so an older or damaged file never crashes the app.
@@ -24,6 +24,8 @@ function normalize(raw) {
   const s = raw.settings && typeof raw.settings === 'object' ? raw.settings : {};
   const settings = {
     sounds: typeof s.sounds === 'boolean' ? s.sounds : d.settings.sounds,
+    // R19: the sound volume, 0 to 100 (%), in steps of 10.
+    volume: Number.isInteger(s.volume) && s.volume >= 0 && s.volume <= 100 && s.volume % 10 === 0 ? s.volume : d.settings.volume,
     reduceMotion: typeof s.reduceMotion === 'boolean' ? s.reduceMotion : d.settings.reduceMotion,
     showFps: typeof s.showFps === 'boolean' ? s.showFps : d.settings.showFps,
     dailyGoal: Number.isInteger(s.dailyGoal) && s.dailyGoal >= 1 && s.dailyGoal <= 10 ? s.dailyGoal : d.settings.dailyGoal,

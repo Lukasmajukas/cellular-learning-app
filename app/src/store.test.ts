@@ -17,9 +17,9 @@ describe('save file', () => {
   });
   it('saves and loads progress and settings', () => {
     const st = createStore(dir, clock);
-    st.save({ progress: { 'u1-l1': 3 }, settings: { sounds: false, reduceMotion: true, showFps: true, dailyGoal: 3, look: 'day' } });
+    st.save({ progress: { 'u1-l1': 3 }, settings: { sounds: false, volume: 30, reduceMotion: true, showFps: true, dailyGoal: 3, look: 'day' } });
     const back = createStore(dir, clock).load().state;
-    expect(back.progress).toEqual({ 'u1-l1': 3 }); expect(back.settings).toEqual({ sounds: false, reduceMotion: true, showFps: true, dailyGoal: 3, look: 'day' });
+    expect(back.progress).toEqual({ 'u1-l1': 3 }); expect(back.settings).toEqual({ sounds: false, volume: 30, reduceMotion: true, showFps: true, dailyGoal: 3, look: 'day' });
   });
   it('leaves no half-written temp file behind', () => {
     const st = createStore(dir, clock); st.save({ progress: { a: 1 } });
@@ -57,8 +57,8 @@ describe('save file', () => {
     expect(state.progress).toEqual({}); expect(recovered).toBe(false);
   });
   it('ignores nonsense values', () => {
-    const n = normalize({ progress: { a: 9, b: 'x', c: 2 }, settings: { sounds: 'yes', dailyGoal: 500, look: 'neon', theme: 'light' } });
-    expect(n.progress).toEqual({ c: 2 }); expect(n.settings).toEqual({ sounds: true, reduceMotion: false, showFps: false, dailyGoal: 1, look: 'night' });
+    const n = normalize({ progress: { a: 9, b: 'x', c: 2 }, settings: { sounds: 'yes', volume: 75, dailyGoal: 500, look: 'neon', theme: 'light' } });
+    expect(n.progress).toEqual({ c: 2 }); expect(n.settings).toEqual({ sounds: true, volume: 60, reduceMotion: false, showFps: false, dailyGoal: 1, look: 'night' });
     expect(existsSync(dir)).toBe(true);
   });
 });

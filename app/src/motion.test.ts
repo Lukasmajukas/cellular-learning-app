@@ -4,7 +4,7 @@ import { describe, it, expect } from 'vitest';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { SPRING, TIME, PRESS, PRESS_BIG, PRESS_ROUND, PRESS_PILL, QUICK_FADE, INSTANT, LOOP, popInDelay, screenGlide, ON_AIR, BREATHE, waveDelay, popInQueue, TOP_BAR, barAt, FEEDBACK, questionGlide, COMPLETE, nth, SCOPE, NOTICE, noticeMotion, noticeShift, HEAT, SCRIM, SAMPLE } from './theme/motion';
-import { SAMPLE_GAP, SAMPLE_LENGTH } from './sound';
+import { SAMPLE_GAP, SAMPLE_LENGTH, SAMPLE_SET } from './sound';
 import { BEACON_SIZE } from './ui/Beacon';
 import { grew } from './ui/TopBar';
 
@@ -287,9 +287,9 @@ describe('Settings: the sound sample (R15)', () => {
     expect(SAMPLE.to.scale).toBeGreaterThan(SAMPLE.from.scale); expect(SAMPLE.to.opacity).toBe(0);
     expect(SAMPLE.ring).not.toHaveProperty('repeat');
   });
-  it('the second ring starts with the second tone, and both rings are gone within a celebration time', () => {
+  it('each ring starts with its sound (R19: four of them), and all are gone within a celebration time', () => {
     expect(SAMPLE.gap).toBe(SAMPLE_GAP);
-    expect(SAMPLE.gap + SAMPLE.ring.duration).toBeLessThanOrEqual(TIME.celebration);
-    expect(SAMPLE_LENGTH).toBeGreaterThan(SAMPLE_GAP); expect(SAMPLE_LENGTH).toBeLessThanOrEqual(1);
+    expect((SAMPLE_SET.length - 1) * SAMPLE.gap + SAMPLE.ring.duration).toBeLessThanOrEqual(TIME.celebration);
+    expect(SAMPLE_LENGTH).toBeGreaterThan(SAMPLE_GAP); expect(SAMPLE_LENGTH).toBeLessThanOrEqual(TIME.celebration);
   });
 });

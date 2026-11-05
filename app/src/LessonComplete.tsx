@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import { animate, motion, useMotionValue, useTransform } from 'motion/react';
 import { c, mono } from './theme';
 import { Icon } from './Icon';
@@ -8,6 +8,7 @@ import { beaconLine, completeMoment } from './questionScreen';
 import { Button, Card, Pill } from './ui';
 import { SignalBurst } from './ui/SignalBurst';
 import { COMPLETE, nth, useCalm } from './theme/motion';
+import { play } from './sound';
 
 // The lesson-complete screen (redesign R12, DESIGN.md section 7, moment 3). Beacon grows to its big size and cheers while a
 // "signal burst" (rings and wave pieces) goes off behind its head; the stars you earned drop into their places one by one;
@@ -43,6 +44,9 @@ export function LessonComplete({ stars, right, total, fixed, xp, bars, seed = ''
     ];
     return () => runs.forEach(a => a.stop());
   }, [calm]); // eslint-disable-line react-hooks/exhaustive-deps -- once, when the screen appears
+  // R19: the lesson-complete sound, as Beacon grows in and the burst goes out (also with Reduce motion: sound isn't
+  // movement). Not if you leave before it starts.
+  useEffect(() => play('complete', COMPLETE.sound), []);
   // Before it moves, a piece that will animate starts at its "from" look (set here, so the first paint is right).
   const from = (k: keyof typeof COMPLETE & ('growKeys' | 'starKeys' | 'barKeys')) => (calm ? {} : { transform: COMPLETE[k].transform[0] });
   return (

@@ -57,7 +57,7 @@ function CheckButton({ ready, locked, onClick, submit }: { ready: boolean; locke
 // The answer tiles of a pick-one question, numbered 1, 2, 3... in the order they're shown. Keys 1-9 press them (data-pick).
 function Choices({ q, order, locked, picked, onSubmit }: { q: { choices: string[]; answer: number }; order: number[]; locked: boolean; picked?: Answer; onSubmit: (a: Answer) => void }) {
   return <>{order.map((i, k) => (
-    <AnswerTile key={q.choices[i]} n={k + 1} data-pick={k + 1} aria-keyshortcuts={String(k + 1)} data-testid={`choice-${i}`} disabled={locked}
+    <AnswerTile key={q.choices[i]} n={k + 1} data-pick={k + 1} aria-keyshortcuts={String(k + 1)} data-testid={`choice-${i}`} disabled={locked} quiet
       state={tileState(locked, i === q.answer, i === picked)} onClick={() => onSubmit(i)}>{q.choices[i]}</AnswerTile>))}</>;
 }
 

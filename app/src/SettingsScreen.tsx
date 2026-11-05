@@ -3,9 +3,10 @@ import { motion } from 'motion/react';
 import { backupNow, showFile, hasFileAccess, type Settings } from './storage';
 import { c, COLUMN, mono } from './theme';
 import { Icon, type IconName } from './Icon';
-import { Button, Card, Switch, PillChoice, SectionLabel, useCalm, QUICK_FADE } from './ui';
+import { Button, Card, Switch, Slider, PillChoice, SectionLabel, useCalm, QUICK_FADE } from './ui';
 import { SAMPLE } from './theme/motion';
-import { playSample } from './sound';
+import { prefs } from './prefs';
+import { play, playSample, SAMPLE_SET } from './sound';
 
 // The small square each row starts with (redesign R15, idea I11): its own icon in signal blue, so the list is quick to scan.
 // `children` = layers drawn behind the icon (the sample's rings and glow).
@@ -38,8 +39,9 @@ function Row({ name, hint, icon, control, last, asLabel = true, testId }:
   );
 }
 
-// "Play a sample": plays a right answer, then a not-quite one, and shows it: one soft ring goes out from the speaker
-// with each sound (SAMPLE in the speed file). With Reduce motion the speaker's glow just fades in and out.
+// "Play a sample": plays the lesson's sounds in a row (a pick, a right answer, a not-quite one, a finished lesson: R19,
+// idea I55) and shows it: one soft ring goes out from the play icon with each sound (SAMPLE in the speed file).
+// With Reduce motion the icon's glow just fades in and out.
 function SampleRow() {
   const calm = useCalm();
   const [plays, setPlays] = useState(0), [playing, setPlaying] = useState(false);
@@ -52,11 +54,11 @@ function SampleRow() {
     timer.current = window.setTimeout(() => setPlaying(false), length * 1000);
   };
   return (
-    <Row asLabel={false} last testId="sample-row" name="Play a sample" hint="A right answer, then a not-quite one. Works with Sounds off too."
+    <Row asLabel={false} last testId="sample-row" name="Play a sample" hint="A pick, right, not quite, lesson done. Works with Sounds off too."
       icon={<RowIcon name="play">
         <motion.span data-part="glow" initial={false} animate={{ opacity: playing ? 1 : 0 }} transition={QUICK_FADE}
           style={{ position: 'absolute', inset: -1, borderRadius: 10, border: `1.5px solid ${c.signal}`, boxShadow: `0 0 14px ${c.signal}` }} />
-        {!calm && plays > 0 && [0, 1].map(k => (
+        {!calm && plays > 0 && SAMPLE_SET.map((_, k) => (
           <motion.span key={`${plays}-${k}`} data-part="ring" data-ring={k} initial={SAMPLE.from} animate={SAMPLE.to} transition={{ ...SAMPLE.ring, delay: k * SAMPLE.gap }}
             style={{ position: 'absolute', inset: 0, borderRadius: '50%', border: `2px solid ${c.signal}`, pointerEvents: 'none' }} />
         ))}
@@ -90,8 +92,15 @@ export function SettingsScreen({ settings, onChange }: { settings: Settings; onC
       <p style={{ margin: '0 0 16px', fontSize: 15, lineHeight: 1.4, color: c.textMuted }}>Changes are saved on this computer straight away.</p>
 
       <Card title="Sound" style={card} data-testid="set-card-sound">
-        <Row name="Sounds" hint="A soft sound for right and not-quite answers." icon={<RowIcon name={settings.sounds ? 'soundOn' : 'soundOff'} />}
+        <Row name="Sounds" hint="Soft sounds for answers, finished lessons and your streak." icon={<RowIcon name={settings.sounds ? 'soundOn' : 'soundOff'} />}
           control={<Switch testId="set-sounds" checked={settings.sounds} onChange={sounds => set({ sounds })} />} />
+        {/* R19: how loud the sounds are (quiet by default, 60%). You hear the new loudness when you let go. */}
+        <Row asLabel={false} testId="volume-row" name="Volume" hint="You hear it when you let go." icon={<RowIcon name="waves" />}
+          control={<span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <Slider testId="set-volume" label="Volume" width={112} value={settings.volume} onChange={volume => set({ volume })}
+              onDone={v => { prefs.volume = v / 100; play('right', 0, true); }} />
+            <span data-testid="volume-value" style={{ ...mono, fontSize: 14, width: 40, textAlign: 'right', color: c.textMuted }}>{settings.volume}%</span>
+          </span>} />
         <SampleRow />
       </Card>
 

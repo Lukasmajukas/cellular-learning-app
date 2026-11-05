@@ -16,22 +16,9 @@ const launch = async (settings: object = {}) => {
   await w.getByTestId('tab-settings').click(); await w.getByTestId('settings').waitFor();
   return { app, w };
 };
-// A pretend sound card: records every tone the app starts (its first pitch and when), so the test can "hear" the sample.
-const fakeAudio = (w: Page) => w.evaluate(() => {
-  const tones: { hz: number; at: number }[] = [];
-  (window as unknown as { __tones: typeof tones }).__tones = tones;
-  class Fake {
-    currentTime = 0; destination = {};
-    createGain() { return { gain: { value: 0 }, connect() {} }; }
-    createOscillator() {
-      let hz = 0;
-      return { type: '', connect() {}, stop() {}, frequency: { set value(v: number) { hz = v; }, setValueAtTime(v: number) { if (!hz) hz = v; } },
-        start: (at: number) => tones.push({ hz, at }) };
-    }
-  }
-  (window as unknown as { AudioContext: unknown }).AudioContext = Fake;
-});
-const tones = (w: Page) => w.evaluate(() => (window as unknown as { __tones: { hz: number; at: number }[] }).__tones);
+// The sounds the app started (src/sound.ts writes them down: a test can't listen).
+type Played = { name: string; delay: number; real: boolean };
+const played = (w: Page) => w.evaluate(() => (window as unknown as { __sounds: { played: Played[] } }).__sounds.played);
 const ring = (k: number) => `[data-testid=sample-row] [data-ring="${k}"]`;
 
 test('settings: every row has its icon, the look is Night or Day, and the keys are listed', async () => {
@@ -39,7 +26,7 @@ test('settings: every row has its icon, the look is Night or Day, and the keys a
   const s = w.getByTestId('settings');
   await expect(s.locator('h1')).toHaveText('Settings');
   const icons = await s.locator('[data-row-icon]').evaluateAll(els => els.map(e => (e as HTMLElement).dataset.rowIcon));
-  expect(icons).toEqual(['soundOff', 'play', 'motion', 'gauge', 'target', 'moon', 'backup', 'folder']);
+  expect(icons).toEqual(['soundOff', 'waves', 'play', 'motion', 'gauge', 'target', 'moon', 'backup', 'folder']);
   for (const card of ['sound', 'motion', 'goal', 'look', 'progress', 'keys']) await expect(w.getByTestId(`set-card-${card}`)).toBeVisible();
   await expect(w.getByTestId('set-card-keys').locator('kbd')).toHaveText(['1-9', 'Enter', 'Esc']);
   // Sounds on: its icon changes to the speaker with waves.
@@ -62,19 +49,21 @@ test('settings: every row has its icon, the look is Night or Day, and the keys a
   await app.close();
 });
 
-test('play a sample: a right tone, then a not-quite one, even with Sounds off; a ring goes out with each; 50+ fps', async () => {
+test('play a sample: a pick, right, not quite, lesson done, even with Sounds off; a ring goes out with each; 50+ fps', async () => {
   const { app, w } = await launch({ sounds: false });
-  await fakeAudio(w);
-  const f = await film(w, [ring(0), ring(1)], () => w.getByTestId('sound-sample').click(), 2600, ring(0));
-  const t = await tones(w);
-  expect(t.map(x => x.hz)).toEqual([660, 200]);                 // the "ding", then the "bup" ...
-  expect(t[1].at - t[0].at).toBeCloseTo(0.4, 5);                // ... 0.4 s later
-  const a = f.of(ring(0)).filter(Boolean), b = f.of(ring(1)).filter(Boolean);
+  const f = await film(w, [ring(0), ring(1), ring(2), ring(3)], () => w.getByTestId('sound-sample').click(), 2600, ring(0));
+  // R19 (idea I55): the four real sounds of a lesson, 0.32 s apart (the first click had to set the sound system up).
+  const t = await played(w);
+  expect(t.map(x => x.name)).toEqual(['tap', 'right', 'notQuite', 'complete']);
+  t.forEach((x, k) => expect(x.delay).toBeCloseTo(k * 0.32, 5));
+  const rs = [0, 1, 2, 3].map(k => f.of(ring(k)).filter(Boolean)), a = rs[0];
   console.log(`ring 1 ${a.slice(0, 5).map(x => `${x!.sx}/${x!.op}`)} ... ${a.at(-1)!.sx}/${a.at(-1)!.op}; ${f.fps.toFixed(1)} fps`);
-  for (const r of [a, b]) { expect(r[0]!.sx).toBeLessThan(1.1); expect(r.at(-1)!.sx).toBeGreaterThan(1.8); expect(r.at(-1)!.op).toBeLessThan(0.05); }
-  // The second ring waits for the second tone: it's still small when the first is already big.
-  const half = a.findIndex(x => x!.sx > 1.45);
-  expect(b[half]!.sx).toBeLessThan(1.1);
+  for (const r of rs) { expect(r[0]!.sx).toBeLessThan(1.1); expect(r.at(-1)!.sx).toBeGreaterThan(1.8); expect(r.at(-1)!.op).toBeLessThan(0.05); }
+  // Each ring waits for its sound: the second is still small when the first is already big, and so on.
+  for (let k = 1; k < 4; k++) {
+    const half = rs[k - 1].findIndex(x => x!.sx > 1.45);
+    expect(rs[k][half]!.sx).toBeLessThan(1.1);
+  }
   expect(f.fps).toBeGreaterThanOrEqual(50);
   await expect(w.getByTestId('sound-sample')).toHaveAttribute('data-playing', 'false');
   // Sounds stay off: playing the sample didn't switch them on.
@@ -84,12 +73,11 @@ test('play a sample: a right tone, then a not-quite one, even with Sounds off; a
 
 test('play a sample with Reduce motion: no rings, the icon only glows', async () => {
   const { app, w } = await launch({ reduceMotion: true });
-  await fakeAudio(w);
   await w.getByTestId('sound-sample').click();
   await expect(w.getByTestId('sound-sample')).toHaveAttribute('data-playing', 'true');
   await expect(w.locator('[data-testid=sample-row] [data-part=glow]')).toHaveCSS('opacity', '1');
   await expect(w.locator('[data-testid=sample-row] [data-part=ring]')).toHaveCount(0);
-  expect((await tones(w)).length).toBe(2);
+  expect((await played(w)).length).toBe(4);
   await expect(w.getByTestId('sound-sample')).toHaveAttribute('data-playing', 'false');
   await expect(w.locator('[data-testid=sample-row] [data-part=glow]')).toHaveCSS('opacity', '0');
   await app.close();

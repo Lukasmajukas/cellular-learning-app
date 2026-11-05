@@ -1,0 +1,21 @@
+Sound credits for the cellular-learning-app (redesign R19, 2026-11-05)
+======================================================================
+
+All seven sounds are CC0 1.0 Universal ("no rights reserved", public domain dedication):
+https://creativecommons.org/publicdomain/zero/1.0/
+CC0 asks for no credit. We give it anyway, with thanks.
+The files are used unchanged; only their names were changed. They live in app/src/sounds/.
+
+| App file      | When it plays                    | Original file          | Pack                                   | Author                                             | Where we got it (2026-11-05)                                                         |
+|---------------|----------------------------------|------------------------|----------------------------------------|----------------------------------------------------|---------------------------------------------------------------------------------------|
+| tap.ogg       | You pick an answer               | select_002.ogg         | Interface Sounds (1.0)                 | Kenney (www.kenney.nl)                             | https://opengameart.org/content/interface-sounds                                      |
+| right.ogg     | A right answer                   | confirmation_001.ogg   | Interface Sounds (1.0)                 | Kenney (www.kenney.nl)                             | https://opengameart.org/content/interface-sounds                                      |
+| not-quite.ogg | A not-quite answer               | question_002.ogg       | Interface Sounds (1.0)                 | Kenney (www.kenney.nl)                             | https://opengameart.org/content/interface-sounds                                      |
+| complete.ogg  | A lesson is complete             | confirmation_004.ogg   | Interface Sounds (1.0)                 | Kenney (www.kenney.nl)                             | https://opengameart.org/content/interface-sounds                                      |
+| streak.ogg    | Your streak grows                | confirmation_002.ogg   | Interface Sounds (1.0)                 | Kenney (www.kenney.nl)                             | https://opengameart.org/content/interface-sounds                                      |
+| unlock.ogg    | A new lesson comes on air        | maximize_006.ogg       | Interface Sounds (1.0)                 | Kenney (www.kenney.nl)                             | https://opengameart.org/content/interface-sounds                                      |
+| review.ogg    | You start the daily review       | ding_deep.ogg          | UI Sound Effects (Button Clicks, User Feedback, Notifications) | Robin Lamb, from the public-domain sample libraries VCSL and VSCO 2 CE | https://opengameart.org/content/ui-sound-effects-button-clicks-user-feedback-notifications |
+
+Kenney's licence file in the pack says: "License: (Creative Commons Zero, CC0) ... This content is free to use in
+personal, educational and commercial projects. Support us by crediting Kenney or www.kenney.nl (this is not mandatory)".
+Robin Lamb's pack page on OpenGameArt lists its licence as CC0.
