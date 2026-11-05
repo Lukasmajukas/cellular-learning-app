@@ -14,7 +14,7 @@ test('Night is the default look and the bundled fonts load', async () => {
     return {
       grotesk: document.fonts.check('16px "Space Grotesk"'), mono: document.fonts.check('500 16px "JetBrains Mono"'),
       loaded: [...document.fonts].filter(f => f.status === 'loaded').map(f => f.family.replace(/"/g, '')),
-      font: body.fontFamily, bg: body.backgroundColor, glow: body.backgroundImage,
+      font: body.fontFamily, bg: body.backgroundColor, glow: getComputedStyle(document.body, '::before').backgroundImage, // R23: the glow is its own fixed layer
       // Where each @font-face rule says its font file is.
       fontSrcs: [...document.styleSheets].flatMap(sh => [...sh.cssRules]).filter(r => r instanceof CSSFontFaceRule).map(r => (r as CSSFontFaceRule).style.getPropertyValue('src')),
     };

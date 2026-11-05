@@ -90,6 +90,13 @@ Built once (R03, R04) and used everywhere. *(R09: the bottom sheet is drawn stra
 ## 7. Movement (motion rules)
 **What may move:** only position, size, turning and see-through-ness (transform and opacity), because those stay smooth on any computer (PRD 4e). Measured exceptions: drawing the path's line (`pathLength` or `stroke-dashoffset`) and counting numbers up. **Glows never animate a blur or shadow:** a glow is its own layer, and only its see-through-ness changes.
 
+**Speed (measured in R23, 2026-11-05; checks in `app/tests/speed.spec.ts` and `app/src/r23.test.ts`):**
+- **An endless loop goes on a page element** (a `span` or `div`), never on a part of a drawing (an SVG `<g>`, circle or path). On a page element the graphics chip runs a transform and see-through-ness loop by itself; inside a drawing, Chromium redraws it by code every frame. Beacon's breathing rings were inside its drawing and cost 48-61 ms of work a second (60 style passes) for as long as Beacon was on screen; on their own layer, under 7 ms. A one-off move (a hop, a blink, a pulse) may stay inside a drawing.
+- **Nothing is a "fixed background"** (`background-attachment: fixed`): Chromium repaints the whole window at every step of a scroll for one. The night glow is its own fixed layer (`body::before`), painted once. Scrolling the 49-lesson path took about a fifth less work.
+- **Sitting still costs almost nothing:** on any screen with nothing happening, under 25 ms of work a second and under 10 style passes a second (measured: under 7 and 5).
+- **On a slow PC** (the computer slowed to a quarter speed in the test): every animation 30+ fps (measured 41-59), the path scrolls at 50+ fps.
+- **Start-up:** the window shows within 1.5 s with the start screen (measured 0.2 s), the app's code has run and the save is read within 0.6-0.8 s (measured about 0.2 s), and the start screen waits only its half second.
+
 **Speeds (one file, from R04: `app/src/theme/motion.tsx`; a test fails if another file types its own):**
 | Kind | Time | Example |
 |---|---|---|
@@ -152,4 +159,5 @@ Built once (R03, R04) and used everywhere. *(R09: the bottom sheet is drawn stra
 - Use AI-generated photos for identification questions (CLAUDE.md). The redesign changes how things look, never the facts or the lessons.
 - Put emoji in the app's own buttons and labels, or load fonts and pictures from the internet.
 - Animate blur, shadows, width or height in a loop; run more than 2 background loops on one screen.
+- Put an endless loop on a part of a drawing (SVG), or give the page a fixed background (R23: both make the computer redraw by hand).
 - Undo an earlier redesign chat's choice without a reason written down (a design review, or the owner's words).

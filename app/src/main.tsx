@@ -64,6 +64,7 @@ function App() {
   const [up, setUp] = useState(false);
 
   const load = () => loadState().then(({ state, recovered, backupDay }) => {
+    performance.mark('cell-save-loaded'); // R23: start-up timing for the speed check (tests/speed.spec.ts)
     loaded.current = true; setFailed(null); setState(startChanges(state, CHANGES));
     if (recovered) setRestored(backupWhen(backupDay));
   }, (e: unknown) => setFailed(e instanceof Error ? e.message : String(e)));
@@ -90,7 +91,7 @@ function App() {
   // Esc on any other tab goes back to the path (in a lesson, the lesson player uses Esc itself).
   useKeys(k => { if (k !== 'back' || tab === 'path') return false; go('path'); return true; }, !!state && !playing && up);
   // The app's first picture is ready: fade the start screen away while the path (or the welcome) arrives under it.
-  useEffect(() => { if (up && state) endStartScreen(calm); }, [up, !!state]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { if (up && state) { performance.mark('cell-app-up'); endStartScreen(calm); } }, [up, !!state]); // eslint-disable-line react-hooks/exhaustive-deps
   // Tests only: trip over once the app is up. In an effect, because React quietly renders again after an error in a
   // render (and the second try would work), but sends an error in an effect straight to <Safety>.
   useEffect(() => { if (up && state && TEST?.testCrash && !tripped) { tripped = true; throw new Error('Test: the app tripped over on purpose (CELL_TEST_CRASH).'); } }, [up, !!state]); // eslint-disable-line react-hooks/exhaustive-deps
