@@ -1,2 +1,35 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><title>Cell Learning</title></head>
-<body><div id="root"></div><script type="module" src="/src/main.tsx"></script></body></html>
+<!doctype html><html lang="en" data-look="night"><head><meta charset="UTF-8"><title>Cell Learning</title>
+<!-- R21: the saved look (passed in by electron/preload.cjs) picks which block of colours below applies, before the first picture. -->
+<script>(function () { var a = window.cellApi; document.documentElement.dataset.look = a && a.look === 'day' ? 'day' : 'night'; })();</script>
+<!--look-tokens-->
+<style>
+  /* The start screen (redesign R21): the app's own picture from the very first moment, until the app is ready
+     (src/startup.ts fades it away). Same background as the page (theme.css), so its fade shows only the app arriving. */
+  #boot { position: fixed; inset: 0; z-index: 2000; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background-color: var(--bg); color: var(--text); font-family: var(--font-body); -webkit-font-smoothing: antialiased;
+    background-image: radial-gradient(ellipse 620px 560px at 50% 38%, var(--glow-1) 0%, var(--glow-2) 50%, var(--glow-3) 78%, var(--bg) 100%); }
+  #boot .boot-name { margin: 16px 0 0; font-size: 28px; font-weight: 700; line-height: 1.25; }
+  #boot .boot-line { margin: 6px 0 0; font-family: var(--font-mono); font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--signal); }
+</style>
+</head>
+<body>
+<div id="boot" data-testid="start-screen" role="status" aria-label="Cell Learning is starting">
+  <!-- Beacon, standing still with its "waiting" face: the same drawing as src/ui/Beacon.tsx (a unit test compares them). -->
+  <svg data-testid="start-beacon" width="112" height="152.32" viewBox="0 0 100 136" aria-hidden="true" style="display: block; overflow: hidden">
+    <defs><radialGradient id="boot-glow"><stop offset="0.45" style="stop-color: var(--signal); stop-opacity: 0.4" /><stop offset="1" style="stop-color: var(--signal); stop-opacity: 0" /></radialGradient></defs>
+    <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M44.3 74 61.65 94M55.7 74 38.35 94M38.35 94 67.6 114M61.65 94 32.4 114" style="stroke: var(--beacon-brace)" stroke-width="2.5" />
+      <path d="M50 55 27 132M50 55 73 132M44.3 74h11.4M38.35 94h23.3M32.4 114h35.2" style="stroke: var(--beacon)" stroke-width="5" />
+      <path d="M50 44V58" style="stroke: var(--beacon)" stroke-width="4" />
+    </g>
+    <circle cx="50" cy="40" r="24" fill="url(#boot-glow)" />
+    <circle cx="50" cy="40" r="22" fill="none" style="stroke: var(--signal)" stroke-opacity="0.4" stroke-width="2.5" />
+    <circle cx="50" cy="40" r="30" fill="none" style="stroke: var(--signal)" stroke-opacity="0.18" stroke-width="2.5" />
+    <circle cx="50" cy="40" r="15" style="fill: var(--signal)" />
+    <circle cx="45" cy="38" r="2.6" style="fill: var(--on-bright)" /><circle cx="55" cy="38" r="2.6" style="fill: var(--on-bright)" />
+    <path d="M45.5 45q4.5 3.5 9 0" fill="none" style="stroke: var(--on-bright)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+  </svg>
+  <div class="boot-name">Cell Learning</div>
+  <div class="boot-line">Tuning in</div>
+</div>
+<div id="root"></div><script type="module" src="/src/main.tsx"></script></body></html>

@@ -30,9 +30,14 @@ import { applyLook, COLUMN, type Look } from './theme';
 import { Notices } from './Notices';
 import { BlocksSheet } from './BlocksSheet';
 import { LookFade } from './ui/LookFade';
+import { Welcome } from './Welcome';
+import { Trouble, Safety } from './Trouble';
+import { BOOT, endStartScreen, holdLeft } from './startup';
 
 // The real lessons, unless an automatic test asks for the samples (see electron/preload.cjs); the same for "This changed" cards.
-const TEST = (window as unknown as { cellApi?: { useSamplePath?: boolean; testChanges?: Change[]; look?: Look } }).cellApi;
+const TEST = (window as unknown as { cellApi?: { useSamplePath?: boolean; testChanges?: Change[]; look?: Look; testCrash?: boolean } }).cellApi;
+// Automatic tests only (R21, CELL_TEST_CRASH): trip over once, to show the "something went wrong" screen.
+let tripped = false;
 // The saved look, before the first paint (R20: the main process reads it from the save file before the window opens),
 // so the window never flashes the other look. In a plain browser (no app around it) it's Night.
 applyLook(TEST?.look === 'day' ? 'day' : 'night');
@@ -54,11 +59,22 @@ function App() {
   // True right after a lesson's first finish: the path plays "coming on air" then, so the top bar waits for it (R07).
   const [handOver, setHandOver] = useState(false);
   const loaded = useRef(false);
+  // R21: the progress file couldn't be opened (the error's words), and whether the start screen has had its moment.
+  const [failed, setFailed] = useState<string | null>(null);
+  const [up, setUp] = useState(false);
 
-  useEffect(() => { loadState().then(({ state, recovered, backupDay }) => {
-    loaded.current = true; setState(startChanges(state, CHANGES));
+  const load = () => loadState().then(({ state, recovered, backupDay }) => {
+    loaded.current = true; setFailed(null); setState(startChanges(state, CHANGES));
     if (recovered) setRestored(backupWhen(backupDay));
-  }); }, []);
+  }, (e: unknown) => setFailed(e instanceof Error ? e.message : String(e)));
+  useEffect(() => { load(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  // The start screen (index.html) stays until the save has loaded (or failed) and it has been up for START.hold.
+  const settled = !!state || failed !== null;
+  useEffect(() => {
+    if (!settled || up) return;
+    const t = setTimeout(() => setUp(true), holdLeft());
+    return () => clearTimeout(t);
+  }, [settled, up]);
   // Save after every change (never before the first load finished, or we'd overwrite real progress with blanks).
   useEffect(() => { if (state && loaded.current) saveState(state); }, [state]);
 
@@ -72,8 +88,17 @@ function App() {
   const startReview = () => { play('review'); setPlaying(REVIEW_ID); };
   const go = (t: TabId) => { if (t === tab) return; setDir(order(t) > order(tab) ? 1 : -1); setTab(t); };
   // Esc on any other tab goes back to the path (in a lesson, the lesson player uses Esc itself).
-  useKeys(k => { if (k !== 'back' || tab === 'path') return false; go('path'); return true; }, !!state && !playing);
-  if (!state) return null;
+  useKeys(k => { if (k !== 'back' || tab === 'path') return false; go('path'); return true; }, !!state && !playing && up);
+  // The app's first picture is ready: fade the start screen away while the path (or the welcome) arrives under it.
+  useEffect(() => { if (up && state) endStartScreen(calm); }, [up, !!state]); // eslint-disable-line react-hooks/exhaustive-deps
+  // Tests only: trip over once the app is up. In an effect, because React quietly renders again after an error in a
+  // render (and the second try would work), but sends an error in an effect straight to <Safety>.
+  useEffect(() => { if (up && state && TEST?.testCrash && !tripped) { tripped = true; throw new Error('Test: the app tripped over on purpose (CELL_TEST_CRASH).'); } }, [up, !!state]); // eslint-disable-line react-hooks/exhaustive-deps
+  if (!up) return null;
+  if (!state) return failed !== null ? <Trouble kind="load" detail={failed} onRetry={() => load()} /> : null;
+  // R21: the first-start welcome, once (a save from before R21 that has any progress counts as welcomed).
+  const welcomed = s.welcomed || !!BOOT.skipWelcome;
+  const first = allLessons(PATH)[0];
 
   const pending = pendingChanges(s, CHANGES), card = pending[0];
   const lesson = playing === REVIEW_ID ? buildReview(PATH, s.reviews, Date.now()) ?? undefined : allLessons(PATH).find(l => l.id === playing);
@@ -86,7 +111,8 @@ function App() {
 
   const screen = tab === 'review' ? <ReviewScreen outlook={reviewOutlook(PATH, s.reviews, Date.now())} onStart={startReview} onPath={() => go('path')} />
     : tab === 'heatmap' ? <HeatMap cells={buildHeatmap(DATA.bands as unknown as BandRow[], RAW_LESSONS, s.reviews, Date.now())} onStart={setPlaying}
-        lessonsOf={band => (BAND_LESSONS[band] ?? []).map(l => ({ ...l, status: IN_PATH.has(l.id) ? lessonStatus(PATH, s.progress, l.id) : 'missing' }))} />
+        lessonsOf={band => (BAND_LESSONS[band] ?? []).map(l => ({ ...l, status: IN_PATH.has(l.id) ? lessonStatus(PATH, s.progress, l.id) : 'missing' }))}
+        onPath={() => go('path')} />
     : tab === 'settings' ? <SettingsScreen settings={s.settings} onChange={settings => setState(p => p && { ...p, settings })} />
     : <>
         {repair > 0 && <div style={{ maxWidth: COLUMN, margin: '0 auto', padding: '12px 20px 0', boxSizing: 'border-box' }}>
@@ -110,6 +136,13 @@ function App() {
               onFinish={r => { setHandOver(lesson.id !== REVIEW_ID && !s.progress[lesson.id]);
                 setState(p => p && (lesson.id === REVIEW_ID ? finishReview(p, r) : finishLesson(p, lesson.id, r))); setPlaying(null); }} />
           </motion.div>
+        ) : !welcomed ? (
+          <motion.div key="welcome" {...screenGlide('lesson', calm)}>
+            <Welcome goal={goal} onDone={(dailyGoal, play) => {
+              setState(p => p && { ...p, welcomed: true, settings: { ...p.settings, dailyGoal } });
+              if (play && first) setPlaying(first.id);
+            }} />
+          </motion.div>
         ) : (
           <motion.div key="frame" {...screenGlide('frame', calm)}>
             <AppShell tab={tab} onTab={go} top={top} badges={{ review: due }}>
@@ -130,4 +163,6 @@ function App() {
 }
 // #blocks shows every building block on one page (for the gallery and click tests), instead of the app.
 prepareSounds();
-createRoot(document.getElementById('root')!).render(location.hash === '#blocks' ? <BlocksSheet /> : <App />);
+// R21: <Safety> catches a crash anywhere in the app and shows a friendly "something went wrong" screen instead of a blank window.
+if (location.hash === '#blocks') endStartScreen(!!BOOT.calm);
+createRoot(document.getElementById('root')!).render(location.hash === '#blocks' ? <BlocksSheet /> : <Safety><App /></Safety>);

@@ -4,6 +4,7 @@
 //                 node tools/gallery.mjs --icons-only     (just the icon sheet, 00-icons.webp; no build needed)
 //                 node tools/gallery.mjs --types-only     (just the other question types, 18-27; build first; keeps the rest)
 //                 node tools/gallery.mjs --look day       (R20: every picture in the Day look, into ../docs/redesign/gallery/latest/day)
+// R21: the start screen, its fade, the welcome, the empty heatmap and the error screens (40-46).
 // It starts the real Electron app with a made-up save file (3 lessons done, a 4-day streak, some reviews due),
 // the other question types (18-27, from R10), a comeback question (28, from R11), the Review tab's looks and the notices (30-33, from R13), the heatmap filling in and its lessons sheet (34, 35, from R14), Settings mid-sample, its bottom and in Day (36-38, from R15), shows the building blocks page (#blocks, from R03; Beacon's faces 16, 17 from R17), the Review tab (13, from R04), the top bar mid-moment and the repair card (14, 15, from R07),
 // draws a sheet of all our icons (00-icons), visits each screen at the owner's window size (620 x 960) and a wide one (1280 x 800), and saves small WebP files.
@@ -339,6 +340,44 @@ async function iconSheet() {
   await app.close();
 }
 
+// R21: the start screen (held up by a slow load), the moment it fades into the path, the first-start welcome (both
+// pages), the empty heatmap, and the two error screens (through the test doors CELL_TEST_LOAD_DELAY, CELL_TEST_LOAD_FAIL
+// and CELL_TEST_CRASH).
+async function firstStartScreens(s) {
+  let { app, w } = await launch({ CELL_TEST_LOAD_DELAY: '4000' });
+  await resize(app, s);
+  await w.getByTestId('start-screen').waitFor();
+  await shot(w, '40-start-screen', s, 400);
+  // Halfway through the fade: the path arriving under the start screen.
+  await w.waitForFunction(() => { const b = document.getElementById('boot'); return !b || Number(getComputedStyle(b).opacity) < 0.6; }, null, { polling: 'raf', timeout: 10_000 });
+  await shot(w, '41-start-fade', s, 0);
+  await app.close();
+  const fresh = dir => writeFileSync(join(dir, 'save.json'), JSON.stringify({ settings: { sounds: false, look: LOOK } }));
+  ({ app, w } = await launch({ CELL_SKIP_WELCOME: '' }, {}, undefined, fresh));
+  await resize(app, s);
+  await w.getByTestId('welcome-page-0').waitFor();
+  await shot(w, '42-welcome', s, 1200);
+  await w.getByTestId('welcome-next').click();
+  await w.getByTestId('welcome-page-1').waitFor();
+  await w.getByTestId('welcome-goal-2').click();
+  await shot(w, '43-welcome-goal', s, 900);
+  await w.getByTestId('welcome-look').click();
+  await w.getByTestId('path-count').waitFor();
+  await w.waitForTimeout(1500);
+  await w.getByTestId('tab-heatmap').click();
+  await w.getByTestId('heat-empty').waitFor();
+  await shot(w, '44-heatmap-empty', s);
+  await app.close();
+  for (const [kind, env] of [['load', { CELL_TEST_LOAD_FAIL: '1' }], ['crash', { CELL_TEST_CRASH: '1' }]]) {
+    ({ app, w } = await launch(env));
+    await resize(app, s);
+    await w.getByTestId(`trouble-${kind}`).waitFor();
+    if (kind === 'load') await w.getByTestId('trouble-details').locator('summary').click();
+    await shot(w, `4${kind === 'load' ? 5 : 6}-trouble-${kind}`, s, 900);
+    await app.close();
+  }
+}
+
 const typesOnly = process.argv.includes('--types-only');
 if (existsSync(OUT) && !process.argv.includes('--icons-only') && !typesOnly) for (const f of readdirSync(OUT)) if (f.endsWith('.webp')) rmSync(join(OUT, f));
 mkdirSync(OUT, { recursive: true });
@@ -346,5 +385,5 @@ console.log(`Gallery -> ${OUT}`);
 if (typesOnly) { for (const s of SIZES) await typeScreens(s); console.log('Done.'); process.exit(0); }
 await iconSheet();
 if (process.argv.includes('--icons-only')) process.exit(0);
-for (const s of SIZES) { await realScreens(s); await completeScreen(s); await comebackScreen(s); await repairScreen(s); await reviewAndNotices(s); await heatScreens(s); await settingsScreens(s); await blocksScreens(s); await typeScreens(s); }
+for (const s of SIZES) { await firstStartScreens(s); await realScreens(s); await completeScreen(s); await comebackScreen(s); await repairScreen(s); await reviewAndNotices(s); await heatScreens(s); await settingsScreens(s); await blocksScreens(s); await typeScreens(s); }
 console.log('Done.');

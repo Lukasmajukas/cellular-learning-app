@@ -205,3 +205,6 @@ Claude adds new words here whenever they come up.
 | **WCAG** | The web's rulebook for making screens easy to read and use for everyone. Its contrast rule says words need to stand out from their background at least 4.5 to 1 (big words 3 to 1). The app's contrast tests use it. |
 | **First paint** | The very first picture a window shows when it opens, before anything has loaded. If it's the wrong colour, you see a flash. |
 | **Main process** | The part of the app that runs behind the window: it opens the window and reads and writes your save file. The window itself only draws the screens. |
+| **Start screen (splash screen)** | The picture an app shows for a moment while it gets ready, like a TV channel's logo before the show. Ours is Beacon, the app's name and "TUNING IN". |
+| **Error boundary** | A safety net around the app's screens: if something inside trips over, it catches the problem and shows a friendly "Something went wrong" screen instead of an empty window. |
+| **Empty screen (empty state)** | What a screen shows before there's anything to show yet, like the Heatmap before your first lesson. A good one says what will appear and how to get there. |

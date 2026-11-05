@@ -8,6 +8,7 @@ import { join } from 'node:path';
 // its colour and the colour behind it (see-through layers mixed in, faded parents counted), and the WCAG contrast
 // between them. Normal text needs 4.5:1, big text (24 px, or 18.66 px bold) 3:1. Buttons you can't press yet are left
 // out, as WCAG allows. Reduce motion is on, so nothing is caught halfway through moving.
+// R21: also the start screen, the first-start welcome, the empty heatmap and the two error screens.
 type Fail = { text: string; fg: string; bg: string; ratio: number; need: number };
 type Audit = { checked: number; fails: Fail[]; unparsed: string[] };
 
@@ -77,14 +78,15 @@ function audit(): Audit {
 const DAY_MS = 86_400_000;
 const pad = (n: number) => String(n).padStart(2, '0');
 const today = (d = new Date()) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
-async function launch(look: string, env: Record<string, string> = {}, progress: Record<string, number> = { 'unit01-l1': 3, 'unit01-l2': 3, 'unit01-l3': 2 }) {
+// extra (R21): replaces parts of the made-up save (a brand-new one for the welcome, no reviews for the empty heatmap).
+async function launch(look: string, env: Record<string, string> = {}, progress: Record<string, number> = { 'unit01-l1': 3, 'unit01-l2': 3, 'unit01-l3': 2 }, extra: object = {}) {
   const dir = mkdtempSync(join(tmpdir(), 'cell-e2e-'));
   const now = Date.now();
   const ids = ['u1-4g5g-01', 'u1-higher-01', 'u1-twin-01', 'u1-tier-01', 'u1-duplex-01', 'u1-gap-01'];
   const reviews = Object.fromEntries(ids.map((id, i) => [id, { d: 5, s: [8, 4, 3, 2, 1.5, 1][i], due: now - DAY_MS, last: now - [0.2, 1, 3, 6, 12, 20][i] * DAY_MS, reps: 2, lapses: 0 }]));
   writeFileSync(join(dir, 'save.json'), JSON.stringify({ version: 1, progress, reviews, seenChanges: [],
     settings: { sounds: false, reduceMotion: true, showFps: false, dailyGoal: 2, look },
-    game: { streak: 4, lastDay: today(), xp: 120, xpToday: 30, xpDay: today(), doneToday: 1, doneDay: today(), freezes: 1, lost: 0, lostDay: '' } }));
+    game: { streak: 4, lastDay: today(), xp: 120, xpToday: 30, xpDay: today(), doneToday: 1, doneDay: today(), freezes: 1, lost: 0, lostDay: '' }, ...extra }));
   const app = await electron.launch({ args: ['.', '--no-sandbox'], env: { ...process.env, CELL_SAMPLE_PATH: '', CELL_DATA_DIR: dir, ...env } });
   const w = await app.firstWindow();
   await app.evaluate(({ BrowserWindow }) => BrowserWindow.getAllWindows()[0].setContentSize(620, 960));
@@ -94,7 +96,7 @@ async function launch(look: string, env: Record<string, string> = {}, progress: 
 
 for (const look of ['night', 'day']) {
   test(`contrast on the real screens: ${look}`, async () => {
-    test.setTimeout(150_000);
+    test.setTimeout(240_000);
     const report: Record<string, Audit> = {};
     const check = async (w: Page, name: string) => {
       await w.waitForTimeout(500);
@@ -190,10 +192,34 @@ for (const look of ['night', 'day']) {
     await check(w, 'restored notice');
     await app.close();
 
+    // R21: the start screen (held up by a slow load), the first-start welcome, the empty heatmap and the error screens.
+    ({ app, w } = await launch(look, { CELL_TEST_LOAD_DELAY: '5000' }));
+    await w.getByTestId('start-screen').waitFor();
+    await check(w, 'start screen');
+    await app.close();
+    const fresh = { reviews: {}, game: {}, welcomed: false };
+    ({ app, w } = await launch(look, { CELL_SKIP_WELCOME: '' }, {}, fresh));
+    await w.getByTestId('welcome-page-0').waitFor();
+    await check(w, 'welcome');
+    await w.getByTestId('welcome-next').click(); await w.getByTestId('welcome-page-1').waitFor();
+    await w.getByTestId('welcome-goal-2').click();
+    await check(w, 'welcome: daily goal');
+    await w.getByTestId('welcome-look').click();
+    await w.getByTestId('tab-heatmap').click(); await w.getByTestId('heat-empty').waitFor();
+    await check(w, 'heatmap: empty');
+    await app.close();
+    for (const [kind, env] of [['load', { CELL_TEST_LOAD_FAIL: '1' }], ['crash', { CELL_TEST_CRASH: '1' }]] as const) {
+      ({ app, w } = await launch(look, env));
+      await w.getByTestId(`trouble-${kind}`).waitFor();
+      await w.getByTestId('trouble-details').locator('summary').click();
+      await check(w, `trouble: ${kind}`);
+      await app.close();
+    }
+
     const lines = Object.entries(report).map(([k, a]) => `${k}: ${a.checked} checked${a.fails.length ? `, ${a.fails.length} too faint: ` + a.fails.map(f => `"${f.text}" ${f.fg} on ${f.bg} = ${f.ratio} (needs ${f.need})`).join('; ') : ''}`);
     console.log(`${look}:\n  ` + lines.join('\n  '));
     expect(Object.values(report).flatMap(a => a.unparsed)).toEqual([]);
-    for (const [k, a] of Object.entries(report)) expect(a.checked, k).toBeGreaterThan(2);
+    for (const [k, a] of Object.entries(report)) expect(a.checked, k).toBeGreaterThan(k === 'start screen' ? 1 : 2); // its name and "Tuning in"
     expect(Object.values(report).reduce((n, a) => n + a.checked, 0)).toBeGreaterThan(300);
     expect(Object.entries(report).flatMap(([k, a]) => a.fails.map(f => `${k}: "${f.text}" ${f.fg} on ${f.bg} = ${f.ratio} (needs ${f.need})`))).toEqual([]);
   });
@@ -203,6 +229,7 @@ for (const look of ['night', 'day']) {
 test('the contrast check catches faint words', async () => {
   const { app, w } = await launch('day');
   await w.getByTestId('path-count').waitFor();
+  await expect(w.getByTestId('start-screen')).toHaveCount(0); // R21: not while the start screen is still fading away
   const before = await w.evaluate(audit);
   await w.evaluate(() => document.documentElement.style.setProperty('--text-muted', '#C9D3DF'));
   const after = await w.evaluate(audit);

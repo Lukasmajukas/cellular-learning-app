@@ -63,7 +63,7 @@ Each row is one chat: Large (Opus), High effort. R01 to R04 must go in order (ev
 | # | Session | What changes on screen | Status |
 |---|---|---|---|
 | R20 | **Day look** | A light version of every screen; ⚙️ "Look: Night / Day"; contrast tests for both. *(Review 2: also I52, a warm dark `streakBg` fill for the heatmap's "okay" tiles.)* *(Also: the app opens in the saved look from the first moment, and the look changes with a 0.3 s fade (I56).)* | ✅ 2026-11-05, #144 |
-| R21 | **First start, empty screens, start-up** | A short welcome the first time (what the app teaches, pick a daily goal); our own start screen from the very first moment (compare with T57's picture); friendly empty and error screens. | ⬜ |
+| R21 | **First start, empty screens, start-up** | A short welcome the first time (what the app teaches, pick a daily goal); our own start screen from the very first moment (compare with T57's picture); friendly empty and error screens. *(Done: the window now waits until the start screen is drawn, so the first thing you see is always our own picture; that may also hide T57's picture, which is worth a look on your PC.)* | ✅ 2026-11-05, #145 |
 | R22 | **Window sizes, keyboard, easy to read** | Works from a phone-narrow window to full screen; keyboard everywhere with visible focus; right/wrong never shown by colour alone. *(Review 2: also I57, a shorter Settings tab at 620 × 960.)* | ⬜ |
 | R23 | **Speed check** | Measures every animation's frame rate, scrolling the 49-lesson path, and start-up time; makes the slow ones cheaper. | ⬜ |
 | R24 | **Design review 3 (final)** | The whole app against `DESIGN.md`; fixes; marks the Night Signal redesign done; fills the ideas board for the next part. | ⬜ |
