@@ -40,9 +40,11 @@ export const TILE = {
 export type TileState = keyof typeof TILE;
 
 // The bottom sheet ("Right!" / "Not quite"): `border` is also the colour of its headline.
+// `info` (R14) is a sheet that shows something rather than judging an answer, like a band's lessons on the heatmap.
 export const SHEET = {
   right: { bg: 'onAirBg', fg: 'text', border: 'onAir' },
   wrong: { bg: 'missBg', fg: 'missText', border: 'miss' },
+  info: { bg: 'surface2', fg: 'text', border: 'signal' },
 } as const satisfies Record<string, Tone>;
 export type SheetTone = keyof typeof SHEET;
 

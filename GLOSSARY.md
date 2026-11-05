@@ -160,7 +160,7 @@ Claude adds new words here whenever they come up.
 | **Stability** | In FSRS, the number of days until you'd forget a question about 1 time in 10. |
 | **XP** | Points you earn for right answers. They only count how much you practised. |
 | **Signal bars** | 1 to 5 bars at the end of a lesson, like phone signal: more bars means more answers right the first time. |
-| **Heatmap** | A picture where colour shows how much of something there is. Ours colours each band by how well you remember it: green strong, red fading, grey new. |
+| **Heatmap** | A picture where colour shows how much of something there is. Ours colours each band by how well you remember it: green strong, gold okay, red fading, a dim dashed outline for new. Since R14 a tile also glows brighter the better you know the band, and shows signal bars and a %. |
 | **Scenario puzzle** | A question with a little story and several clues. For each clue you say what it tells you. You only get the question right if every clue is right. |
 | **ASR** | Antenna Structure Registration. A tall tower (over 200 ft) must be listed with the FCC, like a car with a licence plate. The number is posted near its base. |
 | **Monopole** | A cell tower that is one single pole, like a giant flagpole with antennas on top. |
@@ -198,3 +198,5 @@ Claude adds new words here whenever they come up.
 | **Signal burst** | The app's own celebration when you finish a lesson (since R12): rings spread out from Beacon's head and little bits of radio wave fly outward, then everything fades. It replaced confetti, which never showed on your Windows PC. |
 | **Scrollbar gutter** | The strip at the side of the window where the scrollbar sits. Keeping it there even when a page is too short to scroll stops everything jumping sideways when you switch screens. |
 | **Zig-zag path** | The path map's layout: lesson circles go left, right, left down the screen, with each name beside its circle, joined by a dotted line. |
+| **Scrim** | A see-through dark layer laid over a screen behind a panel, so the panel stands out and the screen behind is clearly "paused". Clicking it closes the panel (since R14, behind the heatmap's lessons sheet). |
+| **Glow layer** | A soft halo drawn as its own layer behind a tile or circle. To make something glow more or less, only that layer's see-through-ness changes; the blur itself never moves, because a moving blur is slow on some computers (DESIGN.md section 7). |

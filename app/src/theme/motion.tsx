@@ -242,6 +242,22 @@ export function noticeMotion(calm: boolean) {
 }
 export const noticeShift = (calm: boolean) => (calm ? INSTANT : NOTICE.shift);
 
+// The Heatmap tab (redesign R14). Band tiles "fill in" one after another, like the lights on a panel coming up:
+// each tile's colour fills from the bottom (a `scaleY` grow, like a meter) and fades in, then its glow layer fades up to
+// its brightness (see-through-ness only; brighter = remembered better). One after another in the pop-in rhythm (60 ms
+// apart, all started within 400 ms), only the first time you open the tab after the app starts, or for a band whose
+// level changed since (movement explains: "this one changed"). Nothing loops on this screen.
+// Tapping a tile opens a sheet with its lessons: the sheet slides up (SPRING.sheet) over a dark scrim that fades in (SCRIM).
+// With Reduce motion: the tiles are simply there.
+export const HEAT = {
+  start: 0.15,                                                             // the first tile waits until the tab has nearly glided in
+  fill: { duration: TIME.feedback, ease: EASE.out },                       // a tile's colour filling up (its delay: popInDelay)
+  fillKeys: { transform: ['scaleY(0)', 'scaleY(1)'], opacity: [0, 1] },
+  glow: { duration: 0.3, delay: 0.15, ease: EASE.out },                    // then its glow coming up to its brightness
+};
+// The dark layer behind a sheet you can close (R14: the heatmap's lessons sheet). Small feedback; with Reduce motion a quick fade.
+export const SCRIM = { duration: TIME.feedback, ease: EASE.out };
+
 // When the k-th of a row (stars, bars, rings) starts.
 export const nth = <T extends { delay: number }>(t: T, k: number, gap: number): T => ({ ...t, delay: t.delay + k * gap });
 

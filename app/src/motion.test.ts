@@ -3,7 +3,7 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
-import { SPRING, TIME, PRESS, PRESS_BIG, PRESS_ROUND, PRESS_PILL, QUICK_FADE, INSTANT, LOOP, popInDelay, screenGlide, ON_AIR, BREATHE, waveDelay, popInQueue, TOP_BAR, barAt, FEEDBACK, questionGlide, COMPLETE, nth, SCOPE, NOTICE, noticeMotion, noticeShift } from './theme/motion';
+import { SPRING, TIME, PRESS, PRESS_BIG, PRESS_ROUND, PRESS_PILL, QUICK_FADE, INSTANT, LOOP, popInDelay, screenGlide, ON_AIR, BREATHE, waveDelay, popInQueue, TOP_BAR, barAt, FEEDBACK, questionGlide, COMPLETE, nth, SCOPE, NOTICE, noticeMotion, noticeShift, HEAT, SCRIM } from './theme/motion';
 import { BEACON_SIZE } from './ui/Beacon';
 import { grew } from './ui/TopBar';
 
@@ -258,5 +258,24 @@ describe('the Review tab and the notices (R13)', () => {
     expect((m.animate.transition as { duration: number }).duration).toBeLessThanOrEqual(0.15);
     expect((m.exit.transition as { duration: number }).duration).toBe(0);
     expect(noticeShift(true).duration).toBe(0);
+  });
+});
+
+describe('the Heatmap tab (R14)', () => {
+  it('a tile fills in as small feedback (200-300 ms), then its glow comes up; transforms and see-through-ness only', () => {
+    expect(HEAT.fill.duration).toBeGreaterThanOrEqual(0.2); expect(HEAT.fill.duration).toBeLessThanOrEqual(0.3);
+    expect(HEAT.glow.duration).toBeGreaterThanOrEqual(0.2); expect(HEAT.glow.duration).toBeLessThanOrEqual(0.3);
+    expect(HEAT.glow.delay).toBeGreaterThan(0); // the glow follows the fill
+    for (const p of Object.keys(HEAT.fillKeys)) expect(['transform', 'opacity']).toContain(p);
+    expect(HEAT.fillKeys.transform).toEqual(['scaleY(0)', 'scaleY(1)']);
+    expect(HEAT.fillKeys.opacity).toEqual([0, 1]);
+    expect('repeat' in HEAT.fill || 'repeat' in HEAT.glow).toBe(false); // nothing loops on this screen
+  });
+  it('the whole panel has filled in well within a celebration: the last tile starts by 0.55 s, its glow is up by 1 s', () => {
+    expect(HEAT.start).toBeLessThanOrEqual(TIME.screenIn); // it starts as the tab glide settles, not after a pause
+    for (const n of [5, 12, 33, 60]) expect(HEAT.start + popInDelay(n - 1, n) + HEAT.glow.delay + HEAT.glow.duration).toBeLessThanOrEqual(1);
+  });
+  it('the scrim behind a closable sheet fades as small feedback', () => {
+    expect(SCRIM.duration).toBeGreaterThanOrEqual(0.2); expect(SCRIM.duration).toBeLessThanOrEqual(0.3);
   });
 });

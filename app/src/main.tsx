@@ -1,7 +1,7 @@
 import { createRoot } from 'react-dom/client';
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { SAMPLE_PATH, allLessons, recordResult } from './path';
+import { SAMPLE_PATH, allLessons, lessonStatus } from './path';
 import { PathMap } from './PathMap';
 import { LessonPlayer, type LessonResult } from './LessonPlayer';
 import { finishLesson, finishReview } from './finish';
@@ -18,7 +18,7 @@ import { TopBar, RepairCard } from './ui/TopBar';
 import { ReviewScreen } from './ReviewScreen';
 import { REAL_PATH } from './units';
 import { HeatMap } from './HeatMapScreen';
-import { buildHeatmap, type BandRow, type RawLesson } from './heatmap';
+import { buildHeatmap, lessonsByBand, type BandRow, type RawUnit } from './heatmap';
 import { startChanges, pendingChanges, acknowledge, type Change } from './changes';
 import rawChanges from '../../content/changes.json';
 import rawLessons from '../../content/lessons.json';
@@ -36,6 +36,11 @@ const TEST = (window as unknown as { cellApi?: { useSamplePath?: boolean; testCh
 const CHANGES = TEST?.testChanges ?? (rawChanges as { changes: Change[] }).changes;
 const PATH = TEST?.useSamplePath ? SAMPLE_PATH : REAL_PATH;
 const order = (t: TabId) => TABS.findIndex(x => x.id === t);
+// The heatmap's bands come from the real lessons' fact tags (each question lists the bands it asks about).
+const RAW_UNITS = (rawLessons as unknown as { units: RawUnit[] }).units;
+const RAW_LESSONS = RAW_UNITS.flatMap(u => u.lessons);
+const BAND_LESSONS = lessonsByBand(RAW_UNITS);
+const IN_PATH = new Set(allLessons(PATH).map(l => l.id));
 
 function App() {
   const [state, setState] = useState<SaveState | null>(null);
@@ -73,8 +78,8 @@ function App() {
     freezes={s.game.freezes} done={done} goal={goal} wait={handOver ? TOP_BAR.afterPath : TOP_BAR.wait} />;
 
   const screen = tab === 'review' ? <ReviewScreen outlook={reviewOutlook(PATH, s.reviews, Date.now())} onStart={() => setPlaying(REVIEW_ID)} onPath={() => go('path')} />
-    : tab === 'heatmap' ? <HeatMap cells={buildHeatmap(DATA.bands as unknown as BandRow[],
-        (rawLessons as unknown as { units: { lessons: RawLesson[] }[] }).units.flatMap(u => u.lessons), s.reviews, Date.now())} />
+    : tab === 'heatmap' ? <HeatMap cells={buildHeatmap(DATA.bands as unknown as BandRow[], RAW_LESSONS, s.reviews, Date.now())} onStart={setPlaying}
+        lessonsOf={band => (BAND_LESSONS[band] ?? []).map(l => ({ ...l, status: IN_PATH.has(l.id) ? lessonStatus(PATH, s.progress, l.id) : 'missing' }))} />
     : tab === 'settings' ? <SettingsScreen settings={s.settings} onChange={settings => setState(p => p && { ...p, settings })} />
     : <>
         {repair > 0 && <div style={{ maxWidth: COLUMN, margin: '0 auto', padding: '12px 20px 0', boxSizing: 'border-box' }}>

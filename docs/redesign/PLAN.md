@@ -49,7 +49,7 @@ Each row is one chat: Large (Opus), High effort. R01 to R04 must go in order (ev
 | R11 | **Lesson movement** | Questions glide in and out; right answers glow, wrong ones shake gently; the progress bar springs forward. *(Review 1: no confetti after each right answer; the tile glow does that job (I31).)* | ✅ 2026-11-04, #135 |
 | R12 | **Lesson complete** | Stars drop in one by one, XP counts up like a meter, signal bars fill, a short "signal burst" instead of plain confetti. Checks that the burst shows on Windows (the confetti you never saw, T46/T57). *(Review 1: one main button, "Back to the path"; "Again" becomes quiet (I32).)* | ✅ 2026-11-04, #136 |
 | R13 | **Daily review and notices** | The review screen ("drive test"), the "This changed" card, the save-restored notice. | ✅ 2026-11-05, #137 |
-| R14 | **Heatmap** | Band tiles glow brighter the better you remember them; legend; tap a tile to see its lessons; tiles fill in one by one. | ⬜ |
+| R14 | **Heatmap** | Band tiles glow brighter the better you remember them; legend; tap a tile to see its lessons; tiles fill in one by one. | ✅ 2026-11-05, #138 |
 | R15 | **Settings** | The whole settings screen in the new look, with a sound "play a sample" button and the look switch made ready for Day. | ⬜ |
 | R16 | **Design review 2** | Every screen together: does it feel like one app? Fix small things; re-order what's left. | ⬜ |
 
