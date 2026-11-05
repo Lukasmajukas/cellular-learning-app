@@ -24,7 +24,7 @@ The Settings tab now matches the rest of the app. Every row starts with its own 
 
 ## Test results
 - Unit tests: 212 pass (208 + 4). TypeScript OK.
-- Click tests (cloud): RESULTS_E2E
+- Click tests (cloud): 78 of 78 on the first full run (9.6 min): the 75 before plus 3 new. Frame rates: the sample's rings 60.0 fps; every older moment 58.5-60.
 - Windows build (GitHub): RESULTS_WIN
 
 ## What I looked at (by eye)
