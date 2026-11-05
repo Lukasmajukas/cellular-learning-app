@@ -1,6 +1,6 @@
 # Handoff note: 2026-11-05, T59 redesign R15 (settings)
 
-**Status:** IN PROGRESS
+**Status:** DONE
 **Model used:** Large (Opus), High effort (a Sonnet robot run claimed it and handed it to this Opus chat) · **Branch / pull request:** claude/robot-t59-r15, #139
 
 ## In simple words (for the owner)
@@ -25,7 +25,7 @@ The Settings tab now matches the rest of the app. Every row starts with its own 
 ## Test results
 - Unit tests: 212 pass (208 + 4). TypeScript OK.
 - Click tests (cloud): 78 of 78 on the first full run (9.6 min): the 75 before plus 3 new. Frame rates: the sample's rings 60.0 fps; every older moment 58.5-60.
-- Windows build (GitHub): RESULTS_WIN
+- Windows build (GitHub): run 41959341864 (the final app code) **passed**: 212 unit tests, 78 of 78 click tests (10.8 min) and the installer. Windows frame rates: the sample's rings **64.0 fps**; the older moments fine (lesson complete 64.0, coming on air 61.8, unit done 64.0, top bar 61.9, heatmap fill 61.4, review blips 64.0). Run 41960620142 (the next push: only gallery pictures and notes) was still running at merge time.
 
 ## What I looked at (by eye)
 - Before: `08-settings` from R14: plain cards, only Sounds had an icon, "Day look" was an on/off switch, two buttons with no words about what they do.
@@ -55,7 +55,7 @@ The Settings tab now matches the rest of the app. Every row starts with its own 
 - None.
 
 ## Approvals and blocks
-- APPROVALS_LINE
+- Nothing asked for approval; nothing was blocked. Panel not republished (robot run): `panel/live.json` updated and `panel/index.html` rebuilt. No old chats to put away (all already archived).
 
 ## Notes for the next Claude
 - The look's test IDs are `set-look-night` / `set-look-day` (pill radios, `aria-checked`), not a checkbox. `set-day` is gone.
