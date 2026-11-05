@@ -17,7 +17,7 @@ Each of the four tabs (Path, Review, Heatmap, Settings) starts with a small colo
   - `app/tests/frame.spec.ts`, "every tab starts the same way": now also checks there's one tab head on each tab and the first thing under it starts 16 px below (or further if it keeps its own bigger space, like the path's first unit at 32 px).
   - `app/src/ui.test.ts`: `TabHead.tsx` added to the list of building blocks.
   - **The checks bite:** with Settings' old hand-drawn head put back, the unit test fails; with all four old heads back, the click test fails.
-- **Docs:** `DESIGN.md` section 6 (tab head in the block list and the rule), `IDEAS.md` (I58 ✅, new I82 and I83), `TASKS.md` (the T59 row), `DECISIONS.md`, `PROGRESS-LOG.md`, the panel.
+- **Docs:** `DESIGN.md` section 6 (tab head in the block list and the rule), `IDEAS.md` (I58 ✅, new I82), `TASKS.md` (the T59 row), `DECISIONS.md`, `PROGRESS-LOG.md`, the panel.
 
 ## Test results
 - Unit tests: 261 pass (253 before + 8 new). TypeScript and the build OK.
