@@ -24,7 +24,7 @@ When you finish a lesson and a new one opens on the path, Beacon sends out a hap
 ## Test results
 - Unit tests: 269 pass (1 new). TypeScript and the build: OK.
 - Content checker: OK (253 facts, 27 photos, 635 questions). Nothing in `content/` changed.
-- Click tests (cloud, `xvfb-run -a npx playwright test`): RESULT_E2E
+- Click tests (cloud, `xvfb-run -a npx playwright test`): **129 of 129 pass** (17.2 min), the speed tests included.
 - The new test: the pulse's first frame came **5 ms after** the sound's start; pulse peak 0.88; 60.0 fps.
 - **It bites:** the same test with the old timing put back (sound at `lockOff.delay`) fails: the pulse came **104 ms after** the sound.
 - Windows build on GitHub (run 42091884365): **failed in 4 seconds with no log**: the job never got a computer, the same as every run since 09:17 UTC (T62). Not caused by this change.
