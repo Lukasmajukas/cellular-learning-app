@@ -21,12 +21,13 @@ On the lesson-complete screen, the quiet "Again" button used the same two-arrow 
 ## Test results
 - Unit tests: 253 pass (250 before + 3 new). TypeScript and the build OK.
 - Content checker: OK (253 facts, 27 photos, 635 questions). Nothing in `content/` changed.
-- Click tests (cloud, `xvfb-run -a npx playwright test`): see "Click tests" below.
-- Windows build on GitHub: see "Approvals and blocks".
+- Click tests (cloud, `xvfb-run -a npx playwright test`): first full run 122 of 123 (the path-scrolling speed test, see above); after the fix, **123 of 123 pass** in 15.9 min (path: 60 fps, 0 hitches, busy 43%).
+- Windows build on GitHub: **could not run** (runs 181 and 182 stopped after 4 seconds, like every run since 09:17 UTC; T62).
 
 ## What I looked at (by eye)
 - The icon sheet (`00-icons`): `restart` sits next to `repeat` and reads as a different thing (one arrow round vs two arrows chasing). At 24 px it's still clear. It's the same weight and size as the others.
-- The lesson-complete screen at 620 × 960 and 1280 × 800, in Night and Day (see "Gallery" below).
+- The lesson-complete screen before and after, at 620 × 960 in Night and Day and at 360 × 640 (narrow): "Again" shows the one-arrow restart, the same size and colour as before; nothing else on the screen moved. Up close it reads clearly next to its word in both looks.
+- **Gallery:** only the 12 pictures that changed were replaced in `gallery/latest/`: `00-icons`, `06-lesson-complete` (both sizes), `29-lesson-complete-burst` (both sizes) and `50-lesson-complete-narrow`, in Night and Day. The others differ only by things caught mid-movement or by scroll position (`10-blocks`), so they were left alone (R23's reasoning).
 - **Still weak:** the arrow sits a touch high in its box (its head reaches up to the top of the grid). At button size it isn't noticeable. Nothing moves when you press "Again" (that's I81).
 
 ## What's next
@@ -43,6 +44,7 @@ On the lesson-complete screen, the quiet "Again" button used the same two-arrow 
 
 ## Approvals and blocks
 - Nothing asked for approval. Panel not republished (robot run): `panel/live.json` updated and `panel/index.html` rebuilt.
+- **BLOCKED: the Windows build check** (PLAN.md checklist step 3), same as R20 to R24: GitHub gives the build no computer. Not a failed try: every check that could run passed. Merged per `docs/WORKFLOW.md` G7; T62 already asks the owner.
 
 ## Notes for the next Claude
 - `icons.test.ts` finds icon uses by text (`icon="repeat"`, `name="repeat"`, `icon: 'repeat'`) in `.tsx` files. If you add a new review thing with the `repeat` icon, put a word like "review", "Review", "comeback" or "due" on the same line, or the test will say it isn't a review thing.
