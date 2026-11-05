@@ -26,9 +26,10 @@ test('settings: every row has its icon, the look is Night or Day, and the keys a
   const s = w.getByTestId('settings');
   await expect(s.locator('h1')).toHaveText('Settings');
   const icons = await s.locator('[data-row-icon]').evaluateAll(els => els.map(e => (e as HTMLElement).dataset.rowIcon));
-  expect(icons).toEqual(['soundOff', 'waves', 'play', 'motion', 'gauge', 'target', 'moon', 'backup', 'folder']);
+  expect(icons).toEqual(['soundOff', 'waves', 'play', 'motion', 'gauge', 'target', 'moon', 'backup', 'folder', 'keyboard']);
   for (const card of ['sound', 'motion', 'goal', 'look', 'progress', 'keys']) await expect(w.getByTestId(`set-card-${card}`)).toBeVisible();
-  await expect(w.getByTestId('set-card-keys').locator('kbd')).toHaveText(['1-9', 'Enter', 'Esc']);
+  // R22 (idea I57): the keys are one row now; "Show" opens them in a sheet (tests/keyboard.spec.ts checks the sheet).
+  await expect(w.getByTestId('show-keys')).toBeVisible();
   // Sounds on: its icon changes to the speaker with waves.
   await w.getByTestId('set-sounds').check();
   await expect(s.locator('[data-row-icon]').first()).toHaveAttribute('data-row-icon', 'soundOn');

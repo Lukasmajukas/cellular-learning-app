@@ -114,6 +114,10 @@ for (const look of ['night', 'day']) {
     await w.keyboard.press('Escape');
     await w.getByTestId('tab-settings').click(); await w.getByTestId('settings').waitFor();
     await check(w, 'settings');
+    // R22: the Keys sheet.
+    await w.getByTestId('show-keys').click(); await w.getByTestId('keys-sheet').waitFor();
+    await check(w, 'keys sheet');
+    await w.keyboard.press('Escape'); await expect(w.getByTestId('keys-sheet')).toHaveCount(0);
     // A lesson: the first screen, a question, and both answer sheets.
     await w.getByTestId('tab-path').click();
     await w.getByTestId('lesson-unit01-l4').click(); await w.getByTestId('quit').waitFor();
