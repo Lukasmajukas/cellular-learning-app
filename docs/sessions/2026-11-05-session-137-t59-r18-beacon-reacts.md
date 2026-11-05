@@ -11,7 +11,7 @@ Beacon, the little glowing tower, now reacts to what you do. On the path it stan
 - **Path ("you are here"):** `app/src/ui/LessonNode.tsx` (`PathBeacon`), `app/src/PathMap.tsx`. A 48 px Beacon beside the current lesson, on the side away from its name, feet level with the circle's bottom, inside the circle's pop-in (so it pops in and arrives with it). After an unlock it is happy at 0.95 s and back to waiting at 2.6 s (`ON_AIR.beaconHappy` / `beaconRest` in the speed file). Its ring pulse is over by 1.55 s, before the top bar's moment starts at 1.6 s (one celebration at a time). The circle's label for screen readers ends "you are here".
 - **Idea I35 (2 loops on the path):** `Beacon` has a new `breathe` switch (`app/src/ui/Beacon.tsx`); on the path it blinks but its rings stay still, so the path has the lesson's breath and Beacon's blink: 2 loops.
 - **Ideas I39 and I43 (when Beacon speaks):** `beaconMoment()` in `app/src/questionScreen.ts` decides: before the first question (ask or learn), after each answer (right, wrong, "fixed" for a right comeback, "on a roll" every 3rd right in a row), and when a missed question comes back (Beacon's face is "thinking" then). Otherwise no bubble; it fades out (`app/src/LessonPlayer.tsx`). New line lists: comeback, fixed, streak.
-- **Lesson complete:** `app/src/LessonComplete.tsx`. A bubble beside the big Beacon's head with a line chosen by `completeMoment()` (perfect, strong, done, or "you fixed the tricky ones"). It pops in at 0.9 s (`COMPLETE.says`), after the burst's wave pieces are gone (at 0.45 s it covered them, seen in the pictures).
+- **Lesson complete:** `app/src/LessonComplete.tsx`. A bubble beside the big Beacon's head with a line chosen by `completeMoment()` (perfect, strong, done, or "you fixed the tricky ones"). It pops in at 0.9 s (`COMPLETE.says`), after the burst's wave pieces are gone (at 0.45 s it covered them, seen in the pictures). Its words wrap in balanced lines (`textWrap: 'balance'`), so no lone word sits on the second line.
 - **Idea I46:** the top row (close, bar, "3 / 3") fades out and the lesson's name fades in, green, with a check.
 - **Idea I48:** the end block sits in the middle of the window's height when there's room.
 - **Bug fix:** Esc on the lesson-complete screen used to call "leave the lesson", so the result was never saved. Now it does what "Back to the path" does.
@@ -24,13 +24,13 @@ Beacon, the little glowing tower, now reacts to what you do. On the path it stan
 
 ## Test results
 - Unit tests: 215 pass (213 + 2). TypeScript OK. Content checker OK (253 facts, 27 photos, 635 questions).
-- Click tests (cloud): RESULTS
+- Click tests (cloud): 86 of 86 on the first full run (10.0 min): the 79 before plus 7 new. Lowest frame rate measured: 59.2 fps (bar 50). After the last small change (balanced line breaks in the end bubble), the R18 and lesson-complete tests ran again: 11 of 11.
 - Windows build (GitHub): WINDOWS
 
 ## What I looked at (by eye)
 - "Before": the gallery from R16 (taken on the same code as main).
-- After: `01-path-map` (Beacon right of "The upside-down bands", clear of the name and the line), `39-path-beacon-happy` (Beacon arrived with "Sample lesson 2", green happy face), `28-comeback` (thinking face, "This one again. You've got it now."), `06-lesson-complete` and `29-lesson-complete-burst` (first try: the bubble was 25 px from the head and popped in over the wave pieces; moved in to just past the outer ring and delayed to 0.9 s), and the test's 480 × 760 picture (bubble inside the window).
-- **Still looks weak:** the path's Beacon is small and its blue blends a little with the current circle's glow; on a narrow window the end bubble gets squeezed (I61); no line on the path (I60).
+- After: `01-path-map` (Beacon right of "The upside-down bands", clear of the name and the line), `39-path-beacon-happy` (Beacon arrived with "Sample lesson 2", green happy face), `28-comeback` (thinking face, "This one again. You've got it now."), `06-lesson-complete` and `29-lesson-complete-burst` (first try: the bubble was 25 px from the head and popped in over the wave pieces; moved in to just past the outer ring and delayed to 0.9 s), and the test's 480 × 760 picture (bubble inside the window). Final gallery checked again: `06-lesson-complete` (both sizes), `29-lesson-complete-burst` (clean: the bubble isn't in yet at 0.38 s), `03-question` (no bubble on a later question, the spot keeps its height).
+- **Still looks weak:** the end bubble keeps its full 168 px width even when its balanced lines are shorter (a little empty space on the right); the path's Beacon is small and its blue blends a little with the current circle's glow; on a narrow window the end bubble gets squeezed (I61); no line on the path (I60).
 
 ## What's next
 - Next task: T59, session R19 (sound). Large (Opus), High effort. The robot picks it up by itself.

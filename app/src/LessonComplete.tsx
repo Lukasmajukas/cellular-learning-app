@@ -53,7 +53,7 @@ export function LessonComplete({ stars, right, total, fixed, xp, bars, seed = ''
           <Beacon face="cheering" size={BIG} />
         </div>
         <SpeechBubble data-testid="beacon-says" delay={calm ? 0 : COMPLETE.says}
-          style={{ position: 'absolute', left: HEAD.x + SAYS_GAP, bottom: BEACON_HEIGHT(BIG) - HEAD.y - 16, zIndex: 2, width: 'max-content', maxWidth: 168, boxSizing: 'border-box', fontSize: 14 }}>
+          style={{ position: 'absolute', left: HEAD.x + SAYS_GAP, bottom: BEACON_HEIGHT(BIG) - HEAD.y - 16, zIndex: 2, width: 'max-content', maxWidth: 168, boxSizing: 'border-box', fontSize: 14, textWrap: 'balance' }}>
           {beaconLine(completeMoment(stars, fixed), seed)}</SpeechBubble>
       </div>
       <h2 data-testid="done" style={{ fontSize: 28, lineHeight: 1.25, fontWeight: 700, margin: '4px 0 10px', position: 'relative', zIndex: 1 }}>Lesson complete!</h2>
