@@ -129,6 +129,7 @@ test('lesson complete: Beacon says a line beside its head; the top row becomes t
   await expect(w.getByTestId('done-title')).toHaveText('Sample lesson 1');
   // Beacon's line: perfect (every one right the first time), beside its head, clear of the title and the stars.
   await expect(w.getByTestId('beacon-says')).toHaveText(lines('perfect'));
+  await expect(w.getByTestId('beacon-says')).toHaveAttribute('data-point', 'left');   // (I61: under the title only at 400 px or less)
   const b = await box(w, '[data-testid=complete] [data-testid=beacon]'), says = await box(w, '[data-testid=beacon-says]');
   const title = await box(w, '[data-testid=done]'), stars = await box(w, '[data-testid=stars]'), head = await box(w, '[data-testid=done-head]');
   const vw = await w.evaluate(() => document.documentElement.clientWidth), vh = await w.evaluate(() => window.innerHeight);
@@ -165,6 +166,53 @@ test('lesson complete after a fix: Beacon says you fixed the tricky ones', async
   }
   await expect(w.getByTestId('fixed')).toBeVisible();
   await expect(w.getByTestId('beacon-says')).toHaveText(lines('fixedAll'));
+  await app.close();
+});
+
+// Idea I61: on a window of 400 px or less the bubble sits under the "Lesson complete!" title, in the middle, its pointy corner
+// up at Beacon (beside the head it was only about 100 px wide at 360 px). It still pops in once the burst is done, smoothly.
+const sizeTo = (app: Awaited<ReturnType<typeof launch>>['app'], W: number, H: number) =>
+  app.evaluate(({ BrowserWindow }, s) => { BrowserWindow.getAllWindows()[0].setContentSize(s.W, s.H); }, { W, H });
+test('lesson complete on a narrow window (360 x 640): the bubble sits under the title, pointing up at Beacon; 50+ fps; no scrolling', async () => {
+  const { app, w } = await launch();
+  await sizeTo(app, 360, 640);
+  await w.getByTestId('lesson-u1-l1').click();
+  for (let i = 0; i < SAMPLE.length - 1; i++) { await answer(w, true); await w.getByTestId('next').click(); }
+  await answer(w, true);
+  await w.mouse.move(2, 2);
+  const SAYS = '[data-testid=complete] [data-testid=beacon-says]';   // (not the question screen's bubble as it leaves)
+  const r = await film(w, ['[data-testid=complete]', SAYS], () => w.getByTestId('next').click(), 2600, '[data-testid=complete]');
+  const pop = r.of(SAYS).filter(Boolean).map(f => f!);
+  console.log(`  bubble scale ${pop[0].sx} -> ${pop.at(-1)!.sx}, see-through ${pop[0].op} -> ${pop.at(-1)!.op}; ${r.fps.toFixed(1)} fps`);
+  expect(pop[0].op).toBe(0);                                   // waits for the burst (COMPLETE.says) ...
+  expect(Math.min(...pop.map(f => f.sx))).toBeLessThan(0.9);  // ... then pops in from small ...
+  expect(pop.at(-1)!.sx).toBe(1); expect(pop.at(-1)!.op).toBe(1);
+  expect(r.fps).toBeGreaterThanOrEqual(50);
+  await expect(w.locator(SAYS)).toHaveAttribute('data-point', 'up');
+  const says = await box(w, SAYS), title = await box(w, '[data-testid=done]'), stars = await box(w, '[data-testid=stars]');
+  const b = await box(w, '[data-testid=complete] [data-testid=beacon]'), tip = await box(w, `${SAYS} [data-tip]`);
+  const vw = await w.evaluate(() => document.documentElement.clientWidth);
+  console.log(`  title ${title.y.toFixed(0)}-${(title.y + title.height).toFixed(0)}; bubble ${says.x.toFixed(0)}-${(says.x + says.width).toFixed(0)} wide ${says.width.toFixed(0)}, ${says.y.toFixed(0)}-${(says.y + says.height).toFixed(0)}; stars from ${stars.y.toFixed(0)}`);
+  expect(says.y).toBeGreaterThanOrEqual(title.y + title.height + 4);        // under the title, room for the pointy corner
+  expect(says.y + says.height).toBeLessThanOrEqual(stars.y);                // above the stars
+  expect(Math.abs(says.x + says.width / 2 - (b.x + b.width / 2))).toBeLessThan(2);   // in the middle, under Beacon
+  expect(Math.abs(tip.x + tip.width / 2 - (b.x + b.width / 2))).toBeLessThan(2);     // its corner points up at Beacon
+  expect(tip.y).toBeLessThan(says.y);
+  expect(tip.y + tip.height).toBeGreaterThan(title.y + title.height);       // (clear of the title's letters: it's in the gap)
+  expect(says.x).toBeGreaterThanOrEqual(8); expect(says.x + says.width).toBeLessThanOrEqual(vw - 8);
+  expect(says.width).toBeGreaterThan(160);    // much wider than the ~100 px it had beside the head
+  expect(says.height).toBeLessThan(50);       // so the line fits on one row
+  expect(await w.evaluate(() => document.documentElement.scrollHeight - window.innerHeight)).toBeLessThanOrEqual(0);
+  await w.screenshot({ path: 'test-results/i61-narrow-complete.png' });
+  // Wider than 400 px: back beside Beacon's head, at once (no second wait); 400 px again: under the title.
+  await sizeTo(app, 401, 640); await w.waitForTimeout(500);
+  await expect(w.locator(SAYS)).toHaveAttribute('data-point', 'left');
+  const side = await box(w, SAYS), b2 = await box(w, '[data-testid=complete] [data-testid=beacon]');
+  expect(side.x).toBeGreaterThanOrEqual(b2.x + b2.width * 0.8 - 1);
+  expect(Number(await w.locator(SAYS).evaluate(e => getComputedStyle(e).opacity))).toBeGreaterThan(0.9);   // shown by 0.5 s: no 0.9 s wait
+  await sizeTo(app, 400, 640); await w.waitForTimeout(500);
+  await expect(w.locator(SAYS)).toHaveAttribute('data-point', 'up');
+  expect(Number(await w.locator(SAYS).evaluate(e => getComputedStyle(e).opacity))).toBeGreaterThan(0.9);   // shown by 0.5 s: no 0.9 s wait
   await app.close();
 });
 
