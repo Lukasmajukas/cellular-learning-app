@@ -39,6 +39,10 @@ const between = (vs: number[], end = vs[vs.length - 1]) => vs.filter(v => Math.a
 
 test('switching tabs doesn\'t shift the frame sideways, even when only one tab needs a scrollbar (design review 1)', async () => {
   const { app, w } = await launch();
+  // The owner's window height (960): the Review tab fits without a scrollbar there, the path doesn't. (R13 made the
+  // Review tab taller than the test window's 760 px, so every tab scrolled at that size and the case was gone.)
+  await app.evaluate(({ BrowserWindow }) => BrowserWindow.getAllWindows()[0].setContentSize(480, 960));
+  await w.waitForTimeout(300);
   const where = async () => ({ top: (await w.getByTestId('hud').boundingBox())!.x, tabs: (await w.getByTestId('tab-path').boundingBox())!.x,
     scrolls: await w.evaluate(() => document.documentElement.scrollHeight > innerHeight) });
   const path = await where();
