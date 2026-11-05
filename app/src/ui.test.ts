@@ -5,13 +5,14 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { NIGHT, DAY, type Palette, type TokenKey } from './theme/tokens';
 import { contrast } from './theme/contrast';
-import { BUTTON, PILL, TILE, SHEET, type Tone } from './ui/tones';
+import { BUTTON, BUTTON_OFF, PILL, TILE, SHEET, type Tone } from './ui/tones';
 import { SPRING, PRESS, PRESS_BIG, QUICK_FADE } from './theme/motion';
 
 const SRC = __dirname;
 // [what, words, background]; all need 4.5:1 (they're words, some only 13-14 px).
 const pairs = (): [string, TokenKey, TokenKey][] => [
   ...Object.entries(BUTTON).map(([k, t]) => [`button ${k}`, t.fg, t.bg] as [string, TokenKey, TokenKey]),
+  ['button not ready yet', BUTTON_OFF.fg, BUTTON_OFF.bg],
   ...Object.entries(PILL).map(([k, t]) => [`pill ${k}`, t.fg, t.bg] as [string, TokenKey, TokenKey]),
   ...Object.entries(TILE).flatMap(([k, t]) => [[`tile ${k}`, t.fg, t.bg], [`tile ${k} number`, t.key, t.bg]] as [string, TokenKey, TokenKey][]),
   ...Object.entries(SHEET).flatMap(([k, t]) => [[`sheet ${k}`, t.fg, t.bg], [`sheet ${k} headline`, t.border, t.bg]] as [string, TokenKey, TokenKey][]),
@@ -30,6 +31,12 @@ describe('building blocks: readable colours', () => {
   });
   it('Night: every pair passes', () => expect(bad(NIGHT)).toEqual([]));
   it('Day (early values, finished in R20): every pair passes', () => expect(bad(DAY)).toEqual([]));
+  it('a button you can\'t press yet is dark with an outline, never a see-through bright one (design review 2, I42)', () => {
+    expect(BUTTON_OFF).toEqual({ bg: 'surface2', fg: 'textMuted', border: 'borderStrong' });
+    const button = readFileSync(join(SRC, 'ui', 'Button.tsx'), 'utf8').split('export function IconButton')[0];
+    expect(button).toMatch(/disabled \? BUTTON_OFF : BUTTON\[kind\]/);
+    expect(button).not.toMatch(/opacity: disabled/);
+  });
   it('bright buttons and pills always carry the dark "onBright" words (DESIGN.md section 2)', () => {
     for (const t of [...Object.values(BUTTON), ...Object.values(PILL)] as Tone[]) if (t.bg !== 'surface' && t.bg !== 'surface2') expect(t.fg).toBe('onBright');
   });

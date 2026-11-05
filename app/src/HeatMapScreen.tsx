@@ -57,7 +57,7 @@ export function HeatMap({ cells, lessonsOf, onStart }:
   };
   return (
     <div ref={root} data-testid="heatmap" style={{ maxWidth: COLUMN, margin: '0 auto', padding: '16px 20px 32px', boxSizing: 'border-box' }}>
-      <SectionLabel tone="signal" style={{ margin: 0 }}>Band memory</SectionLabel>
+      <SectionLabel tone="signal" data-testid="tab-label" style={{ margin: 0 }}>Band memory</SectionLabel>
       <h1 style={{ margin: '2px 0 4px', fontSize: 28, lineHeight: 1.25 }}>Heatmap</h1>
       <p data-testid="heat-hint" style={{ margin: '0 0 12px', fontSize: 15, lineHeight: 1.4, color: c.textMuted }}>
         {counts.new === cells.length

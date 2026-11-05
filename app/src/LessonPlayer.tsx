@@ -102,7 +102,7 @@ export function LessonPlayer({ lesson, onFinish, onQuit }: { lesson: Lesson; onF
                 <p data-testid="learn-text" style={{ fontSize: 18, lineHeight: 1.45, margin: '0 0 14px' }}>{it.text}</p>
                 {it.bars && <Card raised title="On the radio ruler" data-testid="learn-ruler" style={{ margin: '0 0 12px', padding: '12px 14px 10px' }}><SpectrumBar ranges={rangesFor(it.bars)} /></Card>}
                 {it.badge && <FactBadge badge={it.badge} />}
-                <Button full big kind="onAir" data-testid="learn-ok" data-primary aria-keyshortcuts="Enter" onClick={() => next(true)} style={{ marginTop: 20 }}>Got it</Button>
+                <Button full big data-testid="learn-ok" data-primary aria-keyshortcuts="Enter" onClick={() => next(true)} style={{ marginTop: 20 }}>Got it</Button>
               </div>
             ) : (
               <>
