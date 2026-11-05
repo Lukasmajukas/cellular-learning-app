@@ -69,6 +69,8 @@ test('"What happened" folds open with our own chevron, not the browser\'s triang
   expect(closed).toMatchObject({ icon: 'chevron', turn: 'rotate(90deg)', after: true });  // words first, then a chevron pointing down
   await summary.click();
   await expect(w.getByTestId('trouble-detail')).toBeVisible();
-  expect(await look()).toMatchObject({ icon: 'chevron', turn: 'rotate(-90deg)' });       // pointing up once it's open
+  // Pointing up once it's open. The browser sends its "toggle" event a moment after the fold opens (it's queued, not
+  // instant), and the chevron turns on it, so wait for it (seen once on 2026-11-05: read in that gap, still 90deg).
+  await expect.poll(look, { timeout: 2000 }).toMatchObject({ icon: 'chevron', turn: 'rotate(-90deg)' });
   await app.close();
 });
