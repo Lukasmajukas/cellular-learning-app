@@ -3,7 +3,7 @@
 **Status:** SIGNED OFF by the owner on 2026-11-04. Written 2026-11-04 in T58 (session 119, Opus, High effort).
 <!-- When the owner types "I sign off the redesign plan", a chat adds the line below and merges it. That line lets the robot start session R01. -->
 Signed off by owner: 2026-11-04 ("I sign off the redesign plan", typed in the T58 chat).
-**Redesign switch:** ON <!-- The owner's "Pause the redesign" sets this to PAUSED; "Resume the redesign" sets it back to ON. The robot does redesign sessions only while it says ON. -->
+**Redesign switch:** PAUSED <!-- The owner's "Pause the redesign" sets this to PAUSED; "Resume the redesign" sets it back to ON. The robot does redesign sessions only while it says ON. -->
 
 ## In simple words (for the owner)
 The app works, but it looks like a school worksheet. This plan turns it into a finished app with the **Night Signal** look you picked: dark, calm and glowing, with **Beacon**, the little glowing tower, reacting to how you do. It happens in **24 small redesign sessions**, each one a separate robot chat on Opus that changes one part of the app, tests it, and saves it. After session 24 the robot **keeps improving** the app from an ideas board, forever, until you pause it.
