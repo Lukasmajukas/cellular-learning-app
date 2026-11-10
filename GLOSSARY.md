@@ -84,9 +84,10 @@ Claude adds new words here whenever they come up.
 | **Design review** | A chat that only looks: it scores every screen against the style guide and decides what to fix next, like a teacher marking a project halfway through. |
 | **Look-back review** | Claude reading the old chats and the code again, like a coach re-watching a match, to see what went wrong and what to do better. It changes nothing by itself. |
 | **Installer's waiting animation** | The small moving picture an installer shows while it puts an app on your PC. Ours comes from the installer tool (called Squirrel) and is green, like a code editor being typed in. |
-| **Start-up signal (from the installer)** | A short message the installer sends the app, like "I just installed you". The app should answer (make its shortcut) and step aside. Ours doesn't answer yet (task T67). |
+| **Start-up signal (from the installer)** | A short message the installer sends the app, like "I just installed you". The app should answer (make its shortcut) and step aside. Ours answers since task T67 (Nov 10), but nobody has seen it work on Windows yet. |
 | **Shortcut (Start menu, desktop)** | The icon you click to open an app that is already installed, so you never need the Setup file again. |
 | **One copy at a time (single-instance lock)** | A rule inside an app that stops it from opening twice, so two copies can't both write your save file. |
+| **Update.exe (the installer's helper)** | A small program the installer leaves next to the app. When the installer taps the app on the shoulder, the app asks this helper to make (or remove) its Start-menu and desktop icons. |
 
 ## Cell phone words
 | Word | What it means |

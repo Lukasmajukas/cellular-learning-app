@@ -1,6 +1,13 @@
 const { app, BrowserWindow, ipcMain, shell } = require('electron');
 const path = require('path');
 const { createStore, WINDOW_BG } = require('./store.cjs');
+const { handleInstallerSignal } = require('./squirrel.cjs');
+
+// T67: first thing, before anything else. When the Windows installer starts the app only to say "you were just
+// installed / updated / are being removed", the app answers (makes or removes its Start-menu and desktop icons),
+// quits, and opens no window. Any normal start (you clicking the icon) comes back false and carries on below.
+// The one-copy-at-a-time lock (T69) must go AFTER this line: the installer's start must never be turned away by it.
+const answeredInstaller = handleInstallerSignal({ quit: () => app.quit() });
 
 // CELL_DATA_DIR lets automatic tests use a throwaway folder instead of your real save.
 const store = createStore(process.env.CELL_DATA_DIR || path.join(app.getPath('userData'), 'data'));
@@ -47,5 +54,5 @@ ipcMain.handle('save:save', (e, state) => {
 });
 ipcMain.handle('save:backup', () => store.backup());
 ipcMain.handle('save:show', () => { shell.showItemInFolder(store.file); return store.file; });
-app.whenReady().then(create);
+if (!answeredInstaller) app.whenReady().then(create);
 app.on('window-all-closed', () => app.quit());
