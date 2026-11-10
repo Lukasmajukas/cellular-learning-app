@@ -2,11 +2,11 @@
   "asOf": "2026-11-10",
   "robot": {
     "on": true,
-    "next": "at about half past every hour (it was paused for an hour on Nov 9 at your request and switched itself back on)",
+    "next": "at about half past every hour. The redesign part is PAUSED at your request (Nov 10); the robot's other jobs carry on",
     "last": "idea I89 on Nov 5; after that your weekly limit was used up, and it stood still until today"
   },
   "light": "yellow",
-  "working": "Nothing in progress in your chats. Claude finished a look-back review of the old chats and the code (T66): read `docs/reviews/2026-11-09-look-back-review.md`, the part \"In simple words\". The robot's next job is redesign idea I85, left half-done when the limit ran out. For you, most useful first: (1) GitHub's Billing page, so the Windows build runs again (T62); (2) one answer: do you open the app with Setup.exe each time, or from the Start menu? (T57: the green picture is very likely the installer's own animation); (3) say OK to the fixes T67 to T69; (4) decide whether to pause the redesign until they are in; (5) paste the robot's hourly message into the launcher chat (T60).",
+  "working": "Nothing in progress in your chats except this tiny one: you typed `Pause the redesign`, so the redesign switch now says PAUSED (type `Resume the redesign` to turn it back on). A redesign chat for idea I85 is still half-done from Nov 5 (pull request 162); it is not running, and the robot may still finish it first, because finishing half-done work comes before the switch. Claude also finished a look-back review of the old chats and the code (T66): read `docs/reviews/2026-11-09-look-back-review.md`, the part \"In simple words\". For you, most useful first: (1) GitHub's Billing page, so the Windows build runs again (T62); (2) one answer: do you open the app with Setup.exe each time, or from the Start menu? (T57: the green picture is very likely the installer's own animation); (3) say OK to the fixes T67 to T69; (4) paste the robot's hourly message into the launcher chat (T60).",
   "limit": {
     "state": "fine",
     "resets": "your 5-hour limit ran out on Nov 9 during the look-back review and has reset; the weekly limit resets Wed Nov 11"
