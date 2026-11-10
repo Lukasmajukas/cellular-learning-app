@@ -19,6 +19,11 @@ All the levels are explained in [ROADMAP.md](ROADMAP.md).
 
 **Get the app (Windows):** open https://github.com/Lukasmajukas/cellular-learning-app/releases/tag/latest-build and download the file ending in `Setup.exe`. It's always the newest build. (Windows may warn that it isn't signed: click "More info", then "Run anyway".)
 
+**How to open the app (Windows):** `Setup.exe` is only for putting the app on your PC (or updating it). Do that once, not every time.
+- **Every other time:** press the Windows key, type `Cell Learning`, press Enter. There should also be an icon on your desktop. Tip: right-click the app in the Start menu and choose **Pin to taskbar**, so it's one click from then on.
+- **While it installs,** a small green moving picture shows. That's the installer's own "please wait" picture, and it's normal. It used to stay up for about 15 seconds with the app opening behind it; now it should go as soon as the install is done, and then the app opens by itself.
+- **Not tried on Windows yet.** The app was taught to make the icons in task T67 (Nov 10), but the Windows build has been stopped since Nov 5 (task T62), so nobody has seen it work. If you install the next build and there's no `Cell Learning` in the Start menu, tell Claude. Builds from before Nov 10 never make the icons, which is why double-clicking `Setup.exe` felt like the only way.
+
 **What are T13, T20 and so on?** Just labels so chats don't mix up tasks. You can ignore them.
 
 ---
