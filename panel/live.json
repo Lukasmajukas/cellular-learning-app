@@ -1,14 +1,14 @@
 {
-  "asOf": "2026-11-05",
+  "asOf": "2026-11-10",
   "robot": {
     "on": true,
-    "next": "right away (it starts its next job by itself), and every hour",
-    "last": "idea I89: the lesson's progress bar keeps a small lit start, so the first right answer's spark is a whole light (T59)"
+    "next": "at about half past every hour (it was paused for an hour on Nov 9 at your request and switched itself back on)",
+    "last": "idea I89 on Nov 5; after that your weekly limit was used up, and it stood still until today"
   },
-  "light": "green",
-  "working": "Nothing in progress. The 24 redesign sessions are done; the robot now improves the app one idea at a time from the ideas board, idea I89 (a small lit start on the lesson's progress bar) is done; next: idea I85 (show the XP gain once during the top bar's moment, not as two \"+10\"s). For you: the Windows build on GitHub still doesn't run, most likely because your free GitHub Actions minutes are used up; please check GitHub, Settings, Billing (T62). Also: when a new build is out, say if the green picture at start-up is gone (T57); paste the robot's hourly message into the launcher chat again, and don't /clear it until then (T60).",
+  "light": "yellow",
+  "working": "Nothing in progress in your chats. Claude finished a look-back review of the old chats and the code (T66): read `docs/reviews/2026-11-09-look-back-review.md`, the part \"In simple words\". The robot's next job is redesign idea I85, left half-done when the limit ran out. For you, most useful first: (1) GitHub's Billing page, so the Windows build runs again (T62); (2) one answer: do you open the app with Setup.exe each time, or from the Start menu? (T57: the green picture is very likely the installer's own animation); (3) say OK to the fixes T67 to T69; (4) decide whether to pause the redesign until they are in; (5) paste the robot's hourly message into the launcher chat (T60).",
   "limit": {
-    "state": "warning",
-    "resets": "the weekly limit is nearly used up (it resets Wed Nov 11). The robot keeps working until it runs out"
+    "state": "fine",
+    "resets": "your 5-hour limit ran out on Nov 9 during the look-back review and has reset; the weekly limit resets Wed Nov 11"
   }
 }
