@@ -127,7 +127,8 @@ export const TOP_BAR = {
   count: { duration: 0.8, delay: 0, ease: EASE.out },                          // XP counting up
   float: { duration: 0.9, delay: 0, ease: EASE.out },                          // the "+30" rising and fading ...
   floatKeys: { transform: ['translateY(8px)', 'translateY(-6px)'], opacity: [0, 1, 0] }, // ... off the number, inside the bar
-  today: { duration: 0.25, delay: 0.7, ease: EASE.out },                       // today's "+N XP today" fades in as the "+N" fades out (I85)
+  todayAt: 0.7,                                                                 // today's "+N XP today" waits until then (I85) ...
+  today: { duration: 0.25, delay: 0, ease: EASE.out },                         // ... and fades in as the "+N" fades out
   todayKeys: { opacity: [0, 1] },
   flicker: { duration: 0.6, delay: 0.05, ease: 'easeInOut' as const },    // the flame
   flickerKeys: { transform: FLAME.scale.map((sc, i) => `scale(${sc}) rotate(${FLAME.rotate[i]}deg)`) },

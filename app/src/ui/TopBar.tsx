@@ -14,7 +14,7 @@ import { play } from '../sound';
 // Until its move starts, each number that went up still shows its old value (idea I30, `useHeld`): after a lesson's
 // first finish the path plays first, and the top bar then adds it all up in one go.
 // Idea I85: the gain is shown once. Today's "+N XP today" keeps its old value (or stays away) while the "+N" rises off
-// the total, and fades in, in its own place, as the "+N" fades out (TOP_BAR.today, 0.7 s into the moment).
+// the total, and fades in, in its own place, as the "+N" fades out (TOP_BAR.todayAt, 0.7 s into the moment).
 // Reduce motion: the numbers just change. Every speed comes from TOP_BAR in the speed file.
 
 const hidden = { position: 'absolute', width: 1, height: 1, overflow: 'hidden', clip: 'rect(0 0 0 0)', whiteSpace: 'nowrap' } as const;
@@ -82,7 +82,7 @@ export function TopBar({ streak, xp, xpToday, freezes, done, goal, wait = TOP_BA
   // I30: what the numbers show until their move starts (the streak and freezes with their pop, today's XP with the
   // count, the goal's "1 of 1" with its bar, its colour with the flash).
   const showStreak = useHeld(s, wait + TOP_BAR.pop.delay), showFreezes = useHeld(f, wait + TOP_BAR.pop.delay);
-  const showToday = useHeld(t, wait + TOP_BAR.today.delay), showDone = useHeld(d, wait + TOP_BAR.fill.delay);
+  const showToday = useHeld(t, wait + TOP_BAR.todayAt), showDone = useHeld(d, wait + TOP_BAR.fill.delay);
   const showReached = useHeld(d, wait + TOP_BAR.flash.delay) >= goal;
   const reached = done >= goal, justReached = grew(d) && reached && d.from < goal;
 
@@ -99,7 +99,7 @@ export function TopBar({ streak, xp, xpToday, freezes, done, goal, wait = TOP_BA
   const todayFresh = grew(t) && !calm && showToday === t.to;
   useEffect(() => {
     if (!todayFresh || !today.current) return;
-    const a = animate(today.current, TOP_BAR.todayKeys, { ...TOP_BAR.today, delay: 0 });
+    const a = animate(today.current, TOP_BAR.todayKeys, TOP_BAR.today);
     return () => a.stop();
   }, [todayFresh, t.n]); // eslint-disable-line react-hooks/exhaustive-deps -- once per change
   // R19: the streak sound, with the flame's flicker (at the same moment with Reduce motion, though nothing moves).
