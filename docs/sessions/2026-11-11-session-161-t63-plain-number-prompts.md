@@ -2,7 +2,7 @@
 <!-- File name: docs/sessions/YYYY-MM-DD-session-N-short-name.md (N = the highest session number so far + 1) -->
 
 **Status:** DONE
-**Model used:** Small, Low effort (Haiku robot worker, taking over the claim from the robot run that opened #166) · **Branch / pull request:** `claude/robot-t63` / [#166](https://github.com/Lukasmajukas/cellular-learning-app/pull/166)
+**Model used:** Small size, Low effort (robot run taking over the claim from the run that opened #166) · **Branch / pull request:** `claude/robot-t63` / [#166](https://github.com/Lukasmajukas/cellular-learning-app/pull/166)
 
 ## In simple words (for the owner)
 A type-the-number question had the words "(type the number)" at the end of its question, but the box above it already says "TYPE THE NUMBER". So it said the same thing twice. I took the extra words out of that one question. The question still asks the same thing and the answer is the same.
