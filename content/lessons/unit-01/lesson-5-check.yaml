@@ -92,7 +92,7 @@ questions:
   - id: u1-cp-number-01
     kind: number
     facts: [band:B71]
-    prompt: B71's downlink starts at how many MHz? (type the number)
+    prompt: B71's downlink starts at how many MHz?
     answer_from: band:B71.dl_low_mhz
     tolerance_mhz: 5
     unit: MHz
