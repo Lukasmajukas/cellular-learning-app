@@ -82,7 +82,7 @@ questions:
     prompt: Is n71 FDD or TDD?
     choices: [TDD, FDD]
     answer: 1
-    why: The bands file lists n71's duplex as {band:n71.duplex}.
+    why: The bands file lists n71's duplex as {band:n71.duplex}. In plain words, UL above DL means the uplink (your phone talking) sits higher than the downlink (your phone listening).
   - id: u5-cp-mix-03
     kind: choice
     facts: [band:n260]

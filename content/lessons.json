@@ -1318,7 +1318,7 @@
         "Upside-down"
        ],
        "answer": 1,
-       "why": "The bands file says B71 is {band:B71.duplex}."
+       "why": "The bands file says B71 is {band:B71.duplex}. In plain words, UL above DL means the uplink (your phone talking) sits higher than the downlink (your phone listening)."
       },
       {
        "id": "u1-flip-02",
@@ -1346,7 +1346,7 @@
         "Upside-down"
        ],
        "answer": 1,
-       "why": "The bands file says B14 is {band:B14.duplex}."
+       "why": "The bands file says B14 is {band:B14.duplex}. In plain words, UL above DL means the uplink (your phone talking) sits higher than the downlink (your phone listening)."
       },
       {
        "id": "u1-flip-04",
@@ -1410,7 +1410,7 @@
         "No, only 4G bands flip"
        ],
        "answer": 0,
-       "why": "Twins share the same numbers, so n71 is {band:n71.duplex}."
+       "why": "Twins share the same numbers, so n71 is {band:n71.duplex}. In plain words, UL above DL means the uplink (your phone talking) sits higher than the downlink (your phone listening)."
       },
       {
        "id": "u1-names-01",
@@ -1561,7 +1561,7 @@
         "TDD"
        ],
        "answer": 0,
-       "why": "The bands file says B13 is {band:B13.duplex}."
+       "why": "The bands file says B13 is {band:B13.duplex}. In plain words, UL above DL means the uplink (your phone talking) sits higher than the downlink (your phone listening)."
       },
       {
        "id": "u1-cp-duplex-02",
@@ -1603,7 +1603,7 @@
         "Upside-down"
        ],
        "answer": 1,
-       "why": "The bands file says B14 is {band:B14.duplex}."
+       "why": "The bands file says B14 is {band:B14.duplex}. In plain words, UL above DL means the uplink (your phone talking) sits higher than the downlink (your phone listening)."
       },
       {
        "id": "u1-cp-flip-02",
@@ -1631,7 +1631,7 @@
         "Upside-down"
        ],
        "answer": 1,
-       "why": "The bands file says B71 is {band:B71.duplex}."
+       "why": "The bands file says B71 is {band:B71.duplex}. In plain words, UL above DL means the uplink (your phone talking) sits higher than the downlink (your phone listening)."
       },
       {
        "id": "u1-cp-twins-01",
@@ -5759,7 +5759,7 @@
         "FDD"
        ],
        "answer": 1,
-       "why": "The bands file lists n71's duplex as {band:n71.duplex}."
+       "why": "The bands file lists n71's duplex as {band:n71.duplex}. In plain words, UL above DL means the uplink (your phone talking) sits higher than the downlink (your phone listening)."
       },
       {
        "id": "u5-cp-mix-03",
