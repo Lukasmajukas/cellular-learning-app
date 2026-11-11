@@ -104,7 +104,18 @@ test('finishing a lesson: XP counts up with a "+N" rising off it, the flame flic
     goal: firstAt(H.goal, x => x.tx.includes('1 of 1')), pill: firstAt(S.pill, x => !x.hid) };
   console.log(`new numbers show after the top bar appears: ${Object.entries(at).map(([k, i]) => `${k} ${sinceBar(i).toFixed(0)} ms`).join(', ')}`);
   for (const i of Object.values(at)) { expect(i).toBeGreaterThan(0); expect(sinceBar(i)).toBeGreaterThan(1500); }
-  expect(sinceBar(at.today)).toBeLessThan(sinceBar(firstUp) + 100); // today's XP shows as the total starts counting
+  // I85: the gain shows once. Today's "+N XP today" waits while the "+N" rises off the total (0.9 s), then fades in,
+  // in its own place, as the "+N" fades out: so the two are never both clearly seen at once.
+  const todayAfter = sinceBar(at.today) - sinceBar(firstUp);
+  console.log(`today's XP shows ${todayAfter.toFixed(0)} ms after the total starts counting; the "+N" is at ${f.of(S.float)[at.today]?.op ?? 0} then`);
+  expect(todayAfter).toBeGreaterThan(550); expect(todayAfter).toBeLessThan(1000);
+  expect(f.of(S.float)[at.today]?.op ?? 0).toBeLessThan(0.3);
+  const td = seen(H.today).map(x => x.op);
+  expect(td[0]).toBeLessThan(0.5); expect(td.at(-1)).toBeCloseTo(1, 2); // it fades in, not pops
+  f.of(S.float).forEach((x, i) => { // never both clearly seen in the same frame
+    const y = f.of(H.today)[i];
+    if (x && y) expect(Math.min(x.op, y.op), `frame ${i}`).toBeLessThan(0.5);
+  });
   // The streak switches as its number pops, and the pill shows before its pop has grown it (so the pop is seen).
   expect(f.of(S.pill)[at.pill]!.sx).toBeLessThan(1.1);
   await expect(w.getByTestId('xp-today')).toHaveText(`+${target - 100} XP today`);

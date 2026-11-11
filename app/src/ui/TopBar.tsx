@@ -13,6 +13,8 @@ import { play } from '../sound';
 // and flashes when the goal is reached, a new freeze pops in. At start-up it simply shows the numbers.
 // Until its move starts, each number that went up still shows its old value (idea I30, `useHeld`): after a lesson's
 // first finish the path plays first, and the top bar then adds it all up in one go.
+// Idea I85: the gain is shown once. Today's "+N XP today" keeps its old value (or stays away) while the "+N" rises off
+// the total, and fades in, in its own place, as the "+N" fades out (TOP_BAR.todayAt, 0.7 s into the moment).
 // Reduce motion: the numbers just change. Every speed comes from TOP_BAR in the speed file.
 
 const hidden = { position: 'absolute', width: 1, height: 1, overflow: 'hidden', clip: 'rect(0 0 0 0)', whiteSpace: 'nowrap' } as const;
@@ -80,12 +82,12 @@ export function TopBar({ streak, xp, xpToday, freezes, done, goal, wait = TOP_BA
   // I30: what the numbers show until their move starts (the streak and freezes with their pop, today's XP with the
   // count, the goal's "1 of 1" with its bar, its colour with the flash).
   const showStreak = useHeld(s, wait + TOP_BAR.pop.delay), showFreezes = useHeld(f, wait + TOP_BAR.pop.delay);
-  const showToday = useHeld(t, wait + TOP_BAR.count.delay), showDone = useHeld(d, wait + TOP_BAR.fill.delay);
+  const showToday = useHeld(t, wait + TOP_BAR.todayAt), showDone = useHeld(d, wait + TOP_BAR.fill.delay);
   const showReached = useHeld(d, wait + TOP_BAR.flash.delay) >= goal;
   const reached = done >= goal, justReached = grew(d) && reached && d.from < goal;
 
   const flame = useRef<HTMLSpanElement>(null), glow = useRef<HTMLSpanElement>(null), num = useRef<HTMLSpanElement>(null);
-  const float = useRef<HTMLSpanElement>(null), pill = useRef<HTMLSpanElement>(null), flash = useRef<HTMLSpanElement>(null), check = useRef<HTMLSpanElement>(null);
+  const float = useRef<HTMLSpanElement>(null), today = useRef<HTMLSpanElement>(null), pill = useRef<HTMLSpanElement>(null), flash = useRef<HTMLSpanElement>(null), check = useRef<HTMLSpanElement>(null);
   useMoment(flame, s, grew(s), TOP_BAR.flickerKeys, barAt(TOP_BAR.flicker, wait));
   useMoment(glow, s, grew(s), TOP_BAR.glowKeys, barAt(TOP_BAR.flicker, wait));
   useMoment(num, s, grew(s), TOP_BAR.popKeys, barAt(TOP_BAR.pop, wait));
@@ -93,6 +95,13 @@ export function TopBar({ streak, xp, xpToday, freezes, done, goal, wait = TOP_BA
   useMoment(pill, f, grew(f), TOP_BAR.popKeys, barAt(TOP_BAR.pop, wait));
   useMoment(flash, d, justReached, TOP_BAR.flashKeys, barAt(TOP_BAR.flash, wait));
   useMoment(check, d, justReached, TOP_BAR.checkKeys, barAt(TOP_BAR.check, wait));
+  // I85: today's new figure starts unseen (so its first frame isn't a flash) and fades in the moment its wait is over.
+  const todayFresh = grew(t) && !calm && showToday === t.to;
+  useEffect(() => {
+    if (!todayFresh || !today.current) return;
+    const a = animate(today.current, TOP_BAR.todayKeys, TOP_BAR.today);
+    return () => a.stop();
+  }, [todayFresh, t.n]); // eslint-disable-line react-hooks/exhaustive-deps -- once per change
   // R19: the streak sound, with the flame's flicker (at the same moment with Reduce motion, though nothing moves).
   useEffect(() => (grew(s) ? play('streak', barAt(TOP_BAR.flicker, wait).delay) : undefined), [s]); // eslint-disable-line react-hooks/exhaustive-deps -- once per change
   const waiting = !calm; // things that only appear during a moment start invisible (their moment shows them)
@@ -118,7 +127,9 @@ export function TopBar({ streak, xp, xpToday, freezes, done, goal, wait = TOP_BA
           <Icon name="bolt" size={20} /><Count m={x} wait={wait} /><span style={hidden}> XP</span>
         </span>
         {/* Only once you've earned some today: a "+0" at the start of a day was just noise (design review 1, R08). */}
-        {showToday > 0 && <span data-testid="xp-today" className="hud-wide-only" title="XP earned today" style={{ ...mono, fontSize: 13, color: c.textMuted }}>+{showToday}<span style={hidden}> XP today</span></span>}
+        {/* I85: keyed by the number shown, so the new figure is a fresh element that fades in. */}
+        {showToday > 0 && <span key={showToday} ref={today} data-testid="xp-today" className="hud-wide-only" title="XP earned today"
+          style={{ ...mono, fontSize: 13, color: c.textMuted, opacity: todayFresh ? 0 : undefined }}>+{showToday}<span style={hidden}> XP today</span></span>}
         {grew(x) && !calm && <span key={x.n} ref={float} data-testid="xp-float" aria-hidden
           style={{ position: 'absolute', left: 26, top: -6, fontSize: 13, fontWeight: 700, ...mono, color: c.signal, opacity: 0, pointerEvents: 'none' }}>+{x.to - x.from}</span>}
       </span>
