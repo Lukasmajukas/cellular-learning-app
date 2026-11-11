@@ -30,7 +30,7 @@ questions:
     prompt: Is B13 FDD or TDD?
     choices: [FDD, TDD]
     answer: 0
-    why: The bands file says B13 is {band:B13.duplex}.
+    why: The bands file says B13 is {band:B13.duplex}. In plain words, UL above DL means the uplink (your phone talking) sits higher than the downlink (your phone listening).
   - id: u1-cp-duplex-02
     kind: choice
     facts: [band:n77]
@@ -51,7 +51,7 @@ questions:
     prompt: Is B14 normal or upside-down?
     choices: [Normal, Upside-down]
     answer: 1
-    why: The bands file says B14 is {band:B14.duplex}.
+    why: The bands file says B14 is {band:B14.duplex}. In plain words, UL above DL means the uplink (your phone talking) sits higher than the downlink (your phone listening).
   - id: u1-cp-flip-02
     kind: choice
     facts: [band:B25]
@@ -65,7 +65,7 @@ questions:
     prompt: Is B71 normal or upside-down?
     choices: [Normal, Upside-down]
     answer: 1
-    why: The bands file says B71 is {band:B71.duplex}.
+    why: The bands file says B71 is {band:B71.duplex}. In plain words, UL above DL means the uplink (your phone talking) sits higher than the downlink (your phone listening).
   - id: u1-cp-twins-01
     kind: match
     facts: [band:B5, band:n5, band:B25, band:n25, band:B66, band:n66]
