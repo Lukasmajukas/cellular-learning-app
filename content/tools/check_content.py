@@ -122,6 +122,24 @@ CELLID_KINDS = {"cls", "lte", "nr", "us", "tool"}
 HEDGE_WORDS = re.compile(r"usually|very likely|good guess|pattern|roughly|rule of thumb|may have changed|guess|often|may differ|differ", re.I)
 
 
+def check_field_trip(data, errors):
+    """Local field trip sites (content/field-trip.json): every site must stay UNVERIFIED (nobody has
+    re-checked the permits) and carry status, as_of, source and a coordinate precision."""
+    seen = set()
+    for row in data.get("sites", []):
+        where = f"field-trip {row.get('id')}"
+        check_fact(where, row, errors)
+        if row.get("status") != "UNVERIFIED":
+            errors.append(f"{where}: field trip sites must be UNVERIFIED until someone re-checks the evidence")
+        if not str(row.get("id", "")).startswith("trip:") or row.get("id") in seen:
+            errors.append(f"{where}: id must start with 'trip:' and be unique")
+        seen.add(row.get("id"))
+        if not row.get("coord_precision"):
+            errors.append(f"{where}: coord_precision missing")
+        if not isinstance(row.get("lat"), (int, float)) or not isinstance(row.get("lon"), (int, float)):
+            errors.append(f"{where}: lat/lon must be numbers")
+
+
 def check_kb(rows, label, prefix, kinds, errors):
     """Hardware (content/hardware.json) and cell-ID (content/cell-ids.json) facts, decisions G1 to G7.
     Same status/date/source rules as bands, plus: a kind and a grade (P/T/W/C/inference/gap),
@@ -305,6 +323,9 @@ def run(content, update_ids=False):
         if kb_path.exists():
             kb = json.loads(kb_path.read_text(encoding="utf-8"))
             facts.update(check_kb(kb.get(key, []), label, prefix, kinds, errors))
+    trip_path = content / "field-trip.json"
+    if trip_path.exists():
+        check_field_trip(json.loads(trip_path.read_text(encoding="utf-8")), errors)
     credits_path = content / "photos" / "credits.yaml"
     photos = check_photos(load_yaml(credits_path), errors) if credits_path.exists() else {}
     questions = collect_questions(content) if (content / "lessons").exists() else []

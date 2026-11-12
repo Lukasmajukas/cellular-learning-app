@@ -288,6 +288,24 @@ class HardwareAndCellIds(unittest.TestCase):
                 self.assertIs(r.get("quiz"), False, r["id"])
 
 
+class FieldTrip(unittest.TestCase):
+    def test_must_be_unverified(self):
+        row = dict(id="trip:a", lat=1.0, lon=2.0, coord_precision="rough", status="CURRENT", as_of="2026-06-23", source="x")
+        errors = []
+        cc.check_field_trip({"sites": [row]}, errors)
+        self.assertTrue(any("UNVERIFIED" in e for e in errors))
+        errors = []
+        cc.check_field_trip({"sites": [dict(row, status="UNVERIFIED")]}, errors)
+        self.assertEqual(errors, [])
+
+    def test_needs_source_and_unique_id(self):
+        row = dict(id="trip:a", lat=1.0, lon=2.0, coord_precision="rough", status="UNVERIFIED", as_of="2026-06-23", source="")
+        errors = []
+        cc.check_field_trip({"sites": [row, dict(row, source="y")]}, errors)
+        self.assertTrue(any("source missing" in e for e in errors))
+        self.assertTrue(any("unique" in e for e in errors))
+
+
 if __name__ == "__main__":
     unittest.main()
 

@@ -1,0 +1,333 @@
+{
+ "copied_from": "Lukasmajukas/SpectrumScope SpectrumScope/Resources/carriers.json (commit 2fca4ed, v1.6)",
+ "source_as_of": "2026-06-23",
+ "sites": [
+  {
+   "id": "shad-itw-hadley",
+   "lat": 42.27703,
+   "lon": -72.59047,
+   "carrierId": null,
+   "type": "tower",
+   "label": "Industrial Tower & Wireless monopole — Hadley St (Rte 47), South Hadley",
+   "bands": [
+    "n71",
+    "n12",
+    "n66"
+   ],
+   "town": "South Hadley",
+   "source": "FCC ASR 1309677 (FCC ASR DB via Safari) + Planning Board",
+   "note": "The main cell site serving western South Hadley — a ~150 ft monopole now hosting FOUR operators: T-Mobile, Sprint(→T-Mobile), Verizon, and Dish (see the offset carrier pins). Built in 2018 by tower company Industrial Tower & Wireless to replace the demolished Mt. Tom power-station smokestack in Holyoke. Engineered for up to 5 carriers; FCC ASR 1309677."
+  },
+  {
+   "id": "shad-vz-clapp",
+   "lat": 42.2570719,
+   "lon": -72.5740317,
+   "carrierId": "verizon",
+   "type": "macro",
+   "label": "Verizon — rooftop, Clapp Lab (Mount Holyoke College), South Hadley",
+   "bands": [
+    "n5",
+    "n77"
+   ],
+   "town": "South Hadley",
+   "source": "South Hadley Planning Board special permit, 2015 (approx. — building centroid)",
+   "note": "Verizon Wireless rooftop antennas (6 antennas + 9 RRHs) around the Clapp Laboratory turret at Mount Holyoke College, approved by the South Hadley Planning Board in 2015. Sub-200 ft, so NOT in the FCC ASR. Coordinate is the building centroid (approximate, not surveyed to the antenna)."
+  },
+  {
+   "id": "shad-hs-chimney",
+   "lat": 42.22846,
+   "lon": -72.58541,
+   "carrierId": "tmobile",
+   "type": "chimney",
+   "label": "T-Mobile (metroPCS) — South Hadley High School chimney, 153 Newton St",
+   "bands": [
+    "n71",
+    "n12"
+   ],
+   "town": "South Hadley",
+   "source": "SH Planning Board special permit (DocumentCenter/690)",
+   "note": "SIX panel antennas on the South Hadley High School smokestack + three BTS cabinets at its base, leased from the School Dept. The ONLY carrier permit on the smokestack is metroPCS (→ T-Mobile). NOTE: it is NOT Verizon — every town/FCC record shows metroPCS/T-Mobile here (with AT&T as a tenant); the nearby Verizon site is Mount Holyoke's Clapp Lab, ~1 mile away. 153 Newton St, Map 17 Parcel 015."
+  },
+  {
+   "id": "shad-mull-tmo",
+   "lat": 42.2441,
+   "lon": -72.5994,
+   "carrierId": "tmobile",
+   "type": "watertank",
+   "label": "T-Mobile / Sprint — 14 Mulligan Dr water tank, South Hadley",
+   "bands": [
+    "n71",
+    "n41"
+   ],
+   "town": "South Hadley",
+   "source": "FCC ULS WQPU414/WQPU560 (surveyed)",
+   "note": "T-Mobile / Sprint antennas on the 14 Mulligan Dr water tank (the Alvord St tank, South Hadley Fire District #1). FCC-surveyed point (ULS WQPU414/WQPU560). This tank is a 3-carrier macro — likely the 'more sites' you knew were there."
+  },
+  {
+   "id": "shad-mull-vz",
+   "lat": 42.24428,
+   "lon": -72.59962,
+   "carrierId": "verizon",
+   "type": "watertank",
+   "label": "Verizon 5G — 14 Mulligan Dr water tank, South Hadley",
+   "bands": [
+    "n5",
+    "n77"
+   ],
+   "town": "South Hadley",
+   "source": "SH building permit B-22-329 (2022)",
+   "note": "Verizon 5G on the 14 Mulligan Dr water tank — SH building permit B-22-329 (2022): removed 15 / installed 12 antennas, 5G upgrade. Co-located with T-Mobile and AT&T on the same tank (pins offset a few metres so all three are tappable)."
+  },
+  {
+   "id": "shad-mull-att",
+   "lat": 42.24392,
+   "lon": -72.59918,
+   "carrierId": "att",
+   "type": "watertank",
+   "label": "AT&T — 14 Mulligan Dr water tank, South Hadley",
+   "bands": [
+    "n5",
+    "n77",
+    "B14"
+   ],
+   "town": "South Hadley",
+   "source": "SH building permit B-19-257 (2019)",
+   "note": "AT&T on the 14 Mulligan Dr water tank — SH building permit B-19-257 (2019): antenna/RRU swap as a tenant on the existing facility. Co-located with T-Mobile and Verizon on the same tank."
+  },
+  {
+   "id": "shad-indust-att",
+   "lat": 42.21806,
+   "lon": -72.55944,
+   "carrierId": "att",
+   "type": "watertank",
+   "label": "AT&T — 8 Industrial Dr water tank, South Hadley",
+   "bands": [
+    "n5",
+    "n77",
+    "B14"
+   ],
+   "town": "South Hadley",
+   "source": "FCC ULS (surveyed) + SH permits B-17-120/261, B-18-295, B-20-367",
+   "note": "AT&T (Cingular) macro on the 8 Industrial Drive water tank in southern South Hadley — FCC ULS WPXE394/WPXE396, surveyed coordinate."
+  },
+  {
+   "id": "shad-mhc-other",
+   "lat": 42.25226,
+   "lon": -72.57804,
+   "carrierId": null,
+   "type": "rooftop",
+   "label": "Mount Holyoke College — additional carrier rooftop (campus)",
+   "bands": [],
+   "town": "South Hadley",
+   "source": "SH Planning Board 2015 decision (other carriers already on campus)",
+   "note": "Mount Holyoke College hosts MORE than Verizon: the 2015 Verizon/Clapp-Lab decision notes other carrier(s) were already on a campus building, and the college holds 4 FCC license records. The specific carrier/building isn't named in the record. Coordinate = campus center (50 College St)."
+  },
+  {
+   "id": "shad-skinner-tank",
+   "lat": 42.26992,
+   "lon": -72.56833,
+   "carrierId": null,
+   "type": "watertank",
+   "label": "15 Skinner Lane water tank — Fire Dist #2 (candidate host)",
+   "bands": [],
+   "town": "South Hadley",
+   "source": "FCC ULS WQGQ208 (surveyed); CANDIDATE host",
+   "note": "Skinner Lane elevated water tank (15 Skinner Ln) — now FCC-confirmed (ULS WQGQ208, South Hadley Fire District #2). Water tanks here host carriers (cf. Mulligan & Industrial Dr); the specific carrier tenants aren't confirmed yet — a strong stealth host."
+  },
+  {
+   "id": "shad-newton144",
+   "lat": 42.22453,
+   "lon": -72.58869,
+   "carrierId": null,
+   "type": "rooftop",
+   "label": "Fire District #1 HQ, 144 Newton St — FCC site (candidate host)",
+   "bands": [],
+   "town": "South Hadley",
+   "source": "FCC ULS KCE703/KBX443 (surveyed); CANDIDATE host",
+   "note": "South Hadley Fire District #1 headquarters, 144 Newton St — FCC-registered antenna site (district radio), next to the high school. Possible carrier host; carrier(s) unconfirmed."
+  },
+  {
+   "id": "shad-bigy-roof",
+   "lat": 42.22163,
+   "lon": -72.57242,
+   "carrierId": null,
+   "type": "rooftop",
+   "label": "Big Y plaza rooftop, 44 Willimansett St (candidate)",
+   "bands": [],
+   "town": "South Hadley",
+   "source": "Typical rooftop host; CANDIDATE (unconfirmed)",
+   "note": "CANDIDATE (unconfirmed). Big Y plaza, 44 Willimansett St — large supermarket rooftops are common carrier collocation sites. No lease confirmed in the records reviewed; included as a lead to verify."
+  },
+  {
+   "id": "shad-loomis-roof",
+   "lat": 42.22986,
+   "lon": -72.60437,
+   "carrierId": null,
+   "type": "rooftop",
+   "label": "Loomis Village rooftop, 246 N Main St (candidate)",
+   "bands": [],
+   "town": "South Hadley",
+   "source": "Typical rooftop host; CANDIDATE (unconfirmed)",
+   "note": "CANDIDATE (unconfirmed). Loomis Village senior-living campus, 246 N Main St — multi-story buildings are typical rooftop-lease hosts. No lease confirmed; lead to verify."
+  },
+  {
+   "id": "shad-8ind-vz",
+   "lat": 42.21818,
+   "lon": -72.5596,
+   "carrierId": "verizon",
+   "type": "watertank",
+   "label": "Verizon — 8 Industrial Dr water tank, South Hadley",
+   "bands": [
+    "n5",
+    "n77"
+   ],
+   "town": "South Hadley",
+   "source": "SH building permit B-18-458 (2018)",
+   "note": "Verizon on the 8 Industrial Dr water tank — SH building permit B-18-458 (2018). This tank hosts three carriers (AT&T, Verizon, T-Mobile). Pin offset a few metres from the others."
+  },
+  {
+   "id": "shad-8ind-tmo",
+   "lat": 42.21794,
+   "lon": -72.55928,
+   "carrierId": "tmobile",
+   "type": "watertank",
+   "label": "T-Mobile — 8 Industrial Dr water tank, South Hadley",
+   "bands": [
+    "n71",
+    "n41"
+   ],
+   "town": "South Hadley",
+   "source": "SH building permits E-19-33, B-21-702",
+   "note": "T-Mobile on the 8 Industrial Dr water tank — SH permits E-19-33 (generator) & B-21-702 (facility modification). Co-located with AT&T and Verizon on the same tank."
+  },
+  {
+   "id": "shad-itw-dish",
+   "lat": 42.27716,
+   "lon": -72.59061,
+   "carrierId": "dish",
+   "type": "tower",
+   "label": "Dish Wireless — ITW Hadley St monopole, South Hadley",
+   "bands": [
+    "n70",
+    "n71"
+   ],
+   "town": "South Hadley",
+   "source": "SH building permit B-21-555 (2021)",
+   "note": "Dish Wireless on the Industrial Tower & Wireless monopole (Hadley St) — SH building permit B-21-555 (2021): 3 antennas + 6 RRUs at the 120 ft level. The ITW monopole now hosts FOUR operators: T-Mobile, Sprint(→T-Mobile), Verizon, and Dish. Pin offset a few metres from the tower."
+  },
+  {
+   "id": "shad-itw-vz",
+   "lat": 42.2769,
+   "lon": -72.59033,
+   "carrierId": "verizon",
+   "type": "tower",
+   "label": "Verizon — ITW Hadley St monopole, South Hadley",
+   "bands": [
+    "n5",
+    "n77"
+   ],
+   "town": "South Hadley",
+   "source": "FAA 2022-ANE-4637-OE (co-located)",
+   "note": "Verizon on the Industrial Tower & Wireless monopole (Hadley St) — FAA filing 2022-ANE-4637-OE at the tower's exact coordinates. Co-located with T-Mobile/Sprint and Dish. Pin offset slightly."
+  },
+  {
+   "id": "shad-amherst-tmo",
+   "lat": 42.275862,
+   "lon": -72.564767,
+   "carrierId": "tmobile",
+   "type": "tower",
+   "label": "T-Mobile monopole — 274 Amherst Rd, South Hadley",
+   "bands": [
+    "n71",
+    "n41"
+   ],
+   "town": "South Hadley",
+   "source": "SH building permits B-22-33 / B-22-379 (2022); OpenGov surveyed coord",
+   "note": "A T-Mobile macro on its own compound at 274 Amherst Rd — SH building permits B-22-33 and B-22-379 (2022): antenna/RRU swaps on an existing equipment platform. A distinct site, not on the ITW monopole."
+  },
+  {
+   "id": "shad-mhc-vz-fac",
+   "lat": 42.25258,
+   "lon": -72.57832,
+   "carrierId": "verizon",
+   "type": "rooftop",
+   "label": "Verizon — rooftop/facade, Mount Holyoke College (College St)",
+   "bands": [
+    "n5",
+    "n77"
+   ],
+   "town": "South Hadley",
+   "source": "SH building permit B-22-205 (2022)",
+   "note": "A SECOND Verizon installation on the Mount Holyoke campus — a rooftop/facade install (SH permit B-22-205, 2022), separate from Verizon's Clapp Lab turret site at 27 Park St. Campus parcel (College St)."
+  },
+  {
+   "id": "shad-williston",
+   "lat": 42.2536,
+   "lon": -72.577,
+   "carrierId": "tmobile",
+   "type": "steeple",
+   "label": "T-Mobile — Williston Library steeple, Mount Holyoke College",
+   "bands": [
+    "n71",
+    "n41"
+   ],
+   "town": "South Hadley",
+   "source": "SH building permit B-22-598 (2022)",
+   "note": "T-Mobile concealed its antennas IN the steeple of the Williston Memorial Library at Mount Holyoke College — SH building permit B-22-598 (2022). A classic stealth steeple install."
+  },
+  {
+   "id": "shad-camp-tmo",
+   "lat": 42.276879,
+   "lon": -72.570263,
+   "carrierId": "tmobile",
+   "type": "macro",
+   "label": "T-Mobile — 9 Camp Perkins Rd (Girl Scout camp), South Hadley",
+   "bands": [
+    "n71",
+    "n41"
+   ],
+   "town": "South Hadley",
+   "source": "SH permit E-17-160 (T-Mobile generator); OpenGov surveyed coord",
+   "note": "A multi-carrier cell on the Girl Scouts' Camp Lewis Perkins land (9 Camp Perkins Rd). T-Mobile: permit E-17-160 (2017), an 80 kW generator 'for T-Mobile'. Co-located with Verizon (see the Verizon pin). OpenGov surveyed coordinate."
+  },
+  {
+   "id": "shad-camp-vz",
+   "lat": 42.277179,
+   "lon": -72.570563,
+   "carrierId": "verizon",
+   "type": "macro",
+   "label": "Verizon — 9 Camp Perkins Rd (Girl Scout camp), South Hadley",
+   "bands": [
+    "n5",
+    "n77"
+   ],
+   "town": "South Hadley",
+   "source": "OpenGov: Verizon Wireless antenna permit, 2014",
+   "note": "Verizon at 9 Camp Perkins Rd — the OpenGov permit portal shows a Verizon Wireless antenna permit (2014) here, co-located with T-Mobile on the Girl Scout camp land. Pin offset slightly from T-Mobile."
+  },
+  {
+   "id": "shad-woodbridge",
+   "lat": 42.26008,
+   "lon": -72.57397,
+   "carrierId": null,
+   "type": "rooftop",
+   "label": "Fire District #2 HQ, 20 Woodbridge St — FCC site (candidate host)",
+   "bands": [],
+   "town": "South Hadley",
+   "source": "FCC ULS KCE735/WQGQ208; CANDIDATE host",
+   "note": "CANDIDATE host. South Hadley Fire District #2 headquarters, 20 Woodbridge St — an FCC-registered antenna site (the district's own radio). Carrier colocation possible but unconfirmed."
+  },
+  {
+   "id": "shad-granby438",
+   "lat": 42.23283,
+   "lon": -72.5592,
+   "carrierId": null,
+   "type": "macro",
+   "label": "Fire District #1 site, 438 Granby Rd — FCC site (candidate host)",
+   "bands": [],
+   "town": "South Hadley",
+   "source": "FCC ULS KBX443/WPVU333; CANDIDATE host",
+   "note": "CANDIDATE host. South Hadley Fire District #1 site at 438 Granby Rd — FCC-registered (district radio). Carrier colocation possible but unconfirmed."
+  }
+ ]
+}
