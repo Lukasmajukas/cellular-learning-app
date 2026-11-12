@@ -26,4 +26,4 @@ Your old SpectrumScope project had a list of real cell sites in South Hadley. I 
 - Field trip (sites)
 
 ## Notes for the next Claude
-The 8 "several / not named" carrier rows are multi-carrier or candidate sites. 9 of the 23 rows are "candidate" hosts in the source notes; read the `note` text before teaching any of them. Not yet in the panel's numbers.
+The 8 "several / not named" carrier rows are multi-carrier or candidate sites. 6 of the 23 rows are marked "candidate" host in the source; read the `note` text before teaching any of them. Not yet in the panel's numbers.
