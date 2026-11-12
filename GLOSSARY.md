@@ -229,3 +229,4 @@ Claude adds new words here whenever they come up.
 | **Fold-out** | Words you tap to show more underneath them, and tap again to hide it, like "Clue by clue" or "What happened". (On web pages it's called a disclosure, or `<details>`.) |
 | **Yardstick** | In a test: a small fixed job timed on the same computer at the same moment, so a result can be judged against how fast that computer is right then, like timing a runner against a friend running beside them. |
 | **Hover** | When the mouse pointer rests on something without clicking. Our buttons grow a tiny bit while you hover, to show you can press them. |
+| **Field trip (sites)** | Real cell sites near home (South Hadley), saved with their proof, like a permit number. They stay "UNVERIFIED" (not double-checked) until someone re-checks the proof. |
