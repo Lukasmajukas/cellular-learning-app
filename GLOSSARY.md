@@ -230,3 +230,5 @@ Claude adds new words here whenever they come up.
 | **Yardstick** | In a test: a small fixed job timed on the same computer at the same moment, so a result can be judged against how fast that computer is right then, like timing a runner against a friend running beside them. |
 | **Hover** | When the mouse pointer rests on something without clicking. Our buttons grow a tiny bit while you hover, to show you can press them. |
 | **Field trip (sites)** | Real cell sites near home (South Hadley), saved with their proof, like a permit number. They stay "UNVERIFIED" (not double-checked) until someone re-checks the proof. |
+| **Actions minutes** | The time GitHub lends you its computers for each build or test run, like minutes on a prepaid phone plan. A private repository gets a monthly amount for free; Windows computers use it up twice as fast as Linux ones. When it runs out (or a spending limit stops it), builds stop at once, before any step. |
+| **Runner** | One of GitHub's computers that does a build for us, like a worker lent out by the hour. "Windows runner" and "Linux runner" are the two kinds we use. |
