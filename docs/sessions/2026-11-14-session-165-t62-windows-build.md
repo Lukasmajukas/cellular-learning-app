@@ -14,8 +14,8 @@ You typed `T62`. That's the row about GitHub's Windows build, which has been sto
 - Temporary probe (`.github/workflows/runner-probe.yml`, one `ubuntu-latest` job with a single `echo`, run 1 on this pull request's branch): also stopped after 3 seconds. So no hosted computer of any kind is handed out: it isn't Windows-only, and the app's code isn't involved. Probe file removed again before merging (never reaches `main`).
 - `list_repos`: the repository is private, so Actions minutes are metered (public ones are free). This fits "free minutes used up or a spending limit", but it's not proven: a failed payment or a locked account would look the same.
 - Records: T62 row in `TASKS.md` (re-test result, the run link to read, the Billing link, the exact words to type next), diary line, one decision, two glossary words (Actions minutes, Runner), panel snapshot updated.
-- Panel: rebuilt and committed; see the end of this note for whether it was republished.
-- Nothing asked for approval (except possibly the panel publish); nothing was blocked.
+- Panel: rebuilt, committed and republished (new version 1794696372-cc49, https://claude.ai/artifact/UFEWWa8kh5cWFcyQVJU5bc).
+- Nothing asked for approval; nothing was blocked.
 
 ## What's next
 - **Owner:** open https://github.com/Lukasmajukas/cellular-learning-app/actions/runs/43649622259 and read the message at the top; fix it at https://github.com/settings/billing; then type `the Windows build works again` in any chat.
