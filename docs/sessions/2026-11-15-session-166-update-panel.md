@@ -12,7 +12,7 @@ You asked me to update the panel. It now says what really happened today: you ma
 - `TASKS.md`: T62's title and status now say the build works again since the repository became public; its "Who" changed from You to Claude (the owner's part is done), so the panel's "waiting for you" list no longer shows the billing step. New row T73 (four follow-ups from the public-repository check).
 - `docs/DECISIONS.md`: the repository is public (owner's choice, 2026-11-15) and why.
 - `docs/PROGRESS-LOG.md`: one diary line.
-- `panel/live.json` + `panel/index.html`: rebuilt (3 waiting for you: T67, T72, T73); light set to green; republished (see the end of this note).
+- `panel/live.json` + `panel/index.html`: rebuilt (3 waiting for you: T67, T72, T73); light set to green; republished (new version 1794708733-9c03, https://claude.ai/artifact/UFEWWa8kh5cWFcyQVJU5bc).
 - Facts behind the text, all measured this session: manual Windows build run 241 on `main` (2026-11-15 01:57 UTC) got a computer immediately; setup, install and unit tests passed; the click tests (`npm run e2e`) were still running at about 02:15 UTC; the installer and Releases steps had not started. Scan of the repository history (all 186 commits, every branch, after un-shallowing the clone): no passwords, keys or key files; the owner's Gmail address is the author on 168 commits.
 - Nothing asked for approval; nothing was blocked.
 
