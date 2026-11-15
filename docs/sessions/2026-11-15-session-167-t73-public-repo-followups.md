@@ -54,5 +54,5 @@ Why four places: (a) is the rule, (b) is a second check at the one moment that m
 
 ## Notes for the next Claude
 - This clone is shallow (51 commits visible). The 186-commit scan in session 166 was done after un-shallowing; it wasn't repeated here.
-- The panel was refreshed (`panel/live.json`: the "working" text now says three follow-ups are left). Whether it was republished is in the final message of this chat; if the note here says nothing else, assume the owner's Approve click happened.
+- The panel was refreshed (`panel/live.json`: the "working" text now says three follow-ups are left) and republished (new version 1794709386-d2ef, https://claude.ai/artifact/UFEWWa8kh5cWFcyQVJU5bc).
 - Files touched: `GLOSSARY.md`, `TASKS.md`, `docs/DECISIONS.md`, `docs/PROGRESS-LOG.md`, `docs/sessions/` (this note), `panel/live.json`, `panel/index.html`.
