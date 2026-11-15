@@ -1,14 +1,14 @@
 {
-  "asOf": "2026-11-14",
+  "asOf": "2026-11-15",
   "robot": {
     "on": true,
     "next": "at about half past every hour. The redesign part is PAUSED at your request (Nov 10); the robot's other jobs carry on",
     "last": "T10 on Nov 12 (23 South Hadley cell sites saved in a field trip file, all marked not-yet-checked)"
   },
-  "light": "yellow",
-  "working": "Claude finished the code part of T67 (the app now answers the installer: it makes the Start-menu and desktop icons and steps aside; automatic tests pass; not yet seen on a real Windows PC). You said OK to T68 and T69 too: start them with `Do task T68` and `Do task T69`. The redesign is PAUSED (you typed `Pause the redesign`; type `Resume the redesign` to turn it back on). The half-done redesign chat for idea I85 (from Nov 5) was finished by the robot on Nov 11 (pull request 167); no new redesign work starts while it's paused. For you, most useful first: (1) GitHub's Billing page, so the Windows build runs again (T62). Claude re-tested on Nov 14: even a tiny Linux test job gets no computer, so it is your GitHub account, not the app. Open the failed run's page, read the message at the top, and fix it on the Billing page (steps in the T62 row); (2) one answer: how do you open the app today? Your message left the blank empty (T57); (3) once a new Windows build exists, install it and tell Claude whether a Cell Learning icon appeared (T67); (4) paste the robot's hourly message into the launcher chat (T60).",
+  "light": "green",
+  "working": "You made the repository public on Nov 15, and that fixed the stopped Windows build: a build Claude started got a computer at once (for ten days they had stopped after 3 seconds). It passed setup, install and the quick tests; the click tests were still running at 02:15 UTC, and the installer comes after them. Claude checks again by itself (T62). Going public also has a cost: strangers can now see the project and open pull requests. For you, most useful first: (1) decide the four follow-ups in T73: a robot rule fix (type `fix the rule`), two GitHub settings, an email setting, and a wording fix; (2) one answer: how do you open the app today? Your message left the blank empty (T57); (3) once the new Windows build finishes, install it from the Releases page and tell Claude whether a Cell Learning icon appeared (T67); (4) paste the robot's hourly message into the launcher chat (T60). You said OK to T68 and T69: start them with `Do task T68` and `Do task T69` (T68 can now be tested, because builds are free). The redesign is PAUSED (you typed `Pause the redesign`; type `Resume the redesign` to turn it back on).",
   "limit": {
     "state": "fine",
-    "resets": "on Nov 14 the limit shows as allowed and no paid extra usage is being used"
+    "resets": "on Nov 15 the limit shows as allowed and no paid extra usage is being used"
   }
 }
