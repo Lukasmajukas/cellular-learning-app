@@ -165,6 +165,10 @@ Claude adds new words here whenever they come up.
 | **Tier** | Which part of the ruler a band is in: low, mid or high. In this app: low is below 1 GHz, high is mmWave, mid is everything in between. |
 | **FSRS** | A memory schedule: the app guesses how long until you'd forget each question and asks it again just before that. Right answers push the next time further away; wrong ones pull it closer. |
 | **Stability** | In FSRS, the number of days until you'd forget a question about 1 time in 10. |
+| **Grade (in reviews)** | How one review answer is scored for the memory schedule. This app uses two: wrong ("Again") and right ("Good"). The plan once had four (Again, Hard, Good, Easy). |
+| **Pass mark** | How many answers you must get right to move on. Here only checkpoints and the final exam will have one (about 7 of 10); ordinary lessons always open the next. |
+| **Test out** | A short quiz that lets you skip a unit you already know. Pass it and the whole unit counts as done. |
+| **Personal best** | Your own record, like your longest streak or your best day of XP. It only competes with you. |
 | **XP** | Points you earn for right answers. They only count how much you practised. |
 | **Signal bars** | 1 to 5 bars at the end of a lesson, like phone signal: more bars means more answers right the first time. |
 | **Heatmap** | A picture where colour shows how much of something there is. Ours colours each band by how well you remember it: green strong, gold okay, red fading, a dim dashed outline for new. Since R14 a tile also glows brighter the better you know the band, and shows signal bars and a %. |
