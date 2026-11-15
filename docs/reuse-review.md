@@ -166,7 +166,7 @@ Wi-Fi networks, home-network devices and speed tests only. No cellular content.
 ## Questions for the owner
 1. **Do you use a Mac (and an iPhone 15 Pro) as well as the Windows PC?** Your other projects suggest yes. Should the new app also run on the Mac?
 2. **Where does `cellatlas-data` live?** It's not on GitHub under your account. If it's on your Mac and has cell-site research, it may be worth adding.
-3. **OK to use South Hadley / Western MA sites in lessons?** They're public records, but they show the area you live in or care about. The app is private, so this is just a check.
+3. **OK to use South Hadley / Western MA sites in lessons?** They're public records, so this is just a check.
 
 ### Owner's answers (2026-10-31)
 1. **Mac and iPhone:** not now (in use elsewhere), but yes in future. → Windows first; keep a Mac version possible.
