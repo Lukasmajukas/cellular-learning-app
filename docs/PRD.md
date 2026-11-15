@@ -97,7 +97,7 @@ Each unit follows the same steps: a labelled example, an easy two-choice questio
 
 ### 4c. Remembering things (reviews)
 - **FSRS** (a free, open-source review scheduler, the `ts-fsrs` library, MIT licence) decides when each fact comes back.
-- How an answer is scored: wrong = "Again"; right but slow or with a hint = "Hard"; right = "Good"; right and fast = "Easy". The time of every answer is saved.
+- How an answer is scored: wrong = "Again"; right but slow or with a hint = "Hard"; right = "Good"; right and fast = "Easy". The time of every answer is saved. **Changed 2026-11-15 (T72, the owner's choice): two grades only, wrong = "Again" and right = "Good"; answer times are not saved. Task T79 checks our copy of the formula against the real library.**
 - Default settings until a few hundred reviews have built up.
 - **"This changed" cards:** when a carrier fact changes in the data file (for example, a sale closes), the app shows you a card saying what changed and resets that fact's review.
 
@@ -231,7 +231,7 @@ You can answer these in any chat, in any order. My suggested answer is in **bold
 1. **App name** (this is task T02). Some original ideas: *Bandwise*, *Signal Path*, *SiteSeer*, *Spectrum Scout*. Or your own. **Keep the working name until you pick one.**
 2. **App engine:** OK with Electron (section 6)? **Yes.**
 3. **Mascot:** want one? Ideas: a little tower with signal-wave "hair", or a friendly radio box. **Yes, a little tower, drawn by Claude.** (No owl, no bird.)
-4. **Daily reminder:** a gentle Windows pop-up once a day if you haven't practised? **Off by default; you can switch it on.**
+4. **Daily reminder:** a gentle Windows pop-up once a day if you haven't practised? **Off by default; you can switch it on.** **Changed 2026-11-15 (T72, the owner's choice): no reminder in the PC app for now; decide again when the iPhone version is planned (T80).**
 5. **Lesson length:** 3 to 5 minutes, about 10 to 15 questions? **Yes.**
 6. **Unsigned installer:** OK clicking "More info → Run anyway" once per new version, to keep it free? **Yes.**
 7. **Order:** band units first, tower spotting after (as in the roadmap)? Or would you rather mix them, for example a tower unit after every two band units? **Band units first.**
