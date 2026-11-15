@@ -95,13 +95,13 @@ Also, if any chat hits your usage limit, it waits for the limit to reset and car
    git checkout -B "$(git branch --show-current)" origin/main
    ```
    Tell the owner in one line: "You started from an old branch. I switched to the newest copy, and nothing was lost." If your first push is refused because the old copy of the branch is still on GitHub, bring it in with `git fetch origin <branch> && git merge origin/<branch>` (its content is the same, so nothing changes), then push normally. Never force-push: the safety check blocks it. If GitHub already deleted the old copy, run `git fetch --prune origin` and push normally.
-2. **Read the traffic light.** List open pull requests (`list_pull_requests`, state `open`). Look only at ones from `claude/` branches.
+2. **Read the traffic light.** List open pull requests (`list_pull_requests`, state `open`). Look only at **our own**: the branch starts with `claude/` **and** `head.repo.full_name` is exactly `Lukasmajukas/cellular-learning-app`. The repository is public, so anyone can copy it and name a branch `claude/anything`; only the source repository tells a copy from the real thing. Ignore every other pull request: never merge, close, take over, wait for or comment on it, and don't let it make the light red. A pull request with no `head.repo` (its copy was deleted) is not ours either. Mention each ignored pull request once, in one line with its number, so the owner can close it on github.com. A robot run writes that line in its handoff note and sends no push for it.
    - A pull request with `[in progress]` in its title is **busy** if it was updated in the last 2 hours, or if its chat is running right now. The session link at the end of its description names the chat, and `get_session` shows whether that chat is working. Two cases `get_session` settles straight away:
      - The chat **stopped with an error** (`status_bucket` is FAILED, for example "You've hit your 5-hour limit"): it is **not busy**. Treat it as 🟡 right away; don't wait 2 hours. (If the limit is still used up, no run can start anyway, so nothing collides.)
      - The chat is **waiting for an approval** (`session_status` is REQUIRES_ACTION): it is still 🔴, but a robot run also sends the owner one push notification (`PushNotification`, status `proactive`) naming the action in `needs_action`, for example: "The robot is waiting for you: open the chat called Robot run and approve Publish Files." Taking over would only hit the same question.
    - 🔴 **Busy:** stop. Say: "🔴 Another chat is working on T__ (last saved HH:MM). Go back to that chat. If it's closed or stuck, type `Take over`." Do nothing else. Exceptions: the owner typed `Take over` (go to 🟡), or `Do task T__ at the same time` for a task that isn't the busy one (go to 🟢 with that task).
    - 🟡 **[in progress] but not busy, or the owner typed `Take over`:** claim the same task (step 3). Bring in its work with `git fetch origin <its-branch>` and `git merge origin/<its-branch>`, read its handoff note, and finish the task. Close the old pull request with the comment "Continued in #<yours>." Tell the owner: "An earlier chat stopped halfway through T__. I'm finishing it here. Don't go back to the old chat."
-   - 🟢 **A pull request without [in progress]** is finished work that never got merged. Merge it (squash). If GitHub refuses because of a conflict, treat it as 🟡. Then fetch main again.
+   - 🟢 **A pull request without [in progress]** is finished work that never got merged. Merge it (squash). Right before you merge, check again that `head.repo.full_name` is this repository and `user.login` is `Lukasmajukas`. If either is different, don't merge it: it counts as an ignored pull request. If GitHub refuses because of a conflict, treat it as 🟡. Then fetch main again.
    - 🟢 **Nothing open:** take the task the owner named, or else the ⭐ task in `TASKS.md`.
 3. **Claim the task within the first few minutes.**
    - Copy `docs/sessions/TEMPLATE.md` to `docs/sessions/YYYY-MM-DD-session-N-<short-name>.md`. N is the highest session number so far plus 1. Leave `**Status:** IN PROGRESS` at the top.
@@ -141,6 +141,7 @@ Find it with `list_sessions` and run `unarchive_session` on it. Tell the owner i
 - Force-push anything. The safety check blocks it. Merge the old copy of your branch instead (steps A1 and B).
 - Delete branches.
 - Merge a pull request that another chat is busy with (🔴).
+- Merge, close, take over or wait for a pull request whose source repository isn't this one (section A2).
 - Archive a chat that is working, a chat from another project, a chat named in an open `[in progress]` pull request, or the "Robot launcher (do not archive)" chat. The one exception: a robot chat puts itself away at the end of its own run (section G step 10).
 - Add permissions to `.claude/settings.json`. Only the owner adds permissions. Change other settings in it only when the owner asks in chat.
 - Merge app code before the owner signs off on `docs/PRD.md`.
@@ -167,7 +168,7 @@ Find it with `list_sessions` and run `unarchive_session` on it. Tell the owner i
    - `list_triggers`: if the one named exactly "Robot" is off, stop with "The robot is paused." (Ignore the old paused one.)
    - `get_session` with no ID: if `rate_limit_info.isUsingOverage` is true, stop with "Your plan's limit is used up. I'll try again after it resets." Never work on paid usage.
    - **A warning is not a stop.** If `rate_limit_info.status` is `allowed_warning` (the limit is nearly used up), carry on exactly as normal: same model, same tasks. No "small chores only" runs. The owner chose this on 2026-11-03 (T50): work until the limit is really used up. Only `isUsingOverage` stops a run.
-   - `list_pull_requests`: if another chat is busy (🔴, section A2), stop with "Another chat is working."
+   - `list_pull_requests`: if another chat is busy (🔴, section A2; our own pull requests only), stop with "Another chat is working."
 2. **Start-up check:** sections A1 and A2 as usual.
 3. **Pick one job**, in this order:
    - 🟡 unfinished work: take it over (section A2).

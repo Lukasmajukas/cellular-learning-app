@@ -33,4 +33,4 @@ You asked me to update the panel. It now says what really happened today: you ma
 ## Notes for the next Claude
 - The clone was un-shallowed this session (`git fetch --unshallow`); history now goes back to the first commit.
 - The pull request's branch also carries the old, already-merged copy of the T62 branch (merged in with a normal merge commit, as `docs/WORKFLOW.md` B says); the squash merge keeps `main` clean.
-- The glossary still says Windows costs "twice as fast" and "near home (South Hadley)": both are on T73 for a later chat, not changed here because T73 is for the owner to decide first.
+- The glossary still had two lines (the Windows cost and the field trip wording) that are on T73 for a later chat, not changed here because T73 is for the owner to decide first.
