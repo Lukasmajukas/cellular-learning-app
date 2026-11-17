@@ -88,6 +88,14 @@ Claude adds new words here whenever they come up.
 | **Shortcut (Start menu, desktop)** | The icon you click to open an app that is already installed, so you never need the Setup file again. |
 | **One copy at a time (single-instance lock)** | A rule inside an app that stops it from opening twice, so two copies can't both write your save file. |
 | **Update.exe (the installer's helper)** | A small program the installer leaves next to the app. When the installer taps the app on the shoulder, the app asks this helper to make (or remove) its Start-menu and desktop icons. |
+| **Automatic update (auto-update)** | The app fetching its own newer version, like a phone app updating overnight. Ours asks about 15 seconds after it opens and then every 4 hours, fetches quietly, and switches the next time you open it (task T76). How it works and your steps: `docs/updates.md`. |
+| **Version number** | The app's "edition", like `0.1.180`. A bigger last number means newer. Ours is the count of saved changes in the project, so it only ever goes up. You see it in Settings, in the "Updates" card. |
+| **Cloudflare** | A big internet company that runs small programs and passes web traffic along, with a free plan. We use it as the "front door" the app asks for updates. |
+| **Worker (Cloudflare Worker)** | A tiny program that Cloudflare runs for you, for free, at its own web address. Ours is about 50 lines: it answers "what is the newest version?" by asking GitHub. It stores nothing and holds no passwords (`update-server/`). |
+| **Front door and spare (fallback)** | Two addresses for the same thing. The app asks the front door (Cloudflare) first; if nobody answers, it asks the spare (GitHub itself). Like a second key under the mat. |
+| **Update list file (`RELEASES`)** | A tiny text file on the Releases page that names the newest package, its size and a check code. The app reads it to find out whether there is a newer version. |
+| **Package (`.nupkg`)** | The app itself, packed in one file of about 160 MB. The app fetches this file when it updates. You never need to download it yourself. |
+| **Check code (checksum)** | A fingerprint of a file. After fetching the package, the installer's helper works out the fingerprint again and compares it with the list's: if they differ, the file is thrown away. |
 
 ## Cell phone words
 | Word | What it means |

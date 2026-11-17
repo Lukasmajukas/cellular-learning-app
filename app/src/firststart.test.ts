@@ -35,9 +35,9 @@ describe('the welcome is remembered in the save file', () => {
   });
   it('reads the look and Reduce motion before the window opens, without writing anything', () => {
     const st = createStore(dir);
-    expect(st.startup()).toEqual({ look: 'night', reduceMotion: false });
+    expect(st.startup()).toEqual({ look: 'night', reduceMotion: false, autoUpdate: true });
     writeFileSync(st.file, JSON.stringify({ settings: { look: 'day', reduceMotion: true } }));
-    expect(st.startup()).toEqual({ look: 'day', reduceMotion: true });
+    expect(st.startup()).toEqual({ look: 'day', reduceMotion: true, autoUpdate: true });
     expect(existsSync(join(dir, 'backups'))).toBe(false);
   });
 });

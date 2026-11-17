@@ -18,9 +18,9 @@ describe('save file', () => {
   });
   it('saves and loads progress and settings', () => {
     const st = createStore(dir, clock);
-    st.save({ progress: { 'u1-l1': 3 }, settings: { sounds: false, volume: 30, reduceMotion: true, showFps: true, dailyGoal: 3, look: 'day' } });
+    st.save({ progress: { 'u1-l1': 3 }, settings: { sounds: false, volume: 30, reduceMotion: true, showFps: true, dailyGoal: 3, look: 'day', autoUpdate: false } });
     const back = createStore(dir, clock).load().state;
-    expect(back.progress).toEqual({ 'u1-l1': 3 }); expect(back.settings).toEqual({ sounds: false, volume: 30, reduceMotion: true, showFps: true, dailyGoal: 3, look: 'day' });
+    expect(back.progress).toEqual({ 'u1-l1': 3 }); expect(back.settings).toEqual({ sounds: false, volume: 30, reduceMotion: true, showFps: true, dailyGoal: 3, look: 'day', autoUpdate: false });
   });
   it('leaves no half-written temp file behind', () => {
     const st = createStore(dir, clock); st.save({ progress: { a: 1 } });
@@ -59,8 +59,19 @@ describe('save file', () => {
   });
   it('ignores nonsense values', () => {
     const n = normalize({ progress: { a: 9, b: 'x', c: 2 }, settings: { sounds: 'yes', volume: 75, dailyGoal: 500, look: 'neon', theme: 'light' } });
-    expect(n.progress).toEqual({ c: 2 }); expect(n.settings).toEqual({ sounds: true, volume: 60, reduceMotion: false, showFps: false, dailyGoal: 1, look: 'night' });
+    expect(n.progress).toEqual({ c: 2 }); expect(n.settings).toEqual({ sounds: true, volume: 60, reduceMotion: false, showFps: false, dailyGoal: 1, look: 'night', autoUpdate: true });
     expect(existsSync(dir)).toBe(true);
+  });
+  // T76: "Update by itself" is on unless you switched it off; the updater reads it before any window exists.
+  it('keeps the "Update by itself" switch, on by default (also for a save from before the switch existed)', () => {
+    expect(normalize({ progress: { a: 3 }, settings: { look: 'day' } }).settings.autoUpdate).toBe(true);
+    expect(normalize({ settings: { autoUpdate: false } }).settings.autoUpdate).toBe(false);
+    expect(normalize({ settings: { autoUpdate: 'no' } }).settings.autoUpdate).toBe(true); // nonsense: the default
+    const st = createStore(dir, clock);
+    expect(st.startup().autoUpdate).toBe(true);           // no save file yet
+    st.save({ ...st.load().state, settings: { ...st.load().state.settings, autoUpdate: false } });
+    expect(st.startup().autoUpdate).toBe(false);
+    expect(st.load().state.settings.autoUpdate).toBe(false);
   });
   // R20: the window opens in the saved look's colour, read before the app starts (no backup taken, nothing written).
   it('reads the saved look before the window opens, without writing anything', () => {

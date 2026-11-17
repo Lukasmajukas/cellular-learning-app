@@ -64,6 +64,9 @@ export const ICONS = {
   folder: { lines: ['M3.5 7a2 2 0 0 1 2-2h4l2 2.5h7a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z'] },
   // R22: the Keys row in Settings (a keyboard: its outline, two rows of keys as dots, the space bar).
   keyboard: { lines: [box(2.5, 6, 19, 12, 2.5), 'M8 14.5h8'], dots: [[6.5, 9.5, 1], [10, 9.5, 1], [13.5, 9.5, 1], [17, 9.5, 1], [6.5, 14.5, 1], [17.5, 14.5, 1]] },
+  // T76: an arrow pointing up inside a ring: a newer version of the app (the "Updates" card and "A new version is ready").
+  // Up, because the version number goes up; `backup` (an arrow down into a tray) stays the only "save a copy" icon.
+  update: { lines: [circle(12, 12, 9), 'M12 16.5v-9', 'M8.2 11.3 12 7.5l3.8 3.8'] },
 } satisfies Record<string, IconShape>;
 
 export type IconName = keyof typeof ICONS;

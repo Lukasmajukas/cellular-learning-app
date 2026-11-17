@@ -1,11 +1,16 @@
 name: App build (Windows)
 on:
   pull_request:
-    paths: ['app/**', '.github/workflows/app-build.yml']
+    paths: ['app/**', 'update-server/**', '.github/workflows/app-build.yml']
   push:
     branches: [main]
-    paths: ['app/**', '.github/workflows/app-build.yml']
+    paths: ['app/**', 'update-server/**', '.github/workflows/app-build.yml']
   workflow_dispatch:
+# T76: a newer push to the same pull request stops the older run (nobody needs its answer any more).
+# Builds of main are never stopped halfway: each one publishes, one after the other.
+concurrency:
+  group: app-build-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 jobs:
   windows:
     runs-on: windows-latest
@@ -14,18 +19,46 @@ jobs:
       contents: write
     defaults: { run: { working-directory: app } }
     steps:
+      # T76: the whole history, not just the newest commit: the build's version number is the count of commits
+      # (app/tools/stamp-version.mjs), and a short history would give a number that is far too small.
       - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: npm, cache-dependency-path: app/package-lock.json }
       - run: npm ci
       - run: npm test
+      # T76: the real proof that the app can update itself. Two installers are made: an "old" one (version 0.0.1)
+      # and the real one. The update test installs the old one, lets it find and fetch the real one by itself, and
+      # checks the app restarts as the new version with your progress untouched (app/tools/update-e2e.mjs).
+      # It runs before the long click tests (so a mistake shows early) and before publishing (so a build that
+      # can't update itself never reaches the Releases page).
+      - name: Make an old version (0.0.1) for the update test
+        shell: bash
+        run: |
+          set -euo pipefail
+          node tools/stamp-version.mjs --set 0.0.1
+          npm run make
+          rm -rf ../old-build
+          mv out/make/squirrel.windows/x64 ../old-build
+          ls -la ../old-build
+      - name: Make the real version
+        shell: bash
+        run: |
+          set -euo pipefail
+          node tools/stamp-version.mjs
+          npm run make
+          ls -la out/make/squirrel.windows/x64
+      - name: 'Update test: install the old version and let it update itself'
+        run: node tools/update-e2e.mjs ../old-build out/make/squirrel.windows/x64
       - run: npm run e2e
-      - run: npm run make
       # The installer goes on the repository's Releases page, in ONE slot called "latest-build" that each new build
       # replaces (T56). Not saved as a workflow "artifact": those count against GitHub's build-file storage, which
       # filled up on Nov 3 (27 old installers, about 12.6 GB) and made every upload fail. Release files don't.
       # Only for main or a manual run, never for pull requests.
-      - name: Publish the installer on the Releases page
+      # T76: three files now. The installer (for the first install by hand), and the two files installed apps read
+      # to update themselves: the package (.nupkg) and the small list that names it (RELEASES). The list goes up
+      # LAST, so an app never reads a list that names a package that isn't there yet.
+      - name: Publish the installer and the update files on the Releases page
         if: github.event_name != 'pull_request'
         shell: bash
         env:
@@ -33,22 +66,48 @@ jobs:
           GH_REPO: ${{ github.repository }}
         run: |
           set -euo pipefail
-          files=(out/make/squirrel.windows/x64/*.exe)
-          if [ "${#files[@]}" -ne 1 ] || [ ! -f "${files[0]}" ]; then
-            echo "Expected exactly one Setup .exe in out/make/squirrel.windows/x64, found: ${files[*]}"
+          dir=out/make/squirrel.windows/x64
+          exe="$dir/Cell-Learning-Setup.exe"
+          list="$dir/RELEASES"
+          packages=("$dir"/*-full.nupkg)
+          if [ ! -f "$exe" ] || [ ! -f "$list" ] || [ "${#packages[@]}" -ne 1 ] || [ ! -f "${packages[0]}" ]; then
+            echo "Expected Cell-Learning-Setup.exe, RELEASES and exactly one -full.nupkg in $dir, found:"
+            ls -la "$dir"
             exit 1
           fi
-          exe="${files[0]}"
+          package="${packages[0]}"
+          if ! grep -q "$(basename "$package")" "$list"; then
+            echo "RELEASES does not name $(basename "$package"):"
+            cat "$list"
+            exit 1
+          fi
+          version="$(node -p "require('./package.json').version")"
           short="${GITHUB_SHA::7}"
           when="$(date -u '+%Y-%m-%d %H:%M UTC')"
-          notes="Built from ${GITHUB_REF_NAME} at commit ${short}, ${when}.
+          notes="Version ${version}. Built from ${GITHUB_REF_NAME} at commit ${short}, ${when}.
 
-          How to install: download the file ending in Setup.exe below and double-click it. Windows may show a blue box saying \"Windows protected your PC\" because the installer is not signed: click \"More info\", then \"Run anyway\".
+          First time: download Cell-Learning-Setup.exe below and double-click it. Windows may show a blue box saying \"Windows protected your PC\" because the installer is not signed: click \"More info\", then \"Run anyway\".
+
+          After that the app updates itself: it reads the two other files here (RELEASES and the .nupkg package). You don't need to download those.
 
           This page keeps only the newest build; every new build replaces it.
           Build log: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
           gh release delete latest-build --cleanup-tag --yes || true
-          gh release create latest-build "$exe" --target "$GITHUB_SHA" --title "Latest build (${when}, ${short})" --notes "$notes"
+          gh release create latest-build "$exe" "$package" --target "$GITHUB_SHA" --title "Latest build (${version}, ${when}, ${short})" --notes "$notes"
+          gh release upload latest-build "$list"
+      # T76: ask the update addresses, the way an installed app does, whether they really hand out this build
+      # (app/tools/check-feed.mjs). GitHub's address must work. A problem at the Cloudflare address only warns:
+      # the app falls back to GitHub by itself.
+      - name: Check the update addresses hand out this build
+        if: github.event_name != 'pull_request'
+        shell: bash
+        run: node tools/check-feed.mjs --expect "$(node -p "require('./package.json').version")"
+      # T76: the same update test once more, but live: the old version (0.0.1) is installed again and has to update
+      # itself from the real addresses, over the real internet, to the build that was just published. This is the
+      # only check of the part the first round can't see: the installer's helper talking to GitHub (and Cloudflare).
+      - name: 'Live update test: the old version updates itself from the real addresses'
+        if: github.event_name != 'pull_request'
+        run: node tools/update-e2e.mjs ../old-build out/make/squirrel.windows/x64 --live
       # Test pictures only when something failed (that's when they help).
       - uses: actions/upload-artifact@v4
         if: failure()

@@ -33,6 +33,7 @@ import { LookFade } from './ui/LookFade';
 import { Welcome } from './Welcome';
 import { Trouble, Safety } from './Trouble';
 import { BOOT, endStartScreen, holdLeft } from './startup';
+import { useUpdate, restartIntoUpdate } from './updates';
 
 // The real lessons, unless an automatic test asks for the samples (see electron/preload.cjs); the same for "This changed" cards.
 const TEST = (window as unknown as { cellApi?: { useSamplePath?: boolean; testChanges?: Change[]; look?: Look; testCrash?: boolean } }).cellApi;
@@ -80,6 +81,11 @@ function App() {
   // Idea I69: a save that fails shows "Couldn't save your last change" (Notices.tsx) until one works (createSaver).
   const [saveFail, setSaveFail] = useState<SaveFail | null>(null);
   const [save] = useState(() => createSaver(fail => setSaveFail(f => fail === null ? null : { detail: fail, tries: (f?.tries ?? 0) + 1 })));
+  // T76: the app updates itself. When a newer version has been fetched, a notice says so (Notices.tsx). Closing it
+  // hides it for that version until the app is opened again; the new version is used at the next start either way.
+  const update = useUpdate();
+  const [updateClosed, setUpdateClosed] = useState<string | null>(null);
+  const updateReady = update.state === 'ready' && update.newVersion && update.newVersion !== updateClosed ? update.newVersion : null;
   useEffect(() => { if (state && loaded.current) save(state); }, [state]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const s = state ?? EMPTY_STATE;
@@ -117,7 +123,7 @@ function App() {
     : tab === 'heatmap' ? <HeatMap cells={buildHeatmap(DATA.bands as unknown as BandRow[], RAW_LESSONS, s.reviews, Date.now())} onStart={setPlaying}
         lessonsOf={band => (BAND_LESSONS[band] ?? []).map(l => ({ ...l, status: IN_PATH.has(l.id) ? lessonStatus(PATH, s.progress, l.id) : 'missing' }))}
         onPath={() => go('path')} />
-    : tab === 'settings' ? <SettingsScreen settings={s.settings} onChange={settings => setState(p => p && { ...p, settings })} />
+    : tab === 'settings' ? <SettingsScreen settings={s.settings} update={update} onChange={settings => setState(p => p && { ...p, settings })} />
     : <>
         {repair > 0 && <div style={{ maxWidth: COLUMN, margin: '0 auto', padding: '12px 20px 0', boxSizing: 'border-box' }}>
           <RepairCard days={repair} onRepair={() => { setHandOver(false); setState(p => p && { ...p, game: repairStreak(p.game, new Date()) }); }} /></div>}
@@ -151,7 +157,8 @@ function App() {
           <motion.div key="frame" {...screenGlide('frame', calm)}>
             <AppShell tab={tab} onTab={go} top={top} badges={{ review: due }}>
               <Notices saveFail={saveFail} onRetrySave={() => state && save(state)} restored={restored} onCloseRestored={() => setRestored(null)} change={card} changeOf={pending.length}
-                onChangeOk={() => card && setState(p => p && acknowledge(p, card))} />
+                onChangeOk={() => card && setState(p => p && acknowledge(p, card))}
+                update={updateReady} onUpdateRestart={() => restartIntoUpdate()} onUpdateClose={() => setUpdateClosed(updateReady)} />
               {/* When a notice closes, the page glides up into its space instead of jumping (R13, NOTICE.shift). */}
               <motion.div layout="position" transition={noticeShift(calm)}>
                 <AnimatePresence mode="wait" initial={false} custom={dir} onExitComplete={toTop}>

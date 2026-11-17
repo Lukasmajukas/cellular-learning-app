@@ -4,10 +4,11 @@ import type { Progress } from './path';
 import type { Reviews } from './fsrs';
 import { EMPTY_GAME, type Game } from './gamify';
 
-export type Settings = { sounds: boolean; volume: number; reduceMotion: boolean; showFps: boolean; dailyGoal: number; look: 'night' | 'day' };
+// autoUpdate (T76): the app fetches new versions of itself (electron/updater.cjs). On unless you switch it off.
+export type Settings = { sounds: boolean; volume: number; reduceMotion: boolean; showFps: boolean; dailyGoal: number; look: 'night' | 'day'; autoUpdate: boolean };
 // welcomed (R21): the first-start welcome has been shown and the daily goal picked (src/Welcome.tsx).
 export type SaveState = { version: 1; progress: Progress; settings: Settings; reviews: Reviews; game: Game; seenChanges: string[] | null; welcomed: boolean };
-export const DEFAULT_SETTINGS: Settings = { sounds: true, volume: 60, reduceMotion: false, showFps: false, dailyGoal: 1, look: 'night' };
+export const DEFAULT_SETTINGS: Settings = { sounds: true, volume: 60, reduceMotion: false, showFps: false, dailyGoal: 1, look: 'night', autoUpdate: true };
 // The volume as the sound code wants it (0 to 1). An old save file has none: then the quiet default.
 export const volumeOf = (s: Partial<Settings>) => (typeof s.volume === 'number' ? s.volume : DEFAULT_SETTINGS.volume) / 100;
 export const EMPTY_STATE: SaveState = { version: 1, progress: {}, settings: DEFAULT_SETTINGS, reviews: {}, game: EMPTY_GAME, seenChanges: null, welcomed: false };

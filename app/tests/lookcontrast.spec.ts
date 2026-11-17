@@ -9,6 +9,7 @@ import { join } from 'node:path';
 // between them. Normal text needs 4.5:1, big text (24 px, or 18.66 px bold) 3:1. Buttons you can't press yet are left
 // out, as WCAG allows. Reduce motion is on, so nothing is caught halfway through moving.
 // R21: also the start screen, the first-start welcome, the empty heatmap and the two error screens. I69: the "Couldn't save" notice.
+// T76: the "A new version is ready" notice and the Updates card in Settings (ready, and a check that got no answer).
 type Fail = { text: string; fg: string; bg: string; ratio: number; need: number };
 type Audit = { checked: number; fails: Fail[]; unparsed: string[] };
 
@@ -218,6 +219,18 @@ for (const look of ['night', 'day']) {
     await w.getByTestId('savefail-retry').click(); await w.getByTestId('savefail-tries').waitFor();
     await w.getByTestId('savefail-details').locator('summary').click();
     await check(w, 'save failed notice');
+    await app.close();
+    // T76: "A new version is ready" and the Updates card saying so; then a check that got no answer, its reason open.
+    ({ app, w } = await launch(look, { CELL_TEST_UPDATE: JSON.stringify({ state: 'ready', version: '0.1.177', newVersion: '0.1.180' }) }));
+    await w.getByTestId('update-ready').waitFor();
+    await check(w, 'update notice');
+    await w.getByTestId('tab-settings').click(); await w.getByTestId('set-card-updates').waitFor();
+    await check(w, 'settings: update ready');
+    await app.close();
+    ({ app, w } = await launch(look, { CELL_TEST_UPDATE: JSON.stringify({ state: 'failed', version: '0.1.177', detail: 'net::ERR_INTERNET_DISCONNECTED' }) }));
+    await w.getByTestId('tab-settings').click(); await w.getByTestId('set-card-updates').waitFor();
+    await w.getByTestId('update-details').locator('summary').click();
+    await check(w, 'settings: update not reached');
     await app.close();
     for (const [kind, env] of [['load', { CELL_TEST_LOAD_FAIL: '1' }], ['crash', { CELL_TEST_CRASH: '1' }]] as const) {
       ({ app, w } = await launch(look, env));

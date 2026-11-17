@@ -11,7 +11,8 @@ const DEFAULTS = () => ({
   seenChanges: null,
   welcomed: false, // R21: has the first-start welcome been shown (and the daily goal picked)?
   game: { streak: 0, lastDay: '', xp: 0, xpToday: 0, xpDay: '', doneToday: 0, doneDay: '', freezes: 0, lost: 0, lostDay: '' },
-  settings: { sounds: true, volume: 60, reduceMotion: false, showFps: false, dailyGoal: 1, look: 'night' },
+  // autoUpdate (T76): fetch new versions of the app by itself. On unless you switch it off.
+  settings: { sounds: true, volume: 60, reduceMotion: false, showFps: false, dailyGoal: 1, look: 'night', autoUpdate: true },
 });
 
 // Fills in anything missing, so an older or damaged file never crashes the app.
@@ -33,6 +34,8 @@ function normalize(raw) {
     // Night is the default look (redesign R01, 2026-11-04). The old light/dark 'theme' setting is dropped on purpose,
     // so everyone starts on Night; 'day' is the light look (finished in R20).
     look: s.look === 'day' ? 'day' : 'night',
+    // T76: a save from before the app could update itself has no answer yet: then it's on.
+    autoUpdate: typeof s.autoUpdate === 'boolean' ? s.autoUpdate : d.settings.autoUpdate,
   };
   // Review schedule (one card per question ID) and streak/XP: keep only well-formed numbers.
   const num = v => typeof v === 'number' && Number.isFinite(v);
@@ -106,7 +109,8 @@ function createStore(dir, clock = () => new Date()) {
   // R20: which look the save file asks for, read before the window opens (no backups, no writing), so the window and
   // the first paint already have the right background and a Day user never sees a dark flash at start-up.
   // R21: also Reduce motion, so the start screen's fade-out follows it before the save has loaded.
-  const startup = () => { const { look, reduceMotion } = normalize(readJson(file)).settings; return { look, reduceMotion }; };
+  // T76: and "Update by itself", so the updater knows before any window exists.
+  const startup = () => { const { look, reduceMotion, autoUpdate } = normalize(readJson(file)).settings; return { look, reduceMotion, autoUpdate }; };
   const look = () => startup().look;
 
   function save(state) {

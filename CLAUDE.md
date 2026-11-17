@@ -62,7 +62,7 @@ The owner typed this in chat on 2026-11-01 (task T44), word for word:
 | Small | Haiku 5.5 | Low | Chores: typos, renames, formatting |
 | Medium (default) | Sonnet 5.5 | Medium | Features, lessons from checked data, normal bugs |
 | Large | Opus 5.5 | High | Planning (PRD), curriculum design, reviews, the redesign sessions (T59), bugs Sonnet failed twice |
-| Extra large | Fable 5.1 | High | Only when Opus is stuck |
+| Extra large | Fable 5.2 | High | Only when Opus is stuck |
 
 - Whenever you name a model for the owner, name the effort with it, like "Opus, High effort". Use the table. Go one step higher (Extra high) only after a failed try; Max only if Extra high failed too.
 - Run helper agents on Small or Medium unless a task needs more.
@@ -83,7 +83,7 @@ The owner typed this in chat on 2026-11-01 (task T44), word for word:
 - **Logs:** `docs/PROGRESS-LOG.md`, `docs/DECISIONS.md`, `docs/sessions/`
 - **Redesign:** `docs/redesign/` (the plan, the style guide `DESIGN.md`, the ideas board, the gallery)
 - **Research:** `docs/research/`, the report and notes. `band_verification.md` overrides `us_bands.md`.
-- **Later:** `content/` (facts and lessons), `app/` (code)
+- **The app:** `content/` (facts and lessons), `app/` (code), `update-server/` (the Cloudflare front door for the app's self-update; how it all works: `docs/updates.md`)
 - **Owner's other GitHub repos to check for reuse (task T03):** CellAtlas, bandmon, SpectrumScope, TowerScope, NetScopeiOS, NetScopeMac.
 
 Keep this file short (under about 100 lines). Put details in the docs above.

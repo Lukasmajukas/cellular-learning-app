@@ -5,10 +5,12 @@
 //                 node tools/gallery.mjs --types-only     (just the other question types, 18-27; build first; keeps the rest)
 //                 node tools/gallery.mjs --look day       (R20: every picture in the Day look, into ../docs/redesign/gallery/latest/day)
 //                 node tools/gallery.mjs --flip-only      (idea I10: just the flip books, into flip/; build first; keeps the rest)
+//                 node tools/gallery.mjs --updates-only   (T76: just the update notice and the Updates card, 56-57; build first; keeps the rest)
 // R21: the start screen, its fade, the welcome, the empty heatmap and the error screens (40-46).
 // R22: a phone-narrow window (360 x 640) and the keyboard: 47-54 (see r22Screens).
 // Idea I69: "Couldn't save your last change" (55, in firstStartScreens).
 // Idea I10: flip books, a sheet of pictures in a row for each animation (flip/f01-f13, see flipBooks).
+// T76: "A new version is ready" on the path, and the Updates card in Settings (56, 57, see updateScreens).
 // It starts the real Electron app with a made-up save file (3 lessons done, a 4-day streak, some reviews due),
 // the other question types (18-27, from R10), a comeback question (28, from R11), the Review tab's looks and the notices (30-33, from R13), the heatmap filling in and its lessons sheet (34, 35, from R14), Settings mid-sample, its bottom and in Day (36-38, from R15), shows the building blocks page (#blocks, from R03; Beacon's faces 16, 17 from R17), the Review tab (13, from R04), the top bar mid-moment and the repair card (14, 15, from R07),
 // draws a sheet of all our icons (00-icons), visits each screen at the owner's window size (620 x 960) and a wide one (1280 x 800), and saves small WebP files.
@@ -289,6 +291,20 @@ async function heatScreens(s) {
 
 // R15: the Settings tab mid-sample (the speaker's glow and its first ring going out), scrolled to the bottom (look,
 // progress, keys), and (R20) halfway through switching to the other look.
+// T76: the app updates itself. A pretend updater (CELL_TEST_UPDATE) says a newer version has been fetched:
+// the notice on the path (56), and the Updates card at the bottom of Settings with its "Restart now" (57).
+async function updateScreens(s) {
+  const { app, w } = await launch({ CELL_TEST_UPDATE: JSON.stringify({ state: 'ready', version: '0.1.177', newVersion: '0.1.180' }) });
+  await resize(app, s);
+  await w.getByTestId('update-ready').waitFor();
+  await shot(w, '56-update-ready', s, 900);
+  await w.getByTestId('tab-settings').click();
+  await w.getByTestId('set-card-updates').waitFor();
+  await w.getByTestId('set-card-keys').scrollIntoViewIfNeeded();
+  await shot(w, '57-settings-updates', s, 600);
+  await app.close();
+}
+
 async function settingsScreens(s) {
   const { app, w } = await launch({});
   await resize(app, s);
@@ -598,15 +614,17 @@ async function flipBooks() {
 
 const typesOnly = process.argv.includes('--types-only');
 const flipOnly = process.argv.includes('--flip-only');
-if (existsSync(OUT) && !process.argv.includes('--icons-only') && !typesOnly && !flipOnly) for (const f of readdirSync(OUT)) if (f.endsWith('.webp')) rmSync(join(OUT, f));
+const updatesOnly = process.argv.includes('--updates-only');
+if (existsSync(OUT) && !process.argv.includes('--icons-only') && !typesOnly && !flipOnly && !updatesOnly) for (const f of readdirSync(OUT)) if (f.endsWith('.webp')) rmSync(join(OUT, f));
 mkdirSync(OUT, { recursive: true });
-if (!process.argv.includes('--icons-only') && !typesOnly) { rmSync(FLIP, { recursive: true, force: true }); mkdirSync(FLIP, { recursive: true }); }
+if (!process.argv.includes('--icons-only') && !typesOnly && !updatesOnly) { rmSync(FLIP, { recursive: true, force: true }); mkdirSync(FLIP, { recursive: true }); }
 console.log(`Gallery -> ${OUT}`);
 if (typesOnly) { for (const s of SIZES) await typeScreens(s); console.log('Done.'); process.exit(0); }
 if (flipOnly) { await flipBooks(); console.log('Done.'); process.exit(0); }
+if (updatesOnly) { for (const s of SIZES) await updateScreens(s); console.log('Done.'); process.exit(0); }
 await iconSheet();
 if (process.argv.includes('--icons-only')) process.exit(0);
-for (const s of SIZES) { await firstStartScreens(s); await realScreens(s); await completeScreen(s); await comebackScreen(s); await repairScreen(s); await reviewAndNotices(s); await heatScreens(s); await settingsScreens(s); await blocksScreens(s); await typeScreens(s); }
+for (const s of SIZES) { await firstStartScreens(s); await realScreens(s); await completeScreen(s); await comebackScreen(s); await repairScreen(s); await reviewAndNotices(s); await heatScreens(s); await settingsScreens(s); await updateScreens(s); await blocksScreens(s); await typeScreens(s); }
 await r22Screens();
 await flipBooks();
 console.log('Done.');

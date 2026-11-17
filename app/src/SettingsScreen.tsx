@@ -8,6 +8,8 @@ import { SAMPLE } from './theme/motion';
 import { prefs } from './prefs';
 import { play, playSample, SAMPLE_SET } from './sound';
 import { GOALS } from './Welcome';
+import { WhatHappened } from './Trouble';
+import { NO_UPDATER, updateLine, canCheck, checkForUpdate, restartIntoUpdate, type UpdateStatus } from './updates';
 
 // The small square each row starts with (redesign R15, idea I11): its own icon in signal blue, so the list is quick to scan.
 // `children` = layers drawn behind the icon (the sample's rings and glow).
@@ -86,7 +88,8 @@ export const KEYS: [string, string][] = [['1-9', 'Pick an answer by its number']
 // The settings screen, redesign R15: sound (with a sample), movement, daily goal, the look (Night / Day), your progress,
 // and the keyboard keys. Every row has its own icon. Built only from the blocks in ./ui (R03).
 // R04: it's a tab, so it has no back button (the Path tab, or Esc, goes back).
-export function SettingsScreen({ settings, onChange }: { settings: Settings; onChange: (s: Settings) => void }) {
+// T76: the "Updates" card. `update` is the updater's status (src/updates.ts); the switch is the saved setting.
+export function SettingsScreen({ settings, onChange, update = NO_UPDATER }: { settings: Settings; onChange: (s: Settings) => void; update?: UpdateStatus }) {
   const [note, setNote] = useState('');
   const [keys, setKeys] = useState(false);
   const files = hasFileAccess();
@@ -141,6 +144,19 @@ export function SettingsScreen({ settings, onChange }: { settings: Settings; onC
           control={<Button kind="quiet" data-testid="show-file" disabled={!files} onClick={() => showFile()} style={{ padding: '8px 14px' }}>Show</Button>} />
         {!files && <p style={{ color: c.textMuted, fontSize: 14, margin: '4px 0 8px' }}>Backups need the real app (not the browser preview).</p>}
         {note && <p data-testid="settings-note" role="status" style={{ margin: '4px 0 8px', fontSize: 14, color: c.textMuted, overflowWrap: 'anywhere' }}>{note}</p>}
+      </Card>
+
+      {/* T76: the app updates itself. The switch is yours; the version row says what the updater is doing, in plain
+          words, and "Check now" asks at once. When a newer version has been fetched the button becomes "Restart now".
+          If a check didn't work the reason is folded away (no alarm: no internet is normal, and it asks again). */}
+      <Card title="Updates" style={card} data-testid="set-card-updates">
+        <Row name="Update by itself" hint="Fetches new versions quietly, for the next start." icon={<RowIcon name="update" />}
+          control={<Switch testId="set-autoupdate" checked={settings.autoUpdate} onChange={autoUpdate => set({ autoUpdate })} />} />
+        <Row asLabel={false} last testId="version-row" name={update.version ? `Version ${update.version}` : 'Version'} hint={updateLine(update, Date.now())} icon={<RowIcon name="info" />}
+          control={update.state === 'ready'
+            ? <Button data-testid="update-restart-settings" onClick={() => restartIntoUpdate()} style={{ padding: '8px 14px' }}>Restart now</Button>
+            : <Button kind="quiet" data-testid="update-check" disabled={!canCheck(update)} onClick={() => checkForUpdate()} style={{ padding: '8px 14px' }}>Check now</Button>} />
+        {update.state === 'failed' && update.detail && <WhatHappened id="update" detail={update.detail} style={{ marginTop: -4 }} />}
       </Card>
 
       {/* R22 (idea I57): the keys fold into one row; "Show" opens them in a sheet, which gives the keyboard back to "Show" when it closes. */}
