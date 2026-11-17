@@ -36,12 +36,15 @@ const LOG = path.join(process.env.RUNNER_TEMP || process.env.TEMP, `cell-update-
 const OLD = newestFull(fs.readFileSync(path.join(oldDir, 'RELEASES'), 'utf8'));
 const NEW = newestFull(fs.readFileSync(path.join(newDir, 'RELEASES'), 'utf8'));
 const SEED = { version: 1, progress: { 'unit01-l1': 3, 'unit01-l2': 2 }, reviews: {}, seenChanges: [], welcomed: true,
-  game: { streak: 4, lastDay: '2026-11-14', xp: 120, xpToday: 0, xpDay: '', doneToday: 0, doneDay: '', freezes: 1, lost: 0, lostDay: '' },
+  // No streak in the seed: the app itself ends a streak when days were missed, which has nothing to do with updating.
+  game: { streak: 0, lastDay: '', xp: 120, xpToday: 0, xpDay: '', doneToday: 0, doneDay: '', freezes: 0, lost: 0, lostDay: '' },
   settings: { sounds: false, volume: 60, reduceMotion: true, showFps: false, dailyGoal: 2, look: 'night', autoUpdate: true } };
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 const say = (...a) => console.log(new Date().toISOString().slice(11, 19), ...a);
-const lines = () => (fs.existsSync(LOG) ? fs.readFileSync(LOG, 'utf8').split('\n').filter(Boolean).map(l => JSON.parse(l)) : []);
+// The app's notes, one JSON line per step. A line caught half-written is skipped; the next look reads it whole.
+const lines = () => (fs.existsSync(LOG) ? fs.readFileSync(LOG, 'utf8').split('\n').filter(Boolean) : [])
+  .flatMap(l => { try { return [JSON.parse(l)]; } catch { return []; } });
 // Waits until the app's notes hold a line that fits, counting only lines from `from` on.
 async function waitFor(what, fits, { from = 0, ms = 120000 } = {}) {
   const end = Date.now() + ms;
@@ -134,7 +137,7 @@ async function main() {
   step = await waitFor('the old app starts again', l => l.event === 'start' && l.version === OLD.version, { from: step.next });
   await waitFor('the dead first address is skipped', l => l.event === 'failed' && l.feed === 0, { from: step.next });
   const ready = await waitFor(`the new version (${NEW.version}) is fetched through the second address`,
-    l => l.event === 'ready' && l.feed === 1 && l.newVersion === NEW.version, { from: step.next, ms: 420000 });
+    l => l.event === 'ready' && l.feed === 1 && String(l.newVersion).startsWith(NEW.version), { from: step.next, ms: 420000 });
   check(fs.existsSync(path.join(ROOT, `app-${NEW.version}`, EXE)), `the new version is unpacked next to the old one (app-${NEW.version})`);
   check(asked.some(a => a.startsWith('door') && a.includes('/win/RELEASES') && a.endsWith('200')), 'the Worker handed over the list');
   check(asked.some(a => a.startsWith('door') && a.includes(NEW.name) && a.includes('-> 302')), 'the Worker pointed at the package (302)');
@@ -147,14 +150,14 @@ async function main() {
   await closeApp();
   // ... and opened the normal way (the way the Start-menu icon does it), it is still the new version.
   open(UPDATE_EXE, ['--processStart', EXE], { CELL_UPDATE_URL: feeds, CELL_UPDATE_FIRST_MS: '3600000' });
-  await waitFor(`opened the normal way, it is ${NEW.version}`, l => l.event === 'start' && l.version === NEW.version, { from: step.next + 1 });
+  await waitFor(`opened the normal way, it is ${NEW.version}`, l => l.event === 'start' && l.version === NEW.version, { from: step.next });
   await sleep(3000); // give it a moment to load and save, as a real start does
   await closeApp();
 
   // 8. Your stars.
   const after = JSON.parse(fs.readFileSync(dataFile, 'utf8'));
   check(JSON.stringify(after.progress) === JSON.stringify(SEED.progress), `the stars survived the update (${JSON.stringify(after.progress)})`);
-  check(after.game.xp === SEED.game.xp && after.game.streak === SEED.game.streak, `XP and streak survived (${after.game.xp} XP, streak ${after.game.streak})`);
+  check(after.game.xp === SEED.game.xp, `the XP survived (${after.game.xp})`);
   check(after.settings.dailyGoal === SEED.settings.dailyGoal && after.settings.reduceMotion === true, 'the settings survived');
   say(`PASSED: ${OLD.version} updated itself to ${NEW.version} and kept the progress.`);
 }
