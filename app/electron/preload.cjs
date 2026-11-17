@@ -5,6 +5,18 @@ contextBridge.exposeInMainWorld('cellApi', {
   save: state => ipcRenderer.invoke('save:save', state),
   backupNow: () => ipcRenderer.invoke('save:backup'),
   showFile: () => ipcRenderer.invoke('save:show'),
+  // T76: the app updates itself. The screens read the status, ask for a check or the restart, and hear about changes.
+  // onStatus hands back a function that stops the listening.
+  update: {
+    get: () => ipcRenderer.invoke('update:get'),
+    check: () => ipcRenderer.invoke('update:check'),
+    restart: () => ipcRenderer.invoke('update:restart'),
+    onStatus: tell => {
+      const heard = (_event, status) => tell(status);
+      ipcRenderer.on('update:status', heard);
+      return () => ipcRenderer.removeListener('update:status', heard);
+    },
+  },
   // R20: the saved look, read by the main process before the window opened, so the first paint is already in that look.
   look: process.argv.includes('--cell-look=day') ? 'day' : 'night',
   // R21: the saved Reduce motion, read the same way, so the start screen's fade-out follows it before the save has loaded.

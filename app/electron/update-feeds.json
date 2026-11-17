@@ -1,0 +1,6 @@
+{
+  "about": "T76: the web addresses the app asks for a newer version, in order. The first that answers wins. Each must hold the installer's list file (RELEASES) and the package it names. See docs/updates.md.",
+  "feeds": [
+    "https://github.com/Lukasmajukas/cellular-learning-app/releases/download/latest-build"
+  ]
+}

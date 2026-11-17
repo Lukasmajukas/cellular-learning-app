@@ -1,0 +1,9 @@
+// T76: settings for the update "front door" (see src/worker.js and docs/updates.md).
+// Cloudflare reads this file when it puts the Worker online. No secrets live here, and none are needed.
+{
+  "name": "cell-learning-updates",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-11-01",
+  // Reachable at https://cell-learning-updates.<your-name>.workers.dev (free; no domain of your own needed).
+  "workers_dev": true
+}

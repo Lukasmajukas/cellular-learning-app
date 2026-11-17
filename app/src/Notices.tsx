@@ -5,6 +5,7 @@ import { Button, IconButton, Pill, SectionLabel } from './ui';
 import { noticeMotion, useCalm } from './theme/motion';
 import type { Change } from './changes';
 import { WhatHappened } from './Trouble';
+import { UPDATE_WORDS, versionName } from './updates';
 
 // Notices at the top of the frame (redesign R13): "your save was restored" and the "This changed" card; idea I69 added
 // "Couldn't save your last change", always the top one, because it's the one that can cost you something.
@@ -14,9 +15,11 @@ import { WhatHappened } from './Trouble';
 const wrap = { maxWidth: COLUMN, margin: '0 auto', padding: '12px 20px 0', boxSizing: 'border-box' } as const;
 
 // saveFail: the last save didn't work (null = it did); see SaveFailedNotice.
+// update (T76): a newer version of the app has been fetched and waits for a restart (its number; null = nothing to show).
 export type SaveFail = { detail: string; tries: number };
-export function Notices({ saveFail, onRetrySave, restored, onCloseRestored, change, changeOf, onChangeOk }:
-  { saveFail?: SaveFail | null; onRetrySave?: () => void; restored: string | null; onCloseRestored: () => void; change?: Change; changeOf: number; onChangeOk: () => void }) {
+export function Notices({ saveFail, onRetrySave, restored, onCloseRestored, change, changeOf, onChangeOk, update = null, onUpdateRestart, onUpdateClose }:
+  { saveFail?: SaveFail | null; onRetrySave?: () => void; restored: string | null; onCloseRestored: () => void; change?: Change; changeOf: number; onChangeOk: () => void;
+    update?: string | null; onUpdateRestart?: () => void; onUpdateClose?: () => void }) {
   const calm = useCalm();
   return (
     // popLayout: a closing notice steps out of the page's flow at once (it fades out on top), so the page under it can
@@ -36,6 +39,11 @@ export function Notices({ saveFail, onRetrySave, restored, onCloseRestored, chan
       {change && (
         <motion.div key={`change-${change.id}`} data-notice style={wrap} {...noticeMotion(calm)}>
           <ChangeCard change={change} of={changeOf} onOk={onChangeOk} />
+        </motion.div>
+      )}
+      {update !== null && (
+        <motion.div key="update" data-notice style={wrap} {...noticeMotion(calm)}>
+          <UpdateReadyNotice version={update} onRestart={() => onUpdateRestart?.()} onClose={() => onUpdateClose?.()} />
         </motion.div>
       )}
     </AnimatePresence>
@@ -82,6 +90,28 @@ export function SaveFailedNotice({ fail, onRetry }: { fail: SaveFail; onRetry: (
         <Button data-testid="savefail-retry" onClick={onRetry} style={{ marginTop: 12 }}>Try again</Button>
         <WhatHappened id="savefail" detail={fail.detail} color={c.notice} style={{ marginTop: 4 }} />
       </div>
+    </section>
+  );
+}
+
+// T76: "A new version is ready". The app fetched a newer version of itself in the background (electron/updater.cjs)
+// and will use it the next time it opens; "Restart now" does that at once. Good news, so it wears the calm signal-blue
+// card look of "This changed", not the warm notice colours. It can be closed: nothing is lost, the new version is
+// used at the next start anyway. Lessons don't show the frame, so this never appears in the middle of one.
+export function UpdateReadyNotice({ version, onRestart, onClose }: { version: string; onRestart: () => void; onClose: () => void }) {
+  const named = versionName(version); // '' when the installer's helper named no version: then no number is shown
+  return (
+    <section data-testid="update-ready" role="status" style={{ display: 'flex', gap: 12, alignItems: 'flex-start', padding: '12px 4px 12px 16px',
+      borderRadius: RADIUS.card, background: c.surface2, border: `1px solid ${c.signal}` }}>
+      <Icon name="update" size={22} style={{ marginTop: 2, color: c.signal, flexShrink: 0 }} />
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ fontWeight: 700, fontSize: 16 }}>{UPDATE_WORDS.noteTitle}</div>
+        <p data-testid="update-ready-text" style={{ margin: '2px 0 0', fontSize: 15, lineHeight: 1.4, color: c.textMuted }}>
+          {named && <>Version <span data-testid="update-ready-version" style={mono}>{named}</span>. </>}{UPDATE_WORDS.noteText}
+        </p>
+        <Button data-testid="update-restart" onClick={onRestart} style={{ marginTop: 12 }}>Restart now</Button>
+      </div>
+      <IconButton icon="close" label="Close this notice" data-testid="update-close" onClick={onClose} style={{ marginTop: -8 }} />
     </section>
   );
 }
