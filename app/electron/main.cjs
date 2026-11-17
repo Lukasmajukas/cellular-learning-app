@@ -18,8 +18,9 @@ const store = createStore(process.env.CELL_DATA_DIR || path.join(app.getPath('us
 // before any window, on purpose: if a build's screen were ever broken, the updater would still fetch the fixed one.
 // It only really runs in the installed Windows app; everywhere else (tests, `npm start`, a Mac) it reports
 // "unsupported" and does nothing. Automatic tests: CELL_TEST_UPDATE (a status as JSON) swaps in a pretend updater;
-// CELL_UPDATE_URL replaces the addresses, CELL_UPDATE_FIRST_MS the first wait, CELL_UPDATE_LOG names a file that gets
-// one line per step, and CELL_UPDATE_TEST_RESTART=1 presses "Restart now" by itself (tools/update-e2e.mjs uses these).
+// CELL_UPDATE_URL replaces the addresses, CELL_UPDATE_FIRST_MS the first wait and CELL_UPDATE_EVERY_MS the wait between
+// rounds, CELL_UPDATE_LOG names a file that gets one line per step, and CELL_UPDATE_TEST_RESTART=1 presses
+// "Restart now" by itself (tools/update-e2e.mjs uses these).
 const tellWindows = status => { for (const w of BrowserWindow.getAllWindows()) if (!w.isDestroyed()) w.webContents.send('update:status', status); };
 function updateLog(entry) {
   if (!process.env.CELL_UPDATE_LOG) return;
@@ -31,9 +32,9 @@ function startUpdater() {
   try { config = JSON.parse(fs.readFileSync(path.join(__dirname, 'update-feeds.json'), 'utf8')); } catch { /* no list: no updates */ }
   const feeds = feedsFrom(config, process.env.CELL_UPDATE_URL);
   const why = whyNot({ platform: process.platform, packaged: app.isPackaged, hasUpdateExe: fs.existsSync(updateExeFor(process.execPath)), feeds });
-  const firstMs = Number(process.env.CELL_UPDATE_FIRST_MS);
+  const firstMs = Number(process.env.CELL_UPDATE_FIRST_MS), everyMs = Number(process.env.CELL_UPDATE_EVERY_MS);
   const updater = createUpdater({ autoUpdater, feeds, version: app.getVersion(), why, enabled: store.startup().autoUpdate,
-    firstRun: process.argv.includes('--squirrel-firstrun'), ...(firstMs > 0 ? { firstCheckMs: firstMs } : {}), log: updateLog,
+    firstRun: process.argv.includes('--squirrel-firstrun'), ...(firstMs > 0 ? { firstCheckMs: firstMs } : {}), ...(everyMs > 0 ? { everyMs } : {}), log: updateLog,
     onStatus: status => {
       tellWindows(status);
       if (status.state === 'ready' && process.env.CELL_UPDATE_TEST_RESTART === '1') setTimeout(() => updater.restart(), 1000);
@@ -87,14 +88,15 @@ ipcMain.handle('save:save', (e, state) => {
   if (failSaves > 0) { failSaves--; throw new Error('Test: the save file could not be written (CELL_TEST_SAVE_FAIL).'); }
   const clean = store.save(state);
   BrowserWindow.fromWebContents(e.sender)?.setBackgroundColor(WINDOW_BG[clean.settings.look]); // the look may have changed
-  updater?.setEnabled(clean.settings.autoUpdate); // T76: the "Update by itself" switch may have changed
+  // T76: the "Update by itself" switch may have changed. Tell the screens what the updater says now.
+  if (updater) { const before = updater.status().state; if (updater.setEnabled(clean.settings.autoUpdate).state !== before) tellWindows(updater.status()); }
   return clean;
 });
 ipcMain.handle('save:backup', () => store.backup());
 ipcMain.handle('save:show', () => { shell.showItemInFolder(store.file); return store.file; });
 // T76: the screens ask for the update status, for a check right now, and for the restart into the new version.
 ipcMain.handle('update:get', () => updateStatus());
-ipcMain.handle('update:check', () => { updater?.check(); return updateStatus(); });
-ipcMain.handle('update:restart', () => updater?.restart() ?? false);
+ipcMain.handle('update:check', () => { updater?.check(); tellWindows(updateStatus()); return updateStatus(); });
+ipcMain.handle('update:restart', () => { const went = updater?.restart() ?? false; tellWindows(updateStatus()); return went; });
 if (!answeredInstaller) app.whenReady().then(create);
 app.on('window-all-closed', () => app.quit());

@@ -49,7 +49,7 @@ export const UPDATE_WORDS = {
   newest: (when: string) => `You have the newest version. Checked ${when}.`,
   checking: 'Looking for a newer version...',
   downloading: 'Fetching a newer version. Keep playing.',
-  ready: (v: string) => `${v ? `Version ${v}` : 'A newer version'} is ready. You get it the next time you open the app.`,
+  ready: (v: string) => `${v ? `Version ${v}` : 'A newer version'} is ready for the next start.`,
   failed: "Couldn't look just now. It tries again by itself.",
   noteTitle: 'A new version is ready',
   noteText: "You get it the next time you open the app. Your progress stays.",

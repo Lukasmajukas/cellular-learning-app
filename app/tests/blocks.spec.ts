@@ -41,13 +41,13 @@ const scaleOf = (w: Page, testId: string) => w.getByTestId(testId).evaluate(el =
   return Number(m.match(/matrix\(([^,]+)/)?.[1] ?? 1);
 });
 
-test('Settings is built from the blocks: three switches, a goal and a look choice, big enough to click, and it all still saves', async () => {
+test('Settings is built from the blocks: four switches, a goal and a look choice, big enough to click, and it all still saves', async () => {
   const { app, w } = await launch();
   await openSettings(w);
-  await expect(w.getByRole('switch')).toHaveCount(3); // R15: the look became a Night / Day pill choice
+  await expect(w.getByRole('switch')).toHaveCount(4); // R15: the look became a Night / Day pill choice. T76: "Update by itself" is the fourth
   await expect(w.locator('[data-testid=settings] input[type=checkbox]:not([role=switch]), [data-testid=settings] select')).toHaveCount(0);
   // Everything you click is at least 44 x 44 (DESIGN.md section 4).
-  for (const id of ['tab-path', 'tab-review', 'tab-heatmap', 'tab-settings', 'set-sounds', 'set-motion', 'set-fps', 'set-look-night', 'set-look-day', 'set-goal-1', 'set-goal-5', 'sound-sample', 'backup-now', 'show-file']) {
+  for (const id of ['tab-path', 'tab-review', 'tab-heatmap', 'tab-settings', 'set-sounds', 'set-motion', 'set-fps', 'set-look-night', 'set-look-day', 'set-goal-1', 'set-goal-5', 'sound-sample', 'backup-now', 'show-file', 'set-autoupdate', 'update-check']) {
     const b = (await w.getByTestId(id).boundingBox())!;
     expect(b.width, id).toBeGreaterThanOrEqual(44); expect(b.height, id).toBeGreaterThanOrEqual(44);
   }

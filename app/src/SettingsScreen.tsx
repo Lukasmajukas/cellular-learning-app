@@ -150,7 +150,7 @@ export function SettingsScreen({ settings, onChange, update = NO_UPDATER }: { se
           words, and "Check now" asks at once. When a newer version has been fetched the button becomes "Restart now".
           If a check didn't work the reason is folded away (no alarm: no internet is normal, and it asks again). */}
       <Card title="Updates" style={card} data-testid="set-card-updates">
-        <Row name="Update by itself" hint="Fetches new versions quietly. You get them the next time you open the app." icon={<RowIcon name="update" />}
+        <Row name="Update by itself" hint="Fetches new versions quietly, for the next start." icon={<RowIcon name="update" />}
           control={<Switch testId="set-autoupdate" checked={settings.autoUpdate} onChange={autoUpdate => set({ autoUpdate })} />} />
         <Row asLabel={false} last testId="version-row" name={update.version ? `Version ${update.version}` : 'Version'} hint={updateLine(update, Date.now())} icon={<RowIcon name="info" />}
           control={update.state === 'ready'

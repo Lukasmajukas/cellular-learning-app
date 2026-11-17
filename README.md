@@ -17,12 +17,14 @@ All the levels are explained in [ROADMAP.md](ROADMAP.md).
 
 **Progress panel:** a clean page that shows how far Claude has got, in plain words. **Open it here:** https://claude.ai/artifact/UFEWWa8kh5cWFcyQVJU5bc (private: only you can open it; pin it). It's a snapshot that Claude refreshes, so it shows an "as of" time.
 
-**Get the app (Windows):** open https://github.com/Lukasmajukas/cellular-learning-app/releases/tag/latest-build and download the file ending in `Setup.exe`. It's always the newest build. (Windows may warn that it isn't signed: click "More info", then "Run anyway".)
+**Get the app (Windows):** open https://github.com/Lukasmajukas/cellular-learning-app/releases/tag/latest-build and download **`Cell-Learning-Setup.exe`**. Double-click it. (Windows may warn that it isn't signed: click "More info", then "Run anyway".) **You only do this once.**
 
-**How to open the app (Windows):** `Setup.exe` is only for putting the app on your PC (or updating it). Do that once, not every time.
-- **Every other time:** press the Windows key, type `Cell Learning`, press Enter. There should also be an icon on your desktop. Tip: right-click the app in the Start menu and choose **Pin to taskbar**, so it's one click from then on.
-- **While it installs,** a small green moving picture shows. That's the installer's own "please wait" picture, and it's normal. It used to stay up for about 15 seconds with the app opening behind it; now it should go as soon as the install is done, and then the app opens by itself.
-- **Not tried on Windows yet.** The app was taught to make the icons in task T67 (Nov 10), but the Windows build has been stopped since Nov 5 (task T62), so nobody has seen it work. If you install the next build and there's no `Cell Learning` in the Start menu, tell Claude. Builds from before Nov 10 never make the icons, which is why double-clicking `Setup.exe` felt like the only way.
+**After that the app updates itself** (since task T76, Nov 2026). It looks for a newer version soon after it opens, fetches it quietly, and uses it the next time you open the app. A small note says "A new version is ready" when one has arrived. The switch and your version number are in ⚙️ Settings, in the "Updates" card. Everything about it, and your one-time Cloudflare steps: [docs/updates.md](docs/updates.md).
+- **One last hand install is needed:** the version you installed on Nov 15 can't update itself yet.
+
+**How to open the app (Windows):** press the Windows key, type `Cell Learning`, press Enter. Tip: right-click the app in the Start menu and choose **Pin to taskbar**, so it's one click from then on.
+- **While it installs,** a small green moving picture may show for a moment. That's the installer's own "please wait" picture, and it's normal. Then the app opens by itself. (On Nov 15 you said the green picture was gone, and you think the app opened by itself.)
+- **The icon is still Electron's stock picture** (an atom). The app gets its own in task T74.
 
 **What are T13, T20 and so on?** Just labels so chats don't mix up tasks. You can ignore them.
 

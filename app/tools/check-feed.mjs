@@ -23,7 +23,8 @@ const here = dirname(fileURLToPath(import.meta.url));
 const feeds = args.length ? args : JSON.parse(readFileSync(join(here, '..', 'electron', 'update-feeds.json'), 'utf8')).feeds;
 
 async function checkOnce(base) {
-  const list = await fetch(`${base}/RELEASES`, { redirect: 'follow', cache: 'no-store' });
+  // The same question, word for word, that the installer's helper asks (it adds who is asking after a "?").
+  const list = await fetch(`${base}/RELEASES?id=CellLearning&localVersion=0.0.0&arch=amd64`, { redirect: 'follow', cache: 'no-store' });
   if (!list.ok) throw new Error(`the list file answered ${list.status}`);
   const newest = newestFull(await list.text());
   if (expect && compareVersions(newest.version, expect) < 0) throw new Error(`the newest version there is ${newest.version}, older than ${expect}`);

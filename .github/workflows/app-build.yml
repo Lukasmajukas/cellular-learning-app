@@ -102,6 +102,12 @@ jobs:
         if: github.event_name != 'pull_request'
         shell: bash
         run: node tools/check-feed.mjs --expect "$(node -p "require('./package.json').version")"
+      # T76: the same update test once more, but live: the old version (0.0.1) is installed again and has to update
+      # itself from the real addresses, over the real internet, to the build that was just published. This is the
+      # only check of the part the first round can't see: the installer's helper talking to GitHub (and Cloudflare).
+      - name: 'Live update test: the old version updates itself from the real addresses'
+        if: github.event_name != 'pull_request'
+        run: node tools/update-e2e.mjs ../old-build out/make/squirrel.windows/x64 --live
       # Test pictures only when something failed (that's when they help).
       - uses: actions/upload-artifact@v4
         if: failure()

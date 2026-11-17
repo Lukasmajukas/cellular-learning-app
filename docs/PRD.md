@@ -6,6 +6,7 @@
 <!-- When the owner types "I sign off the plan", a chat adds the line below and merges it. That line unlocks app building. -->
 Signed off by owner: 2026-10-31 ("I sign off the plan"). All suggested answers in section 9 stand.
 **Section 12 (the redesign) was added and signed off by the owner on 2026-11-04 ("I sign off the redesign plan").**
+**Section 13 (the app updates itself) was added on 2026-11-17 (T76). The owner approved its plan in chat on 2026-11-15, and again on 2026-11-17.**
 
 ---
 
@@ -134,7 +135,7 @@ Sounds on/off, reduce motion, daily goal, light or dark look, "back up my progre
 | AI chat inside the app | Would need the internet and a paid key | No. Claude uses AI to write lessons, not inside the app. |
 | Reading live data from your phone | You dropped this idea (see `docs/DECISIONS.md`) | No |
 | Leaderboards, friends, sharing | Just you | No |
-| Automatic updates | Hard with a private repository and no paid signing (section 7) | Yes, if you ever want it |
+| ~~Automatic updates~~ | ~~Hard with a private repository and no paid signing (section 7)~~ **Built in Nov 2026 (T76): see section 13.** The repository became public on Nov 15, and on Windows no paid signing is needed. | Done for Windows. Mac: later, it needs Apple's paid signing |
 | Phone reminders | Not needed for a PC app | Optional desktop reminder: section 9, question 4 |
 
 ## 5. Where the facts and content live
@@ -199,7 +200,7 @@ An app engine is the "body" the app lives in. Both choices let us build the app 
 - **You don't code, and I can't see your screen.** So every step needs automatic tests and screenshots I can check myself. You only judge how it feels.
 - **Windows first;** nothing Windows-only, so a Mac copy stays possible.
 - **Cost about $0.** No paid code signing for now. The catch: the first time you open a new version, Windows shows a blue box, "Windows protected your PC". You click **More info**, then **Run anyway**. That's normal for unsigned hobby apps. (Signing would cost about $10 a month or more.)
-- **Getting new versions:** GitHub builds the installer. I give you a link; you download and run it. Your progress stays (it lives outside the app). GitHub's free build minutes are plenty for this.
+- **Getting new versions:** GitHub builds the installer. You download and run it **once**. After that the app updates itself (section 13, since Nov 2026). Your progress stays (it lives outside the app). *(Until T76 this said: "I give you a link; you download and run it", for every version.)*
 - **Works offline.** No internet needed after install.
 - **Your usage limit.** Building happens one small task per chat, mostly on Sonnet. The robot keeps going 24/7 once you sign off.
 - **Facts discipline** from `CLAUDE.md`: frequencies only from the bands file, never from memory; every carrier fact has a status, date and source.
@@ -255,7 +256,7 @@ You can answer these in any chat, in any order. My suggested answer is in **bold
 | Build for Windows, macOS and Linux | **Windows first**, Mac kept possible, no Linux | Your answer in T02 |
 | Rive mascot | **Claude-drawn SVG mascot** | Claude can't use Rive's editor; Rive may cost money |
 | SQLite database | **One JSON save file** with daily backups | Simpler for one learner; fewer breakable parts |
-| Signed builds with automatic updates | **Unsigned, manual updates** for now | Costs $0; the repository is private |
+| Signed builds with automatic updates | **Unsigned, manual updates** for now. *(Changed in Nov 2026, section 13: still unsigned and $0, but the app now updates itself.)* | Costs $0; the repository is private *(public since 2026-11-15)* |
 | 115–220 hours for a TypeScript developer | **Counted in chats** | Claude writes the code; your time goes into testing |
 
 ## 12. The redesign (Level 5), added 2026-11-04 (T58)
@@ -277,3 +278,53 @@ You can answer these in any chat, in any order. My suggested answer is in **bold
 | 10 Risks | "It doesn't feel smooth", "Looks too much like Duolingo" | Plus: usage limit used up early in the week, changes going faster than the owner can look, design drift, graphics-chip problems only the owner's PC shows (`PLAN.md`, "Risks") | Nonstop robot work |
 
 **Still true:** facts only from the data files; no AI photos for identification; reduce motion is the app's own switch; animations move only position, size, turning and see-through-ness (glows fade as their own layer); Windows first, nothing Windows-only; everything free (OFL fonts, CC0 sounds).
+
+## 13. The app updates itself, added 2026-11-17 (T76)
+**Status:** APPROVED by the owner in chat. On 2026-11-15 they asked for it ("I would like to make the application auto update and use cloudfare as server to update it and free please"), answered three questions, and approved the written plan. The chat then stopped for two days; they approved the plan again on 2026-11-17.
+
+**In simple words:** you install the app by hand one last time. After that it looks for a newer version by itself, fetches it quietly, and uses it the next time you open the app. Your steps and the "what if" list are in `docs/updates.md`.
+
+### The problem
+Getting a new version meant: open GitHub, download a 160 MB installer, click past Windows' blue warning box, every time. The robot can change the app many times a day, so the app on your PC was nearly always old.
+
+### What you chose (2026-11-15)
+| Question | Your answer | The other choices |
+|---|---|---|
+| What job should Cloudflare do? | **Front door + spare:** the app asks a tiny free Cloudflare address; the files stay on GitHub; if Cloudflare fails, the app asks GitHub directly | Store the files on Cloudflare (may want a bank card); GitHub only |
+| How should an update arrive? | **Quietly, next start:** a note says "A new version is ready"; "Restart now" if you want it at once; never in a lesson | Ask first each time; restart by itself |
+| Which builds may reach your PC? | **Every tested build**, with a switch in Settings to turn updates off | Only builds you release by hand |
+
+Claude told you before you chose: Cloudflare isn't strictly needed, because GitHub can hand out the updates by itself now that the repository is public. You kept Cloudflare as the front door.
+
+### How we know it works (each has a check)
+| # | Promise | How it's checked |
+|---|---|---|
+| U1 | An installed old version becomes the new one by itself | A test on the Windows build installs version 0.0.1 with the real installer, and waits for it to update itself (`app/tools/update-e2e.mjs`) |
+| U2 | Your progress survives (S6) | Same test: stars, XP and settings are unchanged afterwards |
+| U3 | No internet, no fuss (S5) | Unit tests: a check that gets no answer shows nothing and tries again later |
+| U4 | Cloudflare down, still updates | Same Windows test: the first address is dead on purpose. Unit test too |
+| U5 | The Cloudflare code works with the real installer | Same Windows test runs the Worker's own code in front of a pretend GitHub |
+| U6 | A lesson is never interrupted; Enter never restarts the app | Click test |
+| U7 | You can switch it off and see your version | Click test |
+| U8 | $0, no secrets | No bank card, no key in GitHub, the app or the Worker |
+
+### What's in and what's out
+- **In:** Windows; version numbers that go up (`0.1.<number of saved changes>`); the update files on the Releases page; the updater; the note and the Settings card; the Cloudflare Worker; the tests.
+- **Out:** Mac updates (Apple demands paid signing; section 4g); smaller "only the changed parts" downloads (each update is the whole 160 MB); a private-repository mode; a "release it" button (you chose every tested build).
+
+### Limits you should know
+- **The first install is still by hand**, with the blue box one last time: the version on your PC has no updater in it.
+- **A bad build would install itself.** Guards: every automatic test, plus the real install-and-update test, must pass before a build is published; the updater starts before the screen, so a broken screen can't block the fix; the Settings switch. Worst case is the old way: download the installer by hand.
+- **160 MB per update**, at most once per app start.
+- **What leaves your PC:** only "is there a version newer than mine?". Cloudflare and GitHub see your internet address, like any website. Nothing about lessons or progress.
+- **The Cloudflare account is yours to set up** (about 10 clicks, `docs/updates.md`). Until then the app uses the GitHub spare.
+
+### What this changes in the plan above (so nothing is silently overwritten)
+| Section | The plan said | Now | Why |
+|---|---|---|---|
+| 4g Not in the first version | Automatic updates: "hard with a private repository and no paid signing" | Built for Windows | The repository is public since 2026-11-15; Electron's Windows updater needs no signing (checked in Electron's docs, 2026-11-15) |
+| 2 Success, S5 | "It works with no internet" | Still true. The app only *asks* when it has internet, and stays quiet when it hasn't | Owner's choice; tested |
+| 7 Limits | "I give you a link; you download and run it" | Once. Then the app updates itself | Owner's request |
+| 7 Limits | "The catch: the first time you open a new version, Windows shows a blue box" | Only at the first install. Updates the app fetches itself shouldn't show it. **Not seen on your PC yet:** tell Claude if the box does appear after an update | Windows normally shows the box for files you download in a browser, not for files a program fetches. The cloud test can't see this box |
+| 8 Each step | "Nothing moves on until you've said so" | A tested build reaches your PC without you asking | Owner's choice ("Every tested build") |
+

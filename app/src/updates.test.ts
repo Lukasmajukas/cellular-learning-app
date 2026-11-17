@@ -13,8 +13,8 @@ describe('the update line in Settings', () => {
     expect(updateLine(st({ checkedAt: NOW - 5 * 60000 }), NOW)).toBe('You have the newest version. Checked 5 minutes ago.');
     expect(updateLine(st({ state: 'checking' }), NOW)).toBe('Looking for a newer version...');
     expect(updateLine(st({ state: 'downloading' }), NOW)).toBe('Fetching a newer version. Keep playing.');
-    expect(updateLine(st({ state: 'ready', newVersion: '0.1.180' }), NOW)).toBe('Version 0.1.180 is ready. You get it the next time you open the app.');
-    expect(updateLine(st({ state: 'ready', newVersion: 'newer' }), NOW)).toBe('A newer version is ready. You get it the next time you open the app.');
+    expect(updateLine(st({ state: 'ready', newVersion: '0.1.180' }), NOW)).toBe('Version 0.1.180 is ready for the next start.');
+    expect(updateLine(st({ state: 'ready', newVersion: 'newer' }), NOW)).toBe('A newer version is ready for the next start.');
     expect(updateLine(st({ state: 'failed', detail: 'net::ERR_INTERNET_DISCONNECTED' }), NOW)).toBe("Couldn't look just now. It tries again by itself.");
   });
   it('counts time in friendly steps', () => {
